@@ -8,6 +8,7 @@ import aiki.gui.components.PkDetailContent;
 import aiki.gui.components.checks.CheckBox;
 import aiki.gui.components.walk.events.*;
 import aiki.gui.dialogs.*;
+import aiki.gui.listeners.*;
 import aiki.main.PkNonModalEvent;
 import aiki.sml.GamesPk;
 import aiki.sml.MessagesRenderScenePanel;
@@ -19,13 +20,6 @@ import aiki.gui.components.AbilityLabel;
 import aiki.gui.components.checks.MoveEvoCheckBox;
 import aiki.gui.components.checks.MoveTutorCheckBox;
 //import aiki.gui.dialogs.DialogServerAiki;
-import aiki.gui.listeners.AbilityWalkEvent;
-import aiki.gui.listeners.BoostMoveEvent;
-import aiki.gui.listeners.HealMoveEvent;
-import aiki.gui.listeners.KeyPadListener;
-import aiki.gui.listeners.LearntMoveEvent;
-import aiki.gui.listeners.MouseTask;
-import aiki.gui.listeners.Task;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
@@ -588,29 +582,7 @@ public class ScenePanel {
                 return;
             }
         }
-        facade.openMenu();
-        panelMenu.setVisible(false);
-        disableFishing();
-        panelOptions.removeAll();
-        panelOptions.add(scrollPaneDetail,GuiConstants.BORDER_LAYOUT_EAST);
-        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
-        for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
-            pks_.put(i, facade.getPlayer().getTeam().get(i));
-        }
-
-        AbsPanel set_ = compoFactory.newLineBox();
-        teamPan = initTeam(pks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
-        teamPan.addListener(this);
-        set_.add(teamPan.getContainer());
-        movesLearnt = compoFactory.newGrid(0,1);
-        AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);
-        scroll_.setPreferredSize(new MetaDimension(100, 220));
-        set_.add(scroll_);
-        abilities = compoFactory.newGrid(0,1);
-        set_.add(abilities);
-        panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
-        addExit();
-        window.pack();
+        initTeamItems(new PokemonSelectionItems(this));
     }
 
     public void selectTmToLearn() {
@@ -638,6 +610,10 @@ public class ScenePanel {
             setTextArea(message_);
             return;
         }
+        initTeamItems(new PokemonSelectionTm(this));
+    }
+
+    private void initTeamItems(ListSelection _l) {
         facade.openMenu();
         panelMenu.setVisible(false);
         disableFishing();
@@ -650,7 +626,7 @@ public class ScenePanel {
 
         AbsPanel set_ = compoFactory.newLineBox();
         teamPan = initTeam(pks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
-        teamPan.addListenerTm(this);
+        teamPan.getListe().setListener(_l);
         set_.add(teamPan.getContainer());
         movesLearnt = compoFactory.newGrid(0,1);
         AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);

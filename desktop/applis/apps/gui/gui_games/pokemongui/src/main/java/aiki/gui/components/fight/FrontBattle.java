@@ -175,44 +175,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
         }
         int i_ = IndexConstants.FIRST_INDEX;
         for (TargetLabel t: playerTargets.values()) {
-            if (mult_ == 1) {
-                t.getPoint().setxPoint(0);
-                t.getPoint().setyPoint(maxHeight);
-            } else if (mult_ == 2) {
-                if (i_ == IndexConstants.FIRST_INDEX) {
-                    t.getPoint().setxPoint(0);
-                    t.getPoint().setyPoint(maxHeight);
-                } else {
-//                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
-                    t.getPoint().setxPoint(maxWidth);
-                    t.getPoint().setyPoint(maxHeight);
-                }
-            } else if (mult_ == 3) {
-                if (i_ == IndexConstants.FIRST_INDEX) {
-                    t.getPoint().setxPoint(0);
-                    t.getPoint().setyPoint(maxHeight * 2);
-                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
-                    t.getPoint().setxPoint(maxWidth);
-                    t.getPoint().setyPoint(maxHeight * 2);
-                } else {
-                    t.getPoint().setxPoint(maxWidth);
-                    t.getPoint().setyPoint(maxHeight * 3);
-                }
-            } else {
-                if (i_ == IndexConstants.FIRST_INDEX) {
-                    t.getPoint().setxPoint(0);
-                    t.getPoint().setyPoint(maxHeight * 2);
-                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
-                    t.getPoint().setxPoint(maxWidth);
-                    t.getPoint().setyPoint(maxHeight * 2);
-                } else if (i_ == IndexConstants.FIRST_INDEX + 2) {
-                    t.getPoint().setxPoint(0);
-                    t.getPoint().setyPoint(maxHeight * 3);
-                } else {
-                    t.getPoint().setxPoint(maxWidth);
-                    t.getPoint().setyPoint(maxHeight * 3);
-                }
-            }
+            setTargetPlayer(mult_, i_, t);
             i_++;
         }
 //        for (Byte k: teamPl_.getKeys()) {
@@ -322,44 +285,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //                    t.setyPoint(maxHeight * 3);
 //                }
 //            }
-            if (mult_ == 1) {
-                t.getPoint().setxPoint(maxWidth);
-                t.getPoint().setyPoint(0);
-            } else if (mult_ == 2) {
-                if (i_ == IndexConstants.FIRST_INDEX) {
-                    t.getPoint().setxPoint(maxWidth * 2);
-                    t.getPoint().setyPoint(0);
-                } else {
-//                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
-                    t.getPoint().setxPoint(maxWidth * 3);
-                    t.getPoint().setyPoint(0);
-                }
-            } else if (mult_ == 3) {
-                if (i_ == IndexConstants.FIRST_INDEX) {
-                    t.getPoint().setxPoint(maxWidth * 2);
-                    t.getPoint().setyPoint(0);
-                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
-                    t.getPoint().setxPoint(maxWidth * 2);
-                    t.getPoint().setyPoint(maxHeight);
-                } else {
-                    t.getPoint().setxPoint(maxWidth * 3);
-                    t.getPoint().setyPoint(maxHeight);
-                }
-            } else {
-                if (i_ == IndexConstants.FIRST_INDEX) {
-                    t.getPoint().setxPoint(maxWidth * 2);
-                    t.getPoint().setyPoint(0);
-                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
-                    t.getPoint().setxPoint(maxWidth * 3);
-                    t.getPoint().setyPoint(0);
-                } else if (i_ == IndexConstants.FIRST_INDEX + 2) {
-                    t.getPoint().setxPoint(maxWidth * 2);
-                    t.getPoint().setyPoint(maxHeight);
-                } else {
-                    t.getPoint().setxPoint(maxWidth * 3);
-                    t.getPoint().setyPoint(maxHeight);
-                }
-            }
+            setTargetFoe(mult_, i_, t);
             i_++;
         }
 //        for (Byte k: teamFoe_.getKeys()) {
@@ -477,6 +403,96 @@ public final class FrontBattle extends AbsMetaLabelPk {
         //placeLabels(mult_);
     }
 
+    private void setTargetFoe(byte _mult, int _i, TargetLabel _t) {
+        if (_mult == 1) {
+            _t.getPoint().setxPoint(maxWidth);
+            _t.getPoint().setyPoint(0);
+            return;
+        }
+        if (_mult == 2) {
+            if (_i == IndexConstants.FIRST_INDEX) {
+                _t.getPoint().setxPoint(maxWidth * 2);
+                _t.getPoint().setyPoint(0);
+            } else {
+//                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
+                _t.getPoint().setxPoint(maxWidth * 3);
+                _t.getPoint().setyPoint(0);
+            }
+            return;
+        }
+        if (_mult == 3) {
+            if (_i == IndexConstants.FIRST_INDEX) {
+                _t.getPoint().setxPoint(maxWidth * 2);
+                _t.getPoint().setyPoint(0);
+            } else if (_i == IndexConstants.FIRST_INDEX + 1) {
+                _t.getPoint().setxPoint(maxWidth * 2);
+                _t.getPoint().setyPoint(maxHeight);
+            } else {
+                _t.getPoint().setxPoint(maxWidth * 3);
+                _t.getPoint().setyPoint(maxHeight);
+            }
+            return;
+        }
+        if (_i == IndexConstants.FIRST_INDEX) {
+            _t.getPoint().setxPoint(maxWidth * 2);
+            _t.getPoint().setyPoint(0);
+        } else if (_i == IndexConstants.FIRST_INDEX + 1) {
+            _t.getPoint().setxPoint(maxWidth * 3);
+            _t.getPoint().setyPoint(0);
+        } else if (_i == IndexConstants.FIRST_INDEX + 2) {
+            _t.getPoint().setxPoint(maxWidth * 2);
+            _t.getPoint().setyPoint(maxHeight);
+        } else {
+            _t.getPoint().setxPoint(maxWidth * 3);
+            _t.getPoint().setyPoint(maxHeight);
+        }
+    }
+
+    private void setTargetPlayer(byte _mult, int _i, TargetLabel _t) {
+        if (_mult == 1) {
+            _t.getPoint().setxPoint(0);
+            _t.getPoint().setyPoint(maxHeight);
+            return;
+        }
+        if (_mult == 2) {
+            if (_i == IndexConstants.FIRST_INDEX) {
+                _t.getPoint().setxPoint(0);
+                _t.getPoint().setyPoint(maxHeight);
+            } else {
+//                } else if (i_ == IndexConstants.FIRST_INDEX + 1) {
+                _t.getPoint().setxPoint(maxWidth);
+                _t.getPoint().setyPoint(maxHeight);
+            }
+            return;
+        }
+        if (_mult == 3) {
+            if (_i == IndexConstants.FIRST_INDEX) {
+                _t.getPoint().setxPoint(0);
+                _t.getPoint().setyPoint(maxHeight * 2);
+            } else if (_i == IndexConstants.FIRST_INDEX + 1) {
+                _t.getPoint().setxPoint(maxWidth);
+                _t.getPoint().setyPoint(maxHeight * 2);
+            } else {
+                _t.getPoint().setxPoint(maxWidth);
+                _t.getPoint().setyPoint(maxHeight * 3);
+            }
+            return;
+        }
+        if (_i == IndexConstants.FIRST_INDEX) {
+            _t.getPoint().setxPoint(0);
+            _t.getPoint().setyPoint(maxHeight * 2);
+        } else if (_i == IndexConstants.FIRST_INDEX + 1) {
+            _t.getPoint().setxPoint(maxWidth);
+            _t.getPoint().setyPoint(maxHeight * 2);
+        } else if (_i == IndexConstants.FIRST_INDEX + 2) {
+            _t.getPoint().setxPoint(0);
+            _t.getPoint().setyPoint(maxHeight * 3);
+        } else {
+            _t.getPoint().setxPoint(maxWidth);
+            _t.getPoint().setyPoint(maxHeight * 3);
+        }
+    }
+
 //    void initRoundAnimation() {
 //        koFoeTargets.clear();
 //        koPlayerTargets.clear();
@@ -566,6 +582,16 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 }
             }
         }
+        drawAnimationInstantInitialSwitch(_animation);
+        drawAnimationInstantInitialHealing(_animation);
+        drawAnimationInstantInitialAutoEffect(_animation);
+        imageNumber = 0;
+        ini.addx(maxWidth / 2);
+        ini.addy(maxHeight / 2);
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
+    }
+
+    private void drawAnimationInstantInitialSwitch(AnimationInt _animation) {
         if (_animation instanceof AnimationSwitch) {
             AnimationSwitch animation_ = (AnimationSwitch) _animation;
             index = animation_.getIndex();
@@ -583,6 +609,9 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //                yIni = yCoordsFoe.getVal((byte) animation_.getSubstituted().getPosition());
             }
         }
+    }
+
+    private void drawAnimationInstantInitialHealing(AnimationInt _animation) {
         if (_animation instanceof AnimationHealing) {
             heal = true;
             AnimationHealing animation_ = (AnimationHealing) _animation;
@@ -602,6 +631,9 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //                yIni = yCoordsFoe.getVal((byte) animation_.getHealed().getPosition());
             }
         }
+    }
+
+    private void drawAnimationInstantInitialAutoEffect(AnimationInt _animation) {
         if (_animation instanceof AnimationAutoEffect) {
             index = _animation.getIndex();
             recoil = ((AnimationAutoEffect) _animation).getAutoEffectKind() == AutoEffectKind.RECOIL;
@@ -620,183 +652,278 @@ public final class FrontBattle extends AbsMetaLabelPk {
 //                yIni = yCoordsFoe.getVal((byte) animation_.getUser().getPosition());
             }
         }
-        imageNumber = 0;
-        ini.addx(maxWidth / 2);
-        ini.addy(maxHeight / 2);
-        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
     }
 
     void drawAnimationInstant(AbstractImageFactory _fact, AnimationInt _animation) {
         paintBallMove = false;
         drawImage = true;
         imageNumber++;
-        int xEnd_;
-        int yEnd_;
         if (_animation instanceof AnimationEffect) {
             AnimationEffect animation_ = (AnimationEffect) _animation;
-            TargetLabel tar_ = target(animation_.isPlayerToFighter(), playerTargets, foeTargets, animation_.getToFighter().getPosition());
-            xEnd_ = tar_.getPoint().getxPoint();
-            yEnd_ = tar_.getPoint().getyPoint();
-            end.setxPoint(xEnd_);
-            end.setyPoint(yEnd_);
-            xEnd_ += maxWidth / 2;
-            yEnd_ += maxHeight / 2;
-            int remainImages_ = NB_IMAGES - imageNumber;
-            if (remainImages_ > 0) {
-                int xDelta_ = (xEnd_ - ini.getxPoint()) / remainImages_;
-                int yDelta_ = (yEnd_ - ini.getyPoint()) / remainImages_;
-                ini.addx(xDelta_);
-                ini.addy(yDelta_);
-            } else {
-                //draw red cross if ko target
-                if (animation_.isKoToFighter()) {
-                    if (animation_.isPlayerToFighter()) {
-                        playerTargets.getVal((byte) animation_.getToFighter().getPosition()).setKo(true);
-                        playerTargets.getVal((byte) animation_.getToFighter().getPosition()).apply(this, facade);
-                        //koPlayerTargets.add((byte) animation_.getToFighter().getPosition());
-                    } else {
-                        foeTargets.getVal((byte) animation_.getToFighter().getPosition()).setKo(true);
-                        foeTargets.getVal((byte) animation_.getToFighter().getPosition()).apply(this, facade);
-                        //koFoeTargets.add((byte) animation_.getToFighter().getPosition());
-                    }
-                }
-                if (animation_.isKoFromFighter()) {
-                    if (animation_.isPlayerFromFighter()) {
-                        playerTargets.getVal((byte) animation_.getFromFighter().getPosition()).setKo(true);
-                        playerTargets.getVal((byte) animation_.getFromFighter().getPosition()).apply(this, facade);
-                        //koPlayerTargets.add((byte) animation_.getFromFighter().getPosition());
-                    } else {
-                        foeTargets.getVal((byte) animation_.getFromFighter().getPosition()).setKo(true);
-                        foeTargets.getVal((byte) animation_.getFromFighter().getPosition()).apply(this, facade);
-                        //koFoeTargets.add((byte) animation_.getFromFighter().getPosition());
-                    }
-                }
-                keepAnimation = false;
-            }
+            drawAnimationInstantBeforeEffect(animation_);
         } else if (_animation instanceof AnimationSwitch) {
             AnimationSwitch animation_ = (AnimationSwitch) _animation;
-            int remainImages_ = NB_IMAGES_SWITCH - imageNumber;
-            if (remainImages_ > 0) {
-                if (remainImages_ < NB_IMAGES_SWITCH * 3/4) {
-                    if (remainImages_ >= NB_IMAGES_SWITCH / 4) {
-                        //nothing
-                        TargetLabel label_ = target(animation_.isPlayer(), playerTargets, foeTargets, animation_.getSubstituted().getPosition());
-                        label_.setLevel(DataBase.INVALID_LEVEL);
-                        label_.setBall(DataBase.EMPTY_STRING);
-                        label_.setPercentHp(LgInt.zero());
-                        label_.setPercentExp(LgInt.zero());
-                        label_.setKo(false);
-                        label_.set(this, animation_.isPlayer(), facade, DataBase.EMPTY_STRING);
-                    } else {
-                        //substitute
-                        TargetLabel label_;
-                        if (animation_.isPlayer()) {
-                            label_ = playerTargets.getVal((byte) animation_.getSubstituted().getPosition());
-                        } else {
-                            label_ = foeTargets.getVal((byte) animation_.getSubstituted().getPosition());
-                            boolean caught_ = facade.getPlayer().estAttrape(animation_.getSubstituteName());
-                            if (caught_) {
-
-                                label_.setBall(facade.getData().getBallDef());
-                            }
-                        }
-                        label_.setLevel(animation_.getLevel());
-                        label_.setPercentHp(animation_.getRateRemainHp());
-                        label_.setPercentExp(animation_.getWonExpRate());
-                        label_.setKo(animation_.isKo());
-                        label_.set(this, animation_.isPlayer(), facade, animation_.getSubstituteName());
-                    }
-                }
-            } else {
-                keepAnimation = false;
-                //ko substitute
-                if (animation_.isKo()) {
-                    //draw red cross
-                    if (animation_.isPlayer()) {
-                        //koPlayerTargets.add((byte) animation_.getSubstituted().getPosition());
-                        playerTargets.getVal((byte) animation_.getSubstituted().getPosition()).setKo(true);
-                        playerTargets.getVal((byte) animation_.getSubstituted().getPosition()).apply(this, facade);
-                    } else {
-                        //koFoeTargets.add((byte) animation_.getSubstituted().getPosition());
-                        foeTargets.getVal((byte) animation_.getSubstituted().getPosition()).setKo(true);
-                        foeTargets.getVal((byte) animation_.getSubstituted().getPosition()).apply(this, facade);
-                    }
-                }
-            }
+            drawAnimationInstantBeforeSwitch(animation_);
         } else if (_animation instanceof AnimationHealing) {
-            int remainImages_ = NB_IMAGES_SWITCH - imageNumber;
-            if (remainImages_ <= 0) {
-                keepAnimation = false;
-                heal = false;
-            }
+            drawAnimationInstantBeforeHealing();
         } else {
             //if (_animation instanceof AnimationAutoEffect)
-            int remainImages_ = NB_IMAGES_SWITCH - imageNumber;
-            if (remainImages_ <= 0) {
-                keepAnimation = false;
-                recoil = false;
-            }
+            drawAnimationInstantBeforeAuto();
         }
         if (_animation instanceof AnimationEffectDamage) {
             AnimationEffectDamage damage_ = (AnimationEffectDamage) _animation;
-            StringMap<AbstractImage> types_ = new StringMap<AbstractImage>();
-            for (String t: damage_.getTypes()) {
-                int[][] type_ = facade.getData().getTypesImages().getVal(t);
-                AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,1,1);
-                types_.put(t, t_);
+            drawAnimationInstantAfterDamage(_fact, damage_);
+            return;
+        }
+        if (_animation instanceof AnimationEffectStatistic) {
+            AnimationEffectStatistic statis_ = (AnimationEffectStatistic) _animation;
+            drawAnimationInstantAfterStatistic(_fact, statis_);
+            return;
+        }
+        if (_animation instanceof AnimationEffectStatus) {
+            AnimationEffectStatus status_ = (AnimationEffectStatus) _animation;
+            drawAnimationInstantAfterStatus(status_);
+            return;
+        }
+        if (_animation instanceof AnimationEffect) {
+            AnimationEffect e_ = (AnimationEffect) _animation;
+            drawAnimationInstantAfterEffect(e_);
+            return;
+        }
+        if (_animation instanceof AnimationAutoEffect) {
+            AnimationAutoEffect animation_ = (AnimationAutoEffect) _animation;
+            drawAnimationInstantAfterAuto(animation_);
+            return;
+        }
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
+        //        koPlayerTargets.removeDuplicates();
+//        koFoeTargets.removeDuplicates();
+//        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
+        /*if (_animation instanceof AnimationEffectDamage) {
+            getGraphics().setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
+            getGraphics().drawString(number_, xIni, hMax_ + yIni);
+        }*/
+        //xIni, yIni
+    }
+
+    private void drawAnimationInstantBeforeEffect(AnimationEffect _animation) {
+        TargetLabel tar_ = target(_animation.isPlayerToFighter(), playerTargets, foeTargets, _animation.getToFighter().getPosition());
+        int xEnd_ = tar_.getPoint().getxPoint();
+        int yEnd_ = tar_.getPoint().getyPoint();
+        end.setxPoint(xEnd_);
+        end.setyPoint(yEnd_);
+        xEnd_ += maxWidth / 2;
+        yEnd_ += maxHeight / 2;
+        int remainImages_ = NB_IMAGES - imageNumber;
+        if (remainImages_ > 0) {
+            int xDelta_ = (xEnd_ - ini.getxPoint()) / remainImages_;
+            int yDelta_ = (yEnd_ - ini.getyPoint()) / remainImages_;
+            ini.addx(xDelta_);
+            ini.addy(yDelta_);
+        } else {
+            //draw red cross if ko target
+            if (_animation.isKoToFighter()) {
+                if (_animation.isPlayerToFighter()) {
+                    playerTargets.getVal((byte) _animation.getToFighter().getPosition()).setKo(true);
+                    playerTargets.getVal((byte) _animation.getToFighter().getPosition()).apply(this, facade);
+                    //koPlayerTargets.add((byte) animation_.getToFighter().getPosition());
+                } else {
+                    foeTargets.getVal((byte) _animation.getToFighter().getPosition()).setKo(true);
+                    foeTargets.getVal((byte) _animation.getToFighter().getPosition()).apply(this, facade);
+                    //koFoeTargets.add((byte) animation_.getToFighter().getPosition());
+                }
             }
-            int hMax_ = 0;
-            int width_ = 0;
-            for (AbstractImage i: types_.values()) {
+            if (_animation.isKoFromFighter()) {
+                if (_animation.isPlayerFromFighter()) {
+                    playerTargets.getVal((byte) _animation.getFromFighter().getPosition()).setKo(true);
+                    playerTargets.getVal((byte) _animation.getFromFighter().getPosition()).apply(this, facade);
+                    //koPlayerTargets.add((byte) animation_.getFromFighter().getPosition());
+                } else {
+                    foeTargets.getVal((byte) _animation.getFromFighter().getPosition()).setKo(true);
+                    foeTargets.getVal((byte) _animation.getFromFighter().getPosition()).apply(this, facade);
+                    //koFoeTargets.add((byte) animation_.getFromFighter().getPosition());
+                }
+            }
+            keepAnimation = false;
+        }
+    }
+
+    private void drawAnimationInstantBeforeSwitch(AnimationSwitch _animation) {
+        int remainImages_ = NB_IMAGES_SWITCH - imageNumber;
+        if (remainImages_ <= 0) {
+            keepAnimation = false;
+            //ko substitute
+            if (_animation.isKo()) {
+                //draw red cross
+                if (_animation.isPlayer()) {
+                    //koPlayerTargets.add((byte) animation_.getSubstituted().getPosition());
+                    playerTargets.getVal((byte) _animation.getSubstituted().getPosition()).setKo(true);
+                    playerTargets.getVal((byte) _animation.getSubstituted().getPosition()).apply(this, facade);
+                } else {
+                    //koFoeTargets.add((byte) animation_.getSubstituted().getPosition());
+                    foeTargets.getVal((byte) _animation.getSubstituted().getPosition()).setKo(true);
+                    foeTargets.getVal((byte) _animation.getSubstituted().getPosition()).apply(this, facade);
+                }
+            }
+            return;
+        }
+        if (remainImages_ >= NB_IMAGES_SWITCH * 3 / 4) {
+            return;
+        }
+        if (remainImages_ >= NB_IMAGES_SWITCH / 4) {
+            //nothing
+            TargetLabel label_ = target(_animation.isPlayer(), playerTargets, foeTargets, _animation.getSubstituted().getPosition());
+            label_.setLevel(DataBase.INVALID_LEVEL);
+            label_.setBall(DataBase.EMPTY_STRING);
+            label_.setPercentHp(LgInt.zero());
+            label_.setPercentExp(LgInt.zero());
+            label_.setKo(false);
+            label_.set(this, _animation.isPlayer(), facade, DataBase.EMPTY_STRING);
+            return;
+        }
+        //substitute
+        TargetLabel label_;
+        if (_animation.isPlayer()) {
+            label_ = playerTargets.getVal((byte) _animation.getSubstituted().getPosition());
+        } else {
+            label_ = foeTargets.getVal((byte) _animation.getSubstituted().getPosition());
+            boolean caught_ = facade.getPlayer().estAttrape(_animation.getSubstituteName());
+            if (caught_) {
+
+                label_.setBall(facade.getData().getBallDef());
+            }
+        }
+        label_.setLevel(_animation.getLevel());
+        label_.setPercentHp(_animation.getRateRemainHp());
+        label_.setPercentExp(_animation.getWonExpRate());
+        label_.setKo(_animation.isKo());
+        label_.set(this, _animation.isPlayer(), facade, _animation.getSubstituteName());
+    }
+
+    private void drawAnimationInstantBeforeHealing() {
+        int remainImages_ = NB_IMAGES_SWITCH - imageNumber;
+        if (remainImages_ <= 0) {
+            keepAnimation = false;
+            heal = false;
+        }
+    }
+
+    private void drawAnimationInstantBeforeAuto() {
+        int remainImages_ = NB_IMAGES_SWITCH - imageNumber;
+        if (remainImages_ <= 0) {
+            keepAnimation = false;
+            recoil = false;
+        }
+    }
+
+    private void drawAnimationInstantAfterDamage(AbstractImageFactory _fact, AnimationEffectDamage _damage) {
+        StringMap<AbstractImage> types_ = new StringMap<AbstractImage>();
+        for (String t: _damage.getTypes()) {
+            int[][] type_ = facade.getData().getTypesImages().getVal(t);
+            AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,1,1);
+            types_.put(t, t_);
+        }
+        int hMax_ = 0;
+        int width_ = 0;
+        for (AbstractImage i: types_.values()) {
 //                if (i.getHeight() > hMax_) {
 //                    hMax_ = i.getHeight();
 //                }
-                hMax_ = NumberUtil.max(hMax_, i.getHeight());
-                width_ += i.getWidth();
-            }
-            hMax_ += heightFont();
-            damage = damage_.getDamage().evaluate(4);
-            int strWidth_ = stringWidth(damage);
-            width_ = NumberUtil.max(width_,strWidth_);
-            image = _fact.newImageArgb(width_, hMax_);
-            image.setFont(getMetaFont());
+            hMax_ = NumberUtil.max(hMax_, i.getHeight());
+            width_ += i.getWidth();
+        }
+        hMax_ += heightFont();
+        damage = _damage.getDamage().evaluate(4);
+        int strWidth_ = stringWidth(damage);
+        width_ = NumberUtil.max(width_,strWidth_);
+        image = _fact.newImageArgb(width_, hMax_);
+        image.setFont(getMetaFont());
 //            CustGraphics gr_ = image.getGraphics();
-            image.setColor(GuiConstants.WHITE);
-            image.fillRect(0, 0, width_, hMax_);
-            int x_ = 0;
-            for (AbstractImage i: types_.values()) {
-                image.drawImage(i, x_, 0);
-                x_ += i.getWidth();
-            }
-            image.setColor(GuiConstants.BLACK);
-            image.drawString(damage, 0, hMax_);
-        } else if (_animation instanceof AnimationEffectStatistic) {
-            AnimationEffectStatistic statis_ = (AnimationEffectStatistic) _animation;
-            CustList<AbstractImage> types_ = new CustList<AbstractImage>();
-            int h_ = heightFont();
-            int statSide_ = facade.getMap().getSideLength();
-            for (InfosAnimationStatistic t: statis_.getInfos()) {
-                int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().getStatName());
-                AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,statSide_,statSide_);
-                String var_ = Long.toString(t.getVariation());
-                int widthVar_ = NumberUtil.max(stringWidth(var_),statSide_);
+        image.setColor(GuiConstants.WHITE);
+        image.fillRect(0, 0, width_, hMax_);
+        int x_ = 0;
+        for (AbstractImage i: types_.values()) {
+            image.drawImage(i, x_, 0);
+            x_ += i.getWidth();
+        }
+        image.setColor(GuiConstants.BLACK);
+        image.drawString(damage, 0, hMax_);
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
+    }
+
+    private void drawAnimationInstantAfterStatistic(AbstractImageFactory _fact, AnimationEffectStatistic _statis) {
+        CustList<AbstractImage> types_ = new CustList<AbstractImage>();
+        int h_ = heightFont();
+        int statSide_ = facade.getMap().getSideLength();
+        for (InfosAnimationStatistic t: _statis.getInfos()) {
+            int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().getStatName());
+            AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,statSide_,statSide_);
+            String var_ = Long.toString(t.getVariation());
+            int widthVar_ = NumberUtil.max(stringWidth(var_),statSide_);
 //                int widthVar_ = stringWidth(var_);
 //                if (widthVar_ < statSide_) {
 //                    widthVar_ = statSide_;
 //                }
-                AbstractImage varStat_ = _fact.newImageArgb(widthVar_, h_ + statSide_);
-                varStat_.setFont(getMetaFont());
+            AbstractImage varStat_ = _fact.newImageArgb(widthVar_, h_ + statSide_);
+            varStat_.setFont(getMetaFont());
 //                CustGraphics g_ = varStat_.createGraphics();
-                varStat_.drawImage(t_, 0, 0);
-                varStat_.setColor(GuiConstants.BLACK);
-                varStat_.drawString(var_, 0, statSide_ + h_);
-                varStat_.dispose();
-                types_.add(varStat_);
+            varStat_.drawImage(t_, 0, 0);
+            varStat_.setColor(GuiConstants.BLACK);
+            varStat_.drawString(var_, 0, statSide_ + h_);
+            varStat_.dispose();
+            types_.add(varStat_);
+        }
+        if (TargetCoords.eq(_statis.getFromFighter(), _statis.getToFighter())) {
+            TargetLabel label_ = target(_statis.isPlayerFromFighter(), playerTargets, foeTargets, _statis.getFromFighter().getPosition());
+            if (keepAnimation) {
+                label_.setStatistics(types_);
+            } else {
+                label_.setStatistics(new CustList<AbstractImage>());
             }
-            if (TargetCoords.eq(statis_.getFromFighter(), statis_.getToFighter())) {
-                TargetLabel label_ = target(statis_.isPlayerFromFighter(), playerTargets, foeTargets, statis_.getFromFighter().getPosition());
+            label_.apply(this, facade);
+            drawImage = false;
+            imageNumber++;
+            imageNumber++;
+            imageNumber++;
+            //decrease nb images
+        } else {
+            int hMax_ = 0;
+            int width_ = 0;
+            for (AbstractImage i: types_) {
+//                    if (i.getHeight() > hMax_) {
+//                        hMax_ = i.getHeight();
+//                    }
+                hMax_ = NumberUtil.max(hMax_, i.getHeight());
+                width_ += i.getWidth();
+            }
+            if (width_ > 0) {
+                image = _fact.newImageArgb(width_, hMax_);
+                image.setFont(getMetaFont());
+//                    CustGraphics g_ = image.createGraphics();
+                image.setColor(GuiConstants.WHITE);
+                image.fillRect(0, 0, width_, hMax_);
+                int x_ = 0;
+                for (AbstractImage i: types_) {
+                    image.drawImage(i, x_, 0);
+                    x_ += i.getWidth();
+                }
+                image.dispose();
+            } else {
+                paintDefaultEffect = true;
+            }
+        }
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
+    }
+
+    private void drawAnimationInstantAfterStatus(AnimationEffectStatus _status) {
+        if (!_status.getStatus().isEmpty()) {
+            int statSide_ = facade.getMap().getSideLength();
+            if (TargetCoords.eq(_status.getFromFighter(), _status.getToFighter())) {
+                int[][] stTxt_ = facade.getData().getAnimStatus().getVal(_status.getStatus());
+                AbstractImage image_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
+                TargetLabel label_ = target(_status.isPlayerFromFighter(), playerTargets, foeTargets, _status.getFromFighter().getPosition());
                 if (keepAnimation) {
-                    label_.setStatistics(types_);
+                    label_.setStatistics(new CustList<AbstractImage>(image_));
                 } else {
                     label_.setStatistics(new CustList<AbstractImage>());
                 }
@@ -805,106 +932,57 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 imageNumber++;
                 imageNumber++;
                 imageNumber++;
-                //decrease nb images
             } else {
-                int hMax_ = 0;
-                int width_ = 0;
-                for (AbstractImage i: types_) {
-//                    if (i.getHeight() > hMax_) {
-//                        hMax_ = i.getHeight();
-//                    }
-                    hMax_ = NumberUtil.max(hMax_, i.getHeight());
-                    width_ += i.getWidth();
-                }
-                if (width_ > 0) {
-                    image = _fact.newImageArgb(width_, hMax_);
-                    image.setFont(getMetaFont());
-//                    CustGraphics g_ = image.createGraphics();
-                    image.setColor(GuiConstants.WHITE);
-                    image.fillRect(0, 0, width_, hMax_);
-                    int x_ = 0;
-                    for (AbstractImage i: types_) {
-                        image.drawImage(i, x_, 0);
-                        x_ += i.getWidth();
-                    }
-                    image.dispose();
-                } else {
-                    paintDefaultEffect = true;
-                }
+                int[][] stTxt_ = facade.getData().getAnimStatus().getVal(_status.getStatus());
+                image = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
             }
-        } else if (_animation instanceof AnimationEffectStatus) {
-            AnimationEffectStatus status_ = (AnimationEffectStatus) _animation;
-            if (!status_.getStatus().isEmpty()) {
-                int statSide_ = facade.getMap().getSideLength();
-                if (TargetCoords.eq(status_.getFromFighter(), status_.getToFighter())) {
-                    int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
-                    AbstractImage image_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
-                    TargetLabel label_ = target(status_.isPlayerFromFighter(), playerTargets, foeTargets, status_.getFromFighter().getPosition());
-                    if (keepAnimation) {
-                        label_.setStatistics(new CustList<AbstractImage>(image_));
-                    } else {
-                        label_.setStatistics(new CustList<AbstractImage>());
-                    }
-                    label_.apply(this, facade);
-                    drawImage = false;
-                    imageNumber++;
-                    imageNumber++;
-                    imageNumber++;
-                } else {
-                    int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
-                    image = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
-                }
+        } else {
+            paintDefaultEffect = true;
+        }
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
+    }
+
+    private void drawAnimationInstantAfterEffect(AnimationEffect _e) {
+        if (_e.getEffectKind() == EffectKind.ABSORB) {
+            int statSide_ = facade.getMap().getSideLength();
+            int[][] stTxt_ = facade.getData().getAnimAbsorb();
+            image = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
+        } else {
+            if (TargetCoords.eq(_e.getFromFighter(), _e.getToFighter())) {
+                drawBlueRect = true;
+                playerUser = _e.isPlayerFromFighter();
+                groundPlace = _e.getFromFighter().getPosition();
+                drawImage = false;
+                imageNumber++;
+                imageNumber++;
+                imageNumber++;
             } else {
                 paintDefaultEffect = true;
             }
-        } else if (_animation instanceof AnimationEffect) {
-            AnimationEffect e_ = (AnimationEffect) _animation;
-            if (e_.getEffectKind() == EffectKind.ABSORB) {
-                int statSide_ = facade.getMap().getSideLength();
-                int[][] stTxt_ = facade.getData().getAnimAbsorb();
-                image = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
-            } else {
-                if (TargetCoords.eq(e_.getFromFighter(), e_.getToFighter())) {
-                    drawBlueRect = true;
-                    playerUser = e_.isPlayerFromFighter();
-                    groundPlace = e_.getFromFighter().getPosition();
-                    drawImage = false;
-                    imageNumber++;
-                    imageNumber++;
-                    imageNumber++;
-                } else {
-                    paintDefaultEffect = true;
-                }
 //            image = new BufferedImage(20, 20, BufferedImage.TYPE_INT_ARGB);
 //            image.getGraphics().setColor(Color.WHITE);
 //            image.getGraphics().fillRect(0, 0, 20, 20);
 //            image.getGraphics().setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
 //            image.getGraphics().drawRect(0, 0, 20, 20);
-            }
-        } else if (_animation instanceof AnimationAutoEffect) {
-            AnimationAutoEffect animation_ = (AnimationAutoEffect) _animation;
-            if (animation_.isKoUser()) {
-                //draw red cross
-                recoil = false;
-                if (animation_.isPlayer()) {
-                    //koPlayerTargets.add((byte) animation_.getUser().getPosition());
-                    playerTargets.getVal((byte) animation_.getUser().getPosition()).setKo(true);
-                    playerTargets.getVal((byte) animation_.getUser().getPosition()).apply(this, facade);
-                } else {
-                    //koFoeTargets.add((byte) animation_.getUser().getPosition());
-                    foeTargets.getVal((byte) animation_.getUser().getPosition()).setKo(true);
-                    foeTargets.getVal((byte) animation_.getUser().getPosition()).apply(this, facade);
-                }
+        }
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
+    }
+
+    private void drawAnimationInstantAfterAuto(AnimationAutoEffect _animation) {
+        if (_animation.isKoUser()) {
+            //draw red cross
+            recoil = false;
+            if (_animation.isPlayer()) {
+                //koPlayerTargets.add((byte) animation_.getUser().getPosition());
+                playerTargets.getVal((byte) _animation.getUser().getPosition()).setKo(true);
+                playerTargets.getVal((byte) _animation.getUser().getPosition()).apply(this, facade);
+            } else {
+                //koFoeTargets.add((byte) animation_.getUser().getPosition());
+                foeTargets.getVal((byte) _animation.getUser().getPosition()).setKo(true);
+                foeTargets.getVal((byte) _animation.getUser().getPosition()).apply(this, facade);
             }
         }
-//        koPlayerTargets.removeDuplicates();
-//        koFoeTargets.removeDuplicates();
         AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
-        /*if (_animation instanceof AnimationEffectDamage) {
-            getGraphics().setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
-            getGraphics().drawString(number_, xIni, hMax_ + yIni);
-        }*/
-        //xIni, yIni
     }
 
     void translate() {

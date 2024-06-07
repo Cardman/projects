@@ -9,15 +9,15 @@ import code.gui.images.ConverterGraphicBufferedImage;
 Thread safe class*/
 public abstract class FightIntroThread implements Runnable {
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
-    private Battle battle;
+    private final Battle battle;
 
     private AbstractImage heros;
     private AbstractImage herosOppositeSex;
 
     /**This class thread is independant from EDT*/
-    public FightIntroThread(FacadeGame _facade, Battle _battle) {
+    protected FightIntroThread(FacadeGame _facade, Battle _battle) {
         facade = _facade;
         battle = _battle;
     }

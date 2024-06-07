@@ -20,6 +20,9 @@ public final class PlayingCardPresident extends PlayerActionGame {
 
     private byte nextPlayer;
 
+    private boolean refreshing;
+
+    private boolean reversed;
     public CardPresident getPlayedCard() {
         return playedCard;
     }
@@ -66,5 +69,21 @@ public final class PlayingCardPresident extends PlayerActionGame {
 
     public void setNextPlayer(byte _nextPlayer) {
         nextPlayer = _nextPlayer;
+    }
+
+    public boolean isRefreshing() {
+        return refreshing;
+    }
+
+    public void setRefreshing(boolean _r) {
+        this.refreshing = _r;
+    }
+
+    public boolean isReversed() {
+        return reversed;
+    }
+
+    public void setReversed(boolean _reversed) {
+        reversed = _reversed;
     }
 }

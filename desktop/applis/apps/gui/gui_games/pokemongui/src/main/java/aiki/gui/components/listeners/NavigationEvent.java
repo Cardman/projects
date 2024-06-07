@@ -7,7 +7,7 @@ public abstract class NavigationEvent implements AbsActionListener {
 
     private Paginator paginator;
 
-    public NavigationEvent(Paginator _paginator) {
+    protected NavigationEvent(Paginator _paginator) {
         paginator = _paginator;
     }
 

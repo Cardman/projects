@@ -25,6 +25,7 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCard<CardBelote
         container.updateCardsInPanelBeloteMulti(false);
         container.pack();
         PlayingCardBelote pl_ = new PlayingCardBelote();
+        pl_.setRefreshing(false);
         pl_.setPlace(container.getContainerMultiContent().getIndexInGame());
         pl_.setDeclaring(container.getBeloteDeclare().isSelected());
         pl_.setDeclaringBeloteRebelote(ListenerCardBeloteSingleGame.belReb(container.getBelReb(),container,getCard()));

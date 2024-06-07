@@ -2,7 +2,6 @@ package aiki.gui.threads;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
-import code.gui.images.AbstractImage;
 import code.threads.ThreadUtil;
 import code.gui.images.ConverterGraphicBufferedImage;
 
@@ -10,7 +9,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 Thread safe class*/
 public final class FightTrainerIntroThread extends FightIntroThread {
 
-    private AbstractImage trainer;
+//    private AbstractImage trainer;
 
     /**This class thread is independant from EDT*/
     public FightTrainerIntroThread(FacadeGame _facade, Battle _battle) {
@@ -21,11 +20,11 @@ public final class FightTrainerIntroThread extends FightIntroThread {
     public void run() {
         initHeros();
         int[][] name_ = getFacade().getTrainerImage();
-        trainer = ConverterGraphicBufferedImage.decodeToImage(getBattle().getWindow().getImageFactory(), name_);
+//        trainer = ConverterGraphicBufferedImage.decodeToImage(getBattle().getWindow().getImageFactory(), name_);
         getBattle().setHerosOppositeSex(getHerosOppositeSex(), getFacade().isDualFight());
-        getBattle().drawAnimationFightIni(getHeros(), trainer);
+        getBattle().drawAnimationFightIni(getHeros(), ConverterGraphicBufferedImage.decodeToImage(getBattle().getWindow().getImageFactory(), name_));
         while (getBattle().isKeepAnimation()) {
-            ThreadUtil.sleep(getBattle().getWindow().getThreadFactory(),5l);
+            ThreadUtil.sleep(getBattle().getWindow().getThreadFactory(),5L);
             getBattle().drawAnimationFightIniInst();
         }
         getBattle().setComments();

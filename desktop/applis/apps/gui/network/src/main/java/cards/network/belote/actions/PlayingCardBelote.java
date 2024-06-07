@@ -14,6 +14,8 @@ public final class PlayingCardBelote extends PlayerActionGame {
 
     private DeclareHandBelote declare;
 
+    private boolean refreshing;
+
     private byte takerIndex;
 
     public CardBelote getPlayedCard() {
@@ -46,6 +48,14 @@ public final class PlayingCardBelote extends PlayerActionGame {
 
     public void setDeclare(DeclareHandBelote _declare) {
         declare = _declare;
+    }
+
+    public boolean isRefreshing() {
+        return refreshing;
+    }
+
+    public void setRefreshing(boolean _r) {
+        this.refreshing = _r;
     }
 
     public byte getTakerIndex() {

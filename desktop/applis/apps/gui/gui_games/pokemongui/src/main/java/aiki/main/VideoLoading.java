@@ -27,45 +27,59 @@ public final class VideoLoading {
     private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
     public CustList<AbstractImage> getVideo(AbstractGenerator _abs, AbstractFileCoreStream _list, AbstractProgramInfos _abInfo) {
-        if (!initialized) {
-            String path_ = VIDEO;
-            AbstractFile file_ = _list.newFile(path_);
-            FileListInfo filesLists_ = PathsUtil.abs(file_,_list);
-            if (!filesLists_.isNul()) {
-                for (AbstractFile folder_: filesLists_.getNames()) {
-                    CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
-                    FileListInfo files_ = PathsUtil.abs(folder_,_list);
-                    if (files_.isNul()) {
-                        continue;
-                    }
-                    int len_;
-                    len_ = files_.getNames().length;
-                    for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-                        String fi_ = StringUtil.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),
-                                DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT);
-                        AbstractImage img_ = _abInfo.getImageFactory().newImageFromBytes(
-                                StreamBinaryFile.loadFile(fi_,_abInfo.getStreams()).getBytes());
-                        if (img_ != null) {
-                            imgs_.add(img_);
-                        }
-                    }
-                    images.add(imgs_);
+        if (initialized) {
+            return images(_abs);
+        }
+        String path_ = VIDEO;
+        AbstractFile file_ = _list.newFile(path_);
+        FileListInfo filesLists_ = PathsUtil.abs(file_,_list);
+        if (!filesLists_.isNul()) {
+            for (AbstractFile folder_: filesLists_.getNames()) {
+                FileListInfo files_ = PathsUtil.abs(folder_,_list);
+                if (files_.isNul()) {
+                    continue;
                 }
-            } else {
-                CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
-                for (EntryCust<String, String> e: MessPkVideoGr.ms().entryList()) {
-                    if (!e.getKey().startsWith(VIDEO_DEFAULT)) {
-                        continue;
-                    }
-                    int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
-                            e.getValue());
-                    AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(_abInfo.getImageFactory(),txtFile_);
-                    imgs_.add(image_);
-                }
+                CustList<AbstractImage> imgs_ = imgsByFile(_abInfo, path_, folder_, files_);
                 images.add(imgs_);
             }
-            initialized = true;
+        } else {
+            CustList<AbstractImage> imgs_ = imgsByRes(_abInfo);
+            images.add(imgs_);
         }
+        initialized = true;
+        return images(_abs);
+    }
+
+    private CustList<AbstractImage> imgsByRes(AbstractProgramInfos _abInfo) {
+        CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
+        for (EntryCust<String, String> e: MessPkVideoGr.ms().entryList()) {
+            if (!e.getKey().startsWith(VIDEO_DEFAULT)) {
+                continue;
+            }
+            int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
+                    e.getValue());
+            AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(_abInfo.getImageFactory(),txtFile_);
+            imgs_.add(image_);
+        }
+        return imgs_;
+    }
+
+    private CustList<AbstractImage> imgsByFile(AbstractProgramInfos _abInfo, String _path, AbstractFile _folder, FileListInfo _files) {
+        CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
+        int len_ = _files.getNames().length;
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            String fi_ = StringUtil.concat(_path, DataBase.SEPARATOR_FILES, _folder.getName(),
+                    DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT);
+            AbstractImage img_ = _abInfo.getImageFactory().newImageFromBytes(
+                    StreamBinaryFile.loadFile(fi_, _abInfo.getStreams()).getBytes());
+            if (img_ != null) {
+                imgs_.add(img_);
+            }
+        }
+        return imgs_;
+    }
+
+    private CustList<AbstractImage> images(AbstractGenerator _abs) {
         int len_ = images.size();
         if (len_ == IndexConstants.SIZE_EMPTY) {
             return new CustList<AbstractImage>();

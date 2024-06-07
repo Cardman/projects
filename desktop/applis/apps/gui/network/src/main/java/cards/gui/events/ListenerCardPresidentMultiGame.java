@@ -27,6 +27,7 @@ public class ListenerCardPresidentMultiGame extends
     protected void verifierRegles() {
         container.updateCardsInPanelPresidentMulti(false);
         PlayingCardPresident pl_ = new PlayingCardPresident();
+        pl_.setRefreshing(false);
         pl_.setPlace(container.getContainerMultiContent().getIndexInGame());
         pl_.setPlayedCard(getCard());
         pl_.setPlayedHand(new HandPresident());

@@ -21,7 +21,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class PaginatorHealingItem extends Paginator {
+public final class PaginatorHealingItem extends PaginatorCommonItem {
 
 //    private static final String CST_NAME = "name";
 //
@@ -51,9 +51,9 @@ public final class PaginatorHealingItem extends Paginator {
 
 //    private static final String NUMBER = "number";
 
-    private final AbsTextField name;
+//    private final AbsTextField name;
 
-    private final AbsTextField description = getMain().getCompoFactory().newTextField(16);
+//    private final AbsTextField description = getMain().getCompoFactory().newTextField(16);
 
     private final AbsTextField status;
 
@@ -81,40 +81,40 @@ public final class PaginatorHealingItem extends Paginator {
 
     private final ComboBox<SelectedBoolean> healFromKo;
 
-    private final AbsTextField minPrice = getMain().getCompoFactory().newTextField(16);
+//    private final AbsTextField minPrice = getMain().getCompoFactory().newTextField(16);
 
-    private final AbsTextField maxPrice = getMain().getCompoFactory().newTextField(16);
+//    private final AbsTextField maxPrice = getMain().getCompoFactory().newTextField(16);
 
-    private final AbsTextField minNumber = getMain().getCompoFactory().newTextField(16);
+//    private final AbsTextField minNumber = getMain().getCompoFactory().newTextField(16);
 
-    private final AbsTextField maxNumber = getMain().getCompoFactory().newTextField(16);
+//    private final AbsTextField maxNumber = getMain().getCompoFactory().newTextField(16);
 
-    private final IdList<SearchingMode> order = new IdList<SearchingMode>();
+//    private final IdList<SearchingMode> order = new IdList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private final ComboBox<SearchingMode> modeName;
+//    private final ComboBox<SearchingMode> modeName;
 
-    private final ComboBox<SearchingMode> modeDescription;
+//    private final ComboBox<SearchingMode> modeDescription;
 
     private final ComboBox<SearchingMode> modeStatus;
 
-    private final AbsPanel results = getMain().getCompoFactory().newGrid(0,1);
+//    private final AbsPanel results = getMain().getCompoFactory().newGrid(0,1);
 
-    private final ComboBox<SelectedBoolean> cmpNameSorting;
+//    private final ComboBox<SelectedBoolean> cmpNameSorting;
 
-    private final NumComboBox cmpNamePrio;
+//    private final NumComboBox cmpNamePrio;
 
-    private final ComboBox<SelectedBoolean> cmpDescriptionSorting;
+//    private final ComboBox<SelectedBoolean> cmpDescriptionSorting;
 
-    private final NumComboBox cmpDescriptionPrio;
+//    private final NumComboBox cmpDescriptionPrio;
 
-    private final ComboBox<SelectedBoolean> cmpPriceSorting;
+//    private final ComboBox<SelectedBoolean> cmpPriceSorting;
 
-    private final NumComboBox cmpPricePrio;
+//    private final NumComboBox cmpPricePrio;
 
-    private final ComboBox<SelectedBoolean> cmpNumberSorting;
+//    private final ComboBox<SelectedBoolean> cmpNumberSorting;
 
-    private final NumComboBox cmpNumberPrio;
+//    private final NumComboBox cmpNumberPrio;
 
     private final ComboBox<SelectedBoolean> cmpPpSorting;
 
@@ -141,32 +141,31 @@ public final class PaginatorHealingItem extends Paginator {
     private final NumComboBox cmpNbStatusPrio;
 
     public PaginatorHealingItem(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
-        super(_window, _p);
-        cmpNamePrio = new NumComboBox(_window.getFrames());
-        cmpDescriptionPrio = new NumComboBox(_window.getFrames());
+        super(_window, _p,_w,_d);
+//        cmpNamePrio = new NumComboBox(_window.getFrames());
+//        cmpDescriptionPrio = new NumComboBox(_window.getFrames());
         cmpHpPrio = new NumComboBox(_window.getFrames());
         cmpNbStatisticsPrio = new NumComboBox(_window.getFrames());
         cmpNbStatusPrio = new NumComboBox(_window.getFrames());
-        cmpNumberPrio = new NumComboBox(_window.getFrames());
-        cmpPricePrio = new NumComboBox(_window.getFrames());
+//        cmpNumberPrio = new NumComboBox(_window.getFrames());
+//        cmpPricePrio = new NumComboBox(_window.getFrames());
         cmpPpPrio = new NumComboBox(_window.getFrames());
         cmpRelativeHpPrio = new NumComboBox(_window.getFrames());
         cmpRelativePpPrio = new NumComboBox(_window.getFrames());
         setWindow(_w);
         setFacade(_d);
-        order.addAllElts(SearchingMode.all());
 //        order.add(SearchingMode.WHOLE_STRING);
 //        order.add(SearchingMode.SUBSTRING);
 //        order.add(SearchingMode.META_CHARACTER);
 //        order.add(SearchingMode.BEGIN);
 //        order.add(SearchingMode.END);
 //        order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeName.refresh(order, getMessagesSearchMode());
-        modeDescription = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeDescription.refresh(order, getMessagesSearchMode());
+//        modeName = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+//        modeName.refresh(order, getMessagesSearchMode());
+//        modeDescription = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+//        modeDescription.refresh(order, getMessagesSearchMode());
         modeStatus = new ComboBox<SearchingMode>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        modeStatus.refresh(order, getMessagesSearchMode());
+        modeStatus.refresh(getOrder(), getMessagesSearchMode());
         relativeHpCheck = getMain().getCompoFactory().newCustCheckBox();
         relativeHpCheck.setText(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.RELATIVE_HP));
 //        relativeHp = new ComboBox<SelectedBoolean>();
@@ -186,14 +185,14 @@ public final class PaginatorHealingItem extends Paginator {
         healFromKo.getCombo().repaint();
         statis = new ComboBox<Statistic>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         statis.refresh(stats(getMain().getFrames().getLanguage()));
-        cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpDescriptionSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNumberSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
-        cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpNameSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+//        cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpDescriptionSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+//        cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpPriceSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+//        cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
+//        cmpNumberSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
+//        cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpPpSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpPpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpRelativePpSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
@@ -207,10 +206,10 @@ public final class PaginatorHealingItem extends Paginator {
         cmpNbStatusSorting = new ComboBox<SelectedBoolean>(GuiBaseUtil.combo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         cmpNbStatusSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationHealingItem.NB_COMPARATORS;
-        cmpNamePrio.setItems(nb_+1);
-        cmpDescriptionPrio.setItems(nb_+1);
-        cmpPricePrio.setItems(nb_+1);
-        cmpNumberPrio.setItems(nb_+1);
+//        cmpNamePrio.setItems(nb_+1);
+//        cmpDescriptionPrio.setItems(nb_+1);
+//        cmpPricePrio.setItems(nb_+1);
+//        cmpNumberPrio.setItems(nb_+1);
         cmpPpPrio.setItems(nb_+1);
         cmpRelativePpPrio.setItems(nb_+1);
         cmpHpPrio.setItems(nb_+1);
@@ -220,13 +219,13 @@ public final class PaginatorHealingItem extends Paginator {
         getFacade().setSearchModeNameHealingItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeDescriptionHealingItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeStatusHealingItem(SearchingMode.WHOLE_STRING);
-        StringList it_ = new StringList();
-        for (String i: getFacade().getData().getItems().getKeys()) {
-            String abTr_ = getFacade().translateItem(i);
-            it_.add(abTr_);
-        }
-        name = getMain().getCompoFactory().newTextField(16);
-        AutoCompleteDocument nameAuto_ = new AutoCompleteDocument(name, it_, _window.getFrames());
+//        StringList it_ = new StringList();
+//        for (String i: getFacade().getData().getItems().getKeys()) {
+//            String abTr_ = getFacade().translateItem(i);
+//            it_.add(abTr_);
+//        }
+//        name = getMain().getCompoFactory().newTextField(16);
+//        AutoCompleteDocument nameAuto_ = new AutoCompleteDocument(name, it_, _window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -252,7 +251,7 @@ public final class PaginatorHealingItem extends Paginator {
 //                getFacade().setContentOfStatusHealingItem(convertStringField(status.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, nameAuto_));
+//        modeName.setListener(new ChangedModeEvent(modeName, nameAuto_));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -472,14 +471,141 @@ public final class PaginatorHealingItem extends Paginator {
 //                getFacade().setCmpNbHealedStatusPriorityHealingItem((Integer)cmpNbStatusPrio.getSelectedItem());
 //            }
 //        });
+//        AbsPanel search_;
+//        search_ = getMain().getCompoFactory().newGrid(0,3);
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_NAME)));
+//        search_.add(name);
+//        search_.add(modeName.self());
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_DESCRIPTION)));
+//        search_.add(description);
+//        search_.add(modeDescription.self());
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_STATUS)));
+//        search_.add(status);
+//        search_.add(modeStatus.self());
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.HP)));
+//        search_.add(minHp);
+//        search_.add(maxHp);
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.HP_RATE)));
+//        search_.add(minHpRate);
+//        search_.add(maxHpRate);
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PP)));
+//        search_.add(minPp);
+//        search_.add(maxPp);
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PRICE)));
+//        search_.add(minPrice);
+//        search_.add(maxPrice);
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.NUMBER)));
+//        search_.add(minNumber);
+//        search_.add(maxNumber);
+//        search_.add(new JLabel(getMessages().getVal(RELATIVE_HP)));
+//        search_.add(relativeHp);
+//        search_.add(relativeHpCheck);
+//        search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
+//        search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.RELATIVE_PP)));
+//        search_.add(relativePp.self());
+//        search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.HEAL_MOVE)));
+//        search_.add(healMove.self());
+//        search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.HEAL_KO)));
+//        search_.add(healFromKo.self());
+//        search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
+//        search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.STATISTIC)));
+//        search_.add(statis.self());
+//        search_.add(getMain().getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
+//        _p.add(search_);
+//        AbsPanel sorting_;
+//        sorting_ = getMain().getCompoFactory().newGrid(0,3);
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_NAME)));
+//        sorting_.add(cmpNameSorting.self());
+//        sorting_.add(cmpNamePrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_DESCRIPTION)));
+//        sorting_.add(cmpDescriptionSorting.self());
+//        sorting_.add(cmpDescriptionPrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PRICE)));
+//        sorting_.add(cmpPriceSorting.self());
+//        sorting_.add(cmpPricePrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.NUMBER)));
+//        sorting_.add(cmpNumberSorting.self());
+//        sorting_.add(cmpNumberPrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PP)));
+//        sorting_.add(cmpPpSorting.self());
+//        sorting_.add(cmpPpPrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.RELATIVE_PP)));
+//        sorting_.add(cmpRelativePpSorting.self());
+//        sorting_.add(cmpRelativePpPrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.HP)));
+//        sorting_.add(cmpHpSorting.self());
+//        sorting_.add(cmpHpPrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.RELATIVE_HP)));
+//        sorting_.add(cmpRelativeHpSorting.self());
+//        sorting_.add(cmpRelativeHpPrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.STATISTIC)));
+//        sorting_.add(cmpNbStatisticsSorting.self());
+//        sorting_.add(cmpNbStatisticsPrio.self());
+//        sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_STATUS)));
+//        sorting_.add(cmpNbStatusSorting.self());
+//        sorting_.add(cmpNbStatusPrio.self());
+//        _p.add(sorting_);
+//        beginBuild(_p);
+//        AbsPanel top_;
+//        top_ = getMain().getCompoFactory().newLineBox();
+//        AbsButton button_;
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
+//        button_.addActionListener(new SearchEvent(this));
+//        top_.add(button_);
+//        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
+//        button_.addActionListener(new NewSearchEvent(this));
+//        top_.add(button_);
+//        _p.add(top_);
+//        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
+//        int side_ = getFacade().getMap().getSideLength();
+//        int nameWidth_ = getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_NAME),SPACES));
+//        int numberWidth_ = getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.NUMBER),SPACES));
+//        int width_ = side_+nameWidth_+numberWidth_;
+//        width_ += getHeader().width(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PRICE),SPACES));
+//        width_ = NumberUtil.max(width_, getHeader().width(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_DESCRIPTION)));
+//        if (width_ < getHeader().width(getMessages().getVal(CST_DESCRIPTION))) {
+//            width_ = getHeader().width(getMessages().getVal(CST_DESCRIPTION));
+//        }
+//        getHeader().addString(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_NAME),SPACES), side_);
+//        getHeader().addString(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
+//        getHeader().addString(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.NUMBER),SPACES), side_+nameWidth_);
+//        getHeader().addString(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PRICE),SPACES), side_+nameWidth_+numberWidth_);
+//        getHeader().setPreferredSize(new MetaDimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
+//        AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
+//        results.add(getHeader().getPaintableLabel());
+//        _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
+//        getNbResults().setValue(getFacade().getNbResultsPerPageHealingItem());
+//        finishBuild(_p);
+//        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
+//        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
+//        bottom_.add(getNbResults());
+//        getPages().setListener(new ChangedPageEvent(this));
+//        bottom_.add(getBegin());
+//        bottom_.add(getPreviousDelta());
+//        bottom_.add(getPrevious());
+//        bottom_.add(getPages().self());
+//        bottom_.add(getNext());
+//        bottom_.add(getNextDelta());
+//        bottom_.add(getEnd());
+//        bottom_.add(getDelta());
+//        _p.add(bottom_);
+//        changeNav();
+        joinGui(_p);
+    }
+
+    @Override
+    protected void joinGui(AbsPanel _p) {
         AbsPanel search_;
         search_ = getMain().getCompoFactory().newGrid(0,3);
         search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_NAME)));
-        search_.add(name);
-        search_.add(modeName.self());
+        search_.add(getName());
+        search_.add(getModeName().self());
         search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_DESCRIPTION)));
-        search_.add(description);
-        search_.add(modeDescription.self());
+        search_.add(getDescription());
+        search_.add(getModeDescription().self());
         search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_STATUS)));
         search_.add(status);
         search_.add(modeStatus.self());
@@ -493,11 +619,11 @@ public final class PaginatorHealingItem extends Paginator {
         search_.add(minPp);
         search_.add(maxPp);
         search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PRICE)));
-        search_.add(minPrice);
-        search_.add(maxPrice);
+        search_.add(getMinPrice());
+        search_.add(getMaxPrice());
         search_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.NUMBER)));
-        search_.add(minNumber);
-        search_.add(maxNumber);
+        search_.add(getMinNumber());
+        search_.add(getMaxNumber());
 //        search_.add(new JLabel(getMessages().getVal(RELATIVE_HP)));
 //        search_.add(relativeHp);
         search_.add(relativeHpCheck);
@@ -519,17 +645,17 @@ public final class PaginatorHealingItem extends Paginator {
         AbsPanel sorting_;
         sorting_ = getMain().getCompoFactory().newGrid(0,3);
         sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_NAME)));
-        sorting_.add(cmpNameSorting.self());
-        sorting_.add(cmpNamePrio.self());
+        sorting_.add(getCmpNameSorting().self());
+        sorting_.add(getCmpNamePrio().self());
         sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.CST_DESCRIPTION)));
-        sorting_.add(cmpDescriptionSorting.self());
-        sorting_.add(cmpDescriptionPrio.self());
+        sorting_.add(getCmpDescriptionSorting().self());
+        sorting_.add(getCmpDescriptionPrio().self());
         sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PRICE)));
-        sorting_.add(cmpPriceSorting.self());
-        sorting_.add(cmpPricePrio.self());
+        sorting_.add(getCmpPriceSorting().self());
+        sorting_.add(getCmpPricePrio().self());
         sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.NUMBER)));
-        sorting_.add(cmpNumberSorting.self());
-        sorting_.add(cmpNumberPrio.self());
+        sorting_.add(getCmpNumberSorting().self());
+        sorting_.add(getCmpNumberPrio().self());
         sorting_.add(getMain().getCompoFactory().newPlainLabel(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PP)));
         sorting_.add(cmpPpSorting.self());
         sorting_.add(cmpPpPrio.self());
@@ -576,24 +702,10 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().addString(StringUtil.concat(getMessagesSpec().getVal(MessagesRenderPaginatorHealingItem.PRICE),SPACES), side_+nameWidth_+numberWidth_);
         getHeader().setPreferredSize(new MetaDimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
-        results.add(getHeader().getPaintableLabel());
-        _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
+        getResults().add(getHeader().getPaintableLabel());
+        _p.add(getMain().getCompoFactory().newAbsScrollPane(getResults()));
         getNbResults().setValue(getFacade().getNbResultsPerPageHealingItem());
         finishBuild(_p);
-//        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
-//        getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
-//        bottom_.add(getNbResults());
-//        getPages().setListener(new ChangedPageEvent(this));
-//        bottom_.add(getBegin());
-//        bottom_.add(getPreviousDelta());
-//        bottom_.add(getPrevious());
-//        bottom_.add(getPages().self());
-//        bottom_.add(getNext());
-//        bottom_.add(getNextDelta());
-//        bottom_.add(getEnd());
-//        bottom_.add(getDelta());
-//        _p.add(bottom_);
-//        changeNav();
     }
 
     private IdMap<Statistic, String> stats(String _lg) {
@@ -695,15 +807,15 @@ public final class PaginatorHealingItem extends Paginator {
 //    }
 
     private void setInfos() {
-        getFacade().setContentOfNameHealingItem(convertStringField(name.getText()));
-        getFacade().setContentOfDescriptionHealingItem(convertStringField(description.getText()));
+        getFacade().setContentOfNameHealingItem(convertStringField(getName().getText()));
+        getFacade().setContentOfDescriptionHealingItem(convertStringField(getDescription().getText()));
         getFacade().setContentOfStatusHealingItem(convertStringField(status.getText()));
         SearchingMode s_;
-        s_ = modeName.getCurrent();
+        s_ = getModeName().getCurrent();
         getFacade().setSearchModeNameHealingItem(s_);
         s_ = modeStatus.getCurrent();
         getFacade().setSearchModeStatusHealingItem(s_);
-        s_ = modeDescription.getCurrent();
+        s_ = getModeDescription().getCurrent();
         getFacade().setSearchModeDescriptionHealingItem(s_);
         if (relativeHpCheck.isSelected()) {
             getFacade().setRelativeRateHpHealingItem(SelectedBoolean.YES);
@@ -720,24 +832,24 @@ public final class PaginatorHealingItem extends Paginator {
         getFacade().setMaxRateHpHealingItem(convertRateField(maxHpRate.getText()));
         getFacade().setMinPpHealingItem(convertLongNumberField(minPp.getText()));
         getFacade().setMaxPpHealingItem(convertLongNumberField(maxPp.getText()));
-        getFacade().setMinPriceHealingItem(convertLongNumberField(minPrice.getText()));
-        getFacade().setMaxPriceHealingItem(convertLongNumberField(maxPrice.getText()));
-        getFacade().setMinNumberHealingItem(convertLgIntField(minNumber.getText()));
-        getFacade().setMaxNumberHealingItem(convertLgIntField(maxNumber.getText()));
-        getFacade().setCmpNameIncreasingHealingItem(cmpNameSorting.getCurrent());
-        getFacade().setCmpDescriptionIncreasingHealingItem(cmpDescriptionSorting.getCurrent());
-        getFacade().setCmpPriceIncreasingHealingItem(cmpPriceSorting.getCurrent());
-        getFacade().setCmpNumberIncreasingHealingItem(cmpNumberSorting.getCurrent());
+        getFacade().setMinPriceHealingItem(convertLongNumberField(getMinPrice().getText()));
+        getFacade().setMaxPriceHealingItem(convertLongNumberField(getMaxPrice().getText()));
+        getFacade().setMinNumberHealingItem(convertLgIntField(getMinNumber().getText()));
+        getFacade().setMaxNumberHealingItem(convertLgIntField(getMaxNumber().getText()));
+        getFacade().setCmpNameIncreasingHealingItem(getCmpNameSorting().getCurrent());
+        getFacade().setCmpDescriptionIncreasingHealingItem(getCmpDescriptionSorting().getCurrent());
+        getFacade().setCmpPriceIncreasingHealingItem(getCmpPriceSorting().getCurrent());
+        getFacade().setCmpNumberIncreasingHealingItem(getCmpNumberSorting().getCurrent());
         getFacade().setCmpPpIncreasingHealingItem(cmpPpSorting.getCurrent());
         getFacade().setCmpRelativeRatePpIncreasingHealingItem(cmpRelativePpSorting.getCurrent());
         getFacade().setCmpRateHpIncreasingHealingItem(cmpHpSorting.getCurrent());
         getFacade().setCmpRelativeRateHpIncreasingHealingItem(cmpRelativeHpSorting.getCurrent());
         getFacade().setCmpStatisticsIncreasingHealingItem(cmpNbStatisticsSorting.getCurrent());
         getFacade().setCmpNbHealedStatusIncreasingHealingItem(cmpNbStatusSorting.getCurrent());
-        getFacade().setCmpNamePriorityHealingItem(cmpNamePrio.getCurrent());
-        getFacade().setCmpDescriptionPriorityHealingItem(cmpDescriptionPrio.getCurrent());
-        getFacade().setCmpPricePriorityHealingItem(cmpPricePrio.getCurrent());
-        getFacade().setCmpNumberPriorityHealingItem(cmpNumberPrio.getCurrent());
+        getFacade().setCmpNamePriorityHealingItem(getCmpNamePrio().getCurrent());
+        getFacade().setCmpDescriptionPriorityHealingItem(getCmpDescriptionPrio().getCurrent());
+        getFacade().setCmpPricePriorityHealingItem(getCmpPricePrio().getCurrent());
+        getFacade().setCmpNumberPriorityHealingItem(getCmpNumberPrio().getCurrent());
         getFacade().setCmpPpPriorityHealingItem(cmpPpPrio.getCurrent());
         getFacade().setCmpRelativeRatePpPriorityHealingItem(cmpRelativePpPrio.getCurrent());
         getFacade().setCmpRateHpPriorityHealingItem(cmpHpPrio.getCurrent());
@@ -766,7 +878,7 @@ public final class PaginatorHealingItem extends Paginator {
     }
     public void refreshResults() {
         getFacade().setLineHealingItem(IndexConstants.INDEX_NOT_FOUND_ELT);
-        results.removeAll();
+        getResults().removeAll();
         getResultsLabels().clear();
         getHeader().clearStrings();
         int side_ = getFacade().getMap().getSideLength();
@@ -811,10 +923,10 @@ public final class PaginatorHealingItem extends Paginator {
         }
 //        results.add(new JLabel(getMessages().getVal(ITEM)));
         AbsMetaLabelPk.paintPk(getMain().getImageFactory(), getHeader());
-        results.add(getHeader().getPaintableLabel());
+        getResults().add(getHeader().getPaintableLabel());
         for (HealingItemLabel l: list_) {
             AbsMetaLabelPk.paintPk(getMain().getImageFactory(), l);
-            results.add(l.getPaintableLabel());
+            getResults().add(l.getPaintableLabel());
             getResultsLabels().add(l);
         }
     }
@@ -865,14 +977,6 @@ public final class PaginatorHealingItem extends Paginator {
         appendResults();
     }
 
-    public AbsTextField getName() {
-        return name;
-    }
-
-    public AbsTextField getDescription() {
-        return description;
-    }
-
     public AbsTextField getStatus() {
         return status;
     }
@@ -921,64 +1025,8 @@ public final class PaginatorHealingItem extends Paginator {
         return healFromKo;
     }
 
-    public AbsTextField getMinPrice() {
-        return minPrice;
-    }
-
-    public AbsTextField getMaxPrice() {
-        return maxPrice;
-    }
-
-    public AbsTextField getMinNumber() {
-        return minNumber;
-    }
-
-    public AbsTextField getMaxNumber() {
-        return maxNumber;
-    }
-
-    public ComboBox<SearchingMode> getModeName() {
-        return modeName;
-    }
-
-    public ComboBox<SearchingMode> getModeDescription() {
-        return modeDescription;
-    }
-
     public ComboBox<SearchingMode> getModeStatus() {
         return modeStatus;
-    }
-
-    public ComboBox<SelectedBoolean> getCmpNameSorting() {
-        return cmpNameSorting;
-    }
-
-    public NumComboBox getCmpNamePrio() {
-        return cmpNamePrio;
-    }
-
-    public ComboBox<SelectedBoolean> getCmpDescriptionSorting() {
-        return cmpDescriptionSorting;
-    }
-
-    public NumComboBox getCmpDescriptionPrio() {
-        return cmpDescriptionPrio;
-    }
-
-    public ComboBox<SelectedBoolean> getCmpPriceSorting() {
-        return cmpPriceSorting;
-    }
-
-    public NumComboBox getCmpPricePrio() {
-        return cmpPricePrio;
-    }
-
-    public ComboBox<SelectedBoolean> getCmpNumberSorting() {
-        return cmpNumberSorting;
-    }
-
-    public NumComboBox getCmpNumberPrio() {
-        return cmpNumberPrio;
     }
 
     public ComboBox<SelectedBoolean> getCmpPpSorting() {

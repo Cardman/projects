@@ -15,9 +15,7 @@ import cards.gui.containers.events.TakeDogEvent;
 import cards.gui.containers.events.ValidateDogEvent;
 import cards.gui.dialogs.*;
 import cards.gui.events.*;
-import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicCard;
-import cards.gui.labels.MiniCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.main.CardNatLgNamesNavigation;
@@ -26,7 +24,6 @@ import cards.network.common.before.PlayersNamePresent;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
@@ -36,15 +33,13 @@ import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.util.IdMap;
 import code.util.*;
-import code.util.StringList;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 public class ContainerMultiTarot extends ContainerTarot implements ContainerMulti,ContainerPlayableTarot{
 
@@ -69,7 +64,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //    private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private RulesTarot rulesTarotMulti=new RulesTarot();
 
-    private IdMap<Handfuls,Integer> requiredTrumps = new IdMap<Handfuls,Integer>();
 //    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
 //    private final WindowNetWork win;
     private HandTarot callableCards = new HandTarot();
@@ -90,20 +84,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             Net.getGames(_window.getNet()).setRulesTarot(getRulesTarotMulti());
         }
     }
-
-    private void ajouterBoutonContratTarotMulti(String _texte, BidTarot _action, boolean _en) {
-        AbsPanel panneau_=getPanneauBoutonsJeu();
-        AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
-//        bouton_.addActionListener(new EcouteurBoutonContratTarotMulti(_action));
-        bouton_.addActionListener(new ListenerBidTarotMulti(this,_action));
-        bouton_.setEnabled(_en);
-        if (!_en) {
-            TranslationsLg lg_ = getOwner().getFrames().currentLg();
-            bouton_.setToolTipText(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_action,lg_)));
-        }
-        panneau_.add(bouton_);
-    }
-
     private void initBoutonJeuChelemTarotMulti() {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         AbsButton bouton_=getOwner().getCompoFactory().newPlainButton(Games.toString(BidTarot.SLAM,lg_));
@@ -353,10 +333,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        setCanBid(true);
         containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
         getPanneauBoutonsJeu().removeAll();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (BidTarot b: _bids.getBids()) {
-            ajouterBoutonContratTarotMulti(Games.toString(b,lg_), b, b.estDemandable(_bids.getMaxBid()));
-        }
+        ajouterBoutonContratsTarot(this,_bids.getBids(),_bids.getMaxBid());
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        for (BidTarot b: _bids.getBids()) {
+//            ajouterBoutonContratTarotMulti(Games.toString(b,lg_), b, b.estDemandable(_bids.getMaxBid()));
+//        }
         //getPanneauBoutonsJeu().validate();
         pack();
         //PackingWindowAfter.pack(this, true);
@@ -557,7 +538,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void canPlayTarot(AllowPlayingTarot _declaration) {
         containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
 //        setCanPlay(true);
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
@@ -577,23 +558,23 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             getEvents().append(StringUtil.concat(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_DECLARING_SLAM), containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex())),RETURN_LINE));
 //            getEvents().append(StringUtil.concat(containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
         }
-        requiredTrumps = _declaration.getRequiredTrumps();
         updateCardsInPanelTarotJeuMulti(true);
 //        setCanExcludeTrumps(true);
         displayTrumpsForHandfulMulti(GameTarotCommonPlaying.atoutsPoignee(playerHand.couleurs()));
         getPanneauBoutonsJeu().removeAll();
-        IdList<Handfuls> all_ = new IdList<Handfuls>();
-        IdList<Handfuls> enabled_ = new IdList<Handfuls>();
-        all_.addAllElts(Handfuls.getNonDeclarableHandFuls());
-        enabled_.addAllElts(Handfuls.getNonDeclarableHandFuls());
-        for (Handfuls h: _declaration.getAllowedHandfuls()) {
-            int diff_ = getCurrentIncludedTrumps().total()-requiredTrumps.getVal(h);
-            if (diff_ >= 0) {
-                enabled_.add(h);
-            }
-            all_.add(h);
-        }
-        updateHandfulButtons(this,all_,enabled_,requiredTrumps);
+//        IdList<Handfuls> all_ = new IdList<Handfuls>();
+//        IdList<Handfuls> enabled_ = new IdList<Handfuls>();
+//        all_.addAllElts(Handfuls.getNonDeclarableHandFuls());
+//        enabled_.addAllElts(Handfuls.getNonDeclarableHandFuls());
+//        for (Handfuls h: _declaration.getAllowedHandfuls()) {
+//            int diff_ = getCurrentIncludedTrumps().total()-requiredTrumps.getVal(h);
+//            if (diff_ >= 0) {
+//                enabled_.add(h);
+//            }
+//            all_.add(h);
+//        }
+        updateHandfulButtons(this,getRulesTarotMulti());
+//        updateHandfulButtons(this,all_,enabled_,requiredTrumps);
 //        AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
 //        AbsTextArea txt_ = getOwner().getCompoFactory().newTextArea(EMPTY_STRING, 1, 15);
 //        txt_.setEditable(false);
@@ -619,14 +600,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            handFuls_.add(radio_);
 //        }
 //        getPanneauBoutonsJeu().add(handFuls_);
-        AbsPanel miseres_ = getOwner().getCompoFactory().newPageBox();
-        for(Miseres po_:_declaration.getAllowedMiseres()) {
-            AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
+        miseres(rulesTarotMulti,getPanneauBoutonsJeu());
+//        AbsPanel miseres_ = getOwner().getCompoFactory().newPageBox();
+//        for(Miseres po_:_declaration.getAllowedMiseres()) {
+//            AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
 //            check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
-            getSelectedMiseres().put(po_, check_);
-            miseres_.add(check_);
-        }
-        getPanneauBoutonsJeu().add(miseres_);
+//            getSelectedMiseres().put(po_, check_);
+//            miseres_.add(check_);
+//        }
+//        getPanneauBoutonsJeu().add(miseres_);
         //getPanneauBoutonsJeu().validate();
         byte relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
@@ -645,26 +627,29 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
 
         }
+        IdList<Handfuls> hs_ = new IdList<Handfuls>();
         if (_card.getChoosenHandful() != Handfuls.NO) {
-            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(_card.getChoosenHandful(),lg_),RETURN_LINE));
+            hs_.add(_card.getChoosenHandful());
+//            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(_card.getChoosenHandful(),lg_),RETURN_LINE));
 
         }
-        for(Miseres annonce_:_card.getMiseres()) {
-            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE));
-
-        }
-        if(!_card.getHandful().estVide()) {
-            getHandfuls().getVal(relative_).setText(Games.toString(_card.getChoosenHandful(),lg_));
-        }
-        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
-        panelToSet_.removeAll();
-        _card.getHandful().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
-        for(CardTarot c: _card.getHandful()) {
-            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
-            panelToSet_.add(carte_.getPaintableLabel());
-            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
-        }
-        panelToSet_.setSize(panelToSet_.getPreferredSizeValue());
+        firstRound(relative_,pseudo_,hs_, _card.getMiseres(), _card.getHandful(),new DirectCardsCallEvents());
+//        for(Miseres annonce_:_card.getMiseres()) {
+//            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE));
+//
+//        }
+//        if(!_card.getHandful().estVide()) {
+//            getHandfuls().getVal(relative_).setText(Games.toString(_card.getChoosenHandful(),lg_));
+//        }
+//        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
+//        panelToSet_.removeAll();
+//        _card.getHandful().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+//        for(CardTarot c: _card.getHandful()) {
+//            MiniCard carte_=new MiniCard(lg_, getOwner(), c.getId().nb());
+//            panelToSet_.add(carte_.getPaintableLabel());
+//            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
+//        }
+//        panelToSet_.setSize(panelToSet_.getPreferredSizeValue());
         pack();
         relative_ = containerMultiContent.relative(_card.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
@@ -703,9 +688,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //                containerMultiContent.getMessages().getVal(WindowNetWork.CANT_PLAY_CARD_TITLE),
 //                GuiConstants.ERROR_MESSAGE);
 //    }
-    public void refreshHand(RefreshHand _card) {
+    public void refreshHand(PlayingCardTarot _card) {
 //        String lg_ = getOwner().getLanguageKey();
-        playerHand.jouer(_card.getCard());
+        playerHand.jouer(_card.getPlayedCard());
         playerHand.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         getPanneauBoutonsJeu().removeAll();
         getScrollDeclaringHandful().setVisible(false);
@@ -717,8 +702,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         updateCardsInPanelTarotJeuMulti(false);
         pack();
         //PackingWindowAfter.pack(this, true);
-        RefreshingDone ref_ = new RefreshingDone();
-        ref_.setCard(_card.getCard());
+        PlayingCardTarot ref_ = new PlayingCardTarot();
+        ref_.setRefreshing(true);
+        ref_.setExcludedTrumps(new HandTarot());
+        ref_.setPlayedCard(_card.getPlayedCard());
         ref_.setChoosenHandful(_card.getChoosenHandful());
         ref_.setHandful(_card.getHandful());
         ref_.setMiseres(_card.getMiseres());
@@ -764,33 +751,33 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        window().sendObject(select_);
     }
     public void showTricksHands(TricksHandsTarot _tricks) {
-        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
-        byte p_ = 0;
-        for (String s: pseudosTarot((byte) containerMultiContent.getNbChoosenPlayers())) {
-            pseudos_.put(p_, s);
-            p_++;
-        }
-        for (byte p: containerMultiContent.getPlayersPlacesForGame().values()) {
-            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
-        }
-        StringList list_ = new StringList(pseudos_.values());
+//        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
+//        byte p_ = 0;
+//        for (String s: pseudosTarot((byte) containerMultiContent.getNbChoosenPlayers())) {
+//            pseudos_.put(p_, s);
+//            p_++;
+//        }
+//        for (byte p: containerMultiContent.getPlayersPlacesForGame().values()) {
+//            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
+//        }
+//        StringList list_ = new StringList(nicknames().values());
         WindowNetWork ow_ = containerMultiContent.window();
         DialogTricksTarot.setDialogTricksTarot(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_TAROT), ow_);
-        DialogTricksTarot.init(_tricks, (byte) containerMultiContent.getNbChoosenPlayers(), list_, getDisplayingTarot(),ow_);
+        DialogTricksTarot.init(_tricks, (byte) containerMultiContent.getNbChoosenPlayers(), nicknames(), getDisplayingTarot(),ow_);
     }
     public void showTeams(TeamsPlayers _teams) {
-        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
-        byte p_ = 0;
-        for (String s: pseudosTarot((byte) containerMultiContent.getNbChoosenPlayers())) {
-            pseudos_.put(p_, s);
-            p_++;
-        }
-        for (byte p: containerMultiContent.getPlayersPlacesForGame().values()) {
-            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
-        }
-        StringList list_ = new StringList(pseudos_.values());
+//        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
+//        byte p_ = 0;
+//        for (String s: pseudosTarot((byte) containerMultiContent.getNbChoosenPlayers())) {
+//            pseudos_.put(p_, s);
+//            p_++;
+//        }
+//        for (byte p: containerMultiContent.getPlayersPlacesForGame().values()) {
+//            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
+//        }
+//        StringList list_ = new StringList(nicknames().values());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
-        DialogTeamsPlayers.setDialogTeamsPlayers(list_, _teams, getOwner().getDialogTeamsPlayers(), getOwner().getCompoFactory());
+        DialogTeamsPlayers.setDialogTeamsPlayers(nicknames(), _teams, getOwner().getDialogTeamsPlayers(), getOwner().getCompoFactory());
 
     }
 //    @Override
@@ -811,17 +798,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
-        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
-        byte p_ = 0;
-        for (String s: pseudosTarot((byte) containerMultiContent.getNbChoosenPlayers())) {
-            pseudos_.put(p_, s);
-            p_++;
-        }
-        for (byte p: containerMultiContent.getPlayersPlacesForGame().values()) {
-            byte relative_ = containerMultiContent.relative(p);
-            pseudos_.put(relative_, containerMultiContent.getPseudoByPlace(p));
-        }
-        StringList list_ = new StringList(pseudos_.values());
+//        ByteTreeMap<String> pseudos_ = nicknames();
+//        StringList list_ = new StringList(pseudos_.values());
+        StringList list_ = nicknames();
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),list_.size(), getDisplayingTarot().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, containerMultiContent.getNbChoosenPlayers(), getDisplayingTarot().getDisplaying().isClockwise(), _dog.total(), getOwner().getFrames());
         getTapis().setTapisTarot(tapis_);
@@ -838,7 +817,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
 //        getEvents().setEditable(false);
         byte relative_ = containerMultiContent.relative(_beginPlace);
-        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
+        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY),list_.get(relative_),RETURN_LINE));
+//        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
 //        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
         setIncludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
@@ -856,35 +836,36 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau2_.add(getScrollDeclaringHandful());
         setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
+//        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         int nbCh_ = containerMultiContent.getNbChoosenPlayers();
-        for (byte i = IndexConstants.FIRST_INDEX; i< nbCh_; i++) {
-            relative_ = containerMultiContent.relative(i);
-            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
-            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.getVal(relative_));
-            declaredHandfulGroup_.add(lab_);
-            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
-            declaredHandfulGroup_.add(handful_);
-            getHandfuls().put(relative_, handful_);
-            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
-            declaredHandfulGroup_.add(declaredHandful_);
-            getDeclaredHandfuls().put(relative_, declaredHandful_);
-            declaredHandfuls_.add(declaredHandfulGroup_);
-        }
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_);
-        panneau2_.add(scroll_);
-
-        setPanelCallableCards(getOwner().getCompoFactory().newLineBox());
-        setScrollCallableCards(getOwner().getCompoFactory().newAbsScrollPane(getPanelCallableCards()));
-        getScrollCallableCards().setVisible(false);
-        panneau2_.add(getScrollCallableCards());
-        AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
-        setPanneauBoutonsJeu(sousPanneau_);
-        panneau2_.add(sousPanneau_);
-        setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
-        getPanelDiscardedTrumps().setVisible(false);
-        panneau2_.add(getPanelDiscardedTrumps());
-        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
+//        AbsPanel declaredHandfuls_ = buildDeclHands(nbCh_,list_, getOwner().getFrames());
+//        for (byte i = IndexConstants.FIRST_INDEX; i< nbCh_; i++) {
+//            relative_ = containerMultiContent.relative(i);
+//            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
+//            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.getVal(relative_));
+//            declaredHandfulGroup_.add(lab_);
+//            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
+//            declaredHandfulGroup_.add(handful_);
+//            getHandfuls().put(relative_, handful_);
+//            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
+//            declaredHandfulGroup_.add(declaredHandful_);
+//            getDeclaredHandfuls().put(relative_, declaredHandful_);
+//            declaredHandfuls_.add(declaredHandfulGroup_);
+//        }
+//        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(buildDeclHands(nbCh_,list_, getOwner().getFrames()));
+//        panneau2_.add(scroll_);
+        panel(nbCh_,list_, container_,panneau2_);
+//        setPanelCallableCards(getOwner().getCompoFactory().newLineBox());
+//        setScrollCallableCards(getOwner().getCompoFactory().newAbsScrollPane(getPanelCallableCards()));
+//        getScrollCallableCards().setVisible(false);
+//        panneau2_.add(getScrollCallableCards());
+//        AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
+//        setPanneauBoutonsJeu(sousPanneau_);
+//        panneau2_.add(sousPanneau_);
+//        setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
+//        getPanelDiscardedTrumps().setVisible(false);
+//        panneau2_.add(getPanelDiscardedTrumps());
+//        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         tapisTarot().setTalonTarot(lg_,_dog, getOwner());
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
@@ -898,6 +879,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
+    }
+
+    private StringList nicknames() {
+        return new StringList(containerMultiContent.nicknames(pseudosTarot((byte) containerMultiContent.getNbChoosenPlayers())).values());
     }
 //    private String getPseudoByPlace(byte _place) {
 //        for (int i : playersPlacesForGame.getKeys()) {
@@ -952,7 +937,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     @Override
     public int required() {
-        return getRequiredTrumps().getVal(getChoosenHandful());
+        return getRulesTarotMulti().getAllowedHandfuls().getVal(getChoosenHandful());
     }
 
     public void displayTrumpsForHandfulMulti(HandTarot _trumps) {
@@ -1247,12 +1232,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return playerHand;
     }
 
-    public IdMap<Handfuls,Integer> getRequiredTrumps() {
-        return requiredTrumps;
-    }
-
     public void endGame(ResultsTarot _res) {
         Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
+        _res.getRes().setNicknames(nicknames());
         getPane().removeAll();
         /*Descativer aide au jeu*/
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
@@ -1399,6 +1381,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void setRulesTarotMulti(RulesTarot _r) {
         this.rulesTarotMulti = _r;
         Net.getGames(getContainerMultiContent().window().getNet()).setRulesTarot(getRulesTarotMulti());
+    }
+
+    @Override
+    public AbsActionListenerAct guard() {
+        return new AlwaysActionListenerAct();
+    }
+
+    @Override
+    public AbsActionListener bid(BidTarot _action) {
+        return new ListenerBidTarotMulti(this,_action);
     }
 
     public ContainerMultiContent getContainerMultiContent() {

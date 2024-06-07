@@ -23,14 +23,11 @@ import cards.gui.menus.*;
 import cards.main.*;
 import cards.network.belote.actions.*;
 import cards.network.belote.displaying.*;
-import cards.network.belote.displaying.players.*;
 import cards.network.common.*;
 import cards.network.common.before.*;
 import cards.network.president.actions.*;
-import cards.network.president.displaying.players.*;
 import cards.network.sml.*;
 import cards.network.tarot.actions.*;
-import cards.network.tarot.displaying.players.*;
 import cards.network.threads.*;
 import cards.president.*;
 import cards.president.sml.*;
@@ -965,8 +962,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //                    return;
 //                }
 //            }
-            if (action_ instanceof RefreshHand) {
-                containerTarot_.refreshHand((RefreshHand) action_);
+            if (action_ instanceof PlayingCardTarot && ((PlayingCardTarot)action_).isRefreshing()) {
+                containerTarot_.refreshHand((PlayingCardTarot) action_);
                 return;
             }
             if (action_ instanceof PlayingCardTarot) {
@@ -1009,8 +1006,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 return;
             }
             PlayerActionGame action_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
-            if (action_ instanceof RefreshHandPlayingPresident) {
-                containerPresident_.refreshHand((RefreshHandPlayingPresident) action_);
+            if (action_ instanceof PlayingCardPresident && ((PlayingCardPresident)action_).isRefreshing()) {
+                containerPresident_.refreshHand((PlayingCardPresident) action_);
                 return;
             }
             if (action_ instanceof PlayingCardPresident) {
@@ -1069,8 +1066,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 containerBelote_.refreshHand((RefreshHandBelote) action_);
                 return;
             }
-            if (action_ instanceof RefreshHandPlayingBelote) {
-                containerBelote_.refreshHand((RefreshHandPlayingBelote) action_);
+            if (action_ instanceof PlayingCardBelote && ((PlayingCardBelote)action_).isRefreshing()) {
+                containerBelote_.refreshHand((PlayingCardBelote) action_);
                 return;
             }
             if (action_ instanceof PlayingCardBelote) {
@@ -2514,8 +2511,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public void sendObject(QuitAiki _serializable) {
         trySendString(DocumentWriterAikiMultiUtil.playerActionGameAiki(_serializable), getSocket());
     }
-    public void sendObject(ReadyAiki _serializable) {
-        trySendString(DocumentWriterAikiMultiUtil.playerActionBeforeGameAiki(_serializable), getSocket());
+    public void sendReady() {
+        ReadyAiki choice_ = new ReadyAiki();
+        choice_.setIndex(getIndexInGame());
+        scenePanel.readyTrade();
+        choice_.setReady(scenePanel.isReadyTrade());
+        trySendString(DocumentWriterAikiMultiUtil.playerActionBeforeGameAiki(choice_), getSocket());
     }
     public void sendObject(SentPokemon _serializable) {
         trySendString(DocumentWriterAikiMultiUtil.sentPokemon(_serializable), getSocket());

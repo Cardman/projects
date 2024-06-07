@@ -8,18 +8,11 @@ import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
 import cards.network.threads.Net;
-import code.gui.AbsCustCheckBox;
-import code.gui.AbsPanel;
-import code.gui.AbsPlainLabel;
-import code.gui.NumComboBox;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
-import code.util.CustList;
-import code.util.IntMap;
-import code.util.IntTreeMap;
-import code.util.StringMap;
-import code.util.comparators.ComparatorBoolean;
+import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -29,7 +22,7 @@ public final class ContainerMultiContent {
     private int noClient;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private NumComboBox choiceOfPlaceForPlayingGame;
-    private AbsCustCheckBox ready;
+    private AbsButton ready;
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private final boolean hasCreatedServer;
     private boolean readyToPlay;
@@ -58,10 +51,15 @@ public final class ContainerMultiContent {
         window().sendObject(choice_);
     }
     public void changeReady() {
-        if (ComparatorBoolean.eq(readyToPlay, ready.isSelected())) {
-            return;
-        }
+//        if (ComparatorBoolean.eq(readyToPlay, ready.isSelected())) {
+//            return;
+//        }
         readyToPlay = !readyToPlay;
+        if (readyToPlay) {
+            ready.setLineBorder(GuiConstants.RED);
+        } else {
+            ready.setLineBorder(GuiConstants.BLACK);
+        }
         Ready choice_ = new Ready();
         choice_.setIndex(noClient);
         choice_.setReady(readyToPlay);
@@ -78,7 +76,8 @@ public final class ContainerMultiContent {
         indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(_cont));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = win.getFrames().getCompoFactory().newCustCheckBox(_cont.getContainerMultiContent().getMessages().getVal(MessagesGuiCards.READY));
+        ready = win.getFrames().getCompoFactory().newPlainButton(_cont.getContainerMultiContent().getMessages().getVal(MessagesGuiCards.READY));
+        ready.setLineBorder(GuiConstants.BLACK);
         ready.addActionListener(new ReadyEvent(_cont));
         panel_.add(ready);
         container_.add(panel_);
@@ -131,9 +130,24 @@ public final class ContainerMultiContent {
     }
     public void endReady(ContainerMulti _cont,AbsPanel _panel) {
         readyToPlay = false;
-        ready = win.getFrames().getCompoFactory().newCustCheckBox(getMessages().getVal(MessagesGuiCards.READY));
+        ready = win.getFrames().getCompoFactory().newPlainButton(getMessages().getVal(MessagesGuiCards.READY));
+        ready.setLineBorder(GuiConstants.BLACK);
         ready.addActionListener(new ReadyEvent(_cont));
         _panel.add(ready);
+    }
+
+    public ByteTreeMap<String> nicknames(CustList<String> _bots) {
+        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
+        byte p_ = 0;
+        for (String s : _bots) {
+            pseudos_.put(p_, s);
+            p_++;
+        }
+        for (byte p: getPlayersPlacesForGame().values()) {
+            byte relative_ = relative(p);
+            pseudos_.put(relative_, getPseudoByPlace(p));
+        }
+        return pseudos_;
     }
     public byte relative(int _otherPlayerIndex) {
         byte iter_ = 0;
@@ -221,7 +235,7 @@ public final class ContainerMultiContent {
         return choiceOfPlaceForPlayingGame;
     }
 
-    public AbsCustCheckBox getReady() {
+    public AbsButton getReady() {
         return ready;
     }
     public boolean isHasCreatedServer() {

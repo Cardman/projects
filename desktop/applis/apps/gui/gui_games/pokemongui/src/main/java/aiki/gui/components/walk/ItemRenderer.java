@@ -25,8 +25,8 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
 
     private int price;
 
-    private int maxWordWidth;
-    private int maxNbWidth;
+//    private int maxWordWidth;
+//    private int maxNbWidth;
 
     private final AbstractImageFactory fact;
     private final AbsCompoFactory compo;
@@ -52,39 +52,41 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
         miniItem = render.render(fact,img_,sideLength,sideLength);
         maxPriceLen = DefTileRender.widthLgMax(compo,_lab);
         int h_ = NumberUtil.max(sideLength, _lab.getRealSize() + 2);
-        AbstractImage i_ = fact.newImageRgb(sideLength+maxWordWidth+maxNbWidth+maxPriceLen,h_);
+        int widthName_ = ItemsPanel.widthName(facade, compo, _lab);
+        int widthFreq_ = ItemsPanel.widthFreq(facade, compo, _lab);
+        AbstractImage i_ = fact.newImageRgb(getWidth(widthName_, widthFreq_),h_);
         i_.setFont(_lab);
-        paintComponent(i_);
+        paintComponent(i_, widthName_, widthFreq_);
         return i_;
     }
 
-    public void paintComponent(AbstractImage _g) {
+    public void paintComponent(AbstractImage _g, int _maxWordWidth, int _maxNbWidth) {
         _g.setColor(GuiConstants.WHITE);
-        _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+        _g.fillRect(0, 0, getWidth(_maxWordWidth, _maxNbWidth) - 1, getHeight() - 1);
         _g.drawImage(miniItem, 0, 0);
         _g.setColor(GuiConstants.BLACK);
         _g.drawString(displayName, sideLength, getHeight() - 2);
-        _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), sideLength + maxWordWidth, getHeight() - 2);
-        _g.drawString(Long.toString(price), sideLength + maxWordWidth+maxNbWidth, getHeight() - 2);
+        _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), sideLength + _maxWordWidth, getHeight() - 2);
+        _g.drawString(Long.toString(price), sideLength + _maxWordWidth + _maxNbWidth, getHeight() - 2);
         if (selected) {
             _g.setColor(GuiConstants.RED);
-            _g.drawRect(0,0,getWidth()-1,getHeight()-1);
+            _g.drawRect(0,0,getWidth(_maxWordWidth, _maxNbWidth)-1,getHeight()-1);
         }
     }
 
-    public void setMaxWordWidth(int _m) {
-        this.maxWordWidth = _m;
-    }
+//    public void setMaxWordWidth(int _m) {
+//        this.maxWordWidth = _m;
+//    }
 
-    public void setMaxNbWidth(int _m) {
-        this.maxNbWidth = _m;
-    }
+//    public void setMaxNbWidth(int _m) {
+//        this.maxNbWidth = _m;
+//    }
 
     public int getHeight() {
         return sideLength;
     }
 
-    public int getWidth() {
-        return sideLength+maxWordWidth+maxNbWidth+maxPriceLen;
+    public int getWidth(int _maxWordWidth, int _maxNbWidth) {
+        return sideLength+ _maxWordWidth + _maxNbWidth +maxPriceLen;
     }
 }

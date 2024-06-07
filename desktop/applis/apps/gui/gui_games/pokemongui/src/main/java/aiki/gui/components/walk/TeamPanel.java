@@ -1,26 +1,28 @@
 package aiki.gui.components.walk;
 
 
-
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAikiInt;
 import aiki.gui.listeners.PokemonHostEvent;
-import aiki.gui.listeners.PokemonSelectionItems;
 import aiki.gui.listeners.PokemonSelectionMoveTutor;
 import aiki.gui.listeners.PokemonSelectionStorage;
 import aiki.gui.listeners.PokemonSelectionTeam;
-import aiki.gui.listeners.PokemonSelectionTm;
 import aiki.main.AikiFactory;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.MessagesRenderScenePanel;
-import code.gui.*;
+import code.gui.AbsPanel;
+import code.gui.AbsPlainLabel;
+import code.gui.GuiConstants;
+import code.gui.ScrollCustomGraphicList;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.*;
+import code.util.ByteTreeMap;
+import code.util.Bytes;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -161,10 +163,6 @@ public final class TeamPanel {
         liste.setListener(new PokemonHostEvent(_battle));
     }
 
-    public void addListener(ScenePanel _battle) {
-        liste.setListener(new PokemonSelectionItems(_battle));
-    }
-
     public void addListenerTeam(ScenePanel _battle) {
         liste.setListener(new PokemonSelectionTeam(_battle));
     }
@@ -210,10 +208,6 @@ public final class TeamPanel {
 
     public void deselect() {
         liste.deselectAll();
-    }
-
-    public void addListenerTm(ScenePanel _mainWindow) {
-        liste.setListener(new PokemonSelectionTm(_mainWindow));
     }
 
     public AbsPanel getContainer() {

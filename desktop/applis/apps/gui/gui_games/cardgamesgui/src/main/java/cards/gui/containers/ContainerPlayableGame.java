@@ -3,6 +3,7 @@ package cards.gui.containers;
 import cards.gui.WindowCardsInt;
 import code.gui.AbsPanel;
 import code.gui.AbsTextArea;
+import code.gui.events.AbsActionListenerAct;
 import code.util.StringMap;
 
 public interface ContainerPlayableGame {
@@ -25,4 +26,6 @@ public interface ContainerPlayableGame {
     AbsPanel getPanneauBoutonsJeu();
 
     AbsTextArea getEvents();
+
+    AbsActionListenerAct guard();
 }

@@ -1,26 +1,27 @@
 package cards.gui.containers;
 
 
-import cards.belote.BidBeloteSuit;
-import cards.belote.HandBelote;
+import cards.belote.*;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
+import cards.gui.WindowCardsCore;
 import cards.gui.WindowCardsInt;
+import cards.gui.animations.*;
+import cards.gui.containers.events.*;
+import cards.gui.events.*;
 import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.main.CardNatLgNamesNavigation;
-import code.gui.AbsButton;
-import code.gui.AbsCustCheckBox;
-import code.gui.AbsPanel;
+import code.gui.*;
+import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractFutureParam;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
+import code.util.core.*;
 
 public abstract class ContainerBelote extends ContainerSingleImpl {
 
@@ -127,6 +128,148 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         return new ContainerSingUtil<CardBelote>(new BeloteCardConverter()).getGraphicCardsGene(_fact.getFrames(),_lg,_hand);
     }
 
+    protected void panel(int _nbPlayers, CustList<String> _pseudos,AbsPanel _container, AbsPanel _panneau2) {
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(buildDeclHands(_nbPlayers, _pseudos, getOwner().getFrames()));
+        _panneau2.add(scroll_);
+        AbsPanel sousPanneau_ = getOwner().getCompoFactory().newPageBox();
+        setPanneauBoutonsJeu(sousPanneau_);
+        _panneau2.add(sousPanneau_);
+        _container.add(_panneau2, GuiConstants.BORDER_LAYOUT_EAST);
+    }
+
+    public static void bidButtons(ContainerPlayableBelote _playable, RulesBelote _rules, int _pts, BidBeloteSuit _bid, CustList<BidBeloteSuit> _bids) {
+        TranslationsLg lg_ = _playable.getOwner().getFrames().currentLg();
+        if (!_rules.withBidPointsForAllPlayers()) {
+            for(BidBeloteSuit e: _bids) {
+                ajouterBoutonContratBelote(_playable,Games.toString(e, lg_),e,e.estDemandable(_bid));
+//                ajouterBoutonContratBelote(Games.toString(e, lg_),e,e.estDemandable(contrat_));
+            }
+        } else {
+            addButtonsForCoinche(_playable, _pts,_rules.getListeEncheresAutorisees());
+        }
+    }
+    public static void ajouterBoutonContratBelote(ContainerPlayableBelote _playable, String _texte,BidBeloteSuit _action,boolean _apte) {
+        AbsPanel panneau_=_playable.getPanneauBoutonsJeu();
+        AbsButton bouton_=_playable.getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new EcouteurBoutonContratBelote(_action));
+        bouton_.addActionListener(_playable.guard(),_playable.bid(_action));
+        bouton_.setEnabled(_apte);
+        if (!_apte) {
+            TranslationsLg lg_ = _playable.getOwner().getFrames().currentLg();
+            bouton_.setToolTipText(StringUtil.simpleStringsFormat(_playable.file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_action,lg_)));
+        }
+        panneau_.add(bouton_);
+        _playable.getBids().add(_action);
+    }
+    public static void addButtonsForCoinche(ContainerPlayableBelote _playable, int _pts, IdList<BidBelote> _partie) {
+        Ints points_ = RulesBelote.getPoints();
+        int size_ = points_.size();
+        _playable.setPanneauBoutonsJeuPoints(_playable.getOwner().getCompoFactory().newGrid());
+        _playable.getPointsButtons().clear();
+        TranslationsLg lg_ = _playable.getOwner().getFrames().currentLg();
+        for (int i = 0; i < size_; i++) {
+            int p_ = points_.get(i);
+            LabelPoints label_ = new LabelPoints(p_, _playable.getOwner().getCompoFactory());
+            label_.setEnabledLabel(_pts < p_);
+            label_.setToolTipText(Long.toString(p_));
+            label_.getButton().addActionListener(_playable.guard(),new SelectPointsEvent(_playable, p_));
+            _playable.getPointsButtons().add(label_);
+            _playable.getPanneauBoutonsJeuPoints().add(label_.getButton(), WindowCardsCore.ctsRem(_playable.getWindow().getCompoFactory(),(i+1)%3==0));
+        }
+        _playable.getPanneauBoutonsJeu().add(_playable.getPanneauBoutonsJeuPoints());
+//        clickedBid = false;
+//        clickedPass = false;
+        _playable.setBidOk(_playable.getOwner().getCompoFactory().newPlainButton(_playable.file().getVal(MessagesGuiCards.MAIN_OK)));
+        _playable.getBidOk().setEnabled(false);
+        _playable.getBidOk().addActionListener(_playable.guard(),new BidEvent(_playable));
+        AbsPanel panel_ = _playable.getOwner().getCompoFactory().newGrid();
+        _playable.getBidsButtons().clear();
+        _playable.getBids().clear();
+        CustList<BidBeloteSuit> bidsAll_ = GameBeloteBid.baseBidsDealAll(_partie);
+        for (BidBeloteSuit b: bidsAll_) {
+            SuitLabel suitLabel_ = new SuitLabel(_playable.getOwner().getCompoFactory());
+            suitLabel_.setSuit(b, lg_);
+            suitLabel_.addMouseListener(new SelectSuitEvent(_playable,b));
+            panel_.add(suitLabel_.getPaintableLabel(), ContainerSingleBelote.ctsRem(panel_, bidsAll_, _playable.getWindow().getCompoFactory()));
+            _playable.getBidsButtons().add(suitLabel_);
+            AbsMetaLabelCard.paintCard(_playable.getOwner().getImageFactory(), suitLabel_);
+            _playable.getBids().add(b);
+        }
+//        AbsPanel panelSuits_ = getOwner().getCompoFactory().newLineBox();
+//        for (Suit s: Suit.couleursOrdinaires()) {
+//            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
+//            BidBeloteSuit bid_ = new BidBeloteSuit();
+//            bid_.setSuit(s);
+//            bid_.setBid(BidBelote.SUIT);
+//            suitLabel_.setSuit(bid_, lg_);
+//            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
+//            panelSuits_.add(suitLabel_.getPaintableLabel());
+//            getBidsButtons().add(suitLabel_);
+//        }
+//        panel_.add(panelSuits_);
+//        AbsPanel panelBids_ = getOwner().getCompoFactory().newLineBox();
+//        for (BidBelote b: BidBelote.getNonZeroBids()) {
+//            if (b.getCouleurDominante()) {
+//                continue;
+//            }
+//            if (_partie.getRegles().getAllowedBids().getVal(b) != BoolVal.TRUE) {
+//                continue;
+//            }
+//            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
+//            BidBeloteSuit bid_ = new BidBeloteSuit();
+//            bid_.setBid(b);
+//            suitLabel_.setSuit(bid_, lg_);
+//            suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
+//
+//            panelBids_.add(suitLabel_.getPaintableLabel());
+//            getBidsButtons().add(suitLabel_);
+//        }
+//        panel_.add(panelBids_);
+        AbsButton buttonSuit_ = _playable.getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
+        //clickedTwo = false;
+        buttonSuit_.addActionListener(_playable.guard(),new FoldEvent(_playable));
+        panel_.add(buttonSuit_,WindowCardsCore.cts(_playable.getWindow().getCompoFactory()));
+        _playable.setFold(buttonSuit_);
+        panel_.add(_playable.getBidOk(),WindowCardsCore.cts(_playable.getWindow().getCompoFactory()));
+        _playable.getPanneauBoutonsJeu().add(panel_);
+    }
+
+    public void declare(DeclareHandBelote _annonceMain) {
+        AbsCustCheckBox beloteDeclare_ = getBeloteDeclare();
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        if(_annonceMain.getDeclare() != DeclaresBelote.UNDEFINED) {
+//                annonceBelote = false;
+            AbsPanel panneau_ =getPanneauBoutonsJeu();
+//                AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),INTRODUCTION_PTS,Games.toString(annonceMain_.getHand(),lg_)));
+            beloteDeclare_.setText(StringUtil.concat(Games.toString(_annonceMain.getDeclare(), lg_),INTRODUCTION_PTS,Games.toString(_annonceMain.getHand(), lg_)));
+//                caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
+            panneau_.add(beloteDeclare_);
+        }
+    }
+
+    public void firstRound(byte _joueur, String _pseudo, BidBeloteSuit _bid, DeclareHandBelote _decl, IntCardsCallEvents _interceptor) {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(_decl.getDeclare(), lg_),RETURN_LINE)));
+//            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
+//            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+usDecl_.getAnnonce()+RETURN_LINE_CHAR);
+        if(!_decl.getHand().estVide()) {
+            AbsPlainLabel label_ = getHandfuls().getVal(_joueur);
+            _interceptor.call(new SettingText(label_, Games.toString(_decl.getDeclare(), lg_)));
+//                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
+//                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
+        }
+        _decl.getHand().trier(getDisplayingBelote(), _bid);
+
+        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+        _interceptor.call(new DeclaringThread(panelToSet_, _decl, getOwner()));
+//            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
+//            panelToSet_.removeAll();
+//            for(CardBelote c: usDecl_.getMain())
+//            {
+//                MiniBeloteCard carte_=new MiniBeloteCard(c);
+//                panelToSet_.add(carte_);
+//            }
+    }
     public CustList<LabelPoints> getPointsButtons() {
         return pointsButtons;
     }
@@ -193,7 +336,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public AbsButton getBidOk() {
         return bidOk;
     }
-    protected void setBidOk(AbsButton _bidOk) {
+    public void setBidOk(AbsButton _bidOk) {
         bidOk = _bidOk;
     }
     protected int getPts() {
@@ -208,10 +351,10 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     protected void setBidType(BidBelote _bidType) {
         bidType = _bidType;
     }
-    protected AbsPanel getPanneauBoutonsJeuPoints() {
+    public AbsPanel getPanneauBoutonsJeuPoints() {
         return panneauBoutonsJeuPoints;
     }
-    protected void setPanneauBoutonsJeuPoints(AbsPanel _panneauBoutonsJeuPoints) {
+    public void setPanneauBoutonsJeuPoints(AbsPanel _panneauBoutonsJeuPoints) {
         panneauBoutonsJeuPoints = _panneauBoutonsJeuPoints;
     }
     public AbsButton getValidateDiscard() {

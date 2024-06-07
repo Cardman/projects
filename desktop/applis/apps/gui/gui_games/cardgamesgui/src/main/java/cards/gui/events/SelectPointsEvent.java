@@ -1,15 +1,15 @@
 package cards.gui.events;
 
-import cards.gui.containers.ContainerBelote;
+import cards.gui.containers.ContainerPlayableBelote;
 import code.gui.events.AbsActionListener;
 
 public class SelectPointsEvent implements AbsActionListener {
 
-    private ContainerBelote container;
+    private final ContainerPlayableBelote container;
 
-    private int points;
+    private final int points;
 
-    public SelectPointsEvent(ContainerBelote _container, int _points) {
+    public SelectPointsEvent(ContainerPlayableBelote _container, int _points) {
         container = _container;
         points = _points;
     }

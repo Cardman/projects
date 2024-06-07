@@ -297,15 +297,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        }
         setText(catchBall, MessagesRenderBattle.CATCH_PK);
         setText(catchBallEnd, MessagesRenderBattle.CATCH_PK);
-        if (flee != null) {
-            if (facade.isWildFight()) {
-                IdMap<UsefulValueLaw, Rate> r_ = facade.calculateFleeingRate();
-                flee.setText(StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderBattle.CST_FLEE),
-                        r_.getVal(UsefulValueLaw.MINI).toNumberString(), r_.getVal(UsefulValueLaw.MINI).percent().toNumberString(),
-                        r_.getVal(UsefulValueLaw.MAXI).toNumberString(), r_.getVal(UsefulValueLaw.MAXI).percent().toNumberString(),
-                        r_.getVal(UsefulValueLaw.MOY).toNumberString(), r_.getVal(UsefulValueLaw.MOY).percent().toNumberString(),
-                        r_.getVal(UsefulValueLaw.VAR).toNumberString(), r_.getVal(UsefulValueLaw.VAR).percent().toNumberString()));
-            }
+        if (flee != null && facade.isWildFight()) {
+            IdMap<UsefulValueLaw, Rate> r_ = facade.calculateFleeingRate();
+            flee.setText(StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderBattle.CST_FLEE),
+                    r_.getVal(UsefulValueLaw.MINI).toNumberString(), r_.getVal(UsefulValueLaw.MINI).percent().toNumberString(),
+                    r_.getVal(UsefulValueLaw.MAXI).toNumberString(), r_.getVal(UsefulValueLaw.MAXI).percent().toNumberString(),
+                    r_.getVal(UsefulValueLaw.MOY).toNumberString(), r_.getVal(UsefulValueLaw.MOY).percent().toNumberString(),
+                    r_.getVal(UsefulValueLaw.VAR).toNumberString(), r_.getVal(UsefulValueLaw.VAR).percent().toNumberString()));
         }
         if (validateActions != null && facade.isExistingFight() && !FightFacade.possibleCatch(facade.getFight())) {
             if (facade.getFight().getState() == FightState.ATTAQUES) {
@@ -409,18 +407,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             lower.add(validateActions);
             lower.add(commentsRoundScroll);
         } else if (facade.getFight().getState() == FightState.ATTAQUES) {
-            fleeWeb.add(webLabel);
-//            fleeWeb.add(web);
-            addBalls();
-            addCatching();
-            validateActions = window.getCompoFactory().newPlainButton();
-            validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new RoundAllThrowersEvent(this));
-            fleeWeb.add(validateActions);
-            addFlee();
-            initRates();
-//            UPPER.add(fleeWeb);
-            forms.removeAll();
-            team.removeAll();
+            beginMoves();
             fighterFrontPanel.initFighters(facade.getPlayerFrontTeam());
             team.add(fighterFrontPanel.getContainer());
             fighterBackPanel.initFighters(facade.getPlayerBackTeam());
@@ -556,18 +543,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             lower.add(fleeWeb);
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
         } else if (facade.getFight().getState() == FightState.SWITCH_APRES_ATTAQUE) {
-            fleeWeb.add(webLabel);
-            addBalls();
-            addCatching();
-//            fleeWeb.add(web);
-            validateActions = window.getCompoFactory().newPlainButton();
-            validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new RoundAllThrowersEvent(this));
-            fleeWeb.add(validateActions);
-            addFlee();
-            initRates();
-//            UPPER.add(fleeWeb);
-            forms.removeAll();
-            team.removeAll();
+            beginMoves();
 //            fighterFrontPanel.initFighters(new TreeMap<Byte,Fighter>(new));
 //            team_.add(fighterFrontPanel);
             fighterBackPanel.initFighters(facade.getPlayerBackTeam());
@@ -598,6 +574,21 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         setMessages();
         //add(actionsBattle);
         enabledChangeLanguage = true;
+    }
+
+    private void beginMoves() {
+        fleeWeb.add(webLabel);
+//            fleeWeb.add(web);
+        addBalls();
+        addCatching();
+        validateActions = window.getCompoFactory().newPlainButton();
+        validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new RoundAllThrowersEvent(this));
+        fleeWeb.add(validateActions);
+        addFlee();
+        initRates();
+//            UPPER.add(fleeWeb);
+        forms.removeAll();
+        team.removeAll();
     }
 
     public void endFight() {
@@ -974,6 +965,11 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         if (targets == null) {
             targets = new TargetsPanel(window.getCompoFactory());
         }
+        panelPart();
+        ballPart();
+    }
+
+    private void panelPart() {
         if (fighterFrontPanel == null) {
             fighterFrontPanel = new FighterPanel(window, facade.getFight().getMult(), DataBase.EMPTY_STRING, facade, facade.getPlayerFrontTeam());
             fighterFrontPanel.addListener(this, true, false);
@@ -1020,6 +1016,9 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         if (abilitiesLearnPanel == null) {
             abilitiesLearnPanel = window.getCompoFactory().newPageBox();
         }
+    }
+
+    private void ballPart() {
         if (ballPanel == null) {
             ballPanel = new BallPanel(window, 5, DataBase.EMPTY_STRING, facade);
         }

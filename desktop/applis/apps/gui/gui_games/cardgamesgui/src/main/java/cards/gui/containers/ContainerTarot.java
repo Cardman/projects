@@ -5,6 +5,8 @@ import cards.consts.Role;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.AddTextEvents;
+import cards.gui.animations.HandfulThread;
+import cards.gui.animations.SettingText;
 import cards.gui.events.ListenerCardTarotHandful;
 import cards.gui.events.SelectHandfulEvent;
 import cards.gui.labels.*;
@@ -72,6 +74,41 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return tapisTarot().getEcart();
     }
 
+    protected void panel(int _nbPlayers, StringList _pseudos,AbsPanel _container, AbsPanel _panneau2) {
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(buildDeclHands(_nbPlayers, _pseudos, getOwner().getFrames()));
+        _panneau2.add(scroll_);
+        setPanelCallableCards(getOwner().getCompoFactory().newLineBox());
+        setScrollCallableCards(getOwner().getCompoFactory().newAbsScrollPane(getPanelCallableCards()));
+        getScrollCallableCards().setVisible(false);
+        _panneau2.add(getScrollCallableCards());
+        AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
+        setPanneauBoutonsJeu(sousPanneau_);
+        _panneau2.add(sousPanneau_);
+        setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
+        getPanelDiscardedTrumps().setVisible(false);
+        _panneau2.add(getPanelDiscardedTrumps());
+        _container.add(_panneau2,GuiConstants.BORDER_LAYOUT_EAST);
+    }
+
+    public static void ajouterBoutonContratsTarot(ContainerPlayableTarot _playable,CustList<BidTarot> _bids, BidTarot _m) {
+        TranslationsLg lg_ = _playable.getOwner().getFrames().currentLg();
+        for(BidTarot b: _bids) {
+            ajouterBoutonContratTarot(_playable,Games.toString(b, lg_),b,b.estDemandable(_m));
+        }
+    }
+    public static void ajouterBoutonContratTarot(ContainerPlayableTarot _playable,String _texte,BidTarot _action,boolean _apte) {
+        AbsPanel panneau_ = _playable.getPanneauBoutonsJeu();
+        AbsButton bouton_ = _playable.getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.addActionListener(new EcouteurBoutonContratTarot(_action));
+        bouton_.addActionListener(_playable.guard(), _playable.bid(_action));
+        bouton_.setEnabled(_apte);
+        if (!_apte) {
+            TranslationsLg lg_ = _playable.getOwner().getFrames().currentLg();
+            bouton_.setToolTipText(StringUtil.simpleStringsFormat(_playable.file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_action, lg_)));
+        }
+        panneau_.add(bouton_);
+        _playable.getBids().add(_action);
+    }
     public String errorHandful(boolean _ecouteur, RulesTarot _regles) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         String finalMessageHandful_;
@@ -95,6 +132,39 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return finalMessageHandful_;
     }
 
+    public void firstRound(byte _joueur, String _pseudo, IdList<Handfuls> _declHand, IdList<Miseres> _miseres, HandTarot _hand, IntCardsCallEvents _interceptor) {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        for(Handfuls annonce_: _declHand) {
+            _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE)));
+//                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
+        }
+        for(Miseres annonce_: _miseres) {
+            _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE)));
+//                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
+        }
+        if(!_hand.estVide()) {
+            AbsPlainLabel label_ = getHandfuls().getVal(_joueur);
+            _interceptor.call(new SettingText(label_, Games.toString(_declHand.first(), lg_)));
+//                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
+        }
+        _hand.trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
+        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+        _interceptor.call(new HandfulThread(_hand, panelToSet_, getWindow()));
+    }
+
+    public void miseres(RulesTarot _regles, AbsPanel _panneau) {
+        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+        AbsPanel miseresPanel_ = getOwner().getCompoFactory().newPageBox();
+        for(Miseres po_: _regles.getMiseres()) {
+            AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_, lg_));
+            //check_.addChangeListener(new ListenerMiseres(check_,po_));
+//                check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
+            getSelectedMiseres().put(po_, check_);
+            miseresPanel_.add(check_);
+        }
+        _panneau.add(miseresPanel_);
+    }
+
     public static void displayTrumpsForHandful(ContainerPlayableTarot _cont, HandTarot _trumps) {
         _cont.getScrollDeclaringHandful().setVisible(!_trumps.estVide());
         int sum_ = _cont.getCurrentIncludedTrumps().total() + _cont.getCurrentExcludedTrumps().total();
@@ -107,6 +177,26 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         _cont.getOwner().pack();
         //PackingWindowAfter.pack(this, true);
         _cont.getDeclaringHandful().setDividerLocation(_cont.getDeclaringHandful().getWidth()*9/10);
+    }
+    public static void updateHandfulButtons(ContainerPlayableTarot _container, RulesTarot _rules) {
+        IdList<Handfuls> all_ = new IdList<Handfuls>();
+        IdList<Handfuls> enabled_ = new IdList<Handfuls>();
+        all_.addAllElts(Handfuls.getNonDeclarableHandFuls());
+        enabled_.addAllElts(Handfuls.getNonDeclarableHandFuls());
+        for (Handfuls h: Handfuls.getDeclarableHandFuls()) {
+            if (!_rules.poigneeAutorisee(h)) {
+                continue;
+            }
+            int diff_ = _container.getCurrentIncludedTrumps().total()-_rules.getAllowedHandfuls().getVal(h);
+            if (diff_ >= 0) {
+                enabled_.add(h);
+            }
+//            if (poignees_.containsObj(h)) {
+//                enabled_.add(h);
+//            }
+            all_.add(h);
+        }
+        updateHandfulButtons(_container,all_,enabled_,_rules.getAllowedHandfuls());
     }
     public static void updateHandfulButtons(ContainerPlayableTarot _container,IdList<Handfuls> _all, IdList<Handfuls> _enabled, IdMap<Handfuls,Integer> _req) {
         TranslationsLg lg_ = _container.getOwner().getFrames().currentLg();

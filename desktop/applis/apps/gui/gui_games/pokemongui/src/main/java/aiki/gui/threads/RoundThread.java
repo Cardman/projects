@@ -13,7 +13,7 @@ public abstract class RoundThread implements Runnable {
 
     private Battle battle;
 
-    public RoundThread(FacadeGame _facade, Battle _battle) {
+    protected RoundThread(FacadeGame _facade, Battle _battle) {
         facade = _facade;
         battle = _battle;
     }

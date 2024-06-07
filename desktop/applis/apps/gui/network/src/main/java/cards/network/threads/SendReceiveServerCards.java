@@ -11,19 +11,15 @@ import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
-import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
-import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.*;
 import cards.network.common.before.*;
 import cards.gui.TeamsPlayers;
-import cards.network.president.actions.DiscardedCards;
+import cards.network.president.actions.DiscardedCardsPresident;
 import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.DealtHandPresident;
 import cards.network.president.displaying.ReceivedGivenCards;
-import cards.network.president.displaying.players.RefreshHandPlayingPresident;
-import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
@@ -31,8 +27,6 @@ import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.players.RefreshHand;
-import cards.network.tarot.displaying.players.RefreshingDone;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
@@ -51,16 +45,13 @@ import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
-import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
 public final class SendReceiveServerCards extends BasicServer {
 
-    private static final String EMPTY_STRING = "";
+//    private static final String EMPTY_STRING = "";
 
     private final AbstractBaseExecutorService lock;
 
@@ -478,20 +469,21 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             return;
         }
-        if (_action instanceof PlayingCardTarot) {
+        if (_action instanceof PlayingCardTarot && !((PlayingCardTarot)_action).isRefreshing()) {
             processPlayingTarot((PlayingCardTarot) _action, _instance, _common);
             return;
         }
-        if (_action instanceof RefreshingDone) {
+        if (_action instanceof PlayingCardTarot) {
             PlayingCardTarot p_ = new PlayingCardTarot();
+            p_.setRefreshing(false);
             GameTarot game_ = Net.getGames(_instance).partieTarot();
             p_.setTakerIndex(game_.getPreneur());
             p_.setPlace(_action.getPlace());
-            p_.setPlayedCard(((RefreshingDone)_action).getCard());
-            p_.setChoosenHandful(((RefreshingDone)_action).getChoosenHandful());
-            p_.setHandful(((RefreshingDone)_action).getHandful());
-            p_.setMiseres(((RefreshingDone)_action).getMiseres());
-            p_.setCalledCard(((RefreshingDone)_action).isCalledCard());
+            p_.setPlayedCard(((PlayingCardTarot)_action).getPlayedCard());
+            p_.setChoosenHandful(((PlayingCardTarot)_action).getChoosenHandful());
+            p_.setHandful(((PlayingCardTarot)_action).getHandful());
+            p_.setMiseres(((PlayingCardTarot)_action).getMiseres());
+            p_.setCalledCard(((PlayingCardTarot)_action).isCalledCard());
             p_.setExcludedTrumps(new HandTarot());
             //p_.setLocale(Constants.getDefaultLanguage());
 //            p_.setLocale("");
@@ -691,8 +683,10 @@ public final class SendReceiveServerCards extends BasicServer {
             declaredMiseres_.add(m);
         }
         game_.setAnnoncesMiseres(_instance.getIa().getTarot().misere(declaredMiseres_));
-        RefreshHand ref_ = new RefreshHand();
-        ref_.setCard(played_);
+        PlayingCardTarot ref_ = new PlayingCardTarot();
+        ref_.setRefreshing(true);
+        ref_.setExcludedTrumps(new HandTarot());
+        ref_.setPlayedCard(played_);
         ref_.setPlace(_readObject.getPlace());
         if (!game_.getAnnoncesPoignees(_readObject.getPlace()).isEmpty()) {
             ref_.setChoosenHandful(game_.getAnnoncesPoignees(_readObject.getPlace()).first());
@@ -1345,7 +1339,7 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             return;
         }
-        if (_action instanceof PlayingCardBelote) {
+        if (_action instanceof PlayingCardBelote && !((PlayingCardBelote)_action).isRefreshing()) {
             PlayingCardBelote info_ = (PlayingCardBelote) _action;
             CardBelote card_ = info_.getPlayedCard();
             GameBelote game_ = Net.getGames(_instance).partieBelote();
@@ -1384,8 +1378,9 @@ public final class SendReceiveServerCards extends BasicServer {
                 game_.setAnnoncesBeloteRebelote(played_);
             }
             game_.ajouterUneCarteDansPliEnCoursJoue(played_);
-            RefreshHandPlayingBelote ref_ = new RefreshHandPlayingBelote();
-            ref_.setCard(played_);
+            PlayingCardBelote ref_ = new PlayingCardBelote();
+            ref_.setRefreshing(true);
+            ref_.setPlayedCard(played_);
             ref_.setDeclaringBeloteRebelote(info_.isDeclaringBeloteRebelote());
             ref_.setDeclaring(info_.isDeclaring());
             ref_.setPlace(info_.getPlace());
@@ -1395,15 +1390,16 @@ public final class SendReceiveServerCards extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _common), ref_);
             return;
         }
-        if (_action instanceof RefreshingDoneBelote) {
+        if (_action instanceof PlayingCardBelote) {
             PlayingCardBelote p_ = new PlayingCardBelote();
+            p_.setRefreshing(false);
             GameBelote game_ = Net.getGames(_instance).partieBelote();
             p_.setTakerIndex(game_.getPreneur());
             p_.setPlace(_action.getPlace());
-            p_.setPlayedCard(((RefreshingDoneBelote)_action).getCard());
-            p_.setDeclaringBeloteRebelote(((RefreshingDoneBelote)_action).isDeclaringBeloteRebelote());
-            p_.setDeclaring(((RefreshingDoneBelote)_action).isDeclaring());
-            p_.setDeclare(((RefreshingDoneBelote)_action).getDeclare());
+            p_.setPlayedCard(((PlayingCardBelote)_action).getPlayedCard());
+            p_.setDeclaringBeloteRebelote(((PlayingCardBelote)_action).isDeclaringBeloteRebelote());
+            p_.setDeclaring(((PlayingCardBelote)_action).isDeclaring());
+            p_.setDeclare(((PlayingCardBelote)_action).getDeclare());
             //p_.setLocale(Constants.getDefaultLanguage());
 //            p_.setLocale("");
             Net.initAllReceived(_instance, _common);
@@ -1501,9 +1497,9 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             return;
         }
-        if (_action instanceof DiscardedCards) {
+        if (_action instanceof DiscardedCardsPresident) {
             Bytes pl_ = Net.activePlayers(_instance, _common);
-            DiscardedCards dis_ = (DiscardedCards) _action;
+            DiscardedCardsPresident dis_ = (DiscardedCardsPresident) _action;
             HandPresident cards_ = dis_.getDiscarded();
             byte player_ = dis_.getPlace();
             GamePresident g_ = Net.getGames(_instance).partiePresident();
@@ -1544,7 +1540,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 playingPresidentCard(_instance,_fct, _common);
             }
         }
-        if (_action instanceof PlayingCardPresident) {
+        if (_action instanceof PlayingCardPresident && !((PlayingCardPresident)_action).isRefreshing()) {
             GamePresident game_ = Net.getGames(_instance).partiePresident();
             PlayingCardPresident pl_ = (PlayingCardPresident) _action;
             byte player_ = pl_.getPlace();
@@ -1567,7 +1563,8 @@ public final class SendReceiveServerCards extends BasicServer {
 //                    cardDto_.setLocale("");
 //                    Net.sendObject(Net.getSocketByPlace(player_, _common),cardDto_);
 //                }
-                RefreshHandPlayingPresident cardDto_ = new RefreshHandPlayingPresident();
+                PlayingCardPresident cardDto_ = new PlayingCardPresident();
+                cardDto_.setRefreshing(true);
                 cardDto_.setPlayedHand(game_.noPlay(_instance.getIa().getPresident()));
                 cardDto_.setPlace(player_);
                 cardDto_.setNextPlayer(game_.nextPlayer());
@@ -1595,7 +1592,8 @@ public final class SendReceiveServerCards extends BasicServer {
 //                    cardDto_.setLocale("");
 //                    Net.sendObject(Net.getSocketByPlace(player_, _common),cardDto_);
 //                }
-                RefreshHandPlayingPresident cardDto_ = new RefreshHandPlayingPresident();
+                PlayingCardPresident cardDto_ = new PlayingCardPresident();
+                cardDto_.setRefreshing(true);
                 cardDto_.setPlayedHand(game_.addCardsToCurrentTrick(_instance.getIa().getPresident(), pl_.getPlayedCard(), pl_.getIndex()));
                 cardDto_.setPlace(player_);
                 cardDto_.setNextPlayer(game_.nextPlayer());
@@ -1640,10 +1638,11 @@ public final class SendReceiveServerCards extends BasicServer {
             }
             return;
         }
-        if (_action instanceof RefreshingDonePresident) {
+        if (_action instanceof PlayingCardPresident) {
             PlayingCardPresident cardDto_ = new PlayingCardPresident();
+            cardDto_.setRefreshing(false);
             GamePresident game_ = Net.getGames(_instance).partiePresident();
-            cardDto_.setPlayedHand(((RefreshingDonePresident)_action).getPlayedHand());
+            cardDto_.setPlayedHand(((PlayingCardPresident)_action).getPlayedHand());
 //            cardDto_.setPlayedHand(game_.getPlayedCards());
             cardDto_.setPlace(_action.getPlace());
             cardDto_.setNextPlayer(game_.nextPlayer());
@@ -1927,14 +1926,14 @@ public final class SendReceiveServerCards extends BasicServer {
 //    }
     private static void endGameBelote(Net _instance, NetCommon _common) {
         StringList players_ = new StringList();
-        int nbPlayers_ = Net.getGames(_instance).partieBelote().getNombreDeJoueurs();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
-            if (_common.getNicknames().contains(i)) {
-                players_.add(_common.getNicknames().getVal(i));
-            } else {
-                players_.add(EMPTY_STRING);
-            }
-        }
+//        int nbPlayers_ = Net.getGames(_instance).partieBelote().getNombreDeJoueurs();
+//        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
+//            if (_common.getNicknames().contains(i)) {
+//                players_.add(_common.getNicknames().getVal(i));
+//            } else {
+//                players_.add(EMPTY_STRING);
+//            }
+//        }
         for (byte p: Net.activePlayers(_instance,_common)) {
             ResultsBelote res_ = new ResultsBelote();
             CustList<Longs> scores_ = Net.getScores(_instance);
@@ -1952,14 +1951,14 @@ public final class SendReceiveServerCards extends BasicServer {
     }
     private static void endGamePresident(Net _instance, NetCommon _common) {
         StringList players_ = new StringList();
-        int nbPlayers_ = Net.getGames(_instance).partiePresident().getNombreDeJoueurs();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
-            if (_common.getNicknames().contains(i)) {
-                players_.add(_common.getNicknames().getVal(i));
-            } else {
-                players_.add(EMPTY_STRING);
-            }
-        }
+//        int nbPlayers_ = Net.getGames(_instance).partiePresident().getNombreDeJoueurs();
+//        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
+//            if (_common.getNicknames().contains(i)) {
+//                players_.add(_common.getNicknames().getVal(i));
+//            } else {
+//                players_.add(EMPTY_STRING);
+//            }
+//        }
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(Net.getGames(_instance).partiePresident());
         CustList<Longs> scores_ = Net.getScores(_instance);
@@ -1977,14 +1976,14 @@ public final class SendReceiveServerCards extends BasicServer {
     }
     private static void endGameTarot(Net _instance, NetCommon _common) {
         StringList players_ = new StringList();
-        int nbPlayers_ = Net.getGames(_instance).partieTarot().getNombreDeJoueurs();
-        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
-            if (_common.getNicknames().contains(i)) {
-                players_.add(_common.getNicknames().getVal(i));
-            } else {
-                players_.add(EMPTY_STRING);
-            }
-        }
+//        int nbPlayers_ = Net.getGames(_instance).partieTarot().getNombreDeJoueurs();
+//        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
+//            if (_common.getNicknames().contains(i)) {
+//                players_.add(_common.getNicknames().getVal(i));
+//            } else {
+//                players_.add(EMPTY_STRING);
+//            }
+//        }
         for (byte p: Net.activePlayers(_instance, _common)) {
             ResultsTarot res_ = new ResultsTarot();
             res_.setGame(Net.getGames(_instance).partieTarot());
@@ -2028,6 +2027,7 @@ public final class SendReceiveServerCards extends BasicServer {
         CardBelote card_ = game_.playCard(_instance.getIa().getBelote());
         boolean declareBeloteRebelote_ = game_.getAnnoncesBeloteRebelote(place_).contient(card_);
         PlayingCardBelote cardDto_ = new PlayingCardBelote();
+        cardDto_.setRefreshing(false);
         cardDto_.setTakerIndex(game_.getPreneur());
         cardDto_.setPlace(place_);
         cardDto_.setPlayedCard(card_);
@@ -2063,6 +2063,7 @@ public final class SendReceiveServerCards extends BasicServer {
 //            return;
 //        }
         PlayingCardPresident cardDto_ = new PlayingCardPresident();
+        cardDto_.setRefreshing(false);
         cardDto_.setPlayedHand(game_.addCardsToCurrentTrick(_instance.getIa().getPresident()));
         cardDto_.setPlace(place_);
         cardDto_.setNextPlayer(game_.nextPlayer());
@@ -2088,16 +2089,16 @@ public final class SendReceiveServerCards extends BasicServer {
             if (firstRound_) {
                 decla_.setDiscardedTrumps(ContainerSingleTarot.discarded(game_));
                 decla_.setCalledCards(game_.getCalledCards());
-                IdList<Handfuls> handfuls_ = new IdList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
-                decla_.setAllowedHandfuls(new IdList<Handfuls>(handfuls_));
-                decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>(game_.getRegles().getAllowedHandfuls()));
-                decla_.setAllowedMiseres(new IdList<Miseres>(game_.getRegles().getMiseres()));
+//                IdList<Handfuls> handfuls_ = new IdList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
+//                decla_.setAllowedHandfuls(new IdList<Handfuls>(handfuls_));
+//                decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>(game_.getRegles().getAllowedHandfuls()));
+//                decla_.setAllowedMiseres(new IdList<Miseres>(game_.getRegles().getMiseres()));
             } else {
                 decla_.setDiscardedTrumps(new HandTarot());
                 decla_.setCalledCards(new HandTarot());
-                decla_.setAllowedHandfuls(new IdList<Handfuls>());
-                decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>());
-                decla_.setAllowedMiseres(new IdList<Miseres>());
+//                decla_.setAllowedHandfuls(new IdList<Handfuls>());
+//                decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>());
+//                decla_.setAllowedMiseres(new IdList<Miseres>());
             }
             Net.sendObject(Net.getSocketByPlace(place_, _common), decla_);
             return;
@@ -2108,6 +2109,7 @@ public final class SendReceiveServerCards extends BasicServer {
 //        }
         CardTarot card_ = game_.currentPlayerHasPlayed(_instance.getIa().getTarot());
         PlayingCardTarot cardDto_ = new PlayingCardTarot();
+        cardDto_.setRefreshing(false);
         cardDto_.setTakerIndex(game_.getPreneur());
         cardDto_.setPlace(place_);
         cardDto_.setPlayedCard(card_);

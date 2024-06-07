@@ -21,6 +21,8 @@ public final class PlayingCardTarot extends PlayerActionGame {
 
     private boolean calledCard;
 
+    private boolean refreshing;
+
     private byte takerIndex;
 
     public CardTarot getPlayedCard() {
@@ -69,6 +71,14 @@ public final class PlayingCardTarot extends PlayerActionGame {
 
     public void setCalledCard(boolean _calledCard) {
         calledCard = _calledCard;
+    }
+
+    public boolean isRefreshing() {
+        return refreshing;
+    }
+
+    public void setRefreshing(boolean _r) {
+        this.refreshing = _r;
     }
 
     public byte getTakerIndex() {

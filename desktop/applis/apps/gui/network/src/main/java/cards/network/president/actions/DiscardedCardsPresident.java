@@ -3,7 +3,7 @@ import cards.network.common.PlayerActionGame;
 import cards.president.HandPresident;
 
 
-public final class DiscardedCards extends PlayerActionGame {
+public final class DiscardedCardsPresident extends PlayerActionGame {
 
     private HandPresident discarded;
 

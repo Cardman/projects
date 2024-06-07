@@ -16,6 +16,7 @@ import cards.tarot.RulesTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public abstract class ContainerGame {
 
@@ -104,6 +105,27 @@ public abstract class ContainerGame {
 //        }
 //    }
 
+    public AbsPanel buildDeclHands(int _nbPlayers, CustList<String> _pseudos, AbstractProgramInfos _api) {
+        initHandfuls();
+        AbsPanel handfuls_ = _api.getCompoFactory().newGrid();
+        for (byte i = IndexConstants.FIRST_INDEX; i<_nbPlayers; i++) {
+            AbsPlainLabel lab_ = _api.getCompoFactory().newPlainLabel(_pseudos.get(i));
+            lab_.left();
+            Carpet.add(_api.getCompoFactory(),handfuls_,lab_,false);
+            AbsPlainLabel handful_ = _api.getCompoFactory().newPlainLabel(EMPTY_STRING);
+            Carpet.add(_api.getCompoFactory(),handfuls_,handful_,false);
+            getHandfuls().put(i, handful_);
+            AbsPanel declaredHandful_ = _api.getCompoFactory().newLineBox();
+            Carpet.add(_api.getCompoFactory(),handfuls_,declaredHandful_,true);
+            getDeclaredHandfuls().put(i, declaredHandful_);
+        }
+        return handfuls_;
+    }
+
+    public void initHandfuls() {
+        setHandfuls(new ByteMap<AbsPlainLabel>());
+        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+    }
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
         FacadeCards.changerNombreDeParties(_game,_nbGames,WindowCards.getTempFolderSl(_tmpUserFolderSl),_tmpUserFolderSl, _nbStacks);
     }

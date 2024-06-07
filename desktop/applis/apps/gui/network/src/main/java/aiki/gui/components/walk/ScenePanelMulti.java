@@ -256,15 +256,16 @@ public class ScenePanelMulti {
 //
 //    private AbsPlainButton nicknamePk;
 
-    private boolean enabledClick = true;
+//    private boolean enabledClick = true;
 
     private RenderedPage receivedPk;
 
     private AbsPanel panelNetWork;
 
     private boolean enabledReady;
+    private boolean readyTrade;
 
-    private AbsCustCheckBox readyCheck;
+    private AbsButton readyCheck;
 
 //    private final MapPanel mapPanel;
 //
@@ -727,14 +728,16 @@ public class ScenePanelMulti {
         group_.add(scrollSession_, GuiConstants.BORDER_LAYOUT_CENTER);
         panelNetWork.add(group_);
         enabledReady = false;
-        readyCheck = window.getCompoFactory().newCustCheckBox(messages.getVal(MessagesRenderScenePanel.READY));
+        readyCheck = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.READY));
+        readyTrade = false;
+        readyCheck.setLineBorder(GuiConstants.BLACK);
         readyCheck.setEnabled(enabledReady);
-        readyCheck.addActionListener(new ReadyEventAiki(window, readyCheck));
+        readyCheck.addActionListener(new ReadyEventAiki(window));
         panelNetWork.add(readyCheck);
     }
 
     public void setTradableAfterTrading(ByteTreeMap< PokemonPlayer> _team) {
-        enabledClick = false;
+//        enabledClick = false;
         ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
@@ -742,8 +745,9 @@ public class ScenePanelMulti {
         teamPan.initFighters(teamPks_,messages);
         readyCheck.setEnabled(false);
         enabledReady = false;
-        readyCheck.setSelected(false);
-        enabledClick = true;
+        readyCheck.setLineBorder(GuiConstants.BLACK);
+//        readyCheck.setSelected(false);
+//        enabledClick = true;
     }
 
     public void seeNetPokemonDetail() {
@@ -1662,10 +1666,11 @@ public class ScenePanelMulti {
 //    }
 
     public void selectPkTeamTrade() {
-        if (!enabledClick) {
-            return;
-        }
-        if (readyCheck.isSelected()) {
+//        if (!enabledClick) {
+//            return;
+//        }
+        if (readyTrade) {
+//        if (readyCheck.isSelected())
             return;
         }
         facade.setIndexTeamTrading(teamPan.getSelectedIndexSingle());
@@ -1738,5 +1743,18 @@ public class ScenePanelMulti {
 
     public WindowNetWork getWindow() {
         return window;
+    }
+
+    public boolean isReadyTrade() {
+        return readyTrade;
+    }
+
+    public void readyTrade() {
+        this.readyTrade = !readyTrade;
+        if (readyTrade) {
+            readyCheck.setLineBorder(GuiConstants.RED);
+        } else {
+            readyCheck.setLineBorder(GuiConstants.BLACK);
+        }
     }
 }

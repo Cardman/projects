@@ -6,10 +6,8 @@ package cards.gui.containers;
 
 import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
-import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
-import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.GameType;
 import cards.consts.Role;
 import cards.facade.Games;
@@ -19,8 +17,6 @@ import cards.gui.containers.events.*;
 import cards.gui.dialogs.*;
 import cards.gui.events.ListenerBidBeloteMulti;
 import cards.gui.events.ListenerCardBeloteMultiGame;
-import cards.gui.events.SelectPointsEvent;
-import cards.gui.events.SelectSuitEvent;
 import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
@@ -31,8 +27,6 @@ import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
-import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
-import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.*;
@@ -40,16 +34,13 @@ import cards.network.common.before.PlayersNamePresent;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
-import code.util.CustList;
 import code.util.*;
-import code.util.Ints;
-import code.util.StringList;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 public class ContainerMultiBelote extends ContainerBelote implements
         ContainerMulti,ContainerPlayableBelote {
@@ -99,34 +90,36 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
     }
 
-    private void addButtonsForCoinche(int _pts, CustList<BidBeloteSuit> _bids) {
-        IdList<BidBelote> all_ = new IdList<BidBelote>();
-        for (BidBeloteSuit s: _bids) {
-
-            all_.add(s.getBid());
-        }
-        Ints points_ = RulesBelote.getPoints();
-        int size_ = points_.size();
-        setPanneauBoutonsJeuPoints(getOwner().getCompoFactory().newGrid());
-        getPointsButtons().clear();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        for (int i = 0; i < size_; i++) {
-            int p_ = points_.get(i);
-            LabelPoints label_ = new LabelPoints(p_, getOwner().getCompoFactory());
-            label_.setEnabledLabel(_pts < p_);
-            label_.setToolTipText(Long.toString(p_));
-            label_.getButton().addActionListener(new SelectPointsEvent(this, p_));
-            getPointsButtons().add(label_);
-            getPanneauBoutonsJeuPoints().add(label_.getButton(),WindowCardsCore.ctsRem(getWindow().getCompoFactory(),(i+1)%3==0));
-        }
-        getPanneauBoutonsJeu().add(getPanneauBoutonsJeuPoints());
-        setBidOk(getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_OK)));
-        getBidOk().setEnabled(false);
-        getBidOk().addActionListener(new BidEvent(this));
-        AbsPanel panel_ = getOwner().getCompoFactory().newGrid();
+//    private void addButtonsForCoinche(int _pts) {
+//        IdList<BidBelote> all_ = new IdList<BidBelote>();
+//        for (BidBeloteSuit s: _bids) {
+//
+//            all_.add(s.getBid());
+//        }
+//        addButtonsForCoinche(this, _pts,all_);
+//        addButtonsForCoinche(this, _pts,getRulesBeloteMulti().getListeEncheresAutorisees());
+//        Ints points_ = RulesBelote.getPoints();
+//        int size_ = points_.size();
+//        setPanneauBoutonsJeuPoints(getOwner().getCompoFactory().newGrid());
+//        getPointsButtons().clear();
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        for (int i = 0; i < size_; i++) {
+//            int p_ = points_.get(i);
+//            LabelPoints label_ = new LabelPoints(p_, getOwner().getCompoFactory());
+//            label_.setEnabledLabel(_pts < p_);
+//            label_.setToolTipText(Long.toString(p_));
+//            label_.getButton().addActionListener(new SelectPointsEvent(this, p_));
+//            getPointsButtons().add(label_);
+//            getPanneauBoutonsJeuPoints().add(label_.getButton(),WindowCardsCore.ctsRem(getWindow().getCompoFactory(),(i+1)%3==0));
+//        }
+//        getPanneauBoutonsJeu().add(getPanneauBoutonsJeuPoints());
+//        setBidOk(getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_OK)));
+//        getBidOk().setEnabled(false);
+//        getBidOk().addActionListener(new BidEvent(this));
+//        AbsPanel panel_ = getOwner().getCompoFactory().newGrid();
 //        AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
 //        AbsPanel panelSuits_ = getOwner().getCompoFactory().newLineBox();
-        getBidsButtons().clear();
+//        getBidsButtons().clear();
 //        for (Suit s: Suit.couleursOrdinaires()) {
 //            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
 //            BidBeloteSuit bid_ = new BidBeloteSuit();
@@ -142,17 +135,17 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        panel_.add(panelSuits_);
 //        AbsPanel panelBids_ = getOwner().getCompoFactory().newLineBox();
 
-        CustList<BidBeloteSuit> bidsAll_ = GameBeloteBid.baseBidsDealAll(all_);
-        for (BidBeloteSuit b: bidsAll_) {
-            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
-            suitLabel_.setSuit(b, lg_);
-            suitLabel_.addMouseListener(new SelectSuitEvent(this,b));
+//        CustList<BidBeloteSuit> bidsAll_ = GameBeloteBid.baseBidsDealAll(all_);
+//        for (BidBeloteSuit b: bidsAll_) {
+//            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
+//            suitLabel_.setSuit(b, lg_);
+//            suitLabel_.addMouseListener(new SelectSuitEvent(this,b));
 //            panel_.add(suitLabel_.getPaintableLabel(),WindowCardsCore.ctsRem(getWindow().getCompoFactory(),(panel_.getComponentCount()+1)%4==0 || (panel_.getComponentCount()+1)%bidsAll_.size()==0));
-            panel_.add(suitLabel_.getPaintableLabel(), ContainerSingleBelote.ctsRem(panel_, bidsAll_, getWindow().getCompoFactory()));
-            getBidsButtons().add(suitLabel_);
-            AbsMetaLabelCard.paintCard(getOwner().getImageFactory(), suitLabel_);
-            getBids().add(b);
-        }
+//            panel_.add(suitLabel_.getPaintableLabel(), ContainerSingleBelote.ctsRem(panel_, bidsAll_, getWindow().getCompoFactory()));
+//            getBidsButtons().add(suitLabel_);
+//            AbsMetaLabelCard.paintCard(getOwner().getImageFactory(), suitLabel_);
+//            getBids().add(b);
+//        }
 
 //        for (BidBelote b: BidBelote.getNonZeroBids()) {
 //            if (b.getCouleurDominante()) {
@@ -179,15 +172,15 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        }
 //        panel_.add(panelBids_);
 //        AbsPanel panelOk_ = getOwner().getCompoFactory().newLineBox();
-        AbsButton buttonSuit_ = getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
-        buttonSuit_.addActionListener(new FoldEvent(this));
+//        AbsButton buttonSuit_ = getOwner().getCompoFactory().newPlainButton(Games.toString(BidBelote.FOLD,lg_));
+//        buttonSuit_.addActionListener(new FoldEvent(this));
 //        panelOk_.add(buttonSuit_);
-        panel_.add(buttonSuit_,WindowCardsCore.cts(getWindow().getCompoFactory()));
+//        panel_.add(buttonSuit_,WindowCardsCore.cts(getWindow().getCompoFactory()));
 //        panelOk_.add(getBidOk());
 //        panel_.add(panelOk_);
-        panel_.add(getBidOk(),WindowCardsCore.cts(getWindow().getCompoFactory()));
-        getPanneauBoutonsJeu().add(panel_);
-    }
+//        panel_.add(getBidOk(),WindowCardsCore.cts(getWindow().getCompoFactory()));
+//        getPanneauBoutonsJeu().add(panel_);
+//    }
 
     @Override
     public void bid() {
@@ -226,20 +219,20 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getContainerMultiContent().window().sendObject(bid_);
     }
 
-    private void ajouterBoutonContratBeloteMulti(String _texte,
-            BidBeloteSuit _action, boolean _enabled) {
-        AbsPanel panneau_ = getPanneauBoutonsJeu();
-        AbsButton bouton_ = getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.setEnabled(_enabled);
-        if (!_enabled) {
-            TranslationsLg lg_ = getOwner().getFrames().currentLg();
-            String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_action,lg_));
-            bouton_.setToolTipText(mes_);
-        }
+//    private void ajouterBoutonContratBeloteMulti(String _texte,
+//            BidBeloteSuit _action, boolean _enabled) {
+//        AbsPanel panneau_ = getPanneauBoutonsJeu();
+//        AbsButton bouton_ = getOwner().getCompoFactory().newPlainButton(_texte);
+//        bouton_.setEnabled(_enabled);
+//        if (!_enabled) {
+//            TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//            String mes_ = StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_CANT_BID), Games.toString(_action,lg_));
+//            bouton_.setToolTipText(mes_);
+//        }
 //        bouton_.addActionListener(new EcouteurBoutonContratBeloteMulti(_action));
-        bouton_.addActionListener(new ListenerBidBeloteMulti(this,_action));
-        panneau_.add(bouton_);
-    }
+//        bouton_.addActionListener(new ListenerBidBeloteMulti(this,_action));
+//        panneau_.add(bouton_);
+//    }
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
@@ -414,14 +407,17 @@ public class ContainerMultiBelote extends ContainerBelote implements
         containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
 //        setCanBid(true);
         getPanneauBoutonsJeu().removeAll();
-        TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        if (!repBelote.withBidPointsForAllPlayers()) {
-            for (BidBeloteSuit b : _bids.getBids()) {
-                ajouterBoutonContratBeloteMulti(Games.toString(b,lg_), b, b.estDemandable(_bids.getBid()));
-            }
-        } else {
-            addButtonsForCoinche(_bids.getBid().getPoints(), _bids.getBids());
-        }
+        bidButtons(this,getRulesBeloteMulti(),_bids.getBid().getPoints(),_bids.getBid(),_bids.getBids());
+//        TranslationsLg lg_ = getOwner().getFrames().currentLg();
+//        if (!repBelote.withBidPointsForAllPlayers()) {
+//            for (BidBeloteSuit b : _bids.getBids()) {
+//                ajouterBoutonContratBelote(this,Games.toString(b, lg_),b,b.estDemandable(_bids.getBid()));
+//                ajouterBoutonContratBeloteMulti(Games.toString(b,lg_), b, b.estDemandable(_bids.getBid()));
+//            }
+//        } else {
+//            addButtonsForCoinche(this, _bids.getBid().getPoints(),getRulesBeloteMulti().getListeEncheresAutorisees());
+//            addButtonsForCoinche(_bids.getBid().getPoints());
+//        }
         //getPanneauBoutonsJeu().validate();
         pack();
         //PackingWindowAfter.pack(this, true);
@@ -503,10 +499,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void validateDiscard() {
         updateCardsInPanelBeloteMulti(false);
         containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
-        if (!getTakerCardsDiscard().estVide()) {
-            playerHand = getTakerCardsDiscard();
+        refreshPlayerHand();
+//        if (!getTakerCardsDiscard().estVide()) {
+//            playerHand = getTakerCardsDiscard();
 //            setChienMulti(false);
-        }
+//        }
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
@@ -540,15 +537,19 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         pack();
-        if (!getTakerCardsDiscard().estVide()) {
-            playerHand = getTakerCardsDiscard();
-        }
+        refreshPlayerHand();
         //PackingWindowAfter.pack(this, true);
 //        String lg_ = getOwner().getLanguageKey();
         PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
         bid_.setPlace(containerMultiContent.getIndexInGame());
 //        bid_.setLocale(lg_);
         getContainerMultiContent().window().sendObject(bid_);
+    }
+
+    private void refreshPlayerHand() {
+        if (!getTakerCardsDiscard().estVide()) {
+            playerHand = getTakerCardsDiscard();
+        }
     }
 
     @Override
@@ -632,16 +633,17 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
 
         DeclareHandBelote annonceMain_ = _declaration.getDeclaration();
-        if (annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
+        declare(annonceMain_);
+//        if (annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
 //            annonceBelote = false;
-            AbsPanel panneau_ = getPanneauBoutonsJeu();
+//            AbsPanel panneau_ = getPanneauBoutonsJeu();
 //            AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
 //                    INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
-            beloteDeclare_.setText(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
-                    INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
+//            beloteDeclare_.setText(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
+//                    INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
 //            caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
-            panneau_.add(beloteDeclare_);
-        }
+//            panneau_.add(beloteDeclare_);
+//        }
         byte relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         pack();
@@ -658,7 +660,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
             ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toStringBeloteReb(lg_), RETURN_LINE));
         }
         if (_card.isDeclaring()) {
-            _card.getDeclare().getHand().trier(getDisplayingBelote(),bidMax);
+            firstRound(relative_,pseudo_,bidMax,_card.getDeclare(),new DirectCardsCallEvents());
+//            _card.getDeclare().getHand().trier(getDisplayingBelote(),bidMax);
 //            if (bidMax.getCouleurDominante()) {
 //                _card.getDeclare()
 //                        .getHand()
@@ -672,20 +675,20 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //                                getDisplayingBelote().getDisplaying().isDecreasing(),
 //                                bidMax.getOrdre());
 //            }
-            ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getDeclare(),lg_),
-                    RETURN_LINE));
-            if (!_card.getDeclare().getHand().estVide()) {
-                getHandfuls().getVal(relative_).setText(
-                        Games.toString(_card.getDeclare().getDeclare(),lg_));
-            }
-            AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
-            panelToSet_.removeAll();
-            for (CardBelote c: _card.getDeclare().getHand()) {
-                MiniCard carte_ = new MiniCard(lg_, getOwner(),c.getId().nb());
-                panelToSet_.add(carte_.getPaintableLabel());
-                AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
-            }
-            panelToSet_.setSize(panelToSet_.getPreferredSizeValue());
+//            ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getDeclare(),lg_),
+//                    RETURN_LINE));
+//            if (!_card.getDeclare().getHand().estVide()) {
+//                getHandfuls().getVal(relative_).setText(
+//                        Games.toString(_card.getDeclare().getDeclare(),lg_));
+//            }
+//            AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
+//            panelToSet_.removeAll();
+//            for (CardBelote c: _card.getDeclare().getHand()) {
+//                MiniCard carte_ = new MiniCard(lg_, getOwner(),c.getId().nb());
+//                panelToSet_.add(carte_.getPaintableLabel());
+//                AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),carte_);
+//            }
+//            panelToSet_.setSize(panelToSet_.getPreferredSizeValue());
             pack();
         }
         relative_ = containerMultiContent.relative(_card.getTakerIndex());
@@ -749,8 +752,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getContainerMultiContent().window().sendObject(completed_);
     }
 
-    public void refreshHand(RefreshHandPlayingBelote _card) {
-        playerHand.jouer(_card.getCard());
+    public void refreshHand(PlayingCardBelote _card) {
+        playerHand.jouer(_card.getPlayedCard());
         playerHand.trier(getDisplayingBelote(),bidMax);
 //        if (bidMax.getCouleurDominante()) {
 //            playerHandBelote.trier(getDisplayingBelote().getDisplaying().getSuits(),
@@ -766,8 +769,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         updateCardsInPanelBeloteMulti(false);
         pack();
         //PackingWindowAfter.pack(this, true);
-        RefreshingDoneBelote ref_ = new RefreshingDoneBelote();
-        ref_.setCard(_card.getCard());
+        PlayingCardBelote ref_ = new PlayingCardBelote();
+        ref_.setRefreshing(true);
+        ref_.setPlayedCard(_card.getPlayedCard());
         ref_.setDeclaring(_card.isDeclaring());
         ref_.setDeclaringBeloteRebelote(_card.isDeclaringBeloteRebelote());
         ref_.setDeclare(_card.getDeclare());
@@ -816,36 +820,36 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void showTricksHands(TricksHandsBelote _tricks) {
-        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
-        byte p_ = 0;
-        for (String s : pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())) {
-            pseudos_.put(p_, s);
-            p_++;
-        }
-        for (byte p : containerMultiContent.getPlayersPlacesForGame().values()) {
-            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
-        }
-        StringList list_ = new StringList(pseudos_.values());
+//        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
+//        byte p_ = 0;
+//        for (String s : pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())) {
+//            pseudos_.put(p_, s);
+//            p_++;
+//        }
+//        for (byte p : containerMultiContent.getPlayersPlacesForGame().values()) {
+//            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
+//        }
+//        StringList list_ = new StringList(nicknames().values());
         WindowNetWork ow_ = containerMultiContent.window();
         DialogTricksBelote.setDialogTricksBelote(
                 file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_BELOTE), ow_);
-        DialogTricksBelote.init(_tricks, rulesBeloteMulti, list_,
+        DialogTricksBelote.init(_tricks, rulesBeloteMulti, nicknames(),
                 getDisplayingBelote(), ow_);
     }
 
     public void showTeams(TeamsPlayers _teams) {
-        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
-        byte p_ = 0;
-        for (String s : pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())) {
-            pseudos_.put(p_, s);
-            p_++;
-        }
-        for (byte p : containerMultiContent.getPlayersPlacesForGame().values()) {
-            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
-        }
-        StringList list_ = new StringList(pseudos_.values());
+//        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
+//        byte p_ = 0;
+//        for (String s : pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())) {
+//            pseudos_.put(p_, s);
+//            p_++;
+//        }
+//        for (byte p : containerMultiContent.getPlayersPlacesForGame().values()) {
+//            pseudos_.put(p, containerMultiContent.getPseudoByPlace(p));
+//        }
+//        StringList list_ = new StringList(nicknames().values());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
-        DialogTeamsPlayers.setDialogTeamsPlayers(list_, _teams, getOwner().getDialogTeamsPlayers(), getOwner().getCompoFactory());
+        DialogTeamsPlayers.setDialogTeamsPlayers(nicknames(), _teams, getOwner().getDialogTeamsPlayers(), getOwner().getCompoFactory());
     }
 
 //    @Override
@@ -863,18 +867,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), GuiConstants.BORDER_LAYOUT_NORTH);
-        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
-        byte p_ = 0;
-        for (String s : pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())) {
-            pseudos_.put(p_, s);
-            p_++;
-        }
-        for (byte p : containerMultiContent.getPlayersPlacesForGame().values()) {
-            byte relative_ = containerMultiContent.relative(p);
-            pseudos_.put(relative_, containerMultiContent.getPseudoByPlace(p));
-        }
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        StringList list_ = new StringList(pseudos_.values());
+        StringList list_ = nicknames();
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(), containerMultiContent.getNbChoosenPlayers(), getDisplayingBelote().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, containerMultiContent.getNbChoosenPlayers(), getDisplayingBelote().getDisplaying().isClockwise(),
                 ContainerSingleBelote.displayedCards(rulesBeloteMulti), getOwner().getFrames());
@@ -890,32 +884,35 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY, 8, 30));
         panneau2_.add(events());
         byte relative_ = containerMultiContent.relative(_beginPlace);
-        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
+        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY), list_.get(relative_), RETURN_LINE));
+//        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
 //        getEvents().setEditable(false);
 //        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         int nbCh_ = containerMultiContent.getNbChoosenPlayers();
-        for (byte i = IndexConstants.FIRST_INDEX; i < nbCh_; i++) {
-            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
-            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.getVal(i));
-            declaredHandfulGroup_.add(lab_);
-            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
-            declaredHandfulGroup_.add(handful_);
-            getHandfuls().put(i, handful_);
-            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
-            declaredHandfulGroup_.add(declaredHandful_);
-            getDeclaredHandfuls().put(i, declaredHandful_);
-            declaredHandfuls_.add(declaredHandfulGroup_);
-        }
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_);
-        panneau2_.add(scroll_);
-        AbsPanel sousPanneau_ = getOwner().getCompoFactory().newPageBox();
-        setPanneauBoutonsJeu(sousPanneau_);
-        panneau2_.add(sousPanneau_);
-        container_.add(panneau2_, GuiConstants.BORDER_LAYOUT_EAST);
+//        AbsPanel declaredHandfuls_ = buildDeclHands(nbCh_,list_, getOwner().getFrames());
+//        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
+//        for (byte i = IndexConstants.FIRST_INDEX; i < nbCh_; i++) {
+//            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
+//            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.getVal(i));
+//            declaredHandfulGroup_.add(lab_);
+//            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
+//            declaredHandfulGroup_.add(handful_);
+//            getHandfuls().put(i, handful_);
+//            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
+//            declaredHandfulGroup_.add(declaredHandful_);
+//            getDeclaredHandfuls().put(i, declaredHandful_);
+//            declaredHandfuls_.add(declaredHandfulGroup_);
+//        }
+//        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(buildDeclHands(nbCh_,list_, getOwner().getFrames()));
+//        panneau2_.add(scroll_);
+        panel(nbCh_,list_, container_, panneau2_);
+//        AbsPanel sousPanneau_ = getOwner().getCompoFactory().newPageBox();
+//        setPanneauBoutonsJeu(sousPanneau_);
+//        panneau2_.add(sousPanneau_);
+//        container_.add(panneau2_, GuiConstants.BORDER_LAYOUT_EAST);
         tapisBelote().setTalonBelote(getWindow(),lg_,_cardsOnDeck, rulesBeloteMulti);
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
@@ -929,6 +926,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
+    }
+
+    private StringList nicknames() {
+        return new StringList(containerMultiContent.nicknames(pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())).values());
     }
 
 //    private String getPseudoByPlace(byte _place) {
@@ -1026,6 +1027,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void endGame(ResultsBelote _res) {
         Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
+        _res.getRes().setNicknames(nicknames());
         getPane().removeAll();
         /*Descativer aide au jeu*/
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
@@ -1161,6 +1163,16 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public HandBelote getBelReb() {
         return belReb;
+    }
+
+    @Override
+    public AbsActionListenerAct guard() {
+        return new AlwaysActionListenerAct();
+    }
+
+    @Override
+    public AbsActionListener bid(BidBeloteSuit _action) {
+        return new ListenerBidBeloteMulti(this,_action);
     }
 
     public ContainerMultiContent getContainerMultiContent() {

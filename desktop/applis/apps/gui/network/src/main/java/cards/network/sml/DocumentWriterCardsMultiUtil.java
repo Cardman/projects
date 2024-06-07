@@ -7,8 +7,6 @@ import cards.network.belote.actions.DiscardedCardBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
-import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
-import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.*;
@@ -19,17 +17,14 @@ import cards.network.common.before.PlayerActionBeforeGameCards;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
 import cards.gui.*;
-import cards.network.president.actions.DiscardedCards;
+import cards.network.president.actions.DiscardedCardsPresident;
 import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.*;
-import cards.network.president.displaying.players.RefreshHandPlayingPresident;
-import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.*;
 import cards.president.TricksHandsPresident;
 import cards.president.enumerations.Playing;
@@ -425,6 +420,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaring(),FIELD_DECLARING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringBeloteRebelote(),FIELD_DECLARING_BELOTE_REBELOTE,_document));
         _element.appendChild(DocumentWriterBeloteUtil.setDeclareHandBelote(_object.getDeclare(),FIELD_DECLARE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isRefreshing(),FIELD_REASON,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
         setPlayerActionGame(_object, _element, _document);
     }
@@ -475,21 +471,21 @@ public final class DocumentWriterCardsMultiUtil {
 //        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getReason(),FIELD_REASON,_document));
 //    }
 
-    private static void setRefreshHandPlayingBelote(RefreshHandPlayingBelote _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterBeloteUtil.setCardBelote(_object.getCard(),FIELD_CARD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaring(),FIELD_DECLARING,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringBeloteRebelote(),FIELD_DECLARING_BELOTE_REBELOTE,_document));
-        _element.appendChild(DocumentWriterBeloteUtil.setDeclareHandBelote(_object.getDeclare(),FIELD_DECLARE,_document));
-        setPlayerActionGame(_object, _element, _document);
-    }
-
-    private static void setRefreshingDoneBelote(RefreshingDoneBelote _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterBeloteUtil.setCardBelote(_object.getCard(),FIELD_CARD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaring(),FIELD_DECLARING,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringBeloteRebelote(),FIELD_DECLARING_BELOTE_REBELOTE,_document));
-        _element.appendChild(DocumentWriterBeloteUtil.setDeclareHandBelote(_object.getDeclare(),FIELD_DECLARE,_document));
-        setPlayerActionGame(_object, _element, _document);
-    }
+//    private static void setRefreshHandPlayingBelote(RefreshHandPlayingBelote _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterBeloteUtil.setCardBelote(_object.getCard(),FIELD_CARD,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaring(),FIELD_DECLARING,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringBeloteRebelote(),FIELD_DECLARING_BELOTE_REBELOTE,_document));
+//        _element.appendChild(DocumentWriterBeloteUtil.setDeclareHandBelote(_object.getDeclare(),FIELD_DECLARE,_document));
+//        setPlayerActionGame(_object, _element, _document);
+//    }
+//
+//    private static void setRefreshingDoneBelote(RefreshingDoneBelote _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterBeloteUtil.setCardBelote(_object.getCard(),FIELD_CARD,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaring(),FIELD_DECLARING,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringBeloteRebelote(),FIELD_DECLARING_BELOTE_REBELOTE,_document));
+//        _element.appendChild(DocumentWriterBeloteUtil.setDeclareHandBelote(_object.getDeclare(),FIELD_DECLARE,_document));
+//        setPlayerActionGame(_object, _element, _document);
+//    }
 
     private static Element setAllowBiddingBelote(AllowBiddingBelote _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_ALLOW_BIDDING_BELOTE);
@@ -567,18 +563,18 @@ public final class DocumentWriterCardsMultiUtil {
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof RefreshHandPlayingBelote) {
-            Element element_ = _document.createElement(TYPE_REFRESH_HAND_PLAYING_BELOTE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setRefreshHandPlayingBelote((RefreshHandPlayingBelote)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof RefreshingDoneBelote) {
-            Element element_ = _document.createElement(TYPE_REFRESHING_DONE_BELOTE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setRefreshingDoneBelote((RefreshingDoneBelote)_object,element_,_document);
-            return element_;
-        }
+//        if (_object instanceof RefreshHandPlayingBelote) {
+//            Element element_ = _document.createElement(TYPE_REFRESH_HAND_PLAYING_BELOTE);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setRefreshHandPlayingBelote((RefreshHandPlayingBelote)_object,element_,_document);
+//            return element_;
+//        }
+//        if (_object instanceof RefreshingDoneBelote) {
+//            Element element_ = _document.createElement(TYPE_REFRESHING_DONE_BELOTE);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setRefreshingDoneBelote((RefreshingDoneBelote)_object,element_,_document);
+//            return element_;
+//        }
         if (_object instanceof RefreshHandBelote) {
             Element element_ = _document.createElement(TYPE_REFRESH_HAND_BELOTE);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -633,10 +629,10 @@ public final class DocumentWriterCardsMultiUtil {
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof DiscardedCards) {
+        if (_object instanceof DiscardedCardsPresident) {
             Element element_ = _document.createElement(TYPE_DISCARDED_CARDS);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setDiscardedCards((DiscardedCards)_object,element_,_document);
+            setDiscardedCards((DiscardedCardsPresident)_object,element_,_document);
             return element_;
         }
         if (_object instanceof PlayingCardPresident) {
@@ -645,18 +641,18 @@ public final class DocumentWriterCardsMultiUtil {
             setPlayingCardPresident((PlayingCardPresident)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof RefreshHandPlayingPresident) {
-            Element element_ = _document.createElement(TYPE_REFRESH_HAND_PLAYING_PRESIDENT);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setRefreshHandPlayingPresident((RefreshHandPlayingPresident)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof RefreshingDonePresident) {
-            Element element_ = _document.createElement(TYPE_REFRESHING_DONE_PRESIDENT);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setRefreshingDonePresident((RefreshingDonePresident)_object,element_,_document);
-            return element_;
-        }
+//        if (_object instanceof RefreshHandPlayingPresident) {
+//            Element element_ = _document.createElement(TYPE_REFRESH_HAND_PLAYING_PRESIDENT);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setRefreshHandPlayingPresident((RefreshHandPlayingPresident)_object,element_,_document);
+//            return element_;
+//        }
+//        if (_object instanceof RefreshingDonePresident) {
+//            Element element_ = _document.createElement(TYPE_REFRESHING_DONE_PRESIDENT);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setRefreshingDonePresident((RefreshingDonePresident)_object,element_,_document);
+//            return element_;
+//        }
         if (actionType_ == PlayerActionGameType.REFHESHED_HAND_PRESIDENT) {
             Element element_ = _document.createElement(TYPE_REFRESHED_HAND_PRESIDENT);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -711,18 +707,18 @@ public final class DocumentWriterCardsMultiUtil {
 //            setPlayerActionGame(_object,element_,_document);
 //            return element_;
 //        }
-        if (_object instanceof RefreshHand) {
-            Element element_ = _document.createElement(TYPE_REFRESH_HAND);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setRefreshHand((RefreshHand)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof RefreshingDone) {
-            Element element_ = _document.createElement(TYPE_REFRESHING_DONE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setRefreshingDone((RefreshingDone)_object,element_,_document);
-            return element_;
-        }
+//        if (_object instanceof RefreshHand) {
+//            Element element_ = _document.createElement(TYPE_REFRESH_HAND);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setRefreshHand((RefreshHand)_object,element_,_document);
+//            return element_;
+//        }
+//        if (_object instanceof RefreshingDone) {
+//            Element element_ = _document.createElement(TYPE_REFRESHING_DONE);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setRefreshingDone((RefreshingDone)_object,element_,_document);
+//            return element_;
+//        }
 //        if (_object instanceof SeenDiscardedTrumps) {
 //            Element element_ = _document.createElement(TYPE_SEEN_DISCARDED_TRUMPS);
 //            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -829,7 +825,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setListListByte(_object.getTeams(),FIELD_TEAMS,_document));
     }
 
-    private static void setDiscardedCards(DiscardedCards _object, Element _element, Document _document) {
+    private static void setDiscardedCards(DiscardedCardsPresident _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getDiscarded(),FIELD_DISCARDED,_document));
         setPlayerActionGame(_object, _element, _document);
     }
@@ -840,6 +836,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPass(),FIELD_PASS,_document));
         _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getPlayedHand(),FIELD_PLAYED_HAND,_document));
         _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isRefreshing(),FIELD_REASON,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getNextPlayer(),FIELD_NEXT_PLAYER,_document));
         setPlayerActionGame(_object, _element, _document);
     }
@@ -884,26 +881,26 @@ public final class DocumentWriterCardsMultiUtil {
 //        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPassIssue(),FIELD_PASS_ISSUE,_document));
 //    }
 
-    private static void setRefreshHandPlayingPresident(RefreshHandPlayingPresident _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterPresidentUtil.setCardPresident(_object.getPlayedCard(),FIELD_PLAYED_CARD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getIndex(),FIELD_INDEX,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPass(),FIELD_PASS,_document));
-        _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getPlayedHand(),FIELD_PLAYED_HAND,_document));
-        _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getNextPlayer(),FIELD_NEXT_PLAYER,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReversed(),FIELD_REVERSED,_document));
-        setPlayerActionGame(_object, _element, _document);
-    }
+//    private static void setRefreshHandPlayingPresident(RefreshHandPlayingPresident _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterPresidentUtil.setCardPresident(_object.getPlayedCard(),FIELD_PLAYED_CARD,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getIndex(),FIELD_INDEX,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPass(),FIELD_PASS,_document));
+//        _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getPlayedHand(),FIELD_PLAYED_HAND,_document));
+//        _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getNextPlayer(),FIELD_NEXT_PLAYER,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReversed(),FIELD_REVERSED,_document));
+//        setPlayerActionGame(_object, _element, _document);
+//    }
 
-    private static void setRefreshingDonePresident(RefreshingDonePresident _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterPresidentUtil.setCardPresident(_object.getPlayedCard(),FIELD_PLAYED_CARD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getIndex(),FIELD_INDEX,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPass(),FIELD_PASS,_document));
-        _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getPlayedHand(),FIELD_PLAYED_HAND,_document));
-        _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getNextPlayer(),FIELD_NEXT_PLAYER,_document));
-        setPlayerActionGame(_object, _element, _document);
-    }
+//    private static void setRefreshingDonePresident(RefreshingDonePresident _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterPresidentUtil.setCardPresident(_object.getPlayedCard(),FIELD_PLAYED_CARD,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getIndex(),FIELD_INDEX,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isPass(),FIELD_PASS,_document));
+//        _element.appendChild(DocumentWriterPresidentUtil.setHandPresident(_object.getPlayedHand(),FIELD_PLAYED_HAND,_document));
+//        _element.appendChild(setMapBytePlaying(_object.getStatus(),FIELD_STATUS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getNextPlayer(),FIELD_NEXT_PLAYER,_document));
+//        setPlayerActionGame(_object, _element, _document);
+//    }
 
     private static Element setAllowDiscarding(AllowDiscarding _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_ALLOW_DISCARDING);
@@ -995,6 +992,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getHandful(),FIELD_HANDFUL,_document));
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getExcludedTrumps(),FIELD_EXCLUDED_TRUMPS,_document));
         _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getMiseres(),FIELD_MISERES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isRefreshing(),FIELD_REASON,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCalledCard(),FIELD_CALLED_CARD,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
         setPlayerActionGame(_object, _element, _document);
@@ -1062,23 +1060,23 @@ public final class DocumentWriterCardsMultiUtil {
 //        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getReason(),FIELD_REASON,_document));
 //    }
 
-    private static void setRefreshHand(RefreshHand _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setHandfuls(_object.getChoosenHandful(),FIELD_CHOOSEN_HANDFUL,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getHandful(),FIELD_HANDFUL,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getMiseres(),FIELD_MISERES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCalledCard(),FIELD_CALLED_CARD,_document));
-        setPlayerActionGame(_object, _element, _document);
-    }
+//    private static void setRefreshHand(RefreshHand _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setHandfuls(_object.getChoosenHandful(),FIELD_CHOOSEN_HANDFUL,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getHandful(),FIELD_HANDFUL,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getMiseres(),FIELD_MISERES,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCalledCard(),FIELD_CALLED_CARD,_document));
+//        setPlayerActionGame(_object, _element, _document);
+//    }
 
-    private static void setRefreshingDone(RefreshingDone _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setHandfuls(_object.getChoosenHandful(),FIELD_CHOOSEN_HANDFUL,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getHandful(),FIELD_HANDFUL,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getMiseres(),FIELD_MISERES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCalledCard(),FIELD_CALLED_CARD,_document));
-        setPlayerActionGame(_object, _element, _document);
-    }
+//    private static void setRefreshingDone(RefreshingDone _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterTarotUtil.setCardTarot(_object.getCard(),FIELD_CARD,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setHandfuls(_object.getChoosenHandful(),FIELD_CHOOSEN_HANDFUL,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getHandful(),FIELD_HANDFUL,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getMiseres(),FIELD_MISERES,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isCalledCard(),FIELD_CALLED_CARD,_document));
+//        setPlayerActionGame(_object, _element, _document);
+//    }
 
 //    private static void setSeenDiscardedTrumps(SeenDiscardedTrumps _object, Element _element, Document _document) {
 //        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDeclaringSlam(),FIELD_DECLARING_SLAM,_document));
@@ -1106,9 +1104,9 @@ public final class DocumentWriterCardsMultiUtil {
 
     private static void setAllowPlayingTarot(AllowPlayingTarot _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isFirstRoundPlaying(),FIELD_FIRST_ROUND_PLAYING,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setListHandfuls(_object.getAllowedHandfuls(),FIELD_ALLOWED_HANDFULS,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setMapHandfulsInteger(_object.getRequiredTrumps(),FIELD_REQUIRED_TRUMPS,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getAllowedMiseres(),FIELD_ALLOWED_MISERES,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setListHandfuls(_object.getAllowedHandfuls(),FIELD_ALLOWED_HANDFULS,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setMapHandfulsInteger(_object.getRequiredTrumps(),FIELD_REQUIRED_TRUMPS,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setListMiseres(_object.getAllowedMiseres(),FIELD_ALLOWED_MISERES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDiscardedTrumps(),FIELD_TRUMPS,_document));
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCalledCards(),FIELD_CALLED_CARDS,_document));

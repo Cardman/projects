@@ -22,6 +22,7 @@ public class ListenerCardTarotMultiGame extends AbstractListenerCard<CardTarot> 
         container.updateCardsInPanelTarotJeuMulti(false);
 //        container.setCanPlay(false);
         PlayingCardTarot pl_ = new PlayingCardTarot();
+        pl_.setRefreshing(false);
         pl_.setPlace(container.getContainerMultiContent().getIndexInGame());
         pl_.setPlayedCard(getCard());
 //        Map<Miseres, Boolean> selectedMiseres_;

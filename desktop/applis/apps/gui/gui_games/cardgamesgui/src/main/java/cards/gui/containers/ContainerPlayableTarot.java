@@ -4,6 +4,7 @@ import cards.gui.labels.*;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.gui.*;
+import code.gui.events.*;
 import code.util.*;
 
 public interface ContainerPlayableTarot extends ContainerPlayableSlam,ContainerSingle<CardTarot>,ContainerSingleWithDiscard<CardTarot> {
@@ -53,5 +54,8 @@ public interface ContainerPlayableTarot extends ContainerPlayableSlam,ContainerS
 
     void updateButtons();
 
+    AbsActionListener bid(BidTarot _action);
     void pack();
+
+    CustList<BidTarot> getBids();
 }

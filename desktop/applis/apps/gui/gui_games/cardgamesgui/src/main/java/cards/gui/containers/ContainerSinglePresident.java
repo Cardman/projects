@@ -34,6 +34,7 @@ import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.events.AbsActionListenerAct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -170,7 +171,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        clickedDiscard = false;
         setGivingCardsOk(getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_OK)));
         getGivingCardsOk().setEnabled(false);
-        getGivingCardsOk().addActionListener(new CardsNonModalEvent(this),new GiveCardsEvent(this));
+        getGivingCardsOk().addActionListener(guard(),new GiveCardsEvent(this));
         //        getPanneauBoutonsJeu().add(getGivingCardsOk());
         getActionsHistory().add(getGivingCardsOk());
     }
@@ -817,6 +818,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         GamePresident partie_=partiePresident();
         partie_.restituerMainsDepartRejouerDonne();
         mettreEnPlaceIhmPresident();
+    }
+
+    @Override
+    public AbsActionListenerAct guard() {
+        return new CardsNonModalEvent(this);
     }
 
     @Override
