@@ -43,7 +43,7 @@ public final class DialogServerContent implements AbstractDialogServer {
 //    private boolean join;
     private AbsSpinner nbPlayers;
     private GameEnum chosen = GameEnum.NONE;
-    private int portChoice;
+    private AbsSpinner portChoice;
     private final WindowNetWork window;
     private AbstractServerSocket serverSocket;
     private ConnectionToServer connection;
@@ -70,7 +70,6 @@ public final class DialogServerContent implements AbstractDialogServer {
     }
 
     private void initDialogServer(WindowNetWork _fenetre, GameEnum _game, int _port) {
-        portChoice = _port;
         component.removeAll();
 //        getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
 //        create = false;
@@ -138,6 +137,8 @@ public final class DialogServerContent implements AbstractDialogServer {
         ipServer_.setToolTipText(mapping_.getVal(MessagesNetWork.IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
+        portChoice = getCompoFactory().newSpinner(_port,0,65535,1);
+        panel_.add(portChoice);
         IdList<IpType> list_ = new IdList<IpType>(messagesIpEnum_.getKeys());
         ipType = new ComboBox<IpType>(GuiBaseUtil.combo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
         ipType.refresh(list_, messagesIpEnum_);
@@ -178,11 +179,11 @@ public final class DialogServerContent implements AbstractDialogServer {
 //        join = false;
 //        create = true;
         String ip_ = NetCreate.getHostAddress(frames.getSocketFactory(),ipType.getCurrent(), adjust(ipOrHostName.getText()));
-        AbstractServerSocket serverSocket_ = frames.getSocketFactory().newServerSocket(ip_, portChoice);
+        AbstractServerSocket serverSocket_ = frames.getSocketFactory().newServerSocket(ip_, portChoice.getValue());
         if (!serverSocket_.isOk()) {
             StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(frames.currentLg())).getMapping();
             String message_ = mapping_.getVal(MessagesNetWork.USED_PORT);
-            message_ = StringUtil.simpleNumberFormat(message_, portChoice);
+            message_ = StringUtil.simpleNumberFormat(message_, portChoice.getValue());
             errors.setText(message_);
             return;
         }
@@ -202,7 +203,7 @@ public final class DialogServerContent implements AbstractDialogServer {
         serverSocket = serverSocket_;
         closeWindow();
         server = getFrames().getThreadFactory().newScheduledExecutorService();
-        connection = new ConnectionToServer(serverSocket_, window, ip_, portChoice);
+        connection = new ConnectionToServer(serverSocket_, window, ip_, portChoice.getValue());
         task = server.scheduleAtFixedRateNanos(connection,0,1);
     }
 
@@ -216,7 +217,7 @@ public final class DialogServerContent implements AbstractDialogServer {
 //        create = false;
         closeWindow();
         String ip_ = adjust(ipOrHostName.getText());
-        SocketResults connected_ = window.createClient(ip_, ipType.getCurrent(), false, portChoice);
+        SocketResults connected_ = window.createClient(ip_, ipType.getCurrent(), false, portChoice.getValue());
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             if (chosen != GameEnum.NONE) {
                 window.getNetg().setContainerGame(window.noGame());
