@@ -24,7 +24,7 @@ import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
-import cards.network.tarot.Dog;
+import cards.network.tarot.DiscardPhaseTarot;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.unlock.AllowBiddingTarot;
@@ -788,7 +788,7 @@ public final class SendReceiveServerCards extends BasicServer {
         if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
             //before taking cards of the dog
 //            game_.ajouterCartesUtilisateur();
-            Dog dog_ = new Dog();
+            DiscardPhaseTarot dog_ = new DiscardPhaseTarot();
 //            dog_.setHumanTaker(true);
             dog_.setDiscardCard(game_.getDistribution().derniereMain());
             dog_.setCallableCards(new HandTarot());
@@ -873,7 +873,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
                     _game.ajouterCartesUtilisateur();
 //                    Net.initAllReceived(_instance, _common);
-                    Dog dog_ = new Dog();
+                    DiscardPhaseTarot dog_ = new DiscardPhaseTarot();
                     dog_.setDiscardCard(_game.getDistribution().derniereMain());
                     dog_.setCallableCards(callableCards_);
 //                    dog_.setTaker(false);
@@ -970,15 +970,15 @@ public final class SendReceiveServerCards extends BasicServer {
 //        return;
     }
 
-    private static void callAfter(GameTarot _game, Dog _dog) {
+    private static void callAfter(GameTarot _game, DiscardPhaseTarot _dog) {
         _dog.setCallAfter(!_game.getRegles().getDiscardAfterCall());
     }
 
-    private static void update(byte _player, GameTarot _game, Dog _dog) {
+    private static void update(byte _player, GameTarot _game, DiscardPhaseTarot _dog) {
         if (_player == _game.getPreneur()) {
-            _dog.getDiscardPhase().setTaker(Dog.TAKER_HUM_WRITE);
+            _dog.getDiscardPhase().setTaker(DiscardPhaseTarot.TAKER_HUM_WRITE);
         } else {
-            _dog.getDiscardPhase().setTaker(Dog.TAKER_HUM_READ);
+            _dog.getDiscardPhase().setTaker(DiscardPhaseTarot.TAKER_HUM_READ);
         }
     }
 

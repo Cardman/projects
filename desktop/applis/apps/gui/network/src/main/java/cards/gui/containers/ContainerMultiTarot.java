@@ -21,7 +21,7 @@ import cards.gui.panels.MiniCarpet;
 import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.*;
 import cards.network.common.before.PlayersNamePresent;
-import cards.network.tarot.Dog;
+import cards.network.tarot.DiscardPhaseTarot;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.unlock.AllowBiddingTarot;
@@ -412,7 +412,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        }
 //    }
 
-    public void displayDog(Dog _dog) {
+    public void displayDog(DiscardPhaseTarot _dog) {
 //        String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
         //getPanneauBoutonsJeu().validate();
@@ -421,7 +421,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         cardsInDog = _dog.getDiscardCard();
         callableCards = _dog.getCallableCards();
         setDiscardCall(_dog.isCallAfter());
-        if (_dog.getDiscardPhase().getTaker() == Dog.TAKER_HUM_WRITE) {
+        if (_dog.getDiscardPhase().getTaker() == DiscardPhaseTarot.TAKER_HUM_WRITE) {
             if (isDiscardCall()) {
                 addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS),true);
                 containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));

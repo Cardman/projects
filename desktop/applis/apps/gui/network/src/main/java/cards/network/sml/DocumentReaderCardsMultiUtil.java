@@ -21,7 +21,7 @@ import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.*;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
-import cards.network.tarot.Dog;
+import cards.network.tarot.DiscardPhaseTarot;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.unlock.*;
@@ -989,16 +989,16 @@ public final class DocumentReaderCardsMultiUtil {
         _object.setCards(DocumentReaderPresidentUtil.getHandPresident(_element));
     }
 
-    public static Dog getDog(Element _element) {
+    public static DiscardPhaseTarot getDog(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        Dog object_ = new Dog();
+        DiscardPhaseTarot object_ = new DiscardPhaseTarot();
         for (Element c: childElements_) {
             getDog(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
         return object_;
     }
 
-    private static void getDog(Dog _object, String _fieldName, Element _element) {
+    private static void getDog(DiscardPhaseTarot _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_DOG)) {
             _object.setDiscardCard(DocumentReaderTarotUtil.getHandTarot(_element));
             return;

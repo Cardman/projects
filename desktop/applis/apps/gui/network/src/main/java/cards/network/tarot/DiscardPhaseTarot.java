@@ -3,7 +3,7 @@ import cards.network.common.DiscardPhase;
 import cards.tarot.HandTarot;
 
 
-public final class Dog {
+public final class DiscardPhaseTarot {
 
     public static final int TAKER_NO = 0;
     public static final int TAKER_BOT = 1;

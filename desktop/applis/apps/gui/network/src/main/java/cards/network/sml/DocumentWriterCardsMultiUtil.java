@@ -22,7 +22,7 @@ import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.*;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
-import cards.network.tarot.Dog;
+import cards.network.tarot.DiscardPhaseTarot;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.unlock.*;
@@ -281,7 +281,7 @@ public final class DocumentWriterCardsMultiUtil {
 //        return doc_.export();
 //    }
 
-    public static String dog(Dog _object) {
+    public static String dog(DiscardPhaseTarot _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(setDog(_object, "", doc_));
         return doc_.export();
@@ -927,14 +927,14 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReversed(),FIELD_REVERSED,_document));
     }
 
-    private static Element setDog(Dog _object, String _fieldName, Document _document) {
+    private static Element setDog(DiscardPhaseTarot _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_DOG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setDog(_object,element_,_document);
         return element_;
     }
 
-    private static void setDog(Dog _object, Element _element, Document _document) {
+    private static void setDog(DiscardPhaseTarot _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDiscardCard(),FIELD_DOG,_document));
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCallableCards(),FIELD_CALLABLE_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getDiscardPhase().getTaker(),FIELD_TAKER,_document));
