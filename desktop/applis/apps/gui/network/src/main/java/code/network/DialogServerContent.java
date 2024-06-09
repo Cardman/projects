@@ -50,7 +50,7 @@ public final class DialogServerContent implements AbstractDialogServer {
 
     private AbstractScheduledExecutorService server;
     private AbstractFuture task;
-    private final CustList<AbsCustComponent> components = new CustList<AbsCustComponent>();
+//    private final CustList<AbsCustComponent> components = new CustList<AbsCustComponent>();
     private AbsButton createServer;
     private AbsButton joinServer;
     //    private JComboBox<DealingBelote> repBelote;
@@ -70,6 +70,7 @@ public final class DialogServerContent implements AbstractDialogServer {
     }
 
     private void initDialogServer(WindowNetWork _fenetre, GameEnum _game, int _port) {
+        component.setVisible(true);
         component.removeAll();
 //        getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
 //        create = false;
@@ -93,6 +94,7 @@ public final class DialogServerContent implements AbstractDialogServer {
         AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);
         chosen = _game;
         if (_game == GameEnum.TAROT) {
+            window.setCards(true);
             IdList<DealingTarot> repValides_ = new IdList<DealingTarot>(DealingTarot.getRepartitionsValides());
             int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
             int maxJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
@@ -110,12 +112,14 @@ public final class DialogServerContent implements AbstractDialogServer {
             panel_.add(getCompoFactory().newPlainLabel(mapping_.getVal(MessagesNetWork.NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else if (_game == GameEnum.PRESIDENT) {
+            window.setCards(true);
             int minJoueurs_ = RulesPresident.getNbMinPlayers();
             int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
             nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
             panel_.add(getCompoFactory().newPlainLabel(mapping_.getVal(MessagesNetWork.NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else if (_game == GameEnum.BELOTE) {
+            window.setCards(true);
             IdList<DealingBelote> repValides_ = new IdList<DealingBelote>(DealingBelote.getRepartitionsValides());
             int minJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
             int maxJoueurs_= repValides_.get(0).getId().getNombreJoueurs();
@@ -132,6 +136,8 @@ public final class DialogServerContent implements AbstractDialogServer {
             nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
             panel_.add(getCompoFactory().newPlainLabel(mapping_.getVal(MessagesNetWork.NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
+        } else {
+            window.setCards(false);
         }
         AbsPlainLabel ipServer_ = getCompoFactory().newPlainLabel(mapping_.getVal(MessagesNetWork.IP_SERVER));
         ipServer_.setToolTipText(mapping_.getVal(MessagesNetWork.IP_SERVER_TOOL_TIP));
@@ -161,11 +167,11 @@ public final class DialogServerContent implements AbstractDialogServer {
         panel_.add(button_);
         component.add(panel_);
         component.add(errors);
-        components.clear();
-        int c_ = _fenetre.getCommonFrame().getPane().getComponentCount();
-        for (int i = 0; i < c_; i++) {
-            components.add( _fenetre.getCommonFrame().getPane().getComponent(i));
-        }
+//        components.clear();
+//        int c_ = _fenetre.getCommonFrame().getPane().getComponentCount();
+//        for (int i = 0; i < c_; i++) {
+//            components.add( _fenetre.getCommonFrame().getPane().getComponent(i));
+//        }
         _fenetre.getCommonFrame().getPane().removeAll();
         _fenetre.getCommonFrame().setContentPane(component);
         _fenetre.pack();
@@ -195,10 +201,7 @@ public final class DialogServerContent implements AbstractDialogServer {
             window.getNetg().setContainerGame(new ContainerMultiBelote(window, true, nbPlayers.getValue()));
         }
         if (chosen != GameEnum.NONE) {
-            window.setCards(true);
             Net.setNbPlayers(nbPlayers.getValue(), window.getNet());
-        } else {
-            window.setCards(false);
         }
         serverSocket = serverSocket_;
         closeWindow();
@@ -219,6 +222,8 @@ public final class DialogServerContent implements AbstractDialogServer {
         String ip_ = adjust(ipOrHostName.getText());
         SocketResults connected_ = window.createClient(ip_, ipType.getCurrent(), false, portChoice.getValue());
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
+            component.setVisible(true);
+            window.pack();
             if (chosen != GameEnum.NONE) {
                 window.getNetg().setContainerGame(window.noGame());
             }
@@ -240,10 +245,7 @@ public final class DialogServerContent implements AbstractDialogServer {
             window.getNetg().setContainerGame(new ContainerMultiBelote(window, false, nbPlayers.getValue()));
         }
         if (chosen == GameEnum.NONE) {
-            window.setCards(false);
             window.setIndexInGame(IndexConstants.SECOND_INDEX);
-        } else {
-            window.setCards(true);
         }
     }
     private String adjust(String _i) {
@@ -258,11 +260,17 @@ public final class DialogServerContent implements AbstractDialogServer {
         return ip_;
     }
     public void restore() {
-        window.getCommonFrame().getPane().removeAll();
-        for (AbsCustComponent c: components) {
-            window.getCommonFrame().getPane().add(c);
+        if (window.isCards()) {
+            window.menuMultiGames();
+        } else {
+            window.exitFromTrading();
+            window.pack();
         }
-        window.pack();
+//        window.getCommonFrame().getPane().removeAll();
+//        for (AbsCustComponent c: components) {
+//            window.getCommonFrame().getPane().add(c);
+//        }
+//        window.pack();
     }
     public void closeConnexion(Exiting _exit, AbstractSocket _socket) {
         _socket.close();

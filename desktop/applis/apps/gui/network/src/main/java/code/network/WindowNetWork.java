@@ -805,12 +805,43 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         int nb_ = getSockets().getSockets().size();
+        int nbPlayers_ = Net.getNbPlayers(getNet());
+        if (nbPlayers_ == nb_ || Net.isProgressingGame(getNet())) {
+            Exiting forcedBye_ = new Exiting();
+            forcedBye_.setForced(true);
+            forcedBye_.setClosing(false);
+            Net.sendObject(_newSocket,forcedBye_);
+            return;
+        }
+        getSockets().getNicknames().put(nb_,pseudo());
         getSockets().getSockets().put(nb_, _newSocket);
         SendReceiveServerCards sendReceiveServer_=new SendReceiveServerCards(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
         getSockets().getConnectionsServer().put(nb_ ,sendReceiveServer_);
         IndexOfArrivingCards index_ = new IndexOfArrivingCards();
         index_.setIndex(nb_);
+        index_.setNbPlayers(nbPlayers_);
+        if (Net.getGames(getNet()).getRulesBelote() != null) {
+            index_.setRulesBelote(Net.getGames(getNet()).getRulesBelote());
+            index_.setRulesPresident(new RulesPresident());
+            index_.setRulesTarot(new RulesTarot());
+        } else if (Net.getGames(getNet()).getRulesPresident() != null) {
+            index_.setRulesBelote(new RulesBelote());
+            index_.setRulesPresident(Net.getGames(getNet()).getRulesPresident());
+            index_.setRulesTarot(new RulesTarot());
+        } else if (Net.getGames(getNet()).getRulesTarot() != null) {
+            index_.setRulesBelote(new RulesBelote());
+            index_.setRulesPresident(new RulesPresident());
+            index_.setRulesTarot(Net.getGames(getNet()).getRulesTarot());
+        } else {
+            index_.setRulesBelote(new RulesBelote());
+            index_.setRulesPresident(new RulesPresident());
+            index_.setRulesTarot(new RulesTarot());
+        }
+//            pl_.setNbPlayers(Net.getNbPlayers(_instance));
+//        pl_.setPseudos(new IntMap<String>(_common.getNicknames()));
+        index_.setPlacesPlayers(getSockets().getPlacesPlayers());
+        index_.setReadyPlayers(new IntMap<BoolVal>(getSockets().getReadyPlayers()));
         getSockets().getReadyPlayers().put(nb_ , BoolVal.FALSE);
         getSockets().getPlacesPlayers().put(nb_ ,(byte)(nb_));
         Net.sendObject(_newSocket,index_);
@@ -838,23 +869,27 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
         PlayerActionBeforeGameCards playerActionBeforeGame_ = DocumentReaderCardsMultiUtil.getPlayerActionBeforeGame(elt_);
         if (playerActionBeforeGame_ instanceof IndexOfArrivingCards) {
-            if (!StringUtil.quickEq(((IndexOfArrivingCards) playerActionBeforeGame_).getServerName(),Net.getCards())) {
-                NewPlayerCards p_ = new NewPlayerCards();
-                p_.setAcceptable(false);
-                p_.setArriving(true);
-                p_.setIndex(playerActionBeforeGame_.getIndex());
-                p_.setPseudo(pseudo());
-//                p_.setLanguage(getLanguageKey());
-                Net.sendObject(_socket,p_);
-                return;
-            }
+//            if (!StringUtil.quickEq(((IndexOfArrivingCards) playerActionBeforeGame_).getServerName(),Net.getCards())) {
+//                NewPlayerCards p_ = new NewPlayerCards();
+//                p_.setAcceptable(false);
+////                p_.setArriving(true);
+//                p_.setIndex(playerActionBeforeGame_.getIndex());
+//                p_.setPseudo(pseudo());
+////                p_.setLanguage(getLanguageKey());
+//                Net.sendObject(_socket,p_);
+//                return;
+//            }
             ContainerMulti container_ = (ContainerMulti) netg.getContainerGame();
             container_.getContainerMultiContent().setNoClient(playerActionBeforeGame_.getIndex());
+            container_.updateFirst(((IndexOfArrivingCards) playerActionBeforeGame_));
             NewPlayerCards p_ = new NewPlayerCards();
-            p_.setAcceptable(true);
-            p_.setArriving(true);
+//            p_.setAcceptable(true);
+//            p_.setArriving(true);
             p_.setIndex(container_.getContainerMultiContent().getNoClient());
             p_.setPseudo(pseudo());
+            p_.setPlacesPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getPlacesPlayers());
+            p_.setReadyPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getReadyPlayers());
+            container_.getContainerMultiContent().updateAfter(p_);
 //            p_.setLanguage(getLanguageKey());
             Net.sendObject(_socket,p_);
             return;
@@ -868,15 +903,28 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             container_.getContainerMultiContent().updateReady((Ready) playerActionBeforeGame_);
             return;
         }
-        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PLAYERS_NAME_PRESENT,tagName_)) {
-            PlayersNamePresent infos_ = DocumentReaderCardsMultiUtil.getPlayersNamePresent(elt_);
-            if (infos_.isFirst()) {
-                container_.updateFirst(infos_);
-            } else {
-                container_.getContainerMultiContent().updateAfter(infos_);
-            }
+        if (playerActionBeforeGame_ instanceof NewPlayerCards) {
+            OldPlayerCards p_ = new OldPlayerCards();
+            p_.setIndex(container_.getContainerMultiContent().getNoClient());
+            p_.setTarget(playerActionBeforeGame_.getIndex());
+            p_.setPseudo(pseudo());
+            container_.getContainerMultiContent().updateAfter((NewPlayerCards)playerActionBeforeGame_);
+            Net.sendObject(_socket,p_);
             return;
         }
+        if (playerActionBeforeGame_ instanceof OldPlayerCards) {
+            container_.getContainerMultiContent().updateAfter((OldPlayerCards)playerActionBeforeGame_);
+            return;
+        }
+//        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PLAYERS_NAME_PRESENT,tagName_)) {
+//            PlayersNamePresent infos_ = DocumentReaderCardsMultiUtil.getPlayersNamePresent(elt_);
+//            if (infos_.isFirst()) {
+//                container_.updateFirst(infos_);
+//            } else {
+//                container_.getContainerMultiContent().updateAfter(infos_);
+//            }
+//            return;
+//        }
         if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PAUSE,tagName_)) {
             container_.pauseBetweenTrick();
             return;
@@ -1090,7 +1138,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         pack();
-        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
+        if (_exit != null && _exit.isForced()) {
+//        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             errorsFile.display(getTooManyString(), getTooManyString());
 //            getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
@@ -1100,19 +1149,19 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         Element elt_ = _readObject.getDocumentElement();
         PlayerActionBeforeGameAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getPlayerActionBeforeGame(elt_);
         if (playerActionBeforeGame_ instanceof IndexOfArrivingAiki) {
-            if (!StringUtil.quickEq(((IndexOfArrivingAiki) playerActionBeforeGame_).getServerName(), NetAiki.getPokemon())) {
-                NewPlayerAiki p_ = new NewPlayerAiki();
-                p_.setAcceptable(false);
-                p_.setArriving(true);
-                p_.setIndex(indexInGame);
+//            if (!StringUtil.quickEq(((IndexOfArrivingAiki) playerActionBeforeGame_).getServerName(), NetAiki.getPokemon())) {
+//                NewPlayerAiki p_ = new NewPlayerAiki();
+//                p_.setAcceptable(false);
+//                p_.setArriving(true);
+//                p_.setIndex(indexInGame);
 //                p_.setLanguage(getLanguageKey());
-                p_.setPseudo(facade.getGame().getPlayer().getNickname());
-                NetAiki.sendObject(_socket,p_);
-                return;
-            }
+//                p_.setPseudo(facade.getGame().getPlayer().getNickname());
+//                NetAiki.sendObject(_socket,p_);
+//                return;
+//            }
             NewPlayerAiki p_ = new NewPlayerAiki();
-            p_.setAcceptable(true);
-            p_.setArriving(true);
+//            p_.setAcceptable(true);
+//            p_.setArriving(true);
             p_.setIndex(indexInGame);
             //p_.setPseudo(pseudo());
 //            p_.setLanguage(getLanguageKey());
@@ -1178,7 +1227,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         pack();
-        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
+        if (_exit != null && _exit.isForced()) {
+//        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             if (_exit.isTooManyPlayers()) {
                 errorsFile.display(getTooManyString(), getTooManyString());
 //                getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
@@ -1244,6 +1294,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
         netg.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
+        getPane().removeAll();
         AbsPanel container_=getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo())));
@@ -1332,6 +1383,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
         netg.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
+        getPane().removeAll();
         AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));

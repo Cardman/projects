@@ -71,79 +71,97 @@ public final class SendReceiveServerCards extends BasicServer {
     static void loop(String _input, Document _doc, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         Element elt_ = _doc.getDocumentElement();
         PlayerActionBeforeGameCards playerActionBeforeGame_ = DocumentReaderCardsMultiUtil.getPlayerActionBeforeGame(elt_);
-        if (playerActionBeforeGame_ instanceof AddingPlayer) {
-            AddingPlayer newPlayer_ = (AddingPlayer)playerActionBeforeGame_;
-            if (!newPlayer_.isAcceptable()) {
-                Exiting forcedBye_ = new Exiting();
-                forcedBye_.setBusy(true);
-                forcedBye_.setForced(true);
-                forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
+//        if (playerActionBeforeGame_ instanceof AddingPlayer) {
+//            AddingPlayer newPlayer_ = (AddingPlayer)playerActionBeforeGame_;
+//            if (!newPlayer_.isAcceptable()) {
+//                Exiting forcedBye_ = new Exiting();
+//                forcedBye_.setBusy(true);
+//                forcedBye_.setForced(true);
+//                forcedBye_.setClosing(false);
+//                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
 //                Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
 //                Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
 //                Net.sendObject(socket_,forcedBye_);
-                return;
-            }
-        }
+//                return;
+//            }
+//        }
         if (playerActionBeforeGame_ instanceof NewPlayerCards) {
             NewPlayerCards newPlayer_ = (NewPlayerCards)playerActionBeforeGame_;
-            if (Net.getNbPlayers(_instance) == _common.getNicknames().size()) {
-                Exiting forcedBye_ = new Exiting();
-                forcedBye_.setForced(true);
-                forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
+//            if (Net.getNbPlayers(_instance) == _common.getNicknames().size()) {
+//                Exiting forcedBye_ = new Exiting();
+//                forcedBye_.setForced(true);
+//                forcedBye_.setClosing(false);
+//                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
 //                Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
 //                Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
 //                Net.sendObject(socket_,forcedBye_);
-                return;
-            }
-            if (Net.isProgressingGame(_instance)) {
-                Exiting forcedBye_ = new Exiting();
-                forcedBye_.setForced(true);
-                forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
+//                return;
+//            }
+//            if (Net.isProgressingGame(_instance)) {
+//                Exiting forcedBye_ = new Exiting();
+//                forcedBye_.setForced(true);
+//                forcedBye_.setClosing(false);
+//                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
 //                Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
 //                Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
 //                Net.sendObject(socket_,forcedBye_);
-                return;
-            }
+//                return;
+//            }
 //            Net.getPlayersLocales(_instance).put(newPlayer_.getIndex(), newPlayer_.getLanguage());
-            _common.getNicknames().put(newPlayer_.getIndex(),newPlayer_.getPseudo());
-            PlayersNamePresent pl_ = new PlayersNamePresent();
-            if (Net.getGames(_instance).getRulesBelote() != null) {
-                pl_.setRulesBelote(Net.getGames(_instance).getRulesBelote());
-                pl_.setRulesPresident(new RulesPresident());
-                pl_.setRulesTarot(new RulesTarot());
-            } else if (Net.getGames(_instance).getRulesPresident() != null) {
-                pl_.setRulesBelote(new RulesBelote());
-                pl_.setRulesPresident(Net.getGames(_instance).getRulesPresident());
-                pl_.setRulesTarot(new RulesTarot());
-            } else if (Net.getGames(_instance).getRulesTarot() != null) {
-                pl_.setRulesBelote(new RulesBelote());
-                pl_.setRulesPresident(new RulesPresident());
-                pl_.setRulesTarot(Net.getGames(_instance).getRulesTarot());
-            } else {
-                pl_.setRulesBelote(new RulesBelote());
-                pl_.setRulesPresident(new RulesPresident());
-                pl_.setRulesTarot(new RulesTarot());
+//            _common.getNicknames().put(newPlayer_.getIndex(),newPlayer_.getPseudo());
+            for (EntryCust<Integer, AbstractSocket> p:_common.getSockets().entryList()) {
+                if (p.getKey() != newPlayer_.getIndex()) {
+                    Net.sendObject(p.getValue(),newPlayer_);
+                }
             }
-            pl_.setNbPlayers(Net.getNbPlayers(_instance));
-            pl_.setPseudos(new IntMap<String>(_common.getNicknames()));
-            pl_.setPlacesPlayers(_common.getPlacesPlayers());
-            pl_.setReadyPlayers(new IntMap<BoolVal>(_common.getReadyPlayers()));
-            for (int p:_common.getSockets().getKeys()) {
-                pl_.setFirst(p == newPlayer_.getIndex());
-                Net.sendObject(_common.getSockets().getVal(p),pl_);
-            }
+//            if (newPlayer_.isNext()) {
+//                for (EntryCust<Integer, AbstractSocket> p:_common.getSockets().entryList()) {
+//                    if (p.getKey() != newPlayer_.getIndex()) {
+//                        Net.sendObject(p.getValue(),newPlayer_);
+//                    }
+//                }
+//                return;
+//            }
+//            PlayersNamePresent pl_ = new PlayersNamePresent();
+//            if (Net.getGames(_instance).getRulesBelote() != null) {
+//                pl_.setRulesBelote(Net.getGames(_instance).getRulesBelote());
+//                pl_.setRulesPresident(new RulesPresident());
+//                pl_.setRulesTarot(new RulesTarot());
+//            } else if (Net.getGames(_instance).getRulesPresident() != null) {
+//                pl_.setRulesBelote(new RulesBelote());
+//                pl_.setRulesPresident(Net.getGames(_instance).getRulesPresident());
+//                pl_.setRulesTarot(new RulesTarot());
+//            } else if (Net.getGames(_instance).getRulesTarot() != null) {
+//                pl_.setRulesBelote(new RulesBelote());
+//                pl_.setRulesPresident(new RulesPresident());
+//                pl_.setRulesTarot(Net.getGames(_instance).getRulesTarot());
+//            } else {
+//                pl_.setRulesBelote(new RulesBelote());
+//                pl_.setRulesPresident(new RulesPresident());
+//                pl_.setRulesTarot(new RulesTarot());
+//            }
+//            pl_.setNbPlayers(Net.getNbPlayers(_instance));
+//            pl_.setPseudos(new IntMap<String>(_common.getNicknames()));
+//            pl_.setPlacesPlayers(_common.getPlacesPlayers());
+//            pl_.setReadyPlayers(new IntMap<BoolVal>(_common.getReadyPlayers()));
+//            for (int p:_common.getSockets().getKeys()) {
+//                pl_.setFirst(p == newPlayer_.getIndex());
+//                Net.sendObject(_common.getSockets().getVal(p),pl_);
+//            }
+            return;
+        }
+        if (playerActionBeforeGame_ instanceof OldPlayerCards) {
+            OldPlayerCards newPlayer_ = (OldPlayerCards)playerActionBeforeGame_;
+            Net.sendObject(_common.getSockets().getVal(newPlayer_.getTarget()),newPlayer_);
             return;
         }
         if (playerActionBeforeGame_ instanceof ChoosenPlace) {

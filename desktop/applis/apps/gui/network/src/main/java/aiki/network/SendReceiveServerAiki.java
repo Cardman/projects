@@ -38,24 +38,24 @@ public final class SendReceiveServerAiki extends BasicServer {
     static void loop(String _input, Document _object, NetAiki _instance, NetCommon _common) {
         Element elt_ = _object.getDocumentElement();
         PlayerActionBeforeGameAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getPlayerActionBeforeGame(elt_);
-        if (playerActionBeforeGame_ instanceof AddingPlayer) {
-            AddingPlayer newPlayer_ = (AddingPlayer)playerActionBeforeGame_;
-            if (!newPlayer_.isAcceptable()) {
-                Exiting forcedBye_ = new Exiting();
-                forcedBye_.setBusy(true);
-                forcedBye_.setForced(true);
-                forcedBye_.setClosing(false);
-                forcedBye_.setTooManyPlayers(true);
+//        if (playerActionBeforeGame_ instanceof AddingPlayer) {
+//            AddingPlayer newPlayer_ = (AddingPlayer)playerActionBeforeGame_;
+//            if (!newPlayer_.isAcceptable()) {
+//                Exiting forcedBye_ = new Exiting();
+//                forcedBye_.setBusy(true);
+//                forcedBye_.setForced(true);
+//                forcedBye_.setClosing(false);
+//                forcedBye_.setTooManyPlayers(true);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
 //                Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
 //                Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
 //                Net.sendObject(socket_,forcedBye_);
-                removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
-                return;
-            }
-        }
+//                removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
+//                return;
+//            }
+//        }
         if (playerActionBeforeGame_ instanceof NewPlayerAiki) {
             NewPlayerAiki newPlayer_ = (NewPlayerAiki)playerActionBeforeGame_;
             if (_common.getNicknames().size() == NetAiki.NB_PLAYERS) {

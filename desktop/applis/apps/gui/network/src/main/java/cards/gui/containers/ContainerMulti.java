@@ -1,9 +1,9 @@
 package cards.gui.containers;
-import cards.network.common.before.PlayersNamePresent;
+import cards.network.common.before.IndexOfArrivingCards;
 
 public interface ContainerMulti extends ContainerPlayableGame {
 
-    void updateFirst(PlayersNamePresent _players);
+    void updateFirst(IndexOfArrivingCards _players);
 
 //    void updatePlaces(ChoosenPlace _choosePlace);
 //    void updateReady(Ready _readyPlayer);

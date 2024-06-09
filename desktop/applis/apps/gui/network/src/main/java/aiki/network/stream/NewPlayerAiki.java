@@ -6,11 +6,11 @@ public final class NewPlayerAiki extends PlayerActionBeforeGameAiki implements A
 
     private String pseudo;
 
-    private boolean arriving;
+//    private boolean arriving;
 
 //    private String language;
 
-    private boolean acceptable;
+//    private boolean acceptable;
 
     public String getPseudo() {
         return pseudo;
@@ -20,13 +20,13 @@ public final class NewPlayerAiki extends PlayerActionBeforeGameAiki implements A
         pseudo = _pseudo;
     }
 
-    public boolean isArriving() {
-        return arriving;
-    }
-
-    public void setArriving(boolean _arriving) {
-        arriving = _arriving;
-    }
+//    public boolean isArriving() {
+//        return arriving;
+//    }
+//
+//    public void setArriving(boolean _arriving) {
+//        arriving = _arriving;
+//    }
 
 //    public String getLanguage() {
 //        return language;
@@ -36,13 +36,4 @@ public final class NewPlayerAiki extends PlayerActionBeforeGameAiki implements A
 //        language = _language;
 //    }
 
-    @Override
-    public void setAcceptable(boolean _acceptable) {
-        acceptable = _acceptable;
-    }
-
-    @Override
-    public boolean isAcceptable() {
-        return acceptable;
-    }
 }

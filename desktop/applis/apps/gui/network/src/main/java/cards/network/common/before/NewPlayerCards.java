@@ -1,16 +1,22 @@
 package cards.network.common.before;
 import code.network.AddingPlayer;
+import code.util.IntMap;
+import code.util.IntTreeMap;
+import code.util.core.BoolVal;
 
 
 public final class NewPlayerCards extends PlayerActionBeforeGameCards implements AddingPlayer {
 
     private String pseudo;
 
-    private boolean arriving;
+    private IntTreeMap< Byte> placesPlayers;
+
+    private IntMap<BoolVal> readyPlayers;
+//    private boolean arriving;
 
 //    private String language;
 
-    private boolean acceptable;
+//    private boolean acceptable;
 
     public String getPseudo() {
         return pseudo;
@@ -20,14 +26,21 @@ public final class NewPlayerCards extends PlayerActionBeforeGameCards implements
         pseudo = _pseudo;
     }
 
-    public boolean isArriving() {
-        return arriving;
+    public IntTreeMap< Byte> getPlacesPlayers() {
+        return placesPlayers;
     }
 
-    public void setArriving(boolean _arriving) {
-        arriving = _arriving;
+    public void setPlacesPlayers(IntTreeMap< Byte> _placesPlayers) {
+        placesPlayers = _placesPlayers;
     }
 
+    public IntMap<BoolVal> getReadyPlayers() {
+        return readyPlayers;
+    }
+
+    public void setReadyPlayers(IntMap<BoolVal> _readyPlayers) {
+        readyPlayers = _readyPlayers;
+    }
 //    public String getLanguage() {
 //        return language;
 //    }
@@ -36,13 +49,4 @@ public final class NewPlayerCards extends PlayerActionBeforeGameCards implements
 //        language = _language;
 //    }
 
-    @Override
-    public boolean isAcceptable() {
-        return acceptable;
-    }
-
-    @Override
-    public void setAcceptable(boolean _acceptable) {
-        acceptable = _acceptable;
-    }
 }

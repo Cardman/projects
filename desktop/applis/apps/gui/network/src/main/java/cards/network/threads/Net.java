@@ -115,9 +115,9 @@ public final class Net {
     public static void sendObject(AbstractSocket _socket, ResultsTarot _serializable) {
         NetGroupFrame.trySendString(DocumentWriterTarotUtil.resultsTarot(_serializable), _socket);
     }
-    public static void sendObject(AbstractSocket _socket, PlayersNamePresent _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playersNamePresent(_serializable), _socket);
-    }
+//    public static void sendObject(AbstractSocket _socket, PlayersNamePresent _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playersNamePresent(_serializable), _socket);
+//    }
     public static void sendObject(AbstractSocket _socket, AllowPlayingBelote _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.allowPlayingBelote(_serializable), _socket);
     }

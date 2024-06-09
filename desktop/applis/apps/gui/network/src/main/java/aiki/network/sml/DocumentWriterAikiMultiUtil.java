@@ -148,7 +148,7 @@ public final class DocumentWriterAikiMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClosing(),FIELD_CLOSING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isServer(),FIELD_SERVER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isTooManyPlayers(),FIELD_TOO_MANY_PLAYERS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isBusy(),FIELD_BUSY,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isBusy(),FIELD_BUSY,_document));
     }
 
     private static Element setCheckCompatibility(CheckCompatibility _object, String _fieldName, Document _document) {
@@ -177,9 +177,9 @@ public final class DocumentWriterAikiMultiUtil {
 
     private static void setNewPlayer(NewPlayerAiki _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
 //        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAcceptable(),FIELD_ACCEPTABLE,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAcceptable(),FIELD_ACCEPTABLE,_document));
         setPlayerActionBeforeGame(_object, _element, _document);
     }
 

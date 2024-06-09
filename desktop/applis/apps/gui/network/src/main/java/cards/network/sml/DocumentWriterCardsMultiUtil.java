@@ -10,12 +10,7 @@ import cards.network.belote.displaying.RefreshHandBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.*;
-import cards.network.common.before.ChoosenPlace;
-import cards.network.common.before.IndexOfArrivingCards;
-import cards.network.common.before.NewPlayerCards;
-import cards.network.common.before.PlayerActionBeforeGameCards;
-import cards.network.common.before.PlayersNamePresent;
-import cards.network.common.before.Ready;
+import cards.network.common.before.*;
 import cards.gui.*;
 import cards.network.president.actions.DiscardedCardsPresident;
 import cards.network.president.actions.PlayingCardPresident;
@@ -156,6 +151,7 @@ public final class DocumentWriterCardsMultiUtil {
     public static final String TYPE_ERROR_PLAYING_PRESIDENT = "ErrorPlayingPresident";
     public static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
     public static final String TYPE_NEW_PLAYER = "NewPlayer";
+    public static final String TYPE_OLD_PLAYER = "OldPlayer";
     public static final String TYPE_OK = "Ok";
     public static final String TYPE_TAKE_CARD = "TakeCard";
     public static final String TYPE_DISPLAY_SLAM_BUTTON = "DisplaySlamButton";
@@ -322,11 +318,11 @@ public final class DocumentWriterCardsMultiUtil {
         return doc_.export();
     }
 
-    public static String playersNamePresent(PlayersNamePresent _object) {
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setPlayersNamePresent(_object, "", doc_));
-        return doc_.export();
-    }
+//    public static String playersNamePresent(PlayersNamePresent _object) {
+//        Document doc_ = DocumentBuilder.newXmlDocument();
+//        doc_.appendChild(setPlayersNamePresent(_object, "", doc_));
+//        return doc_.export();
+//    }
 
 //    public static String delegateServer(DelegateServer _object) {
 //        Document doc_ = DocumentBuilder.newXmlDocument();
@@ -528,7 +524,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isForced(),FIELD_FORCED,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClosing(),FIELD_CLOSING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isServer(),FIELD_SERVER,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isBusy(),FIELD_BUSY,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isBusy(),FIELD_BUSY,_document));
     }
 //
 //    private static Element setDelegateServer(DelegateServer _object, String _fieldName, Document _document) {
@@ -752,10 +748,21 @@ public final class DocumentWriterCardsMultiUtil {
     }
 
     private static void setNewPlayer(NewPlayerCards _object, Element _element, Document _document) {
+        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerByte(_object.getPlacesPlayers(),FIELD_PLACES_PLAYERS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerBoolean(_object.getReadyPlayers(),FIELD_READY_PLAYERS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
 //        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAcceptable(),FIELD_ACCEPTABLE,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAcceptable(),FIELD_ACCEPTABLE,_document));
+        setPlayerActionBeforeGame(_object, _element, _document);
+    }
+
+    private static void setOldPlayer(OldPlayerCards _object, Element _element, Document _document) {
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getTarget(),FIELD_PSEUDOS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAcceptable(),FIELD_ACCEPTABLE,_document));
         setPlayerActionBeforeGame(_object, _element, _document);
     }
 
@@ -767,8 +774,17 @@ public final class DocumentWriterCardsMultiUtil {
             return element_;
         }
         if (_object instanceof IndexOfArrivingCards) {
+            IndexOfArrivingCards ind_ = (IndexOfArrivingCards) _object;
             Element element_ = _document.createElement(TYPE_INDEX_OF_ARRIVING);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+            element_.appendChild(DocumentWriterCoreUtil.setMapIntegerByte(ind_.getPlacesPlayers(),FIELD_PLACES_PLAYERS,_document));
+            element_.appendChild(DocumentWriterCoreUtil.setMapIntegerBoolean(ind_.getReadyPlayers(),FIELD_READY_PLAYERS,_document));
+            element_.appendChild(DocumentWriterCoreUtil.setInteger(ind_.getNbPlayers(),FIELD_NB_PLAYERS,_document));
+//            _element.appendChild(DocumentWriterCoreUtil.setBoolean(ind_.isFirst(),FIELD_FIRST,_document));
+            element_.appendChild(DocumentWriterTarotUtil.setRulesTarot(ind_.getRulesTarot(),FIELD_RULES_TAROT,_document));
+            element_.appendChild(DocumentWriterPresidentUtil.setRulesPresident(ind_.getRulesPresident(),FIELD_RULES_PRESIDENT,_document));
+            element_.appendChild(DocumentWriterBeloteUtil.setRulesBelote(ind_.getRulesBelote(),FIELD_RULES_BELOTE,_document));
+//            element_.appendChild(DocumentWriterCoreUtil.setInteger(((IndexOfArrivingCards) _object).getNbPlayers(),FIELD_NB_PLAYERS,_document));
             setPlayerActionBeforeGame(_object,element_,_document);
             return element_;
         }
@@ -776,6 +792,12 @@ public final class DocumentWriterCardsMultiUtil {
             Element element_ = _document.createElement(TYPE_NEW_PLAYER);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setNewPlayer((NewPlayerCards)_object,element_,_document);
+            return element_;
+        }
+        if (_object instanceof OldPlayerCards) {
+            Element element_ = _document.createElement(TYPE_OLD_PLAYER);
+            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+            setOldPlayer((OldPlayerCards)_object,element_,_document);
             return element_;
         }
         if (_object instanceof Ready) {
@@ -791,23 +813,23 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndex(),FIELD_INDEX,_document));
     }
 
-    private static Element setPlayersNamePresent(PlayersNamePresent _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_PLAYERS_NAME_PRESENT);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setPlayersNamePresent(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setPlayersNamePresent(PlayersNamePresent _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerString(_object.getPseudos(),FIELD_PSEUDOS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerByte(_object.getPlacesPlayers(),FIELD_PLACES_PLAYERS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerBoolean(_object.getReadyPlayers(),FIELD_READY_PLAYERS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbPlayers(),FIELD_NB_PLAYERS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isFirst(),FIELD_FIRST,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setRulesTarot(_object.getRulesTarot(),FIELD_RULES_TAROT,_document));
-        _element.appendChild(DocumentWriterPresidentUtil.setRulesPresident(_object.getRulesPresident(),FIELD_RULES_PRESIDENT,_document));
-        _element.appendChild(DocumentWriterBeloteUtil.setRulesBelote(_object.getRulesBelote(),FIELD_RULES_BELOTE,_document));
-    }
+//    private static Element setPlayersNamePresent(PlayersNamePresent _object, String _fieldName, Document _document) {
+//        Element element_ = _document.createElement(TYPE_PLAYERS_NAME_PRESENT);
+//        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//        setPlayersNamePresent(_object,element_,_document);
+//        return element_;
+//    }
+//
+//    private static void setPlayersNamePresent(PlayersNamePresent _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerString(_object.getPseudos(),FIELD_PSEUDOS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerByte(_object.getPlacesPlayers(),FIELD_PLACES_PLAYERS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerBoolean(_object.getReadyPlayers(),FIELD_READY_PLAYERS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbPlayers(),FIELD_NB_PLAYERS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isFirst(),FIELD_FIRST,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setRulesTarot(_object.getRulesTarot(),FIELD_RULES_TAROT,_document));
+//        _element.appendChild(DocumentWriterPresidentUtil.setRulesPresident(_object.getRulesPresident(),FIELD_RULES_PRESIDENT,_document));
+//        _element.appendChild(DocumentWriterBeloteUtil.setRulesBelote(_object.getRulesBelote(),FIELD_RULES_BELOTE,_document));
+//    }
 
     private static void setReady(Ready _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReady(),FIELD_READY,_document));

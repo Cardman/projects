@@ -30,7 +30,7 @@ import cards.network.belote.displaying.RefreshHandBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.*;
-import cards.network.common.before.PlayersNamePresent;
+import cards.network.common.before.*;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -235,7 +235,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //    }
 
     @Override
-    public void updateFirst(PlayersNamePresent _players) {
+    public void updateFirst(IndexOfArrivingCards _players) {
         getPane().removeAll();
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getTricksHands(),true);

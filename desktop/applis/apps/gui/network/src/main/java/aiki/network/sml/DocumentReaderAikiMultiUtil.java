@@ -97,12 +97,12 @@ public final class DocumentReaderAikiMultiUtil {
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_TOO_MANY_PLAYERS)) {
             _object.setTooManyPlayers(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
+//            return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_BUSY)) {
-            _object.setBusy(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_BUSY)) {
+//            _object.setBusy(DocumentReaderCoreUtil.getBoolean(_element));
+//            return;
+//        }
     }
 
     public static CheckCompatibility getCheckCompatibility(Element _element) {
@@ -150,18 +150,18 @@ public final class DocumentReaderAikiMultiUtil {
             _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ARRIVING)) {
-            _object.setArriving(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ARRIVING)) {
+//            _object.setArriving(DocumentReaderCoreUtil.getBoolean(_element));
+//            return;
+//        }
 //        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_LANGUAGE)) {
 //            _object.setLanguage(DocumentReaderCoreUtil.getString(_element));
 //            return;
 //        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ACCEPTABLE)) {
-            _object.setAcceptable(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ACCEPTABLE)) {
+//            _object.setAcceptable(DocumentReaderCoreUtil.getBoolean(_element));
+//            return;
+//        }
         getPlayerActionBeforeGame(_object, _fieldName, _element);
     }
 

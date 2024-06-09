@@ -4,9 +4,7 @@ import cards.gui.containers.events.ChangePlaceEvent;
 import cards.gui.containers.events.ReadyEvent;
 import cards.network.common.PlayerActionGame;
 import cards.network.common.PlayerActionGameType;
-import cards.network.common.before.ChoosenPlace;
-import cards.network.common.before.PlayersNamePresent;
-import cards.network.common.before.Ready;
+import cards.network.common.before.*;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -34,6 +32,7 @@ public final class ContainerMultiContent {
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private final AbsPlainLabel canPlayLabel;
     private final WindowNetWork win;
+//    private final AbstractAtomicInteger win;
     public ContainerMultiContent(boolean _hasCreatedServer, WindowNetWork _window) {
         hasCreatedServer = _hasCreatedServer;
         win = _window;
@@ -65,14 +64,15 @@ public final class ContainerMultiContent {
         choice_.setReady(readyToPlay);
         window().sendObject(choice_);
     }
-    public AbsPanel resultUsers(ContainerMulti _cont,PlayersNamePresent _players) {
+    public AbsPanel resultUsers(ContainerMulti _cont, IndexOfArrivingCards _players) {
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = win.getFrames().getCompoFactory().newPageBox();
         AbsPanel panel_ = win.getFrames().getCompoFactory().newGrid(0, 2);
         panel_.add(win.getFrames().getCompoFactory().newPlainLabel(_cont.getContainerMultiContent().getMessages().getVal(MessagesGuiCards.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(win.getFrames());
         choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
-        choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos().size() - 1);
+        choiceOfPlaceForPlayingGame.setSelectedItem(_players.getIndex());
+        choiceOfPlaceForPlayingGame.getCombo().repaint();
         indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(_cont));
         panel_.add(choiceOfPlaceForPlayingGame.self());
@@ -98,17 +98,41 @@ public final class ContainerMultiContent {
         container_.add(panel_);
         return container_;
     }
-    public void updateAfter(PlayersNamePresent _players) {
+//    public void updateAfter(PlayersNamePresent _players) {
+//        playersPlacesForGame = _players.getPlacesPlayers();
+//        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
+//        for (int i: _players.getPseudos().getKeys()) {
+//            playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
+//        }
+//        for (int i: _players.getPlacesPlayers().getKeys()) {
+//            playersPlaces.get(i).setText(_players.getPlacesPlayers().getVal(i).toString());
+//        }
+//        for (int i: _players.getReadyPlayers().getKeys()) {
+//            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
+//        }
+//    }
+    public void updateAfter(NewPlayerCards _players) {
         playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
-        for (int i: _players.getPseudos().getKeys()) {
-            playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
+        playersPseudosForGame.put(_players.getIndex(),_players.getPseudo());
+        update(_players.getPlacesPlayers(), _players.getReadyPlayers());
+        playersPseudos.get(_players.getIndex()).setText(_players.getPseudo());
+    }
+    public void updateAfter(OldPlayerCards _players) {
+        playersPseudos.get(_players.getIndex()).setText(_players.getPseudo());
+        playersPseudosForGame.put(_players.getIndex(),_players.getPseudo());
+    }
+    public void updateAfter(IndexOfArrivingCards _players) {
+        playersPlacesForGame = _players.getPlacesPlayers();
+        playersPseudosForGame = new IntMap<String>();
+        update(_players.getPlacesPlayers(), _players.getReadyPlayers());
+    }
+
+    private void update(IntTreeMap<Byte> _places, IntMap<BoolVal> _ready) {
+        for (int i: _places.getKeys()) {
+            playersPlaces.get(i).setText(_places.getVal(i).toString());
         }
-        for (int i: _players.getPlacesPlayers().getKeys()) {
-            playersPlaces.get(i).setText(_players.getPlacesPlayers().getVal(i).toString());
-        }
-        for (int i: _players.getReadyPlayers().getKeys()) {
-            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
+        for (int i: _ready.getKeys()) {
+            playersReady.get(i).setSelected(_ready.getVal(i) == BoolVal.TRUE);
         }
     }
     public void updatePlaces(ChoosenPlace _choosePlace) {

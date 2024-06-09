@@ -18,7 +18,7 @@ import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetPresident;
 import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.*;
-import cards.network.common.before.PlayersNamePresent;
+import cards.network.common.before.*;
 import cards.network.president.actions.DiscardedCardsPresident;
 import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.*;
@@ -84,7 +84,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     @Override
-    public void updateFirst(PlayersNamePresent _players) {
+    public void updateFirst(IndexOfArrivingCards _players) {
         getPane().removeAll();
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getTricksHands(),true);

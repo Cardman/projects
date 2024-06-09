@@ -20,7 +20,7 @@ import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.*;
-import cards.network.common.before.PlayersNamePresent;
+import cards.network.common.before.*;
 import cards.network.tarot.DiscardPhaseTarot;
 import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
@@ -177,7 +177,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        playersReady.get(_readyPlayer.getIndex()).setSelected(_readyPlayer.isReady());
 //    }
     @Override
-    public void updateFirst(PlayersNamePresent _players) {
+    public void updateFirst(IndexOfArrivingCards _players) {
         getPane().removeAll();
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getTricksHands(),true);

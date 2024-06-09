@@ -11,7 +11,7 @@ public final class Exiting {
 
     private boolean tooManyPlayers;
 
-    private boolean busy;
+//    private boolean busy;
 
     public boolean isForced() {
         return forced;
@@ -45,11 +45,11 @@ public final class Exiting {
         tooManyPlayers = _tooManyPlayers;
     }
 
-    public boolean isBusy() {
-        return busy;
-    }
-
-    public void setBusy(boolean _busy) {
-        busy = _busy;
-    }
+//    public boolean isBusy() {
+//        return busy;
+//    }
+//
+//    public void setBusy(boolean _busy) {
+//        busy = _busy;
+//    }
 }
