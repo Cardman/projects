@@ -756,9 +756,9 @@ public class ScenePanelMulti {
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
-        if (receivedPk.isProcessing()) {
-            return;
-        }
+//        if (receivedPk.isProcessing()) {
+//            return;
+//        }
         task_.getBeanNatLgNames().setDataBase(facade);
         FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), task_.getBeanNatLgNames(), receivedPk);
     }
