@@ -922,7 +922,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
 //        ready.addActionListener(new ReadyEvent(this));
 //        panel_.add(ready);
-        containerMultiContent.endReady(this,panel_);
+//        containerMultiContent.endReady(this,panel_);
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);

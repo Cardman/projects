@@ -2,6 +2,7 @@ package code.vi.sys.impl;
 
 import code.gui.initialize.*;
 
+import java.net.InetAddress;
 import java.net.Socket;
 
 public final class DefSocketFactory implements AbstractSocketFactory {
@@ -10,6 +11,15 @@ public final class DefSocketFactory implements AbstractSocketFactory {
     public AbstractSocket newSocket(int _port, String _address) {
         try {
             return new DefSocket(new Socket(_address, _port));
+        } catch (Exception e) {
+            return new DefSocket();
+        }
+    }
+
+    @Override
+    public AbstractSocket newSocket(int _port) {
+        try {
+            return new DefSocket(new Socket(InetAddress.getLocalHost(), _port));
         } catch (Exception e) {
             return new DefSocket();
         }

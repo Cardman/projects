@@ -792,6 +792,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     @Override
     public void gearClient(AbstractSocket _newSocket) {
         if (!isCards()) {
+            if (getSockets().getNicknames().size() == NetAiki.NB_PLAYERS) {
+                Exiting forcedBye_ = new Exiting();
+                forcedBye_.setForced(true);
+                forcedBye_.setClosing(false);
+                forcedBye_.setTooManyPlayers(true);
+                Net.sendObject(_newSocket,forcedBye_);
+                return;
+            }
+            /*if (_common.getNicknames().size() == NetAiki.NB_PLAYERS) {*/
             getSockets().getSockets().put(getSockets().getSockets().size(), _newSocket);
             SendReceiveServerAiki sendReceiveServer_=new SendReceiveServerAiki(_newSocket,this, getNetAiki());
             getThreadFactory().newStartedThread(sendReceiveServer_);

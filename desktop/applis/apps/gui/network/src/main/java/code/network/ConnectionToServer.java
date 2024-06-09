@@ -11,10 +11,10 @@ public final class ConnectionToServer implements Runnable, Locking {
     private final NetGroupFrame serverWindow;
 
     /**This class thread is independant from EDT*/
-    public ConnectionToServer(AbstractServerSocket _serverSocket,NetGroupFrame _serverWindow,String _ipHost, int _port){
+    public ConnectionToServer(AbstractServerSocket _serverSocket, NetGroupFrame _serverWindow, int _port){
         serverSocket=_serverSocket;
         serverWindow = _serverWindow;
-        serverWindow.createClient(_ipHost, null, true, _port);
+        serverWindow.getFirstSocketResults(_port);
     }
     public void fermer() {
         serverSocket.close();

@@ -58,29 +58,30 @@ public final class SendReceiveServerAiki extends BasicServer {
 //        }
         if (playerActionBeforeGame_ instanceof NewPlayerAiki) {
             NewPlayerAiki newPlayer_ = (NewPlayerAiki)playerActionBeforeGame_;
-            if (_common.getNicknames().size() == NetAiki.NB_PLAYERS) {
-                Exiting forcedBye_ = new Exiting();
-                forcedBye_.setForced(true);
-                forcedBye_.setClosing(false);
-                forcedBye_.setTooManyPlayers(true);
+//            if (_common.getNicknames().size() == NetAiki.NB_PLAYERS) {
+//                Exiting forcedBye_ = new Exiting();
+//                forcedBye_.setForced(true);
+//                forcedBye_.setClosing(false);
+//                forcedBye_.setTooManyPlayers(true);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
 //                Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
 //                Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
 //                Net.sendObject(socket_,forcedBye_);
-                removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
-                return;
-            }
-            if (newPlayer_.getIndex() == IndexConstants.SECOND_INDEX) {
-                NetAiki.sendObjectInitTrading(_common.getSockets().getVal((int) IndexConstants.SECOND_INDEX));
-                return;
-            }
-            if (newPlayer_.getIndex() == IndexConstants.FIRST_INDEX) {
-                //init trading condition
-                NetAiki.sendObjectInitTrading(_common.getSockets().getVal((int) IndexConstants.FIRST_INDEX));
-                return;
-            }
+//                removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
+//                return;
+//            }
+            NetAiki.sendObjectInitTrading(_common.getSockets().getVal(newPlayer_.getIndex()));
+//            if (newPlayer_.getIndex() == IndexConstants.SECOND_INDEX) {
+//                NetAiki.sendObjectInitTrading(_common.getSockets().getVal((int) IndexConstants.SECOND_INDEX));
+//                return;
+//            }
+//            if (newPlayer_.getIndex() == IndexConstants.FIRST_INDEX) {
+//                //init trading condition
+//                NetAiki.sendObjectInitTrading(_common.getSockets().getVal((int) IndexConstants.FIRST_INDEX));
+//                return;
+//            }
             return;
         }
         String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);

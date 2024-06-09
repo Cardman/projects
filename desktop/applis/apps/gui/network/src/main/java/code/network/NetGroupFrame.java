@@ -64,19 +64,24 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
     public SocketResults createClient(String _host, IpType _ipType, boolean _first, int _port) {
 //        port = _port;
         if (_first) {
-            return getSocketResults(true, _port, _host);
+            return getFirstSocketResults(_port);
         }
         StringList allAddresses_ = NetCreate.getAllAddresses(getSocketFactory(),_ipType, _host);
         if (allAddresses_.isEmpty()) {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
         }
         String first_ = allAddresses_.first();
-        return getSocketResults(false, _port, first_);
+        return getNextSocketResults(_port, first_);
     }
 
-    private SocketResults getSocketResults(boolean _first, int _port, String _address) {
+    public SocketResults getFirstSocketResults(int _port) {
+        AbstractSocket socket_ = getSocketFactory().newSocket(_port);
+        return results(true, socket_);
+    }
+
+    private SocketResults getNextSocketResults(int _port, String _address) {
         AbstractSocket socket_ = getSocketFactory().newSocket(_port, _address);
-        return results(_first, socket_);
+        return results(false, socket_);
     }
 
     private SocketResults results(boolean _first, AbstractSocket _socket) {

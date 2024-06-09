@@ -9,6 +9,11 @@ public final class MockSocketFactory implements AbstractSocketFactory {
 
     @Override
     public AbstractSocket newSocket(int _port, String _address) {
+        return newSocket(_port);
+    }
+
+    @Override
+    public AbstractSocket newSocket(int _port) {
         return new MockSocket(koSocket);
     }
 

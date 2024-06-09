@@ -184,8 +184,8 @@ public final class DialogServerContent implements AbstractDialogServer {
     public void createServerChoice() {
 //        join = false;
 //        create = true;
-        String ip_ = NetCreate.getHostAddress(frames.getSocketFactory(),ipType.getCurrent(), adjust(ipOrHostName.getText()));
-        AbstractServerSocket serverSocket_ = frames.getSocketFactory().newServerSocket(ip_, portChoice.getValue());
+//        String ip_ = NetCreate.getHostAddress(frames.getSocketFactory(),ipType.getCurrent(), adjust(ipOrHostName.getText()));
+        AbstractServerSocket serverSocket_ = frames.getSocketFactory().newServerSocket(portChoice.getValue());
         if (!serverSocket_.isOk()) {
             StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(frames.currentLg())).getMapping();
             String message_ = mapping_.getVal(MessagesNetWork.USED_PORT);
@@ -206,7 +206,7 @@ public final class DialogServerContent implements AbstractDialogServer {
         serverSocket = serverSocket_;
         closeWindow();
         server = getFrames().getThreadFactory().newScheduledExecutorService();
-        connection = new ConnectionToServer(serverSocket_, window, ip_, portChoice.getValue());
+        connection = new ConnectionToServer(serverSocket_, window, portChoice.getValue());
         task = server.scheduleAtFixedRateNanos(connection,0,1);
     }
 
