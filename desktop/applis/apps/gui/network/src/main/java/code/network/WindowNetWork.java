@@ -18,7 +18,6 @@ import cards.gui.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.gui.events.*;
-import cards.gui.interfaces.*;
 import cards.gui.menus.*;
 import cards.main.*;
 import cards.network.belote.actions.*;
@@ -442,7 +441,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private final DialogNicknames dialogNicknames;
 //    private final DialogSoft dialogSoft;
 //    private final CardFactories cardFactories;
-    private ResultCardsServerInteract resultCardsServerInteract;
+//    private ResultCardsServerInteract resultCardsServerInteract;
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final NetAiki netAiki = new NetAiki();
 //    private StringMap<String> messagesAiki = new StringMap<String>();
@@ -2841,13 +2840,13 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return multiModeButton;
     }
 
-    public ResultCardsServerInteract getResultCardsServerInteract() {
-        return resultCardsServerInteract;
-    }
-
-    public void setResultCardsServerInteract(ResultCardsServerInteract _r) {
-        this.resultCardsServerInteract = _r;
-    }
+//    public ResultCardsServerInteract getResultCardsServerInteract() {
+//        return resultCardsServerInteract;
+//    }
+//
+//    public void setResultCardsServerInteract(ResultCardsServerInteract _r) {
+//        this.resultCardsServerInteract = _r;
+//    }
     public NetAiki getNetAiki() {
         return netAiki;
     }
