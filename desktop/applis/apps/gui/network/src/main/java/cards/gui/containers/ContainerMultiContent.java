@@ -112,9 +112,11 @@ public final class ContainerMultiContent {
 //        }
 //    }
     public void updateAfter(NewPlayerCards _players) {
-        playersPlacesForGame = _players.getPlacesPlayers();
+//        playersPlacesForGame = _players.getPlacesPlayers();
+        playersPlacesForGame.put(_players.getIndex(), (byte) _players.getIndex());
+        playersPlaces.get(_players.getIndex()).setText(Integer.toString(_players.getIndex()));
         playersPseudosForGame.put(_players.getIndex(),_players.getPseudo());
-        update(_players.getPlacesPlayers(), _players.getReadyPlayers());
+//        update(_players.getPlacesPlayers(), _players.getReadyPlayers());
         playersPseudos.get(_players.getIndex()).setText(_players.getPseudo());
     }
     public void updateAfter(OldPlayerCards _players) {

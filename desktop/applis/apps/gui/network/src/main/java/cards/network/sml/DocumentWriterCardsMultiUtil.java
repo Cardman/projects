@@ -748,8 +748,8 @@ public final class DocumentWriterCardsMultiUtil {
     }
 
     private static void setNewPlayer(NewPlayerCards _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerByte(_object.getPlacesPlayers(),FIELD_PLACES_PLAYERS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerBoolean(_object.getReadyPlayers(),FIELD_READY_PLAYERS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerByte(_object.getPlacesPlayers(),FIELD_PLACES_PLAYERS,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setMapIntegerBoolean(_object.getReadyPlayers(),FIELD_READY_PLAYERS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
 //        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
 //        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));

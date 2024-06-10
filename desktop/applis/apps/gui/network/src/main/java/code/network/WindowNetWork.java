@@ -895,8 +895,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            p_.setArriving(true);
             p_.setIndex(container_.getContainerMultiContent().getNoClient());
             p_.setPseudo(pseudo());
-            p_.setPlacesPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getPlacesPlayers());
-            p_.setReadyPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getReadyPlayers());
+//            p_.setPlacesPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getPlacesPlayers());
+//            p_.setReadyPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getReadyPlayers());
             container_.getContainerMultiContent().updateAfter(p_);
 //            p_.setLanguage(getLanguageKey());
             Net.sendObject(_socket,p_);

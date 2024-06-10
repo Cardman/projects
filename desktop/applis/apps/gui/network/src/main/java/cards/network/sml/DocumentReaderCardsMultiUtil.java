@@ -639,14 +639,14 @@ public final class DocumentReaderCardsMultiUtil {
     }
 
     private static void getNewPlayer(NewPlayerCards _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_PLACES_PLAYERS)) {
-            _object.setPlacesPlayers(DocumentReaderCoreUtil.getMapIntegerByte(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_READY_PLAYERS)) {
-            _object.setReadyPlayers(DocumentReaderCoreUtil.getMapIntegerBoolean(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_PLACES_PLAYERS)) {
+//            _object.setPlacesPlayers(DocumentReaderCoreUtil.getMapIntegerByte(_element));
+//            return;
+//        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_READY_PLAYERS)) {
+//            _object.setReadyPlayers(DocumentReaderCoreUtil.getMapIntegerBoolean(_element));
+//            return;
+//        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsMultiUtil.FIELD_PSEUDO)) {
             _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
             return;
