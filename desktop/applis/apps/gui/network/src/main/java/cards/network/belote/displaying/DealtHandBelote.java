@@ -1,7 +1,7 @@
 package cards.network.belote.displaying;
+
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
-import cards.belote.enumerations.DealingBelote;
 import code.util.CustList;
 
 
@@ -15,9 +15,9 @@ public final class DealtHandBelote {
 
     private byte dealer;
 
-    private DealingBelote rep;
+//    private DealingBelote rep;
 
-    private int points;
+//    private int points;
 
     public HandBelote getCards() {
         return cards;
@@ -51,19 +51,19 @@ public final class DealtHandBelote {
         dealer = _dealer;
     }
 
-    public DealingBelote getRep() {
-        return rep;
-    }
+//    public DealingBelote getRep() {
+//        return rep;
+//    }
+//
+//    public void setRep(DealingBelote _rep) {
+//        rep = _rep;
+//    }
 
-    public void setRep(DealingBelote _rep) {
-        rep = _rep;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int _points) {
-        points = _points;
-    }
+//    public int getPoints() {
+//        return points;
+//    }
+//
+//    public void setPoints(int _points) {
+//        points = _points;
+//    }
 }

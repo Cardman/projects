@@ -2262,7 +2262,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            return;
 //        }
     }
-    private String pseudo() {
+    public String pseudo() {
         return netg.getFacadeCards().getPseudosJoueurs().getPseudo();
     }
 //    public void delegateServer() {

@@ -53,7 +53,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //    private NumComboBox choiceOfPlaceForPlayingGame;
 //    private AbsCustCheckBox ready;
 
-    private DealingTarot repTarot;
+//    private DealingTarot repTarot;
 //    private final boolean hasCreatedServer;
 //    private boolean readyToPlay;
 //    private final CustList<AbsPlainLabel> playersPseudos = new CustList<AbsPlainLabel>();
@@ -298,7 +298,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         FrameGeneralHelp.initialize(stds_, containerMultiContent.getEditor());
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
-        repTarot = _hand.getRep();
+//        repTarot = _hand.getRep();
 //        TranslationsLg lg_ = getOwner().getFrames().currentLg();
         placerIhmTarotMulti(_hand.getDog(), _hand.getDealer());
 //        setCarteEntree(false);
@@ -1081,7 +1081,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     @Override
     public IdList<CardTarot> ecartables() {
-        return GameTarot.ecartables(repTarot.getNombreCartesChien(), getTakerCardsDog()).getCards();
+        return GameTarot.ecartables(rulesTarotMulti.getDealing().getNombreCartesChien(), getTakerCardsDog()).getCards();
     }
 
     @Override
@@ -1102,7 +1102,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     @Override
     public void afterHands(CardTarot _c) {
         if (!discardCall) {
-            boolean chienFait_ = cardsInDog.total()== repTarot.getNombreCartesChien();
+            boolean chienFait_ = cardsInDog.total()== rulesTarotMulti.getDealing().getNombreCartesChien();
             updateButtons(chienFait_);
         } else {
             ContainerSingleTarot.updateCardsInPanelTarotCallAfterDog(this,callableCards);
@@ -1119,7 +1119,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void updateButtons() {
         boolean chienFait_;
         if (getContratUtilisateur().getJeuChien() == PlayingDog.WITH) {
-            chienFait_ = cardsInDog.total()== repTarot.getNombreCartesChien() && getCalledCard() != CardTarot.WHITE;
+            chienFait_ = cardsInDog.total()== rulesTarotMulti.getDealing().getNombreCartesChien() && getCalledCard() != CardTarot.WHITE;
         } else {
             chienFait_ = getCalledCard() != CardTarot.WHITE;
         }
@@ -1223,10 +1223,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public HandTarot getCardsInDog() {
         return cardsInDog;
     }
-
-    public DealingTarot getRepTarot() {
-        return repTarot;
-    }
+//
+//    public DealingTarot getRepTarot() {
+//        return repTarot;
+//    }
 
     public HandTarot getPlayerHand() {
         return playerHand;

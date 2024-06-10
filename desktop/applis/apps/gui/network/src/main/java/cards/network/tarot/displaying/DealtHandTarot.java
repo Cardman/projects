@@ -1,7 +1,7 @@
 package cards.network.tarot.displaying;
+
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.DealingTarot;
 import code.util.IdList;
 
 
@@ -15,7 +15,7 @@ public final class DealtHandTarot {
 
     private byte dealer;
 
-    private DealingTarot rep;
+//    private DealingTarot rep;
 
     public HandTarot getCards() {
         return cards;
@@ -49,11 +49,11 @@ public final class DealtHandTarot {
         dealer = _dealer;
     }
 
-    public DealingTarot getRep() {
-        return rep;
-    }
-
-    public void setRep(DealingTarot _rep) {
-        rep = _rep;
-    }
+//    public DealingTarot getRep() {
+//        return rep;
+//    }
+//
+//    public void setRep(DealingTarot _rep) {
+//        rep = _rep;
+//    }
 }

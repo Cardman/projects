@@ -38,6 +38,11 @@ public final class NetCommon {
         }
         return allReady_;
     }
+    public  void resend(String _str) {
+        for(AbstractSocket so_:getSockets().values()) {
+            NetGroupFrame.trySendString(_str, so_);
+        }
+    }
     public IntMap<AbstractSocket> getSockets() {
         return sockets;
     }

@@ -433,8 +433,8 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterBeloteUtil.setHandBelote(_object.getDeck(),FIELD_DECK,_document));
         _element.appendChild(DocumentWriterBeloteUtil.setListBidBeloteSuit(_object.getAllowedBids(),FIELD_ALLOWED_BIDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getDealer(),FIELD_DEALER,_document));
-        _element.appendChild(DocumentWriterBeloteUtil.setDealingBelote(_object.getRep(),FIELD_REP,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPoints(),FIELD_POINTS,_document));
+//        _element.appendChild(DocumentWriterBeloteUtil.setDealingBelote(_object.getRep(),FIELD_REP,_document));
+//        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPoints(),FIELD_POINTS,_document));
     }
 
     private static void setRefreshHandBelote(RefreshHandBelote _object, Element _element, Document _document) {
@@ -1032,7 +1032,7 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDog(),FIELD_DOG,_document));
         _element.appendChild(DocumentWriterTarotUtil.setListBidTarot(_object.getAllowedBids(),FIELD_ALLOWED_BIDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getDealer(),FIELD_DEALER,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setDealingTarot(_object.getRep(),FIELD_REP,_document));
+//        _element.appendChild(DocumentWriterTarotUtil.setDealingTarot(_object.getRep(),FIELD_REP,_document));
     }
 
 //    private static Element setErrorBidding(ErrorBidding _object, String _fieldName, Document _document) {

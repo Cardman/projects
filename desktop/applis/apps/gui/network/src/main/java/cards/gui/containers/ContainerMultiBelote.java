@@ -7,7 +7,6 @@ package cards.gui.containers;
 import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DealingBelote;
 import cards.consts.GameType;
 import cards.consts.Role;
 import cards.facade.Games;
@@ -56,7 +55,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private HandBelote cardsInDog = new HandBelote();
     private HandBelote playerHand = new HandBelote();
-    private DealingBelote repBelote;
+//    private DealingBelote repBelote;
 //    private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
 //    private final boolean hasCreatedServer;
 //    private boolean readyToPlay;
@@ -368,7 +367,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void updateForBeginningGame(DealtHandBelote _hand) {
-        repBelote = _hand.getRep();
+//        repBelote = _hand.getRep();
         placerIhmBeloteMulti(_hand.getDeck(), _hand.getDealer());
 
         playerHand = _hand.getCards();
@@ -568,7 +567,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void afterHands(CardBelote _c) {
-        boolean chienFait_ = cardsInDog.total()== repBelote.getDiscarded();
+        boolean chienFait_ = cardsInDog.total()== rulesBeloteMulti.getDealing().getDiscarded();
         updateButtons(chienFait_);
         pack();
         DiscardedCardBelote discard_ = new DiscardedCardBelote();

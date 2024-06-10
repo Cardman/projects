@@ -244,8 +244,8 @@ public final class SendReceiveServerCards extends BasicServer {
                 hand_.setDeck(deal_.derniereMain());
                 hand_.setDealer(Net.getGames(_instance).partieBelote().playerAfter(deal_.getDealer()));
                 hand_.setAllowedBids(Net.getGames(_instance).partieBelote().getGameBeloteBid().allowedBids());
-                hand_.setRep(Net.getGames(_instance).partieBelote().getRegles().getDealing());
-                hand_.setPoints(Net.getGames(_instance).partieBelote().getBid().getPoints());
+//                hand_.setRep(Net.getGames(_instance).partieBelote().getRegles().getDealing());
+//                hand_.setPoints(Net.getGames(_instance).partieBelote().getBid().getPoints());
                 for (byte i:Net.activePlayers(_instance, _common)) {
                     hand_.setCards(deal_.hand(i));
                     Net.sendObject(Net.getSocketByPlace(i, _common), hand_);
@@ -271,7 +271,7 @@ public final class SendReceiveServerCards extends BasicServer {
                 hand_.setDog(deal_.derniereMain());
                 hand_.setDealer(Net.getGames(_instance).partieTarot().playerAfter(deal_.getDealer()));
                 hand_.setAllowedBids(Net.getGames(_instance).partieTarot().allowedBids());
-                hand_.setRep(Net.getGames(_instance).partieTarot().getRegles().getDealing());
+//                hand_.setRep(Net.getGames(_instance).partieTarot().getRegles().getDealing());
                 for (byte i:Net.activePlayers(_instance, _common)) {
                     hand_.setCards(deal_.hand(i));
                     Net.sendObject(Net.getSocketByPlace(i, _common), hand_);
