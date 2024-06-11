@@ -1,10 +1,8 @@
 package cards.network.threads;
 
-import code.util.CustList;
-
 public final class DefSplitPartsFieldsCards implements IntSplitPartsFieldsCards {
     @Override
-    public boolean split(char _ch, CustList<String> _parts) {
+    public boolean split(char _ch, int[] _nb) {
         return Net.SEP_0 == _ch;
     }
 }

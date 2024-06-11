@@ -1,10 +1,11 @@
 package cards.network.threads;
 
-import code.util.CustList;
-
 public final class NicknameSplitPartsNewFieldsCards implements IntSplitPartsFieldsCards {
     @Override
-    public boolean split(char _ch, CustList<String> _parts) {
-        return Net.SEP_0 == _ch && _parts.isEmpty();
+    public boolean split(char _ch, int[] _nb) {
+        if (Net.SEP_0 == _ch) {
+            _nb[0]++;
+        }
+        return Net.SEP_0 == _ch && _nb[0] <= 1;
     }
 }

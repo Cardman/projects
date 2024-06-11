@@ -33,9 +33,10 @@ public final class NetRetrievedInfos {
         }
         CustList<String> parts_ = new CustList<String>();
         StringBuilder part_ = new StringBuilder();
+        int[] pass_ = new int[]{0};
         for (int i = index_; i < len_; i++) {
             char ch_ = _info.charAt(i);
-            if (_window.get(find_).split(ch_,parts_)) {
+            if (_window.get(find_).split(ch_, pass_)) {
                 parts_.add(part_.toString());
                 part_.delete(0,part_.length());
             } else {
