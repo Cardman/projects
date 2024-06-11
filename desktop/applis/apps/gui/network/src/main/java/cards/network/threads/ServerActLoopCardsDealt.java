@@ -2,19 +2,18 @@ package cards.network.threads;
 
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
-import cards.network.president.displaying.ReceivedGivenCards;
-import cards.network.president.unlock.AllowDiscarding;
 import cards.network.tarot.actions.BiddingTarot;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
 import code.network.NetCommon;
+import code.network.NetGroupFrame;
 import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
 import code.util.Bytes;
 import code.util.CustList;
 
-public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClient {
+public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClientAll {
 
     @Override
     protected void loopBelote(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
@@ -23,7 +22,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
             AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
             allowedBids_.setBids(Net.getGames(_instance).partieBelote().getGameBeloteBid().allowedBids());
             allowedBids_.setBid(Net.getGames(_instance).partieBelote().getBid());
-            Net.sendObject(Net.getSocketByPlace(place_, _common), allowedBids_);
+            NetGroupFrame.trySendString(Net.exportAllowBiddingBelote(allowedBids_), Net.getSocketByPlace(place_, _common));
             return;
         }
         //Les "robots" precedant l'utilisateur annoncent leur contrat
@@ -37,7 +36,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
         //bid_.setLocale(Constants.getDefaultLanguage());
 //                bid_.setLocale("");
         for (byte p: Net.activePlayers(_instance, _common)) {
-            Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
+            NetGroupFrame.trySendString(Net.exportBiddingBelote(bid_), Net.getSocketByPlace(p, _common));
         }
     }
 
@@ -52,11 +51,9 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
             Bytes humLos_ = g_.getLoosers(pl_);
             if (!humWin_.isEmpty()) {
                 //Display discarding
-                AllowDiscarding allow_ = new AllowDiscarding();
                 for (byte p: humWin_) {
                     byte l_ = g_.getMatchingLoser(p);
-                    allow_.setReceivedCards(g_.getSwitchedCards().get(l_));
-                    Net.sendObject(Net.getSocketByPlace(p, _common), allow_);
+                    NetGroupFrame.trySendString(Net.exportAllowDiscarding(g_.getSwitchedCards().get(l_)), Net.getSocketByPlace(p, _common));
                 }
 //                        CustList<Byte> humLosReceiving_ = new CustList<>();
 //                        for (Byte p: humLos_) {
@@ -78,13 +75,9 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
             }
             if (!humLos_.isEmpty()) {
                 //Display switched cards
-                ReceivedGivenCards dis_ = new ReceivedGivenCards();
                 for (byte p: humLos_) {
                     byte w_ = g_.getMatchingWinner(p);
-                    dis_.setReceived(g_.getSwitchedCards().get(w_));
-                    dis_.setGiven(g_.getSwitchedCards().get(p));
-                    dis_.setNewHand(g_.getDeal().hand(w_));
-                    Net.sendObject(Net.getSocketByPlace(p, _common), dis_);
+                    NetGroupFrame.trySendString(Net.exportReceivedGivenCards(g_.getSwitchedCards().get(w_),g_.getSwitchedCards().get(p),g_.getDeal().hand(w_)), Net.getSocketByPlace(p, _common));
                 }
                 return;
             }
