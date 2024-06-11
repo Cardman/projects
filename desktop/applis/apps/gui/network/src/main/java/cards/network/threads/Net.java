@@ -414,13 +414,13 @@ public final class Net {
         }
         index_.setReadyPlayers(ready_);
         String rulesFlag_ = _info.get(3);
-        if (rulesFlag_.charAt(0) == (char)RULES_BELOTE) {
+        if (rulesFlag_.charAt(0) == '0'+RULES_BELOTE) {
             index_.setRulesBelote(importRulesBelote(_info, 4));
         }
-        if (rulesFlag_.charAt(0) == (char)RULES_PRESIDENT) {
+        if (rulesFlag_.charAt(0) == '0'+RULES_PRESIDENT) {
             index_.setRulesPresident(importRulesPresident(_info,4));
         }
-        if (rulesFlag_.charAt(0) == (char)RULES_TAROT) {
+        if (rulesFlag_.charAt(0) == '0'+RULES_TAROT) {
             index_.setRulesTarot(importRulesTarot(_info,4));
         }
         return index_;
