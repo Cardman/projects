@@ -71,6 +71,7 @@ public final class Net {
     public static final int SERVER_RULES_PRESIDENT = 3;
     public static final int SERVER_RULES_TAROT = 4;
     public static final int SERVER_PLAY_GAME = 5;
+    public static final int SERVER_DEALT = 6;
     public static final int RULES_BELOTE = 0;
     public static final int RULES_PRESIDENT = 1;
     public static final int RULES_TAROT = 2;
@@ -129,6 +130,7 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsRulesPresident());
         serverActLoopCards.add(new ServerActLoopCardsRulesTarot());
         serverActLoopCards.add(new ServerActLoopCardsPlayGame());
+        serverActLoopCards.add(new ServerActLoopCardsDealt());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
@@ -349,6 +351,19 @@ public final class Net {
         out_.append(exportHandTarot(_dealt.getDog(), SEP_1));
         out_.append(SEP_0);
         out_.append(exportHandTarot(_dealt.getCards(), SEP_1));
+        return out_.toString();
+    }
+    public static String exportPlayGame() {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_PLAY_GAME);
+        out_.append(SEP_0);
+        return out_.toString();
+    }
+    public static String exportDealt(int _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_DEALT);
+        out_.append(SEP_0);
+        out_.append(_index);
         return out_.toString();
     }
     public static String exportBidBeloteSuitList(CustList<BidBeloteSuit> _dealt, char _sep, char _sec) {
