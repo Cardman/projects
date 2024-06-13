@@ -19,6 +19,7 @@ import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.IndexOfArrivingCards;
 import cards.network.common.before.PlayerActionBeforeGameCards;
 import cards.network.common.before.Ready;
+import cards.network.president.actions.DiscardedCardsPresident;
 import cards.network.president.displaying.DealtHandPresident;
 import cards.network.president.displaying.ReceivedGivenCards;
 import cards.network.president.unlock.AllowDiscarding;
@@ -85,6 +86,8 @@ public final class Net {
     public static final int SERVER_DISCARDED_CARD_BELOTE = 8;
     public static final int SERVER_VALIDATE_DISCARD_BELOTE = 9;
     public static final int SERVER_VALIDATE_COMPLETED_HAND_BELOTE = 10;
+    public static final int SERVER_VALIDATE_REFRESHED_HAND_PRESIDENT = 11;
+    public static final int SERVER_DISCARDED_CARDS_PRESIDENT = 12;
     public static final char RULES_BELOTE = '0';
     public static final char RULES_PRESIDENT = '1';
     public static final char RULES_TAROT = '2';
@@ -142,6 +145,8 @@ public final class Net {
         clientAct.add(new ClientActLoopCardsBiddingBelote());
         clientAct.add(new ClientActLoopCardsDiscardPhaseBelote());
         clientAct.add(new ClientActLoopCardsRefreshHandBelote());
+        clientAct.add(new ClientActLoopCardsAllowDiscarding());
+        clientAct.add(new ClientActLoopCardsReceivedGivenCards());
         serverActLoopCards.add(new ServerActLoopCardsNewPlayer());
         serverActLoopCards.add(new ServerActLoopCardsOldPlayer());
         serverActLoopCards.add(new ServerActLoopCardsChosenPlace());
@@ -155,6 +160,8 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsDiscardedCardBelote());
         serverActLoopCards.add(new ServerActLoopCardsValidateDiscardBelote());
         serverActLoopCards.add(new ServerActLoopCardsActedByClientCompletedHandBelote());
+        serverActLoopCards.add(new ServerActLoopCardsRefreshedHandPresident());
+        serverActLoopCards.add(new ServerActLoopCardsDiscardedCardsPresident());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
@@ -206,6 +213,13 @@ public final class Net {
     public static String exportCompletedHandBelote(int _index) {
         StringBuilder out_ = new StringBuilder();
         out_.append(SERVER_VALIDATE_COMPLETED_HAND_BELOTE);
+        out_.append(SEP_0);
+        out_.append(_index);
+        return out_.toString();
+    }
+    public static String exportRefreshedHandPresident(int _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_VALIDATE_REFRESHED_HAND_PRESIDENT);
         out_.append(SEP_0);
         out_.append(_index);
         return out_.toString();
@@ -686,6 +700,24 @@ public final class Net {
         out_.setNewHand(importHandPresident(_info.get(2), SEP_1));
         return out_;
     }
+
+    public static String exportDiscardedCardsPresident(int _place,HandPresident _dis) {
+        StringBuilder president_ = new StringBuilder();
+        president_.append(SERVER_DISCARDED_CARDS_PRESIDENT);
+        president_.append(SEP_0);
+        president_.append(_place);
+        president_.append(SEP_0);
+        president_.append(exportHandPresident(_dis,SEP_1));
+        return president_.toString();
+    }
+
+    public static DiscardedCardsPresident importDiscardedCardsPresident(CustList<String> _info) {
+        DiscardedCardsPresident out_ = new DiscardedCardsPresident();
+        out_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        out_.setDiscarded(importHandPresident(_info.get(1), SEP_1));
+        return out_;
+    }
+
     //
 //
 //    public static String exportDiscardSimple(HandTarot _call) {
