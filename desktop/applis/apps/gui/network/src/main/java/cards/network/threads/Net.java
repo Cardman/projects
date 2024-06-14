@@ -27,6 +27,7 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.DiscardPhaseTarot;
+import cards.network.tarot.actions.BiddingTarot;
 import cards.network.tarot.actions.DiscardedCardTarot;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.unlock.AllowBiddingTarot;
@@ -75,6 +76,9 @@ public final class Net {
     public static final int CLIENT_DEALT_REFRESH_HAND_BELOTE = 12;
     public static final int CLIENT_DEALT_ALLOW_DISCARDING = 13;
     public static final int CLIENT_DEALT_RECEIVED_GIVEN_CARDS = 14;
+    public static final int CLIENT_DEALT_ALLOW_BIDDING_TAROT = 15;
+    public static final int CLIENT_DEALT_BIDDING_TAROT = 16;
+    public static final int CLIENT_DEALT_DISCARD_PHASE_TAROT = 17;
     public static final int SERVER_CHOSEN_PLACE = 0;
     public static final int SERVER_READY = 1;
     public static final int SERVER_RULES_BELOTE = 2;
@@ -88,6 +92,7 @@ public final class Net {
     public static final int SERVER_VALIDATE_COMPLETED_HAND_BELOTE = 10;
     public static final int SERVER_VALIDATE_REFRESHED_HAND_PRESIDENT = 11;
     public static final int SERVER_DISCARDED_CARDS_PRESIDENT = 12;
+    public static final int SERVER_DISCARDED_CARD_TAROT = 13;
     public static final char RULES_BELOTE = '0';
     public static final char RULES_PRESIDENT = '1';
     public static final char RULES_TAROT = '2';
@@ -147,6 +152,9 @@ public final class Net {
         clientAct.add(new ClientActLoopCardsRefreshHandBelote());
         clientAct.add(new ClientActLoopCardsAllowDiscarding());
         clientAct.add(new ClientActLoopCardsReceivedGivenCards());
+        clientAct.add(new ClientActLoopCardsAllowBiddingTarot());
+        clientAct.add(new ClientActLoopCardsBiddingTarot());
+        clientAct.add(new ClientActLoopCardsDiscardPhaseTarot());
         serverActLoopCards.add(new ServerActLoopCardsNewPlayer());
         serverActLoopCards.add(new ServerActLoopCardsOldPlayer());
         serverActLoopCards.add(new ServerActLoopCardsChosenPlace());
@@ -716,6 +724,83 @@ public final class Net {
         out_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
         out_.setDiscarded(importHandPresident(_info.get(1), SEP_1));
         return out_;
+    }
+
+    public static String exportAllowBiddingTarot(AllowBiddingTarot _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_ALLOW_BIDDING_TAROT);
+        out_.append(SEP_0);
+        out_.append(_dealt.getMaxBid().getSt());
+        out_.append(SEP_0);
+        out_.append(exportBidTarotList(_dealt.getBids(), SEP_1));
+        return out_.toString();
+    }
+
+    public static AllowBiddingTarot importAllowBiddingTarot(CustList<String> _info) {
+        AllowBiddingTarot tarot_ = new AllowBiddingTarot();
+        tarot_.setMaxBid(TarotCardsRetrieverUtil.toBidTarot(_info.get(0)));
+        tarot_.setBids(importBidTarotList(_info.get(1), SEP_1));
+        return tarot_;
+    }
+
+    public static String exportBiddingTarot(BiddingTarot _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_BIDDING_TAROT);
+        out_.append(SEP_0);
+        out_.append(_dealt.getPlace());
+        out_.append(SEP_0);
+        out_.append(_dealt.getBid().getSt());
+        return out_.toString();
+    }
+
+    public static BiddingTarot importBiddingTarot(CustList<String> _info) {
+        BiddingTarot tarot_ = new BiddingTarot();
+        tarot_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        tarot_.setBid(TarotCardsRetrieverUtil.toBidTarot(_info.get(1)));
+        return tarot_;
+    }
+
+    public static String exportDiscardPhaseTarot(DiscardPhaseTarot _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_DISCARD_PHASE_TAROT);
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isCallAfter()));
+        out_.append(_dealt.getDiscardPhase().getTaker());
+        out_.append(_dealt.getDiscardPhase().getTakerIndex());
+        out_.append(SEP_0);
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(_dealt.getDiscardCard(), SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(_dealt.getCallableCards(), SEP_1));
+        return out_.toString();
+    }
+
+    public static DiscardPhaseTarot importDiscardPhaseTarot(CustList<String> _info) {
+        DiscardPhaseTarot tarot_ = new DiscardPhaseTarot();
+        String str_ = _info.get(0);
+        tarot_.setCallAfter(toBoolEquals(str_,0));
+        tarot_.getDiscardPhase().setTaker(NumberUtil.parseInt(str_.substring(1,2)));
+        tarot_.getDiscardPhase().setTakerIndex(NumberUtil.parseInt(str_.substring(2)));
+        tarot_.setDiscardCard(importHandTarot(_info.get(1), SEP_1));
+        tarot_.setCallableCards(importHandTarot(_info.get(2), SEP_1));
+        return tarot_;
+    }
+
+    public static String exportDiscardedCardTarot(DiscardedCardTarot _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_DISCARDED_CARD_TAROT);
+        out_.append(SEP_0);
+        out_.append(_dealt.getPlace());
+        out_.append(SEP_0);
+        out_.append(TarotCardsExporterUtil.fromCardTarot(_dealt.getCard()));
+        return out_.toString();
+    }
+
+    public static DiscardedCardTarot importDiscardedCardTarot(CustList<String> _info) {
+        DiscardedCardTarot tarot_ = new DiscardedCardTarot();
+        tarot_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        tarot_.setCard(TarotCardsRetrieverUtil.toCardTarot(_info.get(1)));
+        return tarot_;
     }
 
     //

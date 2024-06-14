@@ -102,7 +102,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
             AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
             allowedBids_.setBids(Net.getGames(_instance).partieTarot().allowedBids());
             allowedBids_.setMaxBid(Net.getGames(_instance).partieTarot().getContrat());
-            Net.sendObject(Net.getSocketByPlace(place_, _common), allowedBids_);
+            NetGroupFrame.trySendString(Net.exportAllowBiddingTarot(allowedBids_), Net.getSocketByPlace(place_, _common));
             return;
         }
         //Les "robots" precedant l'utilisateur annoncent leur contrat
@@ -116,7 +116,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
         //bid_.setLocale(Constants.getDefaultLanguage());
 //            bid_.setLocale("");
         for (byte p: Net.activePlayers(_instance, _common)) {
-            Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
+            NetGroupFrame.trySendString(Net.exportBiddingTarot(bid_), Net.getSocketByPlace(p, _common));
         }
     }
 }

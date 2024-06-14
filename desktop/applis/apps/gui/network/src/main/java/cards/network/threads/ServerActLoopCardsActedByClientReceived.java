@@ -23,6 +23,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.*;
 import code.network.NetCommon;
+import code.network.NetGroupFrame;
 import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
 import code.util.CustList;
@@ -114,7 +115,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
                 for (byte p: Net.activePlayers(_instance, _common)) {
 //                        dog_.setTaker(p == _game.getPreneur());
                     update(p, _game, dog_);
-                    Net.sendObject(Net.getSocketByPlace(p, _common), dog_);
+                    NetGroupFrame.trySendString(Net.exportDiscardPhaseTarot(dog_), Net.getSocketByPlace(p, _common));
                 }
                 return;
             }
