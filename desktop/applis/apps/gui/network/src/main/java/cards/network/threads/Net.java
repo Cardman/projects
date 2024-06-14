@@ -79,6 +79,7 @@ public final class Net {
     public static final int CLIENT_DEALT_ALLOW_BIDDING_TAROT = 15;
     public static final int CLIENT_DEALT_BIDDING_TAROT = 16;
     public static final int CLIENT_DEALT_DISCARD_PHASE_TAROT = 17;
+    public static final int CLIENT_DEALT_SLAM_TAROT = 18;
     public static final int SERVER_CHOSEN_PLACE = 0;
     public static final int SERVER_READY = 1;
     public static final int SERVER_RULES_BELOTE = 2;
@@ -93,12 +94,13 @@ public final class Net {
     public static final int SERVER_VALIDATE_REFRESHED_HAND_PRESIDENT = 11;
     public static final int SERVER_DISCARDED_CARDS_PRESIDENT = 12;
     public static final int SERVER_DISCARDED_CARD_TAROT = 13;
+    public static final int SERVER_VALIDATE_DISCARD_TAROT = 14;
     public static final char RULES_BELOTE = '0';
     public static final char RULES_PRESIDENT = '1';
     public static final char RULES_TAROT = '2';
-    public static final char VALIDATE_DISCARD_SIMPLE_NO_CALL = '0';
-    public static final char VALIDATE_DISCARD_SIMPLE_CALL = '1';
-    public static final char VALIDATE_DISCARD_SLAM = '2';
+    public static final char VALIDATE_DISCARD_CALL_BEFORE = '1';
+    public static final char VALIDATE_DISCARD_SIMPLE_CALL = '2';
+    public static final char VALIDATE_DISCARD_SLAM = '3';
     public static final char SEP_0 = ':';
     public static final char SEP_1 = ';';
     public static final char SEP_2 = ',';
@@ -155,6 +157,7 @@ public final class Net {
         clientAct.add(new ClientActLoopCardsAllowBiddingTarot());
         clientAct.add(new ClientActLoopCardsBiddingTarot());
         clientAct.add(new ClientActLoopCardsDiscardPhaseTarot());
+        clientAct.add(new ClientActLoopCardsSlamTarot());
         serverActLoopCards.add(new ServerActLoopCardsNewPlayer());
         serverActLoopCards.add(new ServerActLoopCardsOldPlayer());
         serverActLoopCards.add(new ServerActLoopCardsChosenPlace());
@@ -171,6 +174,7 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsRefreshedHandPresident());
         serverActLoopCards.add(new ServerActLoopCardsDiscardedCardsPresident());
         serverActLoopCards.add(new ServerActLoopCardsDiscardedCardTarot());
+        serverActLoopCards.add(new ServerActLoopCardsValidateDiscardTarot());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
@@ -231,6 +235,12 @@ public final class Net {
         out_.append(SERVER_VALIDATE_REFRESHED_HAND_PRESIDENT);
         out_.append(SEP_0);
         out_.append(_index);
+        return out_.toString();
+    }
+    public static String exportSlamTarot() {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_SLAM_TAROT);
+        out_.append(SEP_0);
         return out_.toString();
     }
 
@@ -644,7 +654,7 @@ public final class Net {
         StringBuilder out_ = new StringBuilder();
         out_.append(SERVER_VALIDATE_DISCARD_BELOTE);
         out_.append(SEP_0);
-        out_.append(VALIDATE_DISCARD_SIMPLE_NO_CALL);
+        out_.append(VALIDATE_DISCARD_SIMPLE_CALL);
         return out_.toString();
     }
 
@@ -804,23 +814,43 @@ public final class Net {
         return tarot_;
     }
 
-    //
-//
-//    public static String exportDiscardSimple(HandTarot _call) {
-//        StringBuilder out_ = new StringBuilder();
-//        out_.append(SERVER_VALIDATE_DISCARD_TAROT);
-//        out_.append(SEP_0);
-//        out_.append(VALIDATE_DISCARD_SIMPLE_NO_CALL);
-//        return out_.toString();
-//    }
-//
-//    public static String exportDiscardSlam(HandTarot _call) {
-//        StringBuilder out_ = new StringBuilder();
-//        out_.append(SERVER_VALIDATE_DISCARD_TAROT);
-//        out_.append(SEP_0);
-//        out_.append(VALIDATE_DISCARD_SLAM);
-//        return out_.toString();
-//    }
+    public static String exportDiscardCallBefore(HandTarot _call) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_VALIDATE_DISCARD_TAROT);
+        out_.append(SEP_0);
+        out_.append(VALIDATE_DISCARD_CALL_BEFORE);
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(_call,SEP_1));
+        return out_.toString();
+    }
+
+    public static String exportDiscardSimpleCall(CardTarot _call) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_VALIDATE_DISCARD_TAROT);
+        out_.append(SEP_0);
+        out_.append(VALIDATE_DISCARD_SIMPLE_CALL);
+        if (_call != CardTarot.WHITE) {
+            out_.append(SEP_0);
+            HandTarot c_ = new HandTarot();
+            c_.ajouter(_call);
+            out_.append(exportHandTarot(c_,SEP_1));
+        }
+        return out_.toString();
+    }
+
+    public static String exportDiscardSlam(CardTarot _call) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_VALIDATE_DISCARD_TAROT);
+        out_.append(SEP_0);
+        out_.append(VALIDATE_DISCARD_SLAM);
+        if (_call != CardTarot.WHITE) {
+            out_.append(SEP_0);
+            HandTarot c_ = new HandTarot();
+            c_.ajouter(_call);
+            out_.append(exportHandTarot(c_,SEP_1));
+        }
+        return out_.toString();
+    }
     public static String exportHandBelote(HandBelote _dealt, char _sep) {
         CustList<String> ls_ = new CustList<String>();
         for (CardBelote b: _dealt) {

@@ -126,7 +126,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
                 callableCardsDto_.setCallableCards(callableCards_);
                 Net.sendObject(Net.getSocketByPlace(_game.getPreneur(), _common), callableCardsDto_);
             } else if (!_game.getContrat().isFaireTousPlis()) {
-                Net.sendObjectDisplaySlamButton(Net.getSocketByPlace(_game.getPreneur(), _common));
+                NetGroupFrame.trySendString(Net.exportSlamTarot(), Net.getSocketByPlace(_game.getPreneur(), _common));
             } else {
                 playingTarotCard(_instance,_fct, _common);
             }
@@ -277,6 +277,32 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
             Net.sendObject(Net.getSocketByPlace(p, _common),cardDto_);
         }
     }
+
+    protected static void processCallingTarot(HandTarot _readObject, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
+        //called cards by a human player
+        GameTarot game_ = Net.getGames(_instance).partieTarot();
+        game_.initConfianceAppeleUtilisateur(_instance.getIa().getTarot().strategieAppelUser(_readObject));
+        if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
+            //before taking cards of the dog
+            DiscardPhaseTarot dog_ = new DiscardPhaseTarot();
+            dog_.setDiscardCard(game_.getDistribution().derniereMain());
+            dog_.setCallableCards(new HandTarot());
+            callAfter(game_,dog_);
+            for (byte p: Net.activePlayers(_instance, _common)) {
+                update(p, game_, dog_);
+                NetGroupFrame.trySendString(Net.exportDiscardPhaseTarot(dog_), Net.getSocketByPlace(p, _common));
+            }
+        } else {
+            game_.gererChienInconnu();
+            if (!game_.getContrat().isFaireTousPlis()) {
+                NetGroupFrame.trySendString(Net.exportSlamTarot(), Net.getSocketByPlace(game_.getPreneur(), _common));
+            } else {
+                game_.firstLead();
+                playingTarotCard(_instance,_fct, _common);
+            }
+        }
+    }
+
     protected static void playingTarotCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GameTarot game_ = Net.getGames(_instance).partieTarot();
         byte place_ = game_.playerHavingToPlay();
