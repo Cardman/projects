@@ -170,6 +170,7 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsActedByClientCompletedHandBelote());
         serverActLoopCards.add(new ServerActLoopCardsRefreshedHandPresident());
         serverActLoopCards.add(new ServerActLoopCardsDiscardedCardsPresident());
+        serverActLoopCards.add(new ServerActLoopCardsDiscardedCardTarot());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
