@@ -8,6 +8,7 @@ import cards.network.common.before.*;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.util.*;
@@ -200,6 +201,10 @@ public final class ContainerMultiContent {
         return ContainerGame.EMPTY_STRING;
     }
     public void sendDealt() {
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDealt(getIndexInGame()),window().getSocket());
+            return;
+        }
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DEALT);
         dealt_.setPlace(getIndexInGame());
 //        dealt_.setLocale(lg_.getKey());

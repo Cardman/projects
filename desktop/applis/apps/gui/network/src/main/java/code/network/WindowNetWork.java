@@ -653,31 +653,79 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
      Method allowing the client to send a serializable object by its socket
      @param _serializable the serializable object to be sent
      */
-    public boolean sendObject(PlayerActionBeforeGameCards _serializable) {
+    public boolean sendObject(ChoosenPlace _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerChosenPlace(_serializable.getIndex(),_serializable.getPlace(),_serializable.getPlacesPlayers()),getSocket());
+        }
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable), getSocket());
+    }
+    public boolean sendObject(Ready _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerReady(_serializable.getIndex(),_serializable.isReady()),getSocket());
+        }
         return trySendString(DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable), getSocket());
     }
 //    public boolean sendObjectTakeCard() {
 //        return trySendString(DocumentWriterCardsMultiUtil.takeCard(), getSocket());
 //    }
     public boolean sendObjectPlayGame() {
+        if (Net.QUICK) {
+            return trySendString(Net.exportPlayGame(),getSocket());
+        }
         return trySendString(DocumentWriterCardsMultiUtil.playGame(), getSocket());
+    }
+    public boolean sendObject(BiddingBelote _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerBiddingBelote(_serializable),getSocket());
+        }
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+    }
+    public boolean sendObject(DiscardedCardsPresident _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportDiscardedCardsPresident(_serializable.getPlace(),_serializable.getDiscarded()),getSocket());
+        }
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+    }
+    public boolean sendObject(CallAfterDiscardTarot _serializable) {
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+    }
+    public boolean sendObject(BiddingTarot _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerBiddingTarot(_serializable),getSocket());
+        }
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
     }
     public boolean sendObject(PlayerActionGame _serializable) {
         return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
     }
     public boolean sendObjectBelote(DiscardedCardBelote _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportDiscardedCardBelote(_serializable),getSocket());
+        }
         return trySendString(DocumentWriterCardsMultiUtil.discardedBelote(_serializable), getSocket());
     }
     public boolean sendObjectTarot(DiscardedCardTarot _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportDiscardedCardTarot(_serializable),getSocket());
+        }
         return trySendString(DocumentWriterCardsMultiUtil.discardedTarot(_serializable), getSocket());
     }
     public boolean sendObject(RulesBelote _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerRulesBelote(_serializable).toString(),getSocket());
+        }
         return trySendString(DocumentWriterBeloteUtil.setRulesBelote(_serializable), getSocket());
     }
     public boolean sendObject(RulesPresident _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerRulesPresident(_serializable).toString(),getSocket());
+        }
         return trySendString(DocumentWriterPresidentUtil.setRulesPresident(_serializable), getSocket());
     }
     public boolean sendObject(RulesTarot _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerRulesTarot(_serializable).toString(),getSocket());
+        }
         return trySendString(DocumentWriterTarotUtil.setRulesTarot(_serializable), getSocket());
     }
     @Override
@@ -852,6 +900,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         index_.setReadyPlayers(new IntMap<BoolVal>(getSockets().getReadyPlayers()));
         getSockets().getReadyPlayers().put(nb_ , BoolVal.FALSE);
         getSockets().getPlacesPlayers().put(nb_ ,(byte)(nb_));
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportIndexArrive(nb_,getSockets(), Net.getGames(getNet())),_newSocket);
+            return;
+        }
         Net.sendObject(_newSocket,index_);
     }
 

@@ -169,7 +169,7 @@ public final class SendReceiveServerCards extends BasicServer {
             _common.getPlacesPlayers().put(noClient_, (byte)((ChoosenPlace)playerActionBeforeGame_).getPlace());
             ((ChoosenPlace) playerActionBeforeGame_).setPlacesPlayers(_common.getPlacesPlayers());
             for(AbstractSocket so_:_common.getSockets().values()) {
-                Net.sendObject(so_, playerActionBeforeGame_);
+                Net.sendObject(so_,(ChoosenPlace) playerActionBeforeGame_);
             }
             return;
         }

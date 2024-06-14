@@ -36,7 +36,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
         //bid_.setLocale(Constants.getDefaultLanguage());
 //                bid_.setLocale("");
         for (byte p: Net.activePlayers(_instance, _common)) {
-            NetGroupFrame.trySendString(Net.exportBiddingBelote(bid_), Net.getSocketByPlace(p, _common));
+            NetGroupFrame.trySendString(Net.exportClientBiddingBelote(bid_), Net.getSocketByPlace(p, _common));
         }
     }
 
@@ -116,7 +116,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
         //bid_.setLocale(Constants.getDefaultLanguage());
 //            bid_.setLocale("");
         for (byte p: Net.activePlayers(_instance, _common)) {
-            NetGroupFrame.trySendString(Net.exportBiddingTarot(bid_), Net.getSocketByPlace(p, _common));
+            NetGroupFrame.trySendString(Net.exportClientBiddingTarot(bid_), Net.getSocketByPlace(p, _common));
         }
     }
 }

@@ -34,6 +34,7 @@ import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AlwaysActionListenerAct;
 import code.gui.images.MetaDimension;
+import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -309,6 +310,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         updateCardsInPanelPresidentGiven();
         getNoPlay().setVisible(true);
         pack();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportRefreshedHandPresident(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
+            return;
+        }
 //        String lg_ = getOwner().getLanguageKey();
         PlayerActionGame r_ = new PlayerActionGame(PlayerActionGameType.REFHESHED_HAND_PRESIDENT);
         r_.setPlace(containerMultiContent.getIndexInGame());

@@ -35,6 +35,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
+import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -446,6 +447,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 Games.toString(_bid.getBidBelote(),lg_), RETURN_LINE));
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDoneBidding(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
+            return;
+        }
         //pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_BIDDING);
         dealt_.setPlace(containerMultiContent.getIndexInGame());
@@ -505,6 +510,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        }
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDiscardSimple(),getContainerMultiContent().window().getSocket());
+            return;
+        }
         //pack();
         PlayerActionGame v_ = new PlayerActionGame(PlayerActionGameType.VALIDATE_DOG);
         v_.setPlace(containerMultiContent.getIndexInGame());
@@ -537,6 +546,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getPanneauBoutonsJeu().validate();
         pack();
         refreshPlayerHand();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDiscardSlam(),getContainerMultiContent().window().getSocket());
+            return;
+        }
         //PackingWindowAfter.pack(this, true);
 //        String lg_ = getOwner().getLanguageKey();
         PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
@@ -745,6 +758,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         updateCardsInPanelBeloteMulti( false);
         pack();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportCompletedHandBelote(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
+            return;
+        }
         //PackingWindowAfter.pack(this, true);
         PlayerActionGame completed_ = new PlayerActionGame(PlayerActionGameType.COMPLETED_HAND);
         completed_.setPlace(containerMultiContent.getIndexInGame());

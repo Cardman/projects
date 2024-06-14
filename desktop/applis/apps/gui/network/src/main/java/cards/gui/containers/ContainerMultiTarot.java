@@ -35,6 +35,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
+import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -365,6 +366,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDoneBidding(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
+            return;
+        }
         //pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_BIDDING);
         dealt_.setPlace(getContainerMultiContent().getIndexInGame());

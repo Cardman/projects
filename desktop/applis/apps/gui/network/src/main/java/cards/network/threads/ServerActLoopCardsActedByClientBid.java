@@ -38,7 +38,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
             //bid_.setLocale(Constants.getDefaultLanguage());
 //                bid_.setLocale("");
             for (byte p : Net.activePlayers(_instance, _common)) {
-                NetGroupFrame.trySendString(Net.exportBiddingBelote(bid_), Net.getSocketByPlace(p, _common));
+                NetGroupFrame.trySendString(Net.exportClientBiddingBelote(bid_), Net.getSocketByPlace(p, _common));
             }
             return;
         }
@@ -73,7 +73,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
             hand_.setRefreshedHand(game_.getDistribution().hand(p));
             //hand_.setLocale(Constants.getDefaultLanguage());
 //                            hand_.setLocale("");
-            Net.sendObject(Net.getSocketByPlace(p, _common), hand_);
+            NetGroupFrame.trySendString(Net.exportRefreshHandBelote(hand_), Net.getSocketByPlace(p, _common));
         }
     }
 
@@ -89,7 +89,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
             AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
             allowedBids_.setBids(game_.allowedBids());
             allowedBids_.setMaxBid(game_.getContrat());
-            Net.sendObject(Net.getSocketByPlace(place_, _common), allowedBids_);
+            NetGroupFrame.trySendString(Net.exportAllowBiddingTarot(allowedBids_), Net.getSocketByPlace(place_, _common));
             return;
         }
         //Les "robots" precedant l'utilisateur annoncent leur contrat
@@ -103,7 +103,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
         //bid_.setLocale(Constants.getDefaultLanguage());
 //            bid_.setLocale("");
         for (byte p: Net.activePlayers(_instance, _common)) {
-            Net.sendObject(Net.getSocketByPlace(p, _common), bid_);
+            NetGroupFrame.trySendString(Net.exportClientBiddingTarot(bid_), Net.getSocketByPlace(p, _common));
         }
     }
 }
