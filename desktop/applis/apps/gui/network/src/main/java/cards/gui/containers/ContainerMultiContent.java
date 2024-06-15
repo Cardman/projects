@@ -211,6 +211,10 @@ public final class ContainerMultiContent {
         window().sendObject(dealt_);
     }
     public void sendPause() {
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDonePause(getIndexInGame()),window().getSocket());
+            return;
+        }
         PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
         d_.setPlace(getIndexInGame());
 //        d_.setLocale(lg_.getKey());

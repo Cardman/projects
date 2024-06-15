@@ -707,6 +707,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //PackingWindowAfter.pack(this, true);
         pack();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDonePlaying(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
+            return;
+        }
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(containerMultiContent.getIndexInGame());
 //        dealt_.setLocale(lg_.getKey());

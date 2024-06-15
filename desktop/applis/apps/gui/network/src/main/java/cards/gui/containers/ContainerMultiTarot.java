@@ -663,6 +663,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         relative_ = containerMultiContent.relative(_card.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //pack();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDonePlaying(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
+            return;
+        }
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(getContainerMultiContent().getIndexInGame());
 //        dealt_.setLocale(lg_.getKey());

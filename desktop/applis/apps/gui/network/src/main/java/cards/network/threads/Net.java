@@ -87,6 +87,7 @@ public final class Net {
     public static final int CLIENT_DEALT_PLAYING_PRESIDENT = 23;
     public static final int CLIENT_DEALT_ALLOW_PLAYING_TAROT = 24;
     public static final int CLIENT_DEALT_PLAYING_TAROT = 25;
+    public static final int CLIENT_DONE_PAUSE = 26;
     public static final int SERVER_CHOSEN_PLACE = 0;
     public static final int SERVER_READY = 1;
     public static final int SERVER_RULES_BELOTE = 2;
@@ -107,6 +108,8 @@ public final class Net {
     public static final int SERVER_PLAYING_BELOTE = 17;
     public static final int SERVER_PLAYING_PRESIDENT = 18;
     public static final int SERVER_PLAYING_TAROT = 19;
+    public static final int SERVER_DONE_PLAYING = 20;
+    public static final int SERVER_DONE_PAUSE = 21;
     public static final char RULES_BELOTE = '0';
     public static final char RULES_PRESIDENT = '1';
     public static final char RULES_TAROT = '2';
@@ -178,6 +181,7 @@ public final class Net {
         clientAct.add(new ClientActLoopCardsPlayingPresident());
         clientAct.add(new ClientActLoopCardsAllowPlayingTarot());
         clientAct.add(new ClientActLoopCardsPlayingTarot());
+        clientAct.add(new ClientActLoopCardsDonePause());
         serverActLoopCards.add(new ServerActLoopCardsNewPlayer());
         serverActLoopCards.add(new ServerActLoopCardsOldPlayer());
         serverActLoopCards.add(new ServerActLoopCardsChosenPlace());
@@ -200,6 +204,8 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsPlayingBelote());
         serverActLoopCards.add(new ServerActLoopCardsPlayingPresident());
         serverActLoopCards.add(new ServerActLoopCardsPlayingTarot());
+        serverActLoopCards.add(new ServerActLoopCardsDonePlaying());
+        serverActLoopCards.add(new ServerActLoopCardsDonePause());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
@@ -269,6 +275,28 @@ public final class Net {
         return out_.toString();
     }
 
+    public static String exportDonePlaying(int _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_DONE_PLAYING);
+        out_.append(SEP_0);
+        out_.append(_index);
+        return out_.toString();
+    }
+
+    public static String exportDonePause(int _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_DONE_PAUSE);
+        out_.append(SEP_0);
+        out_.append(_index);
+        return out_.toString();
+    }
+
+    public static String exportDonePause() {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DONE_PAUSE);
+        out_.append(SEP_0);
+        return out_.toString();
+    }
     public static void loopClient(WindowNetWork _window, String _info, AbstractSocket _socket) {
         NetRetrievedInfos ret_ = new NetRetrievedInfos(_window.getNet().splitInfo, _info);
         _window.getNet().clientAct.get(ret_.getIndexAct()).loop(_window, ret_.getParts(),_socket);
@@ -1448,12 +1476,12 @@ public final class Net {
     public static void sendObject(AbstractSocket _socket, PlayerActionGame _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), _socket);
     }
-    public static void sendObjectCardBelote(AbstractSocket _socket, DiscardedCardBelote _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedBelote(_serializable), _socket);
-    }
-    public static void sendObjectCardTarot(AbstractSocket _socket, DiscardedCardTarot _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedTarot(_serializable), _socket);
-    }
+//    public static void sendObjectCardBelote(AbstractSocket _socket, DiscardedCardBelote _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedBelote(_serializable), _socket);
+//    }
+//    public static void sendObjectCardTarot(AbstractSocket _socket, DiscardedCardTarot _serializable) {
+//        NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.discardedTarot(_serializable), _socket);
+//    }
     public static void sendObject(AbstractSocket _socket, DealtHandBelote _serializable) {
         NetGroupFrame.trySendString(DocumentWriterCardsMultiUtil.dealtHandBelote(_serializable), _socket);
     }
