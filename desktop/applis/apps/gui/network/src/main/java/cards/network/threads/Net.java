@@ -1010,6 +1010,9 @@ public final class Net {
     }
     public static HandBelote importHandBelote(String _info, char _sep) {
         HandBelote h_ = new HandBelote();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.ajouter(BeloteCardsRetrieverUtil.toCardBelote(s));
         }
@@ -1054,6 +1057,9 @@ public final class Net {
     }
     public static HandPresident importHandPresident(String _info, char _sep) {
         HandPresident h_ = new HandPresident();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.ajouter(PresidentCardsRetrieverUtil.toCardPresident(s));
         }
@@ -1085,6 +1091,9 @@ public final class Net {
 
     public static HandTarot importHandTarot(String _info, char _sep) {
         HandTarot h_ = new HandTarot();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.ajouter(TarotCardsRetrieverUtil.toCardTarot(s));
         }
