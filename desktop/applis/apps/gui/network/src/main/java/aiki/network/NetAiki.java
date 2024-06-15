@@ -105,7 +105,22 @@ public final class NetAiki {
         }
         return sb_.toString();
     }
-
+    public static String unscapeId(String _str) {
+        StringBuilder sb_ = new StringBuilder();
+        int len_ = _str.length();
+        int i_ = 0;
+        while (i_ < len_) {
+            char ch_ = _str.charAt(i_);
+            if (ch_ == '\\') {
+                i_++;
+                sb_.append(_str.charAt(i_));
+            } else {
+                sb_.append(ch_);
+            }
+            i_++;
+        }
+        return sb_.toString();
+    }
     public static void sendObjectInitTrading(AbstractSocket _socket) {
         NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.initTrading(), _socket);
     }

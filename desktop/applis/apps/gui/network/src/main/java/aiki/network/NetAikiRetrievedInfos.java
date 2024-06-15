@@ -34,6 +34,7 @@ public final class NetAikiRetrievedInfos {
             char ch_ = _info.charAt(i_);
             if (ch_ == '\\') {
                 i_++;
+                part_.append('\\');
                 part_.append(_info.charAt(i_));
                 i_++;
             } else if (ch_ == NetAiki.AIKI_SEP_0) {
