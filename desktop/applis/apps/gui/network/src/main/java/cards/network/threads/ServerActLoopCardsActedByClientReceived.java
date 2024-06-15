@@ -218,7 +218,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
             }
             decla_.setPossibleBeloteRebelote(!belReb_.estVide());
             decla_.setAllowedBeloteRebelote(game_.autoriseBeloteRebelote());
-            Net.sendObject(Net.getSocketByPlace(place_, _common),decla_);
+            NetGroupFrame.trySendString(Net.exportAllowPlayingBelote(decla_), Net.getSocketByPlace(place_, _common));
             return;
         }
         ThreadUtil.sleep(_fct,800);
@@ -244,7 +244,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //        cardDto_.setLocale("");
 //        Net.initAllReceived(_instance, _common);
         for (byte p: Net.activePlayers(_instance, _common)) {
-            Net.sendObject(Net.getSocketByPlace(p, _common),cardDto_);
+            NetGroupFrame.trySendString(Net.exportClientPlayingBelote(cardDto_), Net.getSocketByPlace(p, _common));
         }
     }
     protected static void playingPresidentCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {

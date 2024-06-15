@@ -10,6 +10,7 @@ import cards.gui.TeamsPlayers;
 import cards.network.belote.DiscardPhaseBelote;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.DiscardedCardBelote;
+import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
@@ -78,6 +79,8 @@ public final class Net {
     public static final int CLIENT_DEALT_DISCARD_PHASE_TAROT = 17;
     public static final int CLIENT_DEALT_CALLABLE_CARDS = 18;
     public static final int CLIENT_DEALT_SLAM_TAROT = 19;
+    public static final int CLIENT_DEALT_ALLOW_PLAYING_BELOTE = 20;
+    public static final int CLIENT_DEALT_PLAYING_BELOTE = 21;
     public static final int SERVER_CHOSEN_PLACE = 0;
     public static final int SERVER_READY = 1;
     public static final int SERVER_RULES_BELOTE = 2;
@@ -95,6 +98,7 @@ public final class Net {
     public static final int SERVER_DISCARDED_CARDS_PRESIDENT = 14;
     public static final int SERVER_DISCARDED_CARD_TAROT = 15;
     public static final int SERVER_VALIDATE_DISCARD_TAROT = 16;
+    public static final int SERVER_PLAYING_BELOTE = 17;
     public static final char RULES_BELOTE = '0';
     public static final char RULES_PRESIDENT = '1';
     public static final char RULES_TAROT = '2';
@@ -160,6 +164,8 @@ public final class Net {
         clientAct.add(new ClientActLoopCardsDiscardPhaseTarot());
         clientAct.add(new ClientActLoopCardsCallableCards());
         clientAct.add(new ClientActLoopCardsSlamTarot());
+        clientAct.add(new ClientActLoopCardsAllowPlayingBelote());
+        clientAct.add(new ClientActLoopCardsPlayingBelote());
         serverActLoopCards.add(new ServerActLoopCardsNewPlayer());
         serverActLoopCards.add(new ServerActLoopCardsOldPlayer());
         serverActLoopCards.add(new ServerActLoopCardsChosenPlace());
@@ -179,6 +185,7 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsDiscardedCardsPresident());
         serverActLoopCards.add(new ServerActLoopCardsDiscardedCardTarot());
         serverActLoopCards.add(new ServerActLoopCardsValidateDiscardTarot());
+        serverActLoopCards.add(new ServerActLoopCardsPlayingBelote());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
@@ -895,6 +902,105 @@ public final class Net {
         }
         return out_.toString();
     }
+
+    public static String exportAllowPlayingBelote(AllowPlayingBelote _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_ALLOW_PLAYING_BELOTE);
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isFirstRoundPlaying()));
+        out_.append(exportBool(_dealt.isPossibleBeloteRebelote()));
+        out_.append(exportBool(_dealt.isAllowedBeloteRebelote()));
+        out_.append(_dealt.getTakerIndex());
+        out_.append(SEP_0);
+        out_.append(exportBidBeloteSuit(SEP_1, _dealt.getCurrentBid()));
+        out_.append(SEP_0);
+        out_.append(exportHandBelote(_dealt.getBelReb(), SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportHandBelote(_dealt.getCards(), SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportDeclareHandBelote(_dealt.getDeclaration(),SEP_0,SEP_1));
+        return out_.toString();
+    }
+
+    public static AllowPlayingBelote importAllowPlayingBelote(CustList<String> _info) {
+        AllowPlayingBelote belote_ = new AllowPlayingBelote();
+        String i_ = _info.get(0);
+        belote_.setFirstRoundPlaying(toBoolEquals(i_,0));
+        belote_.setPossibleBeloteRebelote(toBoolEquals(i_,1));
+        belote_.setAllowedBeloteRebelote(toBoolEquals(i_,2));
+        belote_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(3)));
+        belote_.setCurrentBid(importBidBeloteSuit(SEP_1, _info.get(1)));
+        belote_.setBelReb(importHandBelote(_info.get(2), SEP_1));
+        belote_.setCards(importHandBelote(_info.get(3), SEP_1));
+        belote_.setDeclaration(importDeclareHandBelote(_info,4, SEP_1));
+        return belote_;
+    }
+
+    public static String exportClientPlayingBelote(PlayingCardBelote _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_PLAYING_BELOTE);
+        out_.append(SEP_0);
+        out_.append(_dealt.getPlace());
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isRefreshing()));
+        out_.append(exportBool(_dealt.isDeclaringBeloteRebelote()));
+        out_.append(exportBool(_dealt.isDeclaring()));
+        out_.append(_dealt.getTakerIndex());
+        out_.append(SEP_0);
+        out_.append(BeloteCardsExporterUtil.fromCardBelote(_dealt.getPlayedCard()));
+        out_.append(SEP_0);
+        out_.append(exportDeclareHandBelote(_dealt.getDeclare(),SEP_0,SEP_1));
+        return out_.toString();
+    }
+
+    public static String exportServerPlayingBelote(PlayingCardBelote _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_PLAYING_BELOTE);
+        out_.append(SEP_0);
+        out_.append(_dealt.getPlace());
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isRefreshing()));
+        out_.append(exportBool(_dealt.isDeclaringBeloteRebelote()));
+        out_.append(exportBool(_dealt.isDeclaring()));
+        out_.append(_dealt.getTakerIndex());
+        out_.append(SEP_0);
+        out_.append(BeloteCardsExporterUtil.fromCardBelote(_dealt.getPlayedCard()));
+        out_.append(SEP_0);
+        out_.append(exportDeclareHandBelote(_dealt.getDeclare(),SEP_0,SEP_1));
+        return out_.toString();
+    }
+
+    public static PlayingCardBelote importPlayingBelote(CustList<String> _info) {
+        PlayingCardBelote belote_ = new PlayingCardBelote();
+        belote_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        String i_ = _info.get(1);
+        belote_.setRefreshing(toBoolEquals(i_,0));
+        belote_.setDeclaringBeloteRebelote(toBoolEquals(i_,1));
+        belote_.setDeclaring(toBoolEquals(i_,2));
+        belote_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(3)));
+        belote_.setPlayedCard(BeloteCardsRetrieverUtil.toCardBelote(_info.get(2)));
+        belote_.setDeclare(importDeclareHandBelote(_info,3,SEP_1));
+        return belote_;
+    }
+
+    public static StringBuilder exportDeclareHandBelote(DeclareHandBelote _dealt, char _sep, char _sec) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(_dealt.getPlayer());
+        out_.append(_sep);
+        out_.append(_dealt.getDeclare().getSt());
+        out_.append(_sep);
+        out_.append(exportHandBelote(_dealt.getHand(),_sec));
+        return out_;
+    }
+
+    public static DeclareHandBelote importDeclareHandBelote(CustList<String> _info, int _off, char _sep) {
+        DeclareHandBelote h_ = new DeclareHandBelote();
+        h_.setPlayer((byte) NumberUtil.parseInt(_info.get(_off)));
+        h_.setDeclare(BeloteCardsRetrieverUtil.toDeclaresBelote(_info.get(_off+1)));
+        h_.setHand(importHandBelote(_info.get(_off+2), _sep));
+        return h_;
+    }
+
     public static String exportHandBelote(HandBelote _dealt, char _sep) {
         CustList<String> ls_ = new CustList<String>();
         for (CardBelote b: _dealt) {
