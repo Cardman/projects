@@ -714,6 +714,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
     }
+    public boolean sendObject(Quit _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportQuitting(_serializable),getSocket());
+        }
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+    }
     public boolean sendObject(PlayerActionGame _serializable) {
         return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
     }
@@ -885,6 +891,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             Exiting forcedBye_ = new Exiting();
             forcedBye_.setForced(true);
             forcedBye_.setClosing(false);
+            if (Net.QUICK) {
+                trySendString(Net.exportExiting(forcedBye_), _newSocket);
+                return;
+            }
             Net.sendObject(_newSocket,forcedBye_);
             return;
         }

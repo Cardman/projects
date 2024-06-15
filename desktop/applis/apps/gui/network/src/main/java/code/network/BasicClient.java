@@ -1,6 +1,7 @@
 package code.network;
 
 import cards.network.threads.Net;
+import cards.network.threads.NetRetrievedInfos;
 import code.gui.initialize.AbstractSocket;
 import code.sml.Document;
 
@@ -57,7 +58,12 @@ public final class BasicClient extends BasicClientAbs {
     public static boolean iterate(AbstractSocket _socket, WindowNetWork _window, String _input, Document _doc) {
         if (_doc == null) {
             if (Net.QUICK) {
-                _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _input, null, _socket));
+                NetRetrievedInfos net_ = Net.netRetrievedInfos(_input, _window.getNet());
+                if (net_.getIndexAct() < 0) {
+                    _window.getFrames().getCompoFactory().invokeNow(new Quitting(Net.importExiting(net_.getParts()), _window, _socket));
+                    return false;
+                }
+                _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, null, _socket, net_));
                 return true;
             }
             return true;
@@ -67,7 +73,7 @@ public final class BasicClient extends BasicClientAbs {
             _window.getFrames().getCompoFactory().invokeNow(new Quitting(exiting_, _window, _socket));
             return false;
         }
-        _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _input, _doc, _socket));
+        _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _doc, _socket, null));
         return true;
     }
 }

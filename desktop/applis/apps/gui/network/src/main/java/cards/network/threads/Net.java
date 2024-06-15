@@ -16,6 +16,7 @@ import cards.network.belote.displaying.RefreshHandBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.PlayerActionGame;
+import cards.network.common.Quit;
 import cards.network.common.before.*;
 import cards.network.president.actions.DiscardedCardsPresident;
 import cards.network.president.actions.PlayingCardPresident;
@@ -90,6 +91,7 @@ public final class Net {
     public static final int CLIENT_TRICKS_HANDS_PRESIDENT = 31;
     public static final int CLIENT_TRICKS_HANDS_TAROT = 32;
     public static final int CLIENT_TRICKS_TEAMS = 33;
+    public static final int CLIENT_POSSIBLE_QUIT = 34;
     public static final int SERVER_CHOSEN_PLACE = 0;
     public static final int SERVER_READY = 1;
     public static final int SERVER_RULES_BELOTE = 2;
@@ -115,6 +117,7 @@ public final class Net {
     public static final int SERVER_DONE_END_GAME = 22;
     public static final int SERVER_DONE_TRICKS = 23;
     public static final int SERVER_DONE_TEAMS = 24;
+    public static final int SERVER_QUITTING = 25;
     public static final char RULES_BELOTE = '0';
     public static final char RULES_PRESIDENT = '1';
     public static final char RULES_TAROT = '2';
@@ -194,6 +197,7 @@ public final class Net {
         clientAct.add(new ClientActLoopCardsTricksHandsPresident());
         clientAct.add(new ClientActLoopCardsTricksHandsTarot());
         clientAct.add(new ClientActLoopCardsTeams());
+        clientAct.add(new ClientActLoopCardsEnabledQuit());
         serverActLoopCards.add(new ServerActLoopCardsNewPlayer());
         serverActLoopCards.add(new ServerActLoopCardsOldPlayer());
         serverActLoopCards.add(new ServerActLoopCardsChosenPlace());
@@ -221,6 +225,7 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsActedByClientEndGame());
         serverActLoopCards.add(new ServerActLoopCardsActedByClientTricks());
         serverActLoopCards.add(new ServerActLoopCardsActedByClientTeams());
+        serverActLoopCards.add(new ServerActLoopCardsQuittingDirect());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
@@ -337,12 +342,27 @@ public final class Net {
         return out_.toString();
     }
     public static void loopClient(WindowNetWork _window, String _info, AbstractSocket _socket) {
-        NetRetrievedInfos ret_ = new NetRetrievedInfos(_window.getNet().splitInfo, _info);
-        _window.getNet().clientAct.get(ret_.getIndexAct()).loop(_window, ret_.getParts(),_socket);
+        NetRetrievedInfos ret_ = netRetrievedInfos(_info, _window.getNet());
+        loopClient(_window, ret_, _socket);
+    }
+
+    public static void loopClient(WindowNetWork _window, NetRetrievedInfos _ret, AbstractSocket _socket) {
+        _window.getNet().clientAct.get(_ret.getIndexAct()).loop(_window, _ret.getParts(), _socket);
     }
     public static void loopServer(String _info, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
-        NetRetrievedInfos ret_ =new NetRetrievedInfos(_instance.splitInfo, _info);
-        _instance.serverActLoopCards.get(ret_.getIndexAct()).loop(ret_.getParts(),_instance,_fct,_common);
+        NetRetrievedInfos ret_ = netRetrievedInfos(_info, _instance);
+        if (ret_.getIndexAct() < 0) {
+            return;
+        }
+        loopServer(ret_, _instance, _fct, _common);
+    }
+
+    public static void loopServer(NetRetrievedInfos _ret, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
+        _instance.serverActLoopCards.get(_ret.getIndexAct()).loop(_ret.getParts(),_instance,_fct,_common);
+    }
+
+    public static NetRetrievedInfos netRetrievedInfos(String _info, Net _instance) {
+        return new NetRetrievedInfos(_instance.splitInfo, _info);
     }
 
     public static String exportIndexArrive(int _index, NetCommon _common, Games _instance) {
@@ -2000,6 +2020,50 @@ public final class Net {
         }
         return BoolVal.FALSE;
     }
+    public static String exportEnableQuit() {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_POSSIBLE_QUIT);
+        out_.append(SEP_0);
+        return out_.toString();
+    }
+    public static String exportQuitting(Quit _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_QUITTING);
+        out_.append(SEP_0);
+        out_.append(exportBool(_index.isClosing()));
+        out_.append(exportBool(_index.isServer()));
+        out_.append(_index.getPlace());
+        return out_.toString();
+    }
+
+    public static Quit importQuitting(CustList<String> _info) {
+        Quit q_ = new Quit();
+        String i_ = _info.get(0);
+        q_.setClosing(toBoolEquals(i_,0));
+        q_.setServer(toBoolEquals(i_,1));
+        q_.setPlace((byte)NumberUtil.parseInt(i_.substring(2)));
+        return q_;
+    }
+
+    public static String exportExiting(Exiting _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(exportBool(_index.isClosing()));
+        out_.append(exportBool(_index.isForced()));
+        out_.append(exportBool(_index.isServer()));
+        out_.append(exportBool(_index.isTooManyPlayers()));
+        return out_.toString();
+    }
+
+    public static Exiting importExiting(CustList<String> _info) {
+        Exiting q_ = new Exiting();
+        String i_ = _info.get(0);
+        q_.setClosing(toBoolEquals(i_,0));
+        q_.setForced(toBoolEquals(i_,1));
+        q_.setServer(toBoolEquals(i_,2));
+        q_.setTooManyPlayers(toBoolEquals(i_,3));
+        return q_;
+    }
+
     private static boolean toBoolEquals(String _l) {
         return StringUtil.quickEq(_l,"1");
     }

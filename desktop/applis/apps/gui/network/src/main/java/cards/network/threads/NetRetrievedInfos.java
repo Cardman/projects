@@ -10,7 +10,7 @@ public final class NetRetrievedInfos {
         int len_ = _info.length();
         StringBuilder id_ = new StringBuilder();
         int index_ = 0;
-        while (true) {
+        while (index_ < _info.length()) {
             char ch_ = _info.charAt(index_);
             if (ch_ == Net.SEP_0) {
                 index_++;
@@ -18,6 +18,13 @@ public final class NetRetrievedInfos {
             }
             id_.append(ch_);
             index_++;
+        }
+        if (index_ >= _info.length()) {
+            indexAct = -1;
+            CustList<String> partsStr_ = new CustList<String>();
+            partsStr_.add(_info);
+            parts = partsStr_;
+            return;
         }
         int indexClientAct_;
         int find_;
@@ -31,21 +38,21 @@ public final class NetRetrievedInfos {
             find_ = 0;
             indexClientAct_ = NumberUtil.parseInt(id_.toString())+2;
         }
-        CustList<String> parts_ = new CustList<String>();
+        CustList<String> partsStr_ = new CustList<String>();
         StringBuilder part_ = new StringBuilder();
         int[] pass_ = new int[]{0};
         for (int i = index_; i < len_; i++) {
             char ch_ = _info.charAt(i);
             if (_window.get(find_).split(ch_, pass_)) {
-                parts_.add(part_.toString());
+                partsStr_.add(part_.toString());
                 part_.delete(0,part_.length());
             } else {
                 part_.append(ch_);
             }
         }
-        parts_.add(part_.toString());
+        partsStr_.add(part_.toString());
         indexAct = indexClientAct_;
-        parts = parts_;
+        parts = partsStr_;
     }
 
     public CustList<String> getParts() {
