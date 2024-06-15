@@ -1033,6 +1033,9 @@ public final class Net {
 
     public static CustList<BidBeloteSuit> importBidBeloteSuitList(String _info, char _sep, char _sec) {
         CustList<BidBeloteSuit> h_ = new CustList<BidBeloteSuit>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add(importBidBeloteSuit(_sec, s));
         }
@@ -1101,6 +1104,9 @@ public final class Net {
     }
 
     public static String exportBidTarotList(CustList<BidTarot> _dealt, char _sep) {
+        if (_dealt.isEmpty()) {
+            return "-";
+        }
         CustList<String> ls_ = new CustList<String>();
         for (BidTarot b: _dealt) {
             ls_.add(b.getSt());
@@ -1109,6 +1115,9 @@ public final class Net {
     }
     public static IdList<BidTarot> importBidTarotList(String _info, char _sep) {
         IdList<BidTarot> h_ = new IdList<BidTarot>();
+        if (StringUtil.quickEq(_info,"-")) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add(TarotCardsRetrieverUtil.toBidTarot(s));
         }
@@ -1116,6 +1125,9 @@ public final class Net {
     }
     private static IntTreeMap<Byte> placePlayers(String _info) {
         IntTreeMap<Byte> placesPlayers_ = new IntTreeMap<Byte>();
+        if (_info.isEmpty()) {
+            return placesPlayers_;
+        }
         for (String p: StringUtil.splitChar(_info,SEP_1)) {
             StringList kv_ = StringUtil.splitChar(p, SEP_2);
             placesPlayers_.addEntry(NumberUtil.parseInt(kv_.first()), (byte) NumberUtil.parseInt(kv_.last()));
