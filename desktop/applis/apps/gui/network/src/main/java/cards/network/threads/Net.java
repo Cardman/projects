@@ -18,6 +18,7 @@ import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.PlayerActionGame;
 import cards.network.common.before.*;
 import cards.network.president.actions.DiscardedCardsPresident;
+import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.DealtHandPresident;
 import cards.network.president.displaying.ReceivedGivenCards;
 import cards.network.president.unlock.AllowDiscarding;
@@ -27,6 +28,7 @@ import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.DiscardPhaseTarot;
 import cards.network.tarot.actions.BiddingTarot;
 import cards.network.tarot.actions.DiscardedCardTarot;
+import cards.network.tarot.actions.PlayingCardTarot;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
@@ -81,6 +83,10 @@ public final class Net {
     public static final int CLIENT_DEALT_SLAM_TAROT = 19;
     public static final int CLIENT_DEALT_ALLOW_PLAYING_BELOTE = 20;
     public static final int CLIENT_DEALT_PLAYING_BELOTE = 21;
+    public static final int CLIENT_DEALT_ALLOW_PLAYING_PRESIDENT = 22;
+    public static final int CLIENT_DEALT_PLAYING_PRESIDENT = 23;
+    public static final int CLIENT_DEALT_ALLOW_PLAYING_TAROT = 24;
+    public static final int CLIENT_DEALT_PLAYING_TAROT = 25;
     public static final int SERVER_CHOSEN_PLACE = 0;
     public static final int SERVER_READY = 1;
     public static final int SERVER_RULES_BELOTE = 2;
@@ -99,6 +105,8 @@ public final class Net {
     public static final int SERVER_DISCARDED_CARD_TAROT = 15;
     public static final int SERVER_VALIDATE_DISCARD_TAROT = 16;
     public static final int SERVER_PLAYING_BELOTE = 17;
+    public static final int SERVER_PLAYING_PRESIDENT = 18;
+    public static final int SERVER_PLAYING_TAROT = 19;
     public static final char RULES_BELOTE = '0';
     public static final char RULES_PRESIDENT = '1';
     public static final char RULES_TAROT = '2';
@@ -166,6 +174,10 @@ public final class Net {
         clientAct.add(new ClientActLoopCardsSlamTarot());
         clientAct.add(new ClientActLoopCardsAllowPlayingBelote());
         clientAct.add(new ClientActLoopCardsPlayingBelote());
+        clientAct.add(new ClientActLoopCardsAllowPlayingPresident());
+        clientAct.add(new ClientActLoopCardsPlayingPresident());
+        clientAct.add(new ClientActLoopCardsAllowPlayingTarot());
+        clientAct.add(new ClientActLoopCardsPlayingTarot());
         serverActLoopCards.add(new ServerActLoopCardsNewPlayer());
         serverActLoopCards.add(new ServerActLoopCardsOldPlayer());
         serverActLoopCards.add(new ServerActLoopCardsChosenPlace());
@@ -186,6 +198,8 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsDiscardedCardTarot());
         serverActLoopCards.add(new ServerActLoopCardsValidateDiscardTarot());
         serverActLoopCards.add(new ServerActLoopCardsPlayingBelote());
+        serverActLoopCards.add(new ServerActLoopCardsPlayingPresident());
+        serverActLoopCards.add(new ServerActLoopCardsPlayingTarot());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
@@ -353,12 +367,18 @@ public final class Net {
         rules_.getCommon().setMixedCards(EnumCardsRetrieverUtil.toMixCardsChoice(_info.get(1+_offset)));
         IdMap<BidBelote, BoolVal> bids_ = new IdMap<BidBelote, BoolVal>();
         for (String p: StringUtil.splitChar(_info.get(2+_offset),SEP_1)) {
+            if (p.isEmpty()) {
+                continue;
+            }
             String k_ = p.substring(0,p.length()-1);
             bids_.addEntry(BeloteCardsRetrieverUtil.toBidBelote(k_),toBoolValEndsWith(p));
         }
         rules_.setAllowedBids(bids_);
         IdMap<DeclaresBelote, BoolVal> decl_ = new IdMap<DeclaresBelote, BoolVal>();
         for (String p: StringUtil.splitChar(_info.get(3+_offset),SEP_1)) {
+            if (p.isEmpty()) {
+                continue;
+            }
             String k_ = p.substring(0,p.length()-1);
             decl_.addEntry(BeloteCardsRetrieverUtil.toDeclaresBelote(k_),toBoolValEndsWith(p));
         }
@@ -458,18 +478,27 @@ public final class Net {
         rules_.setDiscardAfterCall(toBoolEquals(flags_,2));
         IdMap<BidTarot, BoolVal> bids_ = new IdMap<BidTarot, BoolVal>();
         for (String p: StringUtil.splitChar(_info.get(3+_offset),SEP_1)) {
+            if (p.isEmpty()) {
+                continue;
+            }
             String k_ = p.substring(0,p.length()-1);
             bids_.addEntry(TarotCardsRetrieverUtil.toBidTarot(k_),toBoolValEndsWith(p));
         }
         rules_.setAllowedBids(bids_);
         IdMap<Handfuls, Integer> hand_ = new IdMap<Handfuls, Integer>();
         for (String p: StringUtil.splitChar(_info.get(4+_offset),SEP_1)) {
+            if (p.isEmpty()) {
+                continue;
+            }
             String k_ = p.substring(0,1);
             hand_.addEntry(TarotCardsRetrieverUtil.toHandfuls(k_),NumberUtil.parseInt(p.substring(1)));
         }
         rules_.setAllowedHandfuls(hand_);
         IdList<Miseres> mis_ = new IdList<Miseres>();
         for (String p: StringUtil.splitChar(_info.get(5+_offset),SEP_1)) {
+            if (p.isEmpty()) {
+                continue;
+            }
             mis_.add(TarotCardsRetrieverUtil.toMiseres(p));
         }
         rules_.setMiseres(mis_);
@@ -983,6 +1012,169 @@ public final class Net {
         return belote_;
     }
 
+    public static String exportAllowPlayingPresident(AllowPlayingPresident _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_ALLOW_PLAYING_PRESIDENT);
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isReversed()));
+        out_.append(exportBool(_dealt.isEnabledPass()));
+        out_.append(_dealt.getStatus().getPlay());
+        out_.append(SEP_0);
+        out_.append(exportHandPresident(_dealt.getCards(), SEP_1));
+        return out_.toString();
+    }
+
+    public static AllowPlayingPresident importAllowPlayingPresident(CustList<String> _info) {
+        AllowPlayingPresident president_ = new AllowPlayingPresident();
+        String i_ = _info.get(0);
+        president_.setReversed(toBoolEquals(i_,0));
+        president_.setEnabledPass(toBoolEquals(i_,1));
+        president_.setStatus(Playing.retrieve(i_.substring(2)));
+        president_.setCards(importHandPresident(_info.get(1), SEP_1));
+        return president_;
+    }
+
+    public static String exportClientPlayingPresident(PlayingCardPresident _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_PLAYING_PRESIDENT);
+        out_.append(SEP_0);
+        out_.append(_dealt.getPlace());
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isRefreshing()));
+        out_.append(exportBool(_dealt.isPass()));
+        out_.append(exportBool(_dealt.isReversed()));
+        out_.append(PresidentCardsExporterUtil.fromCardPresident(_dealt.getPlayedCard()));
+        out_.append(SEP_0);
+        out_.append(_dealt.getIndex());
+        out_.append(SEP_0);
+        out_.append(_dealt.getNextPlayer());
+        out_.append(SEP_0);
+        out_.append(exportHandPresident(_dealt.getPlayedHand(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportPlayingMap(_dealt.getStatus(),SEP_0,SEP_1));
+        return out_.toString();
+    }
+
+    public static String exportServerPlayingPresident(PlayingCardPresident _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_PLAYING_PRESIDENT);
+        out_.append(SEP_0);
+        out_.append(_dealt.getPlace());
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isRefreshing()));
+        out_.append(exportBool(_dealt.isPass()));
+        out_.append(exportBool(_dealt.isReversed()));
+        out_.append(PresidentCardsExporterUtil.fromCardPresident(_dealt.getPlayedCard()));
+        out_.append(SEP_0);
+        out_.append(_dealt.getIndex());
+        out_.append(SEP_0);
+        out_.append(_dealt.getNextPlayer());
+        out_.append(SEP_0);
+        out_.append(exportHandPresident(_dealt.getPlayedHand(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportPlayingMap(_dealt.getStatus(),SEP_1,SEP_2));
+        return out_.toString();
+    }
+
+    public static PlayingCardPresident importPlayingPresident(CustList<String> _info) {
+        PlayingCardPresident president_ = new PlayingCardPresident();
+        president_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        String i_ = _info.get(1);
+        president_.setRefreshing(toBoolEquals(i_,0));
+        president_.setPass(toBoolEquals(i_,1));
+        president_.setReversed(toBoolEquals(i_,2));
+        president_.setPlayedCard(PresidentCardsRetrieverUtil.toCardPresident(i_.substring(3)));
+        president_.setIndex((byte) NumberUtil.parseInt(_info.get(2)));
+        president_.setNextPlayer((byte) NumberUtil.parseInt(_info.get(3)));
+        president_.setPlayedHand(importHandPresident(_info.get(4),SEP_1));
+        president_.setStatus(importPlayingMap(_info.get(5),SEP_1,SEP_2));
+        return president_;
+    }
+
+    public static String exportAllowPlayingTarot(AllowPlayingTarot _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_ALLOW_PLAYING_TAROT);
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isFirstRoundPlaying()));
+        out_.append(_dealt.getTakerIndex());
+        out_.append(SEP_0);
+        out_.append(_dealt.getCurrentBid().getSt());
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(_dealt.getCards(), SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(_dealt.getCalledCards(), SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(_dealt.getDiscardedTrumps(),SEP_1));
+        return out_.toString();
+    }
+
+    public static AllowPlayingTarot importAllowPlayingTarot(CustList<String> _info) {
+        AllowPlayingTarot tarot_ = new AllowPlayingTarot();
+        String i_ = _info.get(0);
+        tarot_.setFirstRoundPlaying(toBoolEquals(i_,0));
+        tarot_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(1)));
+        tarot_.setCurrentBid(TarotCardsRetrieverUtil.toBidTarot(_info.get(1)));
+        tarot_.setCards(importHandTarot(_info.get(2), SEP_1));
+        tarot_.setCalledCards(importHandTarot(_info.get(3), SEP_1));
+        tarot_.setDiscardedTrumps(importHandTarot(_info.get(4), SEP_1));
+        return tarot_;
+    }
+
+    public static String exportClientPlayingTarot(PlayingCardTarot _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_DEALT_PLAYING_TAROT);
+        out_.append(SEP_0);
+        out_.append(_dealt.getPlace());
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isRefreshing()));
+        out_.append(exportBool(_dealt.isCalledCard()));
+        out_.append(_dealt.getTakerIndex());
+        out_.append(SEP_0);
+        out_.append(TarotCardsExporterUtil.fromCardTarot(_dealt.getPlayedCard()));
+        out_.append(SEP_0);
+        out_.append(TarotCardsExporterUtil.fromHandfuls(_dealt.getChoosenHandful()));
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(_dealt.getHandful(),SEP_1));
+        out_.append(exportHandTarot(_dealt.getExcludedTrumps(),SEP_1));
+        out_.append(exportMiseres(_dealt.getMiseres(),SEP_1));
+        return out_.toString();
+    }
+
+    public static String exportServerPlayingTarot(PlayingCardTarot _dealt) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_PLAYING_TAROT);
+        out_.append(SEP_0);
+        out_.append(_dealt.getPlace());
+        out_.append(SEP_0);
+        out_.append(exportBool(_dealt.isRefreshing()));
+        out_.append(exportBool(_dealt.isCalledCard()));
+        out_.append(_dealt.getTakerIndex());
+        out_.append(SEP_0);
+        out_.append(TarotCardsExporterUtil.fromCardTarot(_dealt.getPlayedCard()));
+        out_.append(SEP_0);
+        out_.append(TarotCardsExporterUtil.fromHandfuls(_dealt.getChoosenHandful()));
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(_dealt.getHandful(),SEP_1));
+        out_.append(exportHandTarot(_dealt.getExcludedTrumps(),SEP_1));
+        out_.append(exportMiseres(_dealt.getMiseres(),SEP_1));
+        return out_.toString();
+    }
+
+    public static PlayingCardTarot importPlayingTarot(CustList<String> _info) {
+        PlayingCardTarot tarot_ = new PlayingCardTarot();
+        tarot_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        String i_ = _info.get(1);
+        tarot_.setRefreshing(toBoolEquals(i_,0));
+        tarot_.setCalledCard(toBoolEquals(i_,1));
+        tarot_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(2)));
+        tarot_.setPlayedCard(TarotCardsRetrieverUtil.toCardTarot(_info.get(2)));
+        tarot_.setChoosenHandful(TarotCardsRetrieverUtil.toHandfuls(_info.get(3)));
+        tarot_.setHandful(importHandTarot(_info.get(4),SEP_1));
+        tarot_.setExcludedTrumps(importHandTarot(_info.get(5),SEP_1));
+        tarot_.setMiseres(importMiseres(_info.get(6),SEP_1));
+        return tarot_;
+    }
+
     public static StringBuilder exportDeclareHandBelote(DeclareHandBelote _dealt, char _sep, char _sec) {
         StringBuilder out_ = new StringBuilder();
         out_.append(_dealt.getPlayer());
@@ -1078,6 +1270,9 @@ public final class Net {
 
     public static ByteMap<Playing> importPlayingMap(String _info, char _sep, char _sec) {
         ByteMap<Playing> h_ = new ByteMap<Playing>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             StringList playing_ = StringUtil.splitChar(s, _sec);
             h_.addEntry((byte)NumberUtil.parseInt(playing_.get(0)),Playing.retrieve(playing_.get(1)));
@@ -1120,6 +1315,24 @@ public final class Net {
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add(TarotCardsRetrieverUtil.toBidTarot(s));
+        }
+        return h_;
+    }
+    public static String exportMiseres(CustList<Miseres> _dealt, char _sep) {
+        CustList<String> ls_ = new CustList<String>();
+        for (Miseres b: _dealt) {
+            ls_.add(TarotCardsExporterUtil.fromMiseres(b));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+
+    public static IdList<Miseres> importMiseres(String _info, char _sep) {
+        IdList<Miseres> h_ = new IdList<Miseres>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(TarotCardsRetrieverUtil.toMiseres(s));
         }
         return h_;
     }

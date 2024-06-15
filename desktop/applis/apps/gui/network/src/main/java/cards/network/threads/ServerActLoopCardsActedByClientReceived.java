@@ -256,7 +256,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
             allow_.setStatus(game_.getStatus());
             allow_.setCards(game_.cartesJouables());
             allow_.setReversed(game_.isReversed());
-            Net.sendObject(Net.getSocketByPlace(place_, _common),allow_);
+            NetGroupFrame.trySendString(Net.exportAllowPlayingPresident(allow_), Net.getSocketByPlace(place_, _common));
             return;
         }
         ThreadUtil.sleep(_fct,800);
@@ -274,7 +274,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //        cardDto_.setLocale("");
 //        Net.initAllReceived(_instance, _common);
         for (byte p: Net.activePlayers(_instance, _common)) {
-            Net.sendObject(Net.getSocketByPlace(p, _common),cardDto_);
+            NetGroupFrame.trySendString(Net.exportClientPlayingPresident(cardDto_), Net.getSocketByPlace(p, _common));
         }
     }
 
@@ -327,7 +327,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //                decla_.setRequiredTrumps(new IdMap<Handfuls,Integer>());
 //                decla_.setAllowedMiseres(new IdList<Miseres>());
             }
-            Net.sendObject(Net.getSocketByPlace(place_, _common), decla_);
+            NetGroupFrame.trySendString(Net.exportAllowPlayingTarot(decla_), Net.getSocketByPlace(place_, _common));
             return;
         }
         ThreadUtil.sleep(_fct,800);
@@ -355,7 +355,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         cardDto_.setExcludedTrumps(new HandTarot());
 //        Net.initAllReceived(_instance, _common);
         for (byte p: Net.activePlayers(_instance, _common)) {
-            Net.sendObject(Net.getSocketByPlace(p, _common), cardDto_);
+            NetGroupFrame.trySendString(Net.exportClientPlayingTarot(cardDto_), Net.getSocketByPlace(p, _common));
         }
     }
     protected static void endGameBelote(Net _instance, NetCommon _common) {

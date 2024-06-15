@@ -702,6 +702,18 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
     }
+    public boolean sendObject(PlayingCardPresident _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerPlayingPresident(_serializable),getSocket());
+        }
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+    }
+    public boolean sendObject(PlayingCardTarot _serializable) {
+        if (Net.QUICK) {
+            return trySendString(Net.exportServerPlayingTarot(_serializable),getSocket());
+        }
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+    }
     public boolean sendObject(PlayerActionGame _serializable) {
         return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
     }
