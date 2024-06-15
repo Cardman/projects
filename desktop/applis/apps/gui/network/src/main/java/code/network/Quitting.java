@@ -17,14 +17,14 @@ public final class Quitting implements Runnable {
 
     private final Exiting bye;
 
-    private final NetGroupFrame window;
+    private final WindowNetWork window;
 
     private final AbstractSocket socket;
 
 //    private StringMap<String> messages;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public Quitting(Exiting _bye, NetGroupFrame _window, AbstractSocket _socket) {
+    public Quitting(Exiting _bye, WindowNetWork _window, AbstractSocket _socket) {
 //        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(FOLDER, _window.getLanguageKey(), QUITTING);
 //        String loadedResourcesMessages_ = MessGuiNetGr.ms().getVal(fileName_);
 //        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);

@@ -908,7 +908,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         Net.sendObject(_newSocket,index_);
     }
 
-    @Override
     public void loop(Document _readObject, AbstractSocket _socket) {
         if (!isCards()) {
             loopAiki(_readObject, _socket);
@@ -1186,7 +1185,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
     }
 
-    @Override
     public void quitNetwork(Exiting _exit, AbstractSocket _socket) {
         if (!isCards()) {
             quitNetworkAiki(_exit, _socket);
