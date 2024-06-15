@@ -25,7 +25,7 @@ public final class ResultsGame {
 
     private String loc;
     public void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
-        setScores(_scores);
+        scores(_scores);
         if(hasToCalculateScores(_type, _number, _nbDeals)) {
             calculateScores(_scoresDeal);
         }
@@ -123,19 +123,28 @@ public final class ResultsGame {
     }
 
     public CustList<Longs> scores() {
+        return scoresCp(scores);
+    }
+
+    public static CustList<Longs> scoresCp(CustList<Longs> _scores) {
         CustList<Longs> ls_ = new CustList<Longs>();
-        int dc_ = scores.size();
+        int dc_ = _scores.size();
         for (int i = 0; i < dc_; i++) {
-            ls_.add(new Longs(scores.get(i)));
+            ls_.add(new Longs(_scores.get(i)));
         }
         return ls_;
     }
+
     public CustList<Longs> getScores() {
         return scores;
     }
 
-    public void setScores(CustList<Longs> _scores) {
-        scores = new CustList<Longs>(_scores);
+    public void setScores(CustList<Longs> _s) {
+        this.scores = _s;
+    }
+
+    public void scores(CustList<Longs> _scores) {
+        setScores(new CustList<Longs>(_scores));
         CustList<LineDeal> hist_ = new CustList<LineDeal>();
         int dc_ = _scores.size();
         for (int i = 0; i < dc_; i++) {

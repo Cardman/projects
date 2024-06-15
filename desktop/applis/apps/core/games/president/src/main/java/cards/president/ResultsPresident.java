@@ -11,7 +11,7 @@ public final class ResultsPresident {
     private GamePresident game;
 
     public void initialize(StringList _pseudos, CustList<Longs> _scores, Bytes _r) {
-        res.setScores(_scores);
+        res.scores(_scores);
         res.setNicknames(_pseudos);
         LineDeal ld_ = new LineDeal();
         Longs sc_ = new Longs();

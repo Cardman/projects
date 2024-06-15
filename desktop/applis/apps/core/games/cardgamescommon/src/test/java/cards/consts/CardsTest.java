@@ -8,7 +8,7 @@ public final class CardsTest extends EquallableCardsUtil {
     @Test
     public void test() {
         ResultsGame r_ = new ResultsGame();
-        r_.setScores(new CustList<Longs>());
+        r_.scores(new CustList<Longs>());
         r_.setSigmas(new CustList<Rate>());
         r_.setSums(new Longs());
         r_.setDetailResultsTitle("");

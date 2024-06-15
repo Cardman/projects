@@ -28,7 +28,6 @@ import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.IdList;
-import code.util.Longs;
 import code.util.core.NumberUtil;
 
 public abstract class ServerActLoopCardsActedByClientReceived implements IntServerActLoopCards {
@@ -367,17 +366,17 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //            }
 //        }
         ResultsBelote res_ = new ResultsBelote();
-        CustList<Longs> scores_ = Net.getScores(_instance);
-        CustList<Longs> list_ = new CustList<Longs>();
-        for (Longs v: scores_) {
-            list_.add(new Longs(v));
-        }
+//        CustList<Longs> scores_ = Net.getScores(_instance);
+//        CustList<Longs> list_ = new CustList<Longs>();
+//        for (Longs v: scores_) {
+//            list_.add(new Longs(v));
+//        }
         res_.setGame(Net.getGames(_instance).partieBelote());
-        res_.getRes().setScores(list_);
+        res_.getRes().setScores(Net.getScores(_instance));
         for (byte p: Net.activePlayers(_instance,_common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance,_common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
-            Net.sendObject(Net.getSocketByPlace(p, _common), res_);
+            NetGroupFrame.trySendString(Net.exportGameBelote(res_), Net.getSocketByPlace(p, _common));
         }
     }
     protected static void endGamePresident(Net _instance, NetCommon _common) {
@@ -391,16 +390,16 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //        }
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(Net.getGames(_instance).partiePresident());
-        CustList<Longs> scores_ = Net.getScores(_instance);
-        CustList<Longs> list_ = new CustList<Longs>();
-        for (Longs v: scores_) {
-            list_.add(new Longs(v));
-        }
-        res_.getRes().setScores(list_);
+//        CustList<Longs> scores_ = Net.getScores(_instance);
+//        CustList<Longs> list_ = new CustList<Longs>();
+//        for (Longs v: scores_) {
+//            list_.add(new Longs(v));
+//        }
+        res_.getRes().setScores(Net.getScores(_instance));
         for (byte p: Net.activePlayers(_instance, _common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance, _common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
-            Net.sendObject(Net.getSocketByPlace(p, _common), res_);
+            NetGroupFrame.trySendString(Net.exportGamePresident(res_), Net.getSocketByPlace(p, _common));
         }
     }
     protected static void endGameTarot(Net _instance, NetCommon _common) {
@@ -414,16 +413,16 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //        }
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(Net.getGames(_instance).partieTarot());
-        CustList<Longs> scores_ = Net.getScores(_instance);
-        CustList<Longs> list_ = new CustList<Longs>();
-        for (Longs v: scores_) {
-            list_.add(new Longs(v));
-        }
-        res_.getRes().setScores(list_);
+//        CustList<Longs> scores_ = Net.getScores(_instance);
+//        CustList<Longs> list_ = new CustList<Longs>();
+//        for (Longs v: scores_) {
+//            list_.add(new Longs(v));
+//        }
+        res_.getRes().setScores(Net.getScores(_instance));
         for (byte p: Net.activePlayers(_instance, _common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance, _common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
-            Net.sendObject(Net.getSocketByPlace(p, _common), res_);
+            NetGroupFrame.trySendString(Net.exportGameTarot(res_), Net.getSocketByPlace(p, _common));
         }
     }
     protected static void callAfter(GameTarot _game, DiscardPhaseTarot _dog) {

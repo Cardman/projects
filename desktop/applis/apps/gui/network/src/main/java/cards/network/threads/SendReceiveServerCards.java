@@ -1961,13 +1961,13 @@ public final class SendReceiveServerCards extends BasicServer {
 //            }
 //        }
         ResultsBelote res_ = new ResultsBelote();
-        CustList<Longs> scores_ = Net.getScores(_instance);
-        CustList<Longs> list_ = new CustList<Longs>();
-        for (Longs v: scores_) {
-            list_.add(new Longs(v));
-        }
+//        CustList<Longs> scores_ = Net.getScores(_instance);
+//        CustList<Longs> list_ = new CustList<Longs>();
+//        for (Longs v: scores_) {
+//            list_.add(new Longs(v));
+//        }
         res_.setGame(Net.getGames(_instance).partieBelote());
-        res_.getRes().setScores(list_);
+        res_.getRes().setScores(Net.getScores(_instance));
         for (byte p: Net.activePlayers(_instance,_common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance,_common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
@@ -1985,12 +1985,12 @@ public final class SendReceiveServerCards extends BasicServer {
 //        }
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(Net.getGames(_instance).partiePresident());
-        CustList<Longs> scores_ = Net.getScores(_instance);
-        CustList<Longs> list_ = new CustList<Longs>();
-        for (Longs v: scores_) {
-            list_.add(new Longs(v));
-        }
-        res_.getRes().setScores(list_);
+//        CustList<Longs> scores_ = Net.getScores(_instance);
+//        CustList<Longs> list_ = new CustList<Longs>();
+//        for (Longs v: scores_) {
+//            list_.add(new Longs(v));
+//        }
+        res_.getRes().setScores(Net.getScores(_instance));
         for (byte p: Net.activePlayers(_instance, _common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance, _common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
@@ -2008,12 +2008,12 @@ public final class SendReceiveServerCards extends BasicServer {
 //        }
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(Net.getGames(_instance).partieTarot());
-        CustList<Longs> scores_ = Net.getScores(_instance);
-        CustList<Longs> list_ = new CustList<Longs>();
-        for (Longs v: scores_) {
-            list_.add(new Longs(v));
-        }
-        res_.getRes().setScores(list_);
+//        CustList<Longs> scores_ = Net.getScores(_instance);
+//        CustList<Longs> list_ = new CustList<Longs>();
+//        for (Longs v: scores_) {
+//            list_.add(new Longs(v));
+//        }
+        res_.getRes().setScores(Net.getScores(_instance));
         for (byte p: Net.activePlayers(_instance, _common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance, _common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));

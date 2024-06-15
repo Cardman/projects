@@ -33,19 +33,13 @@ import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
-import cards.president.HandPresident;
-import cards.president.ResultsPresident;
-import cards.president.RulesPresident;
-import cards.president.TricksHandsPresident;
+import cards.president.*;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import cards.president.enumerations.PresidentCardsExporterUtil;
 import cards.president.enumerations.PresidentCardsRetrieverUtil;
 import cards.president.sml.DocumentWriterPresidentUtil;
-import cards.tarot.HandTarot;
-import cards.tarot.ResultsTarot;
-import cards.tarot.RulesTarot;
-import cards.tarot.TricksHandsTarot;
+import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.initialize.AbstractSocket;
@@ -55,6 +49,7 @@ import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.threads.AbstractThreadFactory;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -88,6 +83,9 @@ public final class Net {
     public static final int CLIENT_DEALT_ALLOW_PLAYING_TAROT = 24;
     public static final int CLIENT_DEALT_PLAYING_TAROT = 25;
     public static final int CLIENT_DONE_PAUSE = 26;
+    public static final int CLIENT_RES_BELOTE = 27;
+    public static final int CLIENT_RES_PRESIDENT = 28;
+    public static final int CLIENT_RES_TAROT = 29;
     public static final int SERVER_CHOSEN_PLACE = 0;
     public static final int SERVER_READY = 1;
     public static final int SERVER_RULES_BELOTE = 2;
@@ -182,6 +180,9 @@ public final class Net {
         clientAct.add(new ClientActLoopCardsAllowPlayingTarot());
         clientAct.add(new ClientActLoopCardsPlayingTarot());
         clientAct.add(new ClientActLoopCardsDonePause());
+        clientAct.add(new ClientActLoopCardsResultsBelote());
+        clientAct.add(new ClientActLoopCardsResultsPresident());
+        clientAct.add(new ClientActLoopCardsResultsTarot());
         serverActLoopCards.add(new ServerActLoopCardsNewPlayer());
         serverActLoopCards.add(new ServerActLoopCardsOldPlayer());
         serverActLoopCards.add(new ServerActLoopCardsChosenPlace());
@@ -1165,6 +1166,77 @@ public final class Net {
         return tarot_;
     }
 
+    public static String exportGameBelote(ResultsBelote _dealt) {
+        CustList<Longs> scores_ = _dealt.getRes().getScores();
+        GameBelote game_ = _dealt.getGame();
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_RES_BELOTE);
+        out_.append(SEP_0);
+        out_.append(exportLongsList(scores_,SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(game_.getType().getGameTypeSt());
+        out_.append(SEP_0);
+        out_.append(game_.getDeal().getNbDeals());
+        out_.append(SEP_0);
+        out_.append(game_.getDeal().getDealer());
+        out_.append(SEP_0);
+        out_.append(exportDealBelote(game_.getDeal(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportDeclareHandBeloteList(game_.getDeclares(),SEP_1,SEP_2,SEP_3));
+        out_.append(SEP_0);
+        out_.append(exportHandBeloteList(game_.getDeclaresBeloteRebelote(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportBoolList(game_.getWonLastTrick()));
+        out_.append(SEP_0);
+        out_.append(exportTrickBeloteList(game_.getTricks(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportTrickBelote(game_.getProgressingTrick(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportBidBeloteSuitList(game_.getBids(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportShortList(game_.getScores(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(game_.getNumber());
+        return out_.toString();
+    }
+
+    public static ResultsBelote importGameBelote(CustList<String> _info) {
+        ResultsBelote game_ = new ResultsBelote();
+        game_.getRes().setScores(importLongsList(_info.get(0),SEP_1,SEP_2));
+        game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
+        DealBelote deal_ = importDealBelote(_info.get(4),SEP_1,SEP_2);
+        deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(2)));
+        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(3)));
+        game_.getGame().setDeal(deal_);
+        game_.getGame().setDeclares(importDeclareHandBeloteList(_info.get(5), SEP_1,SEP_2,SEP_3));
+        game_.getGame().setDeclaresBeloteRebelote(importHandBeloteList(_info.get(6), SEP_1,SEP_2));
+        game_.getGame().setWonLastTrick(importBoolList(_info.get(7)));
+        game_.getGame().setTricks(importTrickBeloteList(_info.get(8), SEP_1, SEP_2));
+        game_.getGame().setProgressingTrick(importTrickBelote(_info.get(9), SEP_1));
+        game_.getGame().setBids(importBidBeloteSuitList(_info.get(10),SEP_1,SEP_2));
+        game_.getGame().setScores(importShortList(_info.get(11),SEP_1));
+        game_.getGame().setNumber(NumberUtil.parseLongZero(_info.get(12)));
+        return game_;
+    }
+
+    public static String exportDeclareHandBeloteList(CustList<DeclareHandBelote> _dealt, char _sep, char _sec, char _th) {
+        CustList<String> ls_ = new CustList<String>();
+        for (DeclareHandBelote b: _dealt) {
+            ls_.add(exportDeclareHandBelote(b,_sec,_th).toString());
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+
+    public static CustList<DeclareHandBelote> importDeclareHandBeloteList(String _info, char _sep, char _sec, char _th) {
+        CustList<DeclareHandBelote> h_ = new CustList<DeclareHandBelote>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importDeclareHandBelote(StringUtil.splitChar(s,_sec),0,_th));
+        }
+        return h_;
+    }
     public static StringBuilder exportDeclareHandBelote(DeclareHandBelote _dealt, char _sep, char _sec) {
         StringBuilder out_ = new StringBuilder();
         out_.append(_dealt.getPlayer());
@@ -1180,6 +1252,67 @@ public final class Net {
         h_.setPlayer((byte) NumberUtil.parseInt(_info.get(_off)));
         h_.setDeclare(BeloteCardsRetrieverUtil.toDeclaresBelote(_info.get(_off+1)));
         h_.setHand(importHandBelote(_info.get(_off+2), _sep));
+        return h_;
+    }
+    public static String exportDealBelote(DealBelote _dealt, char _sep, char _sec) {
+        return exportHandBeloteList(_dealt.getDeal(), _sep, _sec);
+    }
+    public static String exportHandBeloteList(CustList<HandBelote> _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (HandBelote b: _dealt) {
+            ls_.add(exportHandBelote(b,_sec));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static DealBelote importDealBelote(String _info, char _sep, char _sec) {
+        DealBelote db_ = new DealBelote();
+        db_.setDeal(importHandBeloteList(_info, _sep, _sec));
+        return db_;
+    }
+    public static CustList<HandBelote> importHandBeloteList(String _info, char _sep, char _sec) {
+        CustList<HandBelote> h_ = new CustList<HandBelote>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importHandBelote(s,_sec));
+        }
+        return h_;
+    }
+
+    public static String exportTrickBeloteList(CustList<TrickBelote> _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (TrickBelote b: _dealt) {
+            ls_.add(exportTrickBelote(b,_sec));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static CustList<TrickBelote> importTrickBeloteList(String _info, char _sep, char _sec) {
+        CustList<TrickBelote> h_ = new CustList<TrickBelote>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importTrickBelote(s,_sec));
+        }
+        return h_;
+    }
+
+    public static String exportTrickBelote(TrickBelote _dealt, char _sep) {
+        CustList<String> ls_ = new CustList<String>();
+        for (CardBelote b: _dealt) {
+            ls_.add(BeloteCardsExporterUtil.fromCardBelote(b));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static TrickBelote importTrickBelote(String _info, char _sep) {
+        TrickBelote h_ = new TrickBelote();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.getCards().ajouter(BeloteCardsRetrieverUtil.toCardBelote(s));
+        }
         return h_;
     }
 
@@ -1233,6 +1366,116 @@ public final class Net {
         return b_;
     }
 
+    public static String exportGamePresident(ResultsPresident _dealt) {
+        CustList<Longs> scores_ = _dealt.getRes().getScores();
+        GamePresident game_ = _dealt.getGame();
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_RES_PRESIDENT);
+        out_.append(SEP_0);
+        out_.append(exportLongsList(scores_,SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(game_.getType().getGameTypeSt());
+        out_.append(SEP_0);
+        out_.append(game_.getDeal().getNbDeals());
+        out_.append(SEP_0);
+        out_.append(game_.getDeal().getDealer());
+        out_.append(SEP_0);
+        out_.append(exportDealPresident(game_.getDeal(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportByteList(game_.getRanks(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportTrickPresidentList(game_.getTricks(),SEP_1,SEP_2,SEP_3));
+        out_.append(SEP_0);
+        out_.append(exportTrickPresident(game_.getProgressingTrick(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportHandPresidentList(game_.getSwitchedCards(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportShortList(game_.getScores(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(game_.getNumber());
+        return out_.toString();
+    }
+
+    public static ResultsPresident importGamePresident(CustList<String> _info) {
+        ResultsPresident game_ = new ResultsPresident();
+        game_.getRes().setScores(importLongsList(_info.get(0),SEP_1,SEP_2));
+        game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
+        DealPresident deal_ = importDealPresident(_info.get(4),SEP_1,SEP_2);
+        deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(2)));
+        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(3)));
+        game_.getGame().setDeal(deal_);
+        game_.getGame().setRanks(importByteList(_info.get(5), SEP_1));
+        game_.getGame().setTricks(importTrickPresidentList(_info.get(6), SEP_1, SEP_2,SEP_3));
+        game_.getGame().setProgressingTrick(importTrickPresident(_info.get(7), SEP_1,SEP_2));
+        game_.getGame().setSwitchedCards(importHandPresidentList(_info.get(8),SEP_1,SEP_2));
+        game_.getGame().setScores(importShortList(_info.get(9),SEP_1));
+        game_.getGame().setNumber(NumberUtil.parseLongZero(_info.get(10)));
+        return game_;
+    }
+
+    public static String exportDealPresident(DealPresident _dealt, char _sep, char _sec) {
+        return exportHandPresidentList(_dealt.getDeal(),_sep,_sec);
+    }
+
+    public static String exportHandPresidentList(CustList<HandPresident> _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (HandPresident b: _dealt) {
+            ls_.add(exportHandPresident(b,_sec));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static DealPresident importDealPresident(String _info, char _sep, char _sec) {
+        DealPresident h_ = new DealPresident();
+        h_.setDeal(importHandPresidentList(_info, _sep, _sec));
+        return h_;
+    }
+    public static CustList<HandPresident> importHandPresidentList(String _info, char _sep, char _sec) {
+        CustList<HandPresident> h_ = new CustList<HandPresident>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importHandPresident(s,_sec));
+        }
+        return h_;
+    }
+
+    public static String exportTrickPresidentList(CustList<TrickPresident> _dealt, char _sep, char _sec, char _th) {
+        CustList<String> ls_ = new CustList<String>();
+        for (TrickPresident b: _dealt) {
+            ls_.add(exportTrickPresident(b,_sec,_th));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static CustList<TrickPresident> importTrickPresidentList(String _info, char _sep, char _sec, char _th) {
+        CustList<TrickPresident> h_ = new CustList<TrickPresident>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importTrickPresident(s,_sec,_th));
+        }
+        return h_;
+    }
+
+    public static String exportTrickPresident(TrickPresident _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (HandPresident b: _dealt) {
+            ls_.add(exportHandPresident(b,_sec));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static TrickPresident importTrickPresident(String _info, char _sep, char _sec) {
+        TrickPresident h_ = new TrickPresident();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.getCards().add(importHandPresident(s,_sec));
+        }
+        return h_;
+    }
+
     public static String exportHandPresident(HandPresident _dealt, char _sep) {
         CustList<String> ls_ = new CustList<String>();
         for (CardPresident b: _dealt) {
@@ -1269,6 +1512,127 @@ public final class Net {
         }
         return h_;
     }
+
+    public static String exportGameTarot(ResultsTarot _dealt) {
+        CustList<Longs> scores_ = _dealt.getRes().getScores();
+        GameTarot game_ = _dealt.getGame();
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_RES_TAROT);
+        out_.append(SEP_0);
+        out_.append(exportLongsList(scores_,SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(game_.getType().getGameTypeSt());
+        out_.append(SEP_0);
+        out_.append(game_.getDeal().getNbDeals());
+        out_.append(SEP_0);
+        out_.append(game_.getDeal().getDealer());
+        out_.append(SEP_0);
+        out_.append(exportDealTarot(game_.getDeal(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportBidTarotList(game_.getBids(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportHandTarot(game_.getCalledCards(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportTrickTarotList(game_.getTricks(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportTrickTarot(game_.getProgressingTrick(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(exportHandTarotList(game_.getHandfuls(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportHandfulsList(game_.getDeclaresHandfuls(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportMiseresList(game_.getDeclaresMiseres(),SEP_1,SEP_2));
+        out_.append(SEP_0);
+        out_.append(exportBoolList(game_.getSmallBound()));
+        out_.append(SEP_0);
+        out_.append(exportShortList(game_.getScores(),SEP_1));
+        out_.append(SEP_0);
+        out_.append(game_.getNumber());
+        return out_.toString();
+    }
+
+    public static ResultsTarot importGameTarot(CustList<String> _info) {
+        ResultsTarot game_ = new ResultsTarot();
+        game_.getRes().setScores(importLongsList(_info.get(0),SEP_1,SEP_2));
+        game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
+        DealTarot deal_ = importDealTarot(_info.get(4),SEP_1,SEP_2);
+        deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(2)));
+        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(3)));
+        game_.getGame().setDeal(deal_);
+        game_.getGame().setBids(importBidTarotList(_info.get(5), SEP_1));
+        game_.getGame().setCalledCards(importHandTarot(_info.get(6), SEP_1));
+        game_.getGame().setTricks(importTrickTarotList(_info.get(7), SEP_1, SEP_2));
+        game_.getGame().setProgressingTrick(importTrickTarot(_info.get(8), SEP_1));
+        game_.getGame().setHandfuls(importHandTarotList(_info.get(9), SEP_1,SEP_2));
+        game_.getGame().setDeclaresHandfuls(importHandfulsList(_info.get(10), SEP_1,SEP_2));
+        game_.getGame().setDeclaresMiseres(importMiseresList(_info.get(11), SEP_1,SEP_2));
+        game_.getGame().setSmallBound(importBoolList(_info.get(12)));
+        game_.getGame().setScores(importShortList(_info.get(13),SEP_1));
+        game_.getGame().setNumber(NumberUtil.parseLongZero(_info.get(14)));
+        return game_;
+    }
+    public static String exportDealTarot(DealTarot _dealt, char _sep, char _sec) {
+        return exportHandTarotList(_dealt.getDeal(),_sep,_sec);
+    }
+
+    public static String exportHandTarotList(CustList<HandTarot> _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (HandTarot b: _dealt) {
+            ls_.add(exportHandTarot(b,_sec));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static DealTarot importDealTarot(String _info, char _sep, char _sec) {
+        DealTarot h_ = new DealTarot();
+        h_.setDeal(importHandTarotList(_info, _sep, _sec));
+        return h_;
+    }
+    public static CustList<HandTarot> importHandTarotList(String _info, char _sep, char _sec) {
+        CustList<HandTarot> h_ = new CustList<HandTarot>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importHandTarot(s,_sec));
+        }
+        return h_;
+    }
+    public static String exportTrickTarotList(CustList<TrickTarot> _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (TrickTarot b: _dealt) {
+            ls_.add(exportTrickTarot(b,_sec));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static CustList<TrickTarot> importTrickTarotList(String _info, char _sep, char _sec) {
+        CustList<TrickTarot> h_ = new CustList<TrickTarot>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importTrickTarot(s,_sec));
+        }
+        return h_;
+    }
+
+    public static String exportTrickTarot(TrickTarot _dealt, char _sep) {
+        CustList<String> ls_ = new CustList<String>();
+        for (CardTarot b: _dealt) {
+            ls_.add(TarotCardsExporterUtil.fromCardTarot(b));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+    public static TrickTarot importTrickTarot(String _info, char _sep) {
+        TrickTarot h_ = new TrickTarot();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.getCards().ajouter(TarotCardsRetrieverUtil.toCardTarot(s));
+        }
+        return h_;
+    }
+
     public static String exportHandTarot(HandTarot _dealt, char _sep) {
         CustList<String> ls_ = new CustList<String>();
         for (CardTarot b: _dealt) {
@@ -1308,6 +1672,56 @@ public final class Net {
         }
         return h_;
     }
+
+    public static String exportHandfulsList(CustList<IdList<Handfuls>> _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (IdList<Handfuls> b: _dealt) {
+            ls_.add(exportHandfuls(b,_sec));
+        }
+        return StringUtil.join(ls_,_sep);
+    }
+    public static CustList<IdList<Handfuls>> importHandfulsList(String _info, char _sep, char _sec) {
+        CustList<IdList<Handfuls>> h_ = new CustList<IdList<Handfuls>>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importHandfuls(s,_sec));
+        }
+        return h_;
+    }
+    public static String exportMiseresList(CustList<IdList<Miseres>> _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (IdList<Miseres> b: _dealt) {
+            ls_.add(exportMiseres(b,_sec));
+        }
+        return StringUtil.join(ls_, _sep);
+    }
+
+    public static CustList<IdList<Miseres>> importMiseresList(String _info, char _sep, char _sec) {
+        CustList<IdList<Miseres>> h_ = new CustList<IdList<Miseres>>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importMiseres(s,_sec));
+        }
+        return h_;
+    }
+    public static String exportHandfuls(CustList<Handfuls> _dealt, char _sep) {
+        CustList<String> ls_ = new CustList<String>();
+        for (Handfuls b: _dealt) {
+            ls_.add(TarotCardsExporterUtil.fromHandfuls(b));
+        }
+        return StringUtil.join(ls_,_sep);
+    }
+    public static IdList<Handfuls> importHandfuls(String _info, char _sep) {
+        IdList<Handfuls> h_ = new IdList<Handfuls>();
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(TarotCardsRetrieverUtil.toHandfuls(s));
+        }
+        return h_;
+    }
     public static String exportMiseres(CustList<Miseres> _dealt, char _sep) {
         CustList<String> ls_ = new CustList<String>();
         for (Miseres b: _dealt) {
@@ -1338,6 +1752,81 @@ public final class Net {
         return placesPlayers_;
     }
 
+    public static String exportBoolList(CustList<BoolVal> _dealt) {
+        StringBuilder ls_ = new StringBuilder();
+        for (BoolVal b: _dealt) {
+            ls_.append(exportBool(b));
+        }
+        return ls_.toString();
+    }
+    public static CustList<BoolVal> importBoolList(String _info) {
+        CustList<BoolVal> h_ = new CustList<BoolVal>();
+        for (char s: _info.toCharArray()) {
+            h_.add(ComparatorBoolean.of(toBoolEquals(s)));
+        }
+        return h_;
+    }
+
+    public static String exportShortList(Shorts _dealt, char _sep) {
+        CustList<String> ls_ = new CustList<String>();
+        for (short b: _dealt) {
+            ls_.add(Integer.toString(b));
+        }
+        return StringUtil.join(ls_,_sep);
+    }
+    public static Shorts importShortList(String _info, char _sep) {
+        Shorts h_ = new Shorts();
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add((short)NumberUtil.parseInt(s));
+        }
+        return h_;
+    }
+
+    public static String exportByteList(Bytes _dealt, char _sep) {
+        CustList<String> ls_ = new CustList<String>();
+        for (byte b: _dealt) {
+            ls_.add(Integer.toString(b));
+        }
+        return StringUtil.join(ls_,_sep);
+    }
+    public static Bytes importByteList(String _info, char _sep) {
+        Bytes h_ = new Bytes();
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add((byte)NumberUtil.parseInt(s));
+        }
+        return h_;
+    }
+
+    public static String exportLongsList(CustList<Longs> _dealt, char _sep, char _sec) {
+        CustList<String> ls_ = new CustList<String>();
+        for (Longs b: _dealt) {
+            ls_.add(exportLongList(b,_sec));
+        }
+        return StringUtil.join(ls_,_sep);
+    }
+    public static CustList<Longs> importLongsList(String _info, char _sep, char _sec) {
+        CustList<Longs> h_ = new CustList<Longs>();
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(importLongList(s,_sec));
+        }
+        return h_;
+    }
+
+    public static String exportLongList(Longs _dealt, char _sep) {
+        CustList<String> ls_ = new CustList<String>();
+        for (long b: _dealt) {
+            ls_.add(Long.toString(b));
+        }
+        return StringUtil.join(ls_,_sep);
+    }
+    public static Longs importLongList(String _info, char _sep) {
+        Longs h_ = new Longs();
+        for (String s: StringUtil.splitChar(_info,_sep)) {
+            h_.add(NumberUtil.parseLongZero(s));
+        }
+        return h_;
+    }
+//
     private static BoolVal toBoolValEndsWith(String _l) {
         if (_l.endsWith("1")) {
             return BoolVal.TRUE;
@@ -1348,7 +1837,11 @@ public final class Net {
         return StringUtil.quickEq(_l,"1");
     }
     private static boolean toBoolEquals(String _l, int _index) {
-        return _l.charAt(_index) == '1';
+        return toBoolEquals(_l.charAt(_index));
+    }
+
+    private static boolean toBoolEquals(char _l) {
+        return _l == '1';
     }
 
     private static String placesPlayers(AbsMap<Integer,Byte> _placesPlayers) {
