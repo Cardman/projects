@@ -108,6 +108,7 @@ public final class Net {
     public static final int SERVER_PLAYING_TAROT = 19;
     public static final int SERVER_DONE_PLAYING = 20;
     public static final int SERVER_DONE_PAUSE = 21;
+    public static final int SERVER_DONE_END_GAME = 22;
     public static final char RULES_BELOTE = '0';
     public static final char RULES_PRESIDENT = '1';
     public static final char RULES_TAROT = '2';
@@ -207,6 +208,7 @@ public final class Net {
         serverActLoopCards.add(new ServerActLoopCardsPlayingTarot());
         serverActLoopCards.add(new ServerActLoopCardsDonePlaying());
         serverActLoopCards.add(new ServerActLoopCardsDonePause());
+        serverActLoopCards.add(new ServerActLoopCardsActedByClientEndGame());
         splitInfo.add(new DefSplitPartsFieldsCards());
         splitInfo.add(new NicknameSplitPartsNewFieldsCards());
         splitInfo.add(new NicknameSplitPartsOldFieldsCards());
@@ -287,6 +289,14 @@ public final class Net {
     public static String exportDonePause(int _index) {
         StringBuilder out_ = new StringBuilder();
         out_.append(SERVER_DONE_PAUSE);
+        out_.append(SEP_0);
+        out_.append(_index);
+        return out_.toString();
+    }
+
+    public static String exportDoneEndGame(int _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_DONE_END_GAME);
         out_.append(SEP_0);
         out_.append(_index);
         return out_.toString();
