@@ -236,6 +236,10 @@ public final class ContainerMultiContent {
 //            return;
 //        }
 //        String lg_ = getOwner().getLanguageKey();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDoneTeams(getIndexInGame()),window().getSocket());
+            return;
+        }
         PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TEAMS);
         select_.setPlace(getIndexInGame());
 //        select_.setLocale(lg_);
@@ -245,6 +249,10 @@ public final class ContainerMultiContent {
 //        if (!isCanPlay()) {
 //            return;
 //        }
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDoneTricks(getIndexInGame()),window().getSocket());
+            return;
+        }
         PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
         select_.setPlace(getIndexInGame());
 //        String lg_ = getOwner().getLanguageKey();
