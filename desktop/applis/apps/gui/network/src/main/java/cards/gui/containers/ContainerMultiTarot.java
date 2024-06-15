@@ -1250,6 +1250,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
 
     public void endGame(ResultsTarot _res) {
+        _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
+        _res.getGame().setRules(getRulesTarotMulti());
+        CheckerGameTarotWithRules.check(_res.getGame());
         Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
         _res.getRes().setNicknames(nicknames());
         getPane().removeAll();

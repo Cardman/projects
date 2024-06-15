@@ -653,6 +653,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //    }
 
     public void endGame(ResultsPresident _res) {
+        _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
+        _res.getGame().setRules(getRulesPresidentMulti());
+        CheckerGamePresidentWithRules.check(_res.getGame());
         Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
         _res.getRes().setNicknames(nicknames());
         getPane().removeAll();

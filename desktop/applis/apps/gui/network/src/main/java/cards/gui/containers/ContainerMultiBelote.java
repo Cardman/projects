@@ -1046,6 +1046,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //    }
 
     public void endGame(ResultsBelote _res) {
+        _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
+        _res.getGame().setRules(getRulesBeloteMulti());
+        CheckerGameBeloteWithRules.check(_res.getGame());
         Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
         _res.getRes().setNicknames(nicknames());
         getPane().removeAll();

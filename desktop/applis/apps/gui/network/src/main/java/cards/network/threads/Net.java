@@ -665,18 +665,16 @@ public final class Net {
     }
 
     public static String exportClientBiddingBelote(BiddingBelote _dealt) {
-        StringBuilder out_ = new StringBuilder();
-        out_.append(CLIENT_DEALT_BIDDING_BELOTE);
-        out_.append(SEP_0);
-        out_.append(_dealt.getPlace());
-        out_.append(SEP_0);
-        out_.append(exportBidBeloteSuit(SEP_1, _dealt.getBidBelote()));
-        return out_.toString();
+        return exportBiddingBelote(CLIENT_DEALT_BIDDING_BELOTE, _dealt);
     }
 
     public static String exportServerBiddingBelote(BiddingBelote _dealt) {
+        return exportBiddingBelote(SERVER_BIDDING_BELOTE, _dealt);
+    }
+
+    private static String exportBiddingBelote(int _flag, BiddingBelote _dealt) {
         StringBuilder out_ = new StringBuilder();
-        out_.append(SERVER_BIDDING_BELOTE);
+        out_.append(_flag);
         out_.append(SEP_0);
         out_.append(_dealt.getPlace());
         out_.append(SEP_0);
@@ -833,18 +831,16 @@ public final class Net {
     }
 
     public static String exportClientBiddingTarot(BiddingTarot _dealt) {
-        StringBuilder out_ = new StringBuilder();
-        out_.append(CLIENT_DEALT_BIDDING_TAROT);
-        out_.append(SEP_0);
-        out_.append(_dealt.getPlace());
-        out_.append(SEP_0);
-        out_.append(_dealt.getBid().getSt());
-        return out_.toString();
+        return exportBiddingTarot(CLIENT_DEALT_BIDDING_TAROT, _dealt);
     }
 
     public static String exportServerBiddingTarot(BiddingTarot _dealt) {
+        return exportBiddingTarot(SERVER_BIDDING_TAROT, _dealt);
+    }
+
+    private static String exportBiddingTarot(int _flag, BiddingTarot _dealt) {
         StringBuilder out_ = new StringBuilder();
-        out_.append(SERVER_BIDDING_TAROT);
+        out_.append(_flag);
         out_.append(SEP_0);
         out_.append(_dealt.getPlace());
         out_.append(SEP_0);
@@ -994,25 +990,16 @@ public final class Net {
     }
 
     public static String exportClientPlayingBelote(PlayingCardBelote _dealt) {
-        StringBuilder out_ = new StringBuilder();
-        out_.append(CLIENT_DEALT_PLAYING_BELOTE);
-        out_.append(SEP_0);
-        out_.append(_dealt.getPlace());
-        out_.append(SEP_0);
-        out_.append(exportBool(_dealt.isRefreshing()));
-        out_.append(exportBool(_dealt.isDeclaringBeloteRebelote()));
-        out_.append(exportBool(_dealt.isDeclaring()));
-        out_.append(_dealt.getTakerIndex());
-        out_.append(SEP_0);
-        out_.append(BeloteCardsExporterUtil.fromCardBelote(_dealt.getPlayedCard()));
-        out_.append(SEP_0);
-        out_.append(exportDeclareHandBelote(_dealt.getDeclare(),SEP_0,SEP_1));
-        return out_.toString();
+        return exportPlayingBelote(CLIENT_DEALT_PLAYING_BELOTE, _dealt);
     }
 
     public static String exportServerPlayingBelote(PlayingCardBelote _dealt) {
+        return exportPlayingBelote(SERVER_PLAYING_BELOTE, _dealt);
+    }
+
+    private static String exportPlayingBelote(int _flag, PlayingCardBelote _dealt) {
         StringBuilder out_ = new StringBuilder();
-        out_.append(SERVER_PLAYING_BELOTE);
+        out_.append(_flag);
         out_.append(SEP_0);
         out_.append(_dealt.getPlace());
         out_.append(SEP_0);
@@ -1063,8 +1050,16 @@ public final class Net {
     }
 
     public static String exportClientPlayingPresident(PlayingCardPresident _dealt) {
+        return exportPlayingPresident(CLIENT_DEALT_PLAYING_PRESIDENT, _dealt);
+    }
+
+    public static String exportServerPlayingPresident(PlayingCardPresident _dealt) {
+        return exportPlayingPresident(SERVER_PLAYING_PRESIDENT, _dealt);
+    }
+
+    private static String exportPlayingPresident(int _flag, PlayingCardPresident _dealt) {
         StringBuilder out_ = new StringBuilder();
-        out_.append(CLIENT_DEALT_PLAYING_PRESIDENT);
+        out_.append(_flag);
         out_.append(SEP_0);
         out_.append(_dealt.getPlace());
         out_.append(SEP_0);
@@ -1080,27 +1075,6 @@ public final class Net {
         out_.append(exportHandPresident(_dealt.getPlayedHand(),SEP_1));
         out_.append(SEP_0);
         out_.append(exportPlayingMap(_dealt.getStatus(),SEP_0,SEP_1));
-        return out_.toString();
-    }
-
-    public static String exportServerPlayingPresident(PlayingCardPresident _dealt) {
-        StringBuilder out_ = new StringBuilder();
-        out_.append(SERVER_PLAYING_PRESIDENT);
-        out_.append(SEP_0);
-        out_.append(_dealt.getPlace());
-        out_.append(SEP_0);
-        out_.append(exportBool(_dealt.isRefreshing()));
-        out_.append(exportBool(_dealt.isPass()));
-        out_.append(exportBool(_dealt.isReversed()));
-        out_.append(PresidentCardsExporterUtil.fromCardPresident(_dealt.getPlayedCard()));
-        out_.append(SEP_0);
-        out_.append(_dealt.getIndex());
-        out_.append(SEP_0);
-        out_.append(_dealt.getNextPlayer());
-        out_.append(SEP_0);
-        out_.append(exportHandPresident(_dealt.getPlayedHand(),SEP_1));
-        out_.append(SEP_0);
-        out_.append(exportPlayingMap(_dealt.getStatus(),SEP_1,SEP_2));
         return out_.toString();
     }
 
@@ -1149,28 +1123,16 @@ public final class Net {
     }
 
     public static String exportClientPlayingTarot(PlayingCardTarot _dealt) {
-        StringBuilder out_ = new StringBuilder();
-        out_.append(CLIENT_DEALT_PLAYING_TAROT);
-        out_.append(SEP_0);
-        out_.append(_dealt.getPlace());
-        out_.append(SEP_0);
-        out_.append(exportBool(_dealt.isRefreshing()));
-        out_.append(exportBool(_dealt.isCalledCard()));
-        out_.append(_dealt.getTakerIndex());
-        out_.append(SEP_0);
-        out_.append(TarotCardsExporterUtil.fromCardTarot(_dealt.getPlayedCard()));
-        out_.append(SEP_0);
-        out_.append(TarotCardsExporterUtil.fromHandfuls(_dealt.getChoosenHandful()));
-        out_.append(SEP_0);
-        out_.append(exportHandTarot(_dealt.getHandful(),SEP_1));
-        out_.append(exportHandTarot(_dealt.getExcludedTrumps(),SEP_1));
-        out_.append(exportMiseres(_dealt.getMiseres(),SEP_1));
-        return out_.toString();
+        return exportPlayingTarot(CLIENT_DEALT_PLAYING_TAROT, _dealt);
     }
 
     public static String exportServerPlayingTarot(PlayingCardTarot _dealt) {
+        return exportPlayingTarot(SERVER_PLAYING_TAROT, _dealt);
+    }
+
+    private static String exportPlayingTarot(int _flag, PlayingCardTarot _dealt) {
         StringBuilder out_ = new StringBuilder();
-        out_.append(SERVER_PLAYING_TAROT);
+        out_.append(_flag);
         out_.append(SEP_0);
         out_.append(_dealt.getPlace());
         out_.append(SEP_0);
