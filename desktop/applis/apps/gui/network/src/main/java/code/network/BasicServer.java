@@ -8,9 +8,14 @@ import code.threads.Locking;
 /**Thread safe class*/
 public abstract class BasicServer extends SendReceive implements Locking {
     private final NetCommon sockets;
+    private final AbstractThreadFactory threadFactory;
+    private final NetGroupFrame net;
+
     protected BasicServer(AbstractSocket _socket, NetGroupFrame _net) {
-        super(_socket,_net);
+        super(_socket);
+        net = _net;
         sockets = _net.getSockets();
+        threadFactory = _net.getThreadFactory();
     }
 
     @Override
@@ -22,19 +27,22 @@ public abstract class BasicServer extends SendReceive implements Locking {
             if (input_ == null) {
                 break;
             }
-            Document readObject_ = getNet().getDoc(input_);
-            if (readObject_ != null) {
-                loopServer(input_, readObject_);
-            }
+            loopServer(input_);
         }
         getSocket().close();
+    }
+    public void loopServer(String _input){
+        Document readObject_ = net.getDoc(_input);
+        if (readObject_ != null) {
+            loopServer(_input, readObject_);
+        }
     }
 
     public abstract void loopServer(String _input, Document _object);
 
     @Override
     public AbstractThreadFactory getCurrentThreadFactory() {
-        return getNet().getThreadFactory();
+        return threadFactory;
     }
 
 //    @Override

@@ -414,6 +414,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private AbsPlainLabel welcomeLabel;
 //    private AbsPlainButton singleModeButton;
     private AbsButton multiModeButton;
+    private BasicClient basicClient;
 //    private AbsPlainLabel goHelpMenu;
     private final Net net;
 
@@ -2635,8 +2636,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
     @Override
     public AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket) {
+        basicClient = new BasicClient(_socket, this);
+        getThreadFactory().newStartedThread(getBasicClient());
         return _socket;
     }
+
+    public BasicClient getBasicClient() {
+        return basicClient;
+    }
+
     public ContainerNoGame noGame() {
         ContainerNoGame c_ = new ContainerNoGame(this);
         update(c_);

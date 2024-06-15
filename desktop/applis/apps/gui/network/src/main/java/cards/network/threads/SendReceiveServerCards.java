@@ -64,8 +64,17 @@ public final class SendReceiveServerCards extends BasicServer {
     }
 
     @Override
+    public void loopServer(String _input) {
+        if (Net.QUICK) {
+            loopServer(_input,null);
+            return;
+        }
+        super.loopServer(_input);
+    }
+
+    @Override
     public void loopServer(String _input, Document _object) {
-        lock.execute(new ServerIterationCards(_input,_object,instance,getNet().getThreadFactory(),getNet().getSockets()));
+        lock.execute(new ServerIterationCards(_input,_object,instance,getCurrentThreadFactory(),getSockets()));
     }
 
     static void loop(String _input, Document _doc, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {

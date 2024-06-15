@@ -17,6 +17,10 @@ public final class ServerIterationCards extends ServerIteration {
 
     @Override
     public void run() {
+        if (Net.QUICK) {
+            Net.loopServer(getInput(),instance,fct,getCom());
+            return;
+        }
         SendReceiveServerCards.loop(getInput(),getObject(),instance,fct, getCom());
     }
 }

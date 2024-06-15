@@ -32,7 +32,7 @@ public final class SendReceiveServerAiki extends BasicServer {
 
     @Override
     public void loopServer(String _input, Document _object) {
-        lock.execute(new ServerIterationPk(instance, _input, _object, getNet().getSockets()));
+        lock.execute(new ServerIterationPk(instance, _input, _object, getSockets()));
     }
 
     static void loop(String _input, Document _object, NetAiki _instance, NetCommon _common) {

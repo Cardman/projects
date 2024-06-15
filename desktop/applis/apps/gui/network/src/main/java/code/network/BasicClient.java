@@ -1,29 +1,31 @@
 package code.network;
 
-import code.gui.initialize.AbstractBufferedReader;
+import cards.network.threads.Net;
 import code.gui.initialize.AbstractSocket;
 import code.sml.Document;
 
 /**Thread safe class*/
-public final class BasicClient extends SendReceive {
+public final class BasicClient extends BasicClientAbs {
 
-    public BasicClient(AbstractSocket _socket, NetGroupFrame _window) {
-        super(_socket,_window);
+    private final WindowNetWork windowNetWork;
+    public BasicClient(AbstractSocket _socket, WindowNetWork _window) {
+        super(_socket);
+        windowNetWork = _window;
     }
 
-    @Override
-    public void run() {
-        AbstractBufferedReader inputSock_ = getSocket().getInput();
-        while (true) {
-            //tourne toujours
-            String input_ = inputSock_.readLine();
-            if (input_ == null) {
-                return;
-            }
-            //on peut traiter les "timeout"
-            if (!iterate(getSocket(),getNet(),input_)) {
-                return;
-            }
+//    @Override
+//    public void run() {
+//        AbstractBufferedReader inputSock_ = getSocket().getInput();
+//        while (true) {
+//            //tourne toujours
+//            String input_ = inputSock_.readLine();
+//            if (input_ == null) {
+//                return;
+//            }
+//            //on peut traiter les "timeout"
+//            if (!iterate(getSocket(),getNet(),input_)) {
+//                return;
+//            }
 //            Document doc_ = getNet().getDoc(input_);
 //            if (doc_ == null) {
 //                continue;
@@ -34,15 +36,30 @@ public final class BasicClient extends SendReceive {
 //                return;
 //            }
 //            getNet().getFrames().getCompoFactory().invokeNow(new LoopClient(getNet(),doc_, getSocket()));
-        }
-    }
-    public static boolean iterate(AbstractSocket _socket, NetGroupFrame _window, String _input) {
-        Document doc_ = _window.getDoc(_input);
-        return iterate(_socket, _window, doc_);
+//        }
+//    }
+
+    @Override
+    protected boolean iterate(AbstractSocket _socket, String _input) {
+        return iterate(_socket,windowNetWork,_input);
     }
 
-    public static boolean iterate(AbstractSocket _socket, NetGroupFrame _window, Document _doc) {
+    public static boolean iterate(AbstractSocket _socket, WindowNetWork _window, String _input) {
+        Document doc_;
+        if (Net.QUICK) {
+            doc_ = null;
+        } else {
+            doc_ = _window.getDoc(_input);
+        }
+        return iterate(_socket, _window, _input, doc_);
+    }
+
+    public static boolean iterate(AbstractSocket _socket, WindowNetWork _window, String _input, Document _doc) {
         if (_doc == null) {
+            if (Net.QUICK) {
+                _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _input, null, _socket));
+                return true;
+            }
             return true;
         }
         Exiting exiting_ = _window.getExiting(_doc);
@@ -50,7 +67,7 @@ public final class BasicClient extends SendReceive {
             _window.getFrames().getCompoFactory().invokeNow(new Quitting(exiting_, _window, _socket));
             return false;
         }
-        _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _doc, _socket));
+        _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _input, _doc, _socket));
         return true;
     }
 }
