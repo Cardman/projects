@@ -1260,12 +1260,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);
         if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_INIT_TRADING,tagName_)) {
-            facade.initTrading();
-            CheckCompatibility ch_ = new CheckCompatibility();
-            ch_.setData(facade.getExchangeData());
-            ch_.setIndex(indexInGame);
-            ch_.setTeam(facade.getGame().getPlayer().getTeam());
-            NetAiki.sendObject(_socket,ch_);
+            initTrading(_socket);
 //            if (indexInGame == IndexConstants.FIRST_INDEX) {
 //                facade.initTrading();
 //                CheckCompatibility ch_ = new CheckCompatibility();
@@ -1306,6 +1301,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             facade.receivePokemonPlayer(pk_);
             scenePanel.seeNetPokemonDetail();
         }
+    }
+
+    public void initTrading(AbstractSocket _socket) {
+        facade.initTrading();
+        CheckCompatibility ch_ = new CheckCompatibility();
+        ch_.setData(facade.getExchangeData());
+        ch_.setIndex(indexInGame);
+        ch_.setTeam(facade.getGame().getPlayer().getTeam());
+        NetAiki.sendObject(_socket,ch_);
     }
 
     public void newPlayer(AbstractSocket _socket) {

@@ -3,6 +3,7 @@ package aiki.network;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
+import cards.network.threads.Net;
 import code.gui.initialize.AbstractSocket;
 import code.maths.litteralcom.MathExpUtil;
 import code.network.Exiting;
@@ -15,7 +16,10 @@ public final class NetAiki {
 
     public static final int NB_PLAYERS = 2;
     public static final int CLIENT_INDEX_ARRIVE = 0;
-    public static final int CLIENT_READY = 1;
+    public static final int CLIENT_INIT_TRADING = 1;
+    public static final int CLIENT_READY = 2;
+    public static final int SERVER_NEW_PLAYER = 0;
+    public static final int SERVER_READY = 1;
     public static final char AIKI_SEP_0 = ':';
     public static final char AIKI_SEP_1 = ';';
     public static final char AIKI_SEP_2 = ',';
@@ -36,6 +40,23 @@ public final class NetAiki {
     private final CustList<IntServerActLoopAiki> serverActLoopAiki = new CustList<IntServerActLoopAiki>();
     public NetAiki(){
         clientAct.add(new ClientActLoopAikiIndexArrive());
+        clientAct.add(new ClientActLoopAikiInitTrading());
+        serverActLoopAiki.add(new ServerActLoopAikiPlayer());
+    }
+
+    public static String exportNewPlayer(int _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(SERVER_NEW_PLAYER);
+        out_.append(AIKI_SEP_0);
+        out_.append(_index);
+        return out_.toString();
+    }
+
+    public static String exportInitTrading() {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(CLIENT_INIT_TRADING);
+        out_.append(AIKI_SEP_0);
+        return out_.toString();
     }
     public static int getPort() {
         return PORT;
@@ -106,6 +127,10 @@ public final class NetAiki {
     }
 
     public static void sendObject(AbstractSocket _socket, NewPlayerAiki _serializable) {
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(NetAiki.exportNewPlayer(_serializable.getIndex()), _socket);
+            return;
+        }
         NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.newPlayerAiki(_serializable), _socket);
     }
 
