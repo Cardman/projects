@@ -133,6 +133,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         //pack();
         getScrollCallableCards().setVisible(false);
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDiscardSimpleCall(getCalledCard()),getContainerMultiContent().window().getSocket());
+            return;
+        }
         CallAfterDiscardTarot v_ = new CallAfterDiscardTarot(PlayerActionGameType.VALIDATE_DOG);
         HandTarot h_ = new HandTarot();
         h_.ajouter(getCalledCard());
@@ -926,6 +930,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         //PackingWindowAfter.pack(this, true);
 //        String lg_ = getOwner().getLanguageKey();
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDiscardSlam(getCalledCard()),getContainerMultiContent().window().getSocket());
+            return;
+        }
         CallAfterDiscardTarot bid_ = new CallAfterDiscardTarot(PlayerActionGameType.SLAM);
         HandTarot h_ = new HandTarot();
         h_.ajouter(getCalledCard());

@@ -3,8 +3,10 @@ package cards.gui.events;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.common.PlayerActionGameType;
 import cards.network.tarot.actions.CallAfterDiscardTarot;
+import cards.network.threads.Net;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.network.NetGroupFrame;
 
 public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCard<CardTarot> {
 
@@ -39,6 +41,10 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCard<CardTa
         container.setChienMulti(false);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCard());
+        if (Net.QUICK) {
+            NetGroupFrame.trySendString(Net.exportDiscardCallBefore(cartesAppel_),container.getContainerMultiContent().window().getSocket());
+            return;
+        }
         CallAfterDiscardTarot calledCards_ = new CallAfterDiscardTarot(PlayerActionGameType.SIMPLE);
         calledCards_.setCalledCards(cartesAppel_);
 //        calledCards_.setLocale(lg_);
