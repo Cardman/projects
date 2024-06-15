@@ -1250,6 +1250,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
 
     public void endGame(ResultsTarot _res) {
+        CustList<Longs> sc_ = _res.getRes().scores();
+        _res.initialize(new StringList(), sc_);
         _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
         _res.getGame().setRules(getRulesTarotMulti());
         CheckerGameTarotWithRules.check(_res.getGame());

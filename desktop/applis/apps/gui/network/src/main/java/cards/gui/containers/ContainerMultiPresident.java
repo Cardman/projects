@@ -653,6 +653,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //    }
 
     public void endGame(ResultsPresident _res) {
+        CustList<Longs> sc_ = _res.getRes().scores();
+        _res.initialize(new StringList(), sc_);
         _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
         _res.getGame().setRules(getRulesPresidentMulti());
         CheckerGamePresidentWithRules.check(_res.getGame());

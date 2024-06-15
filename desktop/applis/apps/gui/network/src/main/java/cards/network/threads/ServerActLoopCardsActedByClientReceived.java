@@ -29,7 +29,6 @@ import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.Longs;
-import code.util.StringList;
 import code.util.core.NumberUtil;
 
 public abstract class ServerActLoopCardsActedByClientReceived implements IntServerActLoopCards {
@@ -359,7 +358,6 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         }
     }
     protected static void endGameBelote(Net _instance, NetCommon _common) {
-        StringList players_ = new StringList();
 //        int nbPlayers_ = Net.getGames(_instance).partieBelote().getNombreDeJoueurs();
 //        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
 //            if (_common.getNicknames().contains(i)) {
@@ -368,23 +366,21 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //                players_.add(EMPTY_STRING);
 //            }
 //        }
+        ResultsBelote res_ = new ResultsBelote();
+        CustList<Longs> scores_ = Net.getScores(_instance);
+        CustList<Longs> list_ = new CustList<Longs>();
+        for (Longs v: scores_) {
+            list_.add(new Longs(v));
+        }
+        res_.setGame(Net.getGames(_instance).partieBelote());
+        res_.getRes().setScores(list_);
         for (byte p: Net.activePlayers(_instance,_common)) {
-            ResultsBelote res_ = new ResultsBelote();
-            CustList<Longs> scores_ = Net.getScores(_instance);
-            CustList<Longs> list_ = new CustList<Longs>();
-            for (Longs v: scores_) {
-                list_.add(new Longs(v));
-            }
-            res_.setGame(Net.getGames(_instance).partieBelote());
-            res_.getRes().setUser(p);
-            res_.initialize(new StringList(players_), list_);
 //            String loc_ = Net.getLanguageByPlace(p, _instance,_common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }
     }
     protected static void endGamePresident(Net _instance, NetCommon _common) {
-        StringList players_ = new StringList();
 //        int nbPlayers_ = Net.getGames(_instance).partiePresident().getNombreDeJoueurs();
 //        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
 //            if (_common.getNicknames().contains(i)) {
@@ -400,16 +396,14 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         for (Longs v: scores_) {
             list_.add(new Longs(v));
         }
-        res_.initialize(new StringList(players_), list_);
+        res_.getRes().setScores(list_);
         for (byte p: Net.activePlayers(_instance, _common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance, _common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
-            res_.getRes().setUser(p);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }
     }
     protected static void endGameTarot(Net _instance, NetCommon _common) {
-        StringList players_ = new StringList();
 //        int nbPlayers_ = Net.getGames(_instance).partieTarot().getNombreDeJoueurs();
 //        for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
 //            if (_common.getNicknames().contains(i)) {
@@ -418,18 +412,17 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //                players_.add(EMPTY_STRING);
 //            }
 //        }
+        ResultsTarot res_ = new ResultsTarot();
+        res_.setGame(Net.getGames(_instance).partieTarot());
+        CustList<Longs> scores_ = Net.getScores(_instance);
+        CustList<Longs> list_ = new CustList<Longs>();
+        for (Longs v: scores_) {
+            list_.add(new Longs(v));
+        }
+        res_.getRes().setScores(list_);
         for (byte p: Net.activePlayers(_instance, _common)) {
-            ResultsTarot res_ = new ResultsTarot();
-            res_.setGame(Net.getGames(_instance).partieTarot());
-            CustList<Longs> scores_ = Net.getScores(_instance);
-            CustList<Longs> list_ = new CustList<Longs>();
-            for (Longs v: scores_) {
-                list_.add(new Longs(v));
-            }
 //            String loc_ = Net.getLanguageByPlace(p, _instance, _common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
-            res_.getRes().setUser(p);
-            res_.initialize(new StringList(players_), list_);
             Net.sendObject(Net.getSocketByPlace(p, _common), res_);
         }
     }

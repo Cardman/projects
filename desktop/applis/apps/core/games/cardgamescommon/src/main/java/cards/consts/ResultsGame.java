@@ -122,6 +122,14 @@ public final class ResultsGame {
         return sums;
     }
 
+    public CustList<Longs> scores() {
+        CustList<Longs> ls_ = new CustList<Longs>();
+        int dc_ = scores.size();
+        for (int i = 0; i < dc_; i++) {
+            ls_.add(new Longs(scores.get(i)));
+        }
+        return ls_;
+    }
     public CustList<Longs> getScores() {
         return scores;
     }

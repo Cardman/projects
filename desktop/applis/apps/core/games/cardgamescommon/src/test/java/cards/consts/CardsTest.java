@@ -370,6 +370,7 @@ public final class CardsTest extends EquallableCardsUtil {
         ResultsGame r_ = new ResultsGame();
         calculateScores1(r_, GameType.RANDOM, new CustList<Longs>());
         assertEq(1, r_.getScores().size());
+        assertEq(1, r_.scores().size());
         assertEq(1, r_.getHistory().size());
         assertEq(0, r_.getHistory().get(0).getNumber());
     }
