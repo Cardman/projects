@@ -33,11 +33,14 @@ public final class ExchangedData {
         ByteTreeMap<PokemonPlayer> team_ = new ByteTreeMap<PokemonPlayer>();
         int nb_ = _otherTeam.size();
         for (byte i = 0; i < nb_; i++) {
-            PokemonPlayer pk_ = (PokemonPlayer) _otherTeam.get(i);
-            setPokemon(pk_);
+            UsablePokemon pk_ =_otherTeam.get(i);
+            if (!(pk_ instanceof PokemonPlayer)) {
+                continue;
+            }
+            setPokemon((PokemonPlayer) pk_);
             check();
             if (getPokemon() != null) {
-                team_.put(i, pk_);
+                team_.put(i, (PokemonPlayer) pk_);
             }
         }
         return team_;

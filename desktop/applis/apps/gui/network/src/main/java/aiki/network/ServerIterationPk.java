@@ -1,5 +1,6 @@
 package aiki.network;
 
+import cards.network.threads.Net;
 import code.network.NetCommon;
 import code.network.ServerIteration;
 import code.sml.Document;
@@ -15,6 +16,10 @@ public final class ServerIterationPk extends ServerIteration {
 
     @Override
     public void run() {
+        if (Net.QUICK) {
+            NetAiki.loopServer(getInput(),instance,getCom());
+            return;
+        }
         SendReceiveServerAiki.loop(getInput(), getObject(),instance, getCom());
     }
 }

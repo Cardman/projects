@@ -2,9 +2,9 @@ package aiki.network.stream;
 import code.network.AddingPlayer;
 
 
-public final class NewPlayerAiki extends PlayerActionBeforeGameAiki implements AddingPlayer {
+public final class NewPlayerAiki implements AddingPlayer {
 
-    private String pseudo;
+//    private String pseudo;
 
 //    private boolean arriving;
 
@@ -12,13 +12,22 @@ public final class NewPlayerAiki extends PlayerActionBeforeGameAiki implements A
 
 //    private boolean acceptable;
 
-    public String getPseudo() {
-        return pseudo;
+    private int index;
+
+    public int getIndex() {
+        return index;
     }
 
-    public void setPseudo(String _pseudo) {
-        pseudo = _pseudo;
+    public void setIndex(int _index) {
+        index = _index;
     }
+//    public String getPseudo() {
+//        return pseudo;
+//    }
+
+//    public void setPseudo(String _pseudo) {
+//        pseudo = _pseudo;
+//    }
 
 //    public boolean isArriving() {
 //        return arriving;

@@ -1,4 +1,6 @@
 package code.network;
+import aiki.network.NetAiki;
+import aiki.network.NetAikiRetrievedInfos;
 import cards.network.threads.Net;
 import cards.network.threads.NetRetrievedInfos;
 import code.gui.initialize.AbstractSocket;
@@ -14,11 +16,13 @@ public final class LoopClient implements Runnable {
     /** Used socket for a client */
     private final AbstractSocket socket;
     private final NetRetrievedInfos netRetrievedInfos;
+    private final NetAikiRetrievedInfos netAikiRetrievedInfos;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LoopClient(WindowNetWork _window, Document _doc, AbstractSocket _socket, NetRetrievedInfos _netInfos) {
+    public LoopClient(WindowNetWork _window, Document _doc, AbstractSocket _socket, NetRetrievedInfos _netInfos, NetAikiRetrievedInfos _netInfosAikie) {
         window = _window;
         netRetrievedInfos = _netInfos;
+        netAikiRetrievedInfos = _netInfosAikie;
         doc = _doc;
         socket = _socket;
     }
@@ -26,7 +30,11 @@ public final class LoopClient implements Runnable {
     @Override
     public void run() {
         if (Net.QUICK) {
-            Net.loopClient(window, netRetrievedInfos, socket);
+            if (window.isCards()) {
+                Net.loopClient(window, netRetrievedInfos, socket);
+            } else {
+                NetAiki.loopClient(window, netAikiRetrievedInfos, socket);
+            }
         } else {
             window.loop(doc, socket);
         }

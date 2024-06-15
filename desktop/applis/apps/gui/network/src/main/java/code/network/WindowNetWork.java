@@ -870,18 +870,23 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
                 forcedBye_.setTooManyPlayers(true);
-                Net.sendObject(_newSocket,forcedBye_);
+                expExit(forcedBye_, _newSocket);
                 return;
             }
             /*if (_common.getNicknames().size() == NetAiki.NB_PLAYERS) {*/
             getSockets().getSockets().put(getSockets().getSockets().size(), _newSocket);
             SendReceiveServerAiki sendReceiveServer_=new SendReceiveServerAiki(_newSocket,this, getNetAiki());
             getThreadFactory().newStartedThread(sendReceiveServer_);
-            getSockets().getConnectionsServer().put(getSockets().getSockets().size()-1,sendReceiveServer_);
+            int i_ = getSockets().getSockets().size() - 1;
+            getSockets().getConnectionsServer().put(i_,sendReceiveServer_);
+            getSockets().getReadyPlayers().put(i_, BoolVal.FALSE);
+            getSockets().getPlacesPlayers().put(i_,(byte) (i_));
+            if (Net.QUICK) {
+                trySendString(NetAiki.exportIndexArrive(i_),getSocket());
+                return;
+            }
             IndexOfArrivingAiki index_ = new IndexOfArrivingAiki();
-            index_.setIndex(getSockets().getSockets().size()-1);
-            getSockets().getReadyPlayers().put(getSockets().getSockets().size()-1, BoolVal.FALSE);
-            getSockets().getPlacesPlayers().put(getSockets().getSockets().size()-1,(byte)(getSockets().getSockets().size()-1));
+            index_.setIndex(i_);
             NetAiki.sendObject(_newSocket,index_);
             return;
         }
@@ -891,11 +896,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             Exiting forcedBye_ = new Exiting();
             forcedBye_.setForced(true);
             forcedBye_.setClosing(false);
-            if (Net.QUICK) {
-                trySendString(Net.exportExiting(forcedBye_), _newSocket);
-                return;
-            }
-            Net.sendObject(_newSocket,forcedBye_);
+            expExit(forcedBye_, _newSocket);
             return;
         }
         getSockets().getNicknames().put(nb_,pseudo());
@@ -934,6 +935,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         Net.sendObject(_newSocket,index_);
+    }
+
+    private void expExit(Exiting _forcedBye, AbstractSocket _newSocket) {
+        if (Net.QUICK) {
+            trySendString(Net.exportExiting(_forcedBye), _newSocket);
+            return;
+        }
+        Net.sendObject(_newSocket, _forcedBye);
     }
 
     public void loop(Document _readObject, AbstractSocket _socket) {
@@ -1234,8 +1243,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
     public void loopAiki(Document _readObject, AbstractSocket _socket) {
         Element elt_ = _readObject.getDocumentElement();
-        PlayerActionBeforeGameAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getPlayerActionBeforeGame(elt_);
-        if (playerActionBeforeGame_ instanceof IndexOfArrivingAiki) {
+        IndexOfArrivingAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getIndexOfArrivingAiki(elt_);
+        if (playerActionBeforeGame_ != null) {
 //            if (!StringUtil.quickEq(((IndexOfArrivingAiki) playerActionBeforeGame_).getServerName(), NetAiki.getPokemon())) {
 //                NewPlayerAiki p_ = new NewPlayerAiki();
 //                p_.setAcceptable(false);
@@ -1246,40 +1255,35 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //                NetAiki.sendObject(_socket,p_);
 //                return;
 //            }
-            NewPlayerAiki p_ = new NewPlayerAiki();
-//            p_.setAcceptable(true);
-//            p_.setArriving(true);
-            p_.setIndex(indexInGame);
-            //p_.setPseudo(pseudo());
-//            p_.setLanguage(getLanguageKey());
-            p_.setPseudo(facade.getGame().getPlayer().getNickname());
-            if (indexInGame == IndexConstants.FIRST_INDEX) {
-                scenePanel.setNetworkPanel();
-            }
-            pack();
-            NetAiki.sendObject(_socket,p_);
+            newPlayer(_socket);
             return;
         }
         String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);
         if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_INIT_TRADING,tagName_)) {
-            if (indexInGame == IndexConstants.FIRST_INDEX) {
-                facade.initTrading();
-                CheckCompatibility ch_ = new CheckCompatibility();
-                ch_.setData(facade.getExchangeData());
-                ch_.setIndex(indexInGame);
-                ch_.setTeam(facade.getGame().getPlayer().getTeam());
-                NetAiki.sendObject(_socket,ch_);
-                return;
-            }
-            if (indexInGame == IndexConstants.SECOND_INDEX) {
-                facade.initTrading();
-                CheckCompatibility ch_ = new CheckCompatibility();
-                ch_.setData(facade.getExchangeData());
-                ch_.setIndex(indexInGame);
-                ch_.setTeam(facade.getGame().getPlayer().getTeam());
-                NetAiki.sendObject(_socket,ch_);
-                return;
-            }
+            facade.initTrading();
+            CheckCompatibility ch_ = new CheckCompatibility();
+            ch_.setData(facade.getExchangeData());
+            ch_.setIndex(indexInGame);
+            ch_.setTeam(facade.getGame().getPlayer().getTeam());
+            NetAiki.sendObject(_socket,ch_);
+//            if (indexInGame == IndexConstants.FIRST_INDEX) {
+//                facade.initTrading();
+//                CheckCompatibility ch_ = new CheckCompatibility();
+//                ch_.setData(facade.getExchangeData());
+//                ch_.setIndex(indexInGame);
+//                ch_.setTeam(facade.getGame().getPlayer().getTeam());
+//                NetAiki.sendObject(_socket,ch_);
+//                return;
+//            }
+//            if (indexInGame == IndexConstants.SECOND_INDEX) {
+//                facade.initTrading();
+//                CheckCompatibility ch_ = new CheckCompatibility();
+//                ch_.setData(facade.getExchangeData());
+//                ch_.setIndex(indexInGame);
+//                ch_.setTeam(facade.getGame().getPlayer().getTeam());
+//                NetAiki.sendObject(_socket,ch_);
+//                return;
+//            }
             return;
         }
         if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_OK,tagName_)) {
@@ -1302,6 +1306,21 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             facade.receivePokemonPlayer(pk_);
             scenePanel.seeNetPokemonDetail();
         }
+    }
+
+    public void newPlayer(AbstractSocket _socket) {
+        NewPlayerAiki p_ = new NewPlayerAiki();
+//            p_.setAcceptable(true);
+//            p_.setArriving(true);
+        p_.setIndex(indexInGame);
+        //p_.setPseudo(pseudo());
+//            p_.setLanguage(getLanguageKey());
+//            p_.setPseudo(facade.getGame().getPlayer().getNickname());
+        if (indexInGame == IndexConstants.FIRST_INDEX) {
+            scenePanel.setNetworkPanel();
+        }
+        pack();
+        NetAiki.sendObject(_socket,p_);
     }
 
 //    @Override

@@ -1,5 +1,6 @@
 package aiki.db;
 
+import aiki.map.pokemon.Egg;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -362,6 +363,7 @@ public class ExchangedDataTest extends InitializationDataBase {
         list_.add(pkThree_);
         PokemonPlayer pkFour_ = newPokemonPlayer(PIKACHU, NULL_REF, Gender.NO_GENDER, NULL_REF);
         list_.add(pkFour_);
+        list_.add(new Egg(PIKACHU));
         ByteTreeMap<PokemonPlayer> res_ = ex_.getTeam(list_);
         assertEq(2, res_.size());
         assertSame(pkTwo_, res_.getVal((byte) 1));

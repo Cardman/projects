@@ -145,11 +145,11 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    private static void getNewPlayer(NewPlayerAiki _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_PSEUDO)) {
-            _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
+//    private static void getNewPlayer(NewPlayerAiki _object, String _fieldName, Element _element) {
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_PSEUDO)) {
+//            _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
 //        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiMultiUtil.FIELD_ARRIVING)) {
 //            _object.setArriving(DocumentReaderCoreUtil.getBoolean(_element));
 //            return;
@@ -162,30 +162,39 @@ public final class DocumentReaderAikiMultiUtil {
 //            _object.setAcceptable(DocumentReaderCoreUtil.getBoolean(_element));
 //            return;
 //        }
-        getPlayerActionBeforeGame(_object, _fieldName, _element);
+//        getPlayerActionBeforeGame(_object, _element);
+//    }
+
+    public static ReadyAiki getReadyAiki(Element _element) {
+        ElementList childElements_ = _element.getChildElements();
+        String tagName_ = _element.getTagName();
+        if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_READY)) {
+            ReadyAiki object_ = new ReadyAiki();
+            for (Element c: childElements_) {
+                getReady(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+            }
+            return object_;
+        }
+        return null;
     }
 
-    public static PlayerActionBeforeGameAiki getPlayerActionBeforeGame(Element _element) {
+    public static NewPlayerAiki getNewPlayerAiki(Element _element) {
+        String tagName_ = _element.getTagName();
+        if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_NEW_PLAYER)) {
+            NewPlayerAiki object_ = new NewPlayerAiki();
+            getPlayerActionBeforeGame(object_, _element);
+            return object_;
+        }
+        return null;
+    }
+
+    public static IndexOfArrivingAiki getIndexOfArrivingAiki(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_INDEX_OF_ARRIVING)) {
             IndexOfArrivingAiki object_ = new IndexOfArrivingAiki();
             for (Element c: childElements_) {
                 getPlayerActionBeforeGame(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-            }
-            return object_;
-        }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_NEW_PLAYER)) {
-            NewPlayerAiki object_ = new NewPlayerAiki();
-            for (Element c: childElements_) {
-                getNewPlayer(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
-            }
-            return object_;
-        }
-        if (StringUtil.quickEq(tagName_,DocumentWriterAikiMultiUtil.TYPE_READY)) {
-            ReadyAiki object_ = new ReadyAiki();
-            for (Element c: childElements_) {
-                getReady(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
             }
             return object_;
         }
@@ -197,6 +206,9 @@ public final class DocumentReaderAikiMultiUtil {
             _object.setIndex(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
+    }
+    private static void getPlayerActionBeforeGame(NewPlayerAiki _object, Element _element) {
+        _object.setIndex(DocumentReaderCoreUtil.getInteger(_element));
     }
 
     public static PlayerActionGameAiki getPlayerActionGame(Element _element) {

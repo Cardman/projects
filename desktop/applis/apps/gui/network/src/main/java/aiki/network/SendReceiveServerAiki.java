@@ -4,6 +4,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
+import cards.network.threads.Net;
 import code.gui.initialize.AbstractSocket;
 import code.network.*;
 import code.sml.Document;
@@ -31,13 +32,21 @@ public final class SendReceiveServerAiki extends BasicServer {
     }
 
     @Override
+    public void loopServer(String _input) {
+        if (Net.QUICK) {
+            loopServer(_input,null);
+            return;
+        }
+        super.loopServer(_input);
+    }
+
+    @Override
     public void loopServer(String _input, Document _object) {
         lock.execute(new ServerIterationPk(instance, _input, _object, getSockets()));
     }
 
     static void loop(String _input, Document _object, NetAiki _instance, NetCommon _common) {
         Element elt_ = _object.getDocumentElement();
-        PlayerActionBeforeGameAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getPlayerActionBeforeGame(elt_);
 //        if (playerActionBeforeGame_ instanceof AddingPlayer) {
 //            AddingPlayer newPlayer_ = (AddingPlayer)playerActionBeforeGame_;
 //            if (!newPlayer_.isAcceptable()) {
@@ -56,8 +65,8 @@ public final class SendReceiveServerAiki extends BasicServer {
 //                return;
 //            }
 //        }
-        if (playerActionBeforeGame_ instanceof NewPlayerAiki) {
-            NewPlayerAiki newPlayer_ = (NewPlayerAiki)playerActionBeforeGame_;
+        NewPlayerAiki newPlayerAiki_ = DocumentReaderAikiMultiUtil.getNewPlayerAiki(elt_);
+        if (newPlayerAiki_ != null) {
 //            if (_common.getNicknames().size() == NetAiki.NB_PLAYERS) {
 //                Exiting forcedBye_ = new Exiting();
 //                forcedBye_.setForced(true);
@@ -72,7 +81,7 @@ public final class SendReceiveServerAiki extends BasicServer {
 //                removePlayer(newPlayer_.getIndex(), forcedBye_, _common);
 //                return;
 //            }
-            NetAiki.sendObjectInitTrading(_common.getSockets().getVal(newPlayer_.getIndex()));
+            NetAiki.sendObjectInitTrading(_common.getSockets().getVal(newPlayerAiki_.getIndex()));
 //            if (newPlayer_.getIndex() == IndexConstants.SECOND_INDEX) {
 //                NetAiki.sendObjectInitTrading(_common.getSockets().getVal((int) IndexConstants.SECOND_INDEX));
 //                return;
@@ -128,9 +137,10 @@ public final class SendReceiveServerAiki extends BasicServer {
             }
             return;
         }
-        if (playerActionBeforeGame_ instanceof ReadyAiki) {
+        ReadyAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getReadyAiki(elt_);
+        if (playerActionBeforeGame_ != null) {
             int noClient_ = playerActionBeforeGame_.getIndex();
-            _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of(((ReadyAiki)playerActionBeforeGame_).isReady()));
+            _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of(playerActionBeforeGame_.isReady()));
             return;
         }
         if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_OK,tagName_)) {

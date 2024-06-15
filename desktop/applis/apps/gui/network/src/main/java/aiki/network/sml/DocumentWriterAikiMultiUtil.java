@@ -79,7 +79,7 @@ public final class DocumentWriterAikiMultiUtil {
         return doc_.export();
     }
 
-    public static String playerActionBeforeGameAiki(PlayerActionBeforeGameAiki _object) {
+    public static String playerActionBeforeGameAiki(ReadyAiki _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(setPlayerActionBeforeGame(_object, "", doc_));
         return doc_.export();
@@ -87,7 +87,7 @@ public final class DocumentWriterAikiMultiUtil {
 
     public static String newPlayerAiki(NewPlayerAiki _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setPlayerActionBeforeGame(_object, "", doc_));
+        doc_.appendChild(setNewPlayerAiki(_object, "", doc_));
         return doc_.export();
     }
 
@@ -175,13 +175,13 @@ public final class DocumentWriterAikiMultiUtil {
         _element.appendChild(setMapBytePokemonPlayer(_object.getTradablePokemon(),FIELD_TRADABLE_POKEMON,_document));
     }
 
-    private static void setNewPlayer(NewPlayerAiki _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
+//    private static void setNewPlayer(NewPlayerAiki _object, Element _element, Document _document) {
+//        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
 //        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
 //        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));
 //        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isAcceptable(),FIELD_ACCEPTABLE,_document));
-        setPlayerActionBeforeGame(_object, _element, _document);
-    }
+//        setNewPlayerAiki(_object, "", _document);
+//    }
 
     private static Element setPlayerActionBeforeGame(PlayerActionBeforeGameAiki _object, String _fieldName, Document _document) {
         if (_object instanceof IndexOfArrivingAiki) {
@@ -190,12 +190,12 @@ public final class DocumentWriterAikiMultiUtil {
             setPlayerActionBeforeGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof NewPlayerAiki) {
-            Element element_ = _document.createElement(TYPE_NEW_PLAYER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setNewPlayer((NewPlayerAiki)_object,element_,_document);
-            return element_;
-        }
+//        if (_object instanceof NewPlayerAiki) {
+//            Element element_ = _document.createElement(TYPE_NEW_PLAYER);
+//            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+//            setNewPlayer((NewPlayerAiki)_object,element_,_document);
+//            return element_;
+//        }
         if (_object instanceof ReadyAiki) {
             Element element_ = _document.createElement(TYPE_READY);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -203,6 +203,17 @@ public final class DocumentWriterAikiMultiUtil {
             return element_;
         }
         return _document.createElement(TYPE_PLAYER_ACTION_BEFORE_GAME);
+    }
+
+    private static Element setNewPlayerAiki(NewPlayerAiki _object, String _fieldName, Document _document) {
+        Element element_ = _document.createElement(TYPE_NEW_PLAYER);
+        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+        setPlayerActionBeforeGame(_object,element_,_document);
+        return element_;
+    }
+
+    private static void setPlayerActionBeforeGame(NewPlayerAiki _object, Element _element, Document _document) {
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndex(),FIELD_INDEX,_document));
     }
 
     private static void setPlayerActionBeforeGame(PlayerActionBeforeGameAiki _object, Element _element, Document _document) {
