@@ -22,7 +22,7 @@ public final class NetAikiRetrievedInfos {
 //            id_.append(ch_);
 //            index_++;
 //        }
-        if (index_ >= _info.length()) {
+        if (!cs_.isFound()) {
             indexAct = -1;
             CustList<String> partsStr_ = new CustList<String>();
             partsStr_.add(_info);

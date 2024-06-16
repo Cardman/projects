@@ -118,9 +118,9 @@ public final class Net {
     public static final int SERVER_DONE_TRICKS = 23;
     public static final int SERVER_DONE_TEAMS = 24;
     public static final int SERVER_QUITTING = 25;
-    public static final char RULES_BELOTE = '0';
-    public static final char RULES_PRESIDENT = '1';
-    public static final char RULES_TAROT = '2';
+    public static final int RULES_BELOTE = 0;
+    public static final int RULES_PRESIDENT = 1;
+    public static final int RULES_TAROT = 2;
     public static final char VALIDATE_DISCARD_CALL_BEFORE = '0';
     public static final char VALIDATE_DISCARD_SIMPLE_CALL = '1';
     public static final char VALIDATE_DISCARD_SLAM = '2';
@@ -365,11 +365,13 @@ public final class Net {
         return new NetRetrievedInfos(_instance.splitInfo, _info);
     }
 
-    public static String exportIndexArrive(int _index, NetCommon _common, Games _instance) {
+    public static String exportIndexArrive(int _index, int _nbPlayers, NetCommon _common, Games _instance) {
         StringBuilder out_ = new StringBuilder();
         out_.append(CLIENT_INDEX_ARRIVE);
         out_.append(SEP_0);
         out_.append(_index);
+        out_.append(SEP_0);
+        out_.append(_nbPlayers);
         out_.append(SEP_0);
         out_.append(placesPlayers(_common.getPlacesPlayers()));
         out_.append(SEP_0);
@@ -396,22 +398,23 @@ public final class Net {
     public static IndexOfArrivingCards importIndexArrive(CustList<String> _info) {
         IndexOfArrivingCards index_ = new IndexOfArrivingCards();
         index_.setIndex(NumberUtil.parseInt(_info.get(0)));
-        index_.setPlacesPlayers(placePlayers(_info.get(1)));
+        index_.setNbPlayers(NumberUtil.parseInt(_info.get(1)));
+        index_.setPlacesPlayers(placePlayers(_info.get(2)));
         IntMap<BoolVal> ready_ = new IntMap<BoolVal>();
-        for (String p: StringUtil.splitChar(_info.get(2),SEP_1)) {
+        for (String p: StringUtil.splitChar(_info.get(3),SEP_1)) {
             String k_ = p.substring(0,p.length()-1);
             ready_.addEntry(NumberUtil.parseInt(k_), toBoolValEndsWith(p));
         }
         index_.setReadyPlayers(ready_);
-        char rulesFlag_ = _info.get(3).charAt(0);
-        if (rulesFlag_ == RULES_BELOTE) {
-            index_.setRulesBelote(importRulesBelote(_info, 4));
+        char rulesFlag_ = _info.get(4).charAt(0);
+        if (rulesFlag_ == '0'+RULES_BELOTE) {
+            index_.setRulesBelote(importRulesBelote(_info, 5));
         }
-        if (rulesFlag_ == RULES_PRESIDENT) {
-            index_.setRulesPresident(importRulesPresident(_info,4));
+        if (rulesFlag_ == '0'+RULES_PRESIDENT) {
+            index_.setRulesPresident(importRulesPresident(_info,5));
         }
-        if (rulesFlag_ == RULES_TAROT) {
-            index_.setRulesTarot(importRulesTarot(_info,4));
+        if (rulesFlag_ == '0'+RULES_TAROT) {
+            index_.setRulesTarot(importRulesTarot(_info,5));
         }
         return index_;
     }
@@ -1133,7 +1136,7 @@ public final class Net {
         out_.append(SEP_0);
         out_.append(exportHandPresident(_dealt.getPlayedHand(),SEP_1));
         out_.append(SEP_0);
-        out_.append(exportPlayingMap(_dealt.getStatus(),SEP_0,SEP_1));
+        out_.append(exportPlayingMap(_dealt.getStatus(),SEP_1,SEP_2));
         return out_.toString();
     }
 
@@ -1627,7 +1630,7 @@ public final class Net {
     public static String exportPlayingMap(ByteMap<Playing> _dealt, char _sep, char _sec) {
         CustList<String> ls_ = new CustList<String>();
         for (EntryCust<Byte, Playing> b: _dealt.entryList()) {
-            ls_.add(b+ (_sec +b.getValue().getPlay()));
+            ls_.add(b.getKey()+ (_sec +b.getValue().getPlay()));
         }
         return StringUtil.join(ls_, _sep);
     }

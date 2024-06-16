@@ -69,10 +69,12 @@ public final class SendReceiveServerCards extends BasicServer {
             loopServer(_input,null);
             return;
         }
-        super.loopServer(_input);
+        Document readObject_ = getNet().getDoc(_input);
+        if (readObject_ != null) {
+            loopServer(_input, readObject_);
+        }
     }
 
-    @Override
     public void loopServer(String _input, Document _object) {
         lock.execute(new ServerIterationCards(_input,_object,instance,getCurrentThreadFactory(),getSockets()));
     }

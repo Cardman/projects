@@ -1,7 +1,6 @@
 package code.network;
 import code.gui.initialize.AbstractBufferedReader;
 import code.gui.initialize.AbstractSocket;
-import code.sml.Document;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 
@@ -31,14 +30,11 @@ public abstract class BasicServer extends SendReceive implements Locking {
         }
         getSocket().close();
     }
-    public void loopServer(String _input){
-        Document readObject_ = net.getDoc(_input);
-        if (readObject_ != null) {
-            loopServer(_input, readObject_);
-        }
-    }
+    public abstract void loopServer(String _input);
 
-    public abstract void loopServer(String _input, Document _object);
+    public NetGroupFrame getNet() {
+        return net;
+    }
 
     @Override
     public AbstractThreadFactory getCurrentThreadFactory() {
