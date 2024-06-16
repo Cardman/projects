@@ -1,5 +1,7 @@
 package cards.network.threads;
 
+import aiki.network.NetAiki;
+import cards.network.common.ClientServerIdInfos;
 import code.util.CustList;
 import code.util.core.NumberUtil;
 
@@ -8,17 +10,20 @@ public final class NetRetrievedInfos {
     private final CustList<String> parts;
     public NetRetrievedInfos(CustList<IntSplitPartsFieldsCards> _window, String _info){
         int len_ = _info.length();
-        StringBuilder id_ = new StringBuilder();
-        int index_ = 0;
-        while (index_ < _info.length()) {
-            char ch_ = _info.charAt(index_);
-            if (ch_ == Net.SEP_0) {
-                index_++;
-                break;
-            }
-            id_.append(ch_);
-            index_++;
-        }
+        ClientServerIdInfos cs_ = new ClientServerIdInfos(_info, NetAiki.AIKI_SEP_0);
+        StringBuilder id_ = cs_.getId();
+        int index_ = cs_.getIndex();
+//        StringBuilder id_ = new StringBuilder();
+//        int index_ = 0;
+//        while (index_ < _info.length()) {
+//            char ch_ = _info.charAt(index_);
+//            if (ch_ == Net.SEP_0) {
+//                index_++;
+//                break;
+//            }
+//            id_.append(ch_);
+//            index_++;
+//        }
         if (index_ >= _info.length()) {
             indexAct = -1;
             CustList<String> partsStr_ = new CustList<String>();
