@@ -26,18 +26,22 @@ public final class NetAikiRetrievedInfos {
             parts = partsStr_;
             return;
         }
-        int indexClientAct_ = NumberUtil.parseInt(id_.toString());
+        indexAct = NumberUtil.parseInt(id_.toString());
+        parts = partsStr(_info, index_, len_, NetAiki.AIKI_SEP_0);
+    }
+
+    public static CustList<String> partsStr(String _info, int _from, int _until, char _sep) {
         CustList<String> partsStr_ = new CustList<String>();
         StringBuilder part_ = new StringBuilder();
-        int i_ = index_;
-        while (i_ < len_) {
+        int i_ = _from;
+        while (i_ < _until) {
             char ch_ = _info.charAt(i_);
             if (ch_ == '\\') {
                 i_++;
                 part_.append('\\');
                 part_.append(_info.charAt(i_));
                 i_++;
-            } else if (ch_ == NetAiki.AIKI_SEP_0) {
+            } else if (ch_ == _sep) {
                 partsStr_.add(part_.toString());
                 part_.delete(0,part_.length());
                 i_++;
@@ -47,8 +51,7 @@ public final class NetAikiRetrievedInfos {
             }
         }
         partsStr_.add(part_.toString());
-        indexAct = indexClientAct_;
-        parts = partsStr_;
+        return partsStr_;
     }
 
     public CustList<String> getParts() {

@@ -1,16 +1,22 @@
 package aiki.network;
 
+import aiki.fight.enums.Statistic;
+import aiki.game.UsesOfMove;
 import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.enums.Gender;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
 import cards.network.threads.Net;
 import code.gui.initialize.AbstractSocket;
+import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.network.Exiting;
 import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.util.*;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class NetAiki {
 
@@ -92,6 +98,64 @@ public final class NetAiki {
         out_.append(_index);
         out_.append(AIKI_SEP_0);
         return out_.toString();
+    }
+    public static StringBuilder exportPokemonPlayer(PokemonPlayer _pk, char _sep, char _sec, char _th) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(_pk.getName());
+        out_.append(_sep);
+        out_.append(_pk.getLevel());
+        out_.append(_sep);
+        out_.append(_pk.getGender().getGenderName());
+        out_.append(_sep);
+        out_.append(_pk.getAbility());
+        out_.append(_sep);
+        out_.append(_pk.getItem());
+        out_.append(_sep);
+        out_.append(escapeId(_pk.getNickname()));
+        CustList<String> moves_ = new CustList<String>();
+        for (EntryCust<String, UsesOfMove> m: _pk.getMoves().entryList()) {
+            moves_.add(m.getKey());
+        }
+        out_.append(_sep);
+        out_.append(StringUtil.join(moves_,_sec));
+        CustList<String> stats_ = new CustList<String>();
+        for (EntryCust<Statistic, Short> m: _pk.getEv().entryList()) {
+            stats_.add(m.getKey().getStatName()+_th+m.getValue());
+        }
+        out_.append(_sep);
+        out_.append(StringUtil.join(stats_,_sec));
+        out_.append(_sep);
+        out_.append(_pk.getWonExpSinceLastLevel().toNumberString());
+        out_.append(_sep);
+        out_.append(_pk.getHappiness());
+        out_.append(_sep);
+        out_.append(_pk.getUsedBallCatching());
+        out_.append(_sep);
+        out_.append(_pk.getNbStepsTeamLead());
+        out_.append(_sep);
+        return out_;
+    }
+    public static PokemonPlayer importPokemonPlayer(String _part, char _sep, char _sec, char _th) {
+        CustList<String> infos_ = NetAikiRetrievedInfos.partsStr(_part, 0, _part.length(), _sep);
+        PokemonPlayer p_ = new PokemonPlayer();
+        p_.setName(infos_.get(0));
+        p_.setLevel((short) NumberUtil.parseInt(infos_.get(1)));
+        p_.setGender(Gender.getGenderByName(infos_.get(2)));
+        p_.setAbility(infos_.get(3));
+        p_.setItem(infos_.get(4));
+        p_.setNickname(unscapeId(infos_.get(5)));
+        for (String m: StringUtil.splitChar(infos_.get(6),_sec)) {
+            p_.getMoves().addEntry(m, new UsesOfMove((short) 0));
+        }
+        for (String m: StringUtil.splitChar(infos_.get(7),_sec)) {
+            StringList kv_ = StringUtil.splitChar(m, _th);
+            p_.getEv().addEntry(Statistic.getStatisticByName(kv_.first()),(short)NumberUtil.parseInt(kv_.last()));
+        }
+        p_.setWonExpSinceLastLevel(new Rate(infos_.get(8)));
+        p_.setHappiness((short)NumberUtil.parseInt(infos_.get(9)));
+        p_.setUsedBallCatching(infos_.get(10));
+        p_.setNbStepsTeamLead((short)NumberUtil.parseInt(infos_.get(11)));
+        return p_;
     }
     public static String escapeId(String _str) {
         StringBuilder sb_ = new StringBuilder();
