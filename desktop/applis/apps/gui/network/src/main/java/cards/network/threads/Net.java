@@ -2064,14 +2064,14 @@ public final class Net {
         return q_;
     }
 
-    private static boolean toBoolEquals(String _l) {
+    public static boolean toBoolEquals(String _l) {
         return StringUtil.quickEq(_l,"1");
     }
-    private static boolean toBoolEquals(String _l, int _index) {
+    public static boolean toBoolEquals(String _l, int _index) {
         return toBoolEquals(_l.charAt(_index));
     }
 
-    private static boolean toBoolEquals(char _l) {
+    public static boolean toBoolEquals(char _l) {
         return _l == '1';
     }
 
@@ -2082,13 +2082,13 @@ public final class Net {
         }
         return StringUtil.join(places_, SEP_1);
     }
-    private static String exportBool(BoolVal _bv) {
+    public static String exportBool(BoolVal _bv) {
         if (_bv == BoolVal.FALSE) {
             return "0";
         }
         return "1";
     }
-    private static String exportBool(boolean _bv) {
+    public static String exportBool(boolean _bv) {
         if (!_bv) {
             return "0";
         }

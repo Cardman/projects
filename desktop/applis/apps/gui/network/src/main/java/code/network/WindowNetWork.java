@@ -1282,25 +1282,37 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_OK,tagName_)) {
-            facade.applyTrading();
-            ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
-            scenePanel.setTradableAfterTrading(tree_);
-            pack();
+            okReceived();
         }
         if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_NET_POKEMON,tagName_)) {
             NetPokemon net_ = DocumentReaderAikiMultiUtil.getNetPokemon(elt_);
-            if (indexInGame == IndexConstants.SECOND_INDEX) {
-                scenePanel.setNetworkPanel();
-            }
-            scenePanel.setTradable(net_.getTradablePokemon());
-            pack();
+            netNetPokemon(net_);
             return;
         }
         if (StringUtil.quickEq(DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER,tagName_)) {
             PokemonPlayer pk_ = DocumentReaderAikiCoreUtil.getPokemonPlayer(elt_);
-            facade.receivePokemonPlayer(pk_);
-            scenePanel.seeNetPokemonDetail();
+            pokemonPlayer(pk_);
         }
+    }
+
+    public void okReceived() {
+        facade.applyTrading();
+        ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
+        scenePanel.setTradableAfterTrading(tree_);
+        pack();
+    }
+
+    public void pokemonPlayer(PokemonPlayer _pk) {
+        facade.receivePokemonPlayer(_pk);
+        scenePanel.seeNetPokemonDetail();
+    }
+
+    public void netNetPokemon(NetPokemon _net) {
+        if (indexInGame == IndexConstants.SECOND_INDEX) {
+            scenePanel.setNetworkPanel();
+        }
+        scenePanel.setTradable(_net.getTradablePokemon());
+        pack();
     }
 
     public void initTrading(AbstractSocket _socket) {
@@ -2668,9 +2680,17 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
     }
     public void sendObjectOk() {
+        if (Net.QUICK) {
+            trySendString(NetAiki.exportServerOk(),getSocket());
+            return;
+        }
         trySendString(DocumentWriterAikiMultiUtil.ok(), getSocket());
     }
     public void sendObject(QuitAiki _serializable) {
+        if (Net.QUICK) {
+            trySendString(NetAiki.exportQuitAiki(_serializable),getSocket());
+            return;
+        }
         trySendString(DocumentWriterAikiMultiUtil.playerActionGameAiki(_serializable), getSocket());
     }
     public void sendReady() {
@@ -2678,9 +2698,17 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         choice_.setIndex(getIndexInGame());
         scenePanel.readyTrade();
         choice_.setReady(scenePanel.isReadyTrade());
+        if (Net.QUICK) {
+            trySendString(NetAiki.exportReadyAiki(choice_),getSocket());
+            return;
+        }
         trySendString(DocumentWriterAikiMultiUtil.playerActionBeforeGameAiki(choice_), getSocket());
     }
     public void sendObject(SentPokemon _serializable) {
+        if (Net.QUICK) {
+            trySendString(NetAiki.exportSentPokemon(_serializable), getSocket());
+            return;
+        }
         trySendString(DocumentWriterAikiMultiUtil.sentPokemon(_serializable), getSocket());
     }
     @Override
