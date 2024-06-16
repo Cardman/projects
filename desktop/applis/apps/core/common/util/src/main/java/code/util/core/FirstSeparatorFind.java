@@ -1,10 +1,11 @@
-package cards.network.common;
+package code.util.core;
 
-public final class ClientServerIdInfos {
+public final class FirstSeparatorFind {
     private final StringBuilder id;
     private final boolean found;
     private final int index;
-    public ClientServerIdInfos(String _info, char _sep) {
+    private final char used;
+    public FirstSeparatorFind(String _info, char _sep) {
         StringBuilder id_ = new StringBuilder();
         int index_ = 0;
         boolean f_ = false;
@@ -21,6 +22,7 @@ public final class ClientServerIdInfos {
         found = f_;
         index = index_;
         id = id_;
+        used = _sep;
     }
 
     public int getIndex() {
@@ -29,6 +31,10 @@ public final class ClientServerIdInfos {
 
     public boolean isFound() {
         return found;
+    }
+
+    public char getUsed() {
+        return used;
     }
 
     public StringBuilder getId() {

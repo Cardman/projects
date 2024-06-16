@@ -1,6 +1,7 @@
 package code.util;
 
 import code.util.core.*;
+import code.util.ints.IntSplitPartsFields;
 import org.junit.Test;
 
 
@@ -2559,5 +2560,118 @@ public class StringListTest extends EquallableExUtil {
     public void applyUniformString7(){
         DefaultUniformingString u_ = new DefaultUniformingString();
         assertEq("\nn", u_.apply("\nn"));
+    }
+    @Test
+    public void find1() {
+        FirstSeparatorFind f_ = new FirstSeparatorFind("KEY:ONE:TWO",':');
+        assertTrue(f_.isFound());
+        assertEq("KEY",f_.getId().toString());
+        assertEq(4,f_.getIndex());
+    }
+    @Test
+    public void find2() {
+        FirstSeparatorFind f_ = new FirstSeparatorFind("KEY:",':');
+        assertTrue(f_.isFound());
+        assertEq("KEY",f_.getId().toString());
+        assertEq(4,f_.getIndex());
+    }
+    @Test
+    public void find3() {
+        FirstSeparatorFind f_ = new FirstSeparatorFind("KEY",':');
+        assertFalse(f_.isFound());
+        assertEq("KEY",f_.getId().toString());
+        assertEq(3,f_.getIndex());
+    }
+    @Test
+    public void partsStr1() {
+        String in_ = "ELEMENT:CLASSIC";
+        CustList<String> parts_ = StringUtil.partsStr(in_, 0, in_.length(), ':');
+        assertEq(2,parts_.size());
+        assertEq("ELEMENT",parts_.get(0));
+        assertEq("CLASSIC",parts_.get(1));
+    }
+    @Test
+    public void partsStr2() {
+        String in_ = "ELE\\:MENT:CLAS\\:SIC";
+        CustList<String> parts_ = StringUtil.partsStr(in_, 0, in_.length(), ':');
+        assertEq(2,parts_.size());
+        assertEq("ELE\\:MENT",parts_.get(0));
+        assertEq("CLAS\\:SIC",parts_.get(1));
+    }
+    @Test
+    public void partsStr3() {
+        String in_ = "ELE\\:MENT\\\\:CLAS\\:SIC\\\\";
+        CustList<String> parts_ = StringUtil.partsStr(in_, 0, in_.length(), ':');
+        assertEq(2,parts_.size());
+        assertEq("ELE\\:MENT\\\\",parts_.get(0));
+        assertEq("CLAS\\:SIC\\\\",parts_.get(1));
+    }
+    @Test
+    public void partsStrQuick1() {
+        String in_ = "ELEMENT:CLASSIC";
+        FirstSeparatorFind f_ = new FirstSeparatorFind(in_,':');
+        CustList<IntSplitPartsFields> splitInfo_ = splitInfo();
+        CustList<String> parts_ = StringUtil.partsStrQuick(splitInfo_, in_, f_.getIndex(), in_.length(), 0, f_);
+        assertEq(1,parts_.size());
+        assertEq("CLASSIC",parts_.get(0));
+    }
+    @Test
+    public void partsStrQuick2() {
+        String in_ = "KEY:ELEMENT:CLASSIC";
+        FirstSeparatorFind f_ = new FirstSeparatorFind(in_,':');
+        CustList<IntSplitPartsFields> splitInfo_ = splitInfo();
+        CustList<String> parts_ = StringUtil.partsStrQuick(splitInfo_, in_, f_.getIndex(), in_.length(), 0, f_);
+        assertEq(2,parts_.size());
+        assertEq("ELEMENT",parts_.get(0));
+        assertEq("CLASSIC",parts_.get(1));
+    }
+    @Test
+    public void partsStrQuick3() {
+        String in_ = "KEY:ELEMENT:CLASSIC";
+        FirstSeparatorFind f_ = new FirstSeparatorFind(in_,':');
+        CustList<IntSplitPartsFields> splitInfo_ = splitInfo();
+        CustList<String> parts_ = StringUtil.partsStrQuick(splitInfo_, in_, f_.getIndex(), in_.length(), 1, f_);
+        assertEq(2,parts_.size());
+        assertEq("ELEMENT",parts_.get(0));
+        assertEq("CLASSIC",parts_.get(1));
+    }
+    @Test
+    public void partsStrQuick4() {
+        String in_ = "KEY:ELEMENT:CLASSIC:SEC";
+        FirstSeparatorFind f_ = new FirstSeparatorFind(in_,':');
+        CustList<IntSplitPartsFields> splitInfo_ = splitInfo();
+        CustList<String> parts_ = StringUtil.partsStrQuick(splitInfo_, in_, f_.getIndex(), in_.length(), 1, f_);
+        assertEq(2,parts_.size());
+        assertEq("ELEMENT",parts_.get(0));
+        assertEq("CLASSIC:SEC",parts_.get(1));
+    }
+    @Test
+    public void partsStrQuick5() {
+        String in_ = "KEY:ELEMENT:CLASSIC:SEC";
+        FirstSeparatorFind f_ = new FirstSeparatorFind(in_,':');
+        CustList<IntSplitPartsFields> splitInfo_ = splitInfo();
+        CustList<String> parts_ = StringUtil.partsStrQuick(splitInfo_, in_, f_.getIndex(), in_.length(), 2, f_);
+        assertEq(3,parts_.size());
+        assertEq("ELEMENT",parts_.get(0));
+        assertEq("CLASSIC",parts_.get(1));
+        assertEq("SEC",parts_.get(2));
+    }
+    @Test
+    public void partsStrQuick6() {
+        String in_ = "KEY:ELEMENT:CLASSIC:SEC:THIRD";
+        FirstSeparatorFind f_ = new FirstSeparatorFind(in_,':');
+        CustList<IntSplitPartsFields> splitInfo_ = splitInfo();
+        CustList<String> parts_ = StringUtil.partsStrQuick(splitInfo_, in_, f_.getIndex(), in_.length(), 2, f_);
+        assertEq(3,parts_.size());
+        assertEq("ELEMENT",parts_.get(0));
+        assertEq("CLASSIC",parts_.get(1));
+        assertEq("SEC:THIRD",parts_.get(2));
+    }
+    private CustList<IntSplitPartsFields> splitInfo() {
+        CustList<IntSplitPartsFields> splitInfo_ = new CustList<IntSplitPartsFields>();
+        splitInfo_.add(new DefSplitPartsFields());
+        splitInfo_.add(new LimSplitPartsFields(1));
+        splitInfo_.add(new LimSplitPartsFields(2));
+        return splitInfo_;
     }
 }

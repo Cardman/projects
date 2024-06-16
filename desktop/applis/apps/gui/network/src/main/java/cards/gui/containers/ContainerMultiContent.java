@@ -8,6 +8,7 @@ import cards.network.common.before.*;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -201,7 +202,7 @@ public final class ContainerMultiContent {
         return ContainerGame.EMPTY_STRING;
     }
     public void sendDealt() {
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDealt(getIndexInGame()),window().getSocket());
             return;
         }
@@ -211,7 +212,7 @@ public final class ContainerMultiContent {
         window().sendObject(dealt_);
     }
     public void sendPause() {
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDonePause(getIndexInGame()),window().getSocket());
             return;
         }
@@ -221,7 +222,7 @@ public final class ContainerMultiContent {
         window().sendObject(d_);
     }
     public void sendOk() {
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDoneEndGame(getIndexInGame()),window().getSocket());
             return;
         }
@@ -236,7 +237,7 @@ public final class ContainerMultiContent {
 //            return;
 //        }
 //        String lg_ = getOwner().getLanguageKey();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDoneTeams(getIndexInGame()),window().getSocket());
             return;
         }
@@ -249,7 +250,7 @@ public final class ContainerMultiContent {
 //        if (!isCanPlay()) {
 //            return;
 //        }
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDoneTricks(getIndexInGame()),window().getSocket());
             return;
         }

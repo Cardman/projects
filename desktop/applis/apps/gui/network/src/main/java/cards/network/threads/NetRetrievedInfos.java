@@ -1,16 +1,16 @@
 package cards.network.threads;
 
-import aiki.network.NetAiki;
-import cards.network.common.ClientServerIdInfos;
 import code.util.CustList;
+import code.util.core.FirstSeparatorFind;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
+import code.util.ints.IntSplitPartsFields;
 
 public final class NetRetrievedInfos {
     private final int indexAct;
     private final CustList<String> parts;
-    public NetRetrievedInfos(CustList<IntSplitPartsFieldsCards> _window, String _info){
-        int len_ = _info.length();
-        ClientServerIdInfos cs_ = new ClientServerIdInfos(_info, NetAiki.AIKI_SEP_0);
+    public NetRetrievedInfos(CustList<IntSplitPartsFields> _window, String _info){
+        FirstSeparatorFind cs_ = new FirstSeparatorFind(_info, Net.SEP_0);
         StringBuilder id_ = cs_.getId();
         int index_ = cs_.getIndex();
 //        StringBuilder id_ = new StringBuilder();
@@ -43,21 +43,8 @@ public final class NetRetrievedInfos {
             find_ = 0;
             indexClientAct_ = NumberUtil.parseInt(id_.toString())+2;
         }
-        CustList<String> partsStr_ = new CustList<String>();
-        StringBuilder part_ = new StringBuilder();
-        int[] pass_ = new int[]{0};
-        for (int i = index_; i < len_; i++) {
-            char ch_ = _info.charAt(i);
-            if (_window.get(find_).split(ch_, pass_)) {
-                partsStr_.add(part_.toString());
-                part_.delete(0,part_.length());
-            } else {
-                part_.append(ch_);
-            }
-        }
-        partsStr_.add(part_.toString());
         indexAct = indexClientAct_;
-        parts = partsStr_;
+        parts = StringUtil.partsStrQuick(_window,_info,index_,_info.length(),find_,cs_);
     }
 
     public CustList<String> getParts() {

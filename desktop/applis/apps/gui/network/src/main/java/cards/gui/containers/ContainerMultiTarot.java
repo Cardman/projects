@@ -35,6 +35,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
+import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -133,7 +134,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         //pack();
         getScrollCallableCards().setVisible(false);
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDiscardSimpleCall(getCalledCard()),getContainerMultiContent().window().getSocket());
             return;
         }
@@ -370,7 +371,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDoneBidding(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
             return;
         }
@@ -663,7 +664,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         relative_ = containerMultiContent.relative(_card.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //pack();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDonePlaying(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
             return;
         }
@@ -934,7 +935,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         //PackingWindowAfter.pack(this, true);
 //        String lg_ = getOwner().getLanguageKey();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDiscardSlam(getCalledCard()),getContainerMultiContent().window().getSocket());
             return;
         }

@@ -2,12 +2,15 @@ package code.network;
 
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractSocket;
+import code.util.CustList;
 import code.util.IntMap;
 import code.util.IntTreeMap;
 import code.util.core.BoolVal;
+import code.util.core.StringUtil;
 
 public final class NetCommon {
 
+    public static final boolean QUICK = false;
     private final IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
     private final IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
     private final IntMap<BoolVal> readyPlayers = new IntMap<BoolVal>();
@@ -19,6 +22,51 @@ public final class NetCommon {
 
     public NetCommon(AbstractProgramInfos _p) {
         this.programInfos = _p;
+    }
+
+    public static String exportExiting(Exiting _index) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append(exportBool(_index.isClosing()));
+        out_.append(exportBool(_index.isForced()));
+        out_.append(exportBool(_index.isServer()));
+        out_.append(exportBool(_index.isTooManyPlayers()));
+        return out_.toString();
+    }
+
+    public static Exiting importExiting(CustList<String> _info) {
+        Exiting q_ = new Exiting();
+        String i_ = _info.get(0);
+        q_.setClosing(toBoolEquals(i_,0));
+        q_.setForced(toBoolEquals(i_,1));
+        q_.setServer(toBoolEquals(i_,2));
+        q_.setTooManyPlayers(toBoolEquals(i_,3));
+        return q_;
+    }
+
+    public static boolean toBoolEquals(String _l) {
+        return StringUtil.quickEq(_l,"1");
+    }
+
+    public static boolean toBoolEquals(String _l, int _index) {
+        return toBoolEquals(_l.charAt(_index));
+    }
+
+    public static boolean toBoolEquals(char _l) {
+        return _l == '1';
+    }
+
+    public static String exportBool(BoolVal _bv) {
+        if (_bv == BoolVal.FALSE) {
+            return "0";
+        }
+        return "1";
+    }
+
+    public static String exportBool(boolean _bv) {
+        if (!_bv) {
+            return "0";
+        }
+        return "1";
     }
 
     public AbstractProgramInfos getProgramInfos() {

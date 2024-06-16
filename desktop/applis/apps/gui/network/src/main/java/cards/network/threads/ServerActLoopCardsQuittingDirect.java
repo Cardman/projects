@@ -1,7 +1,6 @@
 package cards.network.threads;
 
 import cards.network.common.Quit;
-import cards.network.sml.DocumentWriterCardsMultiUtil;
 import code.gui.initialize.AbstractSocket;
 import code.network.Exiting;
 import code.network.NetCommon;
@@ -27,7 +26,7 @@ public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopC
                 if (p == q_.getPlace()) {
                     forcedBye_.setClosing(q_.isClosing());
                 }
-                NetGroupFrame.trySendString(Net.exportExiting(forcedBye_), Net.getSocketByPlace(p, _common));
+                NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), Net.getSocketByPlace(p, _common));
             }
             _common.getNicknames().clear();
             Net.getGames(_instance).finirParties();
@@ -55,7 +54,7 @@ public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopC
         _common.getConnectionsServer().removeKey(_player);
         _common.getReadyPlayers().removeKey(_player);
         _common.getPlacesPlayers().removeKey(_player);
-        NetGroupFrame.trySendString(Net.exportExiting(_bye), socket_);
+        NetGroupFrame.trySendString(NetCommon.exportExiting(_bye), socket_);
     }
 //    private static void quitProcess(Quit _readObject, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
 //        if (_readObject.isServer()) {

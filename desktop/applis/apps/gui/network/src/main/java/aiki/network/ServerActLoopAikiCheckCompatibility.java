@@ -3,7 +3,6 @@ package aiki.network;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.CheckCompatibility;
 import aiki.network.stream.NetPokemon;
-import cards.network.threads.Net;
 import code.gui.initialize.AbstractSocket;
 import code.network.Exiting;
 import code.network.NetCommon;
@@ -79,6 +78,6 @@ public final class ServerActLoopAikiCheckCompatibility implements IntServerActLo
         _common.getConnectionsServer().removeKey(_player);
         _common.getReadyPlayers().removeKey(_player);
         _common.getPlacesPlayers().removeKey(_player);
-        NetGroupFrame.trySendString(Net.exportExiting(_bye), socket_);
+        NetGroupFrame.trySendString(NetCommon.exportExiting(_bye), socket_);
     }
 }

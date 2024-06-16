@@ -48,7 +48,7 @@ public final class BasicClient extends BasicClientAbs {
 
     public static boolean iterate(AbstractSocket _socket, WindowNetWork _window, String _input) {
         Document doc_;
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             doc_ = null;
         } else {
             doc_ = _window.getDoc(_input);
@@ -58,11 +58,11 @@ public final class BasicClient extends BasicClientAbs {
 
     public static boolean iterate(AbstractSocket _socket, WindowNetWork _window, String _input, Document _doc) {
         if (_doc == null) {
-            if (Net.QUICK) {
+            if (NetCommon.QUICK) {
                 if (_window.isCards()) {
                     NetRetrievedInfos net_ = Net.netRetrievedInfos(_input, _window.getNet());
                     if (net_.getIndexAct() < 0) {
-                        _window.getFrames().getCompoFactory().invokeNow(new Quitting(Net.importExiting(net_.getParts()), _window, _socket));
+                        _window.getFrames().getCompoFactory().invokeNow(new Quitting(NetCommon.importExiting(net_.getParts()), _window, _socket));
                         return false;
                     }
                     _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, null, _socket, net_, null));
@@ -70,7 +70,7 @@ public final class BasicClient extends BasicClientAbs {
                 }
                 NetAikiRetrievedInfos net_ = new NetAikiRetrievedInfos(_input);
                 if (net_.getIndexAct() < 0) {
-                    _window.getFrames().getCompoFactory().invokeNow(new Quitting(Net.importExiting(net_.getParts()), _window, _socket));
+                    _window.getFrames().getCompoFactory().invokeNow(new Quitting(NetCommon.importExiting(net_.getParts()), _window, _socket));
                     return false;
                 }
                 _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, null, _socket, null, net_));

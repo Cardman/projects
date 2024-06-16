@@ -1,6 +1,7 @@
 package code.util.core;
 
 import code.util.*;
+import code.util.ints.IntSplitPartsFields;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
@@ -22,6 +23,46 @@ public final class StringUtil {
     private static final char RETURN_CHAR = '\r';
 
     private StringUtil() {
+    }
+
+    public static CustList<String> partsStr(String _info, int _from, int _until, char _sep) {
+        CustList<String> partsStr_ = new CustList<String>();
+        StringBuilder part_ = new StringBuilder();
+        int i_ = _from;
+        while (i_ < _until) {
+            char ch_ = _info.charAt(i_);
+            if (ch_ == '\\') {
+                i_++;
+                part_.append('\\');
+                part_.append(_info.charAt(i_));
+                i_++;
+            } else if (ch_ == _sep) {
+                partsStr_.add(part_.toString());
+                part_.delete(0,part_.length());
+                i_++;
+            } else {
+                part_.append(ch_);
+                i_++;
+            }
+        }
+        partsStr_.add(part_.toString());
+        return partsStr_;
+    }
+    public static CustList<String> partsStrQuick(CustList<IntSplitPartsFields> _window, String _info, int _from, int _until, int _find, FirstSeparatorFind _first) {
+        CustList<String> partsStr_ = new CustList<String>();
+        StringBuilder part_ = new StringBuilder();
+        int[] pass_ = new int[]{0};
+        for (int i = _from; i < _until; i++) {
+            char ch_ = _info.charAt(i);
+            if (_window.get(_find).split(_first,ch_, pass_)) {
+                partsStr_.add(part_.toString());
+                part_.delete(0,part_.length());
+            } else {
+                part_.append(ch_);
+            }
+        }
+        partsStr_.add(part_.toString());
+        return partsStr_;
     }
     public static byte[] encode(String _input) {
         int len_ = _input.length();

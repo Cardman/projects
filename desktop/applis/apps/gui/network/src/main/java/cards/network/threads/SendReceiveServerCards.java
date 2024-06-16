@@ -65,7 +65,7 @@ public final class SendReceiveServerCards extends BasicServer {
 
     @Override
     public void loopServer(String _input) {
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             loopServer(_input,null);
             return;
         }

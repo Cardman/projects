@@ -9,7 +9,6 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
-import cards.network.threads.Net;
 import code.gui.initialize.AbstractSocket;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
@@ -91,14 +90,14 @@ public final class NetAiki {
         StringBuilder out_ = new StringBuilder();
         out_.append(SERVER_READY);
         out_.append(AIKI_SEP_0);
-        out_.append(Net.exportBool(_index.isReady()));
+        out_.append(NetCommon.exportBool(_index.isReady()));
         out_.append(_index.getIndex());
         return out_.toString();
     }
 
     public static ReadyAiki importReadyAiki(CustList<String> _index) {
         ReadyAiki r_ = new ReadyAiki();
-        r_.setReady(Net.toBoolEquals(_index.get(0),0));
+        r_.setReady(NetCommon.toBoolEquals(_index.get(0),0));
         r_.setIndex(NumberUtil.parseInt(_index.get(0).substring(1)));
         return r_;
     }
@@ -173,8 +172,8 @@ public final class NetAiki {
     public static NetPokemon importNetPokemon(CustList<String> _check) {
         NetPokemon n_ = new NetPokemon();
         n_.setTradablePokemon(new ByteTreeMap<PokemonPlayer>());
-        for (String m: NetAikiRetrievedInfos.partsStr(_check.get(0),0,_check.get(0).length(),AIKI_SEP_1)) {
-            CustList<String> kv_ = NetAikiRetrievedInfos.partsStr(m, 0, m.length(), AIKI_SEP_2);
+        for (String m: StringUtil.partsStr(_check.get(0),0,_check.get(0).length(),AIKI_SEP_1)) {
+            CustList<String> kv_ = StringUtil.partsStr(m, 0, m.length(), AIKI_SEP_2);
             n_.getTradablePokemon().addEntry((byte)NumberUtil.parseInt(kv_.first()),importPokemonPlayer(kv_.last(),AIKI_SEP_3,AIKI_SEP_4,AIKI_SEP_5));
         }
         return n_;
@@ -223,7 +222,7 @@ public final class NetAiki {
             ch_.getData().getGenderRepartitions().addEntry(kv_.first(),GenderRepartition.getGenderRepartitionByName(kv_.last()));
         }
         ch_.getData().setPokemon(importPokemonPlayer(_check.get(5),AIKI_SEP_1,AIKI_SEP_2,AIKI_SEP_3));
-        for (String m: NetAikiRetrievedInfos.partsStr(_check.get(6),0,_check.get(6).length(),AIKI_SEP_1)) {
+        for (String m: StringUtil.partsStr(_check.get(6),0,_check.get(6).length(),AIKI_SEP_1)) {
             ch_.getTeam().add(importPokemonPlayer(m,AIKI_SEP_2,AIKI_SEP_3,AIKI_SEP_4));
         }
         return ch_;
@@ -274,7 +273,7 @@ public final class NetAiki {
         return out_;
     }
     public static PokemonPlayer importPokemonPlayer(String _part, char _sep, char _sec, char _th) {
-        CustList<String> infos_ = NetAikiRetrievedInfos.partsStr(_part, 0, _part.length(), _sep);
+        CustList<String> infos_ = StringUtil.partsStr(_part, 0, _part.length(), _sep);
         return importPokemonPlayer(infos_, _sec, _th);
     }
 
@@ -314,16 +313,16 @@ public final class NetAiki {
         StringBuilder out_ = new StringBuilder();
         out_.append(SERVER_READY);
         out_.append(AIKI_SEP_0);
-        out_.append(Net.exportBool(_index.isClosing()));
-        out_.append(Net.exportBool(_index.isServer()));
+        out_.append(NetCommon.exportBool(_index.isClosing()));
+        out_.append(NetCommon.exportBool(_index.isServer()));
         out_.append(_index.getPlace());
         return out_.toString();
     }
 
     public static QuitAiki importQuitAiki(CustList<String> _index) {
         QuitAiki r_ = new QuitAiki();
-        r_.setClosing(Net.toBoolEquals(_index.get(0),0));
-        r_.setServer(Net.toBoolEquals(_index.get(0),1));
+        r_.setClosing(NetCommon.toBoolEquals(_index.get(0),0));
+        r_.setServer(NetCommon.toBoolEquals(_index.get(0),1));
         r_.setPlace((byte) NumberUtil.parseInt(_index.get(0).substring(2)));
         return r_;
     }
@@ -376,7 +375,7 @@ public final class NetAiki {
     }
 
     public static void sendObject(AbstractSocket _socket, NewPlayerAiki _serializable) {
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(NetAiki.exportNewPlayer(_serializable.getIndex()), _socket);
             return;
         }
@@ -384,7 +383,7 @@ public final class NetAiki {
     }
 
     public static void sendObject(AbstractSocket _socket, CheckCompatibility _serializable) {
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(NetAiki.exportCheckCompatibility(_serializable), _socket);
             return;
         }

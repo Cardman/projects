@@ -34,6 +34,7 @@ import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AlwaysActionListenerAct;
 import code.gui.images.MetaDimension;
+import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -310,7 +311,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         updateCardsInPanelPresidentGiven();
         getNoPlay().setVisible(true);
         pack();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportRefreshedHandPresident(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
             return;
         }
@@ -372,7 +373,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getPlayedHand(),lg_), RETURN_LINE));
         //PackingWindowAfter.pack(this, true);
         pack();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDonePlaying(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
             return;
         }

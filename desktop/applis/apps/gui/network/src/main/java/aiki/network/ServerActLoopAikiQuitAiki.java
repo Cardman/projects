@@ -1,7 +1,6 @@
 package aiki.network;
 
 import aiki.network.stream.QuitAiki;
-import cards.network.threads.Net;
 import code.gui.initialize.AbstractSocket;
 import code.network.Exiting;
 import code.network.NetCommon;
@@ -28,7 +27,7 @@ public final class ServerActLoopAikiQuitAiki implements IntServerActLoopAiki {
             forcedBye_.setClosing(false);
         }
         if (socket_ != null) {
-            NetGroupFrame.trySendString(Net.exportExiting(forcedBye_), socket_);
+            NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
         }
         socket_ = _common.getSockets().getVal((int) IndexConstants.SECOND_INDEX);
         _common.getConnectionsServer().removeKey((int) IndexConstants.SECOND_INDEX);
@@ -40,7 +39,7 @@ public final class ServerActLoopAikiQuitAiki implements IntServerActLoopAiki {
             forcedBye_.setClosing(false);
         }
         if (socket_ != null) {
-            NetGroupFrame.trySendString(Net.exportExiting(forcedBye_), socket_);
+            NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
         }
         _common.getSockets().clear();
     }

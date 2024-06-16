@@ -4,7 +4,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
-import cards.network.threads.Net;
 import code.gui.initialize.AbstractSocket;
 import code.network.*;
 import code.sml.Document;
@@ -33,7 +32,7 @@ public final class SendReceiveServerAiki extends BasicServer {
 
     @Override
     public void loopServer(String _input) {
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             loopServer(_input,null);
             return;
         }

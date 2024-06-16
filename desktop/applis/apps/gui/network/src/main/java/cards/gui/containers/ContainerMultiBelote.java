@@ -35,6 +35,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
+import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -447,7 +448,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 Games.toString(_bid.getBidBelote(),lg_), RETURN_LINE));
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDoneBidding(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
             return;
         }
@@ -510,7 +511,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        }
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDiscardSimple(),getContainerMultiContent().window().getSocket());
             return;
         }
@@ -546,7 +547,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getPanneauBoutonsJeu().validate();
         pack();
         refreshPlayerHand();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDiscardSlam(),getContainerMultiContent().window().getSocket());
             return;
         }
@@ -707,7 +708,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //PackingWindowAfter.pack(this, true);
         pack();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportDonePlaying(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
             return;
         }
@@ -762,7 +763,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         updateCardsInPanelBeloteMulti( false);
         pack();
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             NetGroupFrame.trySendString(Net.exportCompletedHandBelote(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
             return;
         }

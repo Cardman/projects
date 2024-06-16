@@ -29,7 +29,7 @@ public final class LoopClient implements Runnable {
 
     @Override
     public void run() {
-        if (Net.QUICK) {
+        if (NetCommon.QUICK) {
             if (window.isCards()) {
                 Net.loopClient(window, netRetrievedInfos, socket);
             } else {
