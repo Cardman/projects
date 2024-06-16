@@ -1,6 +1,7 @@
 package aiki.network;
 
 import cards.network.common.ClientServerIdInfos;
+import cards.network.threads.Net;
 import code.util.CustList;
 import code.util.core.NumberUtil;
 
@@ -9,7 +10,7 @@ public final class NetAikiRetrievedInfos {
     private final CustList<String> parts;
     public NetAikiRetrievedInfos(String _info){
         int len_ = _info.length();
-        ClientServerIdInfos cs_ = new ClientServerIdInfos(_info,NetAiki.AIKI_SEP_0);
+        ClientServerIdInfos cs_ = new ClientServerIdInfos(_info, Net.SEP_0);
         StringBuilder id_ = cs_.getId();
         int index_ = cs_.getIndex();
 //        while (index_ < _info.length()) {
