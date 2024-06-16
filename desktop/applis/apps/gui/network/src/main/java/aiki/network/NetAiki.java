@@ -1,8 +1,11 @@
 package aiki.network;
 
+import aiki.db.ExchangedData;
 import aiki.fight.enums.Statistic;
+import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.UsesOfMove;
 import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
@@ -99,6 +102,54 @@ public final class NetAiki {
         out_.append(AIKI_SEP_0);
         return out_.toString();
     }
+    public static StringBuilder exportCheckCompatibility(CheckCompatibility _check) {
+        ExchangedData data_ = _check.getData();
+        StringBuilder out_ = new StringBuilder();
+        out_.append(_check.getIndex());
+        out_.append(AIKI_SEP_0);
+        out_.append(data_.getIndexTeam());
+        out_.append(AIKI_SEP_0);
+        out_.append(StringUtil.join(data_.getAbilities(),AIKI_SEP_1));
+        out_.append(AIKI_SEP_0);
+        out_.append(StringUtil.join(data_.getItems(),AIKI_SEP_1));
+        out_.append(AIKI_SEP_0);
+        CustList<String> moves_ = new CustList<String>();
+        for (EntryCust<String, GenderRepartition> m: data_.getGenderRepartitions().entryList()) {
+            moves_.add(m.getKey()+AIKI_SEP_2+m.getValue().getGenderRep());
+        }
+        out_.append(StringUtil.join(moves_,AIKI_SEP_1));
+        out_.append(AIKI_SEP_0);
+        out_.append(exportPokemonPlayer(data_.getPokemon(),AIKI_SEP_1,AIKI_SEP_2,AIKI_SEP_3));
+        CustList<String> pk_ = new CustList<String>();
+        for (UsablePokemon m: _check.getTeam()) {
+            if (m instanceof PokemonPlayer) {
+                pk_.add(exportPokemonPlayer((PokemonPlayer) m,AIKI_SEP_2,AIKI_SEP_3,AIKI_SEP_4).toString());
+            }
+        }
+        out_.append(AIKI_SEP_0);
+        out_.append(StringUtil.join(pk_,AIKI_SEP_1));
+        return out_;
+    }
+    public static CheckCompatibility importCheckCompatibility(String _check) {
+        CustList<String> infos_ = NetAikiRetrievedInfos.partsStr(_check, 0, _check.length(), AIKI_SEP_0);
+        CheckCompatibility ch_ = new CheckCompatibility();
+        ch_.setData(new ExchangedData());
+        ch_.setTeam(new CustList<UsablePokemon>());
+        ch_.setIndex(NumberUtil.parseInt(infos_.get(0)));
+        ch_.getData().setIndexTeam(NumberUtil.parseInt(infos_.get(1)));
+        ch_.getData().setAbilities(StringUtil.splitChar(infos_.get(2),AIKI_SEP_1));
+        ch_.getData().setItems(StringUtil.splitChar(infos_.get(3),AIKI_SEP_1));
+        ch_.getData().setGenderRepartitions(new StringMap<GenderRepartition>());
+        for (String m: StringUtil.splitChar(infos_.get(4),AIKI_SEP_1)) {
+            StringList kv_ = StringUtil.splitChar(m, AIKI_SEP_2);
+            ch_.getData().getGenderRepartitions().addEntry(kv_.first(),GenderRepartition.getGenderRepartitionByName(kv_.last()));
+        }
+        ch_.getData().setPokemon(importPokemonPlayer(infos_.get(5),AIKI_SEP_1,AIKI_SEP_2,AIKI_SEP_3));
+        for (String m: NetAikiRetrievedInfos.partsStr(infos_.get(6),0,infos_.get(6).length(),AIKI_SEP_1)) {
+            ch_.getTeam().add(importPokemonPlayer(m,AIKI_SEP_2,AIKI_SEP_3,AIKI_SEP_4));
+        }
+        return ch_;
+    }
     public static StringBuilder exportPokemonPlayer(PokemonPlayer _pk, char _sep, char _sec, char _th) {
         StringBuilder out_ = new StringBuilder();
         out_.append(_pk.getName());
@@ -132,7 +183,6 @@ public final class NetAiki {
         out_.append(_pk.getUsedBallCatching());
         out_.append(_sep);
         out_.append(_pk.getNbStepsTeamLead());
-        out_.append(_sep);
         return out_;
     }
     public static PokemonPlayer importPokemonPlayer(String _part, char _sep, char _sec, char _th) {
@@ -143,7 +193,7 @@ public final class NetAiki {
         p_.setGender(Gender.getGenderByName(infos_.get(2)));
         p_.setAbility(infos_.get(3));
         p_.setItem(infos_.get(4));
-        p_.setNickname(unscapeId(infos_.get(5)));
+        p_.setNickname(unescapeId(infos_.get(5)));
         for (String m: StringUtil.splitChar(infos_.get(6),_sec)) {
             p_.getMoves().addEntry(m, new UsesOfMove((short) 0));
         }
@@ -157,6 +207,17 @@ public final class NetAiki {
         p_.setNbStepsTeamLead((short)NumberUtil.parseInt(infos_.get(11)));
         return p_;
     }
+//    public static StringBuilder exportEgg(Egg _pk, char _sep) {
+//        StringBuilder out_ = new StringBuilder();
+//        out_.append(_pk.getName());
+//        out_.append(_sep);
+//        out_.append(_pk.getSteps());
+//        return out_;
+//    }
+//    public static Egg importEgg(String _part, char _sep) {
+//        CustList<String> infos_ = NetAikiRetrievedInfos.partsStr(_part, 0, _part.length(), _sep);
+//        return new Egg(infos_.get(0)+';'+infos_.get(1));
+//    }
     public static String escapeId(String _str) {
         StringBuilder sb_ = new StringBuilder();
         for (char c: _str.toCharArray()) {
@@ -169,7 +230,7 @@ public final class NetAiki {
         }
         return sb_.toString();
     }
-    public static String unscapeId(String _str) {
+    public static String unescapeId(String _str) {
         StringBuilder sb_ = new StringBuilder();
         int len_ = _str.length();
         int i_ = 0;
