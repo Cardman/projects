@@ -411,7 +411,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     //labels at main menu
 
-    private AbsPlainLabel welcomeLabel;
+//    private AbsPlainLabel welcomeLabel;
 //    private AbsPlainButton singleModeButton;
     private AbsButton multiModeButton;
     private BasicClient basicClient;
@@ -899,7 +899,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             expExit(forcedBye_, _newSocket);
             return;
         }
-        getSockets().getNicknames().put(nb_,pseudo());
+        getSockets().getNicknames().put(nb_,getDialogServerContent().getNickname().getText());
         getSockets().getSockets().put(nb_, _newSocket);
         SendReceiveServerCards sendReceiveServer_=new SendReceiveServerCards(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
@@ -983,7 +983,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            p_.setAcceptable(true);
 //            p_.setArriving(true);
             p_.setIndex(container_.getContainerMultiContent().getNoClient());
-            p_.setPseudo(pseudo());
+            p_.setPseudo(getDialogServerContent().getNickname().getText());
 //            p_.setPlacesPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getPlacesPlayers());
 //            p_.setReadyPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getReadyPlayers());
             container_.getContainerMultiContent().updateAfter(p_);
@@ -1004,7 +1004,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             OldPlayerCards p_ = new OldPlayerCards();
             p_.setIndex(container_.getContainerMultiContent().getNoClient());
             p_.setTarget(playerActionBeforeGame_.getIndex());
-            p_.setPseudo(pseudo());
+            p_.setPseudo(getDialogServerContent().getNickname().getText());
             container_.getContainerMultiContent().updateAfter((NewPlayerCards)playerActionBeforeGame_);
             Net.sendObject(_socket,p_);
             return;
@@ -1419,7 +1419,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         getPane().removeAll();
         AbsPanel container_=getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo())));
+//        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
+//        container_.add(welcomeLabel);
         /*Cree les boutons de jeu*/
         boutonsMulti(container_);
         AbsButton button_ = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_MAIN_MENU));
@@ -1508,8 +1509,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         getPane().removeAll();
         AbsPanel pane_ = getCompoFactory().newPageBox();
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
-        pane_.add(welcomeLabel, GuiConstants.CENTER);
+//        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
+//        pane_.add(welcomeLabel, GuiConstants.CENTER);
         /*Cree les boutons de jeu*/
 //        singleModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_SINGLE_MODE));
 //        singleModeButton.addActionListener(new ChooseModeEvent(this, true));
@@ -2460,9 +2461,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
 //        help.setText(getMessages().getVal(CST_HELP));
 //        generalHelp.setText(getMessages().getVal(CST_GENERAL_HELP));
-        if (welcomeLabel != null) {
-            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
-        }
+//        if (welcomeLabel != null) {
+//            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
+//        }
 //        if (singleModeButton != null) {
 //            singleModeButton.setText(getMessages().getVal(CST_SINGLE_MODE));
 //        }

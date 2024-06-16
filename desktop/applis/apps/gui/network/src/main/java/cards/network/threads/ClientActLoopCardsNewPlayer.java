@@ -16,6 +16,6 @@ public final class ClientActLoopCardsNewPlayer implements IntClientActLoopCards 
         n_.setIndex(NumberUtil.parseInt(_parts.get(0)));
         n_.setPseudo(_parts.get(1));
         container_.getContainerMultiContent().updateAfter(n_);
-        NetGroupFrame.trySendString(Net.exportOldPlayer(container_.getContainerMultiContent().getNoClient(), n_.getIndex(),_window.pseudo()), _socket);
+        NetGroupFrame.trySendString(Net.exportOldPlayer(container_.getContainerMultiContent().getNoClient(), n_.getIndex(),_window.getDialogServerContent().getNickname().getText()), _socket);
     }
 }
