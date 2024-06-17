@@ -27,7 +27,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
         super(_list);
-        sockets = new NetCommon(_list);
+        sockets = new NetCommon();
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         lock = _list.getThreadFactory().newExecutorService();
     }
@@ -59,11 +59,11 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
 //        server.shutdown();
 //    }
 
-    public SocketResults createClient(String _host, IpType _ipType, boolean _first, int _port) {
+    public SocketResults createClient(String _host, IpType _ipType, int _port) {
 //        port = _port;
-        if (_first) {
-            return getFirstSocketResults(_port);
-        }
+//        if (_first) {
+//            return getFirstSocketResults(_port);
+//        }
         StringList allAddresses_ = NetCreate.getAllAddresses(getSocketFactory(),_ipType, _host);
         if (allAddresses_.isEmpty()) {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
@@ -74,19 +74,19 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
 
     public SocketResults getFirstSocketResults(int _port) {
         AbstractSocket socket_ = getSocketFactory().newSocket(_port);
-        return results(true, socket_);
+        return results(socket_);
     }
 
     private SocketResults getNextSocketResults(int _port, String _address) {
         AbstractSocket socket_ = getSocketFactory().newSocket(_port, _address);
-        return results(false, socket_);
+        return results(socket_);
     }
 
-    private SocketResults results(boolean _first, AbstractSocket _socket) {
+    private SocketResults results(AbstractSocket _socket) {
         if (_socket.isKo()) {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
         }
-        socket =  initIndexInGame(_first,_socket);
+        socket = initIndexInGame(_socket);
         return new SocketResults(_socket);
     }
 
@@ -126,7 +126,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
     }
 
     //_first if the connected player is the first player
-    public abstract AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket);
+    public abstract AbstractSocket initIndexInGame(AbstractSocket _socket);
 
     public NetCommon getSockets() {
         return sockets;

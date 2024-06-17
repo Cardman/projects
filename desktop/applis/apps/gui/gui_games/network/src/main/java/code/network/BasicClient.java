@@ -46,6 +46,9 @@ public final class BasicClient extends BasicClientAbs {
     }
 
     public static boolean iterate(AbstractSocket _socket, WindowNetWork _window, String _input) {
+        if (_input == null) {
+            return false;
+        }
         if (_window.isCards()) {
             NetRetrievedInfos net_ = Net.netRetrievedInfos(_input, _window.getNet());
             if (net_.getIndexAct() < 0) {

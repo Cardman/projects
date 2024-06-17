@@ -8,4 +8,9 @@ public interface AbstractSocket {
     void close();
 
     boolean isKo();
+
+    String inetAddress();
+    String localAddress();
+    String localSocketAddress();
+    String remoteSocketAddress();
 }

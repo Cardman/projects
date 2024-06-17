@@ -48,4 +48,44 @@ public class DefSocket implements AbstractSocket {
     public boolean isKo() {
         return ko;
     }
+
+    @Override
+    public String inetAddress() {
+        try {
+            return socket.getInetAddress().toString();
+            //ip serveur
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    @Override
+    public String localAddress() {
+        try {
+            return socket.getLocalAddress().toString();
+            //ip client distante
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    @Override
+    public String localSocketAddress() {
+        try {
+            return socket.getLocalSocketAddress().toString();
+            //ip client distante
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    @Override
+    public String remoteSocketAddress() {
+        try {
+            return socket.getRemoteSocketAddress().toString();
+            //ip serveur avec port temporaire
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }

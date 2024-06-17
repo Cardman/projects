@@ -28,7 +28,7 @@ public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopC
                 }
                 NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), Net.getSocketByPlace(p, _common));
             }
-            _common.getNicknames().clear();
+//            _common.getNicknames().clear();
             Net.getGames(_instance).finirParties();
             _common.getPlacesPlayers().clear();
             _common.getSockets().clear();

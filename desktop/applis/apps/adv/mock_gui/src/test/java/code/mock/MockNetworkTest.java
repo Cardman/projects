@@ -32,6 +32,14 @@ public final class MockNetworkTest extends EquallableMockGuiUtil {
         assertTrue(server_.close());
         assertTrue(server_.isClosed());
         assertTrue(server_.accept().isKo());
+        ((MockSocket)so_).inetAddress("_1");
+        assertEq("_1", so_.inetAddress());
+        ((MockSocket)so_).localAddress("_2");
+        assertEq("_2", so_.localAddress());
+        ((MockSocket)so_).localSocketAddress("_3");
+        assertEq("_3", so_.localSocketAddress());
+        ((MockSocket)so_).remoteSocketAddress("_4");
+        assertEq("_4", so_.remoteSocketAddress());
     }
     @Test
     public void n3() {

@@ -1,6 +1,5 @@
 package code.network;
 
-import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractSocket;
 import code.util.CustList;
 import code.util.IntMap;
@@ -14,14 +13,9 @@ public final class NetCommon {
     private final IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
     private final IntMap<BoolVal> readyPlayers = new IntMap<BoolVal>();
 
-    private final IntMap<String> nicknames =new IntMap<String>();
+//    private final IntMap<String> nicknames =new IntMap<String>();
 
     private final IntMap<BasicServer> connectionsServer =new IntMap<BasicServer>();
-    private final AbstractProgramInfos programInfos;
-
-    public NetCommon(AbstractProgramInfos _p) {
-        this.programInfos = _p;
-    }
 
     public static String exportExiting(Exiting _index) {
         StringBuilder out_ = new StringBuilder();
@@ -68,10 +62,6 @@ public final class NetCommon {
         return "1";
     }
 
-    public AbstractProgramInfos getProgramInfos() {
-        return programInfos;
-    }
-
     /**server
      @return true &hArr; the players are ready to begin a deal
       * @param _common */
@@ -98,9 +88,9 @@ public final class NetCommon {
         return readyPlayers;
     }
 
-    public IntMap<String> getNicknames() {
-        return nicknames;
-    }
+//    public IntMap<String> getNicknames() {
+//        return nicknames;
+//    }
 
     public IntTreeMap<Byte> getPlacesPlayers() {
         return placesPlayers;

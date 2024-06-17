@@ -1,11 +1,9 @@
 package code.network;
 import code.gui.initialize.AbstractServerSocket;
 import code.gui.initialize.AbstractSocket;
-import code.threads.AbstractThreadFactory;
-import code.threads.Locking;
 
 /**Thread safe class*/
-public final class ConnectionToServer implements Runnable, Locking {
+public final class ConnectionToServer implements Runnable {
 
     private final AbstractServerSocket serverSocket;
     private final NetGroupFrame serverWindow;
@@ -30,17 +28,17 @@ public final class ConnectionToServer implements Runnable, Locking {
         //server side
     }
 
-    @Override
-    public AbstractThreadFactory getCurrentThreadFactory() {
-        return serverWindow.getThreadFactory();
-    }
+//    @Override
+//    public AbstractThreadFactory getCurrentThreadFactory() {
+//        return serverWindow.getThreadFactory();
+//    }
 //    @Override
 //    public AbstractThread getCurrentThread() {
 //        return serverWindow.getThreadFactory().newThread();
 //    }
 
-    @Override
-    public boolean isCurrentThreadEnded() {
-        return false;
-    }
+//    @Override
+//    public boolean isCurrentThreadEnded() {
+//        return false;
+//    }
 }

@@ -2,17 +2,16 @@ package code.network;
 import code.gui.initialize.AbstractBufferedReader;
 import code.gui.initialize.AbstractSocket;
 import code.threads.AbstractThreadFactory;
-import code.threads.Locking;
 
 /**Thread safe class*/
-public abstract class BasicServer extends SendReceive implements Locking {
+public abstract class BasicServer extends SendReceive {
     private final NetCommon sockets;
     private final AbstractThreadFactory threadFactory;
-    private final NetGroupFrame net;
+//    private final NetGroupFrame net;
 
     protected BasicServer(AbstractSocket _socket, NetGroupFrame _net) {
         super(_socket);
-        net = _net;
+//        net = _net;
         sockets = _net.getSockets();
         threadFactory = _net.getThreadFactory();
     }
@@ -32,11 +31,10 @@ public abstract class BasicServer extends SendReceive implements Locking {
     }
     public abstract void loopServer(String _input);
 
-    public NetGroupFrame getNet() {
-        return net;
-    }
+//    public NetGroupFrame getNet() {
+//        return net;
+//    }
 
-    @Override
     public AbstractThreadFactory getCurrentThreadFactory() {
         return threadFactory;
     }
@@ -46,10 +44,9 @@ public abstract class BasicServer extends SendReceive implements Locking {
 //        return getNet().getThreadFactory().newThread();
 //    }
 
-    @Override
-    public boolean isCurrentThreadEnded() {
-        return false;
-    }
+//    public boolean isCurrentThreadEnded() {
+//        return false;
+//    }
 
     public NetCommon getSockets() {
         return sockets;

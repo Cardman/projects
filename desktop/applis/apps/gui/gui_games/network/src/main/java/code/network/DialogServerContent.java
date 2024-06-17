@@ -230,7 +230,7 @@ public final class DialogServerContent implements AbstractDialogServer {
 //        create = false;
         closeWindow();
         String ip_ = adjust(ipOrHostName.getText());
-        SocketResults connected_ = window.createClient(ip_, ipType.getCurrent(), false, portChoice.getValue());
+        SocketResults connected_ = window.createClient(ip_, ipType.getCurrent(), portChoice.getValue());
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             component.setVisible(true);
             window.pack();

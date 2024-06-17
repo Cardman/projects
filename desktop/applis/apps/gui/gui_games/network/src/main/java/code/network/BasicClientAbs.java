@@ -15,12 +15,12 @@ public abstract class BasicClientAbs extends SendReceive {
         AbstractBufferedReader inputSock_ = getSocket().getInput();
         while (true) {
             //tourne toujours
-            String input_ = inputSock_.readLine();
-            if (input_ == null) {
-                return;
-            }
+//            String input_ = inputSock_.readLine();
+//            if (input_ == null) {
+//                return;
+//            }
             //on peut traiter les "timeout"
-            if (!iterate(getSocket(),input_)) {
+            if (!iterate(getSocket(),inputSock_.readLine())) {
                 return;
             }
 //            Document doc_ = getNet().getDoc(input_);

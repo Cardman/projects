@@ -807,7 +807,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     @Override
     public void gearClient(AbstractSocket _newSocket) {
         if (!isCards()) {
-            if (getSockets().getNicknames().size() == NetAiki.NB_PLAYERS) {
+            if (getSockets().getSockets().size() == NetAiki.NB_PLAYERS) {
                 Exiting forcedBye_ = new Exiting();
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
@@ -835,7 +835,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             expExit(forcedBye_, _newSocket);
             return;
         }
-        getSockets().getNicknames().put(nb_,getDialogServerContent().getNickname().getText());
+//        getSockets().getNicknames().put(nb_,getDialogServerContent().getNickname().getText());
         getSockets().getSockets().put(nb_, _newSocket);
         SendReceiveServerCards sendReceiveServer_=new SendReceiveServerCards(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
@@ -2295,7 +2295,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         trySendString(NetAiki.exportSentPokemon(_serializable), getSocket());
     }
     @Override
-    public AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket) {
+    public AbstractSocket initIndexInGame(AbstractSocket _socket) {
         basicClient = new BasicClient(_socket, this);
         getThreadFactory().newStartedThread(getBasicClient());
         return _socket;
