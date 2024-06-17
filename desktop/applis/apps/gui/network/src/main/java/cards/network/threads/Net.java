@@ -923,7 +923,6 @@ public final class Net {
         out_.append(_dealt.getDiscardPhase().getTaker());
         out_.append(_dealt.getDiscardPhase().getTakerIndex());
         out_.append(SEP_0);
-        out_.append(SEP_0);
         out_.append(exportHandTarot(_dealt.getDiscardCard(), SEP_1));
         out_.append(SEP_0);
         out_.append(exportHandTarot(_dealt.getCallableCards(), SEP_1));
@@ -995,9 +994,7 @@ public final class Net {
         out_.append(VALIDATE_DISCARD_SIMPLE_CALL);
         if (_call != CardTarot.WHITE) {
             out_.append(SEP_0);
-            HandTarot c_ = new HandTarot();
-            c_.ajouter(_call);
-            out_.append(exportHandTarot(c_,SEP_1));
+            out_.append(TarotCardsExporterUtil.fromCardTarot(_call));
         }
         return out_.toString();
     }
@@ -1009,9 +1006,7 @@ public final class Net {
         out_.append(VALIDATE_DISCARD_SLAM);
         if (_call != CardTarot.WHITE) {
             out_.append(SEP_0);
-            HandTarot c_ = new HandTarot();
-            c_.ajouter(_call);
-            out_.append(exportHandTarot(c_,SEP_1));
+            out_.append(TarotCardsExporterUtil.fromCardTarot(_call));
         }
         return out_.toString();
     }
@@ -1902,6 +1897,13 @@ public final class Net {
         }
         return h_;
     }
+    private static String placesPlayers(AbsMap<Integer,Byte> _placesPlayers) {
+        CustList<String> places_ = new CustList<String>();
+        for (EntryCust<Integer, Byte> e: _placesPlayers.entryList()) {
+            places_.add(""+e.getKey()+SEP_2+e.getValue());
+        }
+        return StringUtil.join(places_, SEP_1);
+    }
     private static IntTreeMap<Byte> placePlayers(String _info) {
         IntTreeMap<Byte> placesPlayers_ = new IntTreeMap<Byte>();
         if (_info.isEmpty()) {
@@ -2044,14 +2046,6 @@ public final class Net {
         q_.setServer(NetCommon.toBoolEquals(i_,1));
         q_.setPlace((byte)NumberUtil.parseInt(i_.substring(2)));
         return q_;
-    }
-
-    private static String placesPlayers(AbsMap<Integer,Byte> _placesPlayers) {
-        CustList<String> places_ = new CustList<String>();
-        for (EntryCust<Integer, Byte> e: _placesPlayers.entryList()) {
-            places_.add(""+e.getKey()+SEP_2+e.getValue());
-        }
-        return StringUtil.join(places_, SEP_1);
     }
 
     public static int getPort() {
