@@ -1278,7 +1278,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //
 //        setContentPane(container_);
 //        pack();
-        containerMultiContent.sendOk(this, container_);
+        containerMultiContent.sendOk(this, container_, MessagesGuiCards.PLAY_TAROT);
         //PackingWindowAfter.pack(this, true);
 //        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
 //        ok_.setPlace(getContainerMultiContent().getIndexInGame());

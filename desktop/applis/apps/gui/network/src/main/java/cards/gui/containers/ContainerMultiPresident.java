@@ -695,7 +695,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //        setContentPane(container_);
 //        pack();
         //PackingWindowAfter.pack(this, true);
-        containerMultiContent.sendOk(this, container_);
+        containerMultiContent.sendOk(this, container_, MessagesGuiCards.PLAY_PRESIDENT);
 //        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
 //        ok_.setPlace(containerMultiContent.getIndexInGame());
 //        ok_.setLocale(lg_);

@@ -232,7 +232,7 @@ public final class ContainerMultiContent {
     public void sendPause() {
         NetGroupFrame.trySendString(Net.exportDonePause(getIndexInGame()),window().getSocket());
     }
-    public void sendOk(ContainerMulti _cont, AbsPanel _panel) {
+    public void sendOk(ContainerMulti _cont, AbsPanel _panel, String _key) {
         AbsPanel panneau_=_cont.getOwner().getCompoFactory().newPageBox();
         endReady(_cont,panneau_);
 //        readyToPlay = false;
@@ -251,7 +251,7 @@ public final class ContainerMultiContent {
 //        }
         panneau_.add(panel_);
         if (isHasCreatedServer()) {
-            AbsButton button_ = _cont.getOwner().getCompoFactory().newPlainButton(getMessages().getVal(MessagesGuiCards.PLAY_BELOTE));
+            AbsButton button_ = _cont.getOwner().getCompoFactory().newPlainButton(getMessages().getVal(_key));
             button_.addActionListener(new PlayNextDealEvent(_cont));
             panneau_.add(button_);
         }

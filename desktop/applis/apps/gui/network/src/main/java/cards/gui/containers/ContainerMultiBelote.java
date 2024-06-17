@@ -1072,7 +1072,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        setContentPane(container_);
 //        pack();
         //PackingWindowAfter.pack(this, true);
-        containerMultiContent.sendOk(this, container_);
+        containerMultiContent.sendOk(this, container_, MessagesGuiCards.PLAY_BELOTE);
 //        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
 //        ok_.setPlace(containerMultiContent.getIndexInGame());
 //        ok_.setLocale(lg_);
