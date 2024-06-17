@@ -287,6 +287,11 @@
 !/desktop/applis/apps/gui/gui_games/cardgamesgui/src/
 !/desktop/applis/apps/gui/gui_games/cardgamesgui/src/**/
 !/desktop/applis/apps/gui/gui_games/cardgamesgui/src/**/*.java
+!/desktop/applis/apps/gui/gui_games/network/
+!/desktop/applis/apps/gui/gui_games/network/pom.xml
+!/desktop/applis/apps/gui/gui_games/network/src/
+!/desktop/applis/apps/gui/gui_games/network/src/**/
+!/desktop/applis/apps/gui/gui_games/network/src/**/*.java
 !/desktop/applis/apps/gui/gui_games/pokemongui/
 !/desktop/applis/apps/gui/gui_games/pokemongui/pokemon_port.ini
 !/desktop/applis/apps/gui/gui_games/pokemongui/pom.xml
@@ -348,11 +353,6 @@
 !/desktop/applis/apps/gui/interpreter/rendersgui/src/
 !/desktop/applis/apps/gui/interpreter/rendersgui/src/**/
 !/desktop/applis/apps/gui/interpreter/rendersgui/src/**/*.java
-!/desktop/applis/apps/gui/network/
-!/desktop/applis/apps/gui/network/pom.xml
-!/desktop/applis/apps/gui/network/src/
-!/desktop/applis/apps/gui/network/src/**/
-!/desktop/applis/apps/gui/network/src/**/*.java
 !/desktop/applis/apps/gui/pom.xml
 !/desktop/applis/apps/sys_apps/
 !/desktop/applis/apps/sys_apps/def_standalones/
