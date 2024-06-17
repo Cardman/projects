@@ -10,7 +10,6 @@ import code.util.core.StringUtil;
 
 public final class NetCommon {
 
-    public static final boolean QUICK = false;
     private final IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
     private final IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
     private final IntMap<BoolVal> readyPlayers = new IntMap<BoolVal>();

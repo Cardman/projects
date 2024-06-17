@@ -1,15 +1,24 @@
 package aiki.network.stream;
 
 
-public final class ReadyAiki extends PlayerActionBeforeGameAiki {
+import code.network.ReadyContent;
 
-    private boolean ready;
+public final class ReadyAiki {
 
-    public boolean isReady() {
-        return ready;
+    private final ReadyContent content = new ReadyContent();
+
+    private int index;
+
+    public ReadyContent getContent() {
+        return content;
     }
 
-    public void setReady(boolean _ready) {
-        ready = _ready;
+    public int getIndex() {
+        return index;
     }
+
+    public void setIndex(int _index) {
+        index = _index;
+    }
+
 }

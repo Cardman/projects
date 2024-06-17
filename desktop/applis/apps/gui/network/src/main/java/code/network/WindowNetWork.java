@@ -10,7 +10,6 @@ import aiki.gui.events.*;
 import aiki.main.*;
 import aiki.sml.*;
 import cards.belote.*;
-import cards.belote.sml.*;
 import cards.enumerations.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
@@ -21,17 +20,13 @@ import cards.gui.events.*;
 import cards.gui.menus.*;
 import cards.main.*;
 import cards.network.belote.actions.*;
-import cards.network.belote.displaying.*;
 import cards.network.common.*;
 import cards.network.common.before.*;
 import cards.network.president.actions.*;
-import cards.network.sml.*;
 import cards.network.tarot.actions.*;
 import cards.network.threads.*;
 import cards.president.*;
-import cards.president.sml.*;
 import cards.tarot.*;
-import cards.tarot.sml.*;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.files.*;
@@ -40,7 +35,6 @@ import code.gui.initialize.*;
 import code.netw.*;
 import code.scripts.messages.cards.*;
 import code.scripts.messages.gui.*;
-import code.sml.*;
 import code.sml.util.*;
 import code.stream.*;
 import code.threads.*;
@@ -48,7 +42,6 @@ import code.util.*;
 import code.util.core.*;
 import aiki.map.pokemon.*;
 import aiki.network.*;
-import aiki.network.sml.*;
 import aiki.network.stream.*;
 
 public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt, WindowAikiInt {
@@ -655,103 +648,52 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
      @param _serializable the serializable object to be sent
      */
     public boolean sendObject(ChoosenPlace _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerChosenPlace(_serializable.getIndex(),_serializable.getPlace(),_serializable.getPlacesPlayers()),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable), getSocket());
+        return trySendString(Net.exportServerChosenPlace(_serializable.getIndex(),_serializable.getPlace(),_serializable.getPlacesPlayers()),getSocket());
     }
-    public boolean sendObject(Ready _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerReady(_serializable.getIndex(),_serializable.isReady()),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable), getSocket());
+    public boolean sendObject(ReadyCards _serializable) {
+        return trySendString(Net.exportServerReady(_serializable.getIndex(),_serializable.getContent().isReady()),getSocket());
     }
 //    public boolean sendObjectTakeCard() {
 //        return trySendString(DocumentWriterCardsMultiUtil.takeCard(), getSocket());
 //    }
     public boolean sendObjectPlayGame() {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportPlayGame(),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playGame(), getSocket());
+        return trySendString(Net.exportPlayGame(),getSocket());
     }
     public boolean sendObject(BiddingBelote _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerBiddingBelote(_serializable),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+        return trySendString(Net.exportServerBiddingBelote(_serializable),getSocket());
     }
     public boolean sendObject(DiscardedCardsPresident _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportDiscardedCardsPresident(_serializable.getPlace(),_serializable.getDiscarded()),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
-    }
-    public boolean sendObject(CallAfterDiscardTarot _serializable) {
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+        return trySendString(Net.exportDiscardedCardsPresident(_serializable.getPlace(),_serializable.getDiscarded()),getSocket());
     }
     public boolean sendObject(BiddingTarot _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerBiddingTarot(_serializable),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+        return trySendString(Net.exportServerBiddingTarot(_serializable),getSocket());
     }
     public boolean sendObject(PlayingCardBelote _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerPlayingBelote(_serializable),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+        return trySendString(Net.exportServerPlayingBelote(_serializable),getSocket());
     }
     public boolean sendObject(PlayingCardPresident _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerPlayingPresident(_serializable),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+        return trySendString(Net.exportServerPlayingPresident(_serializable),getSocket());
     }
     public boolean sendObject(PlayingCardTarot _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerPlayingTarot(_serializable),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+        return trySendString(Net.exportServerPlayingTarot(_serializable),getSocket());
     }
-    public boolean sendObject(Quit _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportQuitting(_serializable),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
-    }
-    public boolean sendObject(PlayerActionGame _serializable) {
-        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+    public boolean sendObject(QuitCards _serializable) {
+        return trySendString(Net.exportQuitting(_serializable),getSocket());
     }
     public boolean sendObjectBelote(DiscardedCardBelote _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportDiscardedCardBelote(_serializable),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.discardedBelote(_serializable), getSocket());
+        return trySendString(Net.exportDiscardedCardBelote(_serializable),getSocket());
     }
     public boolean sendObjectTarot(DiscardedCardTarot _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportDiscardedCardTarot(_serializable),getSocket());
-        }
-        return trySendString(DocumentWriterCardsMultiUtil.discardedTarot(_serializable), getSocket());
+        return trySendString(Net.exportDiscardedCardTarot(_serializable),getSocket());
     }
     public boolean sendObject(RulesBelote _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerRulesBelote(_serializable).toString(),getSocket());
-        }
-        return trySendString(DocumentWriterBeloteUtil.setRulesBelote(_serializable), getSocket());
+        return trySendString(Net.exportServerRulesBelote(_serializable).toString(),getSocket());
     }
     public boolean sendObject(RulesPresident _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerRulesPresident(_serializable).toString(),getSocket());
-        }
-        return trySendString(DocumentWriterPresidentUtil.setRulesPresident(_serializable), getSocket());
+        return trySendString(Net.exportServerRulesPresident(_serializable).toString(),getSocket());
     }
     public boolean sendObject(RulesTarot _serializable) {
-        if (NetCommon.QUICK) {
-            return trySendString(Net.exportServerRulesTarot(_serializable).toString(),getSocket());
-        }
-        return trySendString(DocumentWriterTarotUtil.setRulesTarot(_serializable), getSocket());
+        return trySendString(Net.exportServerRulesTarot(_serializable).toString(),getSocket());
     }
     @Override
     public void quit() {
@@ -881,13 +823,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             getSockets().getConnectionsServer().put(i_,sendReceiveServer_);
             getSockets().getReadyPlayers().put(i_, BoolVal.FALSE);
             getSockets().getPlacesPlayers().put(i_,(byte) (i_));
-            if (NetCommon.QUICK) {
-                trySendString(NetAiki.exportIndexArrive(i_),getSocket());
-                return;
-            }
-            IndexOfArrivingAiki index_ = new IndexOfArrivingAiki();
-            index_.setIndex(i_);
-            NetAiki.sendObject(_newSocket,index_);
+            trySendString(NetAiki.exportIndexArrive(i_),getSocket());
             return;
         }
         int nb_ = getSockets().getSockets().size();
@@ -904,322 +840,37 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         SendReceiveServerCards sendReceiveServer_=new SendReceiveServerCards(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
         getSockets().getConnectionsServer().put(nb_ ,sendReceiveServer_);
-        IndexOfArrivingCards index_ = new IndexOfArrivingCards();
-        index_.setIndex(nb_);
-        index_.setNbPlayers(nbPlayers_);
-        if (Net.getGames(getNet()).getRulesBelote() != null) {
-            index_.setRulesBelote(Net.getGames(getNet()).getRulesBelote());
-            index_.setRulesPresident(new RulesPresident());
-            index_.setRulesTarot(new RulesTarot());
-        } else if (Net.getGames(getNet()).getRulesPresident() != null) {
-            index_.setRulesBelote(new RulesBelote());
-            index_.setRulesPresident(Net.getGames(getNet()).getRulesPresident());
-            index_.setRulesTarot(new RulesTarot());
-        } else if (Net.getGames(getNet()).getRulesTarot() != null) {
-            index_.setRulesBelote(new RulesBelote());
-            index_.setRulesPresident(new RulesPresident());
-            index_.setRulesTarot(Net.getGames(getNet()).getRulesTarot());
-        } else {
-            index_.setRulesBelote(new RulesBelote());
-            index_.setRulesPresident(new RulesPresident());
-            index_.setRulesTarot(new RulesTarot());
-        }
+//        IndexOfArrivingCards index_ = new IndexOfArrivingCards();
+//        index_.setIndex(nb_);
+//        index_.setNbPlayers(nbPlayers_);
+//        if (Net.getGames(getNet()).getRulesBelote() != null) {
+//            index_.setRulesBelote(Net.getGames(getNet()).getRulesBelote());
+//            index_.setRulesPresident(new RulesPresident());
+//            index_.setRulesTarot(new RulesTarot());
+//        } else if (Net.getGames(getNet()).getRulesPresident() != null) {
+//            index_.setRulesBelote(new RulesBelote());
+//            index_.setRulesPresident(Net.getGames(getNet()).getRulesPresident());
+//            index_.setRulesTarot(new RulesTarot());
+//        } else if (Net.getGames(getNet()).getRulesTarot() != null) {
+//            index_.setRulesBelote(new RulesBelote());
+//            index_.setRulesPresident(new RulesPresident());
+//            index_.setRulesTarot(Net.getGames(getNet()).getRulesTarot());
+//        } else {
+//            index_.setRulesBelote(new RulesBelote());
+//            index_.setRulesPresident(new RulesPresident());
+//            index_.setRulesTarot(new RulesTarot());
+//        }
 //            pl_.setNbPlayers(Net.getNbPlayers(_instance));
 //        pl_.setPseudos(new IntMap<String>(_common.getNicknames()));
-        index_.setPlacesPlayers(getSockets().getPlacesPlayers());
-        index_.setReadyPlayers(new IntMap<BoolVal>(getSockets().getReadyPlayers()));
+//        index_.setPlacesPlayers(getSockets().getPlacesPlayers());
+//        index_.setReadyPlayers(new IntMap<BoolVal>(getSockets().getReadyPlayers()));
         getSockets().getReadyPlayers().put(nb_ , BoolVal.FALSE);
         getSockets().getPlacesPlayers().put(nb_ ,(byte)(nb_));
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportIndexArrive(nb_, nbPlayers_, getSockets(), Net.getGames(getNet())),_newSocket);
-            return;
-        }
-        Net.sendObject(_newSocket,index_);
+        NetGroupFrame.trySendString(Net.exportIndexArrive(nb_, nbPlayers_, getSockets(), Net.getGames(getNet())),_newSocket);
     }
 
     private void expExit(Exiting _forcedBye, AbstractSocket _newSocket) {
-        if (NetCommon.QUICK) {
-            trySendString(NetCommon.exportExiting(_forcedBye), _newSocket);
-            return;
-        }
-        Net.sendObject(_newSocket, _forcedBye);
-    }
-
-    public void loop(Document _readObject, AbstractSocket _socket) {
-        if (!isCards()) {
-            loopAiki(_readObject, _socket);
-            return;
-        }
-        Element elt_ = _readObject.getDocumentElement();
-        String tagName_ = DocumentReaderCardsMultiUtil.tagName(elt_);
-        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT,tagName_)) {
-            if (((ContainerMulti) netg.getContainerGame()).getContainerMultiContent().isHasCreatedServer()) {
-                getMultiStop().setEnabled(true);
-            }
-            return;
-        }
-//        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DELEGATE_SERVER,tagName_)) {
-//            DelegateServer del_ = DocumentReaderCardsMultiUtil.getDelegateServer(elt_);
-//            Net.setGames(del_.getGames(), getNet());
-//            delegateServer();
-//            return;
-//        }
-        PlayerActionBeforeGameCards playerActionBeforeGame_ = DocumentReaderCardsMultiUtil.getPlayerActionBeforeGame(elt_);
-        if (playerActionBeforeGame_ instanceof IndexOfArrivingCards) {
-//            if (!StringUtil.quickEq(((IndexOfArrivingCards) playerActionBeforeGame_).getServerName(),Net.getCards())) {
-//                NewPlayerCards p_ = new NewPlayerCards();
-//                p_.setAcceptable(false);
-////                p_.setArriving(true);
-//                p_.setIndex(playerActionBeforeGame_.getIndex());
-//                p_.setPseudo(pseudo());
-////                p_.setLanguage(getLanguageKey());
-//                Net.sendObject(_socket,p_);
-//                return;
-//            }
-            ContainerMulti container_ = (ContainerMulti) netg.getContainerGame();
-            container_.getContainerMultiContent().setNoClient(playerActionBeforeGame_.getIndex());
-            container_.updateFirst(((IndexOfArrivingCards) playerActionBeforeGame_));
-            NewPlayerCards p_ = new NewPlayerCards();
-//            p_.setAcceptable(true);
-//            p_.setArriving(true);
-            p_.setIndex(container_.getContainerMultiContent().getNoClient());
-            p_.setPseudo(getDialogServerContent().getNickname().getText());
-//            p_.setPlacesPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getPlacesPlayers());
-//            p_.setReadyPlayers(((IndexOfArrivingCards) playerActionBeforeGame_).getReadyPlayers());
-            container_.getContainerMultiContent().updateAfter(p_);
-//            p_.setLanguage(getLanguageKey());
-            Net.sendObject(_socket,p_);
-            return;
-        }
-        ContainerMulti container_ = (ContainerMulti) netg.getContainerGame();
-        if (playerActionBeforeGame_ instanceof ChoosenPlace) {
-            container_.getContainerMultiContent().updatePlaces((ChoosenPlace) playerActionBeforeGame_);
-            return;
-        }
-        if (playerActionBeforeGame_ instanceof Ready) {
-            container_.getContainerMultiContent().updateReady((Ready) playerActionBeforeGame_);
-            return;
-        }
-        if (playerActionBeforeGame_ instanceof NewPlayerCards) {
-            OldPlayerCards p_ = new OldPlayerCards();
-            p_.setIndex(container_.getContainerMultiContent().getNoClient());
-            p_.setTarget(playerActionBeforeGame_.getIndex());
-            p_.setPseudo(getDialogServerContent().getNickname().getText());
-            container_.getContainerMultiContent().updateAfter((NewPlayerCards)playerActionBeforeGame_);
-            Net.sendObject(_socket,p_);
-            return;
-        }
-        if (playerActionBeforeGame_ instanceof OldPlayerCards) {
-            container_.getContainerMultiContent().updateAfter((OldPlayerCards)playerActionBeforeGame_);
-            return;
-        }
-//        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PLAYERS_NAME_PRESENT,tagName_)) {
-//            PlayersNamePresent infos_ = DocumentReaderCardsMultiUtil.getPlayersNamePresent(elt_);
-//            if (infos_.isFirst()) {
-//                container_.updateFirst(infos_);
-//            } else {
-//                container_.getContainerMultiContent().updateAfter(infos_);
-//            }
-//            return;
-//        }
-        if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_PAUSE,tagName_)) {
-            container_.pauseBetweenTrick();
-            return;
-        }
-        if (netg.getContainerGame() instanceof ContainerMultiTarot) {
-            ContainerMultiTarot containerTarot_ = (ContainerMultiTarot) netg.getContainerGame();
-            if (StringUtil.quickEq(DocumentWriterTarotUtil.TYPE_RESULTS_TAROT,tagName_)) {
-                containerTarot_.endGame(DocumentReaderTarotUtil.resultsTarot(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterTarotUtil.TYPE_RULES_TAROT,tagName_)) {
-                containerTarot_.updateRules(DocumentReaderTarotUtil.getRulesTarot(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DEALT_HAND_TAROT,tagName_)) {
-                containerTarot_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandTarot(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_BIDDING_TAROT,tagName_)) {
-                containerTarot_.canBidTarot(DocumentReaderCardsMultiUtil.getAllowBiddingTarot(elt_));
-                return;
-            }
-//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_BIDDING,tagName_)) {
-////                containerTarot_.canBid();
-//                containerTarot_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBidding(elt_));
-//                return;
-//            }
-//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_HANDFUL,tagName_)) {
-//                containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorHandful(elt_));
-//                return;
-//            }
-//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING,tagName_)) {
-//                containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlaying(elt_));
-//                return;
-//            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_CALLABLE_CARDS,tagName_)) {
-                containerTarot_.displayCalling(DocumentReaderCardsMultiUtil.getCallableCards(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DOG,tagName_)) {
-                containerTarot_.displayDog(DocumentReaderCardsMultiUtil.getDog(elt_));
-                return;
-            }
-//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_DISCARDING,tagName_)) {
-//                containerTarot_.errorDiscardingCard(DocumentReaderCardsMultiUtil.getErrorDiscarding(elt_));
-//                return;
-//            }
-//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DISCARDED_TRUMPS,tagName_)) {
-//                containerTarot_.showDiscardedTrumps(DocumentReaderCardsMultiUtil.getDiscardedTrumps(elt_));
-//            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
-                containerTarot_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterTarotUtil.TYPE_TRICKS_HANDS_TAROT,tagName_)) {
-                containerTarot_.showTricksHands(DocumentReaderTarotUtil.getTricksHandsTarot(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_PLAYING_TAROT,tagName_)) {
-                containerTarot_.canPlayTarot(DocumentReaderCardsMultiUtil.getAllowPlayingTarot(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DISPLAY_SLAM_BUTTON,tagName_)) {
-                containerTarot_.displaySlamButton();
-                return;
-            }
-            PlayerActionGame action_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
-            if (action_ instanceof BiddingTarot) {
-                containerTarot_.displayLastBid((BiddingTarot) action_);
-                return;
-            }
-//            if (action_ instanceof DiscardedCard) {
-//                containerTarot_.updateDiscardingOrCanceling((DiscardedCard) action_);
-//                return;
-//            }
-//            if (action_ instanceof CalledCards) {
-//                containerTarot_.displayCalledCard((CalledCards) action_);
-//                return;
-//            }
-//            if (action_ != null) {
-//                if (action_.getActionType() == PlayerActionGameType.SLAM) {
-//                    containerTarot_.displaySlam(action_);
-//                    return;
-//                }
-//            }
-            if (action_ instanceof PlayingCardTarot && ((PlayingCardTarot)action_).isRefreshing()) {
-                containerTarot_.refreshHand((PlayingCardTarot) action_);
-                return;
-            }
-            if (action_ instanceof PlayingCardTarot) {
-                containerTarot_.displayPlayedCard((PlayingCardTarot) action_);
-                return;
-            }
-        }
-        if (netg.getContainerGame() instanceof ContainerMultiPresident) {
-            ContainerMultiPresident containerPresident_ = (ContainerMultiPresident) netg.getContainerGame();
-            if (StringUtil.quickEq(DocumentWriterPresidentUtil.TYPE_RESULTS_PRESIDENT,tagName_)) {
-                containerPresident_.endGame(DocumentReaderPresidentUtil.resultsPresident(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterPresidentUtil.TYPE_RULES_PRESIDENT,tagName_)) {
-                containerPresident_.updateRules(DocumentReaderPresidentUtil.getRulesPresident(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_DISCARDING,tagName_)) {
-                containerPresident_.canDiscardPresident(DocumentReaderCardsMultiUtil.getAllowDiscarding(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_RECEIVED_GIVEN_CARDS,tagName_)) {
-                containerPresident_.refreshLoserHand(DocumentReaderCardsMultiUtil.getReceivedGivenCards(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_PLAYING_PRESIDENT,tagName_)) {
-                containerPresident_.canPlayPresident(DocumentReaderCardsMultiUtil.getAllowPlayingPresident(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DEALT_HAND_PRESIDENT,tagName_)) {
-                containerPresident_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandPresident(elt_));
-                return;
-            }
-//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING_PRESIDENT,tagName_)) {
-//                containerPresident_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingPresident(elt_));
-//                return;
-//            }
-            if (StringUtil.quickEq(DocumentWriterPresidentUtil.TYPE_TRICKS_HANDS_PRESIDENT,tagName_)) {
-                containerPresident_.showTricksHands(DocumentReaderPresidentUtil.getTricksHandsPresident(elt_));
-                return;
-            }
-            PlayerActionGame action_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
-            if (action_ instanceof PlayingCardPresident && ((PlayingCardPresident)action_).isRefreshing()) {
-                containerPresident_.refreshHand((PlayingCardPresident) action_);
-                return;
-            }
-            if (action_ instanceof PlayingCardPresident) {
-                containerPresident_.displayPlayedCard((PlayingCardPresident) action_);
-                return;
-            }
-        }
-        if (netg.getContainerGame() instanceof ContainerMultiBelote) {
-            ContainerMultiBelote containerBelote_ = (ContainerMultiBelote) netg.getContainerGame();
-            if (StringUtil.quickEq(DocumentWriterBeloteUtil.TYPE_RESULTS_BELOTE,tagName_)) {
-                containerBelote_.endGame(DocumentReaderBeloteUtil.resultsBelote(elt_));
-            }
-            if (StringUtil.quickEq(DocumentWriterBeloteUtil.TYPE_RULES_BELOTE,tagName_)) {
-                containerBelote_.updateRules(DocumentReaderBeloteUtil.getRulesBelote(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DEALT_HAND_BELOTE,tagName_)) {
-                containerBelote_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandBelote(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_BIDDING_BELOTE,tagName_)) {
-                containerBelote_.canBidBelote(DocumentReaderCardsMultiUtil.getAllowBiddingBelote(elt_));
-                return;
-            }
-//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_BIDDING_BELOTE,tagName_)) {
-//                containerBelote_.canBid();
-//                containerBelote_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBiddingBelote(elt_));
-//                return;
-//            }
-//            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ERROR_PLAYING_BELOTE,tagName_)) {
-//                containerBelote_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingBelote(elt_));
-//                return;
-//            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
-                containerBelote_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterBeloteUtil.TYPE_TRICKS_HANDS_BELOTE,tagName_)) {
-                containerBelote_.showTricksHands(DocumentReaderBeloteUtil.getTricksHandsBelote(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_ALLOW_PLAYING_BELOTE,tagName_)) {
-                containerBelote_.canPlayBelote(DocumentReaderCardsMultiUtil.getAllowPlayingBelote(elt_));
-                return;
-            }
-            if (StringUtil.quickEq(DocumentWriterCardsMultiUtil.TYPE_DOG,tagName_)) {
-                containerBelote_.voirEcart(DocumentReaderCardsMultiUtil.getDiscard(elt_));
-                return;
-            }
-            PlayerActionGame action_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
-            if (action_ instanceof BiddingBelote) {
-                containerBelote_.displayLastBid((BiddingBelote) action_);
-                return;
-            }
-            if (action_ instanceof RefreshHandBelote) {
-                containerBelote_.refreshHand((RefreshHandBelote) action_);
-                return;
-            }
-            if (action_ instanceof PlayingCardBelote && ((PlayingCardBelote)action_).isRefreshing()) {
-                containerBelote_.refreshHand((PlayingCardBelote) action_);
-                return;
-            }
-            if (action_ instanceof PlayingCardBelote) {
-                containerBelote_.displayPlayedCard((PlayingCardBelote) action_);
-                return;
-            }
-        }
+        trySendString(NetCommon.exportExiting(_forcedBye), _newSocket);
     }
 
     public void quitNetwork(Exiting _exit, AbstractSocket _socket) {
@@ -1239,59 +890,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             errorsFile.display(getTooManyString(), getTooManyString());
 //            getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-    public void loopAiki(Document _readObject, AbstractSocket _socket) {
-        Element elt_ = _readObject.getDocumentElement();
-        IndexOfArrivingAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getIndexOfArrivingAiki(elt_);
-        if (playerActionBeforeGame_ != null) {
-//            if (!StringUtil.quickEq(((IndexOfArrivingAiki) playerActionBeforeGame_).getServerName(), NetAiki.getPokemon())) {
-//                NewPlayerAiki p_ = new NewPlayerAiki();
-//                p_.setAcceptable(false);
-//                p_.setArriving(true);
-//                p_.setIndex(indexInGame);
-//                p_.setLanguage(getLanguageKey());
-//                p_.setPseudo(facade.getGame().getPlayer().getNickname());
-//                NetAiki.sendObject(_socket,p_);
-//                return;
-//            }
-            newPlayer(_socket);
-            return;
-        }
-        String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);
-        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_INIT_TRADING,tagName_)) {
-            initTrading(_socket);
-//            if (indexInGame == IndexConstants.FIRST_INDEX) {
-//                facade.initTrading();
-//                CheckCompatibility ch_ = new CheckCompatibility();
-//                ch_.setData(facade.getExchangeData());
-//                ch_.setIndex(indexInGame);
-//                ch_.setTeam(facade.getGame().getPlayer().getTeam());
-//                NetAiki.sendObject(_socket,ch_);
-//                return;
-//            }
-//            if (indexInGame == IndexConstants.SECOND_INDEX) {
-//                facade.initTrading();
-//                CheckCompatibility ch_ = new CheckCompatibility();
-//                ch_.setData(facade.getExchangeData());
-//                ch_.setIndex(indexInGame);
-//                ch_.setTeam(facade.getGame().getPlayer().getTeam());
-//                NetAiki.sendObject(_socket,ch_);
-//                return;
-//            }
-            return;
-        }
-        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_OK,tagName_)) {
-            okReceived();
-        }
-        if (StringUtil.quickEq(DocumentWriterAikiMultiUtil.TYPE_NET_POKEMON,tagName_)) {
-            NetPokemon net_ = DocumentReaderAikiMultiUtil.getNetPokemon(elt_);
-            netNetPokemon(net_);
-            return;
-        }
-        if (StringUtil.quickEq(DocumentWriterAikiCoreUtil.TYPE_POKEMON_PLAYER,tagName_)) {
-            PokemonPlayer pk_ = DocumentReaderAikiCoreUtil.getPokemonPlayer(elt_);
-            pokemonPlayer(pk_);
         }
     }
 
@@ -1325,10 +923,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     public void newPlayer(AbstractSocket _socket) {
-        NewPlayerAiki p_ = new NewPlayerAiki();
+//        NewPlayerAiki p_ = new NewPlayerAiki();
 //            p_.setAcceptable(true);
 //            p_.setArriving(true);
-        p_.setIndex(indexInGame);
+//        p_.setIndex(indexInGame);
         //p_.setPseudo(pseudo());
 //            p_.setLanguage(getLanguageKey());
 //            p_.setPseudo(facade.getGame().getPlayer().getNickname());
@@ -1336,7 +934,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             scenePanel.setNetworkPanel();
         }
         pack();
-        NetAiki.sendObject(_socket,p_);
+        NetAiki.sendObject(_socket, indexInGame);
     }
 
 //    @Override
@@ -2079,10 +1677,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         if (!(netg.getContainerGame() instanceof ContainerMulti)) {
             return;
         }
-        Quit quit_ = new Quit();
-        quit_.setClosing(false);
+        QuitCards quit_ = new QuitCards();
+        quit_.getContent().setClosing(false);
         quit_.setPlace(((ContainerMulti) netg.getContainerGame()).getContainerMultiContent().getIndexInGame());
-        quit_.setServer(((ContainerMulti) netg.getContainerGame()).getContainerMultiContent().isHasCreatedServer());
+        quit_.getContent().setServer(((ContainerMulti) netg.getContainerGame()).getContainerMultiContent().isHasCreatedServer());
         sendObject(quit_);
     }
 
@@ -2681,36 +2279,20 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
     }
     public void sendObjectOk() {
-        if (NetCommon.QUICK) {
-            trySendString(NetAiki.exportServerOk(),getSocket());
-            return;
-        }
-        trySendString(DocumentWriterAikiMultiUtil.ok(), getSocket());
+        trySendString(NetAiki.exportServerOk(),getSocket());
     }
     public void sendObject(QuitAiki _serializable) {
-        if (NetCommon.QUICK) {
-            trySendString(NetAiki.exportQuitAiki(_serializable),getSocket());
-            return;
-        }
-        trySendString(DocumentWriterAikiMultiUtil.playerActionGameAiki(_serializable), getSocket());
+        trySendString(NetAiki.exportQuitAiki(_serializable),getSocket());
     }
     public void sendReady() {
         ReadyAiki choice_ = new ReadyAiki();
         choice_.setIndex(getIndexInGame());
         scenePanel.readyTrade();
-        choice_.setReady(scenePanel.isReadyTrade());
-        if (NetCommon.QUICK) {
-            trySendString(NetAiki.exportReadyAiki(choice_),getSocket());
-            return;
-        }
-        trySendString(DocumentWriterAikiMultiUtil.playerActionBeforeGameAiki(choice_), getSocket());
+        choice_.getContent().setReady(scenePanel.isReadyTrade());
+        trySendString(NetAiki.exportReadyAiki(choice_),getSocket());
     }
     public void sendObject(SentPokemon _serializable) {
-        if (NetCommon.QUICK) {
-            trySendString(NetAiki.exportSentPokemon(_serializable), getSocket());
-            return;
-        }
-        trySendString(DocumentWriterAikiMultiUtil.sentPokemon(_serializable), getSocket());
+        trySendString(NetAiki.exportSentPokemon(_serializable), getSocket());
     }
     @Override
     public AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket) {
@@ -2881,22 +2463,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     @Override
     public String getApplicationName() {
         return APPS_NETWORK;
-    }
-
-    @Override
-    public Document getDoc(String _object) {
-        if (!isCards()) {
-            return DocumentReaderAikiMultiUtil.getDoc(_object);
-        }
-        return DocumentReaderCardsMultiUtil.getDoc(_object);
-    }
-
-    @Override
-    public Exiting getExiting(Document _doc) {
-        if (!isCards()) {
-            return DocumentReaderAikiMultiUtil.getExiting(_doc);
-        }
-        return DocumentReaderCardsMultiUtil.getExiting(_doc);
     }
 
     public Net getNet() {

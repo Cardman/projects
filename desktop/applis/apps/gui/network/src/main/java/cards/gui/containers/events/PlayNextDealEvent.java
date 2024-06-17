@@ -5,7 +5,7 @@ import code.gui.events.AbsActionListener;
 
 public class PlayNextDealEvent implements AbsActionListener {
 
-    private ContainerMulti container;
+    private final ContainerMulti container;
 
     public PlayNextDealEvent(ContainerMulti _container) {
         container = _container;
@@ -13,6 +13,9 @@ public class PlayNextDealEvent implements AbsActionListener {
 
     @Override
     public void action() {
+        if (container.getContainerMultiContent().notAllReadyDistinct()) {
+            return;
+        }
         container.dealNext();
     }
 }

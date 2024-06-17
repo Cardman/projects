@@ -1,6 +1,6 @@
 package cards.network.threads;
 
-import cards.network.common.Quit;
+import cards.network.common.QuitCards;
 import code.gui.initialize.AbstractSocket;
 import code.network.Exiting;
 import code.network.NetCommon;
@@ -14,8 +14,8 @@ public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopC
 
     @Override
     public void loop(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
-        Quit q_ = Net.importQuitting(_input);
-        if (Net.getGames(_instance).enCoursDePartie() || q_.isServer()) {
+        QuitCards q_ = Net.importQuitting(_input);
+        if (Net.getGames(_instance).enCoursDePartie() || q_.getContent().isServer()) {
 
             Bytes pls_ = Net.activePlayers(_instance, _common);
             for (byte p: pls_) {
@@ -24,7 +24,7 @@ public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopC
                 forcedBye_.setClosing(false);
                 forcedBye_.setServer(true);
                 if (p == q_.getPlace()) {
-                    forcedBye_.setClosing(q_.isClosing());
+                    forcedBye_.setClosing(q_.getContent().isClosing());
                 }
                 NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), Net.getSocketByPlace(p, _common));
             }
@@ -40,7 +40,7 @@ public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopC
         Exiting forcedBye_ = new Exiting();
         forcedBye_.setForced(false);
         forcedBye_.setServer(false);
-        forcedBye_.setClosing(q_.isClosing());
+        forcedBye_.setClosing(q_.getContent().isClosing());
         Ints placesPlayersByValue_ = Net.getPlacesPlayersByValue(q_.getPlace(), _common);
         if (!placesPlayersByValue_.isEmpty()) {
             removePlayer(placesPlayersByValue_.first(), forcedBye_, _common);

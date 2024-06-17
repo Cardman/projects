@@ -7,12 +7,10 @@ import aiki.game.UsesOfMove;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
-import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.*;
 import code.gui.initialize.AbstractSocket;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
-import code.network.Exiting;
 import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
@@ -90,14 +88,14 @@ public final class NetAiki {
         StringBuilder out_ = new StringBuilder();
         out_.append(SERVER_READY);
         out_.append(AIKI_SEP_0);
-        out_.append(NetCommon.exportBool(_index.isReady()));
+        out_.append(NetCommon.exportBool(_index.getContent().isReady()));
         out_.append(_index.getIndex());
         return out_.toString();
     }
 
     public static ReadyAiki importReadyAiki(CustList<String> _index) {
         ReadyAiki r_ = new ReadyAiki();
-        r_.setReady(NetCommon.toBoolEquals(_index.get(0),0));
+        r_.getContent().setReady(NetCommon.toBoolEquals(_index.get(0),0));
         r_.setIndex(NumberUtil.parseInt(_index.get(0).substring(1)));
         return r_;
     }
@@ -313,16 +311,16 @@ public final class NetAiki {
         StringBuilder out_ = new StringBuilder();
         out_.append(SERVER_READY);
         out_.append(AIKI_SEP_0);
-        out_.append(NetCommon.exportBool(_index.isClosing()));
-        out_.append(NetCommon.exportBool(_index.isServer()));
+        out_.append(NetCommon.exportBool(_index.getContent().isClosing()));
+        out_.append(NetCommon.exportBool(_index.getContent().isServer()));
         out_.append(_index.getPlace());
         return out_.toString();
     }
 
     public static QuitAiki importQuitAiki(CustList<String> _index) {
         QuitAiki r_ = new QuitAiki();
-        r_.setClosing(NetCommon.toBoolEquals(_index.get(0),0));
-        r_.setServer(NetCommon.toBoolEquals(_index.get(0),1));
+        r_.getContent().setClosing(NetCommon.toBoolEquals(_index.get(0),0));
+        r_.getContent().setServer(NetCommon.toBoolEquals(_index.get(0),1));
         r_.setPlace((byte) NumberUtil.parseInt(_index.get(0).substring(2)));
         return r_;
     }
@@ -354,40 +352,12 @@ public final class NetAiki {
         }
         return sb_.toString();
     }
-    public static void sendObjectInitTrading(AbstractSocket _socket) {
-        NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.initTrading(), _socket);
-    }
-
-    public static void sendObject(AbstractSocket _socket, NetPokemon _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.netPokemon(_serializable), _socket);
-    }
-
-    public static void sendObject(AbstractSocket _socket, PokemonPlayer _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.pokemonPlayer(_serializable), _socket);
-    }
-
-    public static void sendObject(AbstractSocket _socket, Exiting _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.bye(_serializable), _socket);
-    }
-
-    public static void sendObject(AbstractSocket _socket, IndexOfArrivingAiki _serializable) {
-        NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.indexOfArrivingAiki(_serializable), _socket);
-    }
-
-    public static void sendObject(AbstractSocket _socket, NewPlayerAiki _serializable) {
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(NetAiki.exportNewPlayer(_serializable.getIndex()), _socket);
-            return;
-        }
-        NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.newPlayerAiki(_serializable), _socket);
+    public static void sendObject(AbstractSocket _socket, int _index) {
+        NetGroupFrame.trySendString(NetAiki.exportNewPlayer(_index), _socket);
     }
 
     public static void sendObject(AbstractSocket _socket, CheckCompatibility _serializable) {
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(NetAiki.exportCheckCompatibility(_serializable), _socket);
-            return;
-        }
-        NetGroupFrame.trySendString(DocumentWriterAikiMultiUtil.checkCompatibility(_serializable), _socket);
+        NetGroupFrame.trySendString(NetAiki.exportCheckCompatibility(_serializable), _socket);
     }
     /**server
      * @param _instance*/

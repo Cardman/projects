@@ -4,18 +4,18 @@ import cards.tarot.HandTarot;
 
 public final class CallableCards {
 
-    private HandTarot callableCards;
+    private HandTarot cards;
 
     private boolean discarding;
 
     private byte takerIndex;
 
-    public HandTarot getCallableCards() {
-        return callableCards;
+    public HandTarot getCards() {
+        return cards;
     }
 
-    public void setCallableCards(HandTarot _callableCards) {
-        callableCards = _callableCards;
+    public void setCards(HandTarot _callableCards) {
+        cards = _callableCards;
     }
 
     public boolean isDiscarding() {

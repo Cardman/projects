@@ -1,9 +1,11 @@
 package cards.gui.containers;
 import cards.network.common.before.IndexOfArrivingCards;
+import code.gui.AbsPanel;
 
 public interface ContainerMulti extends ContainerPlayableGame {
 
     void updateFirst(IndexOfArrivingCards _players);
+    void updateButton(AbsPanel _container);
 
 //    void updatePlaces(ChoosenPlace _choosePlace);
 //    void updateReady(Ready _readyPlayer);

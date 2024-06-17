@@ -8,8 +8,6 @@ import cards.consts.Role;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
-import cards.gui.containers.events.PlayFirstDealEvent;
-import cards.gui.containers.events.PlayNextDealEvent;
 import cards.gui.containers.events.SlamEvent;
 import cards.gui.containers.events.TakeDogEvent;
 import cards.gui.containers.events.ValidateDogEvent;
@@ -19,7 +17,6 @@ import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.main.CardNatLgNamesNavigation;
-import cards.network.common.*;
 import cards.network.common.before.*;
 import cards.network.tarot.DiscardPhaseTarot;
 import cards.network.tarot.actions.*;
@@ -35,7 +32,6 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
-import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -126,26 +122,17 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        setCanDiscard(false);
         updateCardsInPanelTarotJeuMulti(false);
         containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
-        if (!getTakerCardsDog().estVide()) {
-            playerHand = getTakerCardsDog();
-            setChienMulti(false);
-        }
+//        if (!getTakerCardsDog().estVide()) {
+//            playerHand = getTakerCardsDog();
+//            setChienMulti(false);
+//        }
+        playerHand = getTakerCardsDog();
+        setChienMulti(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
         getScrollCallableCards().setVisible(false);
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDiscardSimpleCall(getCalledCard()),getContainerMultiContent().window().getSocket());
-            return;
-        }
-        CallAfterDiscardTarot v_ = new CallAfterDiscardTarot(PlayerActionGameType.VALIDATE_DOG);
-        HandTarot h_ = new HandTarot();
-        h_.ajouter(getCalledCard());
-        v_.setCalledCards(h_);
-        v_.setPlace(getContainerMultiContent().getIndexInGame());
-//        String lg_ = getOwner().getLanguageKey();
-//        v_.setLocale(lg_);
-        getContainerMultiContent().window().sendObject(v_);
+        NetGroupFrame.trySendString(Net.exportDiscardSimpleCall(getCalledCard()),getContainerMultiContent().window().getSocket());
     }
 //    private void addButtonValidateDogTarotMulti(String _texte,boolean _apte) {
 //        JPanel panneau_=getPanneauBoutonsJeu();
@@ -231,7 +218,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         containerMultiContent.getEditor().getScroll().setPreferredSize(new MetaDimension(300,400));
         container_.add(containerMultiContent.getEditor().getScroll());
-        getContainerMultiContent().updateAfter(_players);
+        getContainerMultiContent().updateAfter(this,_players,MessagesGuiCards.PLAY_TAROT, container_);
 //        playersPlacesForGame = _players.getPlacesPlayers();
 //        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
 //        for (int i : _players.getPseudos().getKeys()) {
@@ -244,20 +231,20 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i) == BoolVal.TRUE);
 //        }
 
-        if (containerMultiContent.isHasCreatedServer()) {
-            updateButton(container_);
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAY_TAROT));
-            button_.addActionListener(new PlayFirstDealEvent(this));
-            container_.add(button_);
-        }
-
-        container_.add(getWindow().getClock());
-        container_.add(getWindow().getLastSavedGameDate());
-        setContentPane(container_);
-        pack();
+//        if (containerMultiContent.isHasCreatedServer()) {
+//            updateButton(container_);
+//            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAY_TAROT));
+//            button_.addActionListener(new PlayFirstDealEvent(this));
+//            container_.add(button_);
+//        }
+//
+//        container_.add(getWindow().getClock());
+//        container_.add(getWindow().getLastSavedGameDate());
+//        setContentPane(container_);
+//        pack();
         //PackingWindowAfter.pack(this, true);
     }
-    private void updateButton(AbsPanel _container) {
+    public void updateButton(AbsPanel _container) {
         DialogTarotContent content_ = new DialogTarotContent(getOwner().getFrames());
         AbsTabbedPane jt_ = content_.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
@@ -371,24 +358,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDoneBidding(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
-            return;
-        }
-        //pack();
-        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_BIDDING);
-        dealt_.setPlace(getContainerMultiContent().getIndexInGame());
-//        dealt_.setLocale(lg_.getKey());
-        getContainerMultiContent().window().sendObject(dealt_);
+        NetGroupFrame.trySendString(Net.exportDoneBidding(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
     }
 
     public void displayCalling(CallableCards _cards) {
         byte relative_ = containerMultiContent.relative(_cards.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
-        callableCards = _cards.getCallableCards();
-        if (callableCards.estVide()) {
-            return;
-        }
+        callableCards = _cards.getCards();
+//        if (callableCards.estVide()) {
+//            return;
+//        }
         containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
         setDiscardCall(_cards.isDiscarding());
         getPanneauBoutonsJeu().removeAll();
@@ -664,14 +643,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         relative_ = containerMultiContent.relative(_card.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //pack();
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDonePlaying(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
-            return;
-        }
-        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
-        dealt_.setPlace(getContainerMultiContent().getIndexInGame());
-//        dealt_.setLocale(lg_.getKey());
-        getContainerMultiContent().window().sendObject(dealt_);
+        NetGroupFrame.trySendString(Net.exportDonePlaying(containerMultiContent.getIndexInGame()),getContainerMultiContent().window().getSocket());
     }
 
 //    public void errorPlayingCard(ErrorHandful _error) {
@@ -930,22 +902,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         getScrollCallableCards().setVisible(false);
         pack();
-        if (!getTakerCardsDog().estVide()) {
-            playerHand = getTakerCardsDog();
-        }
+//        if (!getTakerCardsDog().estVide()) {
+//            playerHand = getTakerCardsDog();
+//        }
+        playerHand = getTakerCardsDog();
         //PackingWindowAfter.pack(this, true);
 //        String lg_ = getOwner().getLanguageKey();
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDiscardSlam(getCalledCard()),getContainerMultiContent().window().getSocket());
-            return;
-        }
-        CallAfterDiscardTarot bid_ = new CallAfterDiscardTarot(PlayerActionGameType.SLAM);
-        HandTarot h_ = new HandTarot();
-        h_.ajouter(getCalledCard());
-        bid_.setCalledCards(h_);
-        bid_.setPlace(getContainerMultiContent().getIndexInGame());
-//        bid_.setLocale(lg_);
-        getContainerMultiContent().window().sendObject(bid_);
+        NetGroupFrame.trySendString(Net.exportDiscardSlam(getCalledCard()),getContainerMultiContent().window().getSocket());
     }
 
     @Override
@@ -1256,23 +1219,25 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
         _res.getGame().setRules(getRulesTarotMulti());
         CheckerGameTarotWithRules.check(_res.getGame());
-        Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
-        _res.getRes().setNicknames(nicknames());
+        containerMultiContent.messagesEndGame(_res.getRes(),nicknames(),readCoreResourceSuit(),readResource(), readCoreResourceCards());
+//        Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
+//        _res.getRes().setNicknames(nicknames());
         getPane().removeAll();
+        containerMultiContent.chgEnabledMenuEndGame();
         /*Descativer aide au jeu*/
-        MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
+//        MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),true);
 //        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
+//        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
+//        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
 //        setThreadAnime(false);
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
 //        String lg_ = getOwner().getLanguageKey();
         setScores(_res.getRes().getScores());
-        _res.getRes().setGeneral(readCoreResourceSuit());
-        _res.getRes().setSpecific(readResource());
-        _res.getRes().setGeneralCards(readCoreResourceCards());
+//        _res.getRes().setGeneral(readCoreResourceSuit());
+//        _res.getRes().setSpecific(readResource());
+//        _res.getRes().setGeneralCards(readCoreResourceCards());
         RenderedPage editor_;
         CardNatLgNamesNavigation sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
         ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
@@ -1285,35 +1250,35 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
-        containerMultiContent.endReady(this,panneau_);
+//        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
+//        containerMultiContent.endReady(this,panneau_);
 //        readyToPlay = false;
 //        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
 //        ready.addActionListener(new ReadyEvent(this));
 //        panneau_.add(ready);
-
-        AbsPanel panel_ = containerMultiContent.endNickname();
-
+//
+//        AbsPanel panel_ = containerMultiContent.endNickname();
+//
 //        int nbCh_ = containerMultiContent.getNbChoosenPlayers();
 //        for (int i = IndexConstants.FIRST_INDEX; i< nbCh_; i++) {
 //            panel_.add(playersPseudos.get(i));
 //            panel_.add(playersPlaces.get(i));
 //            panel_.add(playersReady.get(i));
 //        }
-        panneau_.add(panel_);
-
-        if (containerMultiContent.isHasCreatedServer()) {
-            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAY_TAROT));
-            button_.addActionListener(new PlayNextDealEvent(this));
-            panneau_.add(button_);
-        }
-        panneau_.add(getWindow().getClock());
-        panneau_.add(getWindow().getLastSavedGameDate());
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-
-        setContentPane(container_);
-        pack();
-        containerMultiContent.sendOk();
+//        panneau_.add(panel_);
+//
+//        if (containerMultiContent.isHasCreatedServer()) {
+//            AbsButton button_ = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAY_TAROT));
+//            button_.addActionListener(new PlayNextDealEvent(this));
+//            panneau_.add(button_);
+//        }
+//        panneau_.add(getWindow().getClock());
+//        panneau_.add(getWindow().getLastSavedGameDate());
+//        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+//
+//        setContentPane(container_);
+//        pack();
+        containerMultiContent.sendOk(this, container_);
         //PackingWindowAfter.pack(this, true);
 //        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
 //        ok_.setPlace(getContainerMultiContent().getIndexInGame());
@@ -1331,9 +1296,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        if (!distinct_) {
 //            return;
 //        }
-        if (containerMultiContent.notAllReadyDistinct()) {
-            return;
-        }
+//        if (containerMultiContent.notAllReadyDistinct()) {
+//            return;
+//        }
         long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames(), 0);
 //        GameTarot game_ = Net.getGames(window().getNet()).partieTarot();
 //        DealTarot deal_=new DealTarot(nb_,game_.empiler());
@@ -1382,9 +1347,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        if (!distinct_) {
 //            return;
 //        }
-        if (containerMultiContent.notAllReadyDistinct()) {
-            return;
-        }
+//        if (containerMultiContent.notAllReadyDistinct()) {
+//            return;
+//        }
 
 //        HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/

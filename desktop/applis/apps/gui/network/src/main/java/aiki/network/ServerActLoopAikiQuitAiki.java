@@ -22,7 +22,7 @@ public final class ServerActLoopAikiQuitAiki implements IntServerActLoopAiki {
         _common.getReadyPlayers().removeKey((int) IndexConstants.FIRST_INDEX);
         _common.getPlacesPlayers().removeKey((int) IndexConstants.FIRST_INDEX);
         if (bye_.getPlace() == IndexConstants.FIRST_INDEX) {
-            forcedBye_.setClosing(bye_.isClosing());
+            forcedBye_.setClosing(bye_.getContent().isClosing());
         } else {
             forcedBye_.setClosing(false);
         }
@@ -34,7 +34,7 @@ public final class ServerActLoopAikiQuitAiki implements IntServerActLoopAiki {
         _common.getReadyPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
         _common.getPlacesPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
         if (bye_.getPlace() == IndexConstants.SECOND_INDEX) {
-            forcedBye_.setClosing(bye_.isClosing());
+            forcedBye_.setClosing(bye_.getContent().isClosing());
         } else {
             forcedBye_.setClosing(false);
         }

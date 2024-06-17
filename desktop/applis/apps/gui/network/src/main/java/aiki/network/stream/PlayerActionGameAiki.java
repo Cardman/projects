@@ -5,8 +5,6 @@ public abstract class PlayerActionGameAiki {
 
     private byte place;
 
-    private String locale = "";
-
     public byte getPlace() {
         return place;
     }
@@ -15,11 +13,4 @@ public abstract class PlayerActionGameAiki {
         place = _place;
     }
 
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String _locale) {
-        locale = _locale;
-    }
 }

@@ -1,13 +1,14 @@
-package aiki.network.stream;
+package cards.network.common;
 
 
 import code.network.QuitContent;
 
-public final class QuitAiki extends PlayerActionGameAiki {
+public final class QuitCards extends PlayerActionGame {
 
     private final QuitContent content = new QuitContent();
 
     public QuitContent getContent() {
         return content;
     }
+
 }

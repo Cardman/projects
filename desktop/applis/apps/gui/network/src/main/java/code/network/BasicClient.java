@@ -4,7 +4,6 @@ import aiki.network.NetAikiRetrievedInfos;
 import cards.network.threads.Net;
 import cards.network.threads.NetRetrievedInfos;
 import code.gui.initialize.AbstractSocket;
-import code.sml.Document;
 
 /**Thread safe class*/
 public final class BasicClient extends BasicClientAbs {
@@ -47,42 +46,21 @@ public final class BasicClient extends BasicClientAbs {
     }
 
     public static boolean iterate(AbstractSocket _socket, WindowNetWork _window, String _input) {
-        Document doc_;
-        if (NetCommon.QUICK) {
-            doc_ = null;
-        } else {
-            doc_ = _window.getDoc(_input);
-        }
-        return iterate(_socket, _window, _input, doc_);
-    }
-
-    public static boolean iterate(AbstractSocket _socket, WindowNetWork _window, String _input, Document _doc) {
-        if (_doc == null) {
-            if (NetCommon.QUICK) {
-                if (_window.isCards()) {
-                    NetRetrievedInfos net_ = Net.netRetrievedInfos(_input, _window.getNet());
-                    if (net_.getIndexAct() < 0) {
-                        _window.getFrames().getCompoFactory().invokeNow(new Quitting(NetCommon.importExiting(net_.getParts()), _window, _socket));
-                        return false;
-                    }
-                    _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, null, _socket, net_, null));
-                    return true;
-                }
-                NetAikiRetrievedInfos net_ = new NetAikiRetrievedInfos(_input);
-                if (net_.getIndexAct() < 0) {
-                    _window.getFrames().getCompoFactory().invokeNow(new Quitting(NetCommon.importExiting(net_.getParts()), _window, _socket));
-                    return false;
-                }
-                _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, null, _socket, null, net_));
+        if (_window.isCards()) {
+            NetRetrievedInfos net_ = Net.netRetrievedInfos(_input, _window.getNet());
+            if (net_.getIndexAct() < 0) {
+                _window.getFrames().getCompoFactory().invokeNow(new Quitting(NetCommon.importExiting(net_.getParts()), _window, _socket));
+                return false;
             }
+            _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _socket, net_, null));
             return true;
         }
-        Exiting exiting_ = _window.getExiting(_doc);
-        if (exiting_ != null) {
-            _window.getFrames().getCompoFactory().invokeNow(new Quitting(exiting_, _window, _socket));
+        NetAikiRetrievedInfos net_ = new NetAikiRetrievedInfos(_input);
+        if (net_.getIndexAct() < 0) {
+            _window.getFrames().getCompoFactory().invokeNow(new Quitting(NetCommon.importExiting(net_.getParts()), _window, _socket));
             return false;
         }
-        _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _doc, _socket, null, null));
+        _window.getFrames().getCompoFactory().invokeNow(new LoopClient(_window, _socket, null, net_));
         return true;
     }
 }

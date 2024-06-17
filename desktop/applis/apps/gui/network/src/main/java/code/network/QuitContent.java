@@ -1,8 +1,6 @@
-package cards.network.common;
+package code.network;
 
-
-public final class Quit extends PlayerActionGame {
-
+public final class QuitContent {
     private boolean closing;
 
     private boolean server;

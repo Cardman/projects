@@ -1,14 +1,15 @@
 package cards.gui.containers;
 
+import cards.consts.ResultsGame;
+import cards.facade.Games;
 import cards.gui.containers.events.ChangePlaceEvent;
+import cards.gui.containers.events.PlayFirstDealEvent;
+import cards.gui.containers.events.PlayNextDealEvent;
 import cards.gui.containers.events.ReadyEvent;
-import cards.network.common.PlayerActionGame;
-import cards.network.common.PlayerActionGameType;
 import cards.network.common.before.*;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
-import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -61,9 +62,9 @@ public final class ContainerMultiContent {
         } else {
             ready.setLineBorder(GuiConstants.BLACK);
         }
-        Ready choice_ = new Ready();
+        ReadyCards choice_ = new ReadyCards();
         choice_.setIndex(noClient);
-        choice_.setReady(readyToPlay);
+        choice_.getContent().setReady(readyToPlay);
         window().sendObject(choice_);
     }
     public AbsPanel resultUsers(ContainerMulti _cont, IndexOfArrivingCards _players) {
@@ -125,10 +126,21 @@ public final class ContainerMultiContent {
         playersPseudos.get(_players.getIndex()).setText(_players.getPseudo());
         playersPseudosForGame.put(_players.getIndex(),_players.getPseudo());
     }
-    public void updateAfter(IndexOfArrivingCards _players) {
+    public void updateAfter(ContainerMulti _cur, IndexOfArrivingCards _players, String _key, AbsPanel _panel) {
         playersPlacesForGame = _players.getPlacesPlayers();
         playersPseudosForGame = new IntMap<String>();
         update(_players.getPlacesPlayers(), _players.getReadyPlayers());
+        if (isHasCreatedServer()) {
+            _cur.updateButton(_panel);
+            AbsButton button_ = _cur.getOwner().getCompoFactory().newPlainButton(getMessages().getVal(_key));
+            button_.addActionListener(new PlayFirstDealEvent(_cur));
+            _panel.add(button_);
+        }
+
+        _panel.add(window().getClock());
+        _panel.add(window().getLastSavedGameDate());
+        window().setContentPane(_panel);
+        window().pack();
     }
 
     private void update(IntTreeMap<Byte> _places, IntMap<BoolVal> _ready) {
@@ -143,8 +155,8 @@ public final class ContainerMultiContent {
         playersPlacesForGame = _choosePlace.getPlacesPlayers();
         playersPlaces.get(_choosePlace.getIndex()).setText(Long.toString(_choosePlace.getPlace()));
     }
-    public void updateReady(Ready _readyPlayer) {
-        playersReady.get(_readyPlayer.getIndex()).setSelected(_readyPlayer.isReady());
+    public void updateReady(ReadyCards _readyPlayer) {
+        playersReady.get(_readyPlayer.getIndex()).setSelected(_readyPlayer.getContent().isReady());
     }
 
     public AbsPanel endNickname() {
@@ -162,6 +174,19 @@ public final class ContainerMultiContent {
         ready.setLineBorder(GuiConstants.BLACK);
         ready.addActionListener(new ReadyEvent(_cont));
         _panel.add(ready);
+    }
+    public void messagesEndGame(ResultsGame _res, StringList _sl, StringMap<String> _gene, StringMap<String> _spec, StringMap<String> _cards) {
+        Games.setMessages(_res,win.getFrames().currentLg());
+        _res.setNicknames(_sl);
+        _res.setGeneral(_gene);
+        _res.setSpecific(_spec);
+        _res.setGeneralCards(_cards);
+    }
+    public void chgEnabledMenuEndGame(){
+        MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
+//        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        MenuItemUtils.setEnabledMenu(window().getTricksHands(),false);
+        MenuItemUtils.setEnabledMenu(window().getTeams(),false);
     }
 
     public ByteTreeMap<String> nicknames(CustList<String> _bots) {
@@ -202,34 +227,42 @@ public final class ContainerMultiContent {
         return ContainerGame.EMPTY_STRING;
     }
     public void sendDealt() {
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDealt(getIndexInGame()),window().getSocket());
-            return;
-        }
-        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DEALT);
-        dealt_.setPlace(getIndexInGame());
-//        dealt_.setLocale(lg_.getKey());
-        window().sendObject(dealt_);
+        NetGroupFrame.trySendString(Net.exportDealt(getIndexInGame()),window().getSocket());
     }
     public void sendPause() {
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDonePause(getIndexInGame()),window().getSocket());
-            return;
-        }
-        PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
-        d_.setPlace(getIndexInGame());
-//        d_.setLocale(lg_.getKey());
-        window().sendObject(d_);
+        NetGroupFrame.trySendString(Net.exportDonePause(getIndexInGame()),window().getSocket());
     }
-    public void sendOk() {
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDoneEndGame(getIndexInGame()),window().getSocket());
-            return;
+    public void sendOk(ContainerMulti _cont, AbsPanel _panel) {
+        AbsPanel panneau_=_cont.getOwner().getCompoFactory().newPageBox();
+        endReady(_cont,panneau_);
+//        readyToPlay = false;
+//        ready = getOwner().getCompoFactory().newCustCheckBox(containerMultiContent.getMessages().getVal(WindowNetWork.READY));
+//        ready.addActionListener(new ReadyEvent(this));
+//        panneau_.add(ready);
+
+        AbsPanel panel_ = endNickname();
+//        AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0,3);
+//
+//        int nbCh_ = containerMultiContent.getNbChoosenPlayers();
+//        for (int i = IndexConstants.FIRST_INDEX; i< nbCh_; i++) {
+//            panel_.add(playersPseudos.get(i));
+//            panel_.add(playersPlaces.get(i));
+//            panel_.add(playersReady.get(i));
+//        }
+        panneau_.add(panel_);
+        if (isHasCreatedServer()) {
+            AbsButton button_ = _cont.getOwner().getCompoFactory().newPlainButton(getMessages().getVal(MessagesGuiCards.PLAY_BELOTE));
+            button_.addActionListener(new PlayNextDealEvent(_cont));
+            panneau_.add(button_);
         }
-        PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.OK);
-        d_.setPlace(getIndexInGame());
-//        d_.setLocale(lg_.getKey());
-        window().sendObject(d_);
+        panneau_.add(window().getClock());
+        panneau_.add(window().getLastSavedGameDate());
+        _panel.add(panneau_, GuiConstants.BORDER_LAYOUT_SOUTH);
+
+        window().setContentPane(_panel);
+        window().pack();
+        //PackingWindowAfter.pack(this, true);
+        NetGroupFrame.trySendString(Net.exportDoneEndGame(getIndexInGame()),window().getSocket());
     }
 
     public void showTeams() {
@@ -237,28 +270,13 @@ public final class ContainerMultiContent {
 //            return;
 //        }
 //        String lg_ = getOwner().getLanguageKey();
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDoneTeams(getIndexInGame()),window().getSocket());
-            return;
-        }
-        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TEAMS);
-        select_.setPlace(getIndexInGame());
-//        select_.setLocale(lg_);
-        window().sendObject(select_);
+        NetGroupFrame.trySendString(Net.exportDoneTeams(getIndexInGame()),window().getSocket());
     }
     public void showTricksHands() {
 //        if (!isCanPlay()) {
 //            return;
 //        }
-        if (NetCommon.QUICK) {
-            NetGroupFrame.trySendString(Net.exportDoneTricks(getIndexInGame()),window().getSocket());
-            return;
-        }
-        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
-        select_.setPlace(getIndexInGame());
-//        String lg_ = getOwner().getLanguageKey();
-//        select_.setLocale(lg_);
-        window().sendObject(select_);
+        NetGroupFrame.trySendString(Net.exportDoneTricks(getIndexInGame()),window().getSocket());
     }
     public boolean notAllReadyDistinct() {
         return !window().getSockets().allReady() || !Net.distinctPlaces(window().getNet(), window().getSockets());

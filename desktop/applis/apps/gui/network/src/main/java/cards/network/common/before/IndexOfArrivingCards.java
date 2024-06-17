@@ -2,14 +2,11 @@ package cards.network.common.before;
 import cards.belote.*;
 import cards.president.*;
 import cards.tarot.*;
-import code.network.*;
 import code.util.*;
 import code.util.core.*;
 
 
-public final class IndexOfArrivingCards extends PlayerActionBeforeGameCards implements AttemptConnecting {
-
-    private static final String CARDS = "CARDS";
+public final class IndexOfArrivingCards extends PlayerActionBeforeGameCards {
 
     private IntTreeMap< Byte> placesPlayers;
 
@@ -72,8 +69,4 @@ public final class IndexOfArrivingCards extends PlayerActionBeforeGameCards impl
         rulesBelote = _rulesBelote;
     }
 
-    @Override
-    public String getServerName() {
-        return CARDS;
-    }
 }
