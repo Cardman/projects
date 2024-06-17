@@ -532,9 +532,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void refreshPlayerHand() {
-        if (!getTakerCardsDiscard().estVide()) {
-            playerHand = getTakerCardsDiscard();
-        }
+        playerHand = getTakerCardsDiscard();
+//        if (!getTakerCardsDiscard().estVide()) {
+//            playerHand = getTakerCardsDiscard();
+//        }
     }
 
     @Override
