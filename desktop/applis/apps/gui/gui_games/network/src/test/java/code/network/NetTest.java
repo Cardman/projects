@@ -7,6 +7,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
+import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.IndexOfArrivingCards;
 import cards.network.threads.*;
 import cards.president.*;
@@ -1404,6 +1405,24 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(Miseres.LOW_CARDS,i_.getRulesTarot().getMiseres().get(0));
         assertEq(5,i_.getNbPlayers());
     }
+    @Test
+    public void chosen1() {
+        ChoosenPlace ch_ = saveClientChoosenPlace(1, 2, new IdMap<Integer, Byte>());
+        assertEq(1, ch_.getIndex());
+        assertEq(2, ch_.getPlace());
+        assertEq(0, ch_.getPlacesPlayers().size());
+    }
+    @Test
+    public void chosen2() {
+        IdMap<Integer, Byte> id_ = new IdMap<Integer, Byte>();
+        id_.addEntry(3,(byte)4);
+        ChoosenPlace ch_ = saveClientChoosenPlace(1, 2, id_);
+        assertEq(1, ch_.getIndex());
+        assertEq(2, ch_.getPlace());
+        assertEq(1, ch_.getPlacesPlayers().size());
+        assertEq(3, ch_.getPlacesPlayers().getKey(0));
+        assertEq(4, ch_.getPlacesPlayers().getValue(0));
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -1504,6 +1523,12 @@ public final class NetTest extends EquallableNetworkUtil {
     }
     public static IndexOfArrivingCards saveIndexArrive(int _index, int _nbPlayers, NetCommon _common, Games _instance, GameEnum _choice) {
         return Net.importIndexArrive(parseParts(Net.exportIndexArrive(_index, _nbPlayers, _common, _instance, _choice)));
+    }
+    public static ChoosenPlace saveClientChoosenPlace(int _index, int _place, AbsMap<Integer,Byte> _map) {
+        return Net.importChosenPlace(parseParts(Net.exportClientChosenPlace(_index, _place, _map)));
+    }
+    public static ChoosenPlace saveServerChoosenPlace(int _index, int _place, AbsMap<Integer,Byte> _map) {
+        return Net.importChosenPlace(parseParts(Net.exportServerChosenPlace(_index, _place, _map)));
     }
     private static String parse(String _in) {
         String i_ = Net.SEP_0 + _in;
