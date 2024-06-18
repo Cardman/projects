@@ -1,6 +1,12 @@
 package code.network;
 
+import cards.belote.*;
+import cards.belote.enumerations.*;
 import cards.network.threads.*;
+import cards.president.*;
+import cards.president.enumerations.*;
+import cards.tarot.*;
+import cards.tarot.enumerations.*;
 import code.util.*;
 import code.util.core.*;
 import code.util.ints.*;
@@ -188,6 +194,164 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(-1,res_.get(3).get(0));
         assertEq(2,res_.get(3).get(1));
     }
+    @Test
+    public void handBelote1() {
+        assertTrue(saveHandBelote(new HandBelote()).estVide());
+    }
+    @Test
+    public void handBelote2() {
+        HandBelote h_ = saveHandBelote(HandBelote.create(new CardBelote[]{CardBelote.HEART_1,CardBelote.HEART_10}));
+        assertEq(2,h_.total());
+        assertEq(CardBelote.HEART_1,h_.carte(0));
+        assertEq(CardBelote.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void handPresident1() {
+        assertTrue(saveHandPresident(new HandPresident()).estVide());
+    }
+    @Test
+    public void handPresident2() {
+        HandPresident h_ = saveHandPresident(HandPresident.create(new CardPresident[]{CardPresident.HEART_1,CardPresident.HEART_10}));
+        assertEq(2,h_.total());
+        assertEq(CardPresident.HEART_1,h_.carte(0));
+        assertEq(CardPresident.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void handTarot1() {
+        assertTrue(saveHandTarot(new HandTarot()).estVide());
+    }
+    @Test
+    public void handTarot2() {
+        HandTarot h_ = saveHandTarot(HandTarot.create(new CardTarot[]{CardTarot.HEART_1,CardTarot.HEART_10}));
+        assertEq(2,h_.total());
+        assertEq(CardTarot.HEART_1,h_.carte(0));
+        assertEq(CardTarot.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void handBeloteList1() {
+        assertTrue(saveHandBeloteList(new CustList<HandBelote>()).isEmpty());
+    }
+    @Test
+    public void handBeloteList2() {
+        CustList<HandBelote> hs_ = saveHandBeloteList(new CustList<HandBelote>(HandBelote.create(new CardBelote[]{CardBelote.HEART_1,CardBelote.HEART_10})));
+        assertEq(1,hs_.size());
+        HandBelote h_ = hs_.get(0);
+        assertEq(2,h_.total());
+        assertEq(CardBelote.HEART_1,h_.carte(0));
+        assertEq(CardBelote.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void handPresidentList1() {
+        assertTrue(saveHandPresidentList(new CustList<HandPresident>()).isEmpty());
+    }
+    @Test
+    public void handPresidentList2() {
+        CustList<HandPresident> hs_ = saveHandPresidentList(new CustList<HandPresident>(HandPresident.create(new CardPresident[]{CardPresident.HEART_1,CardPresident.HEART_10})));
+        assertEq(1,hs_.size());
+        HandPresident h_ = hs_.get(0);
+        assertEq(2,h_.total());
+        assertEq(CardPresident.HEART_1,h_.carte(0));
+        assertEq(CardPresident.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void handTarotList1() {
+        assertTrue(saveHandTarotList(new CustList<HandTarot>()).isEmpty());
+    }
+    @Test
+    public void handTarotList2() {
+        CustList<HandTarot> hs_ = saveHandTarotList(new CustList<HandTarot>(HandTarot.create(new CardTarot[]{CardTarot.HEART_1,CardTarot.HEART_10})));
+        assertEq(1,hs_.size());
+        HandTarot h_ = hs_.get(0);
+        assertEq(2,h_.total());
+        assertEq(CardTarot.HEART_1,h_.carte(0));
+        assertEq(CardTarot.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void trickBelote1() {
+        assertTrue(saveTrickBelote(new TrickBelote()).estVide());
+    }
+    @Test
+    public void trickBelote2() {
+        TrickBelote t_ = new TrickBelote();
+        t_.setCards(HandBelote.create(new CardBelote[]{CardBelote.HEART_1,CardBelote.HEART_10}));
+        TrickBelote h_ = saveTrickBelote(t_);
+        assertEq(2,h_.total());
+        assertEq(CardBelote.HEART_1,h_.carte(0));
+        assertEq(CardBelote.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void trickPresident1() {
+        assertTrue(saveTrickPresident(new TrickPresident()).getCards().isEmpty());
+    }
+    @Test
+    public void trickPresident2() {
+        TrickPresident t_ = new TrickPresident();
+        t_.setCards(new CustList<HandPresident>(HandPresident.create(new CardPresident[]{CardPresident.HEART_1,CardPresident.HEART_10})));
+        TrickPresident h_ = saveTrickPresident(t_);
+        assertEq(1,h_.total());
+        assertEq(2,h_.carte(0).total());
+        assertEq(CardPresident.HEART_1,h_.carte(0).carte(0));
+        assertEq(CardPresident.HEART_10,h_.carte(0).carte(1));
+    }
+    @Test
+    public void trickTarot1() {
+        assertTrue(saveTrickTarot(new TrickTarot()).estVide());
+    }
+    @Test
+    public void trickTarot2() {
+        TrickTarot t_ = new TrickTarot();
+        t_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_1,CardTarot.HEART_10}));
+        TrickTarot h_ = saveTrickTarot(t_);
+        assertEq(2,h_.total());
+        assertEq(CardTarot.HEART_1,h_.carte(0));
+        assertEq(CardTarot.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void trickBeloteList1() {
+        assertTrue(saveTrickBeloteList(new CustList<TrickBelote>()).isEmpty());
+    }
+    @Test
+    public void trickBeloteList2() {
+        TrickBelote t_ = new TrickBelote();
+        t_.setCards(HandBelote.create(new CardBelote[]{CardBelote.HEART_1,CardBelote.HEART_10}));
+        CustList<TrickBelote> hs_ = saveTrickBeloteList(new CustList<TrickBelote>(t_));
+        assertEq(1,hs_.size());
+        TrickBelote h_ = hs_.get(0);
+        assertEq(2,h_.total());
+        assertEq(CardBelote.HEART_1,h_.carte(0));
+        assertEq(CardBelote.HEART_10,h_.carte(1));
+    }
+    @Test
+    public void trickPresidentList1() {
+        assertTrue(saveTrickPresidentList(new CustList<TrickPresident>()).isEmpty());
+    }
+    @Test
+    public void trickPresidentList2() {
+        TrickPresident t_ = new TrickPresident();
+        t_.setCards(new CustList<HandPresident>(HandPresident.create(new CardPresident[]{CardPresident.HEART_1,CardPresident.HEART_10})));
+        CustList<TrickPresident> hs_ = saveTrickPresidentList(new CustList<TrickPresident>(t_));
+        assertEq(1,hs_.size());
+        TrickPresident h_ = hs_.get(0);
+        assertEq(1,h_.total());
+        assertEq(2,h_.carte(0).total());
+        assertEq(CardPresident.HEART_1,h_.carte(0).carte(0));
+        assertEq(CardPresident.HEART_10,h_.carte(0).carte(1));
+    }
+    @Test
+    public void trickTarotList1() {
+        assertTrue(saveTrickTarotList(new CustList<TrickTarot>()).isEmpty());
+    }
+    @Test
+    public void trickTarotList2() {
+        TrickTarot t_ = new TrickTarot();
+        t_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_1,CardTarot.HEART_10}));
+        CustList<TrickTarot> hs_ = saveTrickTarotList(new CustList<TrickTarot>(t_));
+        assertEq(1,hs_.size());
+        TrickTarot h_ = hs_.get(0);
+        assertEq(2,h_.total());
+        assertEq(CardTarot.HEART_1,h_.carte(0));
+        assertEq(CardTarot.HEART_10,h_.carte(1));
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -210,6 +374,42 @@ public final class NetTest extends EquallableNetworkUtil {
     }
     public static CustList<Bytes> saveTeams(CustList<Bytes> _l) {
         return Net.importTeams(parsePref(Net.exportTeams(_l)));
+    }
+    public static HandBelote saveHandBelote(HandBelote _l) {
+        return Net.importHandBelote(parse(Net.exportHandBelote(_l,Net.SEP_1)),Net.SEP_1);
+    }
+    public static HandPresident saveHandPresident(HandPresident _l) {
+        return Net.importHandPresident(parse(Net.exportHandPresident(_l,Net.SEP_1)),Net.SEP_1);
+    }
+    public static HandTarot saveHandTarot(HandTarot _l) {
+        return Net.importHandTarot(parse(Net.exportHandTarot(_l,Net.SEP_1)),Net.SEP_1);
+    }
+    public static CustList<HandBelote> saveHandBeloteList(CustList<HandBelote> _l) {
+        return Net.importHandBeloteList(parse(Net.exportHandBeloteList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static CustList<HandPresident> saveHandPresidentList(CustList<HandPresident> _l) {
+        return Net.importHandPresidentList(parse(Net.exportHandPresidentList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static CustList<HandTarot> saveHandTarotList(CustList<HandTarot> _l) {
+        return Net.importHandTarotList(parse(Net.exportHandTarotList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static TrickBelote saveTrickBelote(TrickBelote _l) {
+        return Net.importTrickBelote(parse(Net.exportTrickBelote(_l,Net.SEP_1)),Net.SEP_1);
+    }
+    public static TrickPresident saveTrickPresident(TrickPresident _l) {
+        return Net.importTrickPresident(parse(Net.exportTrickPresident(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static TrickTarot saveTrickTarot(TrickTarot _l) {
+        return Net.importTrickTarot(parse(Net.exportTrickTarot(_l,Net.SEP_1)),Net.SEP_1);
+    }
+    public static CustList<TrickBelote> saveTrickBeloteList(CustList<TrickBelote> _l) {
+        return Net.importTrickBeloteList(parse(Net.exportTrickBeloteList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static CustList<TrickPresident> saveTrickPresidentList(CustList<TrickPresident> _l) {
+        return Net.importTrickPresidentList(parse(Net.exportTrickPresidentList(_l,Net.SEP_1,Net.SEP_2,Net.SEP_3)),Net.SEP_1,Net.SEP_2,Net.SEP_3);
+    }
+    public static CustList<TrickTarot> saveTrickTarotList(CustList<TrickTarot> _l) {
+        return Net.importTrickTarotList(parse(Net.exportTrickTarotList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
     }
     private static String parse(String _in) {
         String i_ = Net.SEP_0 + _in;
