@@ -2,6 +2,7 @@ package code.network;
 
 import cards.belote.*;
 import cards.belote.enumerations.*;
+import cards.consts.GameType;
 import cards.consts.Suit;
 import cards.network.threads.*;
 import cards.president.*;
@@ -505,6 +506,280 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(Miseres.POINT,h_.get(0));
         assertEq(Miseres.LOW_CARDS,h_.get(1));
     }
+    @Test
+    public void resultsBelote1() {
+        ResultsBelote r_ = new ResultsBelote();
+        r_.getRes().setScores(new CustList<Longs>());
+        GameBelote g_ = new GameBelote();
+        r_.setGame(g_);
+        g_.setNumber(2);
+        g_.setTricks(new CustList<TrickBelote>());
+        g_.setProgressingTrick(new TrickBelote());
+        g_.setScores(Shorts.newList());
+        g_.setDeclaresBeloteRebelote(new CustList<HandBelote>());
+        g_.setDeclares(new CustList<DeclareHandBelote>());
+        g_.setWonLastTrick(new CustList<BoolVal>());
+        g_.setBids(new CustList<BidBeloteSuit>());
+        g_.setType(GameType.RANDOM);
+        DealBelote deal_ = new DealBelote();
+        g_.setDeal(deal_);
+        deal_.setDealer((byte) 3);
+        deal_.setNbDeals(4);
+        deal_.getDeal().add(HandBelote.create(new CardBelote[]{}));
+        ResultsBelote out_ = saveResultsBelote(r_);
+        assertEq(0,out_.getRes().getScores().size());
+        assertEq(2,out_.getGame().getNumber());
+        assertEq(0,out_.getGame().getProgressingTrick().getCards().getCards().size());
+        assertEq(0,out_.getGame().getTricks().size());
+        assertEq(0,out_.getGame().getBids().size());
+        assertEq(0,out_.getGame().getScores().size());
+        assertEq(0,out_.getGame().getDeclares().size());
+        assertEq(0,out_.getGame().getDeclaresBeloteRebelote().size());
+        assertEq(1,out_.getGame().getDeal().getDeal().size());
+        assertEq(0,out_.getGame().getDeal().getDeal().get(0).getCards().size());
+        assertEq(GameType.RANDOM, out_.getGame().getType());
+        assertEq(3,out_.getGame().getDeal().getDealer());
+        assertEq(4,out_.getGame().getDeal().getNbDeals());
+    }
+    @Test
+    public void resultsBelote2() {
+        ResultsBelote r_ = new ResultsBelote();
+        r_.getRes().setScores(new CustList<Longs>(Longs.newList(8)));
+        GameBelote g_ = new GameBelote();
+        r_.setGame(g_);
+        g_.setNumber(2);
+        TrickBelote b1_ = new TrickBelote();
+        b1_.getCards().ajouter(CardBelote.HEART_1);
+        g_.setTricks(new CustList<TrickBelote>(b1_));
+        TrickBelote b2_ = new TrickBelote();
+        b2_.getCards().ajouter(CardBelote.HEART_10);
+        g_.setProgressingTrick(b2_);
+        g_.setScores(Shorts.newList((short) 3));
+        g_.setDeclaresBeloteRebelote(new CustList<HandBelote>(new HandBelote()));
+        CustList<DeclareHandBelote> dec_ = new CustList<DeclareHandBelote>();
+        DeclareHandBelote dece_ = new DeclareHandBelote();
+        dece_.setDeclare(DeclaresBelote.THIRTY);
+        dece_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_8}));
+        dece_.setPlayer((byte) 6);
+        dec_.add(dece_);
+        g_.setDeclares(dec_);
+        g_.setWonLastTrick(new CustList<BoolVal>());
+        g_.setBids(new CustList<BidBeloteSuit>());
+        g_.setType(GameType.RANDOM);
+        DealBelote deal_ = new DealBelote();
+        g_.setDeal(deal_);
+        deal_.setDealer((byte) 4);
+        deal_.setNbDeals(5);
+        deal_.getDeal().add(HandBelote.create(new CardBelote[]{CardBelote.HEART_9}));
+        ResultsBelote out_ = saveResultsBelote(r_);
+        assertEq(1,out_.getRes().getScores().size());
+        assertEq(1,out_.getRes().getScores().get(0).size());
+        assertEq(8,out_.getRes().getScores().get(0).get(0));
+        assertEq(2,out_.getGame().getNumber());
+        assertEq(1,out_.getGame().getProgressingTrick().getCards().getCards().size());
+        assertEq(CardBelote.HEART_10,out_.getGame().getProgressingTrick().getCards().getCards().get(0));
+        assertEq(1,out_.getGame().getTricks().size());
+        assertEq(1,out_.getGame().getTricks().get(0).getCards().getCards().size());
+        assertEq(CardBelote.HEART_1,out_.getGame().getTricks().get(0).getCards().getCards().get(0));
+        assertEq(0,out_.getGame().getBids().size());
+        assertEq(1,out_.getGame().getScores().size());
+        assertEq(3,out_.getGame().getScores().get(0));
+        assertEq(1,out_.getGame().getDeclares().size());
+        assertEq(1,out_.getGame().getDeclares().get(0).getHand().total());
+        assertEq(CardBelote.HEART_8,out_.getGame().getDeclares().get(0).getHand().carte(0));
+        assertEq(DeclaresBelote.THIRTY,out_.getGame().getDeclares().get(0).getDeclare());
+        assertEq(6,out_.getGame().getDeclares().get(0).getPlayer());
+        assertEq(1,out_.getGame().getDeclaresBeloteRebelote().size());
+        assertEq(0,out_.getGame().getDeclaresBeloteRebelote().get(0).total());
+        assertEq(1,out_.getGame().getDeal().getDeal().size());
+        assertEq(1,out_.getGame().getDeal().getDeal().get(0).getCards().size());
+        assertEq(CardBelote.HEART_9,out_.getGame().getDeal().getDeal().get(0).getCards().get(0));
+        assertEq(GameType.RANDOM, out_.getGame().getType());
+        assertEq(4,out_.getGame().getDeal().getDealer());
+        assertEq(5,out_.getGame().getDeal().getNbDeals());
+    }
+    @Test
+    public void resultsPresident1() {
+        ResultsPresident r_ = new ResultsPresident();
+        r_.getRes().setScores(new CustList<Longs>());
+        GamePresident g_ = new GamePresident();
+        r_.setGame(g_);
+        g_.setNumber(2);
+        g_.setTricks(new CustList<TrickPresident>());
+        g_.setProgressingTrick(new TrickPresident());
+        g_.setScores(Shorts.newList());
+        g_.setRanks(Bytes.newList());
+        g_.setSwitchedCards(new CustList<HandPresident>());
+        g_.setType(GameType.RANDOM);
+        DealPresident deal_ = new DealPresident();
+        g_.setDeal(deal_);
+        deal_.setDealer((byte) 3);
+        deal_.setNbDeals(4);
+        deal_.getDeal().add(HandPresident.create(new CardPresident[]{}));
+        ResultsPresident out_ = saveResultsPresident(r_);
+        assertEq(0,out_.getRes().getScores().size());
+        assertEq(2,out_.getGame().getNumber());
+        assertEq(0,out_.getGame().getProgressingTrick().getCards().size());
+        assertEq(0,out_.getGame().getTricks().size());
+        assertEq(0,out_.getGame().getScores().size());
+        assertEq(0,out_.getGame().getRanks().size());
+        assertEq(0,out_.getGame().getSwitchedCards().size());
+        assertEq(1,out_.getGame().getDeal().getDeal().size());
+        assertEq(0,out_.getGame().getDeal().getDeal().get(0).getCards().size());
+        assertEq(GameType.RANDOM, out_.getGame().getType());
+        assertEq(3,out_.getGame().getDeal().getDealer());
+        assertEq(4,out_.getGame().getDeal().getNbDeals());
+    }
+    @Test
+    public void resultsPresident2() {
+        ResultsPresident r_ = new ResultsPresident();
+        r_.getRes().setScores(new CustList<Longs>(Longs.newList(8)));
+        GamePresident g_ = new GamePresident();
+        r_.setGame(g_);
+        g_.setNumber(2);
+        TrickPresident b1_ = new TrickPresident();
+        b1_.getCards().add(new HandPresident());
+        b1_.getCards().last().ajouter(CardPresident.HEART_1);
+        g_.setTricks(new CustList<TrickPresident>(b1_));
+        TrickPresident b2_ = new TrickPresident();
+        b2_.getCards().add(new HandPresident());
+        b2_.getCards().last().ajouter(CardPresident.HEART_10);
+        g_.setProgressingTrick(b2_);
+        g_.setScores(Shorts.newList((short) 3));
+        g_.setRanks(Bytes.newList((byte) 7));
+        g_.setSwitchedCards(new CustList<HandPresident>(HandPresident.create(new CardPresident[]{CardPresident.HEART_8})));
+        g_.setType(GameType.RANDOM);
+        DealPresident deal_ = new DealPresident();
+        g_.setDeal(deal_);
+        deal_.setDealer((byte) 4);
+        deal_.setNbDeals(5);
+        deal_.getDeal().add(HandPresident.create(new CardPresident[]{CardPresident.HEART_9}));
+        ResultsPresident out_ = saveResultsPresident(r_);
+        assertEq(1,out_.getRes().getScores().size());
+        assertEq(1,out_.getRes().getScores().get(0).size());
+        assertEq(8,out_.getRes().getScores().get(0).get(0));
+        assertEq(2,out_.getGame().getNumber());
+        assertEq(1,out_.getGame().getProgressingTrick().getCards().size());
+        assertEq(1,out_.getGame().getProgressingTrick().getCards().get(0).getCards().size());
+        assertEq(CardPresident.HEART_10,out_.getGame().getProgressingTrick().getCards().get(0).getCards().get(0));
+        assertEq(1,out_.getGame().getTricks().size());
+        assertEq(1,out_.getGame().getTricks().get(0).getCards().size());
+        assertEq(1,out_.getGame().getTricks().get(0).getCards().get(0).total());
+        assertEq(CardPresident.HEART_1,out_.getGame().getTricks().get(0).getCards().get(0).getCards().get(0));
+        assertEq(1,out_.getGame().getScores().size());
+        assertEq(3,out_.getGame().getScores().get(0));
+        assertEq(1,out_.getGame().getRanks().size());
+        assertEq(7,out_.getGame().getRanks().get(0));
+        assertEq(1,out_.getGame().getSwitchedCards().size());
+        assertEq(1,out_.getGame().getSwitchedCards().get(0).total());
+        assertEq(CardPresident.HEART_8,out_.getGame().getSwitchedCards().get(0).carte(0));
+        assertEq(1,out_.getGame().getDeal().getDeal().size());
+        assertEq(1,out_.getGame().getDeal().getDeal().get(0).getCards().size());
+        assertEq(CardPresident.HEART_9,out_.getGame().getDeal().getDeal().get(0).getCards().get(0));
+        assertEq(GameType.RANDOM, out_.getGame().getType());
+        assertEq(4,out_.getGame().getDeal().getDealer());
+        assertEq(5,out_.getGame().getDeal().getNbDeals());
+    }
+    @Test
+    public void resultsTarot1() {
+        ResultsTarot r_ = new ResultsTarot();
+        r_.getRes().setScores(new CustList<Longs>());
+        GameTarot g_ = new GameTarot();
+        r_.setGame(g_);
+        g_.setNumber(2);
+        g_.setTricks(new CustList<TrickTarot>());
+        g_.setProgressingTrick(new TrickTarot());
+        g_.setScores(Shorts.newList());
+        g_.setDeclaresMiseres(new CustList<IdList<Miseres>>());
+        g_.setDeclaresHandfuls(new CustList<IdList<Handfuls>>());
+        g_.setHandfuls(new CustList<HandTarot>());
+        g_.setType(GameType.RANDOM);
+        g_.setSmallBound(new CustList<BoolVal>());
+        g_.setCalledCards(new HandTarot());
+        g_.setBids(new IdList<BidTarot>());
+        DealTarot deal_ = new DealTarot();
+        g_.setDeal(deal_);
+        deal_.setDealer((byte) 3);
+        deal_.setNbDeals(4);
+        deal_.getDeal().add(HandTarot.create(new CardTarot[]{}));
+        ResultsTarot out_ = saveResultsTarot(r_);
+        assertEq(0,out_.getRes().getScores().size());
+        assertEq(2,out_.getGame().getNumber());
+        assertEq(0,out_.getGame().getProgressingTrick().total());
+        assertEq(0,out_.getGame().getTricks().size());
+        assertEq(0,out_.getGame().getScores().size());
+        assertEq(0,out_.getGame().getBids().size());
+        assertEq(0,out_.getGame().getCalledCards().total());
+        assertEq(0,out_.getGame().getHandfuls().size());
+        assertEq(0,out_.getGame().getDeclaresMiseres().size());
+        assertEq(0,out_.getGame().getDeclaresHandfuls().size());
+        assertEq(1,out_.getGame().getDeal().getDeal().size());
+        assertEq(0,out_.getGame().getDeal().getDeal().get(0).getCards().size());
+        assertEq(GameType.RANDOM, out_.getGame().getType());
+        assertEq(3,out_.getGame().getDeal().getDealer());
+        assertEq(4,out_.getGame().getDeal().getNbDeals());
+    }
+    @Test
+    public void resultsTarot2() {
+        ResultsTarot r_ = new ResultsTarot();
+        r_.getRes().setScores(new CustList<Longs>(Longs.newList(8)));
+        GameTarot g_ = new GameTarot();
+        r_.setGame(g_);
+        g_.setNumber(2);
+        TrickTarot b1_ = new TrickTarot();
+        b1_.getCards().ajouter(CardTarot.HEART_1);
+        g_.setTricks(new CustList<TrickTarot>(b1_));
+        TrickTarot b2_ = new TrickTarot();
+        b2_.getCards().ajouter(CardTarot.HEART_10);
+        g_.setProgressingTrick(b2_);
+        g_.setScores(Shorts.newList((short) 3));
+        CustList<IdList<Miseres>> mis_ = new CustList<IdList<Miseres>>();
+        mis_.add(new IdList<Miseres>(Miseres.LOW_CARDS));
+        g_.setDeclaresMiseres(mis_);
+        CustList<IdList<Handfuls>> hands_ = new CustList<IdList<Handfuls>>();
+        hands_.add(new IdList<Handfuls>(Handfuls.ONE));
+        g_.setDeclaresHandfuls(hands_);
+        g_.setHandfuls(new CustList<HandTarot>(HandTarot.create(new CardTarot[]{CardTarot.HEART_8})));
+        g_.setType(GameType.RANDOM);
+        g_.setSmallBound(new CustList<BoolVal>());
+        g_.setCalledCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_7}));
+        g_.setBids(new IdList<BidTarot>());
+        DealTarot deal_ = new DealTarot();
+        g_.setDeal(deal_);
+        deal_.setDealer((byte) 4);
+        deal_.setNbDeals(5);
+        deal_.getDeal().add(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
+        ResultsTarot out_ = saveResultsTarot(r_);
+        assertEq(1,out_.getRes().getScores().size());
+        assertEq(1,out_.getRes().getScores().get(0).size());
+        assertEq(8,out_.getRes().getScores().get(0).get(0));
+        assertEq(2,out_.getGame().getNumber());
+        assertEq(1,out_.getGame().getProgressingTrick().total());
+        assertEq(CardTarot.HEART_10,out_.getGame().getProgressingTrick().carte(0));
+        assertEq(1,out_.getGame().getTricks().size());
+        assertEq(1,out_.getGame().getTricks().get(0).total());
+        assertEq(CardTarot.HEART_1,out_.getGame().getTricks().get(0).carte(0));
+        assertEq(1,out_.getGame().getScores().size());
+        assertEq(3,out_.getGame().getScores().get(0));
+        assertEq(0,out_.getGame().getBids().size());
+        assertEq(1,out_.getGame().getCalledCards().total());
+        assertEq(CardTarot.HEART_7,out_.getGame().getCalledCards().carte(0));
+        assertEq(1,out_.getGame().getHandfuls().size());
+        assertEq(1,out_.getGame().getHandfuls().get(0).total());
+        assertEq(CardTarot.HEART_8,out_.getGame().getHandfuls().get(0).carte(0));
+        assertEq(1,out_.getGame().getDeclaresMiseres().size());
+        assertEq(1,out_.getGame().getDeclaresMiseres().get(0).size());
+        assertEq(Miseres.LOW_CARDS, out_.getGame().getDeclaresMiseres().get(0).get(0));
+        assertEq(1,out_.getGame().getDeclaresHandfuls().size());
+        assertEq(1,out_.getGame().getDeclaresHandfuls().get(0).size());
+        assertEq(Handfuls.ONE, out_.getGame().getDeclaresHandfuls().get(0).get(0));
+        assertEq(1,out_.getGame().getDeal().getDeal().size());
+        assertEq(1,out_.getGame().getDeal().getDeal().get(0).getCards().size());
+        assertEq(CardTarot.HEART_9,out_.getGame().getDeal().getDeal().get(0).getCards().get(0));
+        assertEq(GameType.RANDOM, out_.getGame().getType());
+        assertEq(4,out_.getGame().getDeal().getDealer());
+        assertEq(5,out_.getGame().getDeal().getNbDeals());
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -584,6 +859,15 @@ public final class NetTest extends EquallableNetworkUtil {
     }
     public static CustList<IdList<Miseres>> saveMiseresList(CustList<IdList<Miseres>> _l) {
         return Net.importMiseresList(parse(Net.exportMiseresList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static ResultsBelote saveResultsBelote(ResultsBelote _l) {
+        return Net.importGameBelote(parseParts(Net.exportGameBelote(_l)));
+    }
+    public static ResultsPresident saveResultsPresident(ResultsPresident _l) {
+        return Net.importGamePresident(parseParts(Net.exportGamePresident(_l)));
+    }
+    public static ResultsTarot saveResultsTarot(ResultsTarot _l) {
+        return Net.importGameTarot(parseParts(Net.exportGameTarot(_l)));
     }
     private static String parse(String _in) {
         String i_ = Net.SEP_0 + _in;

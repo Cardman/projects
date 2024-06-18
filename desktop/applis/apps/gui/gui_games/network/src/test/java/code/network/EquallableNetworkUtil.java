@@ -64,6 +64,9 @@ public abstract class EquallableNetworkUtil {
     public static void assertEq(Suit _expected, Suit _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertEq(GameType _expected, GameType _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(CardPresident _expected, CardPresident _result) {
         Assert.assertSame(_expected, _result);
     }

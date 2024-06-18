@@ -124,7 +124,8 @@ public final class Net {
     public static final char SEP_7 = '@';
     public static final char SEP_8 = '&';
     public static final char SEP_9 = '|';
-    private static final String CARDS = "CARDS";
+    public static final String EMPTY_LIST = "-";
+    public static final String EMPTY_SEC_LIST = "--";
 
     /** A used port for connections*/
     private static final int PORT = 667;
@@ -1247,6 +1248,7 @@ public final class Net {
 
     public static ResultsBelote importGameBelote(CustList<String> _info) {
         ResultsBelote game_ = new ResultsBelote();
+        game_.setGame(new GameBelote());
         game_.getRes().setScores(importLongsList(_info.get(0),SEP_1,SEP_2));
         game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
         DealBelote deal_ = importDealBelote(_info.get(4),SEP_1,SEP_2);
@@ -1335,6 +1337,9 @@ public final class Net {
         return exportHandBeloteList(_dealt.getDeal(), _sep, _sec);
     }
     public static String exportHandBeloteList(CustList<HandBelote> _dealt, char _sep, char _sec) {
+        if (_dealt.isEmpty()) {
+            return EMPTY_LIST;
+        }
         CustList<String> ls_ = new CustList<String>();
         for (HandBelote b: _dealt) {
             ls_.add(exportHandBelote(b,_sec));
@@ -1348,7 +1353,7 @@ public final class Net {
     }
     public static CustList<HandBelote> importHandBeloteList(String _info, char _sep, char _sec) {
         CustList<HandBelote> h_ = new CustList<HandBelote>();
-        if (_info.isEmpty()) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -1475,6 +1480,7 @@ public final class Net {
 
     public static ResultsPresident importGamePresident(CustList<String> _info) {
         ResultsPresident game_ = new ResultsPresident();
+        game_.setGame(new GamePresident());
         game_.getRes().setScores(importLongsList(_info.get(0),SEP_1,SEP_2));
         game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
         DealPresident deal_ = importDealPresident(_info.get(4),SEP_1,SEP_2);
@@ -1537,6 +1543,9 @@ public final class Net {
 
     public static String exportHandPresidentList(CustList<HandPresident> _dealt, char _sep, char _sec) {
         CustList<String> ls_ = new CustList<String>();
+        if (_dealt.isEmpty()) {
+            return EMPTY_LIST;
+        }
         for (HandPresident b: _dealt) {
             ls_.add(exportHandPresident(b,_sec));
         }
@@ -1549,7 +1558,7 @@ public final class Net {
     }
     public static CustList<HandPresident> importHandPresidentList(String _info, char _sep, char _sec) {
         CustList<HandPresident> h_ = new CustList<HandPresident>();
-        if (_info.isEmpty()) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -1559,6 +1568,9 @@ public final class Net {
     }
 
     public static String exportTrickPresidentList(CustList<TrickPresident> _dealt, char _sep, char _sec, char _th) {
+        if (_dealt.isEmpty()) {
+            return EMPTY_SEC_LIST;
+        }
         CustList<String> ls_ = new CustList<String>();
         for (TrickPresident b: _dealt) {
             ls_.add(exportTrickPresident(b,_sec,_th));
@@ -1567,7 +1579,7 @@ public final class Net {
     }
     public static CustList<TrickPresident> importTrickPresidentList(String _info, char _sep, char _sec, char _th) {
         CustList<TrickPresident> h_ = new CustList<TrickPresident>();
-        if (_info.isEmpty()) {
+        if (StringUtil.quickEq(_info, EMPTY_SEC_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -1577,6 +1589,9 @@ public final class Net {
     }
 
     public static String exportTrickPresident(TrickPresident _dealt, char _sep, char _sec) {
+        if (_dealt.getCards().isEmpty()) {
+            return EMPTY_LIST;
+        }
         CustList<String> ls_ = new CustList<String>();
         for (HandPresident b: _dealt) {
             ls_.add(exportHandPresident(b,_sec));
@@ -1585,7 +1600,7 @@ public final class Net {
     }
     public static TrickPresident importTrickPresident(String _info, char _sep, char _sec) {
         TrickPresident h_ = new TrickPresident();
-        if (_info.isEmpty()) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -1671,6 +1686,7 @@ public final class Net {
 
     public static ResultsTarot importGameTarot(CustList<String> _info) {
         ResultsTarot game_ = new ResultsTarot();
+        game_.setGame(new GameTarot());
         game_.getRes().setScores(importLongsList(_info.get(0),SEP_1,SEP_2));
         game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
         DealTarot deal_ = importDealTarot(_info.get(4),SEP_1,SEP_2);
@@ -1724,6 +1740,9 @@ public final class Net {
     }
 
     public static String exportHandTarotList(CustList<HandTarot> _dealt, char _sep, char _sec) {
+        if (_dealt.isEmpty()) {
+            return EMPTY_LIST;
+        }
         CustList<String> ls_ = new CustList<String>();
         for (HandTarot b: _dealt) {
             ls_.add(exportHandTarot(b,_sec));
@@ -1737,7 +1756,7 @@ public final class Net {
     }
     public static CustList<HandTarot> importHandTarotList(String _info, char _sep, char _sec) {
         CustList<HandTarot> h_ = new CustList<HandTarot>();
-        if (_info.isEmpty()) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -1802,7 +1821,7 @@ public final class Net {
 
     public static String exportBidTarotList(CustList<BidTarot> _dealt, char _sep) {
         if (_dealt.isEmpty()) {
-            return "-";
+            return EMPTY_LIST;
         }
         CustList<String> ls_ = new CustList<String>();
         for (BidTarot b: _dealt) {
@@ -1812,7 +1831,7 @@ public final class Net {
     }
     public static IdList<BidTarot> importBidTarotList(String _info, char _sep) {
         IdList<BidTarot> h_ = new IdList<BidTarot>();
-        if (StringUtil.quickEq(_info,"-")) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -1858,7 +1877,7 @@ public final class Net {
     }
     public static String exportHandfuls(CustList<Handfuls> _dealt, char _sep) {
         if (_dealt.isEmpty()) {
-            return "-";
+            return EMPTY_LIST;
         }
         CustList<String> ls_ = new CustList<String>();
         for (Handfuls b: _dealt) {
@@ -1868,7 +1887,7 @@ public final class Net {
     }
     public static IdList<Handfuls> importHandfuls(String _info, char _sep) {
         IdList<Handfuls> h_ = new IdList<Handfuls>();
-        if (StringUtil.quickEq(_info,"-")) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -1877,6 +1896,9 @@ public final class Net {
         return h_;
     }
     public static String exportMiseres(CustList<Miseres> _dealt, char _sep) {
+        if (_dealt.isEmpty()) {
+            return EMPTY_LIST;
+        }
         CustList<String> ls_ = new CustList<String>();
         for (Miseres b: _dealt) {
             ls_.add(TarotCardsExporterUtil.fromMiseres(b));
@@ -1886,7 +1908,7 @@ public final class Net {
 
     public static IdList<Miseres> importMiseres(String _info, char _sep) {
         IdList<Miseres> h_ = new IdList<Miseres>();
-        if (_info.isEmpty()) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -2062,10 +2084,6 @@ public final class Net {
 
     public static int getPort() {
         return PORT;
-    }
-
-    public static String getCards() {
-        return CARDS;
     }
 
     /**server
