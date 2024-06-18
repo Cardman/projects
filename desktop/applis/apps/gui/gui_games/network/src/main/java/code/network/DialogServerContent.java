@@ -326,6 +326,10 @@ public final class DialogServerContent implements AbstractDialogServer {
         return nbPlayers;
     }
 
+    public GameEnum getChosen() {
+        return chosen;
+    }
+
     public static IpType getIpType(DialogServerContent _dialog) {
         return _dialog.ipType.getCurrent();
     }

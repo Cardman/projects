@@ -5,6 +5,7 @@ import cards.belote.enumerations.*;
 import cards.consts.EnumCardsRetrieverUtil;
 import cards.facade.Games;
 import cards.facade.IntArtCardGames;
+import cards.facade.enumerations.GameEnum;
 import cards.network.belote.DiscardPhaseBelote;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.DiscardedCardBelote;
@@ -355,7 +356,7 @@ public final class Net {
         return new NetRetrievedInfos(_instance.splitInfo, _info);
     }
 
-    public static String exportIndexArrive(int _index, int _nbPlayers, NetCommon _common, Games _instance) {
+    public static String exportIndexArrive(int _index, int _nbPlayers, NetCommon _common, Games _instance, GameEnum _choice) {
         StringBuilder out_ = new StringBuilder();
         out_.append(CLIENT_INDEX_ARRIVE);
         out_.append(SEP_0);
@@ -371,16 +372,16 @@ public final class Net {
         }
         out_.append(StringUtil.join(ready_,SEP_1));
         out_.append(SEP_0);
-        RulesBelote rulesBelote_ = _instance.getRulesBelote();
-        RulesPresident rulesPresident_ = _instance.getRulesPresident();
-        RulesTarot rulesTarot_ = _instance.getRulesTarot();
-        if (rulesBelote_ != null) {
+        if (_choice == GameEnum.BELOTE) {
+            RulesBelote rulesBelote_ = _instance.getRulesBelote();
             out_.append(exportRulesBelote(RULES_BELOTE,rulesBelote_));
         }
-        if (rulesPresident_ != null) {
+        if (_choice == GameEnum.PRESIDENT) {
+            RulesPresident rulesPresident_ = _instance.getRulesPresident();
             out_.append(exportRulesPresident(RULES_PRESIDENT,rulesPresident_));
         }
-        if (rulesTarot_ != null) {
+        if (_choice == GameEnum.TAROT) {
+            RulesTarot rulesTarot_ = _instance.getRulesTarot();
             out_.append(exportRulesTarot(RULES_TAROT,rulesTarot_));
         }
         return out_.toString();

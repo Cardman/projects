@@ -866,7 +866,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        index_.setReadyPlayers(new IntMap<BoolVal>(getSockets().getReadyPlayers()));
         getSockets().getReadyPlayers().put(nb_ , BoolVal.FALSE);
         getSockets().getPlacesPlayers().put(nb_ ,(byte)(nb_));
-        NetGroupFrame.trySendString(Net.exportIndexArrive(nb_, nbPlayers_, getSockets(), Net.getGames(getNet())),_newSocket);
+        NetGroupFrame.trySendString(Net.exportIndexArrive(nb_, nbPlayers_, getSockets(), Net.getGames(getNet()), getDialogServerContent().getChosen()),_newSocket);
     }
 
     private void expExit(Exiting _forcedBye, AbstractSocket _newSocket) {
