@@ -1416,7 +1416,7 @@ public final class NetTest extends EquallableNetworkUtil {
     public void chosen2() {
         IdMap<Integer, Byte> id_ = new IdMap<Integer, Byte>();
         id_.addEntry(3,(byte)4);
-        ChoosenPlace ch_ = saveClientChoosenPlace(1, 2, id_);
+        ChoosenPlace ch_ = saveServerChoosenPlace(1, 2, id_);
         assertEq(1, ch_.getIndex());
         assertEq(2, ch_.getPlace());
         assertEq(1, ch_.getPlacesPlayers().size());
