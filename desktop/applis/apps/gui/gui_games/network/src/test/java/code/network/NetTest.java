@@ -827,6 +827,64 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(4,out_.getGame().getDeal().getDealer());
         assertEq(5,out_.getGame().getDeal().getNbDeals());
     }
+    @Test
+    public void resultsTarot3() {
+        ResultsTarot r_ = new ResultsTarot();
+        r_.getRes().setScores(new CustList<Longs>(Longs.newList(8)));
+        GameTarot g_ = new GameTarot();
+        r_.setGame(g_);
+        g_.setNumber(2);
+        TrickTarot b1_ = new TrickTarot();
+        b1_.getCards().ajouter(CardTarot.HEART_1);
+        g_.setTricks(new CustList<TrickTarot>(b1_));
+        TrickTarot b2_ = new TrickTarot();
+        b2_.getCards().ajouter(CardTarot.HEART_10);
+        g_.setProgressingTrick(b2_);
+        g_.setScores(Shorts.newList((short) 3));
+        CustList<IdList<Miseres>> mis_ = new CustList<IdList<Miseres>>();
+        mis_.add(new IdList<Miseres>());
+        g_.setDeclaresMiseres(mis_);
+        CustList<IdList<Handfuls>> hands_ = new CustList<IdList<Handfuls>>();
+        hands_.add(new IdList<Handfuls>());
+        g_.setDeclaresHandfuls(hands_);
+        g_.setHandfuls(new CustList<HandTarot>(HandTarot.create(new CardTarot[]{})));
+        g_.setType(GameType.RANDOM);
+        g_.setSmallBound(new CustList<BoolVal>());
+        g_.setCalledCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_7}));
+        g_.setBids(new IdList<BidTarot>());
+        DealTarot deal_ = new DealTarot();
+        g_.setDeal(deal_);
+        deal_.setDealer((byte) 4);
+        deal_.setNbDeals(5);
+        deal_.getDeal().add(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
+        ResultsTarot out_ = saveResultsTarot(r_);
+        assertEq(1,out_.getRes().getScores().size());
+        assertEq(1,out_.getRes().getScores().get(0).size());
+        assertEq(8,out_.getRes().getScores().get(0).get(0));
+        assertEq(2,out_.getGame().getNumber());
+        assertEq(1,out_.getGame().getProgressingTrick().total());
+        assertEq(CardTarot.HEART_10,out_.getGame().getProgressingTrick().carte(0));
+        assertEq(1,out_.getGame().getTricks().size());
+        assertEq(1,out_.getGame().getTricks().get(0).total());
+        assertEq(CardTarot.HEART_1,out_.getGame().getTricks().get(0).carte(0));
+        assertEq(1,out_.getGame().getScores().size());
+        assertEq(3,out_.getGame().getScores().get(0));
+        assertEq(0,out_.getGame().getBids().size());
+        assertEq(1,out_.getGame().getCalledCards().total());
+        assertEq(CardTarot.HEART_7,out_.getGame().getCalledCards().carte(0));
+        assertEq(1,out_.getGame().getHandfuls().size());
+        assertEq(0,out_.getGame().getHandfuls().get(0).total());
+        assertEq(1,out_.getGame().getDeclaresMiseres().size());
+        assertEq(0,out_.getGame().getDeclaresMiseres().get(0).size());
+        assertEq(1,out_.getGame().getDeclaresHandfuls().size());
+        assertEq(0,out_.getGame().getDeclaresHandfuls().get(0).size());
+        assertEq(1,out_.getGame().getDeal().getDeal().size());
+        assertEq(1,out_.getGame().getDeal().getDeal().get(0).getCards().size());
+        assertEq(CardTarot.HEART_9,out_.getGame().getDeal().getDeal().get(0).getCards().get(0));
+        assertEq(GameType.RANDOM, out_.getGame().getType());
+        assertEq(4,out_.getGame().getDeal().getDealer());
+        assertEq(5,out_.getGame().getDeal().getNbDeals());
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
