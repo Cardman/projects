@@ -599,6 +599,61 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(5,out_.getGame().getDeal().getNbDeals());
     }
     @Test
+    public void resultsBelote3() {
+        ResultsBelote r_ = new ResultsBelote();
+        r_.getRes().setScores(new CustList<Longs>(Longs.newList()));
+        GameBelote g_ = new GameBelote();
+        r_.setGame(g_);
+        g_.setNumber(2);
+        TrickBelote b1_ = new TrickBelote();
+        b1_.getCards().ajouter(CardBelote.HEART_1);
+        g_.setTricks(new CustList<TrickBelote>(b1_));
+        TrickBelote b2_ = new TrickBelote();
+        b2_.getCards().ajouter(CardBelote.HEART_10);
+        g_.setProgressingTrick(b2_);
+        g_.setScores(Shorts.newList((short) 3));
+        g_.setDeclaresBeloteRebelote(new CustList<HandBelote>(new HandBelote()));
+        CustList<DeclareHandBelote> dec_ = new CustList<DeclareHandBelote>();
+        DeclareHandBelote dece_ = new DeclareHandBelote();
+        dece_.setDeclare(DeclaresBelote.THIRTY);
+        dece_.setHand(HandBelote.create(new CardBelote[]{}));
+        dece_.setPlayer((byte) 6);
+        dec_.add(dece_);
+        g_.setDeclares(dec_);
+        g_.setWonLastTrick(new CustList<BoolVal>());
+        g_.setBids(new CustList<BidBeloteSuit>());
+        g_.setType(GameType.RANDOM);
+        DealBelote deal_ = new DealBelote();
+        g_.setDeal(deal_);
+        deal_.setDealer((byte) 4);
+        deal_.setNbDeals(5);
+        deal_.getDeal().add(HandBelote.create(new CardBelote[]{CardBelote.HEART_9}));
+        ResultsBelote out_ = saveResultsBelote(r_);
+        assertEq(1,out_.getRes().getScores().size());
+        assertEq(0,out_.getRes().getScores().get(0).size());
+        assertEq(2,out_.getGame().getNumber());
+        assertEq(1,out_.getGame().getProgressingTrick().getCards().getCards().size());
+        assertEq(CardBelote.HEART_10,out_.getGame().getProgressingTrick().getCards().getCards().get(0));
+        assertEq(1,out_.getGame().getTricks().size());
+        assertEq(1,out_.getGame().getTricks().get(0).getCards().getCards().size());
+        assertEq(CardBelote.HEART_1,out_.getGame().getTricks().get(0).getCards().getCards().get(0));
+        assertEq(0,out_.getGame().getBids().size());
+        assertEq(1,out_.getGame().getScores().size());
+        assertEq(3,out_.getGame().getScores().get(0));
+        assertEq(1,out_.getGame().getDeclares().size());
+        assertEq(0,out_.getGame().getDeclares().get(0).getHand().total());
+        assertEq(DeclaresBelote.THIRTY,out_.getGame().getDeclares().get(0).getDeclare());
+        assertEq(6,out_.getGame().getDeclares().get(0).getPlayer());
+        assertEq(1,out_.getGame().getDeclaresBeloteRebelote().size());
+        assertEq(0,out_.getGame().getDeclaresBeloteRebelote().get(0).total());
+        assertEq(1,out_.getGame().getDeal().getDeal().size());
+        assertEq(1,out_.getGame().getDeal().getDeal().get(0).getCards().size());
+        assertEq(CardBelote.HEART_9,out_.getGame().getDeal().getDeal().get(0).getCards().get(0));
+        assertEq(GameType.RANDOM, out_.getGame().getType());
+        assertEq(4,out_.getGame().getDeal().getDealer());
+        assertEq(5,out_.getGame().getDeal().getNbDeals());
+    }
+    @Test
     public void resultsPresident1() {
         ResultsPresident r_ = new ResultsPresident();
         r_.getRes().setScores(new CustList<Longs>());
@@ -683,7 +738,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void resultsPresident3() {
         ResultsPresident r_ = new ResultsPresident();
-        r_.getRes().setScores(new CustList<Longs>(Longs.newList(8)));
+        r_.getRes().setScores(new CustList<Longs>(Longs.newList()));
         GamePresident g_ = new GamePresident();
         r_.setGame(g_);
         g_.setNumber(2);
@@ -705,8 +760,7 @@ public final class NetTest extends EquallableNetworkUtil {
         deal_.getDeal().add(HandPresident.create(new CardPresident[]{CardPresident.HEART_9}));
         ResultsPresident out_ = saveResultsPresident(r_);
         assertEq(1,out_.getRes().getScores().size());
-        assertEq(1,out_.getRes().getScores().get(0).size());
-        assertEq(8,out_.getRes().getScores().get(0).get(0));
+        assertEq(0,out_.getRes().getScores().get(0).size());
         assertEq(2,out_.getGame().getNumber());
         assertEq(1,out_.getGame().getProgressingTrick().getCards().size());
         assertEq(1,out_.getGame().getProgressingTrick().getCards().get(0).getCards().size());
@@ -830,7 +884,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void resultsTarot3() {
         ResultsTarot r_ = new ResultsTarot();
-        r_.getRes().setScores(new CustList<Longs>(Longs.newList(8)));
+        r_.getRes().setScores(new CustList<Longs>(Longs.newList()));
         GameTarot g_ = new GameTarot();
         r_.setGame(g_);
         g_.setNumber(2);
@@ -859,8 +913,7 @@ public final class NetTest extends EquallableNetworkUtil {
         deal_.getDeal().add(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
         ResultsTarot out_ = saveResultsTarot(r_);
         assertEq(1,out_.getRes().getScores().size());
-        assertEq(1,out_.getRes().getScores().get(0).size());
-        assertEq(8,out_.getRes().getScores().get(0).get(0));
+        assertEq(0,out_.getRes().getScores().get(0).size());
         assertEq(2,out_.getGame().getNumber());
         assertEq(1,out_.getGame().getProgressingTrick().total());
         assertEq(CardTarot.HEART_10,out_.getGame().getProgressingTrick().carte(0));

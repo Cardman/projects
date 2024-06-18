@@ -1980,6 +1980,9 @@ public final class Net {
     }
 
     public static String exportByteLists(CustList<Bytes> _dealt, char _sep, char _sec) {
+        if (_dealt.isEmpty()) {
+            return EMPTY_LIST;
+        }
         CustList<String> ls_ = new CustList<String>();
         for (Bytes b: _dealt) {
             ls_.add(exportByteList(b, _sec));
@@ -1988,7 +1991,7 @@ public final class Net {
     }
     public static CustList<Bytes> importByteLists(String _info, char _sep, char _sec) {
         CustList<Bytes> h_ = new CustList<Bytes>();
-        if (_info.isEmpty()) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
@@ -2016,6 +2019,9 @@ public final class Net {
     }
 
     public static String exportLongsList(CustList<Longs> _dealt, char _sep, char _sec) {
+        if (_dealt.isEmpty()) {
+            return EMPTY_LIST;
+        }
         CustList<String> ls_ = new CustList<String>();
         for (Longs b: _dealt) {
             ls_.add(exportLongList(b,_sec));
@@ -2024,7 +2030,7 @@ public final class Net {
     }
     public static CustList<Longs> importLongsList(String _info, char _sep, char _sec) {
         CustList<Longs> h_ = new CustList<Longs>();
-        if (_info.isEmpty()) {
+        if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
