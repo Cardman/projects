@@ -20,7 +20,8 @@ public abstract class BasicClientAbs extends SendReceive {
 //                return;
 //            }
             //on peut traiter les "timeout"
-            if (!iterate(getSocket(),inputSock_.readLine())) {
+            String input_ = inputSock_.readLine();
+            if (input_ == null || !iterate(getSocket(), input_)) {
                 return;
             }
 //            Document doc_ = getNet().getDoc(input_);
