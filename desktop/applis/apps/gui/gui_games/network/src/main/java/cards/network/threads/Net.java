@@ -519,6 +519,7 @@ public final class Net {
     public static StringBuilder exportRulesTarot(int _flag,RulesTarot _rules) {
         StringBuilder out_ = new StringBuilder();
         out_.append(_flag);
+        out_.append(SEP_0);
         out_.append(_rules.getDealing().getSt());
         out_.append(SEP_0);
         out_.append(_rules.getCommon().getMixedCards().getMixSt());

@@ -3,7 +3,11 @@ package code.network;
 import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.GameType;
+import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
+import cards.facade.Games;
+import cards.facade.enumerations.GameEnum;
+import cards.network.common.before.IndexOfArrivingCards;
 import cards.network.threads.*;
 import cards.president.*;
 import cards.president.enumerations.*;
@@ -1149,6 +1153,257 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(0,out_.getDistribution().getDeal().get(0).total());
         assertEq(5,out_.getPreneur());
     }
+    @Test
+    public void indexArrive1() {
+        Games g_ = new Games();
+        RulesBelote belote_ = new RulesBelote();
+        belote_.setClassicCountPoints(false);
+        belote_.setUnderTrumpFoe(false);
+        belote_.setAllowedDeclares(new IdMap<DeclaresBelote, BoolVal>());
+        belote_.setAllowedBids(new IdMap<BidBelote, BoolVal>());
+        belote_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        g_.setRulesBelote(belote_);
+        NetCommon common_ = new NetCommon();
+        common_.getPlacesPlayers().addEntry(2,(byte)3);
+        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
+        common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
+        IndexOfArrivingCards i_ = saveIndexArrive(1, 3, common_, g_, GameEnum.BELOTE);
+        assertEq(2,i_.getPlacesPlayers().size());
+        assertEq(2,i_.getPlacesPlayers().getKey(0));
+        assertEq(3,i_.getPlacesPlayers().getValue(0));
+        assertEq(4,i_.getPlacesPlayers().getKey(1));
+        assertEq(5,i_.getPlacesPlayers().getValue(1));
+        assertEq(2,i_.getReadyPlayers().size());
+        assertEq(6,i_.getReadyPlayers().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getReadyPlayers().getValue(0));
+        assertEq(7,i_.getReadyPlayers().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getReadyPlayers().getValue(1));
+        assertEq(0,i_.getRulesBelote().getAllowedDeclares().size());
+        assertEq(0,i_.getRulesBelote().getAllowedBids().size());
+        assertFalse(i_.getRulesBelote().isUnderTrumpFoe());
+        assertFalse(i_.getRulesBelote().isClassicCountPoints());
+        assertEq(3,i_.getNbPlayers());
+    }
+    @Test
+    public void indexArrive2() {
+        NetCommon common_ = new NetCommon();
+        common_.getPlacesPlayers().addEntry(2,(byte)3);
+        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
+        common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
+        Games g_ = new Games();
+        RulesBelote belote_ = new RulesBelote();
+        belote_.setClassicCountPoints(true);
+        belote_.setUnderTrumpFoe(true);
+        IdMap<BidBelote, BoolVal> bid_ = new IdMap<BidBelote, BoolVal>();
+        bid_.addEntry(BidBelote.FOLD, BoolVal.FALSE);
+        bid_.addEntry(BidBelote.SUIT, BoolVal.TRUE);
+        belote_.setAllowedBids(bid_);
+        IdMap<DeclaresBelote, BoolVal> decl_ = new IdMap<DeclaresBelote, BoolVal>();
+        decl_.addEntry(DeclaresBelote.UNDEFINED, BoolVal.TRUE);
+        decl_.addEntry(DeclaresBelote.HUNDRED, BoolVal.FALSE);
+        belote_.setAllowedDeclares(decl_);
+        belote_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        belote_.setTrumpPartner(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP);
+        belote_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
+        g_.setRulesBelote(belote_);
+        IndexOfArrivingCards i_ = saveIndexArrive(1, 3, common_, g_, GameEnum.BELOTE);
+        assertEq(2,i_.getPlacesPlayers().size());
+        assertEq(2,i_.getPlacesPlayers().getKey(0));
+        assertEq(3,i_.getPlacesPlayers().getValue(0));
+        assertEq(4,i_.getPlacesPlayers().getKey(1));
+        assertEq(5,i_.getPlacesPlayers().getValue(1));
+        assertEq(2,i_.getReadyPlayers().size());
+        assertEq(6,i_.getReadyPlayers().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getReadyPlayers().getValue(0));
+        assertEq(7,i_.getReadyPlayers().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getReadyPlayers().getValue(1));
+        assertEq(2,i_.getRulesBelote().getAllowedDeclares().size());
+        assertEq(DeclaresBelote.UNDEFINED,i_.getRulesBelote().getAllowedDeclares().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getRulesBelote().getAllowedDeclares().getValue(0));
+        assertEq(DeclaresBelote.HUNDRED,i_.getRulesBelote().getAllowedDeclares().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getRulesBelote().getAllowedDeclares().getValue(1));
+        assertEq(2,i_.getRulesBelote().getAllowedBids().size());
+        assertEq(BidBelote.FOLD,i_.getRulesBelote().getAllowedBids().getKey(0));
+        assertEq(BoolVal.FALSE,i_.getRulesBelote().getAllowedBids().getValue(0));
+        assertEq(BidBelote.SUIT,i_.getRulesBelote().getAllowedBids().getKey(1));
+        assertEq(BoolVal.TRUE,i_.getRulesBelote().getAllowedBids().getValue(1));
+        assertTrue(i_.getRulesBelote().isUnderTrumpFoe());
+        assertTrue(i_.getRulesBelote().isClassicCountPoints());
+        assertEq(MixCardsChoice.EACH_LAUNCHING, i_.getRulesBelote().getCommon().getMixedCards());
+        assertEq(DealingBelote.CLASSIC_1_VS_2_24, i_.getRulesBelote().getDealing());
+        assertEq(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP, i_.getRulesBelote().getTrumpPartner());
+        assertEq(3,i_.getNbPlayers());
+    }
+    @Test
+    public void indexArrive3() {
+        Games g_ = new Games();
+        RulesPresident president_ = new RulesPresident();
+        president_.setLoosingIfFinishByBestCards(false);
+        president_.setHasToPlay(false);
+        president_.setPossibleReversing(false);
+        president_.setSwitchCards(false);
+        president_.setLooserStartsFirst(false);
+        president_.setNbStacks(5);
+        president_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        president_.setNbPlayers(6);
+        g_.setRulesPresident(president_);
+        NetCommon common_ = new NetCommon();
+        common_.getPlacesPlayers().addEntry(2,(byte)3);
+        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
+        common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
+        IndexOfArrivingCards i_ = saveIndexArrive(1, 6, common_, g_, GameEnum.PRESIDENT);
+        assertEq(2,i_.getPlacesPlayers().size());
+        assertEq(2,i_.getPlacesPlayers().getKey(0));
+        assertEq(3,i_.getPlacesPlayers().getValue(0));
+        assertEq(4,i_.getPlacesPlayers().getKey(1));
+        assertEq(5,i_.getPlacesPlayers().getValue(1));
+        assertEq(2,i_.getReadyPlayers().size());
+        assertEq(6,i_.getReadyPlayers().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getReadyPlayers().getValue(0));
+        assertEq(7,i_.getReadyPlayers().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getReadyPlayers().getValue(1));
+        assertEq(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL, i_.getRulesPresident().getEqualty());
+        assertFalse(i_.getRulesPresident().isHasToPlay());
+        assertFalse(i_.getRulesPresident().isPossibleReversing());
+        assertFalse(i_.getRulesPresident().isSwitchCards());
+        assertFalse(i_.getRulesPresident().isLoosingIfFinishByBestCards());
+        assertFalse(i_.getRulesPresident().isLooserStartsFirst());
+        assertEq(6,i_.getRulesPresident().getNbPlayers());
+        assertEq(5,i_.getRulesPresident().getNbStacks());
+        assertEq(6,i_.getNbPlayers());
+    }
+    @Test
+    public void indexArrive4() {
+        Games g_ = new Games();
+        RulesPresident president_ = new RulesPresident();
+        president_.setLoosingIfFinishByBestCards(true);
+        president_.setHasToPlay(true);
+        president_.setPossibleReversing(true);
+        president_.setSwitchCards(true);
+        president_.setLooserStartsFirst(true);
+        president_.setNbStacks(5);
+        president_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        president_.setNbPlayers(6);
+        g_.setRulesPresident(president_);
+        NetCommon common_ = new NetCommon();
+        common_.getPlacesPlayers().addEntry(2,(byte)3);
+        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
+        common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
+        IndexOfArrivingCards i_ = saveIndexArrive(1, 6, common_, g_, GameEnum.PRESIDENT);
+        assertEq(2,i_.getPlacesPlayers().size());
+        assertEq(2,i_.getPlacesPlayers().getKey(0));
+        assertEq(3,i_.getPlacesPlayers().getValue(0));
+        assertEq(4,i_.getPlacesPlayers().getKey(1));
+        assertEq(5,i_.getPlacesPlayers().getValue(1));
+        assertEq(2,i_.getReadyPlayers().size());
+        assertEq(6,i_.getReadyPlayers().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getReadyPlayers().getValue(0));
+        assertEq(7,i_.getReadyPlayers().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getReadyPlayers().getValue(1));
+        assertEq(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL, i_.getRulesPresident().getEqualty());
+        assertTrue(i_.getRulesPresident().isHasToPlay());
+        assertTrue(i_.getRulesPresident().isPossibleReversing());
+        assertTrue(i_.getRulesPresident().isSwitchCards());
+        assertTrue(i_.getRulesPresident().isLoosingIfFinishByBestCards());
+        assertTrue(i_.getRulesPresident().isLooserStartsFirst());
+        assertEq(6,i_.getRulesPresident().getNbPlayers());
+        assertEq(5,i_.getRulesPresident().getNbStacks());
+        assertEq(6,i_.getNbPlayers());
+    }
+    @Test
+    public void indexArrive5() {
+        Games g_ = new Games();
+        RulesTarot tarot_ = new RulesTarot();
+        tarot_.setDiscardAfterCall(false);
+        tarot_.setAllowPlayCalledSuit(false);
+        tarot_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        tarot_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
+        tarot_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
+        tarot_.setMiseres(new IdList<Miseres>());
+        tarot_.setAllowedHandfuls(new IdMap<Handfuls, Integer>());
+        tarot_.setAllowedBids(new IdMap<BidTarot, BoolVal>());
+        g_.setRulesTarot(tarot_);
+        NetCommon common_ = new NetCommon();
+        common_.getPlacesPlayers().addEntry(2,(byte)3);
+        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
+        common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
+        IndexOfArrivingCards i_ = saveIndexArrive(1, 5, common_, g_, GameEnum.TAROT);
+        assertEq(2,i_.getPlacesPlayers().size());
+        assertEq(2,i_.getPlacesPlayers().getKey(0));
+        assertEq(3,i_.getPlacesPlayers().getValue(0));
+        assertEq(4,i_.getPlacesPlayers().getKey(1));
+        assertEq(5,i_.getPlacesPlayers().getValue(1));
+        assertEq(2,i_.getReadyPlayers().size());
+        assertEq(6,i_.getReadyPlayers().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getReadyPlayers().getValue(0));
+        assertEq(7,i_.getReadyPlayers().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getReadyPlayers().getValue(1));
+        assertEq(ModeTarot.NORMAL_WITH_ONE_FOR_ONE, i_.getRulesTarot().getMode());
+        assertEq(EndDealTarot.ATTACK_WIN, i_.getRulesTarot().getEndDealTarot());
+        assertFalse(i_.getRulesTarot().isAllowPlayCalledSuit());
+        assertFalse(i_.getRulesTarot().getDiscardAfterCall());
+        assertEq(DealingTarot.DEAL_2_VS_3_CALL_CHAR, i_.getRulesTarot().getDealing());
+        assertEq(0,i_.getRulesTarot().getAllowedHandfuls().size());
+        assertEq(0,i_.getRulesTarot().getAllowedBids().size());
+        assertEq(0,i_.getRulesTarot().getMiseres().size());
+        assertEq(5,i_.getNbPlayers());
+    }
+    @Test
+    public void indexArrive6() {
+        Games g_ = new Games();
+        RulesTarot tarot_ = new RulesTarot();
+        tarot_.setDiscardAfterCall(true);
+        tarot_.setAllowPlayCalledSuit(true);
+        tarot_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        tarot_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
+        tarot_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
+        tarot_.setMiseres(new IdList<Miseres>(Miseres.LOW_CARDS));
+        IdMap<Handfuls, Integer> handfuls_ = new IdMap<Handfuls, Integer>();
+        handfuls_.addEntry(Handfuls.ONE, 1);
+        tarot_.setAllowedHandfuls(handfuls_);
+        IdMap<BidTarot, BoolVal> bids_ = new IdMap<BidTarot, BoolVal>();
+        bids_.addEntry(BidTarot.FOLD, BoolVal.TRUE);
+        bids_.addEntry(BidTarot.SLAM_TAKE, BoolVal.FALSE);
+        tarot_.setAllowedBids(bids_);
+        g_.setRulesTarot(tarot_);
+        NetCommon common_ = new NetCommon();
+        common_.getPlacesPlayers().addEntry(2,(byte)3);
+        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
+        common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
+        IndexOfArrivingCards i_ = saveIndexArrive(1, 5, common_, g_, GameEnum.TAROT);
+        assertEq(2,i_.getPlacesPlayers().size());
+        assertEq(2,i_.getPlacesPlayers().getKey(0));
+        assertEq(3,i_.getPlacesPlayers().getValue(0));
+        assertEq(4,i_.getPlacesPlayers().getKey(1));
+        assertEq(5,i_.getPlacesPlayers().getValue(1));
+        assertEq(2,i_.getReadyPlayers().size());
+        assertEq(6,i_.getReadyPlayers().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getReadyPlayers().getValue(0));
+        assertEq(7,i_.getReadyPlayers().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getReadyPlayers().getValue(1));
+        assertEq(ModeTarot.NORMAL_WITH_ONE_FOR_ONE, i_.getRulesTarot().getMode());
+        assertEq(EndDealTarot.ATTACK_WIN, i_.getRulesTarot().getEndDealTarot());
+        assertTrue(i_.getRulesTarot().isAllowPlayCalledSuit());
+        assertTrue(i_.getRulesTarot().getDiscardAfterCall());
+        assertEq(DealingTarot.DEAL_2_VS_3_CALL_CHAR, i_.getRulesTarot().getDealing());
+        assertEq(1,i_.getRulesTarot().getAllowedHandfuls().size());
+        assertEq(Handfuls.ONE,i_.getRulesTarot().getAllowedHandfuls().getKey(0));
+        assertEq(1,i_.getRulesTarot().getAllowedHandfuls().getValue(0));
+        assertEq(2,i_.getRulesTarot().getAllowedBids().size());
+        assertEq(BidTarot.FOLD,i_.getRulesTarot().getAllowedBids().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getRulesTarot().getAllowedBids().getValue(0));
+        assertEq(BidTarot.SLAM_TAKE,i_.getRulesTarot().getAllowedBids().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getRulesTarot().getAllowedBids().getValue(1));
+        assertEq(1,i_.getRulesTarot().getMiseres().size());
+        assertEq(Miseres.LOW_CARDS,i_.getRulesTarot().getMiseres().get(0));
+        assertEq(5,i_.getNbPlayers());
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -1246,6 +1501,9 @@ public final class NetTest extends EquallableNetworkUtil {
     }
     public static TricksHandsTarot saveTricksHandsTarot(TricksHandsTarot _l) {
         return Net.importTricksHandsTarot(parseParts(Net.exportTricksHandsTarot(_l)));
+    }
+    public static IndexOfArrivingCards saveIndexArrive(int _index, int _nbPlayers, NetCommon _common, Games _instance, GameEnum _choice) {
+        return Net.importIndexArrive(parseParts(Net.exportIndexArrive(_index, _nbPlayers, _common, _instance, _choice)));
     }
     private static String parse(String _in) {
         String i_ = Net.SEP_0 + _in;
