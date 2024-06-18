@@ -1942,6 +1942,9 @@ public final class Net {
     }
     public static Shorts importShortList(String _info, char _sep) {
         Shorts h_ = new Shorts();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add((short)NumberUtil.parseInt(s));
         }
@@ -1957,6 +1960,9 @@ public final class Net {
     }
     public static CustList<Bytes> importByteLists(String _info, char _sep, char _sec) {
         CustList<Bytes> h_ = new CustList<Bytes>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add(importByteList(s,_sec));
         }
@@ -1972,6 +1978,9 @@ public final class Net {
     }
     public static Bytes importByteList(String _info, char _sep) {
         Bytes h_ = new Bytes();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add((byte)NumberUtil.parseInt(s));
         }
