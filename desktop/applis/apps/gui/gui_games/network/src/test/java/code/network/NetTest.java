@@ -145,6 +145,49 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(BoolVal.TRUE, res_.get(4));
         assertEq(BoolVal.FALSE, res_.get(5));
     }
+
+    @Test
+    public void teams1() {
+        assertTrue(saveTeams(new CustList<Bytes>()).isEmpty());
+    }
+
+    @Test
+    public void teams2() {
+        CustList<Bytes> bv_ = new CustList<Bytes>();
+        bv_.add(Bytes.newList((byte)1));
+        bv_.add(Bytes.newList((byte)-1,(byte) 2));
+        bv_.add(Bytes.newList((byte)4,(byte) -2, (byte) 0, (byte) 6));
+        CustList<Bytes> res_ = saveTeams(bv_);
+        assertEq(3, res_.size());
+        assertEq(1,res_.get(0).size());
+        assertEq(1,res_.get(0).get(0));
+        assertEq(2,res_.get(1).size());
+        assertEq(-1,res_.get(1).get(0));
+        assertEq(2,res_.get(1).get(1));
+        assertEq(4,res_.get(2).size());
+        assertEq(4,res_.get(2).get(0));
+        assertEq(-2,res_.get(2).get(1));
+        assertEq(0,res_.get(2).get(2));
+        assertEq(6,res_.get(2).get(3));
+    }
+
+    @Test
+    public void teams3() {
+        CustList<Bytes> bv_ = new CustList<Bytes>();
+        bv_.add(Bytes.newList((byte)1));
+        bv_.add(Bytes.newList());
+        bv_.add(Bytes.newList());
+        bv_.add(Bytes.newList((byte)-1,(byte) 2));
+        CustList<Bytes> res_ = saveTeams(bv_);
+        assertEq(4, res_.size());
+        assertEq(1,res_.get(0).size());
+        assertEq(1,res_.get(0).get(0));
+        assertEq(0,res_.get(1).size());
+        assertEq(0,res_.get(2).size());
+        assertEq(2,res_.get(3).size());
+        assertEq(-1,res_.get(3).get(0));
+        assertEq(2,res_.get(3).get(1));
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -165,11 +208,22 @@ public final class NetTest extends EquallableNetworkUtil {
     public static CustList<BoolVal> saveBools(CustList<BoolVal> _l) {
         return Net.importBoolList(parse(Net.exportBoolList(_l)));
     }
-
+    public static CustList<Bytes> saveTeams(CustList<Bytes> _l) {
+        return Net.importTeams(parsePref(Net.exportTeams(_l)));
+    }
     private static String parse(String _in) {
         String i_ = Net.SEP_0 + _in;
-        FirstSeparatorFind cs_ = new FirstSeparatorFind(i_, Net.SEP_0);
-        return StringUtil.partsStrQuick(splitter(), i_, index(cs_), i_.length(), 0, cs_).get(0);
+        return parsePref(i_);
+    }
+
+    private static String parsePref(String _in) {
+        FirstSeparatorFind cs_ = new FirstSeparatorFind(_in, Net.SEP_0);
+        return StringUtil.partsStrQuick(splitter(), _in, index(cs_), _in.length(), 0, cs_).get(0);
+    }
+
+    private static CustList<String> parseParts(String _in) {
+        FirstSeparatorFind cs_ = new FirstSeparatorFind(_in, Net.SEP_0);
+        return StringUtil.partsStrQuick(splitter(), _in, index(cs_), _in.length(), 0, cs_);
     }
 
     private static int index(FirstSeparatorFind _cs) {
