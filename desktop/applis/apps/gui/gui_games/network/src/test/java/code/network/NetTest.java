@@ -121,6 +121,30 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(2, res_.get(1));
         assertEq(-3, res_.get(2));
     }
+
+    @Test
+    public void bools1() {
+        assertTrue(saveBools(new CustList<BoolVal>()).isEmpty());
+    }
+
+    @Test
+    public void bools2() {
+        CustList<BoolVal> bv_ = new CustList<BoolVal>();
+        bv_.add(BoolVal.TRUE);
+        bv_.add(BoolVal.FALSE);
+        bv_.add(BoolVal.FALSE);
+        bv_.add(BoolVal.TRUE);
+        bv_.add(BoolVal.TRUE);
+        bv_.add(BoolVal.FALSE);
+        CustList<BoolVal> res_ = saveBools(bv_);
+        assertEq(6, res_.size());
+        assertEq(BoolVal.TRUE, res_.get(0));
+        assertEq(BoolVal.FALSE, res_.get(1));
+        assertEq(BoolVal.FALSE, res_.get(2));
+        assertEq(BoolVal.TRUE, res_.get(3));
+        assertEq(BoolVal.TRUE, res_.get(4));
+        assertEq(BoolVal.FALSE, res_.get(5));
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -137,6 +161,9 @@ public final class NetTest extends EquallableNetworkUtil {
     }
     public static Shorts saveShorts(Shorts _l) {
         return Net.importShortList(parse(Net.exportShortList(_l, Net.SEP_1)),Net.SEP_1);
+    }
+    public static CustList<BoolVal> saveBools(CustList<BoolVal> _l) {
+        return Net.importBoolList(parse(Net.exportBoolList(_l)));
     }
 
     private static String parse(String _in) {
