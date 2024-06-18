@@ -1987,6 +1987,9 @@ public final class Net {
     }
     public static CustList<Longs> importLongsList(String _info, char _sep, char _sec) {
         CustList<Longs> h_ = new CustList<Longs>();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add(importLongList(s,_sec));
         }
@@ -2002,6 +2005,9 @@ public final class Net {
     }
     public static Longs importLongList(String _info, char _sep) {
         Longs h_ = new Longs();
+        if (_info.isEmpty()) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add(NumberUtil.parseLongZero(s));
         }
