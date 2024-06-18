@@ -1857,6 +1857,9 @@ public final class Net {
         return h_;
     }
     public static String exportHandfuls(CustList<Handfuls> _dealt, char _sep) {
+        if (_dealt.isEmpty()) {
+            return "-";
+        }
         CustList<String> ls_ = new CustList<String>();
         for (Handfuls b: _dealt) {
             ls_.add(TarotCardsExporterUtil.fromHandfuls(b));
@@ -1865,6 +1868,9 @@ public final class Net {
     }
     public static IdList<Handfuls> importHandfuls(String _info, char _sep) {
         IdList<Handfuls> h_ = new IdList<Handfuls>();
+        if (StringUtil.quickEq(_info,"-")) {
+            return h_;
+        }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             h_.add(TarotCardsRetrieverUtil.toHandfuls(s));
         }

@@ -76,6 +76,9 @@ public abstract class EquallableNetworkUtil {
     public static void assertEq(CardTarot _expected, CardTarot _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertEq(Miseres _expected, Miseres _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(Handfuls _expected, Handfuls _result) {
         Assert.assertSame(_expected, _result);
     }
@@ -98,6 +101,9 @@ public abstract class EquallableNetworkUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(BidBelote _expected, BidBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(Playing _expected, Playing _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(BoolVal _expected, BoolVal _result) {

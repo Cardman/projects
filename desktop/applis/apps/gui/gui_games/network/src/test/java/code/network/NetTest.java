@@ -2,6 +2,7 @@ package code.network;
 
 import cards.belote.*;
 import cards.belote.enumerations.*;
+import cards.consts.Suit;
 import cards.network.threads.*;
 import cards.president.*;
 import cards.president.enumerations.*;
@@ -352,6 +353,158 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(CardTarot.HEART_1,h_.carte(0));
         assertEq(CardTarot.HEART_10,h_.carte(1));
     }
+    @Test
+    public void bidBeloteSuitList1() {
+        assertTrue(saveBidBeloteSuitList(new CustList<BidBeloteSuit>()).isEmpty());
+    }
+    @Test
+    public void bidBeloteSuitList2() {
+        CustList<BidBeloteSuit> b_ = new CustList<BidBeloteSuit>();
+        b_.add(bidSuit(Suit.HEART, 80,BidBelote.SUIT));
+        CustList<BidBeloteSuit> s_ = saveBidBeloteSuitList(b_);
+        assertEq(1,s_.size());
+        assertEq(Suit.HEART,s_.get(0).getSuit());
+        assertEq(80,s_.get(0).getPoints());
+        assertEq(BidBelote.SUIT,s_.get(0).getBid());
+    }
+    @Test
+    public void bidBeloteSuitList3() {
+        CustList<BidBeloteSuit> b_ = new CustList<BidBeloteSuit>();
+        b_.add(bidSuit(Suit.UNDEFINED, 0,BidBelote.FOLD));
+        CustList<BidBeloteSuit> s_ = saveBidBeloteSuitList(b_);
+        assertEq(1,s_.size());
+        assertEq(Suit.UNDEFINED,s_.get(0).getSuit());
+        assertEq(0,s_.get(0).getPoints());
+        assertEq(BidBelote.FOLD,s_.get(0).getBid());
+    }
+    @Test
+    public void playingMap1() {
+        assertTrue(savePlayingMap(new ByteMap<Playing>()).isEmpty());
+    }
+    @Test
+    public void playingMap2() {
+        ByteMap<Playing> b_ = new ByteMap<Playing>();
+        b_.addEntry((byte)2,Playing.SKIPPED);
+        b_.addEntry((byte)4,Playing.PASS);
+        ByteMap<Playing> s_ = savePlayingMap(b_);
+        assertEq(2,s_.size());
+        assertEq(2,s_.getKey(0));
+        assertEq(Playing.SKIPPED,s_.getValue(0));
+        assertEq(4,s_.getKey(1));
+        assertEq(Playing.PASS,s_.getValue(1));
+    }
+    @Test
+    public void bidTarotList1() {
+        assertTrue(saveBidTarotList(new CustList<BidTarot>()).isEmpty());
+    }
+    @Test
+    public void bidTarotList2() {
+        CustList<BidTarot> b_ = new CustList<BidTarot>();
+        b_.add(BidTarot.SLAM_TAKE);
+        CustList<BidTarot> s_ = saveBidTarotList(b_);
+        assertEq(1,s_.size());
+        assertEq(BidTarot.SLAM_TAKE,s_.get(0));
+    }
+    @Test
+    public void bidTarotList3() {
+        CustList<BidTarot> b_ = new CustList<BidTarot>();
+        b_.add(BidTarot.FOLD);
+        CustList<BidTarot> s_ = saveBidTarotList(b_);
+        assertEq(1,s_.size());
+        assertEq(BidTarot.FOLD,s_.get(0));
+    }
+    @Test
+    public void bidTarotList4() {
+        CustList<BidTarot> b_ = new CustList<BidTarot>();
+        b_.add(BidTarot.FOLD);
+        b_.add(BidTarot.SLAM_TAKE);
+        CustList<BidTarot> s_ = saveBidTarotList(b_);
+        assertEq(2,s_.size());
+        assertEq(BidTarot.FOLD,s_.get(0));
+        assertEq(BidTarot.SLAM_TAKE,s_.get(1));
+    }
+    @Test
+    public void bidTarotList5() {
+        CustList<BidTarot> b_ = new CustList<BidTarot>();
+        b_.add(BidTarot.SLAM_TAKE);
+        b_.add(BidTarot.FOLD);
+        CustList<BidTarot> s_ = saveBidTarotList(b_);
+        assertEq(2,s_.size());
+        assertEq(BidTarot.SLAM_TAKE,s_.get(0));
+        assertEq(BidTarot.FOLD,s_.get(1));
+    }
+    @Test
+    public void saveHandfuls1() {
+        assertTrue(saveHandfuls(new CustList<Handfuls>()).isEmpty());
+    }
+    @Test
+    public void saveHandfuls2() {
+        CustList<Handfuls> t_ = new CustList<Handfuls>();
+        t_.add(Handfuls.ONE);
+        t_.add(Handfuls.FOUR);
+        CustList<Handfuls> h_ = saveHandfuls(t_);
+        assertEq(2,h_.size());
+        assertEq(Handfuls.ONE,h_.get(0));
+        assertEq(Handfuls.FOUR,h_.get(1));
+    }
+    @Test
+    public void saveHandfuls3() {
+        CustList<Handfuls> t_ = new CustList<Handfuls>();
+        t_.add(Handfuls.NO);
+        CustList<Handfuls> h_ = saveHandfuls(t_);
+        assertEq(1,h_.size());
+        assertEq(Handfuls.NO,h_.get(0));
+    }
+    @Test
+    public void saveMiseres1() {
+        assertTrue(saveMiseres(new CustList<Miseres>()).isEmpty());
+    }
+    @Test
+    public void saveMiseres2() {
+        CustList<Miseres> t_ = new CustList<Miseres>();
+        t_.add(Miseres.POINT);
+        t_.add(Miseres.LOW_CARDS);
+        CustList<Miseres> h_ = saveMiseres(t_);
+        assertEq(2,h_.size());
+        assertEq(Miseres.POINT,h_.get(0));
+        assertEq(Miseres.LOW_CARDS,h_.get(1));
+    }
+    @Test
+    public void saveHandfulsList1() {
+        assertTrue(saveHandfulsList(new IdList<IdList<Handfuls>>()).isEmpty());
+    }
+    @Test
+    public void saveHandfulsList2() {
+        IdList<Handfuls> t_ = new IdList<Handfuls>();
+        t_.add(Handfuls.ONE);
+        t_.add(Handfuls.FOUR);
+        IdList<IdList<Handfuls>> l_ = new IdList<IdList<Handfuls>>();
+        l_.add(t_);
+        CustList<IdList<Handfuls>> hs_ = saveHandfulsList(l_);
+        assertEq(1,hs_.size());
+        IdList<Handfuls> h_ = hs_.get(0);
+        assertEq(2,h_.size());
+        assertEq(Handfuls.ONE,h_.get(0));
+        assertEq(Handfuls.FOUR,h_.get(1));
+    }
+    @Test
+    public void saveMiseresList1() {
+        assertTrue(saveMiseresList(new IdList<IdList<Miseres>>()).isEmpty());
+    }
+    @Test
+    public void saveMiseresList2() {
+        IdList<Miseres> t_ = new IdList<Miseres>();
+        t_.add(Miseres.POINT);
+        t_.add(Miseres.LOW_CARDS);
+        IdList<IdList<Miseres>> l_ = new IdList<IdList<Miseres>>();
+        l_.add(t_);
+        CustList<IdList<Miseres>> hs_ = saveMiseresList(l_);
+        assertEq(1,hs_.size());
+        IdList<Miseres> h_ = hs_.get(0);
+        assertEq(2,h_.size());
+        assertEq(Miseres.POINT,h_.get(0));
+        assertEq(Miseres.LOW_CARDS,h_.get(1));
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -411,6 +564,27 @@ public final class NetTest extends EquallableNetworkUtil {
     public static CustList<TrickTarot> saveTrickTarotList(CustList<TrickTarot> _l) {
         return Net.importTrickTarotList(parse(Net.exportTrickTarotList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
     }
+    public static CustList<BidBeloteSuit> saveBidBeloteSuitList(CustList<BidBeloteSuit> _l) {
+        return Net.importBidBeloteSuitList(parse(Net.exportBidBeloteSuitList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static ByteMap<Playing> savePlayingMap(ByteMap<Playing> _l) {
+        return Net.importPlayingMap(parse(Net.exportPlayingMap(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static CustList<BidTarot> saveBidTarotList(CustList<BidTarot> _l) {
+        return Net.importBidTarotList(parse(Net.exportBidTarotList(_l,Net.SEP_1)),Net.SEP_1);
+    }
+    public static CustList<Handfuls> saveHandfuls(CustList<Handfuls> _l) {
+        return Net.importHandfuls(parse(Net.exportHandfuls(_l,Net.SEP_1)),Net.SEP_1);
+    }
+    public static CustList<Miseres> saveMiseres(CustList<Miseres> _l) {
+        return Net.importMiseres(parse(Net.exportMiseres(_l,Net.SEP_1)),Net.SEP_1);
+    }
+    public static CustList<IdList<Handfuls>> saveHandfulsList(CustList<IdList<Handfuls>> _l) {
+        return Net.importHandfulsList(parse(Net.exportHandfulsList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
+    public static CustList<IdList<Miseres>> saveMiseresList(CustList<IdList<Miseres>> _l) {
+        return Net.importMiseresList(parse(Net.exportMiseresList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
+    }
     private static String parse(String _in) {
         String i_ = Net.SEP_0 + _in;
         return parsePref(i_);
@@ -435,5 +609,13 @@ public final class NetTest extends EquallableNetworkUtil {
         CustList<IntSplitPartsFields> window_ = new CustList<IntSplitPartsFields>();
         window_.add(new DefSplitPartsFields());
         return window_;
+    }
+
+    private static BidBeloteSuit bidSuit(Suit _suit, int _pts, BidBelote _bid) {
+        BidBeloteSuit suit_ = new BidBeloteSuit();
+        suit_.setSuit(_suit);
+        suit_.setPoints(_pts);
+        suit_.setBid(_bid);
+        return suit_;
     }
 }
