@@ -2,13 +2,10 @@ package code.network;
 
 import cards.belote.*;
 import cards.belote.enumerations.*;
-import cards.consts.GameType;
-import cards.consts.MixCardsChoice;
-import cards.consts.Suit;
-import cards.facade.Games;
-import cards.facade.enumerations.GameEnum;
-import cards.network.common.before.ChoosenPlace;
-import cards.network.common.before.IndexOfArrivingCards;
+import cards.consts.*;
+import cards.facade.*;
+import cards.facade.enumerations.*;
+import cards.network.common.before.*;
 import cards.network.threads.*;
 import cards.president.*;
 import cards.president.enumerations.*;
@@ -1423,6 +1420,159 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(3, ch_.getPlacesPlayers().getKey(0));
         assertEq(4, ch_.getPlacesPlayers().getValue(0));
     }
+    @Test
+    public void rulesBelote1() {
+        RulesBelote belote_ = new RulesBelote();
+        belote_.setClassicCountPoints(false);
+        belote_.setUnderTrumpFoe(false);
+        belote_.setAllowedDeclares(new IdMap<DeclaresBelote, BoolVal>());
+        belote_.setAllowedBids(new IdMap<BidBelote, BoolVal>());
+        belote_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        RulesBelote i_ = saveClientRulesBelote(belote_);
+        assertEq(0,i_.getAllowedDeclares().size());
+        assertEq(0,i_.getAllowedBids().size());
+        assertFalse(i_.isUnderTrumpFoe());
+        assertFalse(i_.isClassicCountPoints());
+    }
+    @Test
+    public void rulesBelote2() {
+        RulesBelote belote_ = new RulesBelote();
+        belote_.setClassicCountPoints(true);
+        belote_.setUnderTrumpFoe(true);
+        IdMap<BidBelote, BoolVal> bid_ = new IdMap<BidBelote, BoolVal>();
+        bid_.addEntry(BidBelote.FOLD, BoolVal.FALSE);
+        bid_.addEntry(BidBelote.SUIT, BoolVal.TRUE);
+        belote_.setAllowedBids(bid_);
+        IdMap<DeclaresBelote, BoolVal> decl_ = new IdMap<DeclaresBelote, BoolVal>();
+        decl_.addEntry(DeclaresBelote.UNDEFINED, BoolVal.TRUE);
+        decl_.addEntry(DeclaresBelote.HUNDRED, BoolVal.FALSE);
+        belote_.setAllowedDeclares(decl_);
+        belote_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
+        belote_.setTrumpPartner(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP);
+        belote_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
+        RulesBelote i_ = saveServerRulesBelote(belote_);
+        assertEq(2,i_.getAllowedDeclares().size());
+        assertEq(DeclaresBelote.UNDEFINED,i_.getAllowedDeclares().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getAllowedDeclares().getValue(0));
+        assertEq(DeclaresBelote.HUNDRED,i_.getAllowedDeclares().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getAllowedDeclares().getValue(1));
+        assertEq(2,i_.getAllowedBids().size());
+        assertEq(BidBelote.FOLD,i_.getAllowedBids().getKey(0));
+        assertEq(BoolVal.FALSE,i_.getAllowedBids().getValue(0));
+        assertEq(BidBelote.SUIT,i_.getAllowedBids().getKey(1));
+        assertEq(BoolVal.TRUE,i_.getAllowedBids().getValue(1));
+        assertTrue(i_.isUnderTrumpFoe());
+        assertTrue(i_.isClassicCountPoints());
+        assertEq(MixCardsChoice.EACH_LAUNCHING, i_.getCommon().getMixedCards());
+        assertEq(DealingBelote.CLASSIC_1_VS_2_24, i_.getDealing());
+        assertEq(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP, i_.getTrumpPartner());
+    }
+    @Test
+    public void rulesPresident1() {
+        RulesPresident president_ = new RulesPresident();
+        president_.setLoosingIfFinishByBestCards(false);
+        president_.setHasToPlay(false);
+        president_.setPossibleReversing(false);
+        president_.setSwitchCards(false);
+        president_.setLooserStartsFirst(false);
+        president_.setNbStacks(5);
+        president_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        president_.setNbPlayers(6);
+        RulesPresident i_ = saveClientRulesPresident(president_);
+        assertEq(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL, i_.getEqualty());
+        assertFalse(i_.isHasToPlay());
+        assertFalse(i_.isPossibleReversing());
+        assertFalse(i_.isSwitchCards());
+        assertFalse(i_.isLoosingIfFinishByBestCards());
+        assertFalse(i_.isLooserStartsFirst());
+        assertEq(6,i_.getNbPlayers());
+        assertEq(5,i_.getNbStacks());
+    }
+    @Test
+    public void rulesPresident2() {
+        RulesPresident president_ = new RulesPresident();
+        president_.setLoosingIfFinishByBestCards(true);
+        president_.setHasToPlay(true);
+        president_.setPossibleReversing(true);
+        president_.setSwitchCards(true);
+        president_.setLooserStartsFirst(true);
+        president_.setNbStacks(5);
+        president_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
+        president_.setNbPlayers(6);
+        RulesPresident i_ = saveServerRulesPresident(president_);
+        assertEq(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL, i_.getEqualty());
+        assertTrue(i_.isHasToPlay());
+        assertTrue(i_.isPossibleReversing());
+        assertTrue(i_.isSwitchCards());
+        assertTrue(i_.isLoosingIfFinishByBestCards());
+        assertTrue(i_.isLooserStartsFirst());
+        assertEq(6,i_.getNbPlayers());
+        assertEq(5,i_.getNbStacks());
+    }
+    @Test
+    public void rulesTarot1() {
+        RulesTarot tarot_ = new RulesTarot();
+        tarot_.setDiscardAfterCall(false);
+        tarot_.setAllowPlayCalledSuit(false);
+        tarot_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        tarot_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
+        tarot_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
+        tarot_.setMiseres(new IdList<Miseres>());
+        tarot_.setAllowedHandfuls(new IdMap<Handfuls, Integer>());
+        tarot_.setAllowedBids(new IdMap<BidTarot, BoolVal>());
+        NetCommon common_ = new NetCommon();
+        common_.getPlacesPlayers().addEntry(2,(byte)3);
+        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
+        common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
+        RulesTarot i_ = saveClientRulesTarot(tarot_);
+        assertEq(ModeTarot.NORMAL_WITH_ONE_FOR_ONE, i_.getMode());
+        assertEq(EndDealTarot.ATTACK_WIN, i_.getEndDealTarot());
+        assertFalse(i_.isAllowPlayCalledSuit());
+        assertFalse(i_.getDiscardAfterCall());
+        assertEq(DealingTarot.DEAL_2_VS_3_CALL_CHAR, i_.getDealing());
+        assertEq(0,i_.getAllowedHandfuls().size());
+        assertEq(0,i_.getAllowedBids().size());
+        assertEq(0,i_.getMiseres().size());
+    }
+    @Test
+    public void rulesTarot2() {
+        RulesTarot tarot_ = new RulesTarot();
+        tarot_.setDiscardAfterCall(true);
+        tarot_.setAllowPlayCalledSuit(true);
+        tarot_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        tarot_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
+        tarot_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
+        tarot_.setMiseres(new IdList<Miseres>(Miseres.LOW_CARDS));
+        IdMap<Handfuls, Integer> handfuls_ = new IdMap<Handfuls, Integer>();
+        handfuls_.addEntry(Handfuls.ONE, 1);
+        tarot_.setAllowedHandfuls(handfuls_);
+        IdMap<BidTarot, BoolVal> bids_ = new IdMap<BidTarot, BoolVal>();
+        bids_.addEntry(BidTarot.FOLD, BoolVal.TRUE);
+        bids_.addEntry(BidTarot.SLAM_TAKE, BoolVal.FALSE);
+        tarot_.setAllowedBids(bids_);
+        NetCommon common_ = new NetCommon();
+        common_.getPlacesPlayers().addEntry(2,(byte)3);
+        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
+        common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
+        RulesTarot i_ = saveServerRulesTarot(tarot_);
+        assertEq(ModeTarot.NORMAL_WITH_ONE_FOR_ONE, i_.getMode());
+        assertEq(EndDealTarot.ATTACK_WIN, i_.getEndDealTarot());
+        assertTrue(i_.isAllowPlayCalledSuit());
+        assertTrue(i_.getDiscardAfterCall());
+        assertEq(DealingTarot.DEAL_2_VS_3_CALL_CHAR, i_.getDealing());
+        assertEq(1,i_.getAllowedHandfuls().size());
+        assertEq(Handfuls.ONE,i_.getAllowedHandfuls().getKey(0));
+        assertEq(1,i_.getAllowedHandfuls().getValue(0));
+        assertEq(2,i_.getAllowedBids().size());
+        assertEq(BidTarot.FOLD,i_.getAllowedBids().getKey(0));
+        assertEq(BoolVal.TRUE,i_.getAllowedBids().getValue(0));
+        assertEq(BidTarot.SLAM_TAKE,i_.getAllowedBids().getKey(1));
+        assertEq(BoolVal.FALSE,i_.getAllowedBids().getValue(1));
+        assertEq(1,i_.getMiseres().size());
+        assertEq(Miseres.LOW_CARDS,i_.getMiseres().get(0));
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -1529,6 +1679,30 @@ public final class NetTest extends EquallableNetworkUtil {
     }
     public static ChoosenPlace saveServerChoosenPlace(int _index, int _place, AbsMap<Integer,Byte> _map) {
         return Net.importChosenPlace(parseParts(Net.exportServerChosenPlace(_index, _place, _map)));
+    }
+    public static RulesBelote saveClientRulesBelote(RulesBelote _rules) {
+        return Net.importRulesBelote(parseParts(Net.exportClientRulesBelote(_rules).toString()),0);
+    }
+    public static RulesBelote saveServerRulesBelote(RulesBelote _rules) {
+        return Net.importRulesBelote(parseParts(Net.exportServerRulesBelote(_rules).toString()),0);
+    }
+    public static RulesPresident saveClientRulesPresident(RulesPresident _rules) {
+        return Net.importRulesPresident(parseParts(Net.exportClientRulesPresident(_rules).toString()),0);
+    }
+    public static RulesPresident saveServerRulesPresident(RulesPresident _rules) {
+        return Net.importRulesPresident(parseParts(Net.exportServerRulesPresident(_rules).toString()),0);
+    }
+    public static RulesTarot saveClientRulesTarot(RulesTarot _rules) {
+        return Net.importRulesTarot(parseParts(Net.exportClientRulesTarot(_rules).toString()),0);
+    }
+    public static RulesTarot saveServerRulesTarot(RulesTarot _rules) {
+        return Net.importRulesTarot(parseParts(Net.exportServerRulesTarot(_rules).toString()),0);
+    }
+    public static ReadyCards saveClientClientReady(int _index, boolean _value) {
+        return Net.importReady(parseParts(Net.exportClientReady(_index,_value)));
+    }
+    public static ReadyCards saveServerClientReady(int _index, boolean _value) {
+        return Net.importReady(parseParts(Net.exportServerReady(_index,_value)));
     }
     private static String parse(String _in) {
         String i_ = Net.SEP_0 + _in;
