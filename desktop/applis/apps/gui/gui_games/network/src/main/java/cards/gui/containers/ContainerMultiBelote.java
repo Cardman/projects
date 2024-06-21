@@ -41,7 +41,7 @@ import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.*;
 
-public class ContainerMultiBelote extends ContainerBelote implements
+public final class ContainerMultiBelote extends ContainerBelote implements
         ContainerMulti,ContainerPlayableBelote {
 
     private final ContainerMultiContent containerMultiContent;
@@ -68,6 +68,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private BidBeloteSuit bidMax = new BidBeloteSuit();
     private HandBelote belReb = new HandBelote();
     private HandBelote allowed = new HandBelote();
+    private DialogBeloteContent dialogBeloteContent;
+    private AbsButton selectRules;
 //    private boolean canBid;
 //    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
 //    private final WindowNetWork win;
@@ -308,13 +310,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void updateButton(AbsPanel _container) {
-        DialogBeloteContent content_ = new DialogBeloteContent(getOwner().getFrames());
-        AbsTabbedPane jt_ = content_.initJt(getWindow(),false, containerMultiContent.getNbChoosenPlayers(), null);
+        dialogBeloteContent = new DialogBeloteContent(getOwner().getFrames());
+        AbsTabbedPane jt_ = dialogBeloteContent.initJt(getWindow(),false, containerMultiContent.getNbChoosenPlayers(), null);
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
-        bouton_.addActionListener(new AfterValidateRulesBeloteMulti(content_,this));
-        border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        selectRules = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
+        selectRules.addActionListener(new AfterValidateRulesBeloteMulti(dialogBeloteContent,this));
+        border_.add(selectRules,GuiConstants.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
     }
 
@@ -1175,6 +1177,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public RulesBelote getRulesBeloteMulti() {
         return rulesBeloteMulti;
+    }
+
+    public DialogBeloteContent getDialogBeloteContent() {
+        return dialogBeloteContent;
+    }
+
+    public AbsButton getSelectRules() {
+        return selectRules;
     }
 
     public void setRulesBeloteMulti(RulesBelote _r) {

@@ -39,7 +39,7 @@ import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.*;
 
-public class ContainerMultiTarot extends ContainerTarot implements ContainerMulti,ContainerPlayableTarot{
+public final class ContainerMultiTarot extends ContainerTarot implements ContainerMulti,ContainerPlayableTarot{
 
     private final ContainerMultiContent containerMultiContent;
 //    private int noClient;
@@ -66,6 +66,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //    private final WindowNetWork win;
     private HandTarot callableCards = new HandTarot();
     private HandTarot allowed = new HandTarot();
+    private DialogTarotContent dialogTarotContent;
+    private AbsButton selectRules;
 
     public ContainerMultiTarot(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
@@ -245,14 +247,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //PackingWindowAfter.pack(this, true);
     }
     public void updateButton(AbsPanel _container) {
-        DialogTarotContent content_ = new DialogTarotContent(getOwner().getFrames());
-        AbsTabbedPane jt_ = content_.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
+        dialogTarotContent = new DialogTarotContent(getOwner().getFrames());
+        AbsTabbedPane jt_ = dialogTarotContent.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
-        bouton_.addActionListener(new AfterValidateRulesTarotMulti(content_,this));
-        content_.setValidateButton(bouton_);
-        border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        selectRules= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
+        selectRules.addActionListener(new AfterValidateRulesTarotMulti(dialogTarotContent,this));
+        dialogTarotContent.setValidateButton(selectRules);
+        border_.add(selectRules,GuiConstants.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
     }
 //    @Override
@@ -1360,6 +1362,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        Net.getGames(window().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
         Net.getGames(containerMultiContent.window().getNet()).jouerTarot(getWindow().baseWindow().getFirstDealTarot().deal(this,rulesTarotMulti,0));
         containerMultiContent.window().sendObjectPlayGame();
+    }
+
+    public DialogTarotContent getDialogTarotContent() {
+        return dialogTarotContent;
+    }
+
+    public AbsButton getSelectRules() {
+        return selectRules;
     }
 
     public RulesTarot getRulesTarotMulti() {

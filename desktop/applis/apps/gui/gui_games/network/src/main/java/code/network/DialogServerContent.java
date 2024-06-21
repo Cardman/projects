@@ -343,12 +343,12 @@ public final class DialogServerContent implements AbstractDialogServer {
         return chosen;
     }
 
-    public static IpType getIpType(DialogServerContent _dialog) {
-        return _dialog.ipType.getCurrent();
-    }
-    public static int getNbPlayers(DialogServerContent _dialog) {
-        return _dialog.nbPlayers.getValue();
-    }
+//    public static IpType getIpType(DialogServerContent _dialog) {
+//        return _dialog.ipType.getCurrent();
+//    }
+//    public static int getNbPlayers(DialogServerContent _dialog) {
+//        return _dialog.nbPlayers.getValue();
+//    }
     //    public DealingTarot getReparitionTarot() {
 //        return (DealingTarot) repTarot.getSelectedItem();
 //    }

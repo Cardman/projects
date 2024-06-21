@@ -36,6 +36,8 @@ public final class ContainerMultiContent {
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private final AbsPlainLabel canPlayLabel;
     private final WindowNetWork win;
+    private AbsButton playGameButton;
+
 //    private final AbstractAtomicInteger win;
     public ContainerMultiContent(boolean _hasCreatedServer, WindowNetWork _window) {
         hasCreatedServer = _hasCreatedServer;
@@ -43,9 +45,9 @@ public final class ContainerMultiContent {
         canPlayLabel = _window.getFrames().getCompoFactory().newPlainLabel("");
     }
     public void changePlace() {
-        if (readyToPlay) {
-            return;
-        }
+//        if (readyToPlay) {
+//            return;
+//        }
         indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
@@ -59,8 +61,10 @@ public final class ContainerMultiContent {
 //        }
         readyToPlay = !readyToPlay;
         if (readyToPlay) {
+            choiceOfPlaceForPlayingGame.getCombo().setEnabled(false);
             ready.setLineBorder(GuiConstants.RED);
         } else {
+            choiceOfPlaceForPlayingGame.getCombo().setEnabled(true);
             ready.setLineBorder(GuiConstants.BLACK);
         }
         ReadyCards choice_ = new ReadyCards();
@@ -133,9 +137,9 @@ public final class ContainerMultiContent {
         update(_players.getPlacesPlayers(), _players.getReadyPlayers());
         if (isHasCreatedServer()) {
             _cur.updateButton(_panel);
-            AbsButton button_ = _cur.getOwner().getCompoFactory().newPlainButton(getMessages().getVal(_key));
-            button_.addActionListener(new PlayFirstDealEvent(_cur));
-            _panel.add(button_);
+            playGameButton = _cur.getOwner().getCompoFactory().newPlainButton(getMessages().getVal(_key));
+            playGameButton.addActionListener(new PlayFirstDealEvent(_cur));
+            _panel.add(playGameButton);
         }
 
         _panel.add(window().getClock());
@@ -246,9 +250,9 @@ public final class ContainerMultiContent {
 //        }
         panneau_.add(panel_);
         if (isHasCreatedServer()) {
-            AbsButton button_ = _cont.getOwner().getCompoFactory().newPlainButton(getMessages().getVal(_key));
-            button_.addActionListener(new PlayNextDealEvent(_cont));
-            panneau_.add(button_);
+            playGameButton = _cont.getOwner().getCompoFactory().newPlainButton(getMessages().getVal(_key));
+            playGameButton.addActionListener(new PlayNextDealEvent(_cont));
+            panneau_.add(playGameButton);
         }
         panneau_.add(window().getClock());
         panneau_.add(window().getLastSavedGameDate());
@@ -299,6 +303,11 @@ public final class ContainerMultiContent {
     public AbsButton getReady() {
         return ready;
     }
+
+    public AbsButton getPlayGameButton() {
+        return playGameButton;
+    }
+
     public boolean isHasCreatedServer() {
         return hasCreatedServer;
     }

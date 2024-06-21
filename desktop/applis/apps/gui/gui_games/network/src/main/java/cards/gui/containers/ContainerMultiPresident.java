@@ -38,7 +38,7 @@ import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.*;
 
-public class ContainerMultiPresident extends ContainerPresident implements
+public final class ContainerMultiPresident extends ContainerPresident implements
         ContainerMulti,ContainerPlayablePresident {
 
     private final ContainerMultiContent containerMultiContent;
@@ -65,6 +65,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //    private boolean enabledPass;
     private boolean reversedGame;
     private HandPresident allowed = new HandPresident();
+    private DialogPresidentContent dialogPresidentContent;
+    private AbsButton selectRules;
 
     public ContainerMultiPresident(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
@@ -156,13 +158,13 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     public void updateButton(AbsPanel _container) {
-        DialogPresidentContent content_ = new DialogPresidentContent(getOwner().getFrames());
-        AbsTabbedPane jt_ = content_.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
+        dialogPresidentContent = new DialogPresidentContent(getOwner().getFrames());
+        AbsTabbedPane jt_ = dialogPresidentContent.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
         border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton bouton_= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
-        bouton_.addActionListener(new AfterValidateRulesPresidentMulti(content_,this));
-        border_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        selectRules= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
+        selectRules.addActionListener(new AfterValidateRulesPresidentMulti(dialogPresidentContent,this));
+        border_.add(selectRules,GuiConstants.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
     }
 //    @Override
@@ -785,6 +787,15 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //    public WindowNetWork window() {
 //        return win;
 //    }
+
+
+    public DialogPresidentContent getDialogPresidentContent() {
+        return dialogPresidentContent;
+    }
+
+    public AbsButton getSelectRules() {
+        return selectRules;
+    }
 
     public RulesPresident getRulesPresidentMulti() {
         return rulesPresidentMulti;

@@ -555,7 +555,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         /*Parametre de lancement*/
         initMenus();
         multiModeButton = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
-        translate();
+//        translate();
 
         menuPrincipal();
 //        if(parametres.getLancement().isEmpty()) {
