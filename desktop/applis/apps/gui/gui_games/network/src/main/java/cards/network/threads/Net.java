@@ -1194,7 +1194,9 @@ public final class Net {
         out_.append(TarotCardsExporterUtil.fromHandfuls(_dealt.getChoosenHandful()));
         out_.append(SEP_0);
         out_.append(exportHandTarot(_dealt.getHandful(),SEP_1));
+        out_.append(SEP_0);
         out_.append(exportHandTarot(_dealt.getExcludedTrumps(),SEP_1));
+        out_.append(SEP_0);
         out_.append(exportMiseres(_dealt.getMiseres(),SEP_1));
         return out_.toString();
     }

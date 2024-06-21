@@ -5,7 +5,18 @@ import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
+import cards.network.belote.*;
+import cards.network.belote.actions.*;
+import cards.network.belote.displaying.*;
+import cards.network.belote.unlock.*;
 import cards.network.common.before.*;
+import cards.network.president.actions.*;
+import cards.network.president.displaying.*;
+import cards.network.president.unlock.*;
+import cards.network.tarot.*;
+import cards.network.tarot.actions.*;
+import cards.network.tarot.displaying.*;
+import cards.network.tarot.unlock.*;
 import cards.network.threads.*;
 import cards.president.*;
 import cards.president.enumerations.*;
@@ -1573,6 +1584,607 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(1,i_.getMiseres().size());
         assertEq(Miseres.LOW_CARDS,i_.getMiseres().get(0));
     }
+    @Test
+    public void ready1(){
+        ReadyCards r_ = saveClientReady(1,false);
+        assertEq(1,r_.getIndex());
+        assertFalse(r_.getContent().isReady());
+    }
+    @Test
+    public void ready2(){
+        ReadyCards r_ = saveClientReady(1,true);
+        assertEq(1,r_.getIndex());
+        assertTrue(r_.getContent().isReady());
+    }
+    @Test
+    public void ready3(){
+        ReadyCards r_ = saveServerReady(1,false);
+        assertEq(1,r_.getIndex());
+        assertFalse(r_.getContent().isReady());
+    }
+    @Test
+    public void ready4(){
+        ReadyCards r_ = saveServerReady(1,true);
+        assertEq(1,r_.getIndex());
+        assertTrue(r_.getContent().isReady());
+    }
+    @Test
+    public void dealtHandBelote() {
+        DealtHandBelote belote_ = new DealtHandBelote();
+        belote_.setDeck(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
+        belote_.setCards(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
+        belote_.setDealer((byte) 2);
+        belote_.setAllowedBids(new CustList<BidBeloteSuit>(bidSuit(Suit.HEART,80,BidBelote.OTHER_SUIT)));
+        DealtHandBelote i_ = saveDealtHandBelote(belote_);
+        assertEq(2,i_.getDealer());
+        assertEq(1,i_.getCards().total());
+        assertEq(CardBelote.HEART_10,i_.getCards().carte(0));
+        assertEq(1,i_.getDeck().total());
+        assertEq(CardBelote.HEART_1,i_.getDeck().carte(0));
+        assertEq(1,i_.getAllowedBids().size());
+        assertEq(80,i_.getAllowedBids().get(0).getPoints());
+        assertEq(Suit.HEART,i_.getAllowedBids().get(0).getSuit());
+        assertEq(BidBelote.OTHER_SUIT,i_.getAllowedBids().get(0).getBid());
+    }
+    @Test
+    public void dealtHandPresident() {
+        DealtHandPresident president_ = new DealtHandPresident();
+        president_.setCards(HandPresident.create(new CardPresident[]{CardPresident.HEART_10}));
+        president_.setDealer((byte) 2);
+        ByteMap<Playing> st_ = new ByteMap<Playing>();
+        st_.addEntry((byte)1,Playing.SKIPPED);
+        president_.setStatus(st_);
+        president_.setMaxCards(3);
+        DealtHandPresident i_ = saveDealtHandPresident(president_);
+        assertEq(3,i_.getMaxCards());
+        assertEq(2,i_.getDealer());
+        assertEq(1,i_.getCards().total());
+        assertEq(CardPresident.HEART_10,i_.getCards().carte(0));
+        assertEq(1,i_.getStatus().size());
+        assertEq(1,i_.getStatus().getKey(0));
+        assertEq(Playing.SKIPPED,i_.getStatus().getValue(0));
+    }
+    @Test
+    public void dealtHandTarot() {
+        DealtHandTarot tarot_ = new DealtHandTarot();
+        tarot_.setDog(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
+        tarot_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_10}));
+        tarot_.setDealer((byte) 2);
+        ByteMap<Playing> st_ = new ByteMap<Playing>();
+        st_.addEntry((byte)1,Playing.SKIPPED);
+        tarot_.setAllowedBids(new IdList<BidTarot>(BidTarot.SLAM_GUARD));
+        DealtHandTarot i_ = saveDealtHandTarot(tarot_);
+        assertEq(2,i_.getDealer());
+        assertEq(1,i_.getCards().total());
+        assertEq(CardTarot.HEART_10,i_.getCards().carte(0));
+        assertEq(1,i_.getDog().total());
+        assertEq(CardTarot.HEART_1,i_.getDog().carte(0));
+        assertEq(1,i_.getAllowedBids().size());
+        assertEq(BidTarot.SLAM_GUARD,i_.getAllowedBids().get(0));
+    }
+    @Test
+    public void allowBiddingBelote(){
+        AllowBiddingBelote a_ = new AllowBiddingBelote();
+        a_.setBids(new CustList<BidBeloteSuit>(bidSuit(Suit.HEART,80,BidBelote.OTHER_SUIT)));
+        a_.setBid(bidSuit(Suit.SPADE,90,BidBelote.OTHER_SUIT));
+        AllowBiddingBelote o_ = saveAllowBiddingBelote(a_);
+        assertEq(1,o_.getBids().size());
+        assertEq(80,o_.getBids().get(0).getPoints());
+        assertEq(Suit.HEART,o_.getBids().get(0).getSuit());
+        assertEq(BidBelote.OTHER_SUIT,o_.getBids().get(0).getBid());
+        assertEq(90,o_.getBid().getPoints());
+        assertEq(Suit.SPADE,o_.getBid().getSuit());
+        assertEq(BidBelote.OTHER_SUIT,o_.getBid().getBid());
+    }
+    @Test
+    public void biddingBelote1(){
+        BiddingBelote a_ = new BiddingBelote();
+        a_.setPlace((byte) 2);
+        a_.setBidBelote(bidSuit(Suit.SPADE,90,BidBelote.OTHER_SUIT));
+        BiddingBelote o_ = saveClientBiddingBelote(a_);
+        assertEq(2,o_.getPlace());
+        assertEq(90,o_.getBidBelote().getPoints());
+        assertEq(Suit.SPADE,o_.getBidBelote().getSuit());
+        assertEq(BidBelote.OTHER_SUIT,o_.getBidBelote().getBid());
+    }
+    @Test
+    public void biddingBelote2(){
+        BiddingBelote a_ = new BiddingBelote();
+        a_.setPlace((byte) 2);
+        a_.setBidBelote(bidSuit(Suit.SPADE,90,BidBelote.OTHER_SUIT));
+        BiddingBelote o_ = saveServerBiddingBelote(a_);
+        assertEq(2,o_.getPlace());
+        assertEq(90,o_.getBidBelote().getPoints());
+        assertEq(Suit.SPADE,o_.getBidBelote().getSuit());
+        assertEq(BidBelote.OTHER_SUIT,o_.getBidBelote().getBid());
+    }
+    @Test
+    public void discardPhaseBelote(){
+        DiscardPhaseBelote a_ = new DiscardPhaseBelote();
+        a_.setDiscard(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
+        a_.getDiscardPhase().setTakerIndex(6);
+        a_.getDiscardPhase().setTaker(7);
+        DiscardPhaseBelote o_ = saveDiscardPhaseBelote(a_);
+        assertEq(6,o_.getDiscardPhase().getTakerIndex());
+        assertEq(7,o_.getDiscardPhase().getTaker());
+        assertEq(1,o_.getDiscard().total());
+        assertEq(CardBelote.HEART_1,o_.getDiscard().carte(0));
+    }
+    @Test
+    public void discardedCardBelote(){
+        DiscardedCardBelote a_ = new DiscardedCardBelote();
+        a_.setPlace((byte) 2);
+        a_.setCard(CardBelote.HEART_1);
+        DiscardedCardBelote o_ = saveDiscardedCardBelote(a_);
+        assertEq(2,o_.getPlace());
+        assertEq(CardBelote.HEART_1,o_.getCard());
+    }
+    @Test
+    public void refreshHandBelote(){
+        RefreshHandBelote a_ = new RefreshHandBelote();
+        a_.setPlace((byte) 2);
+        a_.setTakerIndex((byte) 3);
+        a_.setRefreshedHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
+        RefreshHandBelote o_ = saveRefreshHandBelote(a_);
+        assertEq(2,o_.getPlace());
+        assertEq(3,o_.getTakerIndex());
+        assertEq(1,o_.getRefreshedHand().total());
+        assertEq(CardBelote.HEART_1,o_.getRefreshedHand().carte(0));
+    }
+    @Test
+    public void allowDiscarding(){
+        AllowDiscarding o_ = saveAllowDiscarding(HandPresident.create(new CardPresident[]{CardPresident.HEART_1}));
+        assertEq(1,o_.getReceivedCards().total());
+        assertEq(CardPresident.HEART_1,o_.getReceivedCards().carte(0));
+    }
+    @Test
+    public void receivedGivenCards(){
+        ReceivedGivenCards o_ = saveReceivedGivenCards(HandPresident.create(new CardPresident[]{CardPresident.HEART_1}),HandPresident.create(new CardPresident[]{CardPresident.HEART_10}),HandPresident.create(new CardPresident[]{CardPresident.HEART_9}));
+        assertEq(1,o_.getReceived().total());
+        assertEq(CardPresident.HEART_1,o_.getReceived().carte(0));
+        assertEq(1,o_.getGiven().total());
+        assertEq(CardPresident.HEART_10,o_.getGiven().carte(0));
+        assertEq(1,o_.getNewHand().total());
+        assertEq(CardPresident.HEART_9,o_.getNewHand().carte(0));
+    }
+    @Test
+    public void discardedCardsPresident(){
+        DiscardedCardsPresident o_ = saveDiscardedCardsPresident(2,HandPresident.create(new CardPresident[]{CardPresident.HEART_1}));
+        assertEq(2,o_.getPlace());
+        assertEq(1,o_.getDiscarded().total());
+        assertEq(CardPresident.HEART_1,o_.getDiscarded().carte(0));
+    }
+    @Test
+    public void allowBiddingTarot(){
+        AllowBiddingTarot a_ = new AllowBiddingTarot();
+        a_.setBids(new IdList<BidTarot>(BidTarot.SLAM_GUARD));
+        a_.setMaxBid(BidTarot.SLAM_TAKE);
+        AllowBiddingTarot o_ = saveAllowBiddingTarot(a_);
+        assertEq(1,o_.getBids().size());
+        assertEq(BidTarot.SLAM_GUARD,o_.getBids().get(0));
+        assertEq(BidTarot.SLAM_TAKE,o_.getMaxBid());
+    }
+    @Test
+    public void biddingTarot1(){
+        BiddingTarot a_ = new BiddingTarot();
+        a_.setPlace((byte) 2);
+        a_.setBid(BidTarot.SLAM_TAKE);
+        BiddingTarot o_ = saveClientBiddingTarot(a_);
+        assertEq(2,o_.getPlace());
+        assertEq(BidTarot.SLAM_TAKE,o_.getBid());
+    }
+    @Test
+    public void biddingTarot2(){
+        BiddingTarot a_ = new BiddingTarot();
+        a_.setPlace((byte) 2);
+        a_.setBid(BidTarot.SLAM_TAKE);
+        BiddingTarot o_ = saveServerBiddingTarot(a_);
+        assertEq(2,o_.getPlace());
+        assertEq(BidTarot.SLAM_TAKE,o_.getBid());
+    }
+    @Test
+    public void discardPhaseTarot1(){
+        DiscardPhaseTarot a_ = new DiscardPhaseTarot();
+        a_.setDiscardCard(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
+        a_.setCallableCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_10}));
+        a_.setCallAfter(true);
+        a_.getDiscardPhase().setTakerIndex(6);
+        a_.getDiscardPhase().setTaker(7);
+        DiscardPhaseTarot o_ = saveDiscardPhaseTarot(a_);
+        assertTrue(o_.isCallAfter());
+        assertEq(6,o_.getDiscardPhase().getTakerIndex());
+        assertEq(7,o_.getDiscardPhase().getTaker());
+        assertEq(1,o_.getDiscardCard().total());
+        assertEq(CardTarot.HEART_1,o_.getDiscardCard().carte(0));
+        assertEq(1,o_.getCallableCards().total());
+        assertEq(CardTarot.HEART_10,o_.getCallableCards().carte(0));
+    }
+    @Test
+    public void discardPhaseTarot2(){
+        DiscardPhaseTarot a_ = new DiscardPhaseTarot();
+        a_.setDiscardCard(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
+        a_.setCallableCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_10}));
+        a_.setCallAfter(false);
+        a_.getDiscardPhase().setTakerIndex(6);
+        a_.getDiscardPhase().setTaker(7);
+        DiscardPhaseTarot o_ = saveDiscardPhaseTarot(a_);
+        assertFalse(o_.isCallAfter());
+        assertEq(6,o_.getDiscardPhase().getTakerIndex());
+        assertEq(7,o_.getDiscardPhase().getTaker());
+        assertEq(1,o_.getDiscardCard().total());
+        assertEq(CardTarot.HEART_1,o_.getDiscardCard().carte(0));
+        assertEq(1,o_.getCallableCards().total());
+        assertEq(CardTarot.HEART_10,o_.getCallableCards().carte(0));
+    }
+    @Test
+    public void discardedCardTarot(){
+        DiscardedCardTarot a_ = new DiscardedCardTarot();
+        a_.setPlace((byte) 2);
+        a_.setCard(CardTarot.HEART_1);
+        DiscardedCardTarot o_ = saveDiscardedCardTarot(a_);
+        assertEq(2,o_.getPlace());
+        assertEq(CardTarot.HEART_1,o_.getCard());
+    }
+    @Test
+    public void callableCards1(){
+        CallableCards a_ = new CallableCards();
+        a_.setTakerIndex((byte) 2);
+        a_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
+        a_.setDiscarding(false);
+        CallableCards o_ = saveCallableCards(a_);
+        assertFalse(o_.isDiscarding());
+        assertEq(2,o_.getTakerIndex());
+        assertEq(1,o_.getCards().total());
+        assertEq(CardTarot.HEART_1,o_.getCards().carte(0));
+    }
+    @Test
+    public void callableCards2(){
+        CallableCards a_ = new CallableCards();
+        a_.setTakerIndex((byte) 2);
+        a_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
+        a_.setDiscarding(true);
+        CallableCards o_ = saveCallableCards(a_);
+        assertTrue(o_.isDiscarding());
+        assertEq(2,o_.getTakerIndex());
+        assertEq(1,o_.getCards().total());
+        assertEq(CardTarot.HEART_1,o_.getCards().carte(0));
+    }
+    @Test
+    public void discardCallBefore(){
+        CustList<String> o_ = saveDiscardCallBefore(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
+        assertEq(2,o_.size());
+        assertEq(1,o_.get(0).length());
+        assertEq(Net.VALIDATE_DISCARD_CALL_BEFORE,o_.get(0).charAt(0));
+        HandTarot h_ = Net.importHandTarot(o_.get(1), Net.SEP_1);
+        assertEq(1,h_.total());
+        assertEq(CardTarot.HEART_1,h_.carte(0));
+    }
+    @Test
+    public void discardSimpleCall1(){
+        CustList<String> o_ = saveDiscardSimpleCall(CardTarot.WHITE);
+        assertEq(1,o_.size());
+        assertEq(1,o_.get(0).length());
+        assertEq(Net.VALIDATE_DISCARD_SIMPLE_CALL,o_.get(0).charAt(0));
+    }
+    @Test
+    public void discardSimpleCall2(){
+        CustList<String> o_ = saveDiscardSimpleCall(CardTarot.HEART_1);
+        assertEq(2,o_.size());
+        assertEq(1,o_.get(0).length());
+        assertEq(Net.VALIDATE_DISCARD_SIMPLE_CALL,o_.get(0).charAt(0));
+        HandTarot h_ = Net.importHandTarot(o_.get(1), Net.SEP_1);
+        assertEq(1,h_.total());
+        assertEq(CardTarot.HEART_1,h_.carte(0));
+    }
+    @Test
+    public void discardSlam1(){
+        CustList<String> o_ = saveDiscardSlam(CardTarot.WHITE);
+        assertEq(1,o_.size());
+        assertEq(1,o_.get(0).length());
+        assertEq(Net.VALIDATE_DISCARD_SLAM,o_.get(0).charAt(0));
+    }
+    @Test
+    public void discardSlam2(){
+        CustList<String> o_ = saveDiscardSlam(CardTarot.HEART_1);
+        assertEq(2,o_.size());
+        assertEq(1,o_.get(0).length());
+        assertEq(Net.VALIDATE_DISCARD_SLAM,o_.get(0).charAt(0));
+        HandTarot h_ = Net.importHandTarot(o_.get(1), Net.SEP_1);
+        assertEq(1,h_.total());
+        assertEq(CardTarot.HEART_1,h_.carte(0));
+    }
+    @Test
+    public void allowPlayingBelote1(){
+        AllowPlayingBelote a_ = new AllowPlayingBelote();
+        DeclareHandBelote dec_ = new DeclareHandBelote();
+        dec_.setDeclare(DeclaresBelote.THIRTY);
+        dec_.setPlayer((byte) 2);
+        dec_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
+        a_.setDeclaration(dec_);
+        a_.setBelReb(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
+        a_.setCards(HandBelote.create(new CardBelote[]{CardBelote.HEART_9}));
+        a_.setCurrentBid(bidSuit(Suit.HEART,80,BidBelote.OTHER_SUIT));
+        a_.setAllowedBeloteRebelote(false);
+        a_.setPossibleBeloteRebelote(false);
+        a_.setFirstRoundPlaying(false);
+        a_.setTakerIndex((byte) 3);
+        AllowPlayingBelote o_ = saveAllowPlayingBelote(a_);
+        assertFalse(o_.isAllowedBeloteRebelote());
+        assertFalse(o_.isPossibleBeloteRebelote());
+        assertFalse(o_.isFirstRoundPlaying());
+        assertEq(1,o_.getDeclaration().getHand().total());
+        assertEq(CardBelote.HEART_1,o_.getDeclaration().getHand().carte(0));
+        assertEq(DeclaresBelote.THIRTY,o_.getDeclaration().getDeclare());
+        assertEq(2,o_.getDeclaration().getPlayer());
+        assertEq(1,o_.getBelReb().total());
+        assertEq(CardBelote.HEART_10,o_.getBelReb().carte(0));
+        assertEq(1,o_.getCards().total());
+        assertEq(CardBelote.HEART_9,o_.getCards().carte(0));
+        assertEq(3,o_.getTakerIndex());
+        assertEq(80,o_.getCurrentBid().getPoints());
+        assertEq(Suit.HEART,o_.getCurrentBid().getSuit());
+        assertEq(BidBelote.OTHER_SUIT,o_.getCurrentBid().getBid());
+    }
+    @Test
+    public void allowPlayingBelote2(){
+        AllowPlayingBelote a_ = new AllowPlayingBelote();
+        DeclareHandBelote dec_ = new DeclareHandBelote();
+        dec_.setDeclare(DeclaresBelote.THIRTY);
+        dec_.setPlayer((byte) 2);
+        dec_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
+        a_.setDeclaration(dec_);
+        a_.setBelReb(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
+        a_.setCards(HandBelote.create(new CardBelote[]{CardBelote.HEART_9}));
+        a_.setCurrentBid(bidSuit(Suit.HEART,80,BidBelote.OTHER_SUIT));
+        a_.setAllowedBeloteRebelote(true);
+        a_.setPossibleBeloteRebelote(true);
+        a_.setFirstRoundPlaying(true);
+        a_.setTakerIndex((byte) 3);
+        AllowPlayingBelote o_ = saveAllowPlayingBelote(a_);
+        assertTrue(o_.isAllowedBeloteRebelote());
+        assertTrue(o_.isPossibleBeloteRebelote());
+        assertTrue(o_.isFirstRoundPlaying());
+        assertEq(1,o_.getDeclaration().getHand().total());
+        assertEq(CardBelote.HEART_1,o_.getDeclaration().getHand().carte(0));
+        assertEq(DeclaresBelote.THIRTY,o_.getDeclaration().getDeclare());
+        assertEq(2,o_.getDeclaration().getPlayer());
+        assertEq(1,o_.getBelReb().total());
+        assertEq(CardBelote.HEART_10,o_.getBelReb().carte(0));
+        assertEq(1,o_.getCards().total());
+        assertEq(CardBelote.HEART_9,o_.getCards().carte(0));
+        assertEq(3,o_.getTakerIndex());
+        assertEq(80,o_.getCurrentBid().getPoints());
+        assertEq(Suit.HEART,o_.getCurrentBid().getSuit());
+        assertEq(BidBelote.OTHER_SUIT,o_.getCurrentBid().getBid());
+    }
+    @Test
+    public void playingCardBelote1(){
+        PlayingCardBelote a_ = new PlayingCardBelote();
+        a_.setPlace((byte) 2);
+        a_.setTakerIndex((byte) 3);
+        a_.setDeclaring(false);
+        a_.setRefreshing(false);
+        a_.setDeclaringBeloteRebelote(false);
+        a_.setPlayedCard(CardBelote.HEART_1);
+        DeclareHandBelote dec_ = new DeclareHandBelote();
+        dec_.setDeclare(DeclaresBelote.THIRTY);
+        dec_.setPlayer((byte) 4);
+        dec_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
+        a_.setDeclare(dec_);
+        PlayingCardBelote o_ = saveClientPlayingBelote(a_);
+        assertFalse(o_.isDeclaring());
+        assertFalse(o_.isRefreshing());
+        assertFalse(o_.isDeclaringBeloteRebelote());
+        assertEq(2,o_.getPlace());
+        assertEq(3,o_.getTakerIndex());
+        assertEq(CardBelote.HEART_1,o_.getPlayedCard());
+        assertEq(1,o_.getDeclare().getHand().total());
+        assertEq(CardBelote.HEART_10,o_.getDeclare().getHand().carte(0));
+        assertEq(DeclaresBelote.THIRTY,o_.getDeclare().getDeclare());
+        assertEq(4,o_.getDeclare().getPlayer());
+    }
+    @Test
+    public void playingCardBelote2(){
+        PlayingCardBelote a_ = new PlayingCardBelote();
+        a_.setPlace((byte) 2);
+        a_.setTakerIndex((byte) 3);
+        a_.setDeclaring(true);
+        a_.setRefreshing(true);
+        a_.setDeclaringBeloteRebelote(true);
+        a_.setPlayedCard(CardBelote.HEART_1);
+        DeclareHandBelote dec_ = new DeclareHandBelote();
+        dec_.setDeclare(DeclaresBelote.THIRTY);
+        dec_.setPlayer((byte) 4);
+        dec_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
+        a_.setDeclare(dec_);
+        PlayingCardBelote o_ = saveServerPlayingBelote(a_);
+        assertTrue(o_.isDeclaring());
+        assertTrue(o_.isRefreshing());
+        assertTrue(o_.isDeclaringBeloteRebelote());
+        assertEq(2,o_.getPlace());
+        assertEq(3,o_.getTakerIndex());
+        assertEq(CardBelote.HEART_1,o_.getPlayedCard());
+        assertEq(1,o_.getDeclare().getHand().total());
+        assertEq(CardBelote.HEART_10,o_.getDeclare().getHand().carte(0));
+        assertEq(DeclaresBelote.THIRTY,o_.getDeclare().getDeclare());
+        assertEq(4,o_.getDeclare().getPlayer());
+    }
+    @Test
+    public void allowPlayingPresident1(){
+        AllowPlayingPresident a_ = new AllowPlayingPresident();
+        a_.setCards(HandPresident.create(new CardPresident[]{CardPresident.HEART_9}));
+        a_.setEnabledPass(false);
+        a_.setReversed(false);
+        a_.setStatus(Playing.SKIPPED);
+        AllowPlayingPresident o_ = saveAllowPlayingPresident(a_);
+        assertFalse(o_.isEnabledPass());
+        assertFalse(o_.isReversed());
+        assertEq(1,o_.getCards().total());
+        assertEq(CardPresident.HEART_9,o_.getCards().carte(0));
+        assertEq(Playing.SKIPPED,o_.getStatus());
+    }
+    @Test
+    public void allowPlayingPresident2(){
+        AllowPlayingPresident a_ = new AllowPlayingPresident();
+        a_.setCards(HandPresident.create(new CardPresident[]{CardPresident.HEART_9}));
+        a_.setEnabledPass(true);
+        a_.setReversed(true);
+        a_.setStatus(Playing.SKIPPED);
+        AllowPlayingPresident o_ = saveAllowPlayingPresident(a_);
+        assertTrue(o_.isEnabledPass());
+        assertTrue(o_.isReversed());
+        assertEq(1,o_.getCards().total());
+        assertEq(CardPresident.HEART_9,o_.getCards().carte(0));
+        assertEq(Playing.SKIPPED,o_.getStatus());
+    }
+    @Test
+    public void playingCardPresident1(){
+        PlayingCardPresident a_ = new PlayingCardPresident();
+        a_.setPlace((byte) 2);
+        a_.setNextPlayer((byte) 3);
+        a_.setIndex((byte) 4);
+        a_.setRefreshing(false);
+        a_.setReversed(false);
+        a_.setPass(false);
+        a_.setPlayedCard(CardPresident.HEART_1);
+        a_.setPlayedHand(HandPresident.create(new CardPresident[]{CardPresident.HEART_10}));
+        ByteMap<Playing> st_ = new ByteMap<Playing>();
+        st_.addEntry((byte)5,Playing.FINISH);
+        a_.setStatus(st_);
+        PlayingCardPresident o_ = saveClientPlayingPresident(a_);
+        assertFalse(o_.isReversed());
+        assertFalse(o_.isRefreshing());
+        assertFalse(o_.isPass());
+        assertEq(2,o_.getPlace());
+        assertEq(CardPresident.HEART_1,o_.getPlayedCard());
+        assertEq(1,o_.getPlayedHand().total());
+        assertEq(CardPresident.HEART_10,o_.getPlayedHand().carte(0));
+        assertEq(1,o_.getStatus().size());
+        assertEq(5,o_.getStatus().getKey(0));
+        assertEq(Playing.FINISH,o_.getStatus().getValue(0));
+        assertEq(3,o_.getNextPlayer());
+        assertEq(4,o_.getIndex());
+    }
+    @Test
+    public void playingCardPresident2(){
+        PlayingCardPresident a_ = new PlayingCardPresident();
+        a_.setPlace((byte) 2);
+        a_.setNextPlayer((byte) 3);
+        a_.setIndex((byte) 4);
+        a_.setRefreshing(true);
+        a_.setReversed(true);
+        a_.setPass(true);
+        a_.setPlayedCard(CardPresident.HEART_1);
+        a_.setPlayedHand(HandPresident.create(new CardPresident[]{CardPresident.HEART_10}));
+        ByteMap<Playing> st_ = new ByteMap<Playing>();
+        st_.addEntry((byte)5,Playing.FINISH);
+        a_.setStatus(st_);
+        PlayingCardPresident o_ = saveServerPlayingPresident(a_);
+        assertTrue(o_.isReversed());
+        assertTrue(o_.isRefreshing());
+        assertTrue(o_.isPass());
+        assertEq(2,o_.getPlace());
+        assertEq(CardPresident.HEART_1,o_.getPlayedCard());
+        assertEq(1,o_.getPlayedHand().total());
+        assertEq(CardPresident.HEART_10,o_.getPlayedHand().carte(0));
+        assertEq(1,o_.getStatus().size());
+        assertEq(5,o_.getStatus().getKey(0));
+        assertEq(Playing.FINISH,o_.getStatus().getValue(0));
+        assertEq(3,o_.getNextPlayer());
+        assertEq(4,o_.getIndex());
+    }
+    @Test
+    public void allowPlayingTarot1(){
+        AllowPlayingTarot a_ = new AllowPlayingTarot();
+        a_.setCalledCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
+        a_.setDiscardedTrumps(HandTarot.create(new CardTarot[]{CardTarot.HEART_10}));
+        a_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
+        a_.setCurrentBid(BidTarot.SLAM_GUARD);
+        a_.setFirstRoundPlaying(false);
+        a_.setTakerIndex((byte) 3);
+        AllowPlayingTarot o_ = saveAllowPlayingTarot(a_);
+        assertFalse(o_.isFirstRoundPlaying());
+        assertEq(1,o_.getCalledCards().total());
+        assertEq(CardTarot.HEART_1,o_.getCalledCards().carte(0));
+        assertEq(1,o_.getDiscardedTrumps().total());
+        assertEq(CardTarot.HEART_10,o_.getDiscardedTrumps().carte(0));
+        assertEq(1,o_.getCards().total());
+        assertEq(CardTarot.HEART_9,o_.getCards().carte(0));
+        assertEq(3,o_.getTakerIndex());
+        assertEq(BidTarot.SLAM_GUARD,o_.getCurrentBid());
+    }
+    @Test
+    public void allowPlayingTarot2(){
+        AllowPlayingTarot a_ = new AllowPlayingTarot();
+        a_.setCalledCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
+        a_.setDiscardedTrumps(HandTarot.create(new CardTarot[]{CardTarot.HEART_10}));
+        a_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
+        a_.setCurrentBid(BidTarot.SLAM_GUARD);
+        a_.setFirstRoundPlaying(true);
+        a_.setTakerIndex((byte) 3);
+        AllowPlayingTarot o_ = saveAllowPlayingTarot(a_);
+        assertTrue(o_.isFirstRoundPlaying());
+        assertEq(1,o_.getCalledCards().total());
+        assertEq(CardTarot.HEART_1,o_.getCalledCards().carte(0));
+        assertEq(1,o_.getDiscardedTrumps().total());
+        assertEq(CardTarot.HEART_10,o_.getDiscardedTrumps().carte(0));
+        assertEq(1,o_.getCards().total());
+        assertEq(CardTarot.HEART_9,o_.getCards().carte(0));
+        assertEq(3,o_.getTakerIndex());
+        assertEq(BidTarot.SLAM_GUARD,o_.getCurrentBid());
+    }
+    @Test
+    public void playingCardTarot1(){
+        PlayingCardTarot a_ = new PlayingCardTarot();
+        a_.setPlace((byte) 2);
+        a_.setTakerIndex((byte) 3);
+        a_.setCalledCard(false);
+        a_.setRefreshing(false);
+        a_.setPlayedCard(CardTarot.HEART_1);
+        a_.setMiseres(new IdList<Miseres>(Miseres.LOW_CARDS));
+        a_.setChoosenHandful(Handfuls.TWO);
+        a_.setHandful(HandTarot.create(new CardTarot[]{CardTarot.HEART_10}));
+        a_.setExcludedTrumps(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
+        PlayingCardTarot o_ = saveClientPlayingTarot(a_);
+        assertFalse(o_.isCalledCard());
+        assertFalse(o_.isRefreshing());
+        assertEq(2,o_.getPlace());
+        assertEq(3,o_.getTakerIndex());
+        assertEq(Handfuls.TWO,o_.getChoosenHandful());
+        assertEq(CardTarot.HEART_1,o_.getPlayedCard());
+        assertEq(1,o_.getHandful().total());
+        assertEq(CardTarot.HEART_10,o_.getHandful().carte(0));
+        assertEq(1,o_.getExcludedTrumps().total());
+        assertEq(CardTarot.HEART_9,o_.getExcludedTrumps().carte(0));
+        assertEq(1,o_.getMiseres().size());
+        assertEq(Miseres.LOW_CARDS,o_.getMiseres().get(0));
+    }
+    @Test
+    public void playingCardTarot2(){
+        PlayingCardTarot a_ = new PlayingCardTarot();
+        a_.setPlace((byte) 2);
+        a_.setTakerIndex((byte) 3);
+        a_.setCalledCard(true);
+        a_.setRefreshing(true);
+        a_.setPlayedCard(CardTarot.HEART_1);
+        a_.setMiseres(new IdList<Miseres>(Miseres.LOW_CARDS));
+        a_.setChoosenHandful(Handfuls.TWO);
+        a_.setHandful(HandTarot.create(new CardTarot[]{CardTarot.HEART_10}));
+        a_.setExcludedTrumps(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
+        PlayingCardTarot o_ = saveServerPlayingTarot(a_);
+        assertTrue(o_.isCalledCard());
+        assertTrue(o_.isRefreshing());
+        assertEq(2,o_.getPlace());
+        assertEq(3,o_.getTakerIndex());
+        assertEq(Handfuls.TWO,o_.getChoosenHandful());
+        assertEq(CardTarot.HEART_1,o_.getPlayedCard());
+        assertEq(1,o_.getHandful().total());
+        assertEq(CardTarot.HEART_10,o_.getHandful().carte(0));
+        assertEq(1,o_.getExcludedTrumps().total());
+        assertEq(CardTarot.HEART_9,o_.getExcludedTrumps().carte(0));
+        assertEq(1,o_.getMiseres().size());
+        assertEq(Miseres.LOW_CARDS,o_.getMiseres().get(0));
+    }
     public static Longs saveLongs(Longs _l) {
         return Net.importLongList(parse(Net.exportLongList(_l, Net.SEP_1)),Net.SEP_1);
     }
@@ -1698,11 +2310,101 @@ public final class NetTest extends EquallableNetworkUtil {
     public static RulesTarot saveServerRulesTarot(RulesTarot _rules) {
         return Net.importRulesTarot(parseParts(Net.exportServerRulesTarot(_rules).toString()),0);
     }
-    public static ReadyCards saveClientClientReady(int _index, boolean _value) {
+    public static ReadyCards saveClientReady(int _index, boolean _value) {
         return Net.importReady(parseParts(Net.exportClientReady(_index,_value)));
     }
-    public static ReadyCards saveServerClientReady(int _index, boolean _value) {
+    public static ReadyCards saveServerReady(int _index, boolean _value) {
         return Net.importReady(parseParts(Net.exportServerReady(_index,_value)));
+    }
+    public static DealtHandBelote saveDealtHandBelote(DealtHandBelote _rules) {
+        return Net.importDealtHandBelote(parseParts(Net.exportDealtHandBelote(_rules)));
+    }
+    public static DealtHandPresident saveDealtHandPresident(DealtHandPresident _rules) {
+        return Net.importDealtHandPresident(parseParts(Net.exportDealtHandPresident(_rules)));
+    }
+    public static DealtHandTarot saveDealtHandTarot(DealtHandTarot _rules) {
+        return Net.importDealtHandTarot(parseParts(Net.exportDealtHandTarot(_rules)));
+    }
+    public static AllowBiddingBelote saveAllowBiddingBelote(AllowBiddingBelote _rules) {
+        return Net.importAllowBiddingBelote(parseParts(Net.exportAllowBiddingBelote(_rules)));
+    }
+    public static BiddingBelote saveClientBiddingBelote(BiddingBelote _rules) {
+        return Net.importBiddingBelote(parseParts(Net.exportClientBiddingBelote(_rules)));
+    }
+    public static BiddingBelote saveServerBiddingBelote(BiddingBelote _rules) {
+        return Net.importBiddingBelote(parseParts(Net.exportServerBiddingBelote(_rules)));
+    }
+    public static DiscardPhaseBelote saveDiscardPhaseBelote(DiscardPhaseBelote _rules) {
+        return Net.importDiscardPhaseBelote(parseParts(Net.exportDiscardPhaseBelote(_rules)));
+    }
+    public static DiscardedCardBelote saveDiscardedCardBelote(DiscardedCardBelote _rules) {
+        return Net.importDiscardedCardBelote(parseParts(Net.exportDiscardedCardBelote(_rules)));
+    }
+    public static RefreshHandBelote saveRefreshHandBelote(RefreshHandBelote _rules) {
+        return Net.importRefreshHandBelote(parseParts(Net.exportRefreshHandBelote(_rules)));
+    }
+    public static AllowDiscarding saveAllowDiscarding(HandPresident _rules) {
+        return Net.importAllowDiscarding(parseParts(Net.exportAllowDiscarding(_rules)));
+    }
+    public static ReceivedGivenCards saveReceivedGivenCards(HandPresident _received, HandPresident _given, HandPresident _newHand) {
+        return Net.importReceivedGivenCards(parseParts(Net.exportReceivedGivenCards(_received, _given, _newHand)));
+    }
+    public static DiscardedCardsPresident saveDiscardedCardsPresident(int _place,HandPresident _dis) {
+        return Net.importDiscardedCardsPresident(parseParts(Net.exportDiscardedCardsPresident(_place, _dis)));
+    }
+    public static AllowBiddingTarot saveAllowBiddingTarot(AllowBiddingTarot _rules) {
+        return Net.importAllowBiddingTarot(parseParts(Net.exportAllowBiddingTarot(_rules)));
+    }
+    public static BiddingTarot saveClientBiddingTarot(BiddingTarot _rules) {
+        return Net.importBiddingTarot(parseParts(Net.exportClientBiddingTarot(_rules)));
+    }
+    public static BiddingTarot saveServerBiddingTarot(BiddingTarot _rules) {
+        return Net.importBiddingTarot(parseParts(Net.exportServerBiddingTarot(_rules)));
+    }
+    public static DiscardPhaseTarot saveDiscardPhaseTarot(DiscardPhaseTarot _rules) {
+        return Net.importDiscardPhaseTarot(parseParts(Net.exportDiscardPhaseTarot(_rules)));
+    }
+    public static DiscardedCardTarot saveDiscardedCardTarot(DiscardedCardTarot _rules) {
+        return Net.importDiscardedCardTarot(parseParts(Net.exportDiscardedCardTarot(_rules)));
+    }
+    public static CallableCards saveCallableCards(CallableCards _rules) {
+        return Net.importCallableCards(parseParts(Net.exportCallableCards(_rules)));
+    }
+    public static CustList<String> saveDiscardCallBefore(HandTarot _call) {
+        return parseParts(Net.exportDiscardCallBefore(_call));
+    }
+    public static CustList<String> saveDiscardSimpleCall(CardTarot _call) {
+        return parseParts(Net.exportDiscardSimpleCall(_call));
+    }
+    public static CustList<String> saveDiscardSlam(CardTarot _call) {
+        return parseParts(Net.exportDiscardSlam(_call));
+    }
+    public static AllowPlayingBelote saveAllowPlayingBelote(AllowPlayingBelote _rules) {
+        return Net.importAllowPlayingBelote(parseParts(Net.exportAllowPlayingBelote(_rules)));
+    }
+    public static PlayingCardBelote saveClientPlayingBelote(PlayingCardBelote _rules) {
+        return Net.importPlayingBelote(parseParts(Net.exportClientPlayingBelote(_rules)));
+    }
+    public static PlayingCardBelote saveServerPlayingBelote(PlayingCardBelote _rules) {
+        return Net.importPlayingBelote(parseParts(Net.exportServerPlayingBelote(_rules)));
+    }
+    public static AllowPlayingPresident saveAllowPlayingPresident(AllowPlayingPresident _rules) {
+        return Net.importAllowPlayingPresident(parseParts(Net.exportAllowPlayingPresident(_rules)));
+    }
+    public static PlayingCardPresident saveClientPlayingPresident(PlayingCardPresident _rules) {
+        return Net.importPlayingPresident(parseParts(Net.exportClientPlayingPresident(_rules)));
+    }
+    public static PlayingCardPresident saveServerPlayingPresident(PlayingCardPresident _rules) {
+        return Net.importPlayingPresident(parseParts(Net.exportServerPlayingPresident(_rules)));
+    }
+    public static AllowPlayingTarot saveAllowPlayingTarot(AllowPlayingTarot _rules) {
+        return Net.importAllowPlayingTarot(parseParts(Net.exportAllowPlayingTarot(_rules)));
+    }
+    public static PlayingCardTarot saveClientPlayingTarot(PlayingCardTarot _rules) {
+        return Net.importPlayingTarot(parseParts(Net.exportClientPlayingTarot(_rules)));
+    }
+    public static PlayingCardTarot saveServerPlayingTarot(PlayingCardTarot _rules) {
+        return Net.importPlayingTarot(parseParts(Net.exportServerPlayingTarot(_rules)));
     }
     private static String parse(String _in) {
         String i_ = Net.SEP_0 + _in;
