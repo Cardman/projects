@@ -67,7 +67,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private HandTarot callableCards = new HandTarot();
     private HandTarot allowed = new HandTarot();
 
-    public ContainerMultiTarot(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
+    public ContainerMultiTarot(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
         containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
         containerMultiContent.setMessages(Games.getMulti(Games.getAppliTr(_window.getFrames().currentLg())).getMapping());
@@ -75,12 +75,12 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         initButtonValidateDogTarotMulti();
         initBoutonJeuChelemTarotMulti();
 //        hasCreatedServer = _hasCreatedServer;
-        if (containerMultiContent.isHasCreatedServer()) {
-            Net.getGames(_window.getNet()).setRulesBelote(null);
-            Net.getGames(_window.getNet()).setRulesPresident(null);
-            setRulesTarotMulti(new RulesTarot((byte)_nbPlayers));
-            Net.getGames(_window.getNet()).setRulesTarot(getRulesTarotMulti());
-        }
+//        if (containerMultiContent.isHasCreatedServer()) {
+//            Net.getGames(_window.getNet()).setRulesBelote(null);
+//            Net.getGames(_window.getNet()).setRulesPresident(null);
+//            setRulesTarotMulti(new RulesTarot((byte)_nbPlayers));
+//            Net.getGames(_window.getNet()).setRulesTarot(getRulesTarotMulti());
+//        }
     }
     private void initBoutonJeuChelemTarotMulti() {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();

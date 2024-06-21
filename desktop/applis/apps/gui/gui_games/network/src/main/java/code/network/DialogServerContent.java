@@ -1,5 +1,6 @@
 package code.network;
 
+import cards.belote.RulesBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
@@ -8,6 +9,7 @@ import cards.gui.containers.ContainerMultiPresident;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.threads.Net;
 import cards.president.RulesPresident;
+import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.gui.*;
 import code.gui.events.CancelServerEvent;
@@ -204,15 +206,27 @@ public final class DialogServerContent implements AbstractDialogServer {
             return;
         }
         if (chosen == GameEnum.TAROT) {
-            window.getNetg().setContainerGame(new ContainerMultiTarot(window, true, nbPlayers.getValue()));
+            ContainerMultiTarot c_ = new ContainerMultiTarot(window, true);
+            c_.setRulesTarotMulti(new RulesTarot(nbPlayers.getValue()));
+            Net.getGames(window.getNet()).setRulesTarot(c_.getRulesTarotMulti());
+            window.getNetg().setContainerGame(c_);
+            Net.setNbPlayers(nbPlayers.getValue(), window.getNet());
         } else if (chosen == GameEnum.PRESIDENT) {
-            window.getNetg().setContainerGame(new ContainerMultiPresident(window, true, nbPlayers.getValue()));
+            ContainerMultiPresident c_ = new ContainerMultiPresident(window, true);
+            c_.setRulesPresidentMulti(new RulesPresident(nbPlayers.getValue()));
+            Net.getGames(window.getNet()).setRulesPresident(c_.getRulesPresidentMulti());
+            window.getNetg().setContainerGame(c_);
+            Net.setNbPlayers(nbPlayers.getValue(), window.getNet());
         } else if (chosen == GameEnum.BELOTE) {
-            window.getNetg().setContainerGame(new ContainerMultiBelote(window, true, nbPlayers.getValue()));
-        }
-        if (chosen != GameEnum.NONE) {
+            ContainerMultiBelote c_ = new ContainerMultiBelote(window, true);
+            c_.setRulesBeloteMulti(new RulesBelote(nbPlayers.getValue()));
+            Net.getGames(window.getNet()).setRulesBelote(c_.getRulesBeloteMulti());
+            window.getNetg().setContainerGame(c_);
             Net.setNbPlayers(nbPlayers.getValue(), window.getNet());
         }
+//        if (chosen != GameEnum.NONE) {
+//            Net.setNbPlayers(nbPlayers.getValue(), window.getNet());
+//        }
         serverSocket = serverSocket_;
         closeWindow();
         server = getFrames().getThreadFactory().newScheduledExecutorService();
@@ -228,12 +242,12 @@ public final class DialogServerContent implements AbstractDialogServer {
     public void joinServerChoice() {
 //        join = true;
 //        create = false;
-        closeWindow();
+//        closeWindow();
         String ip_ = adjust(ipOrHostName.getText());
         SocketResults connected_ = window.createClient(ip_, ipType.getCurrent(), portChoice.getValue());
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
-            component.setVisible(true);
-            window.pack();
+//            component.setVisible(true);
+//            window.pack();
             if (chosen != GameEnum.NONE) {
                 window.getNetg().setContainerGame(window.noGame());
             }
@@ -248,13 +262,12 @@ public final class DialogServerContent implements AbstractDialogServer {
             return;
         }
         if (chosen == GameEnum.TAROT) {
-            window.getNetg().setContainerGame(new ContainerMultiTarot(window, false, nbPlayers.getValue()));
+            window.getNetg().setContainerGame(new ContainerMultiTarot(window, false));
         } else if (chosen == GameEnum.PRESIDENT) {
-            window.getNetg().setContainerGame(new ContainerMultiPresident(window, false, nbPlayers.getValue()));
+            window.getNetg().setContainerGame(new ContainerMultiPresident(window, false));
         } else if (chosen == GameEnum.BELOTE) {
-            window.getNetg().setContainerGame(new ContainerMultiBelote(window, false, nbPlayers.getValue()));
-        }
-        if (chosen == GameEnum.NONE) {
+            window.getNetg().setContainerGame(new ContainerMultiBelote(window, false));
+        } else {
             window.setIndexInGame(IndexConstants.SECOND_INDEX);
         }
     }

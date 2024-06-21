@@ -17,6 +17,7 @@ import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class ContainerMultiContent {
     private StringMap<String> messages = new StringMap<String>();
@@ -203,25 +204,19 @@ public final class ContainerMultiContent {
         return pseudos_;
     }
     public byte relative(int _otherPlayerIndex) {
-        byte iter_ = 0;
-        for (byte p = indexInGame; p < nbChoosenPlayers; p++) {
-            if (p == _otherPlayerIndex) {
-                return iter_;
-            }
-            iter_++;
+        return relative(_otherPlayerIndex, indexInGame, nbChoosenPlayers);
+    }
+
+    public static byte relative(int _otherPlayerIndex, int _indexInGame, int _nbChoosenPlayers) {
+        if (_otherPlayerIndex >= _indexInGame) {
+            return (byte)(_otherPlayerIndex - _indexInGame);
         }
-        for (byte p = IndexConstants.FIRST_INDEX; p < indexInGame; p++) {
-            if (p == _otherPlayerIndex) {
-                return iter_;
-            }
-            iter_++;
-        }
-        return iter_;
+        return (byte) (_otherPlayerIndex + _nbChoosenPlayers - _indexInGame);
     }
     public String getPseudoByPlace(byte _place) {
         for (int i : playersPlacesForGame.getKeys()) {
             if (playersPlacesForGame.getVal(i) == _place) {
-                return playersPseudosForGame.getVal(i);
+                return StringUtil.nullToEmpty(playersPseudosForGame.getVal(i));
             }
         }
         return ContainerGame.EMPTY_STRING;

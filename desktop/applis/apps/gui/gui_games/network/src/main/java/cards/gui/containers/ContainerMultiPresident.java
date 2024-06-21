@@ -66,19 +66,19 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private boolean reversedGame;
     private HandPresident allowed = new HandPresident();
 
-    public ContainerMultiPresident(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
+    public ContainerMultiPresident(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
         containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
         containerMultiContent.setMessages(Games.getMulti(Games.getAppliTr(_window.getFrames().currentLg())).getMapping());
         _window.update(this);
 //        win = _window;
 //        hasCreatedServer = _hasCreatedServer;
-        if (containerMultiContent.isHasCreatedServer()) {
-            Net.getGames(_window.getNet()).setRulesBelote(null);
-            setRulesPresidentMulti(new RulesPresident(_nbPlayers));
-            Net.getGames(_window.getNet()).setRulesPresident(getRulesPresidentMulti());
-            Net.getGames(_window.getNet()).setRulesTarot(null);
-        }
+//        if (containerMultiContent.isHasCreatedServer()) {
+//            Net.getGames(_window.getNet()).setRulesBelote(null);
+//            setRulesPresidentMulti(new RulesPresident(_nbPlayers));
+//            Net.getGames(_window.getNet()).setRulesPresident(getRulesPresidentMulti());
+//            Net.getGames(_window.getNet()).setRulesTarot(null);
+//        }
     }
 
     @Override

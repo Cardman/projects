@@ -143,8 +143,8 @@ public final class Net {
 
     private final CustList<Longs> scores = new CustList<Longs>();
 
-    private ByteMap<BoolVal> activePlayers;
-    private ByteMap<BoolVal> received;
+    private ByteMap<BoolVal> activePlayers = new ByteMap<BoolVal>();
+    private ByteMap<BoolVal> received = new ByteMap<BoolVal>();
     private final IntArtCardGames ia;
     private final CustList<IntClientActLoopCards> clientAct = new CustList<IntClientActLoopCards>();
     private final CustList<IntServerActLoopCards> serverActLoopCards = new CustList<IntServerActLoopCards>();
@@ -2131,9 +2131,10 @@ public final class Net {
      * @param _instance
      * @param _common*/
     static void initAllReceived(Net _instance, NetCommon _common) {
-        if (_instance.received == null) {
-            _instance.received = new ByteMap<BoolVal>();
-        }
+//        if (_instance.received == null) {
+//            _instance.received = new ByteMap<BoolVal>();
+//        }
+        _instance.received = new ByteMap<BoolVal>();
         for (byte r: _common.getPlacesPlayers().values()) {
             if (_instance.activePlayers.getVal(r) == BoolVal.TRUE) {
                 _instance.received.put(r, BoolVal.FALSE);
@@ -2146,9 +2147,9 @@ public final class Net {
     //bk: synchronized
     /**server*/
     static void quit(byte _p, Net _instance) {
-        if (_instance.activePlayers == null) {
-            return;
-        }
+//        if (_instance.activePlayers == null) {
+//            return;
+//        }
         _instance.activePlayers.put(_p, BoolVal.FALSE);
         setReceivedForPlayer(_p, _instance);
     }
@@ -2195,7 +2196,7 @@ public final class Net {
      * @param _instance
      * @param _common */
     static Bytes activePlayers(Net _instance, NetCommon _common) {
-        if (_instance.activePlayers == null) {
+        if (_instance.activePlayers.isEmpty()) {
             Bytes activePlayers_ = new Bytes();
             for (byte i: _common.getPlacesPlayers().values()) {
                 activePlayers_.add(i);

@@ -72,7 +72,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
 //    private final WindowNetWork win;
 
-    public ContainerMultiBelote(WindowNetWork _window, boolean _hasCreatedServer, int _nbPlayers) {
+    public ContainerMultiBelote(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
         containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
         containerMultiContent.setMessages(Games.getMulti(Games.getAppliTr(_window.getFrames().currentLg())).getMapping());
@@ -81,12 +81,12 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        hasCreatedServer = _hasCreatedServer;
         initButtonValidateDiscardBelote();
         initSlamButtonBelote();
-        if (containerMultiContent.isHasCreatedServer()) {
-            setRulesBeloteMulti(new RulesBelote(_nbPlayers));
-            Net.getGames(_window.getNet()).setRulesBelote(getRulesBeloteMulti());
-            Net.getGames(_window.getNet()).setRulesPresident(null);
-            Net.getGames(_window.getNet()).setRulesTarot(null);
-        }
+//        if (containerMultiContent.isHasCreatedServer()) {
+//            setRulesBeloteMulti(new RulesBelote(_nbPlayers));
+//            Net.getGames(_window.getNet()).setRulesBelote(getRulesBeloteMulti());
+//            Net.getGames(_window.getNet()).setRulesPresident(null);
+//            Net.getGames(_window.getNet()).setRulesTarot(null);
+//        }
     }
 
 //    private void addButtonsForCoinche(int _pts) {

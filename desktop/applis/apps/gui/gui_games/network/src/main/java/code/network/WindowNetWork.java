@@ -554,6 +554,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
         /*Parametre de lancement*/
         initMenus();
+        multiModeButton = getCompoFactory().newPlainButton(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
         translate();
 
         menuPrincipal();
@@ -1086,6 +1087,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
         MenuItemUtils.setEnabledMenu(getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getTeams(),false);
+        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
         netg.setContainerGame(noGame());
 //        MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
@@ -1674,9 +1676,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
 
     public void quitMulti() {
-        if (!(netg.getContainerGame() instanceof ContainerMulti)) {
-            return;
-        }
+//        if (!(netg.getContainerGame() instanceof ContainerMulti)) {
+//            return;
+//        }
         QuitCards quit_ = new QuitCards();
         quit_.getContent().setClosing(false);
         quit_.setPlace(((ContainerMulti) netg.getContainerGame()).getContainerMultiContent().getIndexInGame());
@@ -2065,9 +2067,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        if (singleModeButton != null) {
 //            singleModeButton.setText(getMessages().getVal(CST_SINGLE_MODE));
 //        }
-        if (multiModeButton != null) {
-            multiModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
-        }
+        multiModeButton.setText(getMenusMessages().getVal(MessagesGuiCards.CST_MULTI_MODE));
         scenePanel.initMessages();
 //        if (goHelpMenu != null) {
 //            goHelpMenu.setText(getMessages().getVal(CST_GO_HELP_MENU));
