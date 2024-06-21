@@ -87,6 +87,13 @@ public abstract class EquallableNetworkUtil {
         loopServer2(_server.getSockets());
         loopClient(_server.getSockets(),_client);
     }
+    protected static void playIaWithout(WindowNetWork _server, WindowNetWork _client) {
+        loopServer2(_server.getSockets());
+        sendClient(_server.getSockets(), _server);
+        sendClient(_server.getSockets(), _client);
+        loopClient(_server.getSockets(),_server);
+        loopClient(_server.getSockets(),_client);
+    }
     protected static void allow(WindowNetWork _server, WindowNetWork _client) {
         loopServer2(_server.getSockets());
         sendClient(_server.getSockets(), _client);
