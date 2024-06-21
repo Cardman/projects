@@ -496,9 +496,10 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void validateDiscard() {
-        updateCardsInPanelBeloteMulti(false);
+        new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
         containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
         refreshPlayerHand();
+        updateCardsInPanelBeloteMulti(false);
 //        if (!getTakerCardsDiscard().estVide()) {
 //            playerHand = getTakerCardsDiscard();
 //            setChienMulti(false);
@@ -528,10 +529,12 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void annonceChelem() {
+        new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
-        pack();
         refreshPlayerHand();
+        updateCardsInPanelBeloteMulti(false);
+        pack();
         NetGroupFrame.trySendString(Net.exportDiscardSlam(),getContainerMultiContent().window().getSocket());
     }
 
