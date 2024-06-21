@@ -5,10 +5,10 @@ import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.BiddingBelote;
 import code.gui.events.AbsActionListener;
 
-public class ListenerBidBeloteMulti implements AbsActionListener {
+public final class ListenerBidBeloteMulti implements AbsActionListener {
 
-    private ContainerMultiBelote container;
-    private BidBeloteSuit texte = new BidBeloteSuit();
+    private final ContainerMultiBelote container;
+    private final BidBeloteSuit texte;
 
     public ListenerBidBeloteMulti(
             ContainerMultiBelote _container,
@@ -19,7 +19,7 @@ public class ListenerBidBeloteMulti implements AbsActionListener {
 
     @Override
     public void action() {
-        container.getPanneauBoutonsJeu().removeAll();
+        container.clearBids();
         container.pack();
 //        if (!container.isCanBid()) {
 //            return;

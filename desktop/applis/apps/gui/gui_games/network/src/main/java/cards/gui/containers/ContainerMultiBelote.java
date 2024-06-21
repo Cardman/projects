@@ -185,6 +185,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void bid() {
+        clearBids();
         getPanneauBoutonsJeu().removeAll();
         pack();
 //        if (!isCanBid()) {
@@ -205,6 +206,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void fold() {
+        clearBids();
         getPanneauBoutonsJeu().removeAll();
         pack();
 //        if (!isCanBid()) {
@@ -1174,6 +1176,19 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 //    public void setCanBid(boolean _canBid) {
 //        canBid = _canBid;
 //    }
+
+
+    public BidBeloteSuit getBidMax() {
+        return bidMax;
+    }
+
+    public HandBelote getPlayerHand() {
+        return playerHand;
+    }
+
+    public HandBelote getCardsInDog() {
+        return cardsInDog;
+    }
 
     public RulesBelote getRulesBeloteMulti() {
         return rulesBeloteMulti;
