@@ -789,6 +789,14 @@ public final class ContainerMultiPresident extends ContainerPresident implements
 //    }
 
 
+    public boolean isReversedGame() {
+        return reversedGame;
+    }
+
+    public HandPresident getPlayerHandPresident() {
+        return playerHandPresident;
+    }
+
     public DialogPresidentContent getDialogPresidentContent() {
         return dialogPresidentContent;
     }
