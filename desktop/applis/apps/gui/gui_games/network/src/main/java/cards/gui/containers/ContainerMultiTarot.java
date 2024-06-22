@@ -1397,6 +1397,10 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         return containerMultiContent;
     }
 
+    public HandTarot getCallableCards() {
+        return callableCards;
+    }
+
 //    @Override
 //    public WindowNetWork window() {
 //        return win;
