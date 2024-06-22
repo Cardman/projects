@@ -881,12 +881,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         menuPrincipal();
         getDialogServerContent().closeConnexion(_exit,_socket);
-        if (_exit != null && _exit.isClosing()) {
+        if (_exit.isClosing()) {
+//        if (_exit != null && _exit.isClosing()) {
             GuiBaseUtil.trEx(this);
             return;
         }
         pack();
-        if (_exit != null && _exit.isForced()) {
+        if (_exit.isForced()) {
+//        if (_exit != null && _exit.isForced()) {
 //        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             errorsFile.display(getTooManyString(), getTooManyString());
 //            getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), GuiConstants.ERROR_MESSAGE);
@@ -943,12 +945,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         exitFromTrading();
         resetIndexInGame();
         getDialogServerContent().closeConnexion(_exit,_socket);
-        if (_exit != null && _exit.isClosing()) {
+        if (_exit.isClosing()) {
+//        if (_exit != null && _exit.isClosing()) {
             GuiBaseUtil.trEx(this);
             return;
         }
         pack();
-        if (_exit != null && _exit.isForced()) {
+        if (_exit.isForced()) {
+//        if (_exit != null && _exit.isForced()) {
 //        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             if (_exit.isTooManyPlayers()) {
                 errorsFile.display(getTooManyString(), getTooManyString());
