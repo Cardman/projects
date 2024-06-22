@@ -328,6 +328,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //        setCanBid(true);
         containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
         getPanneauBoutonsJeu().removeAll();
+        getBids().clear();
         ajouterBoutonContratsTarot(this,_bids.getBids(),_bids.getMaxBid());
 //        TranslationsLg lg_ = getOwner().getFrames().currentLg();
 //        for (BidTarot b: _bids.getBids()) {
