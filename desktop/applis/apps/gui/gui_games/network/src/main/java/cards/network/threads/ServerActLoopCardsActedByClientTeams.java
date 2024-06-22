@@ -10,6 +10,11 @@ import code.util.core.NumberUtil;
 
 public final class ServerActLoopCardsActedByClientTeams extends ServerActLoopCardsActedByClientFull {
     @Override
+    public void loop(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
+        loopReceive(_input, _instance, _fct, _common);
+    }
+
+    @Override
     protected void loopReceive(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         if (!Net.isSameTeam(_instance, _common)) {
             return;

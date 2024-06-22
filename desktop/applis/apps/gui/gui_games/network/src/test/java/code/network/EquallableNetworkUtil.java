@@ -12,7 +12,6 @@ import cards.gui.dialogs.*;
 import cards.gui.dialogs.help.*;
 import cards.gui.labels.*;
 import cards.main.*;
-import cards.network.threads.Net;
 import cards.president.*;
 import cards.president.enumerations.*;
 import cards.tarot.*;
