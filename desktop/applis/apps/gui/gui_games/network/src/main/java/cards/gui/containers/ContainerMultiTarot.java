@@ -43,7 +43,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 
     private final ContainerMultiContent containerMultiContent;
 //    private int noClient;
-    private boolean discardCall;
+//    private boolean discardCall;
 //    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private HandTarot cardsInDog = new HandTarot();
     private HandTarot playerHand = new HandTarot();
@@ -372,7 +372,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //            return;
 //        }
         containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
-        setDiscardCall(_cards.isDiscarding());
+//        setDiscardCall(_cards.isDiscarding());
         getPanneauBoutonsJeu().removeAll();
         getScrollCallableCards().setVisible(true);
         updateCardsInPanelTarotCallBeforeDogMulti(true);
@@ -412,9 +412,9 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         cardsInDog = _dog.getDiscardCard();
         callableCards = _dog.getCallableCards();
-        setDiscardCall(_dog.isCallAfter());
+//        setDiscardCall(_dog.isCallAfter());
         if (_dog.getDiscardPhase().getTaker() == DiscardPhaseTarot.TAKER_HUM_WRITE) {
-            if (isDiscardCall()) {
+            if (!rulesTarotMulti.getDiscardAfterCall()) {
                 addButtonTakeDogCardsTarotMulti(file().getVal(MessagesGuiCards.MAIN_TAKE_CARDS),true);
                 containerMultiContent.getCanPlayLabel().setText(containerMultiContent.getMessages().getVal(MessagesGuiCards.CAN_PLAY));
                 getScrollCallableCards().setVisible(true);
@@ -959,7 +959,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         getTakerCardsDog().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         /*On place les cartes de l'utilisateur*/
 //        setCanDiscard(true);
-        if (!discardCall) {
+        if (rulesTarotMulti.getDiscardAfterCall()) {
             getValidateDog().setEnabled(false);
             getPanneauBoutonsJeu().add(getValidateDog());
 //            getSlamButton().setVisible(true);
@@ -1045,7 +1045,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 
 
     private void possibleCallAfterDiscard() {
-        if (discardCall) {
+        if (!rulesTarotMulti.getDiscardAfterCall()) {
             placerBoutonsAppelApres();
         }
         new ContainerSingleWithDiscardUtil<CardTarot>(this).updateCardsInPanels(true);
@@ -1086,7 +1086,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 
     @Override
     public void afterHands(CardTarot _c) {
-        if (!discardCall) {
+        if (rulesTarotMulti.getDiscardAfterCall()) {
             boolean chienFait_ = cardsInDog.total()== rulesTarotMulti.getDealing().getNombreCartesChien();
             updateButtons(chienFait_);
         } else {
@@ -1102,12 +1102,13 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     }
 
     public void updateButtons() {
-        boolean chienFait_;
-        if (getContratUtilisateur().getJeuChien() == PlayingDog.WITH) {
-            chienFait_ = cardsInDog.total()== rulesTarotMulti.getDealing().getNombreCartesChien() && getCalledCard() != CardTarot.WHITE;
-        } else {
-            chienFait_ = getCalledCard() != CardTarot.WHITE;
-        }
+        boolean chienFait_ = chienFait(getContratUtilisateur(),cardsInDog.total(),rulesTarotMulti.getDealing().getNombreCartesChien());
+//        boolean chienFait_;
+//        if (getContratUtilisateur().getJeuChien() == PlayingDog.WITH) {
+//            chienFait_ = cardsInDog.total()== rulesTarotMulti.getDealing().getNombreCartesChien() && getCalledCard() != CardTarot.WHITE;
+//        } else {
+//            chienFait_ = getCalledCard() != CardTarot.WHITE;
+//        }
         updateButtons(chienFait_);
     }
 
@@ -1406,11 +1407,11 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //    public WindowNetWork window() {
 //        return win;
 //    }
-    public boolean isDiscardCall() {
-        return discardCall;
-    }
-    protected void setDiscardCall(boolean _discardCall) {
-        discardCall = _discardCall;
-    }
+//    public boolean isDiscardCall() {
+//        return discardCall;
+//    }
+//    protected void setDiscardCall(boolean _discardCall) {
+//        discardCall = _discardCall;
+//    }
 }
 

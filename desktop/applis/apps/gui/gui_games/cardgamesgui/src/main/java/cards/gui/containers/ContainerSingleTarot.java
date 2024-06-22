@@ -1569,12 +1569,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public void updateButtons() {
         GameTarot partie_=partieTarot();
-        boolean chienFait_;
-        if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            chienFait_ = partie_.getPliEnCours().total() == partie_.getDistribution().derniereMain().total() && getCalledCard() != CardTarot.WHITE;
-        } else {
-            chienFait_ = getCalledCard() != CardTarot.WHITE;
-        }
+        boolean chienFait_ = chienFait(partie_.getContrat(),partie_.getPliEnCours().total(),partie_.getDistribution().derniereMain().total());
+//        if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
+//            chienFait_ = partie_.getPliEnCours().total() == partie_.getDistribution().derniereMain().total() && getCalledCard() != CardTarot.WHITE;
+//        } else {
+//            chienFait_ = getCalledCard() != CardTarot.WHITE;
+//        }
         updateButtons(chienFait_);
     }
 

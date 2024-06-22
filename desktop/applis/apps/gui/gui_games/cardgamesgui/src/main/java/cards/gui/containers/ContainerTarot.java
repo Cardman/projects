@@ -15,10 +15,7 @@ import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.RulesTarot;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
+import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -67,6 +64,12 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         arretDemo = _window.getThreadFactory().newAtomicInteger();
     }
 
+    public boolean chienFait(BidTarot _bid, int _current, int _must) {
+        if (_bid.getJeuChien() == PlayingDog.WITH) {
+            return _current == _must && getCalledCard() != CardTarot.WHITE;
+        }
+        return getCalledCard() != CardTarot.WHITE;
+    }
     protected boolean updateButtons(boolean _chienFait, BidTarot _bid) {
         getValidateDog().setEnabled(_chienFait);
         boolean slam_ = _chienFait && _bid != BidTarot.SLAM;
