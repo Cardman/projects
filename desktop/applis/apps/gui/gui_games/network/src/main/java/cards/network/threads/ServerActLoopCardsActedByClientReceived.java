@@ -294,10 +294,12 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
                 NetGroupFrame.trySendString(Net.exportDiscardPhaseTarot(dog_), Net.getSocketByPlace(p, _common));
             }
         } else {
-            game_.gererChienInconnu();
+            ContainerSingleTarot.possibleAddFirstTrick(game_);
+//            game_.gererChienInconnu();
             if (!game_.getContrat().isFaireTousPlis()) {
                 NetGroupFrame.trySendString(Net.exportSlamTarot(), Net.getSocketByPlace(game_.getPreneur(), _common));
             } else {
+                game_.ajouterChelemUtilisateur();
                 game_.firstLead();
                 playingTarotCard(_instance,_fct, _common);
             }
