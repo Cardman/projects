@@ -1446,8 +1446,6 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         sendClient(server_.getSockets(), client_);
         loopClient(server_.getSockets(),client_);
 
-        choicePosition(server_,client_,client_,socketClient_,2);
-
         eventsCombo(((ContainerMultiBelote) server_.getNetg().getContainerGame()).getDialogBeloteContent().getListeChoixFour().getCombo(),1);
         rules(server_, socketServ_);
         netPlayers(server_, client_);
@@ -1456,17 +1454,16 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        playIa(server_, client_);
         allow(server_, client_);
 
         fold(server_, client_, socketClient_);
+        playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
         socketServ_.getOutput().clear();
         tryClickBidDealAll((ContainerBelote)server_.getNetg().getContainerGame(), m_);
         writeToServer(server_, socketServ_);
-        playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, client_);
 
@@ -1478,6 +1475,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         allow(server_, client_);
         tryClickCard(m_, server_, client_, socketClient_);
         self(server_, client_);
+        playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -1609,8 +1607,6 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         sendClient(server_.getSockets(), client_);
         loopClient(server_.getSockets(),client_);
 
-        choicePosition(server_,client_,client_,socketClient_,2);
-
         eventsCombo(((ContainerMultiBelote) server_.getNetg().getContainerGame()).getDialogBeloteContent().getListeChoixFour().getCombo(),1);
         rules(server_, socketServ_);
         netPlayers(server_, client_);
@@ -1619,17 +1615,16 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        playIa(server_, client_);
         allow(server_, client_);
 
         fold(server_, client_, socketClient_);
+        playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
         socketServ_.getOutput().clear();
         tryClickBidDealAll((ContainerBelote)server_.getNetg().getContainerGame(), m_);
         writeToServer(server_, socketServ_);
-        playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, client_);
 
@@ -1641,6 +1636,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         allow(server_, client_);
         tryClickCard(m_, server_, client_, socketClient_);
         self(server_, client_);
+        playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
