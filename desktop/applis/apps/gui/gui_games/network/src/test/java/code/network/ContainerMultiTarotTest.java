@@ -179,6 +179,72 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertEq(1, clientCompoNext_.size());
         assertTrue(clientCompoNext_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
     }
+    @Test
+    public void greatBid1() {
+        MockGameTarot m_ = new MockGameTarot();
+        nextBid(m_,BidTarot.TAKE);
+        nextBid(m_,BidTarot.FOLD);
+        nextBid(m_,BidTarot.FOLD);
+        nextBid(m_,BidTarot.FOLD);
+        WindowNetWork server_ = frameSingleTarot(m_);
+        server_.getNetg().setFirstDealTarot(new TarotSampleFirstDealNetFour());
+        serverVersionNew(server_,4);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        WindowNetWork client_ = frameSingleTarot(m_);
+        client_.getNetg().setFirstDealTarot(null);
+        clientVersionNew(server_,client_);
+
+
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        loopServer2(server_.getSockets());
+        sendClient(server_.getSockets(), client_);
+        loopClient(server_.getSockets(),client_);
+
+        readyPlayers(server_, socketServ_, client_, socketClient_);
+
+        play(server_, socketServ_);
+        deal(server_, client_);
+        allow(server_, server_);
+        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIaWithout(server_, client_);
+
+        IdList<AbsCustComponent> serverCompoOne_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(2, serverCompoOne_.size());
+        assertTrue(serverCompoOne_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
+        assertTrue(serverCompoOne_.containsObj(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog()));
+        IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(1, clientCompoOne_.size());
+        assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
+        tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
+
+        IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(16, serverCompoTwo_.size());
+        assertTrue(serverCompoTwo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.HEART_1)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.SPADE_JACK)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.SPADE_8)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.SPADE_5)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.SPADE_3)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.DIAMOND_QUEEN)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.DIAMOND_6)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.DIAMOND_4)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.DIAMOND_1)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.CLUB_KNIGHT)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.CLUB_5)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.CLUB_4)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.CLUB_1)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.SPADE_10)));
+        assertTrue(serverCompoTwo_.containsObj(componentUnion(((ContainerMultiTarot) server_.getNetg().getContainerGame()),CardTarot.SPADE_9)));
+    }
     private void nextBid(MockGameTarot _m, BidTarot _bid) {
         _m.getBids().add(_bid);
     }
@@ -230,7 +296,12 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
     private HandTarot create(CardTarot... _cb) {
         return HandTarot.create(_cb);
     }
-
+    private static AbsCustComponent componentUnion(ContainerMultiTarot _compo, CardTarot _cb) {
+        HandTarot h_ = new HandTarot();
+        h_.ajouterCartes(_compo.getTakerCardsDog());
+        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
+        return _compo.getPanelHand().getComponent(h_.getCards().indexOfObj(_cb));
+    }
     private static void tryClickBid(WindowNetWork _server, ContainerMultiTarot _csb, MockSocket _soc, MockGameTarot _mock) {
         _soc.getOutput().clear();
         tryClickBid(_csb,_mock);
