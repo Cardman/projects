@@ -1900,9 +1900,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         interact.setText(getMenusMessages().getVal(MessagesGuiCards.CST_INTERACT));
         languageDialogButtons.translate(getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
         core.getDisplaying().setText(getMenusMessages().getVal(MessagesGuiCards.CST_DISPLAYING));
-        for (GameEnum g: GameEnum.allValid()) {
-            core.getDisplayingGames().getVal(g).setText(g.toString(lg_));
-        }
+        translateDisplaying(lg_, core);
         help.setText(getMenusMessages().getVal(MessagesGuiCards.CST_HELP));
         generalHelp.setText(getMenusMessages().getVal(MessagesGuiCards.CST_GENERAL_HELP));
 //        if (welcomeLabel != null) {
@@ -1925,6 +1923,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         errorsFile.getReport().setText(mes_);
         errorsFile.getCommonFrame().setTitle(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE));
     }
+
+    public static void translateDisplaying(TranslationsLg _lg, WindowCardsCore _c) {
+        translateDisplaying(_lg, _c, GameEnum.allValid());
+    }
+
+    public static void translateDisplaying(TranslationsLg _lg, WindowCardsCore _c, CustList<GameEnum> _gameEnums) {
+        for (GameEnum g: _gameEnums) {
+            _c.getDisplayingGames().getVal(g).setText(g.toString(_lg));
+        }
+    }
+
     public void changeStreamsMenusEnabled(boolean _enabled) {
         load.setEnabled(_enabled);
         save.setEnabled(_enabled);

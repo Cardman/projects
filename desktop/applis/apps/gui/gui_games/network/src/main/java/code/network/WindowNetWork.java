@@ -2060,9 +2060,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        netg.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
         languageDialogButtons.translate(getMenusMessages().getVal(MessagesGuiCards.CST_LANGUAGE));
         netg.getDisplaying().setText(getMenusMessages().getVal(MessagesGuiCards.CST_DISPLAYING));
-        for (GameEnum g: GameEnum.allValid()) {
-            netg.getDisplayingGames().getVal(g).setText(g.toString(lg_));
-        }
+        WindowCards.translateDisplaying(lg_,netg);
+//        for (GameEnum g: GameEnum.allValid()) {
+//            netg.getDisplayingGames().getVal(g).setText(g.toString(lg_));
+//        }
 //        help.setText(getMessages().getVal(CST_HELP));
 //        generalHelp.setText(getMessages().getVal(CST_GENERAL_HELP));
 //        if (welcomeLabel != null) {
