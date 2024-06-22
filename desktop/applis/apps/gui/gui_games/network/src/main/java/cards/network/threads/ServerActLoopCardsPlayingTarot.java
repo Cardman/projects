@@ -45,22 +45,27 @@ public final class ServerActLoopCardsPlayingTarot implements IntServerActLoopCar
         GameTarot game_ = Net.getGames(_instance).partieTarot();
         CardTarot played_ = _instance.getIa().getTarot().changerConfianceJeuCarteUniqueUser(card_);
         game_.ajouterUneCarteDansPliEnCours(played_);
-        Handfuls ch_ = _readObject.getChoosenHandful();
-        if (ch_ != Handfuls.NO) {
-            IdList<Handfuls> handfuls_ = new IdList<Handfuls>();
-            handfuls_.add(ch_);
-            game_.setAnnoncesPoignees(_instance.getIa().getTarot().handful(handfuls_));
-            game_.ajouterPoignee(_instance.getIa().getTarot().handfulCard(_readObject.getHandful()));
-        }
-        IdList<Miseres> declaredMiseres_ = new IdList<Miseres>();
-        for (Miseres m: _readObject.getMiseres()) {
-            if (!game_.getAnnoncesMiseresPossibles(_readObject.getPlace()).containsObj(m)) {
-                continue;
-            }
-            declaredMiseres_.add(m);
-        }
-        game_.setAnnoncesMiseres(_instance.getIa().getTarot().misere(declaredMiseres_));
         PlayingCardTarot ref_ = new PlayingCardTarot();
+        if(game_.premierTourNoMisere()) {
+            Handfuls ch_ = _readObject.getChoosenHandful();
+            if (ch_ != Handfuls.NO) {
+                IdList<Handfuls> handfuls_ = new IdList<Handfuls>();
+                handfuls_.add(ch_);
+                game_.setAnnoncesPoignees(_instance.getIa().getTarot().handful(handfuls_));
+                game_.ajouterPoignee(_instance.getIa().getTarot().handfulCard(_readObject.getHandful()));
+            }
+            IdList<Miseres> declaredMiseres_ = new IdList<Miseres>();
+            for (Miseres m: _readObject.getMiseres()) {
+                if (!game_.getAnnoncesMiseresPossibles(_readObject.getPlace()).containsObj(m)) {
+                    continue;
+                }
+                declaredMiseres_.add(m);
+            }
+            game_.setAnnoncesMiseres(_instance.getIa().getTarot().misere(declaredMiseres_));
+            ref_.setMiseres(declaredMiseres_);
+        } else {
+            ref_.setMiseres(new IdList<Miseres>());
+        }
         ref_.setRefreshing(true);
         ref_.setExcludedTrumps(new HandTarot());
         ref_.setPlayedCard(played_);
@@ -71,7 +76,6 @@ public final class ServerActLoopCardsPlayingTarot implements IntServerActLoopCar
             ref_.setChoosenHandful(Handfuls.NO);
         }
         ref_.setHandful(game_.getPoignee(_readObject.getPlace()));
-        ref_.setMiseres(declaredMiseres_);
         //ref_.setLocale(Constants.getDefaultLanguage());
 //        ref_.setLocale("");
         ref_.setCalledCard(game_.getCarteAppelee().contient(played_));

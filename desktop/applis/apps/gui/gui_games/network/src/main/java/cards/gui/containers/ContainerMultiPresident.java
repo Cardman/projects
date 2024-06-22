@@ -638,10 +638,10 @@ public final class ContainerMultiPresident extends ContainerPresident implements
 
     public void endGame(ResultsPresident _res) {
         CustList<Longs> sc_ = _res.getRes().scores();
-        _res.initialize(new StringList(), sc_);
         _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
         _res.getGame().setRules(getRulesPresidentMulti());
         CheckerGamePresidentWithRules.check(_res.getGame());
+        _res.initialize(nicknames(), sc_);
         containerMultiContent.messagesEndGame(_res.getRes(),nicknames(),readCoreResourceSuit(),readResource(), readCoreResourceCards());
 //        Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
 //        _res.getRes().setNicknames(nicknames());

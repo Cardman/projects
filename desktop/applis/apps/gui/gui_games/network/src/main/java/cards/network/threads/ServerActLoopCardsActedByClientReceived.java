@@ -345,16 +345,30 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         cardDto_.setPlayedCard(card_);
         //cardDto_.setLocale(Constants.getDefaultLanguage());
 //        cardDto_.setLocale("");
-        IdList<Handfuls> annoncesPoignees_ = game_.getAnnoncesPoignees(place_);
-        IdList<Miseres> annoncesMiseres_ = game_.getAnnoncesMiseres(place_);
-        HandTarot poignee_=game_.getPoignee(place_);
-        if (!annoncesPoignees_.isEmpty()) {
-            cardDto_.setChoosenHandful(annoncesPoignees_.first());
+        if(game_.premierTourNoMisere()) {
+            IdList<Handfuls> annoncesPoignees_ = _instance.getIa().getTarot().handful(game_.getAnnoncesPoignees(place_));
+            IdList<Miseres> annoncesMiseres_ = _instance.getIa().getTarot().misere(game_.getAnnoncesMiseres(place_));
+            HandTarot poignee_=game_.getPoignee(place_);
+            if (!annoncesPoignees_.isEmpty()) {
+                cardDto_.setChoosenHandful(annoncesPoignees_.first());
+            } else {
+                cardDto_.setChoosenHandful(Handfuls.NO);
+            }
+            cardDto_.setHandful(poignee_);
+            cardDto_.setMiseres(annoncesMiseres_);
         } else {
             cardDto_.setChoosenHandful(Handfuls.NO);
+            cardDto_.setHandful(new HandTarot());
+            cardDto_.setMiseres(new IdList<Miseres>());
         }
-        cardDto_.setHandful(poignee_);
-        cardDto_.setMiseres(annoncesMiseres_);
+//        HandTarot poignee_=game_.getPoignee(place_);
+//        if (!annoncesPoignees_.isEmpty()) {
+//            cardDto_.setChoosenHandful(annoncesPoignees_.first());
+//        } else {
+//            cardDto_.setChoosenHandful(Handfuls.NO);
+//        }
+//        cardDto_.setHandful(poignee_);
+//        cardDto_.setMiseres(annoncesMiseres_);
         cardDto_.setExcludedTrumps(new HandTarot());
 //        Net.initAllReceived(_instance, _common);
         for (byte p: Net.activePlayers(_instance, _common)) {

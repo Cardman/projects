@@ -592,6 +592,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //            handFuls_.add(radio_);
 //        }
 //        getPanneauBoutonsJeu().add(handFuls_);
+        getSelectedMiseres().clear();
         miseres(rulesTarotMulti,getPanneauBoutonsJeu());
 //        AbsPanel miseres_ = getOwner().getCompoFactory().newPageBox();
 //        for(Miseres po_:_declaration.getAllowedMiseres()) {
@@ -1221,10 +1222,10 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 
     public void endGame(ResultsTarot _res) {
         CustList<Longs> sc_ = _res.getRes().scores();
-        _res.initialize(new StringList(), sc_);
         _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
         _res.getGame().setRules(getRulesTarotMulti());
         CheckerGameTarotWithRules.check(_res.getGame());
+        _res.initialize(nicknames(), sc_);
         containerMultiContent.messagesEndGame(_res.getRes(),nicknames(),readCoreResourceSuit(),readResource(), readCoreResourceCards());
 //        Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());
 //        _res.getRes().setNicknames(nicknames());
