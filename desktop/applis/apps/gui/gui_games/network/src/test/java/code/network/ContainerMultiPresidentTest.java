@@ -219,6 +219,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
 
         ((ContainerMultiPresident) server_.getNetg().getContainerGame()).getDialogPresidentContent().getCanPass().setSelected(false);
         rules(server_,socketServ_);
+        netPlayers(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 

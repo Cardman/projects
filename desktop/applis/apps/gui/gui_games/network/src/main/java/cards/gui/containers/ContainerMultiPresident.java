@@ -244,7 +244,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         nbCardsDiscard = _allow.getReceivedCards().total();
         setGivingCardsOk(getOwner().getCompoFactory().newPlainButton(file().getVal(MessagesGuiCards.MAIN_OK)));
         getGivingCardsOk().setEnabled(false);
-        getGivingCardsOk().addActionListener(new GiveCardsEvent(this));
+        getGivingCardsOk().addActionListener(guard(),new GiveCardsEvent(this));
         //        getPanneauBoutonsJeu().add(getGivingCardsOk());
         getActionsHistory().add(getGivingCardsOk());
         getReceivedCards().supprimerCartes();
