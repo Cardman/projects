@@ -127,6 +127,8 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
             } else if (!_game.getContrat().isFaireTousPlis()) {
                 NetGroupFrame.trySendString(Net.exportSlamTarot(), Net.getSocketByPlace(_game.getPreneur(), _common));
             } else {
+                _game.ajouterChelemUtilisateur();
+                ContainerSingleTarot.possibleAddFirstTrick(_game);
                 playingTarotCard(_instance,_fct, _common);
             }
 //                for (byte p: Net.activePlayers(_instance, _common)) {
