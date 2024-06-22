@@ -1580,9 +1580,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     private void updateButtons(boolean _chienFait) {
         GameTarot partie_=partieTarot();
-        getValidateDog().setEnabled(_chienFait);
-        boolean slam_ = _chienFait && partie_.getContrat() != BidTarot.SLAM;
-        getSlamButton().setEnabled(slam_);
+        boolean slam_ = updateButtons(_chienFait, partie_.getContrat());
         if (partie_.getRegles().getDiscardAfterCall()) {
             MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide()||slam_);
         }

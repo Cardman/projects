@@ -1112,9 +1112,10 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     }
 
     private void updateButtons(boolean _chienFait) {
-        getValidateDog().setEnabled(_chienFait);
-        boolean slam_ = _chienFait && getContratUtilisateur() != BidTarot.SLAM;
-        getSlamButton().setEnabled(slam_);
+        updateButtons(_chienFait,getContratUtilisateur());
+//        getValidateDog().setEnabled(_chienFait);
+//        boolean slam_ = _chienFait && getContratUtilisateur() != BidTarot.SLAM;
+//        getSlamButton().setEnabled(slam_);
     }
 //    private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _ecouteur) {
 //        _panel.removeAll();

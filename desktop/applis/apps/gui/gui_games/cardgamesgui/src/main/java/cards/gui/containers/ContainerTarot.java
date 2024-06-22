@@ -67,6 +67,13 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         arretDemo = _window.getThreadFactory().newAtomicInteger();
     }
 
+    protected boolean updateButtons(boolean _chienFait, BidTarot _bid) {
+        getValidateDog().setEnabled(_chienFait);
+        boolean slam_ = _chienFait && _bid != BidTarot.SLAM;
+        getSlamButton().setEnabled(slam_);
+        return slam_;
+    }
+
     public IntCardConverter<CardTarot> converter() {
         return new TarotCardConverter();
     }
