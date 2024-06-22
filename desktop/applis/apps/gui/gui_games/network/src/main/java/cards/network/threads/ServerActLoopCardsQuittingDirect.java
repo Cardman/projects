@@ -1,61 +1,75 @@
 package cards.network.threads;
 
 import cards.network.common.QuitCards;
-import code.gui.initialize.AbstractSocket;
 import code.network.Exiting;
 import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.threads.AbstractThreadFactory;
 import code.util.Bytes;
 import code.util.CustList;
-import code.util.Ints;
 
 public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopCards {
 
     @Override
     public void loop(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         QuitCards q_ = Net.importQuitting(_input);
-        if (Net.getGames(_instance).enCoursDePartie() || q_.getContent().isServer()) {
-
-            Bytes pls_ = Net.activePlayers(_instance, _common);
-            for (byte p: pls_) {
-                Exiting forcedBye_ = new Exiting();
-                forcedBye_.setForced(true);
-                forcedBye_.setClosing(false);
-                forcedBye_.setServer(true);
-                if (p == q_.getPlace()) {
-                    forcedBye_.setClosing(q_.getContent().isClosing());
-                }
-                NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), Net.getSocketByPlace(p, _common));
+        Bytes pls_ = Net.activePlayers(_instance, _common);
+        for (byte p: pls_) {
+            Exiting forcedBye_ = new Exiting();
+            forcedBye_.setForced(true);
+            forcedBye_.setClosing(false);
+            forcedBye_.setServer(true);
+            if (p == q_.getPlace()) {
+                forcedBye_.setClosing(q_.getContent().isClosing());
             }
-//            _common.getNicknames().clear();
-            Net.getGames(_instance).finirParties();
-            _common.getPlacesPlayers().clear();
-            _common.getSockets().clear();
-            _common.getConnectionsServer().clear();
-            _common.getReadyPlayers().clear();
-            return;
+            NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), Net.getSocketByPlace(p, _common));
         }
-        Net.quit(q_.getPlace(), _instance);
-        Exiting forcedBye_ = new Exiting();
-        forcedBye_.setForced(false);
-        forcedBye_.setServer(false);
-        forcedBye_.setClosing(q_.getContent().isClosing());
-        Ints placesPlayersByValue_ = Net.getPlacesPlayersByValue(q_.getPlace(), _common);
-        if (!placesPlayersByValue_.isEmpty()) {
-            removePlayer(placesPlayersByValue_.first(), forcedBye_, _common);
-        }
+        Net.getGames(_instance).finirParties();
+        _common.getPlacesPlayers().clear();
+        _common.getSockets().clear();
+        _common.getConnectionsServer().clear();
+        _common.getReadyPlayers().clear();
+
+//        if (Net.getGames(_instance).enCoursDePartie() || q_.getContent().isServer()) {
+//
+//            Bytes pls_ = Net.activePlayers(_instance, _common);
+//            for (byte p: pls_) {
+//                Exiting forcedBye_ = new Exiting();
+//                forcedBye_.setForced(true);
+//                forcedBye_.setClosing(false);
+//                forcedBye_.setServer(true);
+//                if (p == q_.getPlace()) {
+//                    forcedBye_.setClosing(q_.getContent().isClosing());
+//                }
+//                NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), Net.getSocketByPlace(p, _common));
+//            }
+//            Net.getGames(_instance).finirParties();
+//            _common.getPlacesPlayers().clear();
+//            _common.getSockets().clear();
+//            _common.getConnectionsServer().clear();
+//            _common.getReadyPlayers().clear();
+//            return;
+//        }
+//        Net.quit(q_.getPlace(), _instance);
+//        Exiting forcedBye_ = new Exiting();
+//        forcedBye_.setForced(false);
+//        forcedBye_.setServer(false);
+//        forcedBye_.setClosing(q_.getContent().isClosing());
+//        Ints placesPlayersByValue_ = Net.getPlacesPlayersByValue(q_.getPlace(), _common);
+//        if (!placesPlayersByValue_.isEmpty()) {
+//            removePlayer(placesPlayersByValue_.first(), forcedBye_, _common);
+//        }
 //            quitProcess(q_, _instance,_fct,_common);
     }
 
-    static void removePlayer(int _player, Exiting _bye, NetCommon _common) {
-        AbstractSocket socket_ = _common.getSockets().getVal(_player);
-        _common.getSockets().removeKey(_player);
-        _common.getConnectionsServer().removeKey(_player);
-        _common.getReadyPlayers().removeKey(_player);
-        _common.getPlacesPlayers().removeKey(_player);
-        NetGroupFrame.trySendString(NetCommon.exportExiting(_bye), socket_);
-    }
+//    static void removePlayer(int _player, Exiting _bye, NetCommon _common) {
+//        AbstractSocket socket_ = _common.getSockets().getVal(_player);
+//        _common.getSockets().removeKey(_player);
+//        _common.getConnectionsServer().removeKey(_player);
+//        _common.getReadyPlayers().removeKey(_player);
+//        _common.getPlacesPlayers().removeKey(_player);
+//        NetGroupFrame.trySendString(NetCommon.exportExiting(_bye), socket_);
+//    }
 //    private static void quitProcess(Quit _readObject, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
 //        if (_readObject.isServer()) {
 //            if (!Net.delegateServer(_readObject, _instance)) {
