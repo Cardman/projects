@@ -901,6 +901,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //    }
     @Override
     public void annonceChelem() {
+        setChienMulti(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         getScrollCallableCards().setVisible(false);
