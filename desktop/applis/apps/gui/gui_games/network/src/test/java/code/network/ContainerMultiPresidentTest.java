@@ -193,6 +193,53 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         assertEq(1, clientCompo_.size());
         assertTrue(clientCompo_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
     }
+    @Test
+    public void playFirst3() {
+        MockGamePresident m_ = new MockGamePresident();
+        nextCard(m_,create(CardPresident.SPADE_7));
+        WindowNetWork server_ = frameSinglePresident(m_);
+        server_.getNetg().setFirstDealPresident(new PresidentSampleFirstDealNetSix());
+        serverVersionNew(server_,6);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        WindowNetWork client_ = frameSinglePresident(m_);
+        client_.getNetg().setFirstDealPresident(null);
+        clientVersionNew(server_,client_);
+
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        loopServer2(server_.getSockets());
+        sendClient(server_.getSockets(), client_);
+        loopClient(server_.getSockets(),client_);
+
+        choicePosition(server_, client_, client_, socketClient_, 2);
+
+        choicePosition(server_, client_, server_, socketServ_, 1);
+
+        ((ContainerMultiPresident) server_.getNetg().getContainerGame()).getDialogPresidentContent().getCanPass().setSelected(false);
+        rules(server_,socketServ_);
+
+        readyPlayers(server_, socketServ_, client_, socketClient_);
+
+        play(server_, socketServ_);
+        deal(server_, client_);
+        playIa(server_,client_);
+        allow(server_, server_);
+
+        IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(7, serverCompo_.size());
+        assertTrue(serverCompo_.containsObj(component((ContainerMultiPresident) server_.getNetg().getContainerGame(),create(CardPresident.CLUB_7))));
+        assertTrue(serverCompo_.containsObj(component((ContainerMultiPresident) server_.getNetg().getContainerGame(),create(CardPresident.SPADE_9))));
+        assertTrue(serverCompo_.containsObj(component((ContainerMultiPresident) server_.getNetg().getContainerGame(),create(CardPresident.SPADE_9,CardPresident.CLUB_9))));
+        assertTrue(serverCompo_.containsObj(component((ContainerMultiPresident) server_.getNetg().getContainerGame(),create(CardPresident.CLUB_10))));
+        assertTrue(serverCompo_.containsObj(component((ContainerMultiPresident) server_.getNetg().getContainerGame(),create(CardPresident.HEART_JACK))));
+        assertTrue(serverCompo_.containsObj(component((ContainerMultiPresident) server_.getNetg().getContainerGame(),create(CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK))));
+        assertTrue(serverCompo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
+        IdList<AbsCustComponent> clientCompo_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(1, clientCompo_.size());
+        assertTrue(clientCompo_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
+    }
     private static void tryClickCard(ContainerMultiPresident _compo, MockGamePresident _mock) {
         tryClickCard(component(_compo,_mock.currentCards()));
     }
