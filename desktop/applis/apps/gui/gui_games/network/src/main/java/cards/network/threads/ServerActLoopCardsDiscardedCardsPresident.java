@@ -21,16 +21,17 @@ public final class ServerActLoopCardsDiscardedCardsPresident implements IntServe
         if (!g_.giveWorstCards(pl_, player_, cards_)) {
             return;
         }
-        Bytes humWin_ = g_.getWinners(pl_);
+//        Bytes humWin_ = g_.getWinners(pl_);
         Bytes humLos_ = g_.getLoosers(pl_);
-        Bytes humLosReceiving_ = new Bytes();
-        for (byte p: humLos_) {
-            byte w_ = g_.getMatchingWinner(p);
-            if (humWin_.containsObj(w_)) {
-                humLosReceiving_.add(p);
-            }
-        }
-        if (!humLosReceiving_.isEmpty()) {
+//        Bytes humLosReceiving_ = new Bytes();
+//        for (byte p: humLos_) {
+//            byte w_ = g_.getMatchingWinner(p);
+//            if (humWin_.containsObj(w_)) {
+//                humLosReceiving_.add(p);
+//            }
+//        }
+//        if (!humLosReceiving_.isEmpty()) {
+        if (!humLos_.isEmpty()) {
             //refresh hands of losers
             for (byte p: humLos_) {
                 byte w_ = g_.getMatchingWinner(p);
