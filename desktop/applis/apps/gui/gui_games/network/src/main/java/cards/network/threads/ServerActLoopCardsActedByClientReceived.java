@@ -55,12 +55,13 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
             return;
         }
 
-        CallingCard appel_= _game.getRegles().getDealing().getAppel();
-        if (appel_ == CallingCard.DEFINED) {
-            _game.initEquipeDeterminee();
+//        CallingCard appel_= _game.getRegles().getDealing().getAppel();
+        _game.initEquipeDeterminee();
+//        if (appel_ == CallingCard.DEFINED) {
+//            _game.initEquipeDeterminee();
 //            } else {
 //                _game.initDefense();
-        }
+//        }
         if (Net.isHumanPlayer(_game.getPreneur(), _instance, _common)) {
             HandTarot callableCards_ = _game.callableCards();
 //            if (callableCards_.estVide()) {

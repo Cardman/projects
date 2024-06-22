@@ -757,8 +757,12 @@ public final class GameTarot {
         }
     }
 
-    public void initEquipeDeterminee() {
+    public Bytes initEquipeDeterminee() {
+        if (rules.getDealing().getAppel() != CallingCard.DEFINED) {
+            return calledPlayers;
+        }
         calledPlayers = new Bytes(rules.getDealing().getAppelesDetermines(taker));
+        return calledPlayers;
 //        confDeterminee(rules, taker, confidence);
     }
 

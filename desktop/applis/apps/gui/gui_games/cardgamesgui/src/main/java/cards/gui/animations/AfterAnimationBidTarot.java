@@ -5,7 +5,6 @@ import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.CallingCard;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.MenuItemUtils;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -59,7 +58,7 @@ public final class AfterAnimationBidTarot implements Runnable {
             return;
         }
         _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.TAKER, gameTarot_.getPreneur());
-        CallingCard appel_= gameTarot_.getRegles().getDealing().getAppel();
+//        CallingCard appel_= gameTarot_.getRegles().getDealing().getAppel();
         if(!gameTarot_.callableCards().estVide()) {
             if (gameTarot_.getRegles().getDiscardAfterCall()) {
                 discardAfterCall(_container);
@@ -68,13 +67,17 @@ public final class AfterAnimationBidTarot implements Runnable {
             }
         } else {
 //                } else if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
-            if(appel_==CallingCard.DEFINED) {
-                gameTarot_.initEquipeDeterminee();
-                for (byte c: gameTarot_.getAppele()) {
-                    _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, c);
-                }
+//            if(appel_==CallingCard.DEFINED) {
+//                gameTarot_.initEquipeDeterminee();
+//                for (byte c: gameTarot_.getAppele()) {
+//                    _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, c);
+//                }
+
 //                    } else {
 //                        gameTarot_.initDefense();
+//            }
+            for (byte c: gameTarot_.initEquipeDeterminee()) {
+                _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, c);
             }
             casSansAppel(_container, _loading);
 //                } else {
