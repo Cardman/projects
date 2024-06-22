@@ -73,15 +73,15 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
 //                        }
                 return;
             }
+            g_.giveWorstCards(_instance.getIa().getPresident());
             if (!humLos_.isEmpty()) {
                 //Display switched cards
                 for (byte p: humLos_) {
                     byte w_ = g_.getMatchingWinner(p);
-                    NetGroupFrame.trySendString(Net.exportReceivedGivenCards(g_.getSwitchedCards().get(w_),g_.getSwitchedCards().get(p),g_.getDeal().hand(w_)), Net.getSocketByPlace(p, _common));
+                    NetGroupFrame.trySendString(Net.exportReceivedGivenCards(g_.getSwitchedCards().get(w_),g_.getSwitchedCards().get(p),g_.getDeal().hand(p)), Net.getSocketByPlace(p, _common));
                 }
                 return;
             }
-            g_.giveWorstCards(_instance.getIa().getPresident());
         }
         //Go playing
         playingPresidentCard(_instance,_fct,_common);

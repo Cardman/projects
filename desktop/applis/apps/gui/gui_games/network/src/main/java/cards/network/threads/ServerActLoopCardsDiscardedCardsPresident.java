@@ -34,7 +34,7 @@ public final class ServerActLoopCardsDiscardedCardsPresident implements IntServe
             //refresh hands of losers
             for (byte p: humLos_) {
                 byte w_ = g_.getMatchingWinner(p);
-                NetGroupFrame.trySendString(Net.exportReceivedGivenCards(g_.getSwitchedCards().get(w_),g_.getSwitchedCards().get(p),g_.getDeal().hand(w_)), Net.getSocketByPlace(p, _common));
+                NetGroupFrame.trySendString(Net.exportReceivedGivenCards(g_.getSwitchedCards().get(w_),g_.getSwitchedCards().get(p),g_.getDeal().hand(p)), Net.getSocketByPlace(p, _common));
             }
             return;
         }
