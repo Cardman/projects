@@ -1428,17 +1428,6 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         assertTrue(swServer_.containsObj(componentReceived((ContainerMultiPresident)server_.getNetg().getContainerGame(),create(CardPresident.HEART_2))));
         assertTrue(swServer_.containsObj(componentReceived((ContainerMultiPresident)server_.getNetg().getContainerGame(),create(CardPresident.HEART_2,CardPresident.DIAMOND_2))));
         assertTrue(swServer_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-//        IdList<AbsCustComponent> swClient_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-//        assertEq(9, swClient_.size());
-//        assertTrue(swClient_.containsObj(componentReceived((ContainerMultiPresident)client_.getNetg().getContainerGame(),create(CardPresident.DIAMOND_3))));
-//        assertTrue(swClient_.containsObj(componentReceived((ContainerMultiPresident)client_.getNetg().getContainerGame(),create(CardPresident.CLUB_5))));
-//        assertTrue(swClient_.containsObj(componentReceived((ContainerMultiPresident)client_.getNetg().getContainerGame(),create(CardPresident.CLUB_5,CardPresident.DIAMOND_5))));
-//        assertTrue(swClient_.containsObj(componentReceived((ContainerMultiPresident)client_.getNetg().getContainerGame(),create(CardPresident.DIAMOND_7))));
-//        assertTrue(swClient_.containsObj(componentReceived((ContainerMultiPresident)client_.getNetg().getContainerGame(),create(CardPresident.CLUB_QUEEN))));
-//        assertTrue(swClient_.containsObj(componentReceived((ContainerMultiPresident)client_.getNetg().getContainerGame(),create(CardPresident.HEART_KING))));
-//        assertTrue(swClient_.containsObj(componentReceived((ContainerMultiPresident)client_.getNetg().getContainerGame(),create(CardPresident.SPADE_2))));
-//        assertTrue(swClient_.containsObj(componentReceived((ContainerMultiPresident)client_.getNetg().getContainerGame(),create(CardPresident.SPADE_2,CardPresident.CLUB_2))));
-//        assertTrue(swClient_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClickCard(componentReceived((ContainerMultiPresident)server_.getNetg().getContainerGame(),create(CardPresident.SPADE_JACK)));
         IdList<AbsCustComponent> swServerSec_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(10, swServerSec_.size());
@@ -1482,6 +1471,37 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         HandPresident played_ = next_.empiler();
         assertEq(4, played_.total());
         assertEq(4, played_.getCardsByStrength(CardPresident.HEART_6.strength(next_.isReversed()),next_.isReversed()).total());
+    }
+    @Test
+    public void tricks() {
+        MockGamePresident m_ = new MockGamePresident();
+
+        WindowNetWork server_ = frameSinglePresident(m_);
+        server_.getNetg().setFirstDealPresident(new PresidentSampleFirstDealNetSix());
+        serverVersionNew(server_,6);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        socketServ_.getOutput().clear();
+        ready(server_, server_, socketServ_);
+        loopServer(server_.getSockets());
+        sendClient(server_.getSockets(), server_);
+        loopClient(server_.getSockets(), server_);
+        play(server_, socketServ_);
+        loopServer1(server_.getSockets());
+        sendClient(server_.getSockets(), server_);
+        loopClient(server_.getSockets(), server_);
+        loopServer1(server_.getSockets());
+        sendClient(server_.getSockets(), server_);
+        loopClient(server_.getSockets(), server_);
+        socketServ_.getOutput().clear();
+        tryClick(server_.getTricksHands());
+        writeToServer(server_,socketServ_);
+        loopServer1(server_.getSockets());
+        sendClient(server_.getSockets(), server_);
+        loopClient(server_.getSockets(), server_);
+        assertTrue(server_.getDialogTricksPresident().getCommonFrame().isVisible());
     }
     private void noPlay(WindowNetWork _server, WindowNetWork _dest, MockSocket _so) {
         _so.getOutput().clear();

@@ -120,6 +120,11 @@ public abstract class EquallableNetworkUtil {
         ((MockSocket)_server.getSockets().getValue(1)).getOutput().clear();
         loopServer(_server);
     }
+
+    protected static void loopServer1(NetCommon _server) {
+        ((MockSocket)_server.getSockets().getValue(0)).getOutput().clear();
+        loopServer(_server);
+    }
     protected static void loopServer(NetCommon _server) {
         BasicServer serv_ = _server.getConnectionsServer().firstValue();
         String str_ = serv_.getSocket().getInput().readLine();
