@@ -12,7 +12,7 @@ public final class ServerActLoopCardsReady implements IntServerActLoopCards {
     @Override
     public void loop(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         ReadyCards playerActionBeforeGame_ = Net.importReady(_input);
-        if (Net.getGames(_instance).enCoursDePartie()) {
+        if (Net.isProgressingGame(_instance)) {
             int noClient_ = playerActionBeforeGame_.getIndex();
             _common.getReadyPlayers().put(noClient_, ComparatorBoolean.of(playerActionBeforeGame_.getContent().isReady()));
             if (_common.allReady()) {

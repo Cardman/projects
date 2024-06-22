@@ -1138,6 +1138,193 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertTrue(clientCompoTwo_.containsObj(component(((ContainerMultiBelote) client_.getNetg().getContainerGame()),CardBelote.CLUB_7)));
     }
 
+    @Test
+    public void greatBidThreePlayers6() {
+        MockGameBelote m_ = new MockGameBelote();
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        nextBid(m_,bidSuit(Suit.HEART,0,BidBelote.SUIT));
+        nextDiscardIa(m_, CardBelote.CLUB_8, CardBelote.CLUB_QUEEN, CardBelote.DIAMOND_7, CardBelote.DIAMOND_8, CardBelote.DIAMOND_QUEEN);
+        nextSlam(m_, BoolVal.TRUE);
+        nextCard(m_, CardBelote.HEART_JACK);
+        nextCard(m_, CardBelote.HEART_7);
+        nextCard(m_, CardBelote.SPADE_7);
+
+        nextCard(m_, CardBelote.HEART_9);
+        nextCard(m_, CardBelote.HEART_8);
+        nextCard(m_, CardBelote.CLUB_9);
+
+        nextCard(m_, CardBelote.HEART_1);
+        nextCard(m_, CardBelote.CLUB_7);
+        nextCard(m_, CardBelote.DIAMOND_9);
+
+        nextCard(m_, CardBelote.HEART_10);
+        nextCard(m_, CardBelote.SPADE_8);
+        nextCard(m_, CardBelote.DIAMOND_JACK);
+
+        nextCard(m_, CardBelote.HEART_KING);
+        nextCard(m_, CardBelote.SPADE_9);
+        nextCard(m_, CardBelote.CLUB_JACK);
+
+        nextCard(m_, CardBelote.HEART_QUEEN);
+        nextCard(m_, CardBelote.SPADE_JACK);
+        nextCard(m_, CardBelote.DIAMOND_KING);
+
+        nextCard(m_, CardBelote.DIAMOND_1);
+        nextCard(m_, CardBelote.SPADE_QUEEN);
+        nextCard(m_, CardBelote.DIAMOND_10);
+
+        nextCard(m_, CardBelote.SPADE_1);
+        nextCard(m_, CardBelote.SPADE_KING);
+        nextCard(m_, CardBelote.CLUB_KING);
+
+        nextCard(m_, CardBelote.CLUB_1);
+        nextCard(m_, CardBelote.SPADE_10);
+        nextCard(m_, CardBelote.CLUB_10);
+        WindowNetWork server_ = frameSingleBelote(m_);
+        server_.getNetg().setFirstDealBelote(new BeloteSampleFirstDealNetThreeClassic());
+
+        serverVersionNew(server_,3);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        WindowNetWork client_ = frameSingleBelote(m_);
+        client_.getNetg().setFirstDealBelote(null);
+        clientVersionNew(server_,client_);
+
+
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        loopServer2(server_.getSockets());
+        sendClient(server_.getSockets(), client_);
+        loopClient(server_.getSockets(),client_);
+
+        eventsCombo(((ContainerMultiBelote) server_.getNetg().getContainerGame()).getDialogBeloteContent().getListeChoixFour().getCombo(), 2);
+        rules(server_, socketServ_);
+        netPlayers(server_, client_);
+
+        choicePosition(server_, client_, server_, socketServ_, 2);
+
+        readyPlayers(server_, socketServ_, client_, socketClient_);
+
+        play(server_, socketServ_);
+        deal(server_, client_);
+        m_.getStacks().add(new DealBelote(Net.getGames(server_.getNet()).partieBelote().getDeal()));
+        allow(server_, client_);
+
+        tryClickBid2(m_, server_, client_, socketClient_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickBid(m_, server_, socketServ_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+
+        loopServer2(server_.getSockets());
+        IdList<AbsCustComponent> serverCompoNext_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(2, serverCompoNext_.size());
+        assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
+        assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
+        IdList<AbsCustComponent> clientCompoNext_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(1, clientCompoNext_.size());
+        assertTrue(clientCompoNext_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
+        readyPlayers(server_,socketServ_,client_,socketClient_);
+        socketServ_.getOutput().clear();
+
+        tryClick(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton());
+        writeToServer(server_, socketServ_);
+        deal(server_,client_);
+        assertTrue(Net.isProgressingGame(server_.getNet()));
+    }
     private void rules(WindowNetWork _server, MockSocket _soc) {
         _soc.getOutput().clear();
         tryClick(((ContainerMultiBelote) _server.getNetg().getContainerGame()).getSelectRules());
