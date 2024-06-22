@@ -3268,6 +3268,380 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoTwo_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(28, clientCompoTwo_.size());
     }
+    @Test
+    public void tricks() {
+        MockGameTarot m_ = new MockGameTarot();
+        nextBid(m_,BidTarot.SLAM);
+        nextCall(m_,CardTarot.DIAMOND_KING);
+        nextCard(m_,CardTarot.DIAMOND_1);
+        nextCard(m_,CardTarot.DIAMOND_KING);
+        nextCard(m_,CardTarot.DIAMOND_7);
+        nextCard(m_,CardTarot.DIAMOND_10);
+        nextMisere(m_);
+        nextMisere(m_);
+        nextMisere(m_);
+        nextMisere(m_);
+        nextNoHandful(m_);
+        nextNoHandful(m_);
+        nextNoHandful(m_);
+        nextNoHandful(m_);
+        WindowNetWork server_ = frameSingleTarot(m_);
+        server_.getNetg().setFirstDealTarot(new TarotSampleFirstDealNetFour());
+        serverVersionNew(server_,4);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        WindowNetWork client_ = frameSingleTarot(m_);
+        client_.getNetg().setFirstDealTarot(null);
+        clientVersionNew(server_,client_);
+
+
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        loopServer2(server_.getSockets());
+        sendClient(server_.getSockets(), client_);
+        loopClient(server_.getSockets(),client_);
+
+        tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
+        eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
+        rules(server_,socketServ_);
+        netPlayers(server_, client_);
+
+        readyPlayers(server_, socketServ_, client_, socketClient_);
+
+        play(server_, socketServ_);
+        deal(server_, client_);
+        allow(server_, server_);
+        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
+        playIa(server_, client_);
+        allow(server_, server_);
+
+        socketServ_.getOutput().clear();
+        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
+        writeToServer(server_,socketServ_);
+        allow(server_, server_);
+
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+
+        socketClient_.getOutput().clear();
+        tryClick(client_.getTricksHands());
+        writeToServer(server_,socketClient_);
+        self(server_,client_);
+        assertTrue(client_.getDialogTricksTarot().getCommonFrame().isVisible());
+    }
+    @Test
+    public void teams() {
+        MockGameTarot m_ = new MockGameTarot();
+        nextBid(m_,BidTarot.SLAM);
+        nextCall(m_,CardTarot.DIAMOND_KING);
+        nextCard(m_,CardTarot.DIAMOND_1);
+        nextCard(m_,CardTarot.DIAMOND_KING);
+        nextCard(m_,CardTarot.DIAMOND_7);
+        nextCard(m_,CardTarot.DIAMOND_10);
+        nextMisere(m_);
+        nextMisere(m_);
+        nextMisere(m_);
+        nextMisere(m_);
+        nextNoHandful(m_);
+        nextNoHandful(m_);
+        nextNoHandful(m_);
+        nextNoHandful(m_);
+        WindowNetWork server_ = frameSingleTarot(m_);
+        server_.getNetg().setFirstDealTarot(new TarotSampleFirstDealNetFour());
+        serverVersionNew(server_,4);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        WindowNetWork client_ = frameSingleTarot(m_);
+        client_.getNetg().setFirstDealTarot(null);
+        clientVersionNew(server_,client_);
+
+
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        loopServer2(server_.getSockets());
+        sendClient(server_.getSockets(), client_);
+        loopClient(server_.getSockets(),client_);
+
+        tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
+        eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
+        rules(server_,socketServ_);
+        netPlayers(server_, client_);
+
+        readyPlayers(server_, socketServ_, client_, socketClient_);
+
+        play(server_, socketServ_);
+        deal(server_, client_);
+        allow(server_, server_);
+        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
+        playIa(server_, client_);
+        allow(server_, server_);
+
+        socketServ_.getOutput().clear();
+        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
+        writeToServer(server_,socketServ_);
+        allow(server_, server_);
+
+        tryClickCard(m_,server_,server_,socketServ_);
+        self(server_, server_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_,server_,client_,socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+
+        socketClient_.getOutput().clear();
+        tryClick(client_.getTeams());
+        writeToServer(server_,socketClient_);
+        self(server_,client_);
+        assertTrue(client_.getDialogTeamsPlayers().getCommonFrame().isVisible());
+    }
+    /*@Test
+    public void tricks2() {
+        MockGameTarot m_ = new MockGameTarot();
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.HEART,80,BidTarot.SUIT));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextCard(m_,CardTarot.HEART_7);
+        nextCard(m_,CardTarot.DIAMOND_7);
+        nextCard(m_,CardTarot.CLUB_7);
+        WindowNetWork server_ = frameSingleTarot(m_);
+        server_.getNetg().setFirstDealTarot(new TarotSampleFirstDealNetFourAll());
+
+        serverVersionNew(server_,4);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        WindowNetWork client_ = frameSingleTarot(m_);
+        client_.getNetg().setFirstDealTarot(null);
+        clientVersionNew(server_,client_);
+
+
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        loopServer2(server_.getSockets());
+        sendClient(server_.getSockets(), client_);
+        loopClient(server_.getSockets(),client_);
+
+        eventsCombo(((ContainerMultiTarot) server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),1);
+        rules(server_, socketServ_);
+        netPlayers(server_, client_);
+
+        readyPlayers(server_, socketServ_, client_, socketClient_);
+
+        play(server_, socketServ_);
+        deal(server_, client_);
+        allow(server_, client_);
+
+        fold(server_, client_, socketClient_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        socketServ_.getOutput().clear();
+        tryClickBidDealAll((ContainerTarot)server_.getNetg().getContainerGame(), m_);
+        writeToServer(server_, socketServ_);
+        playIa(server_, client_);
+        allow(server_, client_);
+
+        fold(server_, client_, socketClient_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_, server_, client_, socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+
+        socketServ_.getOutput().clear();
+        tryClick(server_.getTricksHands());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+        assertFalse(server_.getDialogTricksTarot().getCommonFrame().isVisible());
+    }
+    @Test
+    public void teams1() {
+        MockGameTarot m_ = new MockGameTarot();
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.HEART,0,BidTarot.SUIT));
+        nextDiscardIa(m_, CardTarot.CLUB_8, CardTarot.CLUB_QUEEN, CardTarot.DIAMOND_7, CardTarot.DIAMOND_8, CardTarot.DIAMOND_QUEEN);
+        nextSlam(m_, BoolVal.TRUE);
+        nextCard(m_, CardTarot.HEART_JACK);
+        nextCard(m_, CardTarot.HEART_7);
+        nextCard(m_, CardTarot.SPADE_7);
+
+        nextCard(m_, CardTarot.HEART_9);
+        nextCard(m_, CardTarot.HEART_8);
+        nextCard(m_, CardTarot.CLUB_9);
+
+        nextCard(m_, CardTarot.HEART_1);
+        nextCard(m_, CardTarot.CLUB_7);
+        nextCard(m_, CardTarot.DIAMOND_9);
+
+        nextCard(m_, CardTarot.HEART_10);
+        nextCard(m_, CardTarot.SPADE_8);
+        nextCard(m_, CardTarot.DIAMOND_JACK);
+
+        nextCard(m_, CardTarot.HEART_KING);
+        nextCard(m_, CardTarot.SPADE_9);
+        nextCard(m_, CardTarot.CLUB_JACK);
+
+        nextCard(m_, CardTarot.HEART_QUEEN);
+        nextCard(m_, CardTarot.SPADE_JACK);
+        nextCard(m_, CardTarot.DIAMOND_KING);
+
+        nextCard(m_, CardTarot.DIAMOND_1);
+        nextCard(m_, CardTarot.SPADE_QUEEN);
+        nextCard(m_, CardTarot.DIAMOND_10);
+
+        nextCard(m_, CardTarot.SPADE_1);
+        nextCard(m_, CardTarot.SPADE_KING);
+        nextCard(m_, CardTarot.CLUB_KING);
+
+        nextCard(m_, CardTarot.CLUB_1);
+        nextCard(m_, CardTarot.SPADE_10);
+        nextCard(m_, CardTarot.CLUB_10);
+        WindowNetWork server_ = frameSingleTarot(m_);
+        server_.getNetg().setFirstDealTarot(new TarotSampleFirstDealNetThreeClassic());
+
+        serverVersionNew(server_,3);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        WindowNetWork client_ = frameSingleTarot(m_);
+        client_.getNetg().setFirstDealTarot(null);
+        clientVersionNew(server_,client_);
+
+
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        loopServer2(server_.getSockets());
+        sendClient(server_.getSockets(), client_);
+        loopClient(server_.getSockets(),client_);
+
+        eventsCombo(((ContainerMultiTarot) server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(), 2);
+        rules(server_, socketServ_);
+        netPlayers(server_, client_);
+
+        choicePosition(server_, client_, server_, socketServ_, 2);
+
+        readyPlayers(server_, socketServ_, client_, socketClient_);
+
+        play(server_, socketServ_);
+        deal(server_, client_);
+        m_.getStacks().add(new DealTarot(Net.getGames(server_.getNet()).partieTarot().getDeal()));
+        allow(server_, client_);
+
+        tryClickBid2(m_, server_, client_, socketClient_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        tryClickBid(m_, server_, socketServ_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+
+        socketClient_.getOutput().clear();
+        tryClick(client_.getTeams());
+        writeToServer(server_,socketClient_);
+        self(server_,client_);
+        assertTrue(client_.getDialogTeamsPlayers().getCommonFrame().isVisible());
+    }
+
+    @Test
+    public void teams2() {
+        MockGameTarot m_ = new MockGameTarot();
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.HEART,80,BidTarot.SUIT));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextBid(m_,bidSuit(Suit.UNDEFINED,0,BidTarot.FOLD));
+        nextCard(m_,CardTarot.HEART_7);
+        nextCard(m_,CardTarot.DIAMOND_7);
+        nextCard(m_,CardTarot.CLUB_7);
+        WindowNetWork server_ = frameSingleTarot(m_);
+        server_.getNetg().setFirstDealTarot(new TarotSampleFirstDealNetFourAll());
+
+        serverVersionNew(server_,4);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+
+        WindowNetWork client_ = frameSingleTarot(m_);
+        client_.getNetg().setFirstDealTarot(null);
+        clientVersionNew(server_,client_);
+
+
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClient(server_.getSockets(),server_);
+        loopClient(server_.getSockets(),server_);
+        loopServer2(server_.getSockets());
+        sendClient(server_.getSockets(), client_);
+        loopClient(server_.getSockets(),client_);
+
+        eventsCombo(((ContainerMultiTarot) server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),1);
+        rules(server_, socketServ_);
+        netPlayers(server_, client_);
+
+        readyPlayers(server_, socketServ_, client_, socketClient_);
+
+        play(server_, socketServ_);
+        deal(server_, client_);
+        allow(server_, client_);
+
+        fold(server_, client_, socketClient_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+        socketServ_.getOutput().clear();
+        tryClickBidDealAll((ContainerTarot)server_.getNetg().getContainerGame(), m_);
+        writeToServer(server_, socketServ_);
+        playIa(server_, client_);
+        allow(server_, client_);
+
+        fold(server_, client_, socketClient_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, client_);
+        tryClickCard(m_, server_, client_, socketClient_);
+        self(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        allow(server_, server_);
+
+        socketServ_.getOutput().clear();
+        tryClick(server_.getTeams());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+        assertFalse(server_.getDialogTeamsPlayers().getCommonFrame().isVisible());
+    }*/
     private void nextBid(MockGameTarot _m, BidTarot _bid) {
         _m.getBids().add(_bid);
     }
