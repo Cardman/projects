@@ -137,7 +137,7 @@ public final class Net {
 
     /**A useful facade for games*/
 
-    private Games games = new Games();
+    private Games games;
 
 //    private IntMap<String> playersLocales = new IntMap<String>();
 
@@ -152,6 +152,7 @@ public final class Net {
 
     public Net(IntArtCardGames _i) {
         ia = _i;
+        setGames(new Games(),this);
         clientAct.add(new ClientActLoopCardsNewPlayer());
         clientAct.add(new ClientActLoopCardsOldPlayer());
         clientAct.add(new ClientActLoopCardsIndexArrive());
@@ -332,19 +333,19 @@ public final class Net {
         out_.append(SEP_0);
         return out_.toString();
     }
-    public static void loopClient(WindowNetWork _window, String _info, AbstractSocket _socket) {
-        NetRetrievedInfos ret_ = netRetrievedInfos(_info, _window.getNet());
-        loopClient(_window, ret_, _socket);
-    }
+//    public static void loopClient(WindowNetWork _window, String _info, AbstractSocket _socket) {
+//        NetRetrievedInfos ret_ = netRetrievedInfos(_info, _window.getNet());
+//        loopClient(_window, ret_, _socket);
+//    }
 
     public static void loopClient(WindowNetWork _window, NetRetrievedInfos _ret, AbstractSocket _socket) {
         _window.getNet().clientAct.get(_ret.getIndexAct()).loop(_window, _ret.getParts(), _socket);
     }
     public static void loopServer(String _info, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         NetRetrievedInfos ret_ = netRetrievedInfos(_info, _instance);
-        if (ret_.getIndexAct() < 0) {
-            return;
-        }
+//        if (ret_.getIndexAct() < 0) {
+//            return;
+//        }
         loopServer(ret_, _instance, _fct, _common);
     }
 
@@ -2136,23 +2137,24 @@ public final class Net {
 //        }
         _instance.received = new ByteMap<BoolVal>();
         for (byte r: _common.getPlacesPlayers().values()) {
-            if (_instance.activePlayers.getVal(r) == BoolVal.TRUE) {
-                _instance.received.put(r, BoolVal.FALSE);
-            } else {
-                setReceivedForPlayer(r, _instance);
-            }
+            _instance.received.put(r, BoolVal.FALSE);
+//            if (_instance.activePlayers.getVal(r) == BoolVal.TRUE) {
+//                _instance.received.put(r, BoolVal.FALSE);
+//            } else {
+//                _instance.received.put(r,BoolVal.TRUE);
+//            }
         }
     }
 
-    //bk: synchronized
-    /**server*/
-    static void quit(byte _p, Net _instance) {
+//    //bk: synchronized
+//    /**server*/
+//    static void quit(byte _p, Net _instance) {
 //        if (_instance.activePlayers == null) {
 //            return;
 //        }
-        _instance.activePlayers.put(_p, BoolVal.FALSE);
-        setReceivedForPlayer(_p, _instance);
-    }
+//        _instance.activePlayers.put(_p, BoolVal.FALSE);
+//        setReceivedForPlayer(_p, _instance);
+//    }
     //bk: synchronized
     /**server*/
     static void setReceivedForPlayer(byte _p, Net _instance) {
@@ -2203,29 +2205,34 @@ public final class Net {
             }
             return activePlayers_;
         }
-        Bytes activePlayers_ = new Bytes();
-        for (byte i: _common.getPlacesPlayers().values()) {
-            if (_instance.activePlayers.getVal(i) != BoolVal.TRUE) {
-                continue;
-            }
-            activePlayers_.add(i);
-        }
-        return activePlayers_;
+        return new Bytes(_common.getPlacesPlayers().values());
+//        Bytes activePlayers_ = new Bytes();
+//        for (byte i: _common.getPlacesPlayers().values()) {
+//            if (_instance.activePlayers.getVal(i) != BoolVal.TRUE) {
+//                continue;
+//            }
+//            activePlayers_.add(i);
+//        }
+//        return activePlayers_;
     }
 
     /**server
      @return true &hArr; if the <i>_place</i> match with a currently connected player
       * @param _place the place of a bot or a player
-     * @param _instance
      * @param _common */
-    static boolean isHumanPlayer(byte _place, Net _instance, NetCommon _common) {
-        return !getPlacesPlayersByValue(_place, _common).isEmpty() && _instance.activePlayers.getVal(_place) == BoolVal.TRUE;
+    static boolean isHumanPlayer(byte _place, NetCommon _common) {
+        return !getPlacesPlayersByValue(_place, _common).isEmpty();
+//        return !getPlacesPlayersByValue(_place, _common).isEmpty() && _instance.activePlayers.getVal(_place) == BoolVal.TRUE;
     }
+//    static boolean isHumanPlayer(byte _place, Net _instance, NetCommon _common) {
+//        return !getPlacesPlayersByValue(_place, _common).isEmpty();
+//        return !getPlacesPlayersByValue(_place, _common).isEmpty() && _instance.activePlayers.getVal(_place) == BoolVal.TRUE;
+//    }
     /**server
      @return the associated socket of the place or null if it is an invalid place for a player
       * @param _place the place of a player around the table
      * @param _common */
-    static AbstractSocket getSocketByPlace(byte _place, NetCommon _common) {
+    public static AbstractSocket getSocketByPlace(byte _place, NetCommon _common) {
         for (int i: _common.getPlacesPlayers().getKeys()) {
             if (_common.getPlacesPlayers().getVal(i) == _place) {
                 return _common.getSockets().getVal(i);

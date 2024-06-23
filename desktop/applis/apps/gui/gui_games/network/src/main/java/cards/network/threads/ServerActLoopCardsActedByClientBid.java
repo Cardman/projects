@@ -20,7 +20,8 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
         GameBelote game_ = Net.getGames(_instance).partieBelote();
         if (game_.keepBidding()) {
             byte place_ = game_.playerHavingToBid();
-            if (Net.isHumanPlayer(place_, _instance, _common)) {
+            if (Net.isHumanPlayer(place_, _common)) {
+//            if (Net.isHumanPlayer(place_, _instance, _common))
                 AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
                 allowedBids_.setBids(game_.getGameBeloteBid().allowedBids());
                 allowedBids_.setBid(game_.getBid());
@@ -47,7 +48,8 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
             return;
         }
         if (game_.getRegles().getDealing().getDiscarded() > 0) {
-            if (Net.isHumanPlayer(game_.getPreneur(), _instance, _common)) {
+            if (Net.isHumanPlayer(game_.getPreneur(), _common)) {
+//            if (Net.isHumanPlayer(game_.getPreneur(), _instance, _common))
                 game_.ajouterCartesUtilisateur();
                 DiscardPhaseBelote dog_ = new DiscardPhaseBelote();
                 dog_.setDiscard(game_.getDistribution().derniereMain());
@@ -85,7 +87,8 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
             return;
         }
         byte place_ = game_.playerHavingToBid();
-        if (Net.isHumanPlayer(place_, _instance, _common)) {
+        if (Net.isHumanPlayer(place_, _common)) {
+//        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
             allowedBids_.setBids(game_.allowedBids());
             allowedBids_.setMaxBid(game_.getContrat());

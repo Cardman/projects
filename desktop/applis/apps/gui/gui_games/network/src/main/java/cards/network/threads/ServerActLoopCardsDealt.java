@@ -18,7 +18,8 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
     @Override
     protected void loopBelote(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         byte place_ = Net.getGames(_instance).partieBelote().playerHavingToBid();
-        if (Net.isHumanPlayer(place_, _instance, _common)) {
+        if (Net.isHumanPlayer(place_, _common)) {
+//        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
             allowedBids_.setBids(Net.getGames(_instance).partieBelote().getGameBeloteBid().allowedBids());
             allowedBids_.setBid(Net.getGames(_instance).partieBelote().getBid());
@@ -98,7 +99,8 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
             return;
         }
         byte place_ = Net.getGames(_instance).partieTarot().playerHavingToBid();
-        if (Net.isHumanPlayer(place_, _instance, _common)) {
+        if (Net.isHumanPlayer(place_, _common)) {
+//        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
             allowedBids_.setBids(Net.getGames(_instance).partieTarot().allowedBids());
             allowedBids_.setMaxBid(Net.getGames(_instance).partieTarot().getContrat());

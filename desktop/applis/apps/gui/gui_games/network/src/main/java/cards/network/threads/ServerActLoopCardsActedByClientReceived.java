@@ -62,7 +62,8 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //            } else {
 //                _game.initDefense();
 //        }
-        if (Net.isHumanPlayer(_game.getPreneur(), _instance, _common)) {
+        if (Net.isHumanPlayer(_game.getPreneur(), _common)) {
+//        if (Net.isHumanPlayer(_game.getPreneur(), _instance, _common))
             HandTarot callableCards_ = _game.callableCards();
 //            if (callableCards_.estVide()) {
 //                if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
@@ -204,7 +205,8 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
     protected static void playingBeloteCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GameBelote game_ = Net.getGames(_instance).partieBelote();
         byte place_ = game_.playerHavingToPlay();
-        if (Net.isHumanPlayer(place_, _instance, _common)) {
+        if (Net.isHumanPlayer(place_, _common)) {
+//        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowPlayingBelote decla_ = new AllowPlayingBelote();
             decla_.setTakerIndex(game_.getPreneur());
             decla_.setFirstRoundPlaying(game_.premierTour());
@@ -251,7 +253,8 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
     protected static void playingPresidentCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GamePresident game_ = Net.getGames(_instance).partiePresident();
         byte place_ = game_.nextPlayer();
-        if (Net.isHumanPlayer(place_, _instance, _common)) {
+        if (Net.isHumanPlayer(place_, _common)) {
+//        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowPlayingPresident allow_ = new AllowPlayingPresident();
             allow_.setEnabledPass(!game_.getProgressingTrick().estVide() && game_.canPass());
             allow_.setStatus(game_.getStatus());
@@ -309,7 +312,8 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
     protected static void playingTarotCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GameTarot game_ = Net.getGames(_instance).partieTarot();
         byte place_ = game_.playerHavingToPlay();
-        if (Net.isHumanPlayer(place_, _instance, _common)) {
+        if (Net.isHumanPlayer(place_, _common)) {
+//        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowPlayingTarot decla_ = new AllowPlayingTarot();
             decla_.setTakerIndex(game_.getPreneur());
             decla_.setCurrentBid(game_.getContrat());

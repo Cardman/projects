@@ -2,7 +2,7 @@ package cards.network.threads;
 
 import cards.gui.containers.ContainerMulti;
 import cards.network.common.before.IndexOfArrivingCards;
-import cards.network.common.before.NewPlayerCards;
+import cards.network.common.before.PlayerCards;
 import code.gui.initialize.AbstractSocket;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
@@ -15,7 +15,7 @@ public final class ClientActLoopCardsIndexArrive implements IntClientActLoopCard
         ContainerMulti container_ = (ContainerMulti) _window.getNetg().getContainerGame();
         container_.getContainerMultiContent().setNoClient(index_.getIndex());
         container_.updateFirst(index_);
-        NewPlayerCards p_ = new NewPlayerCards();
+        PlayerCards p_ = new PlayerCards();
         p_.setIndex(container_.getContainerMultiContent().getNoClient());
         String pseudo_ = _window.getDialogServerContent().getNickname().getText();
         p_.setPseudo(pseudo_);

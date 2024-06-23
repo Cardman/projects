@@ -1,5 +1,6 @@
 package code.network;
 
+import cards.network.threads.*;
 import code.gui.initialize.*;
 import code.mock.*;
 import org.junit.Test;
@@ -35,5 +36,15 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         serverSocket_.close();
         new ConnectionToServer(serverSocket_, en_, 0).run();
         assertEq("",pr_.getLanguage());
+    }
+
+    @Test
+    public void socketSend1() {
+        assertFalse(NetGroupFrame.trySendString("",Net.getSocketByPlace((byte) 0, new NetCommon())));
+    }
+
+    @Test
+    public void socketSend2() {
+        assertFalse(NetGroupFrame.trySendString("",new MockSocket(true)));
     }
 }

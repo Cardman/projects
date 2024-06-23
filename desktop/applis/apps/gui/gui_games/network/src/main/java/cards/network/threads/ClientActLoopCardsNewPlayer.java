@@ -1,7 +1,7 @@
 package cards.network.threads;
 
 import cards.gui.containers.ContainerMulti;
-import cards.network.common.before.NewPlayerCards;
+import cards.network.common.before.PlayerCards;
 import code.gui.initialize.AbstractSocket;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
@@ -12,7 +12,7 @@ public final class ClientActLoopCardsNewPlayer implements IntClientActLoopCards 
     @Override
     public void loop(WindowNetWork _window, CustList<String> _parts, AbstractSocket _socket) {
         ContainerMulti container_ = (ContainerMulti) _window.getNetg().getContainerGame();
-        NewPlayerCards n_ = new NewPlayerCards();
+        PlayerCards n_ = new PlayerCards();
         n_.setIndex(NumberUtil.parseInt(_parts.get(0)));
         n_.setPseudo(_parts.get(1));
         container_.getContainerMultiContent().updateAfter(n_);
