@@ -190,8 +190,8 @@ public final class NetAiki {
             moves_.add(m.getKey()+AIKI_SEP_2+m.getValue().getGenderRep());
         }
         out_.append(StringUtil.join(moves_,AIKI_SEP_1));
-        out_.append(AIKI_SEP_0);
-        out_.append(exportPokemonPlayer(data_.getPokemon(),AIKI_SEP_1,AIKI_SEP_2,AIKI_SEP_3));
+//        out_.append(AIKI_SEP_0);
+//        out_.append(exportPokemonPlayer(data_.getPokemon(),AIKI_SEP_1,AIKI_SEP_2,AIKI_SEP_3));
         CustList<String> pk_ = new CustList<String>();
         for (UsablePokemon m: _check.getTeam()) {
             if (m instanceof PokemonPlayer) {
@@ -215,8 +215,11 @@ public final class NetAiki {
             StringList kv_ = StringUtil.splitChar(m, AIKI_SEP_2);
             ch_.getData().getGenderRepartitions().addEntry(kv_.first(),GenderRepartition.getGenderRepartitionByName(kv_.last()));
         }
-        ch_.getData().setPokemon(importPokemonPlayer(_check.get(5),AIKI_SEP_1,AIKI_SEP_2,AIKI_SEP_3));
-        for (String m: StringUtil.partsStr(_check.get(6),0,_check.get(6).length(),AIKI_SEP_1)) {
+//        ch_.getData().setPokemon(importPokemonPlayer(_check.get(5),AIKI_SEP_1,AIKI_SEP_2,AIKI_SEP_3));
+        for (String m: StringUtil.partsStr(_check.get(5),0,_check.get(5).length(),AIKI_SEP_1)) {
+            if (m.isEmpty()) {
+                continue;
+            }
             ch_.getTeam().add(importPokemonPlayer(m,AIKI_SEP_2,AIKI_SEP_3,AIKI_SEP_4));
         }
         return ch_;

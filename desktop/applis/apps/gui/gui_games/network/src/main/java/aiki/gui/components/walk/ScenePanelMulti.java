@@ -288,19 +288,15 @@ public class ScenePanelMulti {
         window = _window;
         initMenu();
         panelOptions = compoFactory.newBorder();
-        horizTrade();
+        AbsPanel panelHoriz_ = compoFactory.newLineBox();
+        panelHoriz_.add(panelMenu);
+        panelHoriz_.add(panelOptions);
+        component.add(panelHoriz_);
 //        time = window.getCompoFactory().newPlainLabel("");
         component.add(window.getCompoFactory().newPlainLabel(""));
         //gamePanel = new GamePanel(facade);
 //        mapPanel = new MapPanel();
         window.pack();
-    }
-
-    private void horizTrade() {
-        AbsPanel panelHoriz_ = compoFactory.newLineBox();
-        panelHoriz_.add(panelMenu);
-        panelHoriz_.add(panelOptions);
-        component.add(panelHoriz_);
     }
 
 //    public void reinit() {
@@ -390,7 +386,8 @@ public class ScenePanelMulti {
 //        }
 //        keyPadListener.setSceneKepPad(scene);
         facade.directInteraction();
-        facade.changeCamera();
+        initMessages();
+//        facade.changeCamera();
 //        scene.load(window.getImageFactory(),facade, _setPreferredSize);
 //        scene.setDelta(0, false);
 //        if (wasNull_) {
@@ -404,6 +401,11 @@ public class ScenePanelMulti {
 //            sceneInteract.removeAll();
 //        }
         sceneInteract.removeAll();
+        window.getPane().removeAll();
+        window.getPane().add(component);
+        window.getPane().add(new Clock(window.getFrames()));
+        window.getPane().add(window.getAiki().getLastSavedGameDate());
+        server.setText(messages.getVal(MessagesRenderScenePanel.CST_SERVER));
 //        if (placeName == null) {
 //            placeName = window.getCompoFactory().newPlainLabel("");
 //        }
@@ -716,6 +718,7 @@ public class ScenePanelMulti {
     public void setTradable(ByteTreeMap< PokemonPlayer> _team) {
         ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
+            e.getValue().initIv(facade.getGame().getDifficulty());
             teamPks_.put(e.getKey(), e.getValue());
         }
         teamPan = initTeam(teamPks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
@@ -738,6 +741,11 @@ public class ScenePanelMulti {
         readyCheck.setEnabled(enabledReady);
         readyCheck.addActionListener(new ReadyEventAiki(window));
         panelNetWork.add(readyCheck);
+        window.getPane().setVisible(true);
+        window.getPane().removeAll();
+        window.getPane().add(component);
+        window.getPane().add(new Clock(window.getFrames()));
+        window.getPane().add(window.getAiki().getLastSavedGameDate());
     }
 
     public void setTradableAfterTrading(ByteTreeMap< PokemonPlayer> _team) {

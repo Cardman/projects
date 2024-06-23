@@ -1,7 +1,13 @@
 package code.network;
 
+import aiki.db.*;
 import aiki.fight.enums.*;
 import aiki.fight.pokemon.enums.*;
+import aiki.game.Game;
+import aiki.game.player.enums.Sex;
+import aiki.instances.Instances;
+import aiki.main.*;
+import aiki.map.pokemon.PokemonPlayer;
 import aiki.sml.*;
 import cards.belote.*;
 import cards.belote.enumerations.*;
@@ -21,6 +27,7 @@ import cards.tarot.enumerations.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.*;
 import code.gui.*;
+import code.gui.files.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
@@ -141,6 +148,14 @@ public abstract class EquallableNetworkUtil {
         socket_.getInstr().addAllElts(output_);
         output_.clear();
     }
+    protected static void sendClientPk(NetCommon _server, WindowNetWork _client, int _index) {
+        MockSocket socket_ = (MockSocket) _client.getSocket();
+        socket_.getInstr().clear();
+        AbstractSocket ret_ = _server.getSockets().getValue(_index);
+        StringList output_ = ((MockSocket) ret_).getOutput();
+        socket_.getInstr().addAllElts(output_);
+        output_.clear();
+    }
     protected static void serverVersionOld(WindowNetWork _window, int _nb) {
         server(_window, IpType.IP_V4, "__", _nb);
     }
@@ -154,6 +169,12 @@ public abstract class EquallableNetworkUtil {
         _window.getDialogServerContent().getIpType().setSelectedItem(_i);
         _window.getDialogServerContent().getIpOrHostName().setText(_host);
         _window.getDialogServerContent().getNbPlayers().setValue(_nb);
+        _window.getDialogServerContent().getCreateServer().getActionListeners().get(0).action();
+        _window.getDialogServerContent().getConnection().run();
+    }
+    protected static void serverPk(WindowNetWork _window) {
+        _window.getDialogServerContent().getIpType().setSelectedItem(IpType.IP_V6);
+        _window.getDialogServerContent().getIpOrHostName().setText("__");
         _window.getDialogServerContent().getCreateServer().getActionListeners().get(0).action();
         _window.getDialogServerContent().getConnection().run();
     }
@@ -172,6 +193,12 @@ public abstract class EquallableNetworkUtil {
     protected static void client(WindowNetWork _server,WindowNetWork _window, IpType _i, String _host) {
         _window.getDialogServerContent().getIpType().setSelectedItem(_i);
         _window.getDialogServerContent().getIpOrHostName().setText(_host);
+        _window.getDialogServerContent().getJoinServer().getActionListeners().get(0).action();
+        _server.getDialogServerContent().getConnection().run();
+    }
+    protected static void clientPk(WindowNetWork _server,WindowNetWork _window) {
+        _window.getDialogServerContent().getIpType().setSelectedItem(IpType.IP_V6);
+        _window.getDialogServerContent().getIpOrHostName().setText("");
         _window.getDialogServerContent().getJoinServer().getActionListeners().get(0).action();
         _server.getDialogServerContent().getConnection().run();
     }
@@ -237,6 +264,54 @@ public abstract class EquallableNetworkUtil {
         w_.setVisible(true);
         return w_;
     }
+    protected static WindowNetWork frameSingle(IntDataBaseStream _i) {
+        MockProgramInfos pr_ = updateSingle(build());
+        pr_.getSocketFactory().setOkServer(true);
+        AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
+//        ai_.setConfPkStream(new MockConfPkStream());
+        ai_.setGamePkStream(new MockGamePkStream());
+//        ai_.submit(new MockCallable<DataBase>(_db));
+        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        updateBase(pr_.currentLg());
+        ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
+        w_.setVisible(true);
+        w_.pack();
+        w_.setPreparedPkNetTask(ai_.getPreparedPkNetTask());
+        w_.getAiki().setGameCheck(new MockGameChecker());
+        w_.getAiki().getAikiFactory().setDataBaseStream(_i);
+        tryClick(w_.getZipLoad());
+        w_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) w_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) w_.getFrames().getThreadFactory()));
+        DataBase d_ = w_.getAiki().getFacade().getData();
+        Game g_ = new Game(d_);
+        g_.initUserInteract("_", Sex.NO, g_.getDifficulty(), d_);
+        ((PokemonPlayer)g_.getTeam().get(0)).setAbility("A1");
+        ((PokemonPlayer)g_.getTeam().get(0)).initIv(g_.getDifficulty());
+        w_.getAiki().getAikiFactory().getGamePkStream().save("", g_);
+        tryClick(w_.getGameLoad());
+        w_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) w_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) w_.getPane()).getTreeAccessible();
+        assertEq(1,tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        ////==>menus
+        //tryClick(w_.getMultiModeButton());
+        //IdList<AbsCustComponent> tr_ = ((MockCustComponent) w_.getPane()).getTreeAccessible();
+        //assertEq(4,tr_.size());
+        //tryClick((AbsButton) tr_.get(2));
+        return w_;
+    }
+
+    public static void updateBase(TranslationsLg _en) {
+        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(_en).getMapping();
+        en_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(FileFrame.CONFIRM, MessagesConfirmDialog.en());
+        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
+    }
     private static void belote(CardFactories _cf) {
         NatNavigation nav_ = nav();
         _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSampleNet(), nav_)));
@@ -296,6 +371,12 @@ public abstract class EquallableNetworkUtil {
         Games.appendCommonFile(appendDialogDisplay(baseCardsFr(_pr),MessagesGuiCards.frDisplay()),MessagesCommonFile.fr());
         return _pr;
     }
+
+    public static MockProgramInfos updateSingle(MockProgramInfos _pr) {
+        baseCardsEnPk(_pr);
+        baseCardsFrPk(_pr);
+        return _pr;
+    }
     private static TranslationsAppli baseCardsFr(MockProgramInfos _pr) {
         TranslationsLg lg_ = lg(_pr, FR);
         TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
@@ -311,6 +392,24 @@ public abstract class EquallableNetworkUtil {
         TranslationsAppli appPk_ = GamesPk.initAppliTr(lg_);
         GamesPk.appendWindowPkContent(appPk_, MessagesRenderWindowPk.en());
         return appendMulti(appendDialogNicknames(appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.en()),MessagesGuiCards.enMenu()),MessagesGuiCards.enNickname()),MessagesGuiCards.enMulti());
+    }
+    private static TranslationsAppli baseCardsFrPk(MockProgramInfos _pr) {
+        TranslationsLg lg_ = lg(_pr, FR);
+        TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
+        NetWork.frTr(appNet_);
+        TranslationsAppli appPk_ = GamesPk.initAppliTr(lg_);
+        GamesPk.appendWindowPkContent(appPk_, MessagesRenderWindowPk.fr());
+        GamesPk.appendScenePanelContent(appPk_, MessagesRenderScenePanel.fr());
+        return appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.fr()), MessagesGuiCards.frMenu());
+    }
+    private static TranslationsAppli baseCardsEnPk(MockProgramInfos _pr) {
+        TranslationsLg lg_ = lg(_pr, EN);
+        TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
+        NetWork.enTr(appNet_);
+        TranslationsAppli appPk_ = GamesPk.initAppliTr(lg_);
+        GamesPk.appendWindowPkContent(appPk_, MessagesRenderWindowPk.en());
+        GamesPk.appendScenePanelContent(appPk_, MessagesRenderScenePanel.en());
+        return appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.en()),MessagesGuiCards.enMenu());
     }
     public static TranslationsAppli appendMulti(TranslationsAppli _app, TranslationsFile _f) {
         _app.getMapping().addEntry(Games.NETWORK,_f);

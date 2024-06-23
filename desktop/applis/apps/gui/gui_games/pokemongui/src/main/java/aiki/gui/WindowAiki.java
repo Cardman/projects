@@ -957,11 +957,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         boolean error_ = false;
         DataBase db_ = _w.facade().getData();
 
-        Game game_ = DefGamePkStream.checkGame(db_,_w.facade().getSexList(), _w.common().getAikiFactory().getGamePkStream().load(_fileName, _w.facade().getSexList()));
+        Game game_ = _w.common().getGameCheck().checkGame(db_,_w.facade().getSexList(), _w.common().getAikiFactory().getGamePkStream().load(_fileName, _w.facade().getSexList()));
         if (game_ != null) {
             _w.facade().load(game_);
             MenuItemUtils.setEnabledMenu(_w.common().getGameSave(),true);
-            _w.facade().changeCamera();
             _w.reset();
 //            if (battle != null) {
 //                battle.resetWindows();
@@ -976,6 +975,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     @Override
     public void reset() {
+        facade().changeCamera();
         battle.resetWindows();
         drawGame();
         savedGame = true;

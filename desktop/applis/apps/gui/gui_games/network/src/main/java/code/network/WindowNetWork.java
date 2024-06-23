@@ -825,7 +825,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             getSockets().getConnectionsServer().put(i_,sendReceiveServer_);
             getSockets().getReadyPlayers().put(i_, BoolVal.FALSE);
             getSockets().getPlacesPlayers().put(i_,(byte) (i_));
-            trySendString(NetAiki.exportIndexArrive(i_),getSocket());
+            trySendString(NetAiki.exportIndexArrive(i_),_newSocket);
             return;
         }
         int nb_ = getSockets().getSockets().size();

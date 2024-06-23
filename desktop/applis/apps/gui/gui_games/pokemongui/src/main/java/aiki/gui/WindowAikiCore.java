@@ -10,7 +10,9 @@ import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.SaveGameEventAiki;
 import aiki.main.AikiFactory;
 import aiki.main.VideoLoading;
+import aiki.sml.DefGameChecker;
 import aiki.sml.GamesPk;
+import aiki.sml.IntGameChecker;
 import aiki.sml.MessagesRenderWindowPk;
 import code.gui.*;
 import code.gui.events.AbsActionListenerAct;
@@ -39,7 +41,10 @@ public final class WindowAikiCore {
     private final ReportingFrame resultFile;
 
     private StringMap<String> messages = new StringMap<String>();
+    private IntGameChecker gameCheck;
+
     public WindowAikiCore(AikiFactory _fact, AbstractProgramInfos _list, ReportingFrame _resFile) {
+        setGameCheck(new DefGameChecker());
         aikiFactory = _fact;
         resultFile = _resFile;
         api = _list;
@@ -99,6 +104,14 @@ public final class WindowAikiCore {
 
     public void setTileRender(IntTileRender _t) {
         this.tileRender = _t;
+    }
+
+    public IntGameChecker getGameCheck() {
+        return gameCheck;
+    }
+
+    public void setGameCheck(IntGameChecker _g) {
+        this.gameCheck = _g;
     }
 
     public String getDateLastSaved() {

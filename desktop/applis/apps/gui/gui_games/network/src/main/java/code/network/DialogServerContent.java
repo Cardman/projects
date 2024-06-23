@@ -153,9 +153,11 @@ public final class DialogServerContent implements AbstractDialogServer {
         ipServer_.setToolTipText(mapping_.getVal(MessagesNetWork.IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
-        StringMap<String> nicknamesMessages_ = Games.getDialogNicknameTr(Games.getAppliTr(lg_)).getMapping();
-        panel_.add(getCompoFactory().newPlainLabel(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_CST_NICKNAME)));
-        panel_.add(nickname);
+        if (_game != GameEnum.NONE) {
+            StringMap<String> nicknamesMessages_ = Games.getDialogNicknameTr(Games.getAppliTr(lg_)).getMapping();
+            panel_.add(getCompoFactory().newPlainLabel(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_CST_NICKNAME)));
+            panel_.add(nickname);
+        }
         portChoice = getCompoFactory().newSpinner(_port,0,65535,1);
         panel_.add(portChoice);
         IdList<IpType> list_ = new IdList<IpType>(messagesIpEnum_.getKeys());
@@ -225,6 +227,8 @@ public final class DialogServerContent implements AbstractDialogServer {
             Net.getGames(window.getNet()).setRulesBelote(c_.getRulesBeloteMulti());
             window.getNetg().setContainerGame(c_);
             Net.setNbPlayers(nbPlayers.getValue(), window.getNet());
+        } else {
+            window.setIndexInGame(IndexConstants.FIRST_INDEX);
         }
 //        if (chosen != GameEnum.NONE) {
 //            Net.setNbPlayers(nbPlayers.getValue(), window.getNet());

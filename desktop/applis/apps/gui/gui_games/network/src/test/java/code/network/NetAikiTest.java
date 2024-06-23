@@ -153,7 +153,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         assertEq(7, out_.getHappiness());
     }
     @Test
-    public void checkCompatibility() {
+    public void checkCompatibility1() {
         CheckCompatibility c_ = new CheckCompatibility();
         ExchangedData exc_ = new ExchangedData();
         exc_.setItems(new StringList("ITEM1","ITEM2"));
@@ -215,21 +215,63 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         assertEq("BALL_", outTeam_.getUsedBallCatching());
         assertEq(18, outTeam_.getNbStepsTeamLead());
         assertEq(71, outTeam_.getHappiness());
-        PokemonPlayer out_ = check_.getData().getPokemon();
-        assertEq(2, out_.getLevel());
-        assertEq("NAME",out_.getName());
-        assertEq("ABILITY",out_.getAbility());
-        assertEq("ITEM",out_.getItem());
-        assertEq("NICKNAME",out_.getNickname());
-        assertEq(1,out_.getMoves().size());
-        assertEq("MOVE",out_.getMoves().getKey(0));
-        assertEq(1,out_.getEv().size());
-        assertEq(Statistic.SPEED, out_.getEv().getKey(0));
-        assertEq(4, out_.getEv().getValue(0));
-        assertEq(new Rate("5/6"), out_.getWonExpSinceLastLevel());
-        assertEq("BALL", out_.getUsedBallCatching());
-        assertEq(8, out_.getNbStepsTeamLead());
-        assertEq(7, out_.getHappiness());
+        assertEq(2,check_.getData().getAbilities().size());
+        assertEq("ABILITY1",check_.getData().getAbilities().get(0));
+        assertEq("ABILITY2",check_.getData().getAbilities().get(1));
+        assertEq(2,check_.getData().getItems().size());
+        assertEq("ITEM1",check_.getData().getItems().get(0));
+        assertEq("ITEM2",check_.getData().getItems().get(1));
+        assertEq(2,check_.getData().getGenderRepartitions().size());
+        assertEq("PK1",check_.getData().getGenderRepartitions().getKey(0));
+        assertEq(GenderRepartition.LEGENDARY,check_.getData().getGenderRepartitions().getValue(0));
+        assertEq("PK2",check_.getData().getGenderRepartitions().getKey(1));
+        assertEq(GenderRepartition.NO_GENDER,check_.getData().getGenderRepartitions().getValue(1));
+    }
+    @Test
+    public void checkCompatibility2() {
+        CheckCompatibility c_ = new CheckCompatibility();
+        ExchangedData exc_ = new ExchangedData();
+        exc_.setItems(new StringList("ITEM1","ITEM2"));
+        exc_.setAbilities(new StringList("ABILITY1","ABILITY2"));
+        StringMap<GenderRepartition> g_ = new StringMap<GenderRepartition>();
+        g_.addEntry("PK1",GenderRepartition.LEGENDARY);
+        g_.addEntry("PK2",GenderRepartition.NO_GENDER);
+        exc_.setGenderRepartitions(g_);
+        PokemonPlayer pp_ = Instances.newPokemonPlayer();
+        pp_.setName("NAME");
+        pp_.setLevel((short) 2);
+        pp_.setGender(Gender.NO_GENDER);
+        pp_.setAbility("ABILITY");
+        pp_.setItem("ITEM");
+        pp_.setNickname("NICKNAME");
+        pp_.getMoves().addEntry("MOVE",new UsesOfMove((short) 1,(short) 3));
+        pp_.getEv().addEntry(Statistic.SPEED, (short) 4);
+        pp_.setWonExpSinceLastLevel(new Rate("5/6"));
+        pp_.setUsedBallCatching("BALL");
+        pp_.setNbStepsTeamLead((short) 8);
+        pp_.setHappiness((short) 7);
+        exc_.setPokemon(pp_);
+        PokemonPlayer pp2_ = Instances.newPokemonPlayer();
+        pp2_.setName("NAME_");
+        pp2_.setLevel((short) 12);
+        pp2_.setGender(Gender.NO_GENDER);
+        pp2_.setAbility("ABILITY_");
+        pp2_.setItem("ITEM_");
+        pp2_.setNickname("NICKNAME_");
+        pp2_.getMoves().addEntry("MOVE_",new UsesOfMove((short) 1,(short) 3));
+        pp2_.getEv().addEntry(Statistic.SPEED, (short) 14);
+        pp2_.setWonExpSinceLastLevel(new Rate("15/16"));
+        pp2_.setUsedBallCatching("BALL_");
+        pp2_.setNbStepsTeamLead((short) 18);
+        pp2_.setHappiness((short) 71);
+        exc_.setIndexTeam(1);
+        c_.setData(exc_);
+        c_.setTeam(new CustList<UsablePokemon>());
+        c_.setIndex(2);
+        CheckCompatibility check_ = saveCheckCompatibility(c_);
+        assertEq(2,check_.getIndex());
+        assertEq(1,check_.getData().getIndexTeam());
+        assertEq(0,check_.getTeam().size());
         assertEq(2,check_.getData().getAbilities().size());
         assertEq("ABILITY1",check_.getData().getAbilities().get(0));
         assertEq("ABILITY2",check_.getData().getAbilities().get(1));

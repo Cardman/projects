@@ -16,7 +16,7 @@ public final class DefGamePkStreamTest extends EquallablePkFileUtil {
         g_.initUserInteract("_", Sex.NO, g_.getDifficulty(), d_);
         DefGamePkStream def_ = new DefGamePkStream(pr_);
         def_.save("_",g_);
-        assertNotNull(DefGamePkStream.checkGame(d_,new MockLSexList(),def_.load("_",new MockLSexList())));
+        assertNotNull(new DefGameChecker().checkGame(d_,new MockLSexList(),def_.load("_",new MockLSexList())));
     }
     @Test
     public void checkGame2() {
@@ -27,7 +27,7 @@ public final class DefGamePkStreamTest extends EquallablePkFileUtil {
         g_.getPlayer().getTeam().clear();
         DefGamePkStream def_ = new DefGamePkStream(pr_);
         def_.save("_",g_);
-        assertNull(DefGamePkStream.checkGame(d_,new MockLSexList(),def_.load("_",new MockLSexList())));
+        assertNull(new DefGameChecker().checkGame(d_,new MockLSexList(),def_.load("_",new MockLSexList())));
     }
     @Test
     public void checkGame3() {
@@ -37,6 +37,6 @@ public final class DefGamePkStreamTest extends EquallablePkFileUtil {
         g_.initUserInteract("_", Sex.NO, g_.getDifficulty(), d_);
         DefGamePkStream def_ = new DefGamePkStream(pr_);
         def_.save("_",g_);
-        assertNull(DefGamePkStream.checkGame(d_,new MockLSexList(),def_.loadThen("__",new MockLSexList())));
+        assertNull(new DefGameChecker().checkGame(d_,new MockLSexList(),def_.loadThen("__",new MockLSexList())));
     }
 }
