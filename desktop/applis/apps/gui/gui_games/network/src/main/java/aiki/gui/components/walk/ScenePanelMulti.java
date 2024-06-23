@@ -230,9 +230,9 @@ public class ScenePanelMulti {
 
 //    private AbsPanel beginGame;
 
-    private AbsPanel sceneInteract;
+    private final AbsPanel sceneInteract;
 
-    private AbsPlainLabel placeName;
+//    private AbsPlainLabel placeName;
 
 //    private Scene scene;
 
@@ -277,10 +277,12 @@ public class ScenePanelMulti {
 
     public ScenePanelMulti(WindowNetWork _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
+        sceneInteract = compoFactory.newBorder();
 //        attract = compoFactory.newPlainButton("OK");
 //        attract.addActionListener(new AttractEvent(this));
         endGame = compoFactory.newPlainLabel("");
         component = compoFactory.newLineBox();
+        component.add(sceneInteract);
 //        paintingScene = _window.getThreadFactory().newAtomicBoolean();
         facade = _facade;
         window = _window;
@@ -345,9 +347,10 @@ public class ScenePanelMulti {
 //        if (interaction != null) {
 //            buttonInteract.setText(messages.getVal(INTERACT));
 //        }
-        if (teamPan != null) {
-            teamPan.translate(messages);
-        }
+        ScenePanel.translateTeamPan(teamPan,messages);
+//        if (teamPan != null) {
+//            teamPan.translate(messages);
+//        }
     }
 
 //    public void addBeginGame(AbsPanel _panel) {
@@ -394,17 +397,18 @@ public class ScenePanelMulti {
 //            scene.setPreferredSize();
 //        }
 //        wasNull_ = false;
-        if (sceneInteract == null) {
+//        if (sceneInteract == null) {
 //            wasNull_ = true;
-            sceneInteract = compoFactory.newBorder();
-        } else {
-            sceneInteract.removeAll();
-        }
-        if (placeName == null) {
-            placeName = window.getCompoFactory().newPlainLabel("");
-        }
-        placeName.setText(facade.getCurrentPlace());
-        sceneInteract.add(placeName, GuiConstants.BORDER_LAYOUT_NORTH);
+//            sceneInteract = compoFactory.newBorder();
+//        } else {
+//            sceneInteract.removeAll();
+//        }
+        sceneInteract.removeAll();
+//        if (placeName == null) {
+//            placeName = window.getCompoFactory().newPlainLabel("");
+//        }
+//        placeName.setText(facade.getCurrentPlace());
+//        sceneInteract.add(placeName, GuiConstants.BORDER_LAYOUT_NORTH);
 //        sceneInteract.add(scene.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_CENTER);
 //        initInteraction();
 //        if (fish != null) {
@@ -1669,10 +1673,10 @@ public class ScenePanelMulti {
 //        if (!enabledClick) {
 //            return;
 //        }
-        if (readyTrade) {
+//        if (readyTrade) {
 //        if (readyCheck.isSelected())
-            return;
-        }
+//            return;
+//        }
         facade.setIndexTeamTrading(teamPan.getSelectedIndexSingle());
         if (facade.isSelectedIndexTeamTrading()) {
             enabledReady = true;
@@ -1752,8 +1756,10 @@ public class ScenePanelMulti {
     public void readyTrade() {
         this.readyTrade = !readyTrade;
         if (readyTrade) {
+            teamPan.getListe().setEnabled(false);
             readyCheck.setLineBorder(GuiConstants.RED);
         } else {
+            teamPan.getListe().setEnabled(true);
             readyCheck.setLineBorder(GuiConstants.BLACK);
         }
     }

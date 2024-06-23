@@ -390,8 +390,12 @@ public class ScenePanel {
         goBack.setText(messages.getVal(MessagesRenderScenePanel.GO_BACK_MENU));
 //        server.setText(messages.getVal(CST_SERVER));
         LanguageDialogButtons.translate(buttonInteract,messages,MessagesRenderScenePanel.INTERACT);
-        if (teamPan != null) {
-            teamPan.translate(messages);
+        translateTeamPan(teamPan, messages);
+    }
+
+    public static void translateTeamPan(TeamPanel _teamPan, StringMap<String> _messages) {
+        if (_teamPan != null) {
+            _teamPan.translate(_messages);
         }
     }
 //

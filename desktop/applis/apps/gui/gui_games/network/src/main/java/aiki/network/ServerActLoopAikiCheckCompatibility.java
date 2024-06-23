@@ -22,7 +22,8 @@ public final class ServerActLoopAikiCheckCompatibility implements IntServerActLo
         CheckCompatibility first_ = NetAiki.getCheckCompatibility(_instance).getVal((int) IndexConstants.FIRST_INDEX);
         ByteTreeMap<PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
         ByteTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
-        if (pkFirst_.isEmpty() || pkSecond_.isEmpty()) {
+        if (pkFirst_.size() * pkSecond_.size() == 0) {
+            //pkFirst_.isEmpty() || pkSecond_.isEmpty()
             Exiting forcedBye_ = new Exiting();
             forcedBye_.setForced(true);
             forcedBye_.setClosing(false);
