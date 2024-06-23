@@ -2,7 +2,6 @@ package code.network;
 
 import aiki.db.*;
 import aiki.facade.*;
-import aiki.game.*;
 import aiki.gui.*;
 import aiki.gui.components.walk.*;
 import aiki.gui.dialogs.*;
@@ -323,7 +322,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private static final String F_FOUR = "F4";
 //    private static final String F_FIVE = "F5";
 //    private static final String F_SIX = "F6";
-    private static final String EMPTY_STRING = "";
+//    private static final String EMPTY_STRING = "";
 //    private static final String LAST_SAVED_GAME = "lastSavedGame";
 //    private static final String FOLDER_LOAD = "folderLoad";
 //    private static final String ZIP_LOAD = "zipLoad";
@@ -340,9 +339,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private final AbstractAtomicBooleanCore loadFlag;
 //    private final Clock clock;
 
-    private final AbsPlainLabel lastSavedGameDate;
+//    private final AbsPlainLabel lastSavedGameDate;
 
-    private String dateLastSaved = EMPTY_STRING;
+//    private String dateLastSaved = EMPTY_STRING;
 
     /**Parametres de lancement, de jouerie*/
 //    private SoftParams parametres=new SoftParams();
@@ -439,7 +438,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final NetAiki netAiki = new NetAiki();
 //    private StringMap<String> messagesAiki = new StringMap<String>();
-    private final FacadeGame facade;
+//    private final FacadeGame facade;
     private final ScenePanelMulti scenePanel;
     private final WindowAikiCore aiki;
 //    private AbsMenu file;
@@ -482,14 +481,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
 //        folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         net = new Net(_ia);
-        aiki = new WindowAikiCore(_aikiFactory);
+        aiki = new WindowAikiCore(_aikiFactory, _list);
         netg = new WindowCardsCore(this,_nicknames, _list, _ia,modal,_lgMenu);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
-        facade = new FacadeGame();
-        facade.setLanguages(_list.getLanguages());
-        facade.setDisplayLanguages(_list.getDisplayLanguages());
-        facade.setSimplyLanguage(_lg);
-        scenePanel = new ScenePanelMulti(this, facade);
+//        facade = new FacadeGame();
+//        facade.setLanguages(_list.getLanguages());
+//        facade.setDisplayLanguages(_list.getDisplayLanguages());
+//        facade.setSimplyLanguage(_lg);
+        scenePanel = new ScenePanelMulti(this, aiki.getFacade());
 //        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
 //        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
 //        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
@@ -519,7 +518,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         setFocusableWindowState(true);
 //        setImageIconFrame(LaunchingCards.getIcon(getImageFactory()));
 //        clock = new Clock(_list);
-        lastSavedGameDate = getCompoFactory().newPlainLabel("");
+//        lastSavedGameDate = getCompoFactory().newPlainLabel("");
 //        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));
 //        if (!reglesBelote.isValidRules()) {
 //            reglesBelote = new RulesBelote();
@@ -545,7 +544,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        parametres.setDelays();
 //        parametres.setLocale(_locale);
         initMessageName();
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
+        aiki.getLastSavedGameDate().setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), aiki.getDateLastSaved()));
 
 //        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
 //        if (!pseudosJoueurs.isValidNicknames()) {
@@ -641,7 +640,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return Games.getMenus(Games.getAppliTr(getFrames().currentLg())).getMapping();
     }
     public AbsPlainLabel getLastSavedGameDate() {
-        return lastSavedGameDate;
+        return aiki.getLastSavedGameDate();
     }
 
     /**server and client
@@ -899,14 +898,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     public void okReceived() {
-        facade.applyTrading();
-        ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
+        aiki.getFacade().applyTrading();
+        ByteTreeMap< PokemonPlayer> tree_ = aiki.getFacade().getExchangeData().getTeam(aiki.getFacade().getGame().getPlayer().getTeam());
         scenePanel.setTradableAfterTrading(tree_);
         pack();
     }
 
     public void pokemonPlayer(PokemonPlayer _pk) {
-        facade.receivePokemonPlayer(_pk);
+        aiki.getFacade().receivePokemonPlayer(_pk);
         scenePanel.seeNetPokemonDetail();
     }
 
@@ -919,11 +918,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     public void initTrading(AbstractSocket _socket) {
-        facade.initTrading();
+        aiki.getFacade().initTrading();
         CheckCompatibility ch_ = new CheckCompatibility();
-        ch_.setData(facade.getExchangeData());
+        ch_.setData(aiki.getFacade().getExchangeData());
         ch_.setIndex(indexInGame);
-        ch_.setTeam(facade.getGame().getPlayer().getTeam());
+        ch_.setTeam(aiki.getFacade().getGame().getPlayer().getTeam());
         NetAiki.sendObject(_socket,ch_);
     }
 
@@ -981,7 +980,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
     public void exitFromTrading() {
 //        setSavedGame(false);
-        facade.closeTrading();
+        aiki.getFacade().closeTrading();
         scenePanel.exitInteraction();
         en(true);
     }
@@ -1040,7 +1039,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        MenuItemUtils.setEnabledMenu(getSave(),false);
 //        MenuItemUtils.setEnabledMenu(getChange(),false);
         container_.add(netg.getClock());
-        container_.add(lastSavedGameDate);
+        container_.add(aiki.getLastSavedGameDate());
         setContentPane(container_);
         pack();
     }
@@ -1130,7 +1129,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
 //        pane_.add(goHelpMenu);
         pane_.add(netg.getClock());
-        pane_.add(lastSavedGameDate);
+        pane_.add(aiki.getLastSavedGameDate());
         setContentPane(pane_);
 //        MenuItemUtils.setEnabledMenu(getSave(),false);
 //        MenuItemUtils.setEnabledMenu(getChange(),false);
@@ -2080,7 +2079,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            goHelpMenu.setText(getMessages().getVal(CST_GO_HELP_MENU));
 //        }
         //StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved)
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
+        aiki.getLastSavedGameDate().setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), aiki.getDateLastSaved()));
     }
 
     @Override
@@ -2276,14 +2275,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return StringUtil.nullToEmpty(path_);
 //    }
     public void save(String _fileName) {
-        Game game_ = facade.getGame();
-        if (game_ == null) {
-            return;
-        }
-        game_.setZippedRom(facade.getZipName());
-        aiki.getAikiFactory().getGamePkStream().save(_fileName,game_);
-        dateLastSaved = Clock.getDateTimeText(getThreadFactory());
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
+        aiki.save(_fileName);
+//        Game game_ = facade.getGame();
+//        if (game_ == null) {
+//            return;
+//        }
+//        game_.setZippedRom(facade.getZipName());
+//        aiki.getAikiFactory().getGamePkStream().save(_fileName,game_);
+//        dateLastSaved = Clock.getDateTimeText(getThreadFactory());
+//        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
     }
     public void sendObjectOk() {
         trySendString(NetAiki.exportServerOk(),getSocket());
@@ -2623,8 +2623,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public void iniGui(String _fileName) {
-        facade.clearGame();
-        facade.initializePaginatorTranslations();
+        aiki.getFacade().clearGame();
+        aiki.getFacade().initializePaginatorTranslations();
         getFrames().getCompoFactory().invokeNow(new AfterLoadZip(this));
     }
 
@@ -2681,7 +2681,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public FacadeGame facade() {
-        return facade;
+        return aiki.getFacade();
     }
 
     @Override

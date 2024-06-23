@@ -1,5 +1,8 @@
 package aiki.gui;
 
+import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
+import aiki.game.Game;
 import aiki.gui.components.walk.DefTileRender;
 import aiki.gui.components.walk.IntTileRender;
 import aiki.gui.events.LoadGameEventAiki;
@@ -7,10 +10,12 @@ import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.SaveGameEventAiki;
 import aiki.main.AikiFactory;
 import aiki.main.VideoLoading;
-import code.gui.EnabledMenu;
-import code.gui.GroupFrame;
-import code.gui.GuiConstants;
+import aiki.sml.GamesPk;
+import aiki.sml.MessagesRenderWindowPk;
+import code.gui.*;
 import code.gui.events.AbsActionListenerAct;
+import code.gui.initialize.AbstractProgramInfos;
+import code.util.core.StringUtil;
 
 public final class WindowAikiCore {
 
@@ -24,11 +29,32 @@ public final class WindowAikiCore {
     private final AikiFactory aikiFactory;
     private IntTileRender tileRender;
     private final VideoLoading videoLoading = new VideoLoading();
-    public WindowAikiCore(AikiFactory _fact) {
-        aikiFactory = _fact;
-        setTileRender(new DefTileRender());
-    }
 
+    private final AbsPlainLabel lastSavedGameDate;
+
+    private final FacadeGame facade;
+    private String dateLastSaved = DataBase.EMPTY_STRING;
+    private final AbstractProgramInfos api;
+    public WindowAikiCore(AikiFactory _fact, AbstractProgramInfos _list) {
+        aikiFactory = _fact;
+        api = _list;
+        lastSavedGameDate = _list.getCompoFactory().newPlainLabel("");
+        setTileRender(new DefTileRender());
+        facade = new FacadeGame();
+        facade.setLanguages(_list.getLanguages());
+        facade.setDisplayLanguages(_list.getDisplayLanguages());
+        facade.setSimplyLanguage(_list.getLanguage());
+    }
+    public void save(String _fileName) {
+        Game game_ = facade.getGame();
+        if (game_ == null) {
+            return;
+        }
+        game_.setZippedRom(facade.getZipName());
+        getAikiFactory().getGamePkStream().save(_fileName,game_);
+        dateLastSaved = Clock.getDateTimeText(api.getThreadFactory());
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(api.currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
+    }
     public AikiFactory getAikiFactory() {
         return aikiFactory;
     }
@@ -58,6 +84,22 @@ public final class WindowAikiCore {
 
     public void setTileRender(IntTileRender _t) {
         this.tileRender = _t;
+    }
+
+    public String getDateLastSaved() {
+        return dateLastSaved;
+    }
+
+    public void setDateLastSaved(String _d) {
+        this.dateLastSaved = _d;
+    }
+
+    public FacadeGame getFacade() {
+        return facade;
+    }
+
+    public AbsPlainLabel getLastSavedGameDate() {
+        return lastSavedGameDate;
     }
 
     public EnabledMenu getFolderLoad() {
