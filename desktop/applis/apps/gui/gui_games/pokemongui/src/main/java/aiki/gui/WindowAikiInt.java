@@ -31,6 +31,5 @@ public interface WindowAikiInt {
     AbstractAtomicBooleanCore getModal();
 
     AbsCommonFrame getCommonFrame();
-    boolean showErrorMessageDialog(String _fileName);
     void showSuccessfulMessageDialogThenLoadHelp(String _fileName);
 }

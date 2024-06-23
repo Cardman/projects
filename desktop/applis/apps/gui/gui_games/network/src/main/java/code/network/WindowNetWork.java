@@ -481,7 +481,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
 //        folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         net = new Net(_ia);
-        aiki = new WindowAikiCore(_aikiFactory, _list);
+        aiki = new WindowAikiCore(_aikiFactory, _list, errorsFile);
         netg = new WindowCardsCore(this,_nicknames, _list, _ia,modal,_lgMenu);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
 //        facade = new FacadeGame();
@@ -2195,15 +2195,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
 
-    public boolean showErrorMessageDialog(String _fileName) {
+//    public boolean showErrorMessageDialog(String _fileName) {
 //        if (_fileName.isEmpty()) {
 //            return false;
 //        }
-        StringMap<String> mapping_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
-        errorsFile.display(mapping_.getVal(MessagesRenderWindowPk.ERROR_LOADING),_fileName);
+//        StringMap<String> mapping_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+//        errorsFile.display(mapping_.getVal(MessagesRenderWindowPk.ERROR_LOADING),_fileName);
 //        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
-        return true;
-    }
+//        return true;
+//    }
 
     public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
         StringMap<String> mapping_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();

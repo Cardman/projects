@@ -249,7 +249,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         fileOpenFolderFrame = new FolderOpenFrame(_list, modal);
         fileOpenSaveFrame = new FileOpenSaveFrame(_list, modal);
         folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
-        core = new WindowAikiCore(_fact,_list);
+        core = new WindowAikiCore(_fact,_list, resultFile);
         renderDataWeb = new FrameHtmlData(this, dataWeb);
         GuiBaseUtil.choose(_list.getLanguage(), this, _list.getCommon());
         expThread = _list.getThreadFactory().newExecutorService();
@@ -502,6 +502,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         core.getFacade().getData().setLanguage(core.getFacade().getLanguage());
         GamesPk.initMessages(core.getFacade().getData(), core.getFacade().getLanguage());
         messages = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+        core.setMessages(messages);
         file.setText(messages.getVal(MessagesRenderWindowPk.CST_FILE));
         core.getZipLoad().setText(messages.getVal(MessagesRenderWindowPk.ZIP_LOAD));
         core.getFolderLoad().setText(messages.getVal(MessagesRenderWindowPk.FOLDER_LOAD));
@@ -969,7 +970,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             error_ = true;
         }
         if (error_) {
-            _w.showErrorMessageDialog(_fileName);
+            _w.common().showErrorMessageDialog(_fileName);
         }
     }
 

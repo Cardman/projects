@@ -15,6 +15,7 @@ import aiki.sml.MessagesRenderWindowPk;
 import code.gui.*;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class WindowAikiCore {
@@ -35,8 +36,12 @@ public final class WindowAikiCore {
     private final FacadeGame facade;
     private String dateLastSaved = DataBase.EMPTY_STRING;
     private final AbstractProgramInfos api;
-    public WindowAikiCore(AikiFactory _fact, AbstractProgramInfos _list) {
+    private final ReportingFrame resultFile;
+
+    private StringMap<String> messages = new StringMap<String>();
+    public WindowAikiCore(AikiFactory _fact, AbstractProgramInfos _list, ReportingFrame _resFile) {
         aikiFactory = _fact;
+        resultFile = _resFile;
         api = _list;
         lastSavedGameDate = _list.getCompoFactory().newPlainLabel("");
         setTileRender(new DefTileRender());
@@ -45,6 +50,16 @@ public final class WindowAikiCore {
         facade.setDisplayLanguages(_list.getDisplayLanguages());
         facade.setSimplyLanguage(_list.getLanguage());
     }
+
+    public boolean showErrorMessageDialog(String _fileName) {
+//        if (_fileName.isEmpty()) {
+//            return false;
+//        }
+        resultFile.display(getMessages().getVal(MessagesRenderWindowPk.ERROR_LOADING),_fileName);
+//        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), GuiConstants.ERROR_MESSAGE);
+        return true;
+    }
+
     public void save(String _fileName) {
         Game game_ = facade.getGame();
         if (game_ == null) {
@@ -88,6 +103,14 @@ public final class WindowAikiCore {
 
     public String getDateLastSaved() {
         return dateLastSaved;
+    }
+
+    public StringMap<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(StringMap<String> _m) {
+        this.messages = _m;
     }
 
     public void setDateLastSaved(String _d) {
