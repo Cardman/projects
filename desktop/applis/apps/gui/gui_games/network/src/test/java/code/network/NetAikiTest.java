@@ -1,22 +1,33 @@
 package code.network;
 
-import aiki.db.ExchangedData;
-import aiki.fight.enums.Statistic;
-import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.game.UsesOfMove;
+import aiki.db.*;
+import aiki.fight.enums.*;
+import aiki.fight.pokemon.enums.*;
+import aiki.game.*;
 import aiki.instances.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.network.*;
-import aiki.network.stream.CheckCompatibility;
-import aiki.network.stream.NetPokemon;
-import aiki.network.stream.QuitAiki;
+import aiki.network.stream.*;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.*;
 import org.junit.Test;
 
 public final class NetAikiTest extends EquallableNetworkUtil {
+
+    @Test
+    public void ready1(){
+        ReadyAiki r_ = saveServerReady(1,false);
+        assertEq(1,r_.getIndex());
+        assertFalse(r_.getContent().isReady());
+    }
+    @Test
+    public void ready2(){
+        ReadyAiki r_ = saveServerReady(1,true);
+        assertEq(1,r_.getIndex());
+        assertTrue(r_.getContent().isReady());
+    }
     @Test
     public void pkPlayer1() {
         PokemonPlayer pp_ = Instances.newPokemonPlayer();
@@ -251,6 +262,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         team_.addEntry((byte)2,pp2_);
         c_.setTradablePokemon(team_);
         NetPokemon check_ = saveNetPokemon(c_);
+        assertEq(1,check_.getTradablePokemon().size());
         assertEq(2,check_.getTradablePokemon().getKey(0));
         PokemonPlayer outTeam_ = check_.getTradablePokemon().getValue(0);
         assertEq(12, outTeam_.getLevel());
@@ -269,6 +281,42 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         assertEq(71, outTeam_.getHappiness());
     }
 
+    @Test
+    public void sentPokemon() {
+        SentPokemon c_ = new SentPokemon();
+        PokemonPlayer pp2_ = Instances.newPokemonPlayer();
+        pp2_.setName("NAME_");
+        pp2_.setLevel((short) 12);
+        pp2_.setGender(Gender.NO_GENDER);
+        pp2_.setAbility("ABILITY_");
+        pp2_.setItem("ITEM_");
+        pp2_.setNickname("NICKNAME_");
+        pp2_.getMoves().addEntry("MOVE_",new UsesOfMove((short) 1,(short) 3));
+        pp2_.getEv().addEntry(Statistic.SPEED, (short) 14);
+        pp2_.setWonExpSinceLastLevel(new Rate("15/16"));
+        pp2_.setUsedBallCatching("BALL_");
+        pp2_.setNbStepsTeamLead((short) 18);
+        pp2_.setHappiness((short) 71);
+        c_.setIndex((byte) 2);
+        c_.setPokemon(pp2_);
+        SentPokemon check_ = saveSentPokemon(c_);
+        assertEq(2,check_.getIndex());
+        PokemonPlayer outTeam_ = check_.getPokemon();
+        assertEq(12, outTeam_.getLevel());
+        assertEq("NAME_",outTeam_.getName());
+        assertEq("ABILITY_",outTeam_.getAbility());
+        assertEq("ITEM_",outTeam_.getItem());
+        assertEq("NICKNAME_",outTeam_.getNickname());
+        assertEq(1,outTeam_.getMoves().size());
+        assertEq("MOVE_",outTeam_.getMoves().getKey(0));
+        assertEq(1,outTeam_.getEv().size());
+        assertEq(Statistic.SPEED, outTeam_.getEv().getKey(0));
+        assertEq(14, outTeam_.getEv().getValue(0));
+        assertEq(new Rate("15/16"), outTeam_.getWonExpSinceLastLevel());
+        assertEq("BALL_", outTeam_.getUsedBallCatching());
+        assertEq(18, outTeam_.getNbStepsTeamLead());
+        assertEq(71, outTeam_.getHappiness());
+    }
     @Test
     public void quitAiki1() {
         QuitAiki q_ = new QuitAiki();
@@ -297,12 +345,22 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         return NetAiki.importQuitAiki(parseParts(NetAiki.exportQuitAiki(_pk)));
     }
 
+    public static ReadyAiki saveServerReady(int _index, boolean _value) {
+        ReadyAiki r_ = new ReadyAiki();
+        r_.getContent().setReady(_value);
+        r_.setIndex(_index);
+        return NetAiki.importReadyAiki(parseParts(NetAiki.exportReadyAiki(r_)));
+    }
     public static CheckCompatibility saveCheckCompatibility(CheckCompatibility _pk) {
         return NetAiki.importCheckCompatibility(parseParts(NetAiki.exportCheckCompatibility(_pk)));
     }
 
     public static NetPokemon saveNetPokemon(NetPokemon _pk) {
         return NetAiki.importNetPokemon(parseParts(NetAiki.exportNetPokemon(_pk)));
+    }
+
+    public static SentPokemon saveSentPokemon(SentPokemon _pk) {
+        return NetAiki.importSentPokemon(parseParts(NetAiki.exportSentPokemon(_pk)));
     }
 
     public static PokemonPlayer saveClientPokemonPlayer(PokemonPlayer _pk) {
