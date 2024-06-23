@@ -1,12 +1,10 @@
 package code.network;
 
-import cards.facade.*;
 import cards.facade.enumerations.*;
 import cards.gui.containers.*;
 import cards.network.threads.*;
 import code.gui.*;
 import code.mock.*;
-import code.sml.util.*;
 import org.junit.Test;
 
 public final class ContainerMultiContentTest extends EquallableNetworkUtil {
@@ -29,24 +27,21 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
 
     @Test
     public void displayBelote() {
-        WindowNetWork f_ = frameSingleBelote(new MockGameBelote());
-        Games.getAppliTr(f_.getFrames().currentLg()).getMapping().addEntry(Games.DIALOG_DISPLAY,new TranslationsFile());
+        WindowNetWork f_ = frameDisplay();
         tryClick(f_.getNetg().getDisplayingGames().getVal(GameEnum.BELOTE));
         assertTrue(f_.getDialogDisplayingBelote().getCardDialog().isVisible());
     }
 
     @Test
     public void displayPresident() {
-        WindowNetWork f_ = frameSinglePresident(new MockGamePresident());
-        Games.getAppliTr(f_.getFrames().currentLg()).getMapping().addEntry(Games.DIALOG_DISPLAY,new TranslationsFile());
+        WindowNetWork f_ = frameDisplay();
         tryClick(f_.getNetg().getDisplayingGames().getVal(GameEnum.PRESIDENT));
         assertTrue(f_.getDialogDisplayingPresident().getCardDialog().isVisible());
     }
 
     @Test
     public void displayTarot() {
-        WindowNetWork f_ = frameSingleTarot(new MockGameTarot());
-        Games.getAppliTr(f_.getFrames().currentLg()).getMapping().addEntry(Games.DIALOG_DISPLAY,new TranslationsFile());
+        WindowNetWork f_ = frameDisplay();
         tryClick(f_.getNetg().getDisplayingGames().getVal(GameEnum.TAROT));
         assertTrue(f_.getDialogDisplayingTarot().getCardDialog().isVisible());
     }

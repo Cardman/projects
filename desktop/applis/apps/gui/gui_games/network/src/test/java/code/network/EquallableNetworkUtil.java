@@ -224,7 +224,17 @@ public abstract class EquallableNetworkUtil {
         tryClick((AbsButton) tr_.get(2));
         return w_;
     }
-
+    protected static WindowNetWork frameDisplay() {
+        IntArtCardGames ia_ = new IntArtCardGames();
+        MockProgramInfos pr_ = updateDialogDisplay(build());
+        pr_.getSocketFactory().setOkServer(true);
+        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, null, null, ia_);
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        w_.setPrepare(cf_.getTaskNav());
+        w_.pack();
+        w_.setVisible(true);
+        return w_;
+    }
     private static void belote(CardFactories _cf) {
         NatNavigation nav_ = nav();
         _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSampleNet(), nav_)));
