@@ -7,6 +7,7 @@ import aiki.fight.pokemon.*;
 import aiki.fight.util.*;
 import aiki.instances.*;
 import aiki.map.pokemon.enums.*;
+import aiki.network.NetAiki;
 import code.gui.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
@@ -551,11 +552,49 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertFalse(BasicClient.iterate(socket_,clientKo_,NetCommon.exportExiting(forcedBye_)));
 
     }
+
+    @Test
+    public void quit6() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        socketServ_.getOutput().clear();
+        tryClick(server_.getScenePanel().getExitTrade());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        assertEq(0,server_.getSockets().getSockets().size());
+        Exiting forcedBye_ = new Exiting();
+        forcedBye_.setForced(false);
+        forcedBye_.setClosing(true);
+        forcedBye_.setServer(true);
+        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
+        assertFalse(BasicClient.iterate(socketServ_,server_,NetCommon.exportExiting(forcedBye_)));
+
+        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
+        client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
+        tryClick(client_.getExit());
+    }
     @Test
     public void cancelConnect() {
         WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
         cancelConnect(server_);
         assertEq(0,((MockThreadFactory)server_.getFrames().getThreadFactory()).getAllThreads().size());
+        new BasicClient(server_.getSocket(),server_).iterate(server_.getSocket(), NetCommon.exportExiting(new Exiting()));
     }
     public static DataBase sample() {
         DataBase db_ = init();

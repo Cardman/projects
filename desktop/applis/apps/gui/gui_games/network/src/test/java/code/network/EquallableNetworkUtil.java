@@ -271,7 +271,7 @@ public abstract class EquallableNetworkUtil {
 //        ai_.setConfPkStream(new MockConfPkStream());
         ai_.setGamePkStream(new MockGamePkStream());
 //        ai_.submit(new MockCallable<DataBase>(_db));
-        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, null, new IntArtCardGames());
         updateBase(pr_.currentLg());
         ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
         w_.setVisible(true);
@@ -304,7 +304,7 @@ public abstract class EquallableNetworkUtil {
 //        ai_.setConfPkStream(new MockConfPkStream());
         ai_.setGamePkStream(new MockGamePkStream());
 //        ai_.submit(new MockCallable<DataBase>(_db));
-        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, null, new IntArtCardGames());
         updateBase(pr_.currentLg());
         ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
         w_.setVisible(true);

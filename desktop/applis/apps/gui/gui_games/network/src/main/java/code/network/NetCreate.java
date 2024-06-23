@@ -16,15 +16,20 @@ public final class NetCreate {
 
     static final String NET_ZERO = "net0";
     static final String WLAN_ZERO = "wlan0";
+    static final int MAX_PORT = 256 * 256;
     private static final String LINE_RETURN_N = "\n";
     private static final String LINE_RETURN_R = "\r";
-    private static final int MAX_PORT = 256 * 256;
 
     private NetCreate(){
     }
 
     public static int tryToGetPort(String _fileName, int _defaultPort, AbstractFileCoreStream _fact, TechStreams _tech) {
         String content_ = StreamTextFile.contentsOfFile(_fileName,_fact,_tech);
+        return tryToGetPort(_defaultPort, content_);
+    }
+
+    public static int tryToGetPort(int _defaultPort, String _content) {
+        String content_ = _content;
         if (content_ == null) {
             return _defaultPort;
         }
@@ -41,8 +46,12 @@ public final class NetCreate {
 
     public static String getHostAddress(AbstractSocketFactory _socketFactory, IpType _ipType, String _defaultIp) {
         StringList host_ = hostAddresses(_socketFactory, _ipType);
-        if (host_.onlyOneElt()) {
-            return host_.first();
+        return singleOrDef(_defaultIp, host_);
+    }
+
+    static String singleOrDef(String _defaultIp, StringList _host) {
+        if (_host.onlyOneElt()) {
+            return _host.first();
         }
         return _defaultIp;
     }

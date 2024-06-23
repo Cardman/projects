@@ -2638,6 +2638,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        exporting.start();
     }
 
+    public LanguageDialogButtons getLanguageDialogButtons() {
+        return languageDialogButtons;
+    }
+
     public FileSaveFrame getFileSaveFrame() {
         return fileSaveFrame;
     }

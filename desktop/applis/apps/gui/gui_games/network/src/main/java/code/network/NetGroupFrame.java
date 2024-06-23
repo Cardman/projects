@@ -82,12 +82,12 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
         return results(socket_);
     }
 
-    private SocketResults results(AbstractSocket _socket) {
+    SocketResults results(AbstractSocket _socket) {
         if (_socket.isKo()) {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
         }
         socket = initIndexInGame(_socket);
-        return new SocketResults(_socket);
+        return new SocketResults();
     }
 
     public AbstractSocketFactory getSocketFactory() {

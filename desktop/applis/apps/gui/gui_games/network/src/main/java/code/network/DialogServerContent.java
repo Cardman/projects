@@ -234,9 +234,9 @@ public final class DialogServerContent implements AbstractDialogServer {
 //            Net.setNbPlayers(nbPlayers.getValue(), window.getNet());
 //        }
         serverSocket = serverSocket_;
-        closeWindow();
+//        closeWindow();
         server = getFrames().getThreadFactory().newScheduledExecutorService();
-        connection = new ConnectionToServer(serverSocket_, window, portChoice.getValue());
+        connection = new ConnectionToServer(getServerSocket(), window, portChoice.getValue());
         task = server.scheduleAtFixedRateNanos(connection,0,1);
     }
 
@@ -258,13 +258,16 @@ public final class DialogServerContent implements AbstractDialogServer {
 //                window.getNetg().setContainerGame(window.noGame());
 //            }
             StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping();
-            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
-                String formatted_ = mapping_.getVal(MessagesNetWork.UNKNOWN_HOST);
-                formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
-                errors.setText(formatted_);
-            } else {
-                errors.setText(mapping_.getVal(MessagesNetWork.NOT_CONNECTED));
-            }
+            String formatted_ = mapping_.getVal(MessagesNetWork.UNKNOWN_HOST);
+            formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
+            errors.setText(formatted_);
+//            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
+//                String formatted_ = mapping_.getVal(MessagesNetWork.UNKNOWN_HOST);
+//                formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
+//                errors.setText(formatted_);
+//            } else {
+//                errors.setText(mapping_.getVal(MessagesNetWork.NOT_CONNECTED));
+//            }
             return;
         }
         if (chosen == GameEnum.TAROT) {
@@ -302,7 +305,9 @@ public final class DialogServerContent implements AbstractDialogServer {
 //        window.pack();
     }
     public void closeConnexion(Exiting _exit, AbstractSocket _socket) {
-        _socket.close();
+        if (_socket != null) {
+            _socket.close();
+        }
         if (connection == null || !_exit.isServer()) {
             return;
         }
@@ -314,12 +319,12 @@ public final class DialogServerContent implements AbstractDialogServer {
 //        return _dialog.ipOrHostName.getText();
 //    }
 
-    public void closeWindow() {
-        component.setVisible(false);
-        window.pack();
+//    public void closeWindow() {
+//        component.setVisible(false);
+//        window.pack();
 //        cardDialog.closeWindow();
 //        cardDialog.getPane().removeAll();
-    }
+//    }
 
     public AbsTextField getNickname() {
         return nickname;

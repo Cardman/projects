@@ -18,6 +18,8 @@ public final class LaunchNetwork implements Runnable {
     private final AikiFactory aikiFactory;
     private final CardFactories cardFactories;
     private final EnabledMenu languageMenu;
+    private WindowNetWork window;
+
     public LaunchNetwork(String _language, AbstractProgramInfos _list, AbsButton _b, EnabledMenu _lgMenu, AikiFactory _a, CardFactories _c) {
         language = _language;
         list = _list;
@@ -35,12 +37,17 @@ public final class LaunchNetwork implements Runnable {
 //        StringMap<String> builtOther_ = CssInit.ms();
 //        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd(), lgs_);
 //        pkNet_.run();
-        WindowNetWork window_ = new WindowNetWork(new CardGamesStream(list, WindowCards.getTempFolderSl(list)),language, list, aikiFactory,languageMenu,new IntArtCardGames());
+        window = new WindowNetWork(new CardGamesStream(list, WindowCards.getTempFolderSl(list)), language, list, aikiFactory, languageMenu, new IntArtCardGames());
+        WindowNetWork window_ = window;
         window_.setPrepare(cardFactories.getTaskNav());
         window_.setButtonClick(button);
         window_.setPreparedPkNetTask(aikiFactory.getPreparedPkNetTask());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         window_.pack();
         window_.setVisible(true);
+    }
+
+    public WindowNetWork getWindow() {
+        return window;
     }
 }
