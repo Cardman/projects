@@ -551,6 +551,12 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertFalse(BasicClient.iterate(socket_,clientKo_,NetCommon.exportExiting(forcedBye_)));
 
     }
+    @Test
+    public void cancelConnect() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        cancelConnect(server_);
+        assertEq(0,((MockThreadFactory)server_.getFrames().getThreadFactory()).getAllThreads().size());
+    }
     public static DataBase sample() {
         DataBase db_ = init();
         StringMap<String> trsIt_ = new StringMap<String>();
