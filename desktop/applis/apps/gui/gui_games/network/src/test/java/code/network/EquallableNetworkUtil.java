@@ -1,5 +1,7 @@
 package code.network;
 
+import aiki.fight.enums.*;
+import aiki.fight.pokemon.enums.*;
 import aiki.sml.*;
 import cards.belote.*;
 import cards.belote.enumerations.*;
@@ -612,6 +614,12 @@ public abstract class EquallableNetworkUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(GameEnum _expected, GameEnum _result) {
+        Assert.assertSame(_expected,_result);
+    }
+    public static void assertEq(GenderRepartition _expected, GenderRepartition _result) {
+        Assert.assertSame(_expected,_result);
+    }
+    public static void assertEq(Statistic _expected, Statistic _result) {
         Assert.assertSame(_expected,_result);
     }
     public static void assertEq(Rate _expected, Rate _result) {

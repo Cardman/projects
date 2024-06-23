@@ -123,9 +123,9 @@ public final class NetAiki {
     }
     public static void loopServer(String _info, NetAiki _instance, NetCommon _common) {
         NetAikiRetrievedInfos ret_ = new NetAikiRetrievedInfos(_info);
-        if (ret_.getIndexAct() < 0) {
-            return;
-        }
+//        if (ret_.getIndexAct() < 0) {
+//            return;
+//        }
         loopServer(ret_, _instance, _common);
     }
 
