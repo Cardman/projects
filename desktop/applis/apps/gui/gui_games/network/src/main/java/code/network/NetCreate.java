@@ -14,10 +14,10 @@ import code.util.core.StringUtil;
 
 public final class NetCreate {
 
+    static final String NET_ZERO = "net0";
+    static final String WLAN_ZERO = "wlan0";
     private static final String LINE_RETURN_N = "\n";
     private static final String LINE_RETURN_R = "\r";
-    private static final String NET_ZERO = "net0";
-    private static final String WLAN_ZERO = "wlan0";
     private static final int MAX_PORT = 256 * 256;
 
     private NetCreate(){
@@ -49,14 +49,18 @@ public final class NetCreate {
 
     public static StringList hostAddresses(AbstractSocketFactory _socketFactory, IpType _ipType) {
         AbstractNetworkInterfaceList list_ = _socketFactory.newList();
-        int size_ = list_.size();
+        return hostAddresses(_ipType, list_);
+    }
+
+    static StringList hostAddresses(IpType _ipType, AbstractNetworkInterfaceList _list) {
+        int size_ = _list.size();
         StringList host_ = new StringList();
         for (int i = 0; i < size_; i++) {
-            String name_ = list_.getName(i);
-            if (!StringUtil.quickEq(name_.trim(), NET_ZERO) && !StringUtil.quickEq(name_.trim(), WLAN_ZERO) || list_.isVirtual(i)) {
+            String name_ = _list.getName(i);
+            if (!StringUtil.quickEq(name_.trim(), NET_ZERO) && !StringUtil.quickEq(name_.trim(), WLAN_ZERO) || _list.isVirtual(i)) {
                 continue;
             }
-            feed(_ipType, host_, list_.list(i));
+            feed(_ipType, host_, _list.list(i));
         }
         return host_;
     }
@@ -91,13 +95,18 @@ public final class NetCreate {
         StringList addresses_ = new StringList();
         if (_ipType == IpType.HOST_NAME) {
             AbstractAddressList addr_ = _socketFactory.newAddr(_host);
-            int size_ = addr_.size();
-            for (int i = 0; i < size_; i++) {
-                addresses_.add(addr_.getHost(i));
-            }
-            return addresses_;
+            return addressesNames(addr_);
         }
         addresses_.add(_host);
+        return addresses_;
+    }
+
+    static StringList addressesNames(AbstractAddressList _addr) {
+        StringList addresses_ = new StringList();
+        int size_ = _addr.size();
+        for (int i = 0; i < size_; i++) {
+            addresses_.add(_addr.getHost(i));
+        }
         return addresses_;
     }
 }
