@@ -1,13 +1,9 @@
 package code.network;
 
-import cards.gui.containers.ContainerMulti;
-import cards.gui.containers.ContainerMultiContent;
-import cards.network.threads.Net;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.CardTarot;
-import code.gui.AbsButton;
-import code.mock.MockGameTarot;
-import code.mock.MockSocket;
+import cards.gui.containers.*;
+import cards.network.threads.*;
+import code.gui.*;
+import code.mock.*;
 import org.junit.Test;
 
 public final class ContainerMultiContentTest extends EquallableNetworkUtil {
@@ -254,6 +250,13 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
         sendClient(server_.getSockets(), clientOk_);
         loopClient(server_.getSockets(),clientOk_);
         assertEq(3,server_.getSockets().getSockets().size());
+    }
+    @Test
+    public void cancelConnect() {
+        MockGameTarot m_ = new MockGameTarot();
+        WindowNetWork server_ = frameSingleTarot(m_);
+        cancelConnect(server_);
+        assertEq(0,((MockThreadFactory)server_.getFrames().getThreadFactory()).getAllThreads().size());
     }
     private void readyPlayers(WindowNetWork _server, MockSocket _socketServ, WindowNetWork _client, MockSocket _socketClient) {
         _socketServ.getOutput().clear();

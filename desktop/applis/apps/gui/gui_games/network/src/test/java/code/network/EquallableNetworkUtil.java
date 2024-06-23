@@ -155,6 +155,9 @@ public abstract class EquallableNetworkUtil {
         _window.getDialogServerContent().getCreateServer().getActionListeners().get(0).action();
         _window.getDialogServerContent().getConnection().run();
     }
+    protected static void cancelConnect(WindowNetWork _window) {
+        _window.getDialogServerContent().getCancel().getActionListeners().get(0).action();
+    }
     protected static void clientVersionOld(WindowNetWork _server,WindowNetWork _window) {
         client(_server,_window, IpType.IP_V4, "");
     }

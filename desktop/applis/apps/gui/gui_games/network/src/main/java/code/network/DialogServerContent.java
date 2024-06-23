@@ -59,6 +59,7 @@ public final class DialogServerContent implements AbstractDialogServer {
 //    private final CustList<AbsCustComponent> components = new CustList<AbsCustComponent>();
     private AbsButton createServer;
     private AbsButton joinServer;
+    private AbsButton cancel;
     //    private JComboBox<DealingBelote> repBelote;
 //    private JComboBox<DealingTarot> repTarot;
 
@@ -174,7 +175,8 @@ public final class DialogServerContent implements AbstractDialogServer {
         button_ = joinServer;
         button_.addActionListener(new JoinServerEvent(this));
         panel_.add(button_);
-        button_ = getCompoFactory().newPlainButton(mapping_.getVal(MessagesNetWork.CANCEL));
+        cancel = getCompoFactory().newPlainButton(mapping_.getVal(MessagesNetWork.CANCEL));
+        button_ = cancel;
         button_.addActionListener(new CancelServerEvent(this));
         panel_.add(button_);
         component.add(panel_);
@@ -248,9 +250,9 @@ public final class DialogServerContent implements AbstractDialogServer {
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
 //            component.setVisible(true);
 //            window.pack();
-            if (chosen != GameEnum.NONE) {
-                window.getNetg().setContainerGame(window.noGame());
-            }
+//            if (chosen != GameEnum.NONE) {
+//                window.getNetg().setContainerGame(window.noGame());
+//            }
             StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping();
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = mapping_.getVal(MessagesNetWork.UNKNOWN_HOST);
@@ -369,6 +371,10 @@ public final class DialogServerContent implements AbstractDialogServer {
 
     public AbsButton getJoinServer() {
         return joinServer;
+    }
+
+    public AbsButton getCancel() {
+        return cancel;
     }
     //    public static boolean isChoosen(DialogServerContent _dialog) {
 //        return _dialog.create || _dialog.join;
