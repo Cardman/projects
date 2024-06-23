@@ -274,6 +274,8 @@ public class ScenePanelMulti {
 //    private final AbstractAtomicBoolean paintingScene;
 
     private final AbsPanel component;
+    private AbsButton exitTrade;
+    private AbsButton applyTrade;
 
     public ScenePanelMulti(WindowNetWork _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
@@ -402,10 +404,12 @@ public class ScenePanelMulti {
 //        }
         sceneInteract.removeAll();
         window.getPane().removeAll();
-        window.getPane().add(component);
-        window.getPane().add(new Clock(window.getFrames()));
-        window.getPane().add(window.getAiki().getLastSavedGameDate());
+        AbsPanel pane_ = window.getCompoFactory().newPageBox();
+        pane_.add(component);
+        pane_.add(new Clock(window.getFrames()));
+        pane_.add(window.getAiki().getLastSavedGameDate());
         server.setText(messages.getVal(MessagesRenderScenePanel.CST_SERVER));
+        window.setContentPane(pane_);
 //        if (placeName == null) {
 //            placeName = window.getCompoFactory().newPlainLabel("");
 //        }
@@ -701,11 +705,13 @@ public class ScenePanelMulti {
 //        disableFishing();
         panelNetWork = compoFactory.newPageBox();
         panelOptions.add(panelNetWork, GuiConstants.BORDER_LAYOUT_CENTER);
-        AbsButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.EXIT));
+        exitTrade = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.EXIT));
+        AbsButton exit_ = exitTrade;
         exit_.addActionListener(new ExitTradeEvent(window));
         if (window.getIndexInGame() == IndexConstants.FIRST_INDEX) {
             AbsPanel panel_ = compoFactory.newLineBox();
-            AbsButton trade_ = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TRADE));
+            applyTrade = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TRADE));
+            AbsButton trade_ = applyTrade;
             trade_.addActionListener(new ValidateTradingEvent(window));
             panel_.add(trade_);
             panel_.add(exit_);
@@ -741,11 +747,12 @@ public class ScenePanelMulti {
         readyCheck.setEnabled(enabledReady);
         readyCheck.addActionListener(new ReadyEventAiki(window));
         panelNetWork.add(readyCheck);
-        window.getPane().setVisible(true);
         window.getPane().removeAll();
-        window.getPane().add(component);
-        window.getPane().add(new Clock(window.getFrames()));
-        window.getPane().add(window.getAiki().getLastSavedGameDate());
+        AbsPanel pane_ = window.getCompoFactory().newPageBox();
+        pane_.add(component);
+        pane_.add(new Clock(window.getFrames()));
+        pane_.add(window.getAiki().getLastSavedGameDate());
+        window.setContentPane(pane_);
     }
 
     public void setTradableAfterTrading(ByteTreeMap< PokemonPlayer> _team) {
@@ -1700,6 +1707,14 @@ public class ScenePanelMulti {
         readyCheck.setEnabled(enabledReady);
     }
 
+    public TeamPanel getTeamPan() {
+        return teamPan;
+    }
+
+    public AbsButton getReadyCheck() {
+        return readyCheck;
+    }
+
 //    public void setTextArea(String _text, int _messageType) {
 //        if (_text.isEmpty()) {
 //            return;
@@ -1753,12 +1768,16 @@ public class ScenePanelMulti {
         return component;
     }
 
-    public WindowNetWork getWindow() {
-        return window;
-    }
-
     public boolean isReadyTrade() {
         return readyTrade;
+    }
+
+    public AbsButton getExitTrade() {
+        return exitTrade;
+    }
+
+    public AbsButton getApplyTrade() {
+        return applyTrade;
     }
 
     public void readyTrade() {

@@ -295,11 +295,74 @@ public abstract class EquallableNetworkUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) w_.getPane()).getTreeAccessible();
         assertEq(1,tr_.size());
         tryClick((AbsButton) tr_.get(0));
-        ////==>menus
-        //tryClick(w_.getMultiModeButton());
-        //IdList<AbsCustComponent> tr_ = ((MockCustComponent) w_.getPane()).getTreeAccessible();
-        //assertEq(4,tr_.size());
-        //tryClick((AbsButton) tr_.get(2));
+        return w_;
+    }
+    protected static WindowNetWork frameSingleMenu(IntDataBaseStream _i) {
+        MockProgramInfos pr_ = updateSingle(build());
+        pr_.getSocketFactory().setOkServer(true);
+        AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
+//        ai_.setConfPkStream(new MockConfPkStream());
+        ai_.setGamePkStream(new MockGamePkStream());
+//        ai_.submit(new MockCallable<DataBase>(_db));
+        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        updateBase(pr_.currentLg());
+        ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
+        w_.setVisible(true);
+        w_.pack();
+        w_.setPreparedPkNetTask(ai_.getPreparedPkNetTask());
+        w_.getAiki().setGameCheck(new MockGameChecker());
+        w_.getAiki().getAikiFactory().setDataBaseStream(_i);
+        tryClick(w_.getFolderLoad());
+        w_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
+        w_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
+
+        tryClick((AbsButton) w_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) w_.getFrames().getThreadFactory()));
+        DataBase d_ = w_.getAiki().getFacade().getData();
+        Game g_ = new Game(d_);
+        g_.initUserInteract("_", Sex.NO, g_.getDifficulty(), d_);
+        ((PokemonPlayer)g_.getTeam().get(0)).setAbility("A1");
+        ((PokemonPlayer)g_.getTeam().get(0)).initIv(g_.getDifficulty());
+        w_.getAiki().getAikiFactory().getGamePkStream().save("", g_);
+        tryClick(w_.getGameLoad());
+        w_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) w_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) w_.getPane()).getTreeAccessible();
+        assertEq(1,tr_.size());
+        tryClick((AbsButton) tr_.get(0));
+        return w_;
+    }
+    protected static WindowNetWork frameSingleDiff(IntDataBaseStream _i) {
+        MockProgramInfos pr_ = updateSingle(build());
+        pr_.getSocketFactory().setOkServer(true);
+        AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
+//        ai_.setConfPkStream(new MockConfPkStream());
+        ai_.setGamePkStream(new MockGamePkStream());
+//        ai_.submit(new MockCallable<DataBase>(_db));
+        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        updateBase(pr_.currentLg());
+        ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
+        w_.setVisible(true);
+        w_.pack();
+        w_.setPreparedPkNetTask(ai_.getPreparedPkNetTask());
+        w_.getAiki().setGameCheck(new MockGameChecker());
+        w_.getAiki().getAikiFactory().setDataBaseStream(_i);
+        tryClick(w_.getZipLoad());
+        w_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) w_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryAn(((MockThreadFactory) w_.getFrames().getThreadFactory()));
+        DataBase d_ = w_.getAiki().getFacade().getData();
+        Game g_ = new Game(d_);
+        g_.initUserInteract("_", Sex.NO, g_.getDifficulty(), d_);
+        ((PokemonPlayer)g_.getTeam().get(0)).setAbility("A3");
+        ((PokemonPlayer)g_.getTeam().get(0)).initIv(g_.getDifficulty());
+        w_.getAiki().getAikiFactory().getGamePkStream().save("", g_);
+        tryClick(w_.getGameLoad());
+        w_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) w_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) w_.getPane()).getTreeAccessible();
+        assertEq(1,tr_.size());
+        tryClick((AbsButton) tr_.get(0));
         return w_;
     }
 

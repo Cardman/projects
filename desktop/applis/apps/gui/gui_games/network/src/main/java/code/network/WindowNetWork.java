@@ -331,8 +331,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    private static final char LINE_RETURN = '\n';
 
-    private BasicClient threadEmission;
-
 //    private final CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
 
 //    private ContainerGame containerGame;
@@ -1985,17 +1983,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public String pseudo() {
         return netg.getFacadeCards().getPseudosJoueurs().getPseudo();
     }
-//    public void delegateServer() {
-//        ((ContainerMulti) netg.getContainerGame()).delegateServer();
-//    }
-//
-    public BasicClient getThreadEmission() {
-        return threadEmission;
-    }
-
-    public void setThreadEmission(BasicClient _threadEmission) {
-        threadEmission = _threadEmission;
-    }
 
 //    @Override
 //    public boolean canChangeLanguage() {
@@ -2089,9 +2076,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public void loadZip(boolean _f) {
-        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
-            return;
-        }
+//        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
+//            return;
+//        }
         loadPhase(_f);
 //        String fileName_;
 //        if (_f) {
@@ -2142,9 +2129,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
 
     public void loadGame() {
-        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
-            return;
-        }
+//        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
+//            return;
+//        }
         FileOpenFrame.setFileSaveDialogByFrame(true, DataBase.EMPTY_STRING, getFileOpenRomFrame(), new DefButtonsOpenPanelAct(new PkContinueGameFile(this)));
 //        if (!savedGame && facade.getGame() != null) {
 //            int choix_=saving();
@@ -2728,6 +2715,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public WindowAikiCore getAiki() {
         return aiki;
+    }
+
+    public ScenePanelMulti getScenePanel() {
+        return scenePanel;
     }
 
     public AbsActionListenerAct getGuardRender() {

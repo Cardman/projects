@@ -26,9 +26,10 @@ public final class ServerActLoopAikiQuitAiki implements IntServerActLoopAiki {
         } else {
             forcedBye_.setClosing(false);
         }
-        if (socket_ != null) {
-            NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
-        }
+        NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
+//        if (socket_ != null) {
+//            NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
+//        }
         socket_ = _common.getSockets().getVal((int) IndexConstants.SECOND_INDEX);
         _common.getConnectionsServer().removeKey((int) IndexConstants.SECOND_INDEX);
         _common.getReadyPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
@@ -38,9 +39,10 @@ public final class ServerActLoopAikiQuitAiki implements IntServerActLoopAiki {
         } else {
             forcedBye_.setClosing(false);
         }
-        if (socket_ != null) {
-            NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
-        }
+        NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
+//        if (socket_ != null) {
+//            NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
+//        }
         _common.getSockets().clear();
     }
 }

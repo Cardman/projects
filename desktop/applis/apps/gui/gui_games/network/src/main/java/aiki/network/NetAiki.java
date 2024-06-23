@@ -31,6 +31,7 @@ public final class NetAiki {
     public static final int SERVER_SENT_POKEMON = 2;
     public static final int SERVER_READY = 3;
     public static final int SERVER_OK = 4;
+    public static final int SERVER_QUIT = 5;
     public static final char AIKI_SEP_0 = ':';
     public static final char AIKI_SEP_1 = ';';
     public static final char AIKI_SEP_2 = ',';
@@ -109,10 +110,10 @@ public final class NetAiki {
         return PORT;
     }
 
-    public static void loopClient(WindowNetWork _window, String _info, AbstractSocket _socket) {
-        NetAikiRetrievedInfos ret_ = new NetAikiRetrievedInfos(_info);
-        loopClient(_window, ret_, _socket);
-    }
+//    public static void loopClient(WindowNetWork _window, String _info, AbstractSocket _socket) {
+//        NetAikiRetrievedInfos ret_ = new NetAikiRetrievedInfos(_info);
+//        loopClient(_window, ret_, _socket);
+//    }
 
     public static void loopClient(WindowNetWork _window, NetAikiRetrievedInfos _ret, AbstractSocket _socket) {
         _window.getNetAiki().clientAct.get(_ret.getIndexAct()).loop(_window, _ret.getParts(), _socket);
@@ -308,7 +309,7 @@ public final class NetAiki {
 //    }
     public static String exportQuitAiki(QuitAiki _index) {
         StringBuilder out_ = new StringBuilder();
-        out_.append(SERVER_READY);
+        out_.append(SERVER_QUIT);
         out_.append(AIKI_SEP_0);
         out_.append(NetCommon.exportBool(_index.getContent().isClosing()));
         out_.append(NetCommon.exportBool(_index.getContent().isServer()));

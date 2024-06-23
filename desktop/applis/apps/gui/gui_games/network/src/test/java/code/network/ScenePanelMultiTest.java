@@ -1,22 +1,16 @@
 package code.network;
 
 import aiki.db.*;
-import aiki.fight.enums.Statistic;
+import aiki.fight.enums.*;
 import aiki.fight.items.*;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.util.StatBaseEv;
-import aiki.game.Game;
-import aiki.game.player.enums.Sex;
+import aiki.fight.pokemon.*;
+import aiki.fight.util.*;
 import aiki.instances.*;
-import aiki.map.pokemon.enums.Gender;
+import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.maths.montecarlo.*;
-import code.mock.MockCustComponent;
-import code.mock.MockSocket;
-import code.mock.MockThreadFactory;
-import code.threads.AbstractThread;
+import code.mock.*;
 import code.util.*;
-import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public final class ScenePanelMultiTest extends EquallableNetworkUtil {
@@ -44,8 +38,518 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         loopClient(server_.getSockets(),client_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(2, tr2_.size());
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+    }
+    @Test
+    public void intro2() {
+        WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        server_.getScenePanel().getTeamPan().getListe().select(0);
+        server_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        client_.getScenePanel().getTeamPan().getListe().select(0);
+        client_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(4, tr_.size());
+        assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(3, tr2_.size());
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+    }
+    @Test
+    public void intro3() {
+        WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        server_.getScenePanel().getTeamPan().getListe().select(0);
+        server_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        client_.getScenePanel().getTeamPan().getListe().select(0);
+        client_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+
+        server_.getScenePanel().getTeamPan().getListe().select(-1);
+        server_.getScenePanel().getTeamPan().getListe().events();
+
+        client_.getScenePanel().getTeamPan().getListe().select(-1);
+        client_.getScenePanel().getTeamPan().getListe().events();
+
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(2, tr2_.size());
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+    }
+    @Test
+    public void intro4() {
+        WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        server_.getScenePanel().getTeamPan().getListe().select(0);
+        server_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        client_.getScenePanel().getTeamPan().getListe().select(0);
+        client_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+
+        tryClick(server_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        tryClick(server_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        tryClick(server_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        tryClick(client_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+
+        tryClick(client_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+
+        tryClick(client_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(2, tr2_.size());
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+    }
+    @Test
+    public void intro5() {
+        WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        server_.getScenePanel().getTeamPan().getListe().select(0);
+        server_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        client_.getScenePanel().getTeamPan().getListe().select(0);
+        client_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+
+        tryClick(server_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        tryClick(server_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        tryClick(server_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        socketServ_.getOutput().clear();
+        tryClick(server_.getScenePanel().getApplyTrade());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(3, tr2_.size());
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+    }
+    @Test
+    public void intro6() {
+        WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        server_.getScenePanel().getTeamPan().getListe().select(0);
+        server_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        client_.getScenePanel().getTeamPan().getListe().select(0);
+        client_.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+
+        socketServ_.getOutput().clear();
+        tryClick(server_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        socketClient_.getOutput().clear();
+        tryClick(client_.getScenePanel().getReadyCheck());
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+
+
+        socketServ_.getOutput().clear();
+        tryClick(server_.getScenePanel().getApplyTrade());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(2, tr_.size());
+        assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(1, tr2_.size());
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+        tryClick(server_.getAiki().getGameSave());
+        tryClick(client_.getAiki().getGameSave());
+
+        server_.getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) server_.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(server_.getCommonFrame().isVisible());
+        client_.getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) client_.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertTrue(client_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void intro7() {
+        WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
+        serverPk(server_);
+        retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingleDiff(new MockDataBaseStreamSecNet());
+        clientPk(server_,client_);
+        retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        assertEq(1,server_.getSockets().getSockets().size());
+    }
+    @Test
+    public void intro8() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        serverPk(server_);
+        retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
+        assertEq(3, tr_.size());
+        assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
+        assertEq(2, tr2_.size());
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+    }
+
+    @Test
+    public void quit1() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        socketServ_.getOutput().clear();
+        tryClick(server_.getScenePanel().getExitTrade());
+        writeToServer(server_,socketServ_);
+        loopServer2(server_.getSockets());
+
+        assertEq(0,server_.getSockets().getSockets().size());
+        Exiting forcedBye_ = new Exiting();
+        forcedBye_.setForced(false);
+        forcedBye_.setClosing(true);
+        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
+        assertFalse(BasicClient.iterate(socketServ_,server_,NetCommon.exportExiting(forcedBye_)));
+
+        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
+        client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
+        tryClick(client_.getExit());
+    }
+
+    @Test
+    public void quit2() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        serverPk(server_);
+        retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        socketClient_.getOutput().clear();
+        tryClick(client_.getScenePanel().getExitTrade());
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+
+        assertEq(0,server_.getSockets().getSockets().size());
+        Exiting forcedBye_ = new Exiting();
+        forcedBye_.setForced(true);
+        forcedBye_.setClosing(false);
+        assertFalse(BasicClient.iterate(socketClient_,client_,NetCommon.exportExiting(forcedBye_)));
+    }
+
+    @Test
+    public void quit3() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        serverPk(server_);
+        retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        socketClient_.getOutput().clear();
+        tryClick(client_.getScenePanel().getExitTrade());
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+
+        assertEq(0,server_.getSockets().getSockets().size());
+        Exiting forcedBye_ = new Exiting();
+        forcedBye_.setForced(false);
+        forcedBye_.setClosing(false);
+        assertFalse(BasicClient.iterate(socketClient_,client_,NetCommon.exportExiting(forcedBye_)));
+    }
+
+    @Test
+    public void quit4() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        serverPk(server_);
+        retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        socketClient_.getOutput().clear();
+        tryClick(client_.getScenePanel().getExitTrade());
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+
+        assertEq(0,server_.getSockets().getSockets().size());
+        Exiting forcedBye_ = new Exiting();
+        forcedBye_.setTooManyPlayers(true);
+        forcedBye_.setForced(true);
+        forcedBye_.setClosing(false);
+        assertFalse(BasicClient.iterate(socketClient_,client_,NetCommon.exportExiting(forcedBye_)));
+    }
+
+    @Test
+    public void quit5() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        serverPk(server_);
+        retrievedSocket(server_, server_, 0);
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        loopServer1(server_.getSockets());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        clientPk(server_,client_);
+        MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
+        WindowNetWork clientKo_ = frameSingleMenu(new MockDataBaseStreamNet());
+        clientPk(server_,clientKo_);
+        MockSocket socket_ = (MockSocket) clientKo_.getSocket();
+        sendClientPk(server_.getSockets(), client_,1);
+        loopClient(server_.getSockets(),client_);
+        loopServer2(server_.getSockets());
+        sendClientPk(server_.getSockets(),server_,0);
+        loopClient(server_.getSockets(),server_);
+        sendClientPk(server_.getSockets(),client_,1);
+        loopClient(server_.getSockets(),client_);
+
+        socketClient_.getOutput().clear();
+        tryClick(client_.getScenePanel().getExitTrade());
+        writeToServer(server_,socketClient_);
+        loopServer2(server_.getSockets());
+
+        assertEq(0,server_.getSockets().getSockets().size());
+        Exiting forcedBye_ = new Exiting();
+        forcedBye_.setTooManyPlayers(true);
+        forcedBye_.setForced(true);
+        forcedBye_.setClosing(false);
+        assertFalse(BasicClient.iterate(socket_,clientKo_,NetCommon.exportExiting(forcedBye_)));
+
     }
     public static DataBase sample() {
         DataBase db_ = init();
@@ -70,7 +574,29 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         db_.getMap().getFirstPokemon().setName("P1");
         return db_;
     }
-
+    public static DataBase sampleSec() {
+        DataBase db_ = init();
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        db_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        db_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        db_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        db_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        db_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        db_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        db_.getTranslatedGenders().addEntry(LANGUAGE,new IdMap<Gender, String>());
+        trsTypes_.put(ELECTRICK,"elec");
+        db_ = withPk(withPk(db_,"P1",trsPk_),"P2",trsPk_);
+        db_ = withMv(withMv(db_,"M1",trsMv_),"M2",trsMv_);
+        db_ = withAb(withAb(db_,"A3",trsAb_),"A4",trsAb_);
+        db_ = withIt(withIt(db_,"I1",trsIt_,trsDesc_),"I2",trsIt_,trsDesc_);
+        db_.getMap().getFirstPokemon().setName("P1");
+        return db_;
+    }
     public static DataBase init() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
         data_.setLanguage(LANGUAGE);
