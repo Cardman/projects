@@ -58,7 +58,7 @@ public interface WindowCardsInt {
 
     void menuPrincipal();
 
-    void changeGame();
+//    void changeGame();
 
     void displayTricksHands();
 

@@ -1,13 +1,13 @@
 package cards.gui.menus;
 
-import cards.gui.WindowCardsInt;
-import code.gui.events.AbsActionListener;
+import cards.gui.*;
+import code.gui.events.*;
 
-public class ChangeGameEvent implements AbsActionListener {
+public final class ChangeGameEvent implements AbsActionListener {
 
-    private WindowCardsInt window;
+    private final WindowCards window;
 
-    public ChangeGameEvent(WindowCardsInt _window) {
+    public ChangeGameEvent(WindowCards _window) {
         window = _window;
     }
 

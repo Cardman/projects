@@ -700,6 +700,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public void quit() {
         GuiBaseUtil.trEx(this);
         getButtonClick().setEnabled(true);
+        netg.changerNombreDePartiesEnQuittant(this);
+        ecrireCoordonnees();
         netg.closeWindows();
         languageDialogButtons.closeWindow();
         /*if (containerGame instanceof ContainerMulti) {
@@ -743,15 +745,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }*/
     }
 //    @Override
-    public void dispose() {
-        netg.changerNombreDePartiesEnQuittant(this);
-        ecrireCoordonnees();
+//    public void dispose() {
+//        netg.changerNombreDePartiesEnQuittant(this);
+//        ecrireCoordonnees();
 //        if (!helpFrames.isEmpty()) {
 ////            helpFrames.first().dispose();
 //            helpFrames.first().setVisible(false);
 //        }
-        GuiBaseUtil.trEx(this);
-    }
+//        GuiBaseUtil.trEx(this);
+//    }
 
 //    private int saving() {
 //        //warning message
@@ -1298,7 +1300,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
 //    }
 
-    public void changeGame() {
+//    public void changeGame() {
 //        if (!change.isEnabled()) {
 //            return;
 //        }
@@ -1338,8 +1340,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 ////            }
 //            menuMultiGames();
 //        }
-        menuMultiGames();
-    }
+//        menuMultiGames();
+//    }
 
     private void initDealMenu() {
 //        String lg_ = getLanguageKey();
@@ -2449,9 +2451,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return language;
 //    }
 
-    public EnabledMenu getDisplaying() {
-        return netg.getDisplaying();
-    }
+//    public EnabledMenu getDisplaying() {
+//        return netg.getDisplaying();
+//    }
 
 //    public IdMap<GameEnum,AbsMenuItem> getDisplayingGames() {
 //        return displayingGames;
