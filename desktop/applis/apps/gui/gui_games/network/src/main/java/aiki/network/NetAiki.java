@@ -44,7 +44,6 @@ public final class NetAiki {
     /** A used port for connections*/
     private static final int PORT = 668;
 
-    private static final String POKEMON = "POKEMON";
     private final IntMap<CheckCompatibility> checkCompatibility = new IntMap<CheckCompatibility>();
 
     private final CustList<IntClientActLoopAiki> clientAct = new CustList<IntClientActLoopAiki>();
@@ -110,9 +109,6 @@ public final class NetAiki {
         return PORT;
     }
 
-    public static String getPokemon() {
-        return POKEMON;
-    }
     public static void loopClient(WindowNetWork _window, String _info, AbstractSocket _socket) {
         NetAikiRetrievedInfos ret_ = new NetAikiRetrievedInfos(_info);
         loopClient(_window, ret_, _socket);
