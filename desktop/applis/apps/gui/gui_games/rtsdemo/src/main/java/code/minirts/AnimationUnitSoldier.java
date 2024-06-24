@@ -52,8 +52,8 @@ public final class AnimationUnitSoldier implements Runnable {
         battleground.setNewLocation(_x, _y);
     }
 
-    public void moveCamera(RatePoint _p, Rate _x, Rate _y) {
-        battleground.moveCamera(_p,window.getImageFactory(), _x, _y);
+    public void moveCamera(Rate _x, Rate _y) {
+        battleground.moveCamera(window.getImageFactory(), _x, _y);
     }
 
     public void pause() {
@@ -106,7 +106,7 @@ public final class AnimationUnitSoldier implements Runnable {
         for (EntryCust<Long, Soldier> u: f_.getVisibleSoldiers(w_, h_)) {
             Soldier s_ = u.getValue();
             UnitSoldier u_ = battleground.getSoldierLabel(u.getKey());
-            PanelBattle.setSoldierLocation(u_, s_.getLocx(), s_.getLocy());
+            PanelBattle.setSoldierLocation(u_, s_.getContent().getLocx(), s_.getContent().getLocy());
         }
         if (!window.isDragged()) {
             battleground.setPaintSelection(false);

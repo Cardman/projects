@@ -95,7 +95,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         elts_.add(right_);
         elts_.add(up_);
         elts_.add(down_);
-        RtsTask task_ = new RtsTask(battleground, this, facade);
+        RtsTask task_ = new RtsTask(battleground, this);
         AbstractBaseExecutorService t_ = getThreadFactory().newExecutorService();
 //        t_.scheduleAtFixedRate(task_,0,100, TimeUnit.MILLISECONDS);
 //        ScheduledExecutorService t_ = new Timer(0, task_);
@@ -169,11 +169,11 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         return addSoldier.isSelected();
     }
 
-    public void moveCamera(RatePoint _p, int _x, int _y) {
+    public void moveCamera(int _x, int _y) {
         if (thread.isStopped()) {
             return;
         }
-        thread.moveCamera(_p, new Rate(_x), new Rate(_y));
+        thread.moveCamera(new Rate(_x), new Rate(_y));
     }
 
     public void pause() {

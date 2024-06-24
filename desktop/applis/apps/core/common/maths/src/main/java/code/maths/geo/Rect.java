@@ -90,13 +90,13 @@ public final class Rect implements HasEdges, Displayable {
         return r_;
     }
 
-    private static Rate min(Rate _one, Rate _two) {
+    public static Rate min(Rate _one, Rate _two) {
         if (Rate.strGreater(_one, _two)) {
             return _two;
         }
         return _one;
     }
-    private static Rate max(Rate _one, Rate _two) {
+    public static Rate max(Rate _one, Rate _two) {
         if (Rate.strGreater(_one, _two)) {
             return _one;
         }

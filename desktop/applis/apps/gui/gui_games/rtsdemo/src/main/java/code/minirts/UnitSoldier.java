@@ -21,7 +21,7 @@ public final class UnitSoldier extends AbsMetaLabelRts {
     public void paintComponent(AbstractImage _g) {
         _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
-        if (!soldier.isSelected()) {
+        if (!soldier.getContent().isSelected()) {
             _g.setColor(GuiConstants.BLACK);
         } else {
             _g.setColor(GuiConstants.RED);

@@ -1,6 +1,7 @@
 package code.minirts.rts;
 
 import code.maths.Rate;
+import code.maths.geo.Delta;
 import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
 import code.util.CustList;

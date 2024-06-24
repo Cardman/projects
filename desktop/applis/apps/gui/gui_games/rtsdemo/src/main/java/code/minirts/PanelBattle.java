@@ -78,7 +78,7 @@ public class PanelBattle {
             int h_ = u_.getHeight();
             Rate hr_ = new Rate(h_);
             Soldier soldier_ = u_.getSoldier();
-            Rect loc_ = RtsGame.newRect(soldier_.getLocx(),soldier_.getLocy(),wr_,hr_);
+            Rect loc_ = RtsGame.newRect(soldier_.getContent().getLocx(),soldier_.getContent().getLocy(),wr_,hr_);
             if (!gl_.intersects(loc_)) {
                 continue;
             }
@@ -161,11 +161,12 @@ public class PanelBattle {
         facade.setNewLocation(new Rate(_x), new Rate(_y));
     }
 
-    public void moveCamera(RatePoint _p, AbstractImageFactory _fact, Rate _x, Rate _y) {
+    public void moveCamera(AbstractImageFactory _fact, Rate _x, Rate _y) {
         AbsCustComponent parent_ = container.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
-        facade.moveCamera(Rate.plus(_p.getXcoords(), _x), Rate.plus(_p.getYcoords(), _y), new Rate(w_), new Rate(h_));
+        RatePoint old_ = facade.getTopLeftPoint();
+        facade.moveCamera(Rate.plus(old_.getXcoords(), _x), Rate.plus(old_.getYcoords(), _y), new Rate(w_), new Rate(h_));
         RatePoint curTopLeft_ = facade.getTopLeftPoint();
         setLocation(curTopLeft_);
 //        container.setLocation(-curTopLeft_.getXcoords(),-curTopLeft_.getYcoords());

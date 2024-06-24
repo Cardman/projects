@@ -1,21 +1,15 @@
 package code.minirts.events;
 
-import code.gui.AbsCustComponent;
-
-import code.maths.geo.RatePoint;
-import code.minirts.WindowRts;
-import code.minirts.PanelBattle;
-import code.minirts.rts.RtsDirection;
-import code.minirts.rts.Facade;
-import code.threads.AbstractAtomicInteger;
-import code.threads.ThreadUtil;
+import code.gui.*;
+import code.minirts.*;
+import code.minirts.rts.*;
+import code.threads.*;
 
 public class RtsTask implements Runnable {
 
     public static final int STOPPED_TASK = 0;
     public static final int ALIVE_TASK = 1;
     private final AbstractAtomicInteger enabled;
-    private final Facade facade;
 
     private RtsDirection dir;
 
@@ -23,10 +17,9 @@ public class RtsTask implements Runnable {
 
     private final WindowRts window;
 
-    public RtsTask(PanelBattle _scene, WindowRts _window, Facade _facade) {
+    public RtsTask(PanelBattle _scene, WindowRts _window) {
         scene = _scene;
         window = _window;
-        facade = _facade;
         enabled = _window.getThreadFactory().newAtomicInteger();
     }
 
@@ -43,7 +36,6 @@ public class RtsTask implements Runnable {
 //            return;
 //        }
         AbsCustComponent par_ = scene.getContainer().getParent();
-        RatePoint loc_ = facade.getTopLeftPoint();
 //        rel_.x = -loc_.x;
 //        rel_.y = -loc_.y;
 //        rel_.x = loc_.x;
@@ -51,13 +43,13 @@ public class RtsTask implements Runnable {
         int w_ = par_.getWidth();
         int h_ = par_.getHeight();
         if (dir == RtsDirection.UP) {
-            window.moveCamera(loc_, 0, -1);
+            window.moveCamera(0, -1);
         } else if (dir == RtsDirection.DOWN) {
-            window.moveCamera(loc_, 0, h_+1);
+            window.moveCamera(0, h_+1);
         } else if (dir == RtsDirection.LEFT) {
-            window.moveCamera(loc_, -1, 0);
+            window.moveCamera(-1, 0);
         } else {
-            window.moveCamera(loc_, w_+1, 0);
+            window.moveCamera(w_+1, 0);
         }
     }
 
