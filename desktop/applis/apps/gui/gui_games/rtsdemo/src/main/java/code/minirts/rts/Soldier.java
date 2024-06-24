@@ -1,46 +1,48 @@
 package code.minirts.rts;
 
+import code.maths.Rate;
+
 public final class Soldier {
 
-    private int locx;
+    private Rate locx = Rate.zero();
 
-    private int locy;
+    private Rate locy = Rate.zero();
 
-    private int destx;
+    private Rate destx = Rate.zero();
 
-    private int desty;
+    private Rate desty = Rate.zero();
 
     private boolean selected;
 
-    public int getLocx() {
+    public Rate getLocx() {
         return locx;
     }
 
-    public void setLocx(int _x) {
+    public void setLocx(Rate _x) {
         locx = _x;
     }
 
-    public int getLocy() {
+    public Rate getLocy() {
         return locy;
     }
 
-    public void setLocy(int _y) {
+    public void setLocy(Rate _y) {
         locy = _y;
     }
 
-    public int getDestx() {
+    public Rate getDestx() {
         return destx;
     }
 
-    public void setDestx(int _destx) {
+    public void setDestx(Rate _destx) {
         destx = _destx;
     }
 
-    public int getDesty() {
+    public Rate getDesty() {
         return desty;
     }
 
-    public void setDesty(int _desty) {
+    public void setDesty(Rate _desty) {
         desty = _desty;
     }
 

@@ -7,7 +7,8 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
-import code.maths.geo.CustPoint;
+import code.maths.Rate;
+import code.maths.geo.RatePoint;
 import code.minirts.events.*;
 import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
@@ -55,9 +56,9 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     private final AbstractAtomicBoolean dragged;
 
-    private CustPoint first = new CustPoint(0,0);
+    private RatePoint first = new RatePoint(Rate.zero(),Rate.zero());
 
-    private CustPoint last = new CustPoint(0,0);
+    private RatePoint last = new RatePoint(Rate.zero(),Rate.zero());
     private String noteFile = "";
     private AbsRtsTaskEnabled taskEnabled;
     public WindowRts(String _lg, AbstractProgramInfos _list) {
@@ -80,7 +81,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 //        JPanel panelGame_ = new JPanel(new BorderLayout());
         AbsPanel battlegroundWrapper_ = getCompoFactory().newAbsolute();
         battlegroundWrapper_.add(battleground.getContainer());
-        CustPoint cust_ = facade.getTopLeftPoint();
+        RatePoint cust_ = facade.getTopLeftPoint();
         battleground.setLocation(cust_);
 //        battleground.setLocation(facade.getTopLeftPoint());
         battlegroundWrapper_.setPreferredSize(new MetaDimension(256, 256));
@@ -144,7 +145,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
-        thread = new AnimationUnitSoldier(animate,pause,stop, battleground,this);
+        thread = new AnimationUnitSoldier(animate,pause,stop, this);
     }
 
     public AbsPlainLabel getCurrentCoords() {
@@ -168,11 +169,11 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         return addSoldier.isSelected();
     }
 
-    public void moveCamera(CustPoint _p, int _x, int _y) {
+    public void moveCamera(RatePoint _p, int _x, int _y) {
         if (thread.isStopped()) {
             return;
         }
-        thread.moveCamera(_p, _x, _y);
+        thread.moveCamera(_p, new Rate(_x), new Rate(_y));
     }
 
     public void pause() {
@@ -201,7 +202,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         if (thread.isStopped()) {
             return;
         }
-        thread.selectOrDeselect(_x, _y);
+        thread.selectOrDeselect(new Rate(_x), new Rate(_y));
     }
 
     public void selectOrDeselectMulti() {
@@ -215,7 +216,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         //Un seul thread peut affecter l'objet de la classe Balle
         //Si un thread est en train d'executer, on empeche les autres de passer
         animate.setEnabled(false);
-        thread = new AnimationUnitSoldier(animate,pause,stop,battleground,this);
+        thread = new AnimationUnitSoldier(animate,pause,stop, this);
         thread.reset();
         sch = getThreadFactory().newScheduledExecutorService();
         fut = sch.scheduleAtFixedRateNanos(thread,0,1);
@@ -239,20 +240,20 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         dragged.set(_dragged);
     }
 
-    public CustPoint getFirst() {
+    public RatePoint getFirst() {
         return first;
     }
 
     public void setFirst(int _x, int _y) {
-        first = new CustPoint(_x, _y);
+        first = new RatePoint(new Rate(_x), new Rate(_y));
     }
 
-    public CustPoint getLast() {
+    public RatePoint getLast() {
         return last;
     }
 
     public void setLast(int _x, int _y) {
-        last = new CustPoint(_x, _y);
+        last = new RatePoint(new Rate(_x), new Rate(_y));
     }
 
     public PanelBattle getBattleground() {

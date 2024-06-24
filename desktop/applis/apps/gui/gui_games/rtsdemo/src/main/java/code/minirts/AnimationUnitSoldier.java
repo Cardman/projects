@@ -1,30 +1,29 @@
 package code.minirts;
 
 import code.gui.*;
-import code.maths.geo.CustPoint;
-import code.minirts.rts.Facade;
-import code.minirts.rts.Soldier;
-import code.minirts.rts.UnitMapKey;
-import code.threads.AbstractAtomicBoolean;
-import code.threads.ThreadUtil;
+import code.maths.*;
+import code.maths.geo.*;
+import code.minirts.rts.*;
+import code.threads.*;
+import code.util.*;
 
 
 /**AnimationBalle permet de deplacer
 un petit carre de 10 pixels noir en haut vers la droite*/
 public final class AnimationUnitSoldier implements Runnable {
 
-    private PanelBattle battleground;
+    private final PanelBattle battleground;
 
-    private WindowRts window;
+    private final WindowRts window;
 
-    private AbsCustCheckBox pause;
-    private AbstractAtomicBoolean paused;
+    private final AbsCustCheckBox pause;
+    private final AbstractAtomicBoolean paused;
 
-    private AbsButton stop;
-    private AbstractAtomicBoolean stopped;
-    private AbsButton animate;
+    private final AbsButton stop;
+    private final AbstractAtomicBoolean stopped;
+    private final AbsButton animate;
 
-    public AnimationUnitSoldier(AbsButton _animate, AbsCustCheckBox _pause, AbsButton _stop, PanelBattle _conteneur, WindowRts _window) {
+    public AnimationUnitSoldier(AbsButton _animate, AbsCustCheckBox _pause, AbsButton _stop, WindowRts _window) {
         window = _window;
         animate = _animate;
         pause = _pause;
@@ -34,13 +33,13 @@ public final class AnimationUnitSoldier implements Runnable {
         paused = _window.getPaused();
     }
 
-    public void selectOrDeselect(CustPoint _first, CustPoint _last) {
+    public void selectOrDeselect(RatePoint _first, RatePoint _last) {
         battleground.setRectangle(_first, _last);
         battleground.setPaintSelection(true);
         repaintBattleground();
     }
 
-    public void selectOrDeselect(int _x, int _y) {
+    public void selectOrDeselect(Rate _x, Rate _y) {
         battleground.setRectangle(_x, _y);
         repaintBattleground();
     }
@@ -53,7 +52,7 @@ public final class AnimationUnitSoldier implements Runnable {
         battleground.setNewLocation(_x, _y);
     }
 
-    public void moveCamera(CustPoint _p, int _x, int _y) {
+    public void moveCamera(RatePoint _p, Rate _x, Rate _y) {
         battleground.moveCamera(_p,window.getImageFactory(), _x, _y);
     }
 
@@ -102,11 +101,11 @@ public final class AnimationUnitSoldier implements Runnable {
     void moving() {
         Facade f_ = battleground.getFacade();
         AbsCustComponent parent_ = battleground.getContainer().getParent();
-        int w_ = parent_.getWidth();
-        int h_ = parent_.getHeight();
-        for (UnitMapKey u: f_.getVisibleSoldiers(w_, h_)) {
-            Soldier s_ = f_.getSoldier(u);
-            UnitSoldier u_ = battleground.getSoldierLabel(u);
+        Rate w_ = new Rate(parent_.getWidth());
+        Rate h_ = new Rate(parent_.getHeight());
+        for (EntryCust<Long, Soldier> u: f_.getVisibleSoldiers(w_, h_)) {
+            Soldier s_ = u.getValue();
+            UnitSoldier u_ = battleground.getSoldierLabel(u.getKey());
             PanelBattle.setSoldierLocation(u_, s_.getLocx(), s_.getLocy());
         }
         if (!window.isDragged()) {
@@ -118,11 +117,11 @@ public final class AnimationUnitSoldier implements Runnable {
     private void repaintBattleground() {
         Facade f_ = battleground.getFacade();
         AbsCustComponent parent_ = battleground.getContainer().getParent();
-        int w_ = parent_.getWidth();
-        int h_ = parent_.getHeight();
-        CustPoint curTopLeft_ = f_.getTopLeftPoint();
+//        int w_ = parent_.getWidth();
+//        int h_ = parent_.getHeight();
+        RatePoint curTopLeft_ = f_.getTopLeftPoint();
 //        battleground.repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        battleground.repaint(window.getImageFactory(), curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
+        battleground.repaint(window.getImageFactory(), curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), parent_);
     }
 
     /**La methode pause est utilisee pour permettre de voir l'avancement a l'oeil nu*/

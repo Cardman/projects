@@ -2,7 +2,7 @@ package code.minirts.events;
 
 import code.gui.AbsCustComponent;
 
-import code.maths.geo.CustPoint;
+import code.maths.geo.RatePoint;
 import code.minirts.WindowRts;
 import code.minirts.PanelBattle;
 import code.minirts.rts.RtsDirection;
@@ -43,7 +43,7 @@ public class RtsTask implements Runnable {
 //            return;
 //        }
         AbsCustComponent par_ = scene.getContainer().getParent();
-        CustPoint loc_ = facade.getTopLeftPoint();
+        RatePoint loc_ = facade.getTopLeftPoint();
 //        rel_.x = -loc_.x;
 //        rel_.y = -loc_.y;
 //        rel_.x = loc_.x;
