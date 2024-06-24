@@ -1188,6 +1188,7 @@ public final class Net {
         out_.append(SEP_0);
         out_.append(NetCommon.exportBool(_dealt.isRefreshing()));
         out_.append(NetCommon.exportBool(_dealt.isCalledCard()));
+        out_.append(NetCommon.exportBool(_dealt.isFirstRound()));
         out_.append(_dealt.getTakerIndex());
         out_.append(SEP_0);
         out_.append(TarotCardsExporterUtil.fromCardTarot(_dealt.getPlayedCard()));
@@ -1208,7 +1209,8 @@ public final class Net {
         String i_ = _info.get(1);
         tarot_.setRefreshing(NetCommon.toBoolEquals(i_,0));
         tarot_.setCalledCard(NetCommon.toBoolEquals(i_,1));
-        tarot_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(2)));
+        tarot_.setFirstRound(NetCommon.toBoolEquals(i_,2));
+        tarot_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(3)));
         tarot_.setPlayedCard(TarotCardsRetrieverUtil.toCardTarot(_info.get(2)));
         tarot_.setChoosenHandful(TarotCardsRetrieverUtil.toHandfuls(_info.get(3)));
         tarot_.setHandful(importHandTarot(_info.get(4),SEP_1));

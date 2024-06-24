@@ -620,13 +620,15 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
             ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
 
         }
-        IdList<Handfuls> hs_ = new IdList<Handfuls>();
-        if (_card.getChoosenHandful() != Handfuls.NO) {
-            hs_.add(_card.getChoosenHandful());
+        if (_card.isFirstRound()) {
+            IdList<Handfuls> hs_ = new IdList<Handfuls>();
+            if (_card.getChoosenHandful() != Handfuls.NO) {
+                hs_.add(_card.getChoosenHandful());
 //            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(_card.getChoosenHandful(),lg_),RETURN_LINE));
 
+            }
+            firstRound(relative_,pseudo_,hs_, _card.getMiseres(), _card.getHandful(),new DirectCardsCallEvents());
         }
-        firstRound(relative_,pseudo_,hs_, _card.getMiseres(), _card.getHandful(),new DirectCardsCallEvents());
 //        for(Miseres annonce_:_card.getMiseres()) {
 //            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE));
 //
@@ -700,6 +702,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         ref_.setHandful(_card.getHandful());
         ref_.setMiseres(_card.getMiseres());
         ref_.setCalledCard(_card.isCalledCard());
+        ref_.setFirstRound(_card.isFirstRound());
 //        ref_.setLocale(lg_);
         ref_.setPlace(getContainerMultiContent().getIndexInGame());
         getContainerMultiContent().window().sendObject(ref_);

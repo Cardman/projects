@@ -360,10 +360,12 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
             }
             cardDto_.setHandful(poignee_);
             cardDto_.setMiseres(annoncesMiseres_);
+            cardDto_.setFirstRound(true);
         } else {
             cardDto_.setChoosenHandful(Handfuls.NO);
             cardDto_.setHandful(new HandTarot());
             cardDto_.setMiseres(new IdList<Miseres>());
+            cardDto_.setFirstRound(false);
         }
 //        HandTarot poignee_=game_.getPoignee(place_);
 //        if (!annoncesPoignees_.isEmpty()) {

@@ -2140,6 +2140,7 @@ public final class NetTest extends EquallableNetworkUtil {
         a_.setTakerIndex((byte) 3);
         a_.setCalledCard(false);
         a_.setRefreshing(false);
+        a_.setFirstRound(false);
         a_.setPlayedCard(CardTarot.HEART_1);
         a_.setMiseres(new IdList<Miseres>(Miseres.LOW_CARDS));
         a_.setChoosenHandful(Handfuls.TWO);
@@ -2148,6 +2149,7 @@ public final class NetTest extends EquallableNetworkUtil {
         PlayingCardTarot o_ = saveClientPlayingTarot(a_);
         assertFalse(o_.isCalledCard());
         assertFalse(o_.isRefreshing());
+        assertFalse(o_.isFirstRound());
         assertEq(2,o_.getPlace());
         assertEq(3,o_.getTakerIndex());
         assertEq(Handfuls.TWO,o_.getChoosenHandful());
@@ -2166,6 +2168,7 @@ public final class NetTest extends EquallableNetworkUtil {
         a_.setTakerIndex((byte) 3);
         a_.setCalledCard(true);
         a_.setRefreshing(true);
+        a_.setFirstRound(true);
         a_.setPlayedCard(CardTarot.HEART_1);
         a_.setMiseres(new IdList<Miseres>(Miseres.LOW_CARDS));
         a_.setChoosenHandful(Handfuls.TWO);
@@ -2174,6 +2177,7 @@ public final class NetTest extends EquallableNetworkUtil {
         PlayingCardTarot o_ = saveServerPlayingTarot(a_);
         assertTrue(o_.isCalledCard());
         assertTrue(o_.isRefreshing());
+        assertTrue(o_.isFirstRound());
         assertEq(2,o_.getPlace());
         assertEq(3,o_.getTakerIndex());
         assertEq(Handfuls.TWO,o_.getChoosenHandful());

@@ -31,6 +31,7 @@ public final class ServerActLoopCardsPlayingTarot implements IntServerActLoopCar
         p_.setHandful(info_.getHandful());
         p_.setMiseres(info_.getMiseres());
         p_.setCalledCard(info_.isCalledCard());
+        p_.setFirstRound(info_.isFirstRound());
         p_.setExcludedTrumps(new HandTarot());
         //p_.setLocale(Constants.getDefaultLanguage());
 //            p_.setLocale("");
@@ -63,8 +64,10 @@ public final class ServerActLoopCardsPlayingTarot implements IntServerActLoopCar
             }
             game_.setAnnoncesMiseres(_instance.getIa().getTarot().misere(declaredMiseres_));
             ref_.setMiseres(declaredMiseres_);
+            ref_.setFirstRound(true);
         } else {
             ref_.setMiseres(new IdList<Miseres>());
+            ref_.setFirstRound(false);
         }
         ref_.setRefreshing(true);
         ref_.setExcludedTrumps(new HandTarot());
