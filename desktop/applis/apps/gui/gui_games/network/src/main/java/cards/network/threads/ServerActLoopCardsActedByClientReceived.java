@@ -318,7 +318,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
             decla_.setTakerIndex(game_.getPreneur());
             decla_.setCurrentBid(game_.getContrat());
             boolean firstRound_ = game_.premierTourNoMisere();
-            decla_.setFirstRoundPlaying(game_.premierTour());
+            decla_.setFirstRoundPlaying(firstRound_);
             decla_.setCards(game_.autorise());
             if (firstRound_) {
                 decla_.setDiscardedTrumps(ContainerSingleTarot.discarded(game_));
