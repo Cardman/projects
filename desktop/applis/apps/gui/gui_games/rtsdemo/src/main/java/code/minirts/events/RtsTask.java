@@ -7,9 +7,14 @@ import code.minirts.WindowRts;
 import code.minirts.PanelBattle;
 import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
+import code.threads.AbstractAtomicInteger;
+import code.threads.ThreadUtil;
 
 public class RtsTask implements Runnable {
 
+    public static final int STOPPED_TASK = 0;
+    public static final int ALIVE_TASK = 1;
+    private final AbstractAtomicInteger enabled;
     private final Facade facade;
 
     private RtsDirection dir;
@@ -22,13 +27,21 @@ public class RtsTask implements Runnable {
         scene = _scene;
         window = _window;
         facade = _facade;
+        enabled = _window.getThreadFactory().newAtomicInteger();
     }
 
     @Override
     public void run() {
-        if (window.isDragged()) {
-            return;
+        while (window.getTaskEnabled().status(enabled) == ALIVE_TASK) {
+            paint();
+            ThreadUtil.sleep(window.getThreadFactory(), 100);
         }
+    }
+
+    private void paint() {
+//        if (window.isDragged()) {
+//            return;
+//        }
         AbsCustComponent par_ = scene.getContainer().getParent();
         CustPoint loc_ = facade.getTopLeftPoint();
 //        rel_.x = -loc_.x;
@@ -43,7 +56,7 @@ public class RtsTask implements Runnable {
             window.moveCamera(loc_, 0, h_+1);
         } else if (dir == RtsDirection.LEFT) {
             window.moveCamera(loc_, -1, 0);
-        } else if (dir == RtsDirection.RIGHT) {
+        } else {
             window.moveCamera(loc_, w_+1, 0);
         }
     }
@@ -54,5 +67,9 @@ public class RtsTask implements Runnable {
 
     public void setDir(RtsDirection _dir) {
         dir = _dir;
+    }
+
+    public AbstractAtomicInteger getEnabled() {
+        return enabled;
     }
 }

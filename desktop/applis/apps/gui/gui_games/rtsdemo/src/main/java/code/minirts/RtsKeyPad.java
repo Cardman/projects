@@ -30,7 +30,7 @@ public final class RtsKeyPad extends AbsMetaLabelRts {
             _g.fillPolygon(new int[]{0, getWidth()/2, getWidth()}, new int[]{getHeight()/2, getHeight(), getHeight()/2}, 3);
         } else if (direction == RtsDirection.LEFT) {
             _g.fillPolygon(new int[]{getWidth()/2, 0, getWidth()/2}, new int[]{0, getHeight()/2, getHeight()}, 3);
-        } else if (direction == RtsDirection.RIGHT) {
+        } else {
             _g.fillPolygon(new int[]{getWidth()/2, getWidth(), getWidth()/2}, new int[]{0, getHeight()/2, getHeight()}, 3);
         }
     }

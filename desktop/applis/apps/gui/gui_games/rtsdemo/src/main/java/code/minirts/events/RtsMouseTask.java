@@ -5,8 +5,7 @@ import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerWithoutClickPr;
 import code.minirts.rts.RtsDirection;
-import code.threads.AbstractFuture;
-import code.threads.AbstractScheduledExecutorService;
+import code.threads.*;
 
 public class RtsMouseTask implements AbsMouseListenerWithoutClickPr {
 
@@ -14,12 +13,12 @@ public class RtsMouseTask implements AbsMouseListenerWithoutClickPr {
 
     private final RtsTask task;
 
-    private final AbstractScheduledExecutorService timer;
-    private AbstractFuture future;
+    private final AbstractBaseExecutorService timer;
+//    private AbstractFuture future;
 
 //    private MainWindow window;
 
-    public RtsMouseTask(RtsDirection _dir, RtsTask _task, AbstractScheduledExecutorService _timer) {
+    public RtsMouseTask(RtsDirection _dir, RtsTask _task, AbstractBaseExecutorService _timer) {
 //    , MainWindow _window
         dir = _dir;
         task = _task;
@@ -54,15 +53,23 @@ public class RtsMouseTask implements AbsMouseListenerWithoutClickPr {
     @Override
     public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         task.setDir(dir);
-        future = timer.scheduleAtFixedRate(task, 0, 100);
+        task.getEnabled().set(RtsTask.ALIVE_TASK);
+        timer.submitLater(task);
+
+//        future = timer.scheduleAtFixedRate(task, 0, 100);
 //        timer.start();
     }
 
     @Override
     public void mouseExited(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        future.cancel(true);
+//        future.cancel(true);
+        task.getEnabled().set(RtsTask.STOPPED_TASK);
 //        timer.shutdown();
 //        timer.stop();
+    }
+
+    public AbstractBaseExecutorService getTimer() {
+        return timer;
     }
 
 //    @Override

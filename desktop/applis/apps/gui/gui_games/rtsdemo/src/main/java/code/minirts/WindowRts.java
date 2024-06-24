@@ -59,9 +59,10 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     private CustPoint last = new CustPoint(0,0);
     private String noteFile = "";
-
+    private AbsRtsTaskEnabled taskEnabled;
     public WindowRts(String _lg, AbstractProgramInfos _list) {
         super(_list);
+        setTaskEnabled(new DefRtsTaskEnabled());
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         CustList<AbsMetaLabelRts> elts_ = new CustList<AbsMetaLabelRts>();
         stopped = _list.getThreadFactory().newAtomicBoolean();
@@ -94,7 +95,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         elts_.add(up_);
         elts_.add(down_);
         RtsTask task_ = new RtsTask(battleground, this, facade);
-        AbstractScheduledExecutorService t_ = getThreadFactory().newScheduledExecutorService();
+        AbstractBaseExecutorService t_ = getThreadFactory().newExecutorService();
 //        t_.scheduleAtFixedRate(task_,0,100, TimeUnit.MILLISECONDS);
 //        ScheduledExecutorService t_ = new Timer(0, task_);
 //        t_.setDelay(100);
@@ -264,6 +265,14 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     public AbstractAtomicBoolean getPaused() {
         return paused;
+    }
+
+    public AbsRtsTaskEnabled getTaskEnabled() {
+        return taskEnabled;
+    }
+
+    public void setTaskEnabled(AbsRtsTaskEnabled _t) {
+        this.taskEnabled = _t;
     }
 
 //    public Cursor getCurrentCursor() {
