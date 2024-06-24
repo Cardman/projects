@@ -153,6 +153,72 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         assertEq(7, out_.getHappiness());
     }
     @Test
+    public void pkPlayer5() {
+        Gender g_ = Gender.getGendersWithSex().get(0);
+        PokemonPlayer pp_ = Instances.newPokemonPlayer();
+        pp_.setName("NAME");
+        pp_.setLevel((short) 2);
+        pp_.setGender(g_);
+        pp_.setAbility("ABILITY");
+        pp_.setItem("ITEM");
+        pp_.setNickname("NICKNAME");
+        pp_.getMoves().addEntry("MOVE",new UsesOfMove((short) 1,(short) 3));
+        pp_.getEv().addEntry(Statistic.SPEED, (short) 4);
+        pp_.setWonExpSinceLastLevel(new Rate("5/6"));
+        pp_.setUsedBallCatching("BALL");
+        pp_.setNbStepsTeamLead((short) 8);
+        pp_.setHappiness((short) 7);
+        PokemonPlayer out_ = savePokemonPlayer(pp_);
+        assertEq(2, out_.getLevel());
+        assertEq(g_, out_.getGender());
+        assertEq("NAME",out_.getName());
+        assertEq("ABILITY",out_.getAbility());
+        assertEq("ITEM",out_.getItem());
+        assertEq("NICKNAME",out_.getNickname());
+        assertEq(1,out_.getMoves().size());
+        assertEq("MOVE",out_.getMoves().getKey(0));
+        assertEq(1,out_.getEv().size());
+        assertEq(Statistic.SPEED, out_.getEv().getKey(0));
+        assertEq(4, out_.getEv().getValue(0));
+        assertEq(new Rate("5/6"), out_.getWonExpSinceLastLevel());
+        assertEq("BALL", out_.getUsedBallCatching());
+        assertEq(8, out_.getNbStepsTeamLead());
+        assertEq(7, out_.getHappiness());
+    }
+    @Test
+    public void pkPlayer6() {
+        Gender g_ = Gender.getGendersWithSex().get(1);
+        PokemonPlayer pp_ = Instances.newPokemonPlayer();
+        pp_.setName("NAME");
+        pp_.setLevel((short) 2);
+        pp_.setGender(g_);
+        pp_.setAbility("ABILITY");
+        pp_.setItem("ITEM");
+        pp_.setNickname("NICKNAME");
+        pp_.getMoves().addEntry("MOVE",new UsesOfMove((short) 1,(short) 3));
+        pp_.getEv().addEntry(Statistic.SPEED, (short) 4);
+        pp_.setWonExpSinceLastLevel(new Rate("5/6"));
+        pp_.setUsedBallCatching("BALL");
+        pp_.setNbStepsTeamLead((short) 8);
+        pp_.setHappiness((short) 7);
+        PokemonPlayer out_ = savePokemonPlayer(pp_);
+        assertEq(2, out_.getLevel());
+        assertEq(g_, out_.getGender());
+        assertEq("NAME",out_.getName());
+        assertEq("ABILITY",out_.getAbility());
+        assertEq("ITEM",out_.getItem());
+        assertEq("NICKNAME",out_.getNickname());
+        assertEq(1,out_.getMoves().size());
+        assertEq("MOVE",out_.getMoves().getKey(0));
+        assertEq(1,out_.getEv().size());
+        assertEq(Statistic.SPEED, out_.getEv().getKey(0));
+        assertEq(4, out_.getEv().getValue(0));
+        assertEq(new Rate("5/6"), out_.getWonExpSinceLastLevel());
+        assertEq("BALL", out_.getUsedBallCatching());
+        assertEq(8, out_.getNbStepsTeamLead());
+        assertEq(7, out_.getHappiness());
+    }
+    @Test
     public void checkCompatibility1() {
         CheckCompatibility c_ = new CheckCompatibility();
         ExchangedData exc_ = new ExchangedData();

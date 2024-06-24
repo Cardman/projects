@@ -8,6 +8,7 @@ import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
 import aiki.main.*;
 import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.enums.Gender;
 import aiki.sml.*;
 import cards.belote.*;
 import cards.belote.enumerations.*;
@@ -782,6 +783,9 @@ public abstract class EquallableNetworkUtil {
         Assert.assertSame(_expected,_result);
     }
     public static void assertEq(Statistic _expected, Statistic _result) {
+        Assert.assertSame(_expected,_result);
+    }
+    public static void assertEq(Gender _expected, Gender _result) {
         Assert.assertSame(_expected,_result);
     }
     public static void assertEq(Rate _expected, Rate _result) {
