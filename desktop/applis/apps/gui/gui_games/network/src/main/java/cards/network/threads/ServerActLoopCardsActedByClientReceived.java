@@ -40,6 +40,13 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         Net.initAllReceived(_instance, _common);
         loopReceive(_input, _instance, _fct, _common);
     }
+
+    protected void loopReceiveTeams(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
+        if (!Net.isSameTeam(_instance, _common)) {
+            return;
+        }
+        loopReceive(_input, _instance, _fct, _common);
+    }
     protected static void processAfterBidTarot(GameTarot _game, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         //Call, dog or play
         if (!_game.getContrat().isJouerDonne()) {
