@@ -21,11 +21,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         WindowNetWork client_ = frameSingleTarot(m_);
         clientVersionOld(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
         IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(22, serverCompo_.size());
         checkRules((ContainerMultiTarot) server_.getNetg().getContainerGame(),serverCompo_);
@@ -69,11 +65,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         ready(server_, server_, socketServ_);
         netPlayers(server_);
@@ -126,11 +118,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -205,11 +193,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -280,11 +264,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixThree().getCombo(),2);
@@ -345,11 +325,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -408,11 +384,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -490,11 +462,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -563,11 +531,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -644,11 +608,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -721,11 +681,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -789,11 +745,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -854,11 +806,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
         rules(server_,socketServ_);
@@ -925,11 +873,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         choicePosition(server_,client_,client_,socketClient_,2);
         choicePosition(server_,client_,server_,socketServ_,1);
@@ -978,11 +922,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1066,11 +1006,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1174,11 +1110,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1277,11 +1209,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1374,11 +1302,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1469,11 +1393,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -1552,11 +1472,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1633,11 +1549,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1718,11 +1630,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1803,11 +1711,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1891,11 +1795,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
         rules(server_,socketServ_);
@@ -1980,11 +1880,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getDiscardAfterCall());
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -2079,11 +1975,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getDiscardAfterCall());
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -2173,11 +2065,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getDiscardAfterCall());
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -2272,11 +2160,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getDiscardAfterCall());
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -2369,11 +2253,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getDiscardAfterCall());
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
@@ -2463,11 +2343,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -2606,11 +2482,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getMiseres().getVal(Miseres.LOW_CARDS));
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getMiseres().getVal(Miseres.POINT));
@@ -2927,11 +2799,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getMiseres().getVal(Miseres.LOW_CARDS));
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getMiseres().getVal(Miseres.POINT));
@@ -2982,11 +2850,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -3044,11 +2908,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         tryToggle(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getBids().getVal(BidTarot.SLAM));
         eventsCombo(((ContainerMultiTarot)server_.getNetg().getContainerGame()).getDialogTarotContent().getListeChoixFour().getCombo(),2);
@@ -3248,6 +3108,15 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         writeToServer(_server, _socket);
     }
+
+    private void intro(WindowNetWork _server, WindowNetWork _client) {
+        sendClient(_server.getSockets(), _server);
+        loopClient(_server.getSockets(), _server);
+        loopServer2(_server.getSockets());
+        sendClient(_server.getSockets(), _client);
+        loopClient(_server.getSockets(), _client);
+    }
+
     private void rules(WindowNetWork _server, MockSocket _soc) {
         _soc.getOutput().clear();
         tryClick(((ContainerMultiTarot) _server.getNetg().getContainerGame()).getSelectRules());

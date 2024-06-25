@@ -20,11 +20,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         WindowNetWork client_ = frameSinglePresident(m_);
         clientVersionOld(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
         IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(12, serverCompo_.size());
         checkRules((ContainerMultiPresident) server_.getNetg().getContainerGame(),serverCompo_);
@@ -68,11 +64,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         ready(server_, server_, socketServ_);
         netPlayers(server_);
@@ -120,11 +112,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -162,11 +150,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         choicePosition(server_, client_, client_, socketClient_, 2);
 
@@ -207,11 +191,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         choicePosition(server_, client_, client_, socketClient_, 2);
 
@@ -255,11 +235,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -302,11 +278,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -397,11 +369,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -543,11 +511,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         choicePosition(server_, client_, client_, socketClient_, 5);
         readyPlayers(server_, socketServ_, client_, socketClient_);
@@ -697,11 +661,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         choicePosition(server_, client_, server_, socketServ_, 3);
         readyPlayers(server_, socketServ_, client_, socketClient_);
@@ -850,11 +810,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         choicePosition(server_, client_, client_, socketClient_, 4);
         choicePosition(server_, client_, server_, socketServ_, 2);
@@ -1100,11 +1056,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         choicePosition(server_, client_, client_, socketClient_, 3);
         choicePosition(server_, client_, server_, socketServ_, 2);
@@ -1368,6 +1320,15 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         writeToServer(_server, _socket);
         netPlayers(_server, _client);
     }
+
+    private void intro(WindowNetWork _server, WindowNetWork _client) {
+        sendClient(_server.getSockets(), _server);
+        loopClient(_server.getSockets(), _server);
+        loopServer2(_server.getSockets());
+        sendClient(_server.getSockets(), _client);
+        loopClient(_server.getSockets(), _client);
+    }
+
     private void rules(WindowNetWork _server, MockSocket _soc) {
         _soc.getOutput().clear();
         tryClick(((ContainerMultiPresident) _server.getNetg().getContainerGame()).getSelectRules());

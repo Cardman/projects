@@ -59,11 +59,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -91,11 +87,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -127,11 +119,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         WindowNetWork clientOk_ = frameSingleTarot(m_);
         clientVersionNew(server_,clientOk_);
@@ -146,11 +134,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
 
 
         retrievedSocket(server_, clientOk_, 2);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), clientOk_);
-        loopClient(server_.getSockets(),clientOk_);
+        intro(server_, clientOk_);
         assertEq(3,server_.getSockets().getSockets().size());
     }
 
@@ -168,11 +152,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
 
 
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
@@ -208,11 +188,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         WindowNetWork clientOk_ = frameSingleTarot(m_);
         clientVersionNew(server_,clientOk_);
@@ -227,11 +203,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
 
 
         retrievedSocket(server_, clientOk_, 2);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), clientOk_);
-        loopClient(server_.getSockets(),clientOk_);
+        intro(server_, clientOk_);
         assertEq(3,server_.getSockets().getSockets().size());
     }
     @Test
@@ -245,11 +217,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
         clientVersionNew(server_,client_);
 
         retrievedSocket(server_, client_, 1);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), client_);
-        loopClient(server_.getSockets(),client_);
+        intro(server_, client_);
 
         WindowNetWork clientOk_ = frameSingleTarot(m_);
         clientVersionNew(server_,clientOk_);
@@ -265,11 +233,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
 
 
         retrievedSocket(server_, clientOk_, 2);
-        sendClient(server_.getSockets(),server_);
-        loopClient(server_.getSockets(),server_);
-        loopServer2(server_.getSockets());
-        sendClient(server_.getSockets(), clientOk_);
-        loopClient(server_.getSockets(),clientOk_);
+        intro(server_, clientOk_);
         assertEq(3,server_.getSockets().getSockets().size());
     }
     @Test
@@ -279,6 +243,15 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
         cancelConnect(server_);
         assertEq(0,((MockThreadFactory)server_.getFrames().getThreadFactory()).getAllThreads().size());
     }
+
+    private void intro(WindowNetWork _server, WindowNetWork _client) {
+        sendClient(_server.getSockets(), _server);
+        loopClient(_server.getSockets(), _server);
+        loopServer2(_server.getSockets());
+        sendClient(_server.getSockets(), _client);
+        loopClient(_server.getSockets(), _client);
+    }
+
     private void readyPlayers(WindowNetWork _server, MockSocket _socketServ, WindowNetWork _client, MockSocket _socketClient) {
         _socketServ.getOutput().clear();
         ready(_server, _server, _socketServ);
