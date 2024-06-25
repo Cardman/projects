@@ -154,7 +154,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertEq(2, client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponentCount());
         assertTrue(clientCompo_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
         assertTrue(clientCompo_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
-        tryClickBid2(m_, server_, client_, socketClient_);
+        tryClickBid(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -168,7 +168,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoAf_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoAf_.size());
         assertTrue(clientCompoAf_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        tryClickBid(m_, server_, socketServ_);
+        tryClickBid(m_, server_, server_, socketServ_);
         playIa(server_, client_);
         allow(server_, client_);
 
@@ -183,7 +183,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertTrue(clientCompo2_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT)))));
         assertTrue(clientCompo2_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT)))));
         assertTrue(clientCompo2_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT)))));
-        tryClickBid2(m_, server_, client_, socketClient_);
+        tryClickBid(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -200,7 +200,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoAf2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoAf2_.size());
         assertTrue(clientCompoAf2_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        tryClickBid(m_, server_, socketServ_);
+        tryClickBid(m_, server_, server_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
         loopServer2(server_.getSockets());
@@ -342,15 +342,10 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         allow(server_, client_);
         IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -402,15 +397,10 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         allow(server_, client_);
         IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -463,13 +453,8 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         playIa(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidClient(m_, server_, client_, socketClient_);
+        bidServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -525,20 +510,12 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         playIa(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
+        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_, server_, client_, socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         allow(server_, server_);
 
@@ -601,28 +578,15 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         playIa(server_, client_);
-        allow(server_, client_);
-
-        fold(server_, client_, socketClient_);
+        foldClient(server_, client_, socketClient_);
         playIa(server_, client_);
+        bidDealAll(m_, server_, socketServ_, client_);
         playIa(server_, client_);
-        allow(server_, server_);
-        socketServ_.getOutput().clear();
-        tryClickBidDealAll((ContainerBelote)server_.getNetg().getContainerGame(), m_);
-        writeToServer(server_, socketServ_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-
-        fold(server_, client_, socketClient_);
+        foldClient(server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_, server_, client_, socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         allow(server_, server_);
         IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -680,20 +644,15 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         playIa(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, client_);
+        tryToggle(((ContainerMultiBelote) client_.getNetg().getContainerGame()).getBeloteDeclare());
         socketClient_.getOutput().clear();
         tryClickCard((ContainerMultiBelote) client_.getNetg().getContainerGame(),m_);
-        tryToggle(((ContainerMultiBelote) client_.getNetg().getContainerGame()).getBeloteDeclare());
         writeToServer(server_, socketClient_);
         self(server_, client_);
         playIa(server_, client_);
@@ -774,14 +733,9 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIaWithout(server_, client_);
 
         IdList<AbsCustComponent> serverCompoOne_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -845,14 +799,9 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIaWithout(server_, client_);
 
         IdList<AbsCustComponent> serverCompoOne_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -933,14 +882,9 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIaWithout(server_, client_);
 
         IdList<AbsCustComponent> serverCompoOne_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -952,11 +896,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerBelote)server_.getNetg().getContainerGame()).getTakeCardDiscard());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(17, serverCompoTwo_.size());
@@ -1017,14 +957,9 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIaWithout(server_, client_);
 
         IdList<AbsCustComponent> serverCompoOne_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -1036,11 +971,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerBelote)server_.getNetg().getContainerGame()).getTakeCardDiscard());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         slam(server_, server_, socketServ_);
 
@@ -1097,14 +1028,9 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         playIaWithout(server_, client_);
 
         IdList<AbsCustComponent> serverCompoOne_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -1116,11 +1042,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerBelote)server_.getNetg().getContainerGame()).getTakeCardDiscard());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         slamNo(server_, server_, socketServ_);
         allow(server_,client_);
@@ -1210,103 +1132,44 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         m_.getStacks().add(new DealBelote(Net.getGames(server_.getNet()).partieBelote().getDeal()));
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
+        bidServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
+        playClient(m_, server_, client_, socketClient_);
+        playServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
 
         loopServer2(server_.getSockets());
@@ -1397,13 +1260,8 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         m_.getStacks().add(new DealBelote(Net.getGames(server_.getNet()).partieBelote().getDeal()));
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidClient(m_, server_, client_, socketClient_);
+        bidServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, client_);
@@ -1454,28 +1312,15 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        fold(server_, client_, socketClient_);
+        foldClient(server_, client_, socketClient_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        bidDealAll(m_, server_, socketServ_, client_);
+        foldClient(server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
-        allow(server_, server_);
-        socketServ_.getOutput().clear();
-        tryClickBidDealAll((ContainerBelote)server_.getNetg().getContainerGame(), m_);
-        writeToServer(server_, socketServ_);
-        playIa(server_, client_);
-        allow(server_, client_);
-
-        fold(server_, client_, socketClient_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_, server_, client_, socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -1486,6 +1331,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         loopServer2(server_.getSockets());
         assertFalse(server_.getDialogTricksBelote().getCommonFrame().isVisible());
     }
+
     @Test
     public void teams1() {
         MockGameBelote m_ = new MockGameBelote();
@@ -1558,13 +1404,8 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         m_.getStacks().add(new DealBelote(Net.getGames(server_.getNet()).partieBelote().getDeal()));
-        allow(server_, client_);
-
-        tryClickBid2(m_, server_, client_, socketClient_);
-        playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(m_, server_, socketServ_);
-        playIa(server_, client_);
+        bidClient(m_, server_, client_, socketClient_);
+        bidServer(m_, server_, client_, socketServ_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, client_);
@@ -1615,28 +1456,15 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, client_);
-
-        fold(server_, client_, socketClient_);
+        foldClient(server_, client_, socketClient_);
+        playIa(server_, client_);
+        playIa(server_, client_);
+        bidDealAll(m_, server_, socketServ_, client_);
+        foldClient(server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
-        allow(server_, server_);
-        socketServ_.getOutput().clear();
-        tryClickBidDealAll((ContainerBelote)server_.getNetg().getContainerGame(), m_);
-        writeToServer(server_, socketServ_);
-        playIa(server_, client_);
-        allow(server_, client_);
-
-        fold(server_, client_, socketClient_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_, server_, client_, socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -1647,6 +1475,59 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         loopServer2(server_.getSockets());
         assertFalse(server_.getDialogTeamsPlayers().getCommonFrame().isVisible());
     }
+
+    private void discards(MockGameBelote _m, WindowNetWork _server, MockSocket _socketServ) {
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+    }
+
+
+    private void bidServer(MockGameBelote _m, WindowNetWork _server, WindowNetWork _client, MockSocket _socketServ) {
+        allow(_server, _server);
+
+        tryClickBid(_m, _server, _server, _socketServ);
+        playIa(_server, _client);
+    }
+
+    private void bidClient(MockGameBelote _m, WindowNetWork _server, WindowNetWork _client, MockSocket _socketClient) {
+        allow(_server, _client);
+
+        tryClickBid(_m, _server, _client, _socketClient);
+        playIa(_server, _client);
+    }
+
+    private void bidDealAll(MockGameBelote _m, WindowNetWork _server, MockSocket _socketServ, WindowNetWork _client) {
+        allow(_server, _server);
+        _socketServ.getOutput().clear();
+        tryClickBidDealAll((ContainerBelote) _server.getNetg().getContainerGame(), _m);
+        writeToServer(_server, _socketServ);
+        playIa(_server, _client);
+    }
+
+    private void foldClient(WindowNetWork _server, WindowNetWork _client, MockSocket _socketClient) {
+        allow(_server, _client);
+
+        fold(_server, _client, _socketClient);
+        playIa(_server, _client);
+    }
+
+    private void playServer(MockGameBelote _m, WindowNetWork _server, WindowNetWork _client, MockSocket _socketServ) {
+        allow(_server, _server);
+        tryClickCard(_m, _server, _server, _socketServ);
+        self(_server, _server);
+        playIa(_server, _client);
+    }
+
+    private void playClient(MockGameBelote _m, WindowNetWork _server, WindowNetWork _client, MockSocket _socketClient) {
+        allow(_server, _client);
+        tryClickCard(_m, _server, _client, _socketClient);
+        self(_server, _client);
+        playIa(_server, _client);
+    }
+
     private void rules(WindowNetWork _server, MockSocket _soc) {
         _soc.getOutput().clear();
         tryClick(((ContainerMultiBelote) _server.getNetg().getContainerGame()).getSelectRules());
@@ -1678,15 +1559,11 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         writeToServer(_server, _socket);
     }
 
-    private void tryClickBid2(MockGameBelote _m, WindowNetWork _server, WindowNetWork _target, MockSocket _soc) {
+
+    private void tryClickBid(MockGameBelote _m, WindowNetWork _server, WindowNetWork _target, MockSocket _soc) {
         _soc.getOutput().clear();
         tryClickBid((ContainerBelote) _target.getNetg().getContainerGame(), _m);
         writeToServer(_server, _soc);
-    }
-
-    private void tryClickBid(MockGameBelote _m, WindowNetWork _target, MockSocket _soc) {
-        _soc.getOutput().clear();
-        tryClickBid2(_m, _target, _target, _soc);
     }
 
     private void discard(MockGameBelote _m, WindowNetWork _target, MockSocket _socket) {

@@ -1,6 +1,5 @@
 package code.network;
 
-import cards.consts.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.network.threads.*;
@@ -222,15 +221,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -303,25 +295,12 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
-        playIa(server_, client_);
-        allow(server_, server_);
-
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -376,12 +355,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -443,12 +418,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -529,12 +500,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -548,12 +515,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(18, serverCompoTwo_.size());
@@ -611,23 +573,14 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         slam(server_,server_,socketServ_);
 
@@ -701,23 +654,14 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         slamNo(server_,server_,socketServ_);
         allow(server_,server_);
@@ -787,12 +731,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -859,12 +799,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -932,9 +868,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -1004,12 +938,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         playIa(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -1062,12 +992,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -1154,12 +1080,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -1187,12 +1109,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoDog_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         slam(server_,server_,socketServ_);
 
@@ -1271,12 +1188,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -1304,12 +1217,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoDog_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         slamNo(server_,server_,socketServ_);
         allow(server_,server_);
@@ -1383,12 +1291,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -1484,12 +1388,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -1584,9 +1484,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
         IdList<AbsCustComponent> serverCompoOne_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -1672,12 +1570,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -1757,12 +1651,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -1846,12 +1736,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -1865,12 +1751,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(20, serverCompoTwo_.size());
@@ -1896,6 +1777,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(serverCompoTwo_.containsObj(componentCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),CardTarot.CLUB_KING)));
 
     }
+
     @Test
     public void greatBid16_3() {
         MockGameTarot m_ = new MockGameTarot();
@@ -1939,12 +1821,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -1958,12 +1836,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         socketServ_.getOutput().clear();
         tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
@@ -2036,12 +1909,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -2059,12 +1928,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
         writeToServer(server_,socketServ_);
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(22, serverCompoTwo_.size());
         assertTrue(serverCompoTwo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
@@ -2131,12 +1995,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -2154,12 +2014,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
         writeToServer(server_,socketServ_);
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         slam(server_,server_,socketServ_);
 
@@ -2239,12 +2094,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIaWithout(server_, client_);
@@ -2262,12 +2113,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
         writeToServer(server_,socketServ_);
 
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
-        discard(m_, server_, socketServ_);
+        discards(m_, server_, socketServ_);
 
         slamNo(server_,server_,socketServ_);
         allow(server_,server_);
@@ -2342,12 +2188,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -2445,12 +2287,8 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickBid(server_,(ContainerMultiTarot)client_.getNetg().getContainerGame(), socketClient_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
+        bidClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         allow(server_, server_);
@@ -2513,6 +2351,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertFalse(serverCompoTwo_.containsObj(((ContainerTarot)server_.getNetg().getContainerGame()).getHandfulsRadio().getVal(Handfuls.THREE).getButton()));
         assertFalse(serverCompoTwo_.containsObj(((ContainerTarot)server_.getNetg().getContainerGame()).getHandfulsRadio().getVal(Handfuls.FOUR).getButton()));
     }
+
     @Test
     public void greatBid21() {
         MockGameTarot m_ = new MockGameTarot();
@@ -2546,9 +2385,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
         IdList<AbsCustComponent> serverCompoOne_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -2641,23 +2478,14 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
         socketServ_.getOutput().clear();
         tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
         writeToServer(server_,socketServ_);
-        allow(server_, server_);
-        
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -2684,6 +2512,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoTwo_.containsObj(component(((ContainerMultiTarot) client_.getNetg().getContainerGame()),CardTarot.CLUB_3)));
         assertTrue(clientCompoTwo_.containsObj(component(((ContainerMultiTarot) client_.getNetg().getContainerGame()),CardTarot.CLUB_2)));
     }
+
     @Test
     public void greatBid23() {
         MockGameTarot m_ = new MockGameTarot();
@@ -2797,9 +2626,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         play(server_, socketServ_);
         deal(server_, client_);
         m_.getStacks().add(new DealTarot(Net.getGames(server_.getNet()).partieTarot().getDeal()));
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
 
         allow(server_, server_);
 
@@ -2872,263 +2699,122 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         self(server_, server_);
         playIa(server_, client_);
 
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
-        allow(server_, server_);
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
 
@@ -3311,23 +2997,14 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
         socketServ_.getOutput().clear();
         tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
         writeToServer(server_,socketServ_);
-        allow(server_, server_);
-
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -3382,23 +3059,14 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         play(server_, socketServ_);
         deal(server_, client_);
-        allow(server_, server_);
-        tryClickBid(server_,(ContainerMultiTarot)server_.getNetg().getContainerGame(), socketServ_, m_);
-        playIa(server_, client_);
+        bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
         socketServ_.getOutput().clear();
         tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
         writeToServer(server_,socketServ_);
-        allow(server_, server_);
-
-        tryClickCard(m_,server_,server_,socketServ_);
-        self(server_, server_);
-        playIa(server_, client_);
-        allow(server_, client_);
-        tryClickCard(m_,server_,client_,socketClient_);
-        self(server_, client_);
-        playIa(server_, client_);
+        playServer(m_, server_, client_, socketServ_);
+        playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -3409,6 +3077,42 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         writeToServer(server_,socketClient_);
         self(server_,client_);
         assertTrue(client_.getDialogTeamsPlayers().getCommonFrame().isVisible());
+    }
+
+    private void discards(MockGameTarot _m, WindowNetWork _server, MockSocket _socketServ) {
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+        discard(_m, _server, _socketServ);
+    }
+
+    private void playServer(MockGameTarot _m, WindowNetWork _server, WindowNetWork _client, MockSocket _socketServ) {
+        allow(_server, _server);
+        tryClickCard(_m, _server, _server, _socketServ);
+        self(_server, _server);
+        playIa(_server, _client);
+    }
+
+
+    private void playClient(MockGameTarot _m, WindowNetWork _server, WindowNetWork _client, MockSocket _socketClient) {
+        allow(_server, _client);
+        tryClickCard(_m, _server, _client, _socketClient);
+        self(_server, _client);
+        playIa(_server, _client);
+    }
+
+    private void bidServer(MockGameTarot _m, WindowNetWork _server, WindowNetWork _client, MockSocket _socketServ) {
+        allow(_server, _server);
+        tryClickBid(_server,(ContainerMultiTarot) _server.getNetg().getContainerGame(), _socketServ, _m);
+        playIa(_server, _client);
+    }
+
+    private void bidClient(MockGameTarot _m, WindowNetWork _server, WindowNetWork _client, MockSocket _socketClient) {
+        allow(_server, _client);
+        tryClickBid(_server,(ContainerMultiTarot) _client.getNetg().getContainerGame(), _socketClient, _m);
+        playIa(_server, _client);
     }
     private void nextBid(MockGameTarot _m, BidTarot _bid) {
         _m.getBids().add(_bid);
