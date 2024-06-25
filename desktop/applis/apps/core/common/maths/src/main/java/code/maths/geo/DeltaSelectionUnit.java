@@ -13,28 +13,38 @@ public final class DeltaSelectionUnit {
     private Rate desty = Rate.zero();
 
     private boolean selected;
-    public static RatePoint moveCamera(RatePoint _cam, Rate _x, Rate _y, Rate _xBound, Rate _yBound) {
-        Rate deltax_ = Rate.zero();
-        Rate deltay_ = Rate.zero();
+    public static RatePoint moveCamera(RatePoint _cam, Rate _x, Rate _y, Rate _xBound, Rate _yBound, Rect _all) {
+        if (_x.isZero() && _y.isZero()) {
+            return _cam;
+        }
         Rate xTopLeftScreen_ = _cam.getXcoords();
         Rate yTopLeftScreen_ = _cam.getYcoords();
-        boolean out_ = Rate.strLower(_y, yTopLeftScreen_) || Rate.strGreater(_y, Rate.plus(yTopLeftScreen_, _yBound));
-        if (Rate.strLower(_x,xTopLeftScreen_)) {
-            if (out_) {
-                return _cam;
+        if (_x.isZero()) {
+            if (_y.isZeroOrLt()) {
+                Rate nexty_ = Rate.plus(yTopLeftScreen_, _y);
+                if (nexty_.isZeroOrLt()) {
+                    return _cam;
+                }
+                return new RatePoint(xTopLeftScreen_, nexty_);
             }
-            deltax_ = new Rate(-10);
-        } else if (Rate.strGreater(_x, Rate.plus(xTopLeftScreen_, _xBound))) {
-            if (out_) {
-                return _cam;
+            Rate nexty_ = Rate.plus(yTopLeftScreen_, Rate.plus(_yBound,_y));
+            if (Rate.greaterEq(nexty_,_all.getHeight())) {
+                return new RatePoint(xTopLeftScreen_, Rate.minus(_all.getHeight(), _yBound));
             }
-            deltax_ = new Rate(10);
-        } else if (Rate.strLower(_y, yTopLeftScreen_)) {
-            deltay_ = new Rate(-10);
-        } else if (Rate.strGreater(_y, Rate.plus(yTopLeftScreen_, _yBound))) {
-            deltay_ = new Rate(10);
+            return new RatePoint(xTopLeftScreen_, Rate.plus(yTopLeftScreen_, _y));
         }
-        return new RatePoint(Rate.plus(xTopLeftScreen_, deltax_), Rate.plus(yTopLeftScreen_, deltay_));
+        if (_x.isZeroOrLt()) {
+            Rate nextx_ = Rate.plus(xTopLeftScreen_, _x);
+            if (nextx_.isZeroOrLt()) {
+                return _cam;
+            }
+            return new RatePoint(nextx_, yTopLeftScreen_);
+        }
+        Rate nextx_ = Rate.plus(xTopLeftScreen_, Rate.plus(_xBound,_x));
+        if (Rate.greaterEq(nextx_,_all.getWidth())) {
+            return new RatePoint(Rate.minus(_all.getWidth(), _xBound),yTopLeftScreen_);
+        }
+        return new RatePoint(Rate.plus(xTopLeftScreen_, _x), yTopLeftScreen_);
     }
     public boolean isOutside(Rect _p, Delta _d, Rect _data) {
         Rate xULeftTop_ = getLocx();

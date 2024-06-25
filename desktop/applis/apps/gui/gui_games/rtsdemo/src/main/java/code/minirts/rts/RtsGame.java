@@ -272,8 +272,8 @@ public final class RtsGame {
         return soldiers.values().get(size_ - 1);
     }
 
-    public void moveCamera(Rate _x, Rate _y, Rate _xBound, Rate _yBound) {
-        topLeftScreen = DeltaSelectionUnit.moveCamera(topLeftScreen,_x,_y,_xBound,_yBound);
+    public void moveCamera(Rate _x, Rate _y, Rate _xBound, Rate _yBound, RtsDataBase _data) {
+        topLeftScreen = DeltaSelectionUnit.moveCamera(topLeftScreen,_x,_y,_xBound,_yBound, _data.getScreen());
 //        Rate deltax_ = Rate.zero();
 //        Rate deltay_ = Rate.zero();
 //        if (_x < -xTopLeftScreen) {

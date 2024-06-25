@@ -17,6 +17,10 @@ public final class Facade {
         return data.getSoldierPattern();
     }
 
+    public Rect getScreen() {
+        return data.getScreen();
+    }
+
     public void loop() {
         game.loop(data);
     }
@@ -62,7 +66,7 @@ public final class Facade {
     }
 
     public void moveCamera(Rate _x, Rate _y, Rate _xBound, Rate _yBound) {
-        game.moveCamera(_x, _y, _xBound, _yBound);
+        game.moveCamera(Rate.multiply(data.getMultiple().getWidth(),_x), Rate.multiply(data.getMultiple().getHeight(),_y), _xBound, _yBound,data);
     }
 
     public CustList<EntryCust<Long,Soldier>> getVisibleSoldiers(Rate _w, Rate _h) {

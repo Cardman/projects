@@ -165,8 +165,7 @@ public class PanelBattle {
         AbsCustComponent parent_ = container.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
-        RatePoint old_ = facade.getTopLeftPoint();
-        facade.moveCamera(Rate.plus(old_.getXcoords(), _x), Rate.plus(old_.getYcoords(), _y), new Rate(w_), new Rate(h_));
+        facade.moveCamera(_x, _y, new Rate(w_), new Rate(h_));
         RatePoint curTopLeft_ = facade.getTopLeftPoint();
         setLocation(curTopLeft_);
 //        container.setLocation(-curTopLeft_.getXcoords(),-curTopLeft_.getYcoords());

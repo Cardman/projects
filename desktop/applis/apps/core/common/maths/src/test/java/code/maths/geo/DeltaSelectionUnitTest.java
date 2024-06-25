@@ -228,50 +228,56 @@ public final class DeltaSelectionUnitTest extends EquallableMathUtil {
     }
     @Test
     public void moveCamera1() {
-        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), new Rate(15), new Rate(25), new Rate(200), new Rate(220));
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), Rate.zero(), Rate.zero(), new Rate(200), new Rate(220), new Rect());
         assertEq(new Rate(10),rp_.getXcoords());
         assertEq(new Rate(20),rp_.getYcoords());
     }
     @Test
     public void moveCamera2() {
-        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), new Rate(150), new Rate(250), new Rate(200), new Rate(220));
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), Rate.zero(), Rate.one(), new Rate(200), new Rate(220), new Rect(Rate.zero(),Rate.zero(),new Rate(300),new Rate(320)));
         assertEq(new Rate(10),rp_.getXcoords());
-        assertEq(new Rate(30),rp_.getYcoords());
+        assertEq(new Rate(21),rp_.getYcoords());
     }
     @Test
     public void moveCamera3() {
-        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), new Rate(250), new Rate(210), new Rate(200), new Rate(220));
-        assertEq(new Rate(20),rp_.getXcoords());
-        assertEq(new Rate(20),rp_.getYcoords());
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(100), new Rate(100)), Rate.zero(), Rate.one(), new Rate(200), new Rate(220), new Rect(Rate.zero(),Rate.zero(),new Rate(300),new Rate(320)));
+        assertEq(new Rate(100),rp_.getXcoords());
+        assertEq(new Rate(100),rp_.getYcoords());
     }
     @Test
     public void moveCamera4() {
-        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(150), new Rate(210)), new Rate(10), new Rate(210), new Rate(200), new Rate(220));
-        assertEq(new Rate(140),rp_.getXcoords());
-        assertEq(new Rate(210),rp_.getYcoords());
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), Rate.zero(), Rate.minusOne(), new Rate(200), new Rate(220), new Rect(Rate.zero(),Rate.zero(),new Rate(300),new Rate(320)));
+        assertEq(new Rate(10),rp_.getXcoords());
+        assertEq(new Rate(19),rp_.getYcoords());
     }
     @Test
     public void moveCamera5() {
-        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(150), new Rate(210)), new Rate(150), new Rate(10), new Rate(200), new Rate(220));
-        assertEq(new Rate(150),rp_.getXcoords());
-        assertEq(new Rate(200),rp_.getYcoords());
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(0)), Rate.zero(), Rate.minusOne(), new Rate(200), new Rate(220), new Rect(Rate.zero(),Rate.zero(),new Rate(300),new Rate(320)));
+        assertEq(new Rate(10),rp_.getXcoords());
+        assertEq(new Rate(0),rp_.getYcoords());
     }
     @Test
     public void moveCamera6() {
-        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), new Rate(250), new Rate(250), new Rate(200), new Rate(220));
-        assertEq(new Rate(10),rp_.getXcoords());
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), Rate.one(), Rate.zero(), new Rate(200), new Rate(220), new Rect(Rate.zero(),Rate.zero(),new Rate(300),new Rate(320)));
+        assertEq(new Rate(11),rp_.getXcoords());
         assertEq(new Rate(20),rp_.getYcoords());
     }
     @Test
     public void moveCamera7() {
-        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), new Rate(250), new Rate(5), new Rate(200), new Rate(220));
-        assertEq(new Rate(10),rp_.getXcoords());
-        assertEq(new Rate(20),rp_.getYcoords());
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(100), new Rate(100)), Rate.one(), Rate.zero(), new Rate(200), new Rate(220), new Rect(Rate.zero(),Rate.zero(),new Rate(300),new Rate(320)));
+        assertEq(new Rate(100),rp_.getXcoords());
+        assertEq(new Rate(100),rp_.getYcoords());
     }
     @Test
     public void moveCamera8() {
-        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), new Rate(5), new Rate(10), new Rate(200), new Rate(220));
-        assertEq(new Rate(10),rp_.getXcoords());
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(10), new Rate(20)), Rate.minusOne(), Rate.zero(), new Rate(200), new Rate(220), new Rect(Rate.zero(),Rate.zero(),new Rate(300),new Rate(320)));
+        assertEq(new Rate(9),rp_.getXcoords());
+        assertEq(new Rate(20),rp_.getYcoords());
+    }
+    @Test
+    public void moveCamera9() {
+        RatePoint rp_ = DeltaSelectionUnit.moveCamera(new RatePoint(new Rate(0), new Rate(20)), Rate.minusOne(), Rate.zero(), new Rate(200), new Rate(220), new Rect(Rate.zero(),Rate.zero(),new Rate(300),new Rate(320)));
+        assertEq(new Rate(0),rp_.getXcoords());
         assertEq(new Rate(20),rp_.getYcoords());
     }
     @Test

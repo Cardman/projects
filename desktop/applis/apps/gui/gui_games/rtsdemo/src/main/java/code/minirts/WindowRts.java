@@ -77,7 +77,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         InteractClick i_ = new InteractClick(this);
         battleground.addMouseListener(i_);
         battleground.addMouseMotionListener(i_);
-        battleground.setSize(new MetaDimension(2048, 2048));
+        battleground.setSize(new MetaDimension((int) facade.getScreen().getWidth().ll(), (int) facade.getScreen().getHeight().ll()));
 //        JPanel panelGame_ = new JPanel(new BorderLayout());
         AbsPanel battlegroundWrapper_ = getCompoFactory().newAbsolute();
         battlegroundWrapper_.add(battleground.getContainer());
@@ -95,7 +95,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         elts_.add(right_);
         elts_.add(up_);
         elts_.add(down_);
-        RtsTask task_ = new RtsTask(battleground, this);
+        RtsTask task_ = new RtsTask(this);
         AbstractBaseExecutorService t_ = getThreadFactory().newExecutorService();
 //        t_.scheduleAtFixedRate(task_,0,100, TimeUnit.MILLISECONDS);
 //        ScheduledExecutorService t_ = new Timer(0, task_);
