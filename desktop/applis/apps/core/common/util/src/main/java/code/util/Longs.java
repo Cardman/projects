@@ -24,14 +24,6 @@ public final class Longs extends Numbers<Long> {
         return sh_;
     }
 
-    public long[] toArrLong() {
-        int size_ = size();
-        long[] sh_ = new long[size_];
-        for (int i = 0; i < size_; i++) {
-            sh_[i] = getLong(i);
-        }
-        return sh_;
-    }
     @Override
     long getLong(int _index) {
         return get(_index);

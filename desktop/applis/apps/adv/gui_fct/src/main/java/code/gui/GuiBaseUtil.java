@@ -7,9 +7,9 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
+import code.images.*;
 import code.sml.util.ResourcesMessagesUtil;
-import code.stream.AbsPlayBack;
-import code.stream.AbsSoundRecord;
+import code.stream.*;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
 import code.threads.AbstractThreadFactory;
@@ -24,6 +24,10 @@ import code.util.core.StringUtil;
 
 public final class GuiBaseUtil {
     static final String ACCESS = "gui.groupframe";
+    private static final byte SIXTY_FOUR_BITS = 64;
+    private static final byte SIXTEEN_BITS = 16;
+    private static final byte FOUR_BITS = 4;
+    private static final byte THREE_COLORS_BYTES = 3;
 //    private static final String TITLE = "title";
 //    private static final String MESSAGE = "message";
 
@@ -343,6 +347,140 @@ public final class GuiBaseUtil {
         return _txt.getActionsMap().values();
     }
 
+    public static AbsClipStream getAbsClipStream(AbstractProgramInfos _api,byte[] _bytes) {
+        AbsClipStream res_ = getAbsClipStreamDirect(_api, _bytes);
+        if (res_ != null) {
+            return res_;
+        }
+//        if (FileListInfo.isWav(_bytes)) {
+//            AbsClipStream absClipStream_ = _api.openClip(_bytes);
+//            if (absClipStream_ != null) {
+//                return absClipStream_;
+//            }
+//        } else if (FileListInfo.isMp3(_bytes)) {
+//            AbsClipStream absClipStream_ = _api.openMp3(_bytes);
+//            if (absClipStream_ != null) {
+//                return absClipStream_;
+//            }
+//        }
+        byte[] bytesTr_ = parseBaseSixtyFourBinary(StringUtil.nullToEmpty(StringUtil.decode(_bytes)));
+        return getAbsClipStreamDirect(_api,bytesTr_);
+//        if (FileListInfo.isWav(bytesTr_)) {
+//            return _api.openClip(bytesTr_);
+//        }
+//        if (FileListInfo.isMp3(bytesTr_)) {
+//            return _api.openMp3(bytesTr_);
+//        }
+//        return _api.openClip(new byte[0]);
+    }
+    public static AbsClipStream getAbsClipStreamDirect(AbstractProgramInfos _api,byte[] _bytes) {
+        if (FileListInfo.isWav(_bytes)) {
+            return _api.openClip(_bytes);
+        }
+        if (FileListInfo.isMp3(_bytes)) {
+            return _api.openMp3(_bytes);
+        }
+        return null;
+    }
+    public static byte[] parseBaseSixtyFourBinary(String _text) {
+        int buflen_ = guessLength(_text);
+        byte[] out_ = new byte[buflen_];
+        int o_=0;
+
+        int len_ = _text.length();
+
+        byte[] quadruplet_ = new byte[FOUR_BITS];
+        int q_=0;
+
+        // convert each quadruplet to three bytes.
+        for(int i=0; i<len_; i++ ) {
+            char ch_ = _text.charAt(i);
+            //v!=-1
+            quadruplet_[q_] = BaseSixtyFourUtil.charToByte(ch_);
+            q_++;
+
+            if(q_==FOUR_BITS) {
+                // quadruplet is now filled.
+                int firstBytes_ = quadruplet_[0];
+                int secondBytes_ = quadruplet_[1];
+                int thirdBytes_ = quadruplet_[2];
+                int fourthBytes_ = quadruplet_[THREE_COLORS_BYTES];
+                o_ = tryPut(out_, o_, FOUR_BITS * firstBytes_ + secondBytes_ / SIXTEEN_BITS);
+                o_ = tryPut(out_, o_, secondBytes_ * SIXTEEN_BITS + thirdBytes_ / FOUR_BITS);
+//                if( quadruplet_[2]!=PADDING ) {
+//                    out_[o_] = (byte)(secondBytes_ * SIXTEEN_BITS + thirdBytes_ / FOUR_BITS);
+//                    o_++;
+//                }
+                o_ = tryPut(out_, o_, thirdBytes_ * SIXTY_FOUR_BITS + fourthBytes_);
+//                if( quadruplet_[THREE_COLORS_BYTES]!=PADDING ) {
+//                    out_[o_] = (byte)(thirdBytes_ * SIXTY_FOUR_BITS +fourthBytes_);
+//                    o_++;
+//                }
+                q_=0;
+            }
+        }
+        /*out_[o_] = (byte) (FOUR_BITS * firstBytes_ + secondBytes_ / SIXTEEN_BITS);
+        o_++;
+        out_[o_] = (byte)(secondBytes_ * SIXTEEN_BITS + thirdBytes_ / FOUR_BITS);
+        o_++;
+        out_[o_] = (byte)(thirdBytes_ * SIXTY_FOUR_BITS +fourthBytes_);*/
+        return out_;
+    }
+
+    private static int tryPut(byte[] _out, int _o, int _by) {
+        int o_ = _o;
+        if (o_ < _out.length) {
+            _out[o_] = (byte) _by;
+            o_++;
+        }
+        return o_;
+    }
+
+    private static int guessLength(String _text) {
+        int len_ = _text.length();
+
+        int size_ = len_/FOUR_BITS*THREE_COLORS_BYTES;
+        int j_=len_-1;
+        while (j_ >= 0) {
+            if (_text.charAt(j_) != '=') {
+                break;
+            }
+            j_--;
+        }
+
+        j_++;
+        int padSize_ = len_-j_;
+        if(padSize_ >2) {
+            return size_;
+        }
+
+        return size_-padSize_;
+    }
+
+    public static String getStringTime(long _micro) {
+        long s_ = _micro / 1000000L;
+        long m_ = s_ /60L;
+        s_ = s_ % 60L;
+        long h_ = m_ / 60L;
+        m_ = m_ % 60;
+        String time_ = "";
+        if (h_ < 10) {
+            time_ += " " + h_ + ":";
+        } else {
+            time_ += h_ + ":";
+        }
+        if (m_ < 10) {
+            time_ += " " + m_ + ":";
+        } else {
+            time_ += m_ + ":";
+        }
+        if (s_ < 10) {
+            time_ += " " + s_;
+        } else {
+            time_ += s_;
+        }
+        return time_;
+    }
     public static void recordSong(AbsSoundRecord _rec) {
         while (_rec.getState().get()) {
             if (_rec.readBytes() == -1) {

@@ -25,14 +25,6 @@ public final class Bytes extends Numbers<Byte> {
         return list_;
     }
 
-    public byte[] toArrByte() {
-        int size_ = size();
-        byte[] arr_ = new byte[size_];
-        for (int i = 0; i < size_; i++) {
-            arr_[i] = (byte) getLong(i);
-        }
-        return arr_;
-    }
     @Override
     long getLong(int _index) {
         return get(_index);

@@ -24,15 +24,6 @@ public final class Ints extends Numbers<Integer> {
         return sh_;
     }
 
-    public int[] toArrInt() {
-        int size_ = size();
-        int[] sh_ = new int[size_];
-        for (int i = 0; i < size_; i++) {
-            sh_[i] = (int) getLong(i);
-        }
-        return sh_;
-    }
-
     public static Ints singleOrEmpty(int _element) {
         if (_element < 0) {
             return new Ints();

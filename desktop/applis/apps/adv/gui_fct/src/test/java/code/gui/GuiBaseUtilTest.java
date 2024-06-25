@@ -574,6 +574,87 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     public void actionCond6() {
         assertFalse(GuiBaseUtil.actionPressed(new AbsActionListenerActSample(),new MockMouseListener(),new CoreMouseLocation(1,1),new KeyActionEvent(1),new CoreMouseButtons(true,true,true,1)));
     }
+    @Test
+    public void parseBaseSixtyFourBinary1() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AAAB");
+        assertEq(3,bytes_.length);
+        assertEq(0,bytes_[0]);
+        assertEq(0,bytes_[1]);
+        assertEq(1,bytes_[2]);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary2() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AAAB===");
+        assertEq(3,bytes_.length);
+        assertEq(0,bytes_[0]);
+        assertEq(0,bytes_[1]);
+        assertEq(1,bytes_[2]);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary3() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("====");
+        assertEq(3,bytes_.length);
+        assertEq(-1,bytes_[0]);
+        assertEq(-1,bytes_[1]);
+        assertEq(-1,bytes_[2]);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary4() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AAA");
+        assertEq(0,bytes_.length);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary5() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AA");
+        assertEq(0,bytes_.length);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary6() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("A");
+        assertEq(0,bytes_.length);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary7() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("");
+        assertEq(0,bytes_.length);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary8() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AAA=");
+        assertEq(2,bytes_.length);
+        assertEq(0,bytes_[0]);
+        assertEq(0,bytes_[1]);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary9() {
+        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AA==");
+        assertEq(1,bytes_.length);
+        assertEq(0,bytes_[0]);
+    }
+    @Test
+    public void getAbsClipStream1() {
+        assertNull(GuiBaseUtil.getAbsClipStream(init(),wrapInts()));
+    }
+    @Test
+    public void getAbsClipStream2() {
+        assertNotNull(GuiBaseUtil.getAbsClipStream(init(),wrapInts('R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'A', 'V', 'E', 1)));
+    }
+    @Test
+    public void getAbsClipStream3() {
+        assertNotNull(GuiBaseUtil.getAbsClipStream(init(),wrapInts('I', 'D', '3', 1)));
+    }
+    @Test
+    public void getStringTime1() {
+        assertEq(" 1: 1: 1",GuiBaseUtil.getStringTime(1000000L*(1L+60L+60L*60L)));
+    }
+    @Test
+    public void getStringTime2() {
+        assertEq("10:10:10",GuiBaseUtil.getStringTime(10000000L*(1L+60L+60L*60L)));
+    }
+
+    public static byte[] wrapInts(int... _files) {
+        return Ints.newList(_files).toArrByte();
+    }
     private CrudGeneForm<String, Integer> crud(StringMap<Integer> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame(pr_,null);

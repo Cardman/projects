@@ -33,6 +33,41 @@ public abstract class Numbers<T> extends CustList<T> {
         }
     }
 
+    public byte[] toArrByte() {
+        int size_ = size();
+        byte[] arr_ = new byte[size_];
+        for (int i = 0; i < size_; i++) {
+            arr_[i] = (byte) getLong(i);
+        }
+        return arr_;
+    }
+
+    public int[] toArrInt() {
+        int size_ = size();
+        int[] sh_ = new int[size_];
+        for (int i = 0; i < size_; i++) {
+            sh_[i] = (int) getLong(i);
+        }
+        return sh_;
+    }
+
+    public short[] toArrShort() {
+        int size_ = size();
+        short[] sh_ = new short[size_];
+        for (int i = 0; i < size_; i++) {
+            sh_[i] = (short) getLong(i);
+        }
+        return sh_;
+    }
+
+    public long[] toArrLong() {
+        int size_ = size();
+        long[] sh_ = new long[size_];
+        for (int i = 0; i < size_; i++) {
+            sh_[i] = getLong(i);
+        }
+        return sh_;
+    }
     public final long getMinimum(long _def) {
         if (isEmpty()) {
             return _def;

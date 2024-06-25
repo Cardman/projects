@@ -5,6 +5,7 @@ import code.maths.montecarlo.*;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
+import code.stream.FileListInfo;
 import code.stream.core.TechStreams;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -56,7 +57,7 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
 
     @Override
     public AbsClipStream openClip(byte[] _bytes) {
-        if (!isWav(_bytes)) {
+        if (!FileListInfo.isWav(_bytes)) {
             return null;
         }
         int offset_ = 12;
@@ -69,11 +70,11 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
 
     @Override
     public AbsClipStream openMp3(byte[] _bytes) {
-        if (!isMp3(_bytes)) {
+        if (!FileListInfo.isMp3(_bytes)) {
             return null;
         }
         int offset_;
-        if (isMpFirst3(_bytes)) {
+        if (FileListInfo.isMpFirst3(_bytes)) {
             offset_ = 2;
         } else {
             offset_ = 3;
@@ -148,32 +149,6 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
             return null;
         }
         return ml_;
-    }
-
-    private boolean isWav(byte[] _bytes) {
-        if (_bytes.length < 12) {
-            return false;
-        }
-        return _bytes[0] == 'R' && _bytes[1] == 'I' && _bytes[2] == 'F' && _bytes[3] == 'F'
-                &&_bytes[8] == 'W' && _bytes[9] == 'A' && _bytes[10] == 'V' && _bytes[11] == 'E';
-    }
-    private boolean isMp3(byte[] _bytes) {
-        if (isMpFirst3(_bytes)) {
-            return true;
-        }
-        return _bytes.length >= 3 && _bytes[0] == 'I' && _bytes[1] == 'D' && _bytes[2] == '3';
-    }
-    private boolean isMpFirst3(byte[] _bytes) {
-        if (_bytes.length < 2) {
-            return false;
-        }
-        if (_bytes[0] == (byte)255 && _bytes[1] == (byte)251) {
-            return true;
-        }
-        if (_bytes[0] == (byte)255 && _bytes[1] == (byte)243) {
-            return true;
-        }
-        return _bytes[0] == (byte) 255 && _bytes[1] == (byte) 242;
     }
 
 }

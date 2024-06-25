@@ -24,15 +24,6 @@ public final class Shorts extends Numbers<Short> {
         return sh_;
     }
 
-    public short[] toArrShort() {
-        int size_ = size();
-        short[] sh_ = new short[size_];
-        for (int i = 0; i < size_; i++) {
-            sh_[i] = (short) getLong(i);
-        }
-        return sh_;
-    }
-
     @Override
     long getLong(int _index) {
         return get(_index);

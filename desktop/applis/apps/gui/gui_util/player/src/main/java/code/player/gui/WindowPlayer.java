@@ -11,7 +11,6 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
-import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.*;
@@ -43,10 +42,6 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final String CST_CANNOT_READ_TITLE = "cannotReadTitle";
     private static final String CST_CANNOT_READ_MESSAGE_WPL = "cannotReadMessageWpl";
     private static final String CST_RESOURCES_FOLDER = "resources_player";
-    private static final String SEC = " s ";
-    private static final String MIN = " m ";
-    private static final String HOUR = " h ";
-    private static final String SPACE = " ";
     private static final String REL_SEP = " / ";
     private static final String CST_PAUSE = "||";
     private static final String CST_KEY_PAUSE = "pause";
@@ -61,11 +56,6 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final String EMPTY = "";
     private static final String LINE_RETURN = "\n";
 
-    private static final byte SIXTY_FOUR_BITS = 64;
-    private static final byte SIXTEEN_BITS = 16;
-    private static final byte FOUR_BITS = 4;
-    private static final byte THREE_COLORS_BYTES = 3;
-    private static final byte PADDING = 127;
     private static final String START_MP_3 = "start_mp3";
     private static final String STOP_MP_3 = "stop_mp3";
     private static final String RESOURCES_FOLDER = "resources_player";
@@ -208,7 +198,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
             byte[] bytes_ = getBytes();
             if (bytes_.length > 0 && bytes_[0] != '<') {
                 //.wav or .mp3 or .txt
-                clipStream = getAbsClipStream(bytes_);
+                clipStream = GuiBaseUtil.getAbsClipStream(getFrames(),bytes_);
             } else if (bytes_.length > 0) {
                 //.wpl
                 String txt_ = StringUtil.decode(bytes_);
@@ -279,8 +269,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
             play.setText(CST_PAUSE);
             currentNoSong.setText((noSong+1)+"/"+songsList.size());
             currentSong.setText(songsList.get(noSong));
-            String strBegin_ = getStringTime(0);
-            elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getMicrosecondLength()));
+            String strBegin_ = GuiBaseUtil.getStringTime(0);
+            elapsedTime.setText(strBegin_+REL_SEP+GuiBaseUtil.getStringTime(clipStream.getMicrosecondLength()));
             cancelIfPossible();
             abstractFuture = timer.scheduleAtFixedRate(new UpdateSongTimeEvent(this), 0, 1);
         } else {
@@ -316,65 +306,22 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     private AbsClipStream getAbsClipStream() {
         byte[] bytes_ = getBytes();
-        return getAbsClipStream(bytes_);
+        return GuiBaseUtil.getAbsClipStream(getFrames(),bytes_);
     }
 
     private boolean valid(byte[] _bytes) {
-        AbsClipStream absClipStream_ = getAbsClipStream(_bytes);
+        AbsClipStream absClipStream_ = GuiBaseUtil.getAbsClipStream(getFrames(),_bytes);
         if (absClipStream_ == null) {
             return false;
         }
         absClipStream_.closeClipStream();
         return true;
     }
-    private AbsClipStream getAbsClipStream(byte[] _bytes) {
-        if (isWav(_bytes)) {
-            AbsClipStream absClipStream_ = openClip(_bytes);
-            if (absClipStream_ != null) {
-                return absClipStream_;
-            }
-        } else if (isMp3(_bytes)) {
-            AbsClipStream absClipStream_ = openMp3(_bytes);
-            if (absClipStream_ != null) {
-                return absClipStream_;
-            }
-        }
-        byte[] bytesTr_ = parseBaseSixtyFourBinary(StringUtil.nullToEmpty(StringUtil.decode(_bytes)));
-        if (isWav(bytesTr_)) {
-            return openClip(bytesTr_);
-        }
-        if (isMp3(bytesTr_)) {
-            return openMp3(bytesTr_);
-        }
-        return openClip(new byte[0]);
-    }
 
     private byte[] getBytes() {
         return GuiConstants.nullToEmpty(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()).getBytes());
     }
 
-    private boolean isWav(byte[] _bytes) {
-        if (_bytes.length < 12) {
-            return false;
-        }
-        return _bytes[0] == 'R' && _bytes[1] == 'I' && _bytes[2] == 'F' && _bytes[3] == 'F'
-                &&_bytes[8] == 'W' && _bytes[9] == 'A' && _bytes[10] == 'V' && _bytes[11] == 'E';
-    }
-    private boolean isMp3(byte[] _bytes) {
-        if (_bytes.length < 2) {
-            return false;
-        }
-        if (_bytes[0] == (byte)255 && _bytes[1] == (byte)251) {
-            return true;
-        }
-        if (_bytes[0] == (byte)255 && _bytes[1] == (byte)243) {
-            return true;
-        }
-        if (_bytes[0] == (byte)255 && _bytes[1] == (byte)242) {
-            return true;
-        }
-        return _bytes.length >= 3 && _bytes[0] == 'I' && _bytes[1] == 'D' && _bytes[2] == '3';
-    }
     void saveState() {
         if (songsList.isEmpty()) {
             return;
@@ -421,68 +368,6 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         return getFrames().openClip(_imageString);
     }
 
-    public AbsClipStream openMp3(byte[] _imageString) {
-        return getFrames().openMp3(_imageString);
-    }
-
-    public static byte[] parseBaseSixtyFourBinary(String _text) {
-        int buflen_ = guessLength(_text);
-        byte[] out_ = new byte[buflen_];
-        int o_=0;
-
-        int len_ = _text.length();
-
-        byte[] quadruplet_ = new byte[FOUR_BITS];
-        int q_=0;
-
-        // convert each quadruplet to three bytes.
-        for(int i=0; i<len_; i++ ) {
-            char ch_ = _text.charAt(i);
-            //v!=-1
-            quadruplet_[q_] = BaseSixtyFourUtil.charToByte(ch_);
-            q_++;
-
-            if(q_==FOUR_BITS) {
-                // quadruplet is now filled.
-                int firstBytes_ = quadruplet_[0];
-                int secondBytes_ = quadruplet_[1];
-                int thirdBytes_ = quadruplet_[2];
-                int fourthBytes_ = quadruplet_[THREE_COLORS_BYTES];
-                out_[o_] = (byte) (FOUR_BITS * firstBytes_ + secondBytes_ / SIXTEEN_BITS);
-                o_++;
-                if( quadruplet_[2]!=PADDING ) {
-                    out_[o_] = (byte)(secondBytes_ * SIXTEEN_BITS + thirdBytes_ / FOUR_BITS);
-                    o_++;
-                }
-                if( quadruplet_[THREE_COLORS_BYTES]!=PADDING ) {
-                    out_[o_] = (byte)(thirdBytes_ * SIXTY_FOUR_BITS +fourthBytes_);
-                    o_++;
-                }
-                q_=0;
-            }
-        }
-        return out_;
-    }
-    private static int guessLength(String _text) {
-        int len_ = _text.length();
-
-        int size_ = len_/FOUR_BITS*THREE_COLORS_BYTES;
-        int j_=len_-1;
-        while (j_ >= 0) {
-            if (_text.charAt(j_) != '=') {
-                break;
-            }
-            j_--;
-        }
-
-        j_++;
-        int padSize_ = len_-j_;
-        if(padSize_ >2) {
-            return size_;
-        }
-
-        return size_-padSize_;
-    }
     public void nextSong() {
         if (clipStream != null && !next) {
             closeClipStream();
@@ -592,36 +477,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         if (pausing ||clipStream == null) {
             return;
         }
-        String l_ = getStringTime(clipStream.getMicrosecondLength());
-        String c_ = getStringTime(elapsed);
+        String l_ = GuiBaseUtil.getStringTime(clipStream.getMicrosecondLength());
+        String c_ = GuiBaseUtil.getStringTime(elapsed);
         elapsedTime.setText(c_+REL_SEP+l_);
         elapsed+=1000;
-    }
-
-    private static String getStringTime(long _micro) {
-        long t_ = _micro;
-        long s_ = t_ / 1000000l;
-        long m_ = s_ /60l;
-        s_ = s_ % 60l;
-        long h_ = m_ / 60l;
-        m_ = m_ % 60;
-        String time_ = EMPTY;
-        if (h_ < 10) {
-            time_ += SPACE + h_ + HOUR;
-        } else {
-            time_ += h_ + HOUR;
-        }
-        if (m_ < 10) {
-            time_ += SPACE + m_ + MIN;
-        } else {
-            time_ += m_ + MIN;
-        }
-        if (s_ < 10) {
-            time_ += SPACE + s_ + SEC;
-        } else {
-            time_ += s_ + SEC;
-        }
-        return time_;
     }
 
     @Override

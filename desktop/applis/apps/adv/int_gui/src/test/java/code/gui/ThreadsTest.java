@@ -12,9 +12,8 @@ import code.stream.core.ContentTime;
 import code.stream.core.TechStreams;
 import code.threads.FileStruct;
 import code.threads.ThState;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.core.NumberUtil;
+import code.util.*;
+import code.util.core.*;
 import org.junit.Test;
 
 public class ThreadsTest extends EquallableIntGuiUtil {
@@ -151,12 +150,115 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     public void isZip8(){
         assertTrue(isZip(NumberUtil.wrapByteArray((byte)0x50,(byte)0x4b, (byte)0x03,(byte)0x4)));
     }
-
+    @Test
+    public void s1() {
+        assertFalse(FileListInfo.isWav(wrapInts()));
+    }
+    @Test
+    public void s2() {
+        assertFalse(FileListInfo.isWav(wrapInts('R','I','F','F',0,0,0,0,'W','A','V',203)));
+    }
+    @Test
+    public void s3() {
+        assertFalse(FileListInfo.isWav(wrapInts('R','I','F','F',0,0,0,0,'W','A','v',203)));
+    }
+    @Test
+    public void s4() {
+        assertFalse(FileListInfo.isWav(wrapInts('R','I','F','F',0,0,0,0,'W','a','v',203)));
+    }
+    @Test
+    public void s5() {
+        assertFalse(FileListInfo.isWav(wrapInts('R','I','F','F',0,0,0,0,'w','a','v',203)));
+    }
+    @Test
+    public void s6() {
+        assertFalse(FileListInfo.isWav(wrapInts('R','I','F','f',0,0,0,0,'w','a','v',203)));
+    }
+    @Test
+    public void s7() {
+        assertFalse(FileListInfo.isWav(wrapInts('R','I','f','f',0,0,0,0,'w','a','v',203)));
+    }
+    @Test
+    public void s8() {
+        assertFalse(FileListInfo.isWav(wrapInts('R','i','f','f',0,0,0,0,'w','a','v',203)));
+    }
+    @Test
+    public void s9() {
+        assertFalse(FileListInfo.isWav(wrapInts('r','i','f','f',0,0,0,0,'w','a','v',203)));
+    }
+    @Test
+    public void s10() {
+        assertTrue(FileListInfo.isWav(wrapInts('R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'A', 'V', 'E', 1)));
+    }
+    @Test
+    public void s11() {
+        assertFalse(FileListInfo.isMp3(wrapInts()));
+    }
+    @Test
+    public void s12() {
+        assertFalse(FileListInfo.isMp3(wrapInts('I','D','4')));
+    }
+    @Test
+    public void s13() {
+        assertFalse(FileListInfo.isMp3(wrapInts('I','d','4')));
+    }
+    @Test
+    public void s14() {
+        assertFalse(FileListInfo.isMp3(wrapInts('i','d','4')));
+    }
+    @Test
+    public void s15() {
+        assertFalse(FileListInfo.isMp3(wrapInts(255,25)));
+    }
+    @Test
+    public void s16() {
+        assertTrue(FileListInfo.isMp3(wrapInts('I', 'D', '3', 1)));
+    }
+    @Test
+    public void s17() {
+        assertTrue(FileListInfo.isMp3(wrapInts(255, 251, 1)));
+    }
+    @Test
+    public void s18() {
+        assertTrue(FileListInfo.isMp3(wrapInts(255, 243, 1)));
+    }
+    @Test
+    public void s19() {
+        assertTrue(FileListInfo.isMp3(wrapInts(255, 242, 1)));
+    }
+    @Test
+    public void isBinary1() {
+        assertTrue(FileListInfo.isBinary(new BytesInfo(wrapInts(0),false)));
+    }
+    @Test
+    public void isBinary2() {
+        assertFalse(FileListInfo.isBinary(new BytesInfo(wrapInts('\n'),false)));
+    }
+    @Test
+    public void isBinary3() {
+        assertFalse(FileListInfo.isBinary(new BytesInfo(wrapInts('\r'),false)));
+    }
+    @Test
+    public void isBinary4() {
+        assertFalse(FileListInfo.isBinary(new BytesInfo(wrapInts('\t'),false)));
+    }
+    @Test
+    public void isBinary5() {
+        assertFalse(FileListInfo.isBinary(new BytesInfo(wrapInts('0'),false)));
+    }
+    @Test
+    public void isBinary6() {
+        assertFalse(FileListInfo.isBinary(new BytesInfo(wrapInts(),true)));
+    }
     @Test
     public void actList() {
         assertTrue(new AlwaysActionListenerAct().act());
     }
     private boolean isZip(byte[] _bs) {
         return FileListInfo.isZip(_bs);
+    }
+
+    public static byte[] wrapInts(int... _files) {
+        return Ints.newList(_files).toArrByte();
     }
 }

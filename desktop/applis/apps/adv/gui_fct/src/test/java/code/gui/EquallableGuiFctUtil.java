@@ -1,18 +1,13 @@
 package code.gui;
 
-import code.gui.events.MockProgramInfosSecSample;
+import code.gui.events.*;
 import code.gui.files.*;
-import code.mock.MockCustComponent;
-import code.mock.MockThreadFactory;
-import code.sml.util.TranslationsAppli;
-import code.sml.util.TranslationsFile;
-import code.sml.util.TranslationsLg;
-import code.stream.core.AbstractBinFact;
-import code.stream.core.AbstractTextFact;
-import code.stream.core.AbstractZipFact;
-import code.threads.AbstractThread;
-import code.threads.ThState;
-import code.util.StringMap;
+import code.mock.*;
+import code.sml.util.*;
+import code.stream.*;
+import code.stream.core.*;
+import code.threads.*;
+import code.util.*;
 import org.junit.Assert;
 
 public abstract class EquallableGuiFctUtil {
@@ -163,6 +158,14 @@ public abstract class EquallableGuiFctUtil {
 
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
+    }
+
+    public static void assertNull(AbsClipStream _value) {
+        Assert.assertNull(_value);
+    }
+
+    public static void assertNotNull(AbsClipStream _value) {
+        Assert.assertNotNull(_value);
     }
 
     public static MockProgramInfosSecSample init() {

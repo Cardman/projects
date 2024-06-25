@@ -23,10 +23,7 @@ import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.stream.BytesInfo;
-import code.stream.StreamBinaryFile;
-import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
+import code.stream.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -54,7 +51,7 @@ public class LaunchingApplications extends SoftApplicationCore {
         StringList args_ = getFile(_args);
         if (!args_.isEmpty()) {
             BytesInfo bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getStreams());
-            if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_.getBytes())) {
+            if (FileListInfo.isBinary(bytes_) && !FileListInfo.isZip(bytes_.getBytes())) {
                 AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
                 if (img_ != null) {
                     launchWindow(_language, getFactories());
@@ -159,13 +156,6 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
         return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
-    }
-
-    private static boolean isZip(byte[] _bytes) {
-        return _bytes != null && _bytes.length > 3
-                && _bytes[0] == (byte)0x50&& _bytes[1] == (byte)0x4b
-                && _bytes[2] == (byte)0x03&& _bytes[3] == (byte)0x04;
-
     }
 
 }
