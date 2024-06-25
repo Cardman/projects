@@ -3,7 +3,7 @@ package code.minirts.events;
 import code.gui.events.AbsActionListener;
 import code.minirts.WindowRts;
 
-public class RtsPause implements AbsActionListener {
+public final class RtsPause implements AbsActionListener {
 
     private final WindowRts window;
 

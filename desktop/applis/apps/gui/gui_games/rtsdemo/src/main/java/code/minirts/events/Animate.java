@@ -3,9 +3,9 @@ package code.minirts.events;
 import code.gui.events.AbsActionListener;
 import code.minirts.WindowRts;
 
-public class Animate implements AbsActionListener {
+public final class Animate implements AbsActionListener {
 
-    private WindowRts window;
+    private final WindowRts window;
 
     public Animate(WindowRts _window) {
         window = _window;

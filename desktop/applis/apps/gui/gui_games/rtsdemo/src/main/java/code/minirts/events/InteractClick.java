@@ -1,16 +1,12 @@
 package code.minirts.events;
 
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerPresRel;
-import code.gui.events.AbsMouseListenerWithoutClick;
-import code.gui.events.AbsMouseMotionListener;
-import code.minirts.WindowRts;
+import code.gui.*;
+import code.gui.events.*;
+import code.minirts.*;
 
-public class InteractClick implements AbsMouseListenerPresRel, AbsMouseMotionListener {
+public final class InteractClick implements AbsMouseListenerPresRel, AbsMouseMotionListener {
 
-    private WindowRts fenetre;
+    private final WindowRts fenetre;
     public InteractClick(WindowRts _fenetre) {
         fenetre = _fenetre;
     }

@@ -1,7 +1,6 @@
 package code.minirts.rts;
 
 import code.maths.Rate;
-import code.maths.geo.Delta;
 import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
 import code.util.CustList;
@@ -29,13 +28,13 @@ public final class Facade {
         return game.addNewSoldier(_x, _y, data,_next);
     }
 
-    public boolean isEmpty(long _this, Delta _d) {
-        return game.isEmpty(_this, _d, data);
-    }
+//    public boolean isEmpty(long _this, Delta _d) {
+//        return game.isEmpty(_this, _d, data);
+//    }
 
-    public boolean isEmpty(Rate _x, Rate _y) {
-        return game.isEmpty(_x, _y, data);
-    }
+//    public boolean isEmpty(Rate _x, Rate _y) {
+//        return game.isEmpty(_x, _y, data);
+//    }
 
     public void selectOrDeselectMany() {
         game.selectOrDeselectMany(data);
@@ -49,9 +48,9 @@ public final class Facade {
         game.setRectangle(_x, _y);
     }
 
-    public void selectOrDeselect() {
-        game.selectOrDeselect(data);
-    }
+//    public void selectOrDeselect() {
+//        game.selectOrDeselect(data);
+//    }
 
     public void setNewLocation(Rate _x, Rate _y) {
         game.setNewLocation(_x, _y);
@@ -89,8 +88,12 @@ public final class Facade {
 //        return game.getLastSoldierKey();
 //    }
 
-    public Soldier getLastSoldier() {
-        return game.getLastSoldier();
+//    public Soldier getLastSoldier() {
+//        return game.getLastSoldier();
+//    }
+
+    public RtsDataBase getData() {
+        return data;
     }
 
     public Soldier getSoldier(long _u) {
@@ -101,7 +104,7 @@ public final class Facade {
         return game.isAdded();
     }
 
-    public void setAdded(boolean _added) {
-        game.setAdded(_added);
-    }
+//    public void setAdded(boolean _added) {
+//        game.setAdded(_added);
+//    }
 }

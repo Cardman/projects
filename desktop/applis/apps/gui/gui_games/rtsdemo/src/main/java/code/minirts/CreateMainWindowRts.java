@@ -2,9 +2,10 @@ package code.minirts;
 
 import code.gui.initialize.AbstractProgramInfos;
 
-public class CreateMainWindowRts implements Runnable {
+public final class CreateMainWindowRts implements Runnable {
     private final AbstractProgramInfos list;
-    private String lg;
+    private final String lg;
+    private WindowRts windowRts;
 
     public CreateMainWindowRts(String _lg, AbstractProgramInfos _list) {
         lg = _lg;
@@ -13,6 +14,10 @@ public class CreateMainWindowRts implements Runnable {
 
     @Override
     public void run() {
-        new WindowRts(lg, list);
+        windowRts = new WindowRts(lg, list);
+    }
+
+    public WindowRts getWindowRts() {
+        return windowRts;
     }
 }

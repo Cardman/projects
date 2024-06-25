@@ -7,7 +7,7 @@ import code.gui.events.AbsMouseListenerWithoutClickPr;
 import code.minirts.rts.RtsDirection;
 import code.threads.*;
 
-public class RtsMouseTask implements AbsMouseListenerWithoutClickPr {
+public final class RtsMouseTask implements AbsMouseListenerWithoutClickPr {
 
     private final RtsDirection dir;
 

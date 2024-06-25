@@ -4,7 +4,7 @@ import code.minirts.*;
 import code.minirts.rts.*;
 import code.threads.*;
 
-public class RtsTask implements Runnable {
+public final class RtsTask implements Runnable {
 
     public static final int STOPPED_TASK = 0;
     public static final int ALIVE_TASK = 1;
@@ -38,11 +38,12 @@ public class RtsTask implements Runnable {
 //        rel_.y = loc_.y;
 //        int w_ = par_.getWidth();
 //        int h_ = par_.getHeight();
-        if (dir == RtsDirection.UP) {
+        RtsDirection dir_ = getDir();
+        if (dir_ == RtsDirection.UP) {
             window.moveCamera(0, -1);
-        } else if (dir == RtsDirection.DOWN) {
+        } else if (dir_ == RtsDirection.DOWN) {
             window.moveCamera(0, 1);
-        } else if (dir == RtsDirection.LEFT) {
+        } else if (dir_ == RtsDirection.LEFT) {
             window.moveCamera(-1, 0);
         } else {
             window.moveCamera(1, 0);

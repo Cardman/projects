@@ -47,6 +47,10 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
     private final AbstractAtomicBoolean stopped;
     private final AbstractAtomicBoolean paused;
     private final AbstractAtomicLong count;
+    private final RtsKeyPad left;
+    private final RtsKeyPad right;
+    private final RtsKeyPad up;
+    private final RtsKeyPad down;
     private AnimationUnitSoldier thread;
     private AbstractScheduledExecutorService sch;
     private AbstractFuture fut;
@@ -59,7 +63,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
     private RatePoint first = new RatePoint(Rate.zero(),Rate.zero());
 
     private RatePoint last = new RatePoint(Rate.zero(),Rate.zero());
-    private String noteFile = "";
+//    private String noteFile = "";
     private AbsRtsTaskEnabled taskEnabled;
     public WindowRts(String _lg, AbstractProgramInfos _list) {
         super(_list);
@@ -87,10 +91,14 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         battlegroundWrapper_.setPreferredSize(new MetaDimension(256, 256));
         scene_.add(battlegroundWrapper_, GuiConstants.BORDER_LAYOUT_CENTER);
 //        panel_.add(battlegroundWrapper_, BorderLayout.CENTER);
-        RtsKeyPad left_ = new RtsKeyPad(RtsDirection.LEFT, getCompoFactory());
-        RtsKeyPad right_ = new RtsKeyPad(RtsDirection.RIGHT, getCompoFactory());
-        RtsKeyPad up_ = new RtsKeyPad(RtsDirection.UP, getCompoFactory());
-        RtsKeyPad down_ = new RtsKeyPad(RtsDirection.DOWN, getCompoFactory());
+        left = new RtsKeyPad(RtsDirection.LEFT, getCompoFactory());
+        RtsKeyPad left_ = left;
+        right = new RtsKeyPad(RtsDirection.RIGHT, getCompoFactory());
+        RtsKeyPad right_ = right;
+        up = new RtsKeyPad(RtsDirection.UP, getCompoFactory());
+        RtsKeyPad up_ = up;
+        down = new RtsKeyPad(RtsDirection.DOWN, getCompoFactory());
+        RtsKeyPad down_ = down;
         elts_.add(left_);
         elts_.add(right_);
         elts_.add(up_);
@@ -119,7 +127,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
         String note_ = messagesFiles.getVal("resources_player/player.txt");
-        noteFile = note_;
+//        noteFile = note_;
         AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(note_));
         int wCurs_ = or_.getWidth();
         int hCurs_ = or_.getHeight();
@@ -157,9 +165,9 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
     }
 
 //    @Override
-    public void dispose() {
-        GuiBaseUtil.trEx(this);
-    }
+//    public void dispose() {
+//        GuiBaseUtil.trEx(this);
+//    }
 
     public void setEnabledPause(boolean _enabled) {
         pause.setEnabled(_enabled);
@@ -167,6 +175,10 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     public boolean isAddingSoldier() {
         return addSoldier.isSelected();
+    }
+
+    public AbsCustCheckBox getAddSoldier() {
+        return addSoldier;
     }
 
     public void moveCamera(int _x, int _y) {
@@ -225,9 +237,9 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
     }
 
     public void cancel() {
-        if (fut == null) {
-            return;
-        }
+//        if (fut == null) {
+//            return;
+//        }
         fut.cancel(false);
         sch.shutdown();
     }
@@ -262,6 +274,42 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     public AbstractAtomicBoolean getStopped() {
         return stopped;
+    }
+
+    public Facade getFacade() {
+        return facade;
+    }
+
+    public AbsButton getAnimate() {
+        return animate;
+    }
+
+    public AbsButton getStop() {
+        return stop;
+    }
+
+    public AnimationUnitSoldier getThread() {
+        return thread;
+    }
+
+    public RtsKeyPad getLeft() {
+        return left;
+    }
+
+    public RtsKeyPad getRight() {
+        return right;
+    }
+
+    public RtsKeyPad getUp() {
+        return up;
+    }
+
+    public RtsKeyPad getDown() {
+        return down;
+    }
+
+    public AbsCustCheckBox getPause() {
+        return pause;
     }
 
     public AbstractAtomicBoolean getPaused() {
@@ -300,7 +348,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         setLanguageKey(_language);
     }
 
-    public String getNoteFile() {
-        return noteFile;
-    }
+//    public String getNoteFile() {
+//        return noteFile;
+//    }
 }

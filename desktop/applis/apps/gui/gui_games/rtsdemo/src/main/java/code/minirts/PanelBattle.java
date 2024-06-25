@@ -4,7 +4,6 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.events.AbsMouseMotionListener;
-import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
@@ -17,7 +16,7 @@ import code.util.EntryCust;
 import code.util.LongMap;
 
 
-public class PanelBattle {
+public final class PanelBattle {
 
     private final LongMap<UnitSoldier> soldierLabels = new LongMap<UnitSoldier>();
     private final Facade facade;
@@ -45,9 +44,9 @@ public class PanelBattle {
         content.addMouseMotionListener(_l);
     }
 
-    public void addMouseWheelListener(AbsMouseWheelListener _l) {
-        content.addMouseWheelListener(_l);
-    }
+//    public void addMouseWheelListener(AbsMouseWheelListener _l) {
+//        content.addMouseWheelListener(_l);
+//    }
 
     public void addNewSoldier(WindowRts _fact,int _x, int _y, long _next) {
         Soldier soldier_ = facade.addNewSoldier(new Rate(_x), new Rate(_y), _next);
@@ -95,7 +94,7 @@ public class PanelBattle {
         int w_ = selecting.getWidth();
         int h_ = selecting.getHeight();
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
-        if (paintSelection) {
+        if (isPaintSelection()) {
             //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
             img_.setFont(selecting.getPaintableLabel());
             Rect r_ = facade.getSelection();
@@ -105,6 +104,8 @@ public class PanelBattle {
             img_.setColor(GuiConstants.newColor(255,255,255,0));
             img_.fillRect(0, 0, w_, h_);
         }
+        img_.setFont(selecting.getPaintableLabel());
+        selecting.paintComponent(img_);
         selecting.setIcon(_fact,img_);
     }
 
@@ -201,5 +202,9 @@ public class PanelBattle {
 
     public void setLocation(RatePoint _pt) {
         container.setLocation((int)_pt.getXcoords().opposNb().ll(),(int)_pt.getYcoords().opposNb().ll());
+    }
+
+    public AbsPanel getContent() {
+        return content;
     }
 }

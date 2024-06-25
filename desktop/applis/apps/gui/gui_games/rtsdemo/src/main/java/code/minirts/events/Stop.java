@@ -3,9 +3,9 @@ package code.minirts.events;
 import code.gui.events.AbsActionListener;
 import code.minirts.WindowRts;
 
-public class Stop implements AbsActionListener {
+public final class Stop implements AbsActionListener {
 
-    private WindowRts window;
+    private final WindowRts window;
 
     public Stop(WindowRts _window) {
         window = _window;

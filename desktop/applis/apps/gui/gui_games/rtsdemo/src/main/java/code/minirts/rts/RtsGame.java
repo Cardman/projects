@@ -177,10 +177,10 @@ public final class RtsGame {
 //        selectOrDeselectMany(_data);
 //    }
 
-    public void selectOrDeselect(RtsDataBase _data) {
+//    public void selectOrDeselect(RtsDataBase _data) {
 //        setRectangle(new Point(_x, _y), new Point(_x, _y));
 //        setRectangle(_x, _y);
-        selectOrDeselectMany(_data);
+//        selectOrDeselectMany(_data);
 //        SoldierPattern s_ = _data.getSoldierPattern();
 //        for (Entry<UnitMapKey,Soldier> u: soldiers.entryList()) {
 //            Soldier u_ = u.getValue();
@@ -200,7 +200,7 @@ public final class RtsGame {
 //            }
 //            u_.setSelected(select_);
 //        }
-    }
+//    }
 
     public void setNewLocation(Rate _x, Rate _y) {
         for (EntryCust<Long, Soldier> u: soldiers.entryList()) {
@@ -267,10 +267,10 @@ public final class RtsGame {
 //        return soldiers.getKeys().get(size_ - 1);
 //    }
 
-    public Soldier getLastSoldier() {
-        int size_ = soldiers.size();
-        return soldiers.values().get(size_ - 1);
-    }
+//    public Soldier getLastSoldier() {
+//        int size_ = soldiers.size();
+//        return soldiers.values().get(size_ - 1);
+//    }
 
     public void moveCamera(Rate _x, Rate _y, Rate _xBound, Rate _yBound, RtsDataBase _data) {
         topLeftScreen = DeltaSelectionUnit.moveCamera(topLeftScreen,_x,_y,_xBound,_yBound, _data.getScreen());
@@ -383,7 +383,7 @@ public final class RtsGame {
         return added;
     }
 
-    public void setAdded(boolean _added) {
-        added = _added;
-    }
+//    public void setAdded(boolean _added) {
+//        added = _added;
+//    }
 }

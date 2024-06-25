@@ -7,6 +7,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
+import code.util.core.*;
 
 public abstract class AbsMetaLabelRts {
     private final AbsPaintableLabel paintableLabel;
@@ -23,7 +24,7 @@ public abstract class AbsMetaLabelRts {
     public static void paintRts(AbstractImageFactory _fact, AbsMetaLabelRts _rts) {
         int w_ = _rts.getWidth();
         int h_ = _rts.getHeight();
-        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+        AbstractImage img_ = _fact.newImageArgb(NumberUtil.max(w_,1), NumberUtil.max(h_,1));
         img_.setFont(_rts.getPaintableLabel());
         _rts.paintComponent(img_);
         _rts.setIcon(_fact,img_);
