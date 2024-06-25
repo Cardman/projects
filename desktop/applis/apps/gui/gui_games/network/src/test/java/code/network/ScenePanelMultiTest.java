@@ -7,7 +7,6 @@ import aiki.fight.pokemon.*;
 import aiki.fight.util.*;
 import aiki.instances.*;
 import aiki.map.pokemon.enums.*;
-import aiki.network.NetAiki;
 import code.gui.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
@@ -24,19 +23,11 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, tr_.size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
@@ -52,33 +43,15 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        server_.getScenePanel().getTeamPan().getListe().select(0);
-        server_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        selectServer(server_, client_, socketServ_);
 
-        client_.getScenePanel().getTeamPan().getListe().select(0);
-        client_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
+        selectClient(server_, client_, socketClient_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
@@ -97,33 +70,15 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        server_.getScenePanel().getTeamPan().getListe().select(0);
-        server_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        selectServer(server_, client_, socketServ_);
 
-        client_.getScenePanel().getTeamPan().getListe().select(0);
-        client_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
+        selectClient(server_, client_, socketClient_);
 
         server_.getScenePanel().getTeamPan().getListe().select(-1);
         server_.getScenePanel().getTeamPan().getListe().events();
@@ -146,57 +101,27 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        server_.getScenePanel().getTeamPan().getListe().select(0);
-        server_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        selectServer(server_, client_, socketServ_);
 
-        client_.getScenePanel().getTeamPan().getListe().select(0);
-        client_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
+        selectClient(server_, client_, socketClient_);
 
-        tryClick(server_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        readyServer(server_, socketServ_);
 
-        tryClick(server_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        readyServer(server_, socketServ_);
 
-        tryClick(server_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        readyServer(server_, socketServ_);
 
-        tryClick(client_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
+        readyClient(server_, client_, socketClient_);
 
-        tryClick(client_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
+        readyClient(server_, client_, socketClient_);
 
-        tryClick(client_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
+        readyClient(server_, client_, socketClient_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, tr_.size());
@@ -213,50 +138,23 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        server_.getScenePanel().getTeamPan().getListe().select(0);
-        server_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        selectServer(server_, client_, socketServ_);
 
-        client_.getScenePanel().getTeamPan().getListe().select(0);
-        client_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
+        selectClient(server_, client_, socketClient_);
 
-        tryClick(server_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        readyServer(server_, socketServ_);
 
-        tryClick(server_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        readyServer(server_, socketServ_);
 
-        tryClick(server_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        readyServer(server_, socketServ_);
 
-        socketServ_.getOutput().clear();
-        tryClick(server_.getScenePanel().getApplyTrade());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        applyTrade(server_, socketServ_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, tr_.size());
@@ -274,49 +172,22 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingle(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        server_.getScenePanel().getTeamPan().getListe().select(0);
-        server_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        selectServer(server_, client_, socketServ_);
 
-        client_.getScenePanel().getTeamPan().getListe().select(0);
-        client_.getScenePanel().getTeamPan().getListe().events();
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
+        selectClient(server_, client_, socketClient_);
 
-        socketServ_.getOutput().clear();
-        tryClick(server_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        readyServer(server_, socketServ_);
 
-        socketClient_.getOutput().clear();
-        tryClick(client_.getScenePanel().getReadyCheck());
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
+        readyClient(server_, client_, socketClient_);
 
 
-        socketServ_.getOutput().clear();
-        tryClick(server_.getScenePanel().getApplyTrade());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        applyTrade(server_, socketServ_);
 
         sendClientPk(server_.getSockets(),server_,0);
         loopClient(server_.getSockets(),server_);
@@ -341,14 +212,13 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         tryClick((AbsButton) client_.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0));
         assertTrue(client_.getCommonFrame().isVisible());
     }
+
     @Test
     public void intro7() {
         WindowNetWork server_ = frameSingle(new MockDataBaseStreamNet());
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingleDiff(new MockDataBaseStreamSecNet());
         clientPk(server_,client_);
         retrievedSocket(server_, client_, 1);
@@ -363,19 +233,11 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, tr_.size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
@@ -392,24 +254,13 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        socketServ_.getOutput().clear();
-        tryClick(server_.getScenePanel().getExitTrade());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        exitTradeServer(server_, socketServ_);
 
         assertEq(0,server_.getSockets().getSockets().size());
         Exiting forcedBye_ = new Exiting();
@@ -428,24 +279,13 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        socketClient_.getOutput().clear();
-        tryClick(client_.getScenePanel().getExitTrade());
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
+        exitTradeClient(server_, client_, socketClient_);
 
         assertEq(0,server_.getSockets().getSockets().size());
         Exiting forcedBye_ = new Exiting();
@@ -459,24 +299,13 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        socketClient_.getOutput().clear();
-        tryClick(client_.getScenePanel().getExitTrade());
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
+        exitTradeClient(server_, client_, socketClient_);
 
         assertEq(0,server_.getSockets().getSockets().size());
         Exiting forcedBye_ = new Exiting();
@@ -490,24 +319,13 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        socketClient_.getOutput().clear();
-        tryClick(client_.getScenePanel().getExitTrade());
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
+        exitTradeClient(server_, client_, socketClient_);
 
         assertEq(0,server_.getSockets().getSockets().size());
         Exiting forcedBye_ = new Exiting();
@@ -522,27 +340,16 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
         WindowNetWork clientKo_ = frameSingleMenu(new MockDataBaseStreamNet());
         clientPk(server_,clientKo_);
         MockSocket socket_ = (MockSocket) clientKo_.getSocket();
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        socketClient_.getOutput().clear();
-        tryClick(client_.getScenePanel().getExitTrade());
-        writeToServer(server_,socketClient_);
-        loopServer2(server_.getSockets());
+        exitTradeClient(server_, client_, socketClient_);
 
         assertEq(0,server_.getSockets().getSockets().size());
         Exiting forcedBye_ = new Exiting();
@@ -558,24 +365,13 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        loopServer1(server_.getSockets());
+        introServer(server_);
         WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
         clientPk(server_,client_);
         retrievedSocket(server_, client_, 1);
-        sendClientPk(server_.getSockets(), client_,1);
-        loopClient(server_.getSockets(),client_);
-        loopServer2(server_.getSockets());
-        sendClientPk(server_.getSockets(),server_,0);
-        loopClient(server_.getSockets(),server_);
-        sendClientPk(server_.getSockets(),client_,1);
-        loopClient(server_.getSockets(),client_);
+        introClient(server_, client_);
 
-        socketServ_.getOutput().clear();
-        tryClick(server_.getScenePanel().getExitTrade());
-        writeToServer(server_,socketServ_);
-        loopServer2(server_.getSockets());
+        exitTradeServer(server_, socketServ_);
 
         assertEq(0,server_.getSockets().getSockets().size());
         Exiting forcedBye_ = new Exiting();
@@ -596,6 +392,75 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertEq(0,((MockThreadFactory)server_.getFrames().getThreadFactory()).getAllThreads().size());
         new BasicClient(server_.getSocket(),server_).iterate(server_.getSocket(), NetCommon.exportExiting(new Exiting()));
     }
+
+    private void exitTradeClient(WindowNetWork _server, WindowNetWork _client, MockSocket _socketClient) {
+        _socketClient.getOutput().clear();
+        tryClick(_client.getScenePanel().getExitTrade());
+        writeToServer(_server, _socketClient);
+        loopServer2(_server.getSockets());
+    }
+
+    private void exitTradeServer(WindowNetWork _server, MockSocket _socketServ) {
+        exitTradeClient(_server, _server, _socketServ);
+    }
+
+    private void applyTrade(WindowNetWork _server, MockSocket _socketServ) {
+        _socketServ.getOutput().clear();
+        tryClick(_server.getScenePanel().getApplyTrade());
+        writeToServer(_server, _socketServ);
+        loopServer2(_server.getSockets());
+    }
+
+    private void readyClient(WindowNetWork _server, WindowNetWork _client, MockSocket _socketClient) {
+        _socketClient.getOutput().clear();
+        tryClick(_client.getScenePanel().getReadyCheck());
+        writeToServer(_server, _socketClient);
+        loopServer2(_server.getSockets());
+    }
+
+    private void readyServer(WindowNetWork _server, MockSocket _socketServ) {
+        _socketServ.getOutput().clear();
+        tryClick(_server.getScenePanel().getReadyCheck());
+        writeToServer(_server, _socketServ);
+        loopServer2(_server.getSockets());
+    }
+
+
+    private void selectServer(WindowNetWork _server, WindowNetWork _client, MockSocket _socketServ) {
+        _server.getScenePanel().getTeamPan().getListe().select(0);
+        _server.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(_server, _socketServ);
+        loopServer2(_server.getSockets());
+        sendClientPk(_server.getSockets(), _client,1);
+        loopClient(_server.getSockets(), _client);
+    }
+
+
+    private void selectClient(WindowNetWork _server, WindowNetWork _client, MockSocket _socketClient) {
+        _client.getScenePanel().getTeamPan().getListe().select(0);
+        _client.getScenePanel().getTeamPan().getListe().events();
+        writeToServer(_server, _socketClient);
+        loopServer2(_server.getSockets());
+        sendClientPk(_server.getSockets(), _server,0);
+        loopClient(_server.getSockets(), _server);
+    }
+
+    private void introClient(WindowNetWork _server, WindowNetWork _client) {
+        sendClientPk(_server.getSockets(), _client,1);
+        loopClient(_server.getSockets(), _client);
+        loopServer2(_server.getSockets());
+        sendClientPk(_server.getSockets(), _server,0);
+        loopClient(_server.getSockets(), _server);
+        sendClientPk(_server.getSockets(), _client,1);
+        loopClient(_server.getSockets(), _client);
+    }
+
+    private void introServer(WindowNetWork _server) {
+        sendClientPk(_server.getSockets(), _server,0);
+        loopClient(_server.getSockets(), _server);
+        loopServer1(_server.getSockets());
+    }
+
     public static DataBase sample() {
         DataBase db_ = init();
         StringMap<String> trsIt_ = new StringMap<String>();

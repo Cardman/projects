@@ -948,9 +948,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
         playIaWithout(server_, client_);
         IdList<AbsCustComponent> serverCompoDog_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(2, serverCompoDog_.size());
@@ -1032,9 +1030,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
         playIaWithout(server_, client_);
         IdList<AbsCustComponent> serverCompoDog_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(2, serverCompoDog_.size());
@@ -1136,9 +1132,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
         playIaWithout(server_, client_);
         IdList<AbsCustComponent> serverCompoDog_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(2, serverCompoDog_.size());
@@ -1235,10 +1229,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
-        allow(server_,server_);
+        callServer(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoDog_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, serverCompoDog_.size());
@@ -1328,10 +1319,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
-        allow(server_,server_);
+        callServer(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoDog_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, serverCompoDog_.size());
@@ -1417,10 +1405,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
-        allow(server_,server_);
+        callServer(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(24, serverCompoTwo_.size());
@@ -1578,9 +1563,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(20, serverCompoTwo_.size());
@@ -1742,9 +1725,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         discards(m_, server_, socketServ_);
 
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(22, serverCompoTwo_.size());
         assertTrue(serverCompoTwo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
@@ -1824,9 +1805,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
 
         discards(m_, server_, socketServ_);
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -1906,9 +1885,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
 
         discards(m_, server_, socketServ_);
 
@@ -2001,9 +1978,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         tryClick(((ContainerTarot)server_.getNetg().getContainerGame()).getTakeCardDog());
 
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
 
         discards(m_, server_, socketServ_);
 
@@ -2092,10 +2067,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
-        allow(server_,server_);
+        callServer(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoDog_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, serverCompoDog_.size());
@@ -2187,10 +2159,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
-        allow(server_,server_);
+        callServer(m_, server_, socketServ_);
 
         IdList<AbsCustComponent> serverCompoDog_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(3, serverCompoDog_.size());
@@ -2278,10 +2247,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         IdList<AbsCustComponent> clientCompoOne_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoOne_.size());
         assertTrue(clientCompoOne_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
-        allow(server_,server_);
+        callServer(m_, server_, socketServ_);
 
 
         IdList<AbsCustComponent> serverCompoTwo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
@@ -2357,9 +2323,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
         playServer(m_, server_, client_, socketServ_);
         playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
@@ -2864,9 +2828,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
         playServer(m_, server_, client_, socketServ_);
         playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
@@ -2922,9 +2884,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         bidServer(m_, server_, client_, socketServ_);
         allow(server_, server_);
 
-        socketServ_.getOutput().clear();
-        tryClickCall((ContainerMultiTarot) server_.getNetg().getContainerGame(),m_);
-        writeToServer(server_,socketServ_);
+        callServerWithoutAllow(m_, server_, socketServ_);
         playServer(m_, server_, client_, socketServ_);
         playClient(m_, server_, client_, socketClient_);
         playIa(server_, client_);
@@ -2938,6 +2898,18 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         self(server_,client_);
         assertTrue(client_.getDialogTeamsPlayers().getCommonFrame().isVisible());
     }
+
+    private void callServer(MockGameTarot _m, WindowNetWork _server, MockSocket _socketServ) {
+        callServerWithoutAllow(_m, _server, _socketServ);
+        allow(_server, _server);
+    }
+
+    private void callServerWithoutAllow(MockGameTarot _m, WindowNetWork _server, MockSocket _socketServ) {
+        _socketServ.getOutput().clear();
+        tryClickCall((ContainerMultiTarot) _server.getNetg().getContainerGame(), _m);
+        writeToServer(_server, _socketServ);
+    }
+
 
     private void discards(MockGameTarot _m, WindowNetWork _server, MockSocket _socketServ) {
         discard(_m, _server, _socketServ);
