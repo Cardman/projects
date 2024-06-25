@@ -1793,17 +1793,7 @@ public class DataBase {
     }
 
     private static boolean okChar(char _curr) {
-        boolean ok_ = isLowerLetter(_curr);
-        if (_curr >= 'A' && _curr <= 'Z') {
-            ok_ = true;
-        }
-        if (_curr >= '0' && _curr <= '9') {
-            ok_ = true;
-        }
-        if (_curr == UNDERSCORE) {
-            ok_ = true;
-        }
-        return ok_;
+        return MathExpUtil.isWordChar(_curr);
     }
 
     public void setMiniPk(StringMap<int[][]> _miniPk) {
