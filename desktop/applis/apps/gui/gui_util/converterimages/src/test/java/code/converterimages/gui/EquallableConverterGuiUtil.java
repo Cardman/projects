@@ -58,10 +58,6 @@ public abstract class EquallableConverterGuiUtil {
         Assert.assertEquals(_expected, _result);
     }
 
-    public static void assertEq(byte[] _expected, byte[] _result) {
-        Assert.assertArrayEquals(_expected, _result);
-    }
-
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
