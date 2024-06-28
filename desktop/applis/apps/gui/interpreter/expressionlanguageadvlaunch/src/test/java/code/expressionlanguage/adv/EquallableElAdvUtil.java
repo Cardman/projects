@@ -761,6 +761,16 @@ public abstract class EquallableElAdvUtil {
         return window(_pr);
     }
 
+    public static WindowCdmEditor createWindowCdm(AbstractProgramInfos _pr) {
+        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        _pr.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) _pr);
+        CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
+        _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
+        CreateWindowCdm c_ = new CreateWindowCdm("en",new StringList(), fact_, _pr);
+        c_.run();
+        return c_.getWindow();
+    }
     public static WindowCdmEditor window(AbstractProgramInfos _pr) {
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
         _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());

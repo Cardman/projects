@@ -62,11 +62,6 @@
 !/desktop/applis/apps/apps_sml/sml_games/pokemonsml/src/**/*.java
 !/desktop/applis/apps/apps_sml/sml_games/pom.xml
 !/desktop/applis/apps/apps_util/
-!/desktop/applis/apps/apps_util/expressionlanguageadv/
-!/desktop/applis/apps/apps_util/expressionlanguageadv/pom.xml
-!/desktop/applis/apps/apps_util/expressionlanguageadv/src/
-!/desktop/applis/apps/apps_util/expressionlanguageadv/src/**/
-!/desktop/applis/apps/apps_util/expressionlanguageadv/src/**/*.java
 !/desktop/applis/apps/apps_util/expressionlanguagefiles/
 !/desktop/applis/apps/apps_util/expressionlanguagefiles/pom.xml
 !/desktop/applis/apps/apps_util/expressionlanguagefiles/src/

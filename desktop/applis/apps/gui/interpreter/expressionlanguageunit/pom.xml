@@ -23,8 +23,8 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 		<dependency>
-			<groupId>expressionlanguageadv</groupId>
-			<artifactId>expressionlanguageadv</artifactId>
+			<groupId>expressionlanguageadvlaunch</groupId>
+			<artifactId>expressionlanguageadvlaunch</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

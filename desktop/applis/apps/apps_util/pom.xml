@@ -21,7 +21,6 @@
 		<module>guidoc</module>
 		<module>expressionlanguageutilimpl</module>
 		<module>expressionlanguagefiles</module>
-		<module>expressionlanguageadv</module>
 	</modules>
 	<dependencies>
 		<dependency>

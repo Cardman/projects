@@ -13,6 +13,11 @@ import org.junit.Test;
 
 public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
+    public void init0() {
+        WindowCdmEditor w_ = createWindowCdm(newMockProgramInfosInitConf());
+        assertTrue(w_.getCommonFrame().isVisible());
+    }
+    @Test
     public void init1() {
         WindowCdmEditor w_=newWindowLoadDef();
         assertTrue(w_.getCommonFrame().isVisible());

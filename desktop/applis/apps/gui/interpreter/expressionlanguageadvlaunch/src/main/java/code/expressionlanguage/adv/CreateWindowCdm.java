@@ -9,6 +9,7 @@ public final class CreateWindowCdm implements Runnable {
     private final String language;
     private final StringList args;
     private final AbstractProgramInfos programInfos;
+    private WindowCdmEditor window;
 
     public CreateWindowCdm(String _language, StringList _args, CdmFactory _list,AbstractProgramInfos _infos) {
         language = _language;
@@ -19,9 +20,14 @@ public final class CreateWindowCdm implements Runnable {
 
     @Override
     public void run() {
-        WindowCdmEditor window_ = new WindowCdmEditor(language, programInfos, list);
+        window = new WindowCdmEditor(language, programInfos, list);
+        WindowCdmEditor window_ = window;
         window_.setMainResultNext(new AdvResultContextNext(window_,programInfos,list));
         window_.setResultContextNext(window_.getMainResultNext());
         window_.updateCommentsInit(args);
+    }
+
+    public WindowCdmEditor getWindow() {
+        return window;
     }
 }
