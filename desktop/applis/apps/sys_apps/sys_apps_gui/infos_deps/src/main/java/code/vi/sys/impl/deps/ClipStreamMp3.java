@@ -83,7 +83,7 @@ public final class ClipStreamMp3 implements AbsClipStream {
     @Override
     public boolean closeClipStream() {
         try {
-            pl.close();
+            pl.stop();
             return true;
         } catch (Exception e) {
             return false;

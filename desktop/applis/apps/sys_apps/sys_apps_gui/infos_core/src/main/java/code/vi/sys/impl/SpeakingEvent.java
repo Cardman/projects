@@ -1,6 +1,6 @@
 package code.vi.sys.impl;
 
-import code.stream.LineShortListenable;
+import code.stream.*;
 
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;

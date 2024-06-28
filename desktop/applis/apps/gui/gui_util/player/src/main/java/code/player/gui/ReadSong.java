@@ -1,9 +1,9 @@
 package code.player.gui;
 import code.gui.events.AbsActionListener;
 
-public class ReadSong  implements AbsActionListener {
+public final class ReadSong  implements AbsActionListener {
 
-    private WindowPlayer window;
+    private final WindowPlayer window;
 
     public ReadSong(WindowPlayer _window) {
         window = _window;

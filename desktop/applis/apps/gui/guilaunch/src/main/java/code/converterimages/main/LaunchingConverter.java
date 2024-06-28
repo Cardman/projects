@@ -7,10 +7,8 @@ import code.gui.initialize.LoadLanguageUtil;
 import code.stream.BytesInfo;
 import code.stream.FileListInfo;
 import code.stream.StreamBinaryFile;
-import code.util.StringMap;
 import code.converterimages.gui.CreateMainWindowConverter;
 import code.util.core.BoolVal;
-import code.util.core.StringUtil;
 
 public class LaunchingConverter extends AdvSoftApplicationCore {
 
@@ -37,18 +35,19 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowConverter(_language,getFile(_args), getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowConverter(_language, getFrames()), getFrames());
+//        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowConverter(_language,getFile(_args), getFrames()), getFrames());
     }
 
-    protected StringMap<BoolVal> getFile(String[] _args) {
-        StringMap<BoolVal> files_ = new StringMap<BoolVal>();
-        if (_args.length > 0) {
-            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
-            fileName_ = StringUtil.replaceBackSlash(fileName_);
-            files_.put(fileName_, getObject(_args[0]));
-        }
-        return files_;
-    }
+//    protected StringMap<BoolVal> getFile(String[] _args) {
+//        StringMap<BoolVal> files_ = new StringMap<BoolVal>();
+//        if (_args.length > 0) {
+//            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
+//            fileName_ = StringUtil.replaceBackSlash(fileName_);
+//            files_.put(fileName_, getObject(_args[0]));
+//        }
+//        return files_;
+//    }
 
     @Override
     protected String getApplicationName() {

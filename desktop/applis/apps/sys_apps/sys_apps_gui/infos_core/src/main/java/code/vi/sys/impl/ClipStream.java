@@ -34,8 +34,8 @@ public final class ClipStream implements AbsClipStream {
     }
 
     public void addLineListener(LineShortListenable _line) {
-        start();
         clip.addLineListener(new SpeakingEvent(_line));
+        start();
     }
     public void start() {
         clip.start();
@@ -58,6 +58,7 @@ public final class ClipStream implements AbsClipStream {
 
     @Override
     public boolean closeClipStream() {
+        clip.stop();
         clip.close();
         return StreamCoreUtil.close(stream);
     }

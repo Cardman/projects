@@ -18,7 +18,6 @@ import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.minirts.LaunchingDemo;
-import code.player.SongList;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.sml.Document;
@@ -81,8 +80,6 @@ public class LaunchingApplications extends SoftApplicationCore {
             Document doc_ = DocumentBuilder.parseNoTextDocument(file_);
             if (doc_ != null) {
                 if (StringUtil.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
-                    SongList list_ = new SongList();
-                    list_.addSongs(doc_);
                     launchWindow(_language, getFactories());
                     LaunchingPlayer launch_ = new LaunchingPlayer(getFactories());
                     launch_.launchWithoutLanguage(_language, _args);

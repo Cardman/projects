@@ -8,9 +8,9 @@ import code.util.core.NumberUtil;
 
 public final class MockClipStream implements AbsClipStream {
 
-    private static final String START = "start";
-    private static final String STOP = "stop";
-    private static final String CLOSE = "close";
+    private static final String START = "Start";
+    private static final String STOP = "Stop";
+//    private static final String CLOSE = "Close";
     private boolean running;
     private final long microsecondLength;
     private final boolean wave;
@@ -37,8 +37,8 @@ public final class MockClipStream implements AbsClipStream {
 
     @Override
     public void addLineListener(LineShortListenable _lineShortListenable) {
-        running = true;
         listeners.add(_lineShortListenable);
+        resume();
     }
 
     @Override
@@ -57,22 +57,23 @@ public final class MockClipStream implements AbsClipStream {
     public void stop(long _l) {
         position = _l;
         running = false;
-        for (LineShortListenable l: listeners) {
-            if (isWave()) {
-                l.update(STOP,position);
-            } else {
-                l.updateMp3(STOP,position);
-            }
-        }
+        closeClipStream();
+//        for (LineShortListenable l: listeners) {
+//            if (isWave()) {
+//                l.update(STOP,position);
+//            } else {
+//                l.updateMp3(STOP,position);
+//            }
+//        }
     }
 
     @Override
     public boolean closeClipStream() {
         for (LineShortListenable l: listeners) {
             if (isWave()) {
-                l.update(CLOSE,position);
+                l.update(STOP,position);
             } else {
-                l.updateMp3(CLOSE,position);
+                l.updateMp3(STOP,position);
             }
         }
         return mockRand.edit();

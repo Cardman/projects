@@ -36,6 +36,7 @@ public final class MockSoundRecord implements AbsSoundRecord {
 
     @Override
     public byte[] recordSong() {
+        stop();
         return convert();
     }
 //

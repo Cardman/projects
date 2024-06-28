@@ -3,7 +3,7 @@ import code.gui.events.AbsActionListener;
 
 public final class ReadEvent implements AbsActionListener {
 
-    private WindowConverter window;
+    private final WindowConverter window;
 
     public ReadEvent(WindowConverter _window) {
         window = _window;

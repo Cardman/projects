@@ -30,12 +30,18 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class WindowPlayer extends GroupFrame implements LineShortListenable,AbsOpenQuit {
+    public static final String SMIL = "smil";
+    public static final String CST_MEDIA = "media";
+    public static final String CST_SRC = "src";
+    public static final String CST_KEY_PAUSE = "pause";
+    public static final String CST_KEY_RANDOM = "random";
+    public static final String CST_ATTR_VALUE = "value";
     public static final String APPS_MUSICPLAYER = "musicplayer";
     private static final String ACCESS = "player.gui.mainwindow";
 
-    private static final String CST_START = "start";
-    private static final String CST_CLOSE = "close";
-    private static final String CST_STOP_EVT = "stop";
+    private static final String CST_START = "Start";
+//    private static final String CST_CLOSE = "Close";
+    private static final String CST_STOP_EVT = "Stop";
     private static final String CST_TITLE_PLAYER = "titlePlayer";
     private static final String CST_SONGS = "songs";
     private static final String CST_RANDOM = "random";
@@ -44,11 +50,6 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final String CST_RESOURCES_FOLDER = "resources_player";
     private static final String REL_SEP = " / ";
     private static final String CST_PAUSE = "||";
-    private static final String CST_KEY_PAUSE = "pause";
-    private static final String CST_KEY_RANDOM = "random";
-    private static final String CST_ATTR_VALUE = "value";
-    private static final String CST_MEDIA = "media";
-    private static final String CST_SRC = "src";
     private static final String CST_STOP = "[]";
     private static final String CST_PREVIOUS = "<|";
     private static final String CST_NEXT = "|>";
@@ -56,8 +57,6 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final String EMPTY = "";
     private static final String LINE_RETURN = "\n";
 
-    private static final String START_MP_3 = "start_mp3";
-    private static final String STOP_MP_3 = "stop_mp3";
     private static final String RESOURCES_FOLDER = "resources_player";
     private static final String ICON = "player.txt";
     private final ReportingFrame resultFile = ReportingFrame.newInstance(getFrames());
@@ -80,10 +79,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsScrollPane scroll;
     private final AbsPlainLabel elapsedTime = getCompoFactory().newPlainLabel(EMPTY);
     private boolean pausing;
-    private boolean next;
-    private boolean playSong;
-    private StringList songsList = new StringList();
-    private String contentList = "";
+//    private boolean next;
+//    private boolean closing;
+//    private boolean playSong;
+    private CustList<LoadedSongBytes> songsList = new CustList<LoadedSongBytes>();
+//    private String contentList = "";
     private long elapsed;
 
 //    private final CustButtonGroup group = new CustButtonGroup();
@@ -143,18 +143,19 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     }
 
     //    @Override
-    public void dispose() {
-        saveState();
-        GuiBaseUtil.trEx(this);
-    }
+//    public void dispose() {
+//        saveState();
+//        GuiBaseUtil.trEx(this);
+//    }
 
     public void loadList(String _fileName) {
         songs.append(_fileName);
-        String txt_ = StreamTextFile.contentsOfFile(_fileName,getFileCoreStream(),getStreams());
-        Document doc_ = DocumentBuilder.parseNoTextDocument(txt_);
-        if (doc_ != null) {
-            playOrPause(true);
-        }
+        playOrPause(true);
+//        String txt_ = StreamTextFile.contentsOfFile(_fileName,getFileCoreStream(),getStreams());
+//        Document doc_ = DocumentBuilder.parseNoTextDocument(txt_);
+//        if (doc_ != null) {
+//            playOrPause(true);
+//        }
     }
 
     public void initMessages(String _lg) {
@@ -164,136 +165,178 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     }
 
     public void playOrPause(boolean _click) {
-        if (clipStream == null) {
-            noSong++;
-            if (_click) {
-                songsList = StringUtil.splitStrings(songs.getText(), LINE_RETURN);
-                songsList.removeAllString(EMPTY);
-                StringList filter_ = new StringList();
-                int len_ = songsList.size();
-                for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-                    String v_ = songsList.get(i);
-                    byte[] bytes_ = StreamBinaryFile.loadFile(v_, getStreams()).getBytes();
-                    if (bytes_.length > 0&&bytes_[0]=='<'||valid(bytes_)) {
-                        filter_.add(v_);
-                    }
-                }
-                songsList = filter_;
-                suffle();
+        if (clipStream != null) {
+            manageAlreadyLaunched();
+            return;
+        }
+        noSong++;
+        if (_click) {
+            shuffleListOrSounds();
+        }
+        if (noSong >= songsList.size()) {
+            if (!_click) {
+                return;
             }
-            if (noSong >= songsList.size()) {
-                if (!_click) {
-                    return;
-                }
-                noSong = 0;
-                if (songsList.isEmpty()) {
-                    return;
-                }
+            noSong = 0;
+            if (songsList.isEmpty()) {
+                return;
             }
-            if (!songsList.isValidIndex(noSong)) {
-                resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+        }
+//            if (!songsList.isValidIndex(noSong)) {
+//                resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
 //                getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
-                return;
-            }
-            byte[] bytes_ = getBytes();
-            if (bytes_.length > 0 && bytes_[0] != '<') {
-                //.wav or .mp3 or .txt
-                clipStream = GuiBaseUtil.getAbsClipStream(getFrames(),bytes_);
-            } else if (bytes_.length > 0) {
-                //.wpl
-                String txt_ = StringUtil.decode(bytes_);
-                Document doc_ = DocumentBuilder.parseNoTextDocument(txt_);
-                if (doc_ == null) {
-                    resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+//                return;
+//            }
+        byte[] bytes_ = getBytes();
+        if (!listSong(bytes_)) {
+//        if (bytes_.length > 0 && bytes_[0] != '<')
+            //.wav or .mp3 or .txt
+            clipStream = GuiBaseUtil.getAbsClipStream(getFrames(),bytes_);
+            possibleLaunch();
+            return;
+        }
+//        if (bytes_.length <= 0) {
+//            return;
+//        }
+        //.wpl
+        String txt_ = StringUtil.decode(bytes_);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(txt_);
+        if (doc_ == null) {
+            resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
 //                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
-                    return;
-                }
-                ElementList e_ = doc_.getElementsByTagName(CST_MEDIA);
-                int len_ = e_.getLength();
-                songsList.clear();
-                for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-                    Element elt_ = e_.item(i);
-                    String v_ = elt_.getAttribute(CST_SRC);
-                    if (valid(StreamBinaryFile.loadFile(v_, getStreams()).getBytes())) {
-                        songsList.add(v_);
-                    }
-                }
-                if (songsList.isEmpty()) {
-                    resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+            return;
+        }
+        ElementList e_ = doc_.getElementsByTagName(CST_MEDIA);
+        int len_ = e_.getLength();
+        songsList.clear();
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            Element elt_ = e_.item(i);
+            String v_ = elt_.getAttribute(CST_SRC);
+            byte[] data_ = StreamBinaryFile.loadFile(v_, getStreams()).getBytes();
+            if (valid(data_)) {
+                songsList.add(new LoadedSongBytes(v_,data_));
+            }
+        }
+        if (songsList.isEmpty()) {
+            resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
 //                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
-                    return;
-                }
-                ElementList elts_ = doc_.getDocumentElement().getChildElements();
-                if (elts_.getLength() > 0) {
-                    if (StringUtil.quickEq(CST_KEY_PAUSE,elts_.get(0).getTagName())) {
-                        String txtCont_ = elts_.get(0).getAttribute(CST_ATTR_VALUE);
-                        int paused_ = NumberUtil.parseInt(txtCont_);
-                        if (songsList.isValidIndex(paused_)) {
-                            noSong = paused_;
-                        } else {
-                            suffle();
-                        }
-                    } else if (StringUtil.quickEq(CST_KEY_RANDOM,elts_.get(0).getTagName())) {
-                        random.setSelected(true);
-                        suffle();
-                    } else {
-                        suffle();
-                    }
-                } else {
-                    suffle();
-                }
-                Document list_ = DocumentBuilder.newXmlDocument();
-                Element mainDoc_ = list_.createElement("smil");
-                for (String s: songsList) {
-                    Element elt_ = list_.createElement(CST_MEDIA);
-                    elt_.setAttribute(CST_SRC,s);
-                    mainDoc_.appendChild(elt_);
-                }
-                contentList = mainDoc_.export();
-                clipStream = getAbsClipStream();
-                if (songsList.isEmpty()) {
-                    resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+            return;
+        }
+        shuffleWavMp3(doc_);
+//        export();
+        clipStream = getAbsClipStream();
+//                if (songsList.isEmpty()) {
+//                    resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
 //                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
-                    return;
-                }
-            }
-            songRend.setSongs(songsList);
-            songRend.setNoSong(noSong);
-            songRend.setSize(getImageFactory());
-            scroll.revalidate();
-            pack();
-            if (clipStream == null) {
-                return;
-            }
-            clipStream.addLineListener(this);
-            play.setText(CST_PAUSE);
-            currentNoSong.setText((noSong+1)+"/"+songsList.size());
-            currentSong.setText(songsList.get(noSong));
-            String strBegin_ = GuiBaseUtil.getStringTime(0);
-            elapsedTime.setText(strBegin_+REL_SEP+GuiBaseUtil.getStringTime(clipStream.getMicrosecondLength()));
-            cancelIfPossible();
-            abstractFuture = timer.scheduleAtFixedRate(new UpdateSongTimeEvent(this), 0, 1);
-        } else {
-            if (clipStream.isRunning()) {
-                saveState();
-                play.setText(CST_PLAY);
-                pausing = true;
-                clipStream.stop(elapsed);
-            } else {
-                pausing = false;
-                clipStream.resume();
-            }
+//                    return;
+//                }
+        possibleLaunch();
+    }
 
+//    private void export() {
+//        Document list_ = DocumentBuilder.newXmlDocument();
+//        Element mainDoc_ = list_.createElement(SMIL);
+//        for (LoadedSongBytes s: songsList) {
+//            Element elt_ = list_.createElement(CST_MEDIA);
+//            elt_.setAttribute(CST_SRC,s.getName());
+//            mainDoc_.appendChild(elt_);
+//        }
+//        contentList = mainDoc_.export();
+//    }
+
+    private void manageAlreadyLaunched() {
+        if (clipStream.isRunning()) {
+            saveState();
+            play.setText(CST_PLAY);
+            pausing = true;
+            clipStream.stop(elapsed);
+        } else {
+            pausing = false;
+            clipStream.resume();
         }
     }
 
-    private void suffle() {
+    private void shuffleListOrSounds() {
+        StringList songsListName_ = StringUtil.splitStrings(songs.getText(), LINE_RETURN);
+        songsListName_.removeAllString(EMPTY);
+//                songsList = StringUtil.splitStrings(songs.getText(), LINE_RETURN);
+//                songsList.removeAllString(EMPTY);
+        CustList<LoadedSongBytes> filter_ = new CustList<LoadedSongBytes>();
+        int len_ = songsListName_.size();
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            String v_ = songsListName_.get(i);
+            byte[] bytes_ = StreamBinaryFile.loadFile(v_, getStreams()).getBytes();
+            if (listSong(bytes_) ||valid(bytes_)) {
+                filter_.add(new LoadedSongBytes(v_,bytes_));
+            }
+        }
+        songsList = filter_;
+        shuffle();
+    }
+
+    private boolean listSong(byte[] _bytes) {
+        return _bytes.length > 0 && _bytes[0] == '<';
+    }
+
+    public void possibleLaunch() {
+        songRend.setSongs(songsList);
+        songRend.setNoSong(noSong);
+        songRend.setSize(getImageFactory());
+        scroll.revalidate();
+        pack();
+        if (clipStream == null) {
+            resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+            return;
+        }
+        clipStream.addLineListener(this);
+        currentNoSong.setText((noSong+1)+"/"+songsList.size());
+        currentSong.setText(songsList.get(noSong).getName());
+        String strBegin_ = GuiBaseUtil.getStringTime(0);
+        elapsedTime.setText(strBegin_+REL_SEP+GuiBaseUtil.getStringTime(clipStream.getMicrosecondLength()));
+        cancelIfPossible();
+        abstractFuture = timer.scheduleAtFixedRate(new UpdateSongTimeEvent(this), 0, 1);
+    }
+
+    private void shuffleWavMp3(Document _doc) {
+        CustList<Element> elts_ = new CustList<Element>();
+        for (Element e: _doc.getDocumentElement().getChildElements()) {
+            if (StringUtil.quickEq(CST_KEY_PAUSE,e.getTagName())) {
+                elts_.add(e);
+            }
+            if (StringUtil.quickEq(CST_KEY_RANDOM,e.getTagName())) {
+                elts_.add(e);
+            }
+        }
+        if (!elts_.isEmpty()) {
+            if (StringUtil.quickEq(CST_KEY_PAUSE, elts_.get(0).getTagName())) {
+                String txtCont_ = elts_.get(0).getAttribute(CST_ATTR_VALUE);
+                int paused_ = NumberUtil.parseInt(txtCont_);
+                if (songsList.isValidIndex(paused_)) {
+                    noSong = paused_;
+                } else {
+                    shuffle();
+                }
+//            } else if (StringUtil.quickEq(CST_KEY_RANDOM, elts_.get(0).getTagName())) {
+//                random.setSelected(true);
+//                shuffle();
+            } else {
+//                shuffle();
+                random.setSelected(true);
+                shuffle();
+            }
+        } else {
+            shuffle();
+        }
+    }
+
+    private void shuffle() {
         if (random.isSelected()) {
-            StringList songsList_ = new StringList();
+            /*StringList songsList_ = new StringList();
             for (String o: suffledSongsNames(songsList,getGenerator())) {
                 songsList_.add(o);
             }
-            songsList = songsList_;
+            songsList = songsList_;*/
+            songsList = shuffledSongsNames(songsList,getGenerator());
         }
     }
 
@@ -319,29 +362,30 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     }
 
     private byte[] getBytes() {
-        return GuiConstants.nullToEmpty(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()).getBytes());
+        return GuiConstants.nullToEmpty(songsList.get(noSong).getData());
     }
 
     void saveState() {
-        if (songsList.isEmpty()) {
-            return;
-        }
+//        if (songsList.isEmpty()) {
+//            return;
+//        }
         Document list_ = DocumentBuilder.newXmlDocument();
-        Element mainDoc_ = list_.createElement("smil");
+        Element mainDoc_ = list_.createElement(SMIL);
         Element pause_ = list_.createElement(CST_KEY_PAUSE);
         pause_.setAttribute(CST_ATTR_VALUE,Long.toString(noSong));
         mainDoc_.appendChild(pause_);
-        for (String s: songsList) {
+        for (LoadedSongBytes s: songsList) {
             Element elt_ = list_.createElement(CST_MEDIA);
-            elt_.setAttribute(CST_SRC,s);
+            elt_.setAttribute(CST_SRC,s.getName());
             mainDoc_.appendChild(elt_);
         }
-        contentList = mainDoc_.export();
-        StreamTextFile.saveTextFile("last.wpl",contentList,getStreams());
+//        contentList = mainDoc_.export();
+//        StreamTextFile.saveTextFile("last.wpl",contentList,getStreams());
+        StreamTextFile.saveTextFile("last.wpl",mainDoc_.export(),getStreams());
     }
 
-    public static StringList suffledSongsNames(StringList _list, AbstractGenerator _gene) {
-        StringList list_ = new StringList(_list);
+    public static CustList<LoadedSongBytes> shuffledSongsNames(CustList<LoadedSongBytes> _list, AbstractGenerator _gene) {
+        CustList<LoadedSongBytes> list_ = new CustList<LoadedSongBytes>(_list);
         Ints indexes_ = new Ints();
         Ints indexesEdited_ = new Ints();
         int size_ = list_.size();
@@ -355,7 +399,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
             indexesEdited_.add(indexes_.get(rem_));
             indexes_.remove(rem_);
         }
-        StringList newList_ = new StringList();
+        CustList<LoadedSongBytes> newList_ = new CustList<LoadedSongBytes>();
         for (int i: indexesEdited_) {
             newList_.add(list_.get(i));
         }
@@ -364,115 +408,102 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         return list_;
     }
 
-    public AbsClipStream openClip(byte[] _imageString) {
-        return getFrames().openClip(_imageString);
-    }
-
     public void nextSong() {
-        if (clipStream != null && !next) {
+        if (clipStream != null) {
+//        if (clipStream != null && !next)
             closeClipStream();
-            clipStream = null;
+//            clipStream = null;
         }
     }
 
     public void previousSong() {
-        if (clipStream != null && !next) {
+        if (clipStream != null) {
+//        if (clipStream != null && !next)
             noSong--;
             noSong--;
             closeClipStream();
-            clipStream = null;
+//            clipStream = null;
         }
     }
 
     public void stopSong() {
-        if (clipStream != null && !next) {
-            playSong = false;
+        if (clipStream != null) {
+//        if (clipStream != null && !next)
+//            playSong = false;
             songsList.clear();
             noSong = songsList.size();
             closeClipStream();
-            clipStream = null;
+//            clipStream = null;
         }
     }
 
     @Override
     public void update(String _type, long _position) {
-        String ev_ = toLowerCase(_type);
-        wav(ev_);
+        events(_type);
     }
 
     @Override
     public void updateMp3(String _type, long _position) {
-        String ev_ = toLowerCase(_type);
-        mp3(ev_);
+        events(_type);
     }
 
-    private void wav(String _ev) {
+//    private void wav(String _ev) {
+//        if (StringUtil.quickEq(_ev, CST_START)) {
+//            //LineEvent.Type.START
+//            play.setText(CST_PAUSE);
+//        } else if (StringUtil.quickEq(_ev, CST_STOP_EVT)) {
+//            //LineEvent.Type.STOP
+//            //The end of a song pass here
+//            play.setText(CST_PLAY);
+//            if (!pausing) {
+//                next = true;
+//                playSong = true;
+//                cancelIfPossible();
+//                closeClipStream();
+//                next = false;
+//            }
+//        } else if (StringUtil.quickEq(_ev, CST_CLOSE)) {
+//            //LineEvent.Type.CLOSE
+//            play.setText(CST_PLAY);
+//            pausing = false;
+//            closeClip();
+//        }
+//    }
+
+    private void events(String _ev) {
         if (StringUtil.quickEq(_ev, CST_START)) {
-            //LineEvent.Type.START
             play.setText(CST_PAUSE);
         } else if (StringUtil.quickEq(_ev, CST_STOP_EVT)) {
             //LineEvent.Type.STOP
             //The end of a song pass here
             play.setText(CST_PLAY);
             if (!pausing) {
-                next = true;
-                playSong = true;
+//                next = true;
+//                playSong = true;
                 cancelIfPossible();
-                closeClipStream();
-                next = false;
+//                    closeClipStream();
+//                }
+//                next = false;
+                closeClip();
             }
-        } else if (StringUtil.quickEq(_ev, CST_CLOSE)) {
-            //LineEvent.Type.CLOSE
-            play.setText(CST_PLAY);
-            clipStream = null;
-            pausing = false;
-            if (!playSong) {
-                return;
-            }
-            playOrPause(false);
-            playSong = false;
         }
     }
 
-    private void mp3(String _ev) {
-        if (StringUtil.quickEq(_ev, START_MP_3)) {
-            play.setText(CST_PAUSE);
-        } else if (StringUtil.quickEq(_ev, STOP_MP_3)) {
-            play.setText(CST_PLAY);
-            if (!pausing) {
-                next = true;
-                playSong = true;
-                cancelIfPossible();
-                closeClipStream();
-                clipStream = null;
-                next = false;
-                if (!playSong) {
-                    return;
-                }
-                playOrPause(false);
-                playSong = false;
-            }
-        }
+    private void closeClip() {
+        clipStream = null;
+//        if (!playSong) {
+//            return;
+//        }
+        playOrPause(false);
+//        playSong = false;
     }
 
     private void closeClipStream() {
+//        closing = true;
         clipStream.closeClipStream();
+//        closing = false;
     }
 
-    public static String toLowerCase(String _string) {
-        int len_ = _string.length();
-        StringBuilder str_ = new StringBuilder(len_);
-        for (int i = 0; i < len_; i++) {
-            char curr_ = _string.charAt(i);
-            if (curr_ >= 'A' && curr_ <= 'Z') {
-                int char_ = curr_ - 'A' + 'a';
-                str_.append((char)char_);
-                continue;
-            }
-            str_.append(curr_);
-        }
-        return str_.toString();
-    }
     public void setElapsedTime() {
         if (pausing ||clipStream == null) {
             return;
@@ -505,6 +536,38 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     @Override
     public String getApplicationName() {
         return APPS_MUSICPLAYER;
+    }
+
+    public AbsButton getPlay() {
+        return play;
+    }
+
+    public AbsButton getPlayNext() {
+        return playNext;
+    }
+
+    public AbsButton getPlayPrevious() {
+        return playPrevious;
+    }
+
+    public AbsButton getStop() {
+        return stop;
+    }
+
+    public AbsCustCheckBox getRandom() {
+        return random;
+    }
+
+    public AbsTextArea getSongs() {
+        return songs;
+    }
+
+    public boolean isPausing() {
+        return pausing;
+    }
+
+    public int getNoSong() {
+        return noSong;
     }
 
     public AbsClipStream getClipStream() {

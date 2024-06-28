@@ -1,9 +1,9 @@
 package code.player.gui;
 import code.gui.events.AbsActionListener;
 
-public class PreviousSong implements AbsActionListener {
+public final class PreviousSong implements AbsActionListener {
 
-    private WindowPlayer window;
+    private final WindowPlayer window;
 
     public PreviousSong(WindowPlayer _window) {
         window = _window;

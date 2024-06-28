@@ -84,6 +84,11 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
         assertEq(0, res_.getRGB(1,0));
     }
     @Test
+    public void f10() {
+        byte[] res_ = init().getImageFactory().decodeToImage(new int[][]{new int[]{1}});
+        assertEq(8, res_.length);
+    }
+    @Test
     public void t1() {
         MockFileSet set_ = fileSet(0,new long[0],"/");
         set_.getFiles().put("/abc",new FileStruct(StringUtil.encode("abc"),0));

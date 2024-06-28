@@ -3,7 +3,7 @@ import code.gui.events.AbsActionListener;
 
 public final class ExportEvent implements AbsActionListener {
 
-    private WindowConverter window;
+    private final WindowConverter window;
 
     public ExportEvent(WindowConverter _window) {
         window = _window;

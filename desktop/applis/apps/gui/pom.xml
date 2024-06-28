@@ -14,8 +14,8 @@
 	<modules>
 		<module>guicommon</module>
 		<module>gui_games</module>
-		<module>interpreter</module>
 		<module>gui_util</module>
+		<module>interpreter</module>
 		<module>guilaunch</module>
 		<module>applications</module>
 		<module>guicust</module>

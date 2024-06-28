@@ -5,6 +5,7 @@ import code.gui.initialize.AbstractProgramInfos;
 public final class CreateMainWindowRecorder implements Runnable {
     private final AbstractProgramInfos list;
     private final String lg;
+    private WindowRecorder windowRecorder;
 
     public CreateMainWindowRecorder(AbstractProgramInfos _p, String _l) {
         this.list = _p;
@@ -13,6 +14,10 @@ public final class CreateMainWindowRecorder implements Runnable {
 
     @Override
     public void run() {
-        new WindowRecorder(lg,list);
+        windowRecorder = new WindowRecorder(lg, list);
+    }
+
+    public WindowRecorder getWindowRecorder() {
+        return windowRecorder;
     }
 }

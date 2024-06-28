@@ -60,6 +60,7 @@ public final class SoundRecord implements AbsSoundRecord {
             currentLine = line();
             getState().set(true);
             GuiBaseUtil.recordSong(this);
+            stop();
             out.flush();
             out.close();
             byte[] bs_ = out.toByteArray();

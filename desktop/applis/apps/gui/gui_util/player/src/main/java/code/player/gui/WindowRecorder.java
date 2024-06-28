@@ -116,7 +116,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public void changeLanguage(String _language) {
-        setLanguageKey(_language);
+        getFrames().setLanguage(_language);
     }
     public void eventRecord() {
         String fileTxt_ = fileSave.getText().trim();
@@ -151,7 +151,6 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
             playBack.getState().set(false);
         } else {
             soundRecord.getState().set(false);
-            soundRecord.stop();
             built = true;
         }
         setState();
@@ -169,11 +168,16 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
         recordSong.setEnabled(false);
         stopSong.setEnabled(true);
         pack();
-        playBack = soundRecord.build();
+        playBack();
         GuiBaseUtil.launch(playBack);
         playBack = null;
         setState();
     }
+
+    public void playBack() {
+        playBack = soundRecord.build();
+    }
+
     public boolean okRecord(){
         boolean supported_ = soundRecord.supported(rate.getValue(), size.getValue(),
                 channel.getValue(), signed.isSelected(), bigEndian.isSelected());
@@ -188,10 +192,58 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
         soundRecord.update();
         return true;
     }
+
+    public AbsSoundRecord getSoundRecord() {
+        return soundRecord;
+    }
+
+    public AbsSlider getRate() {
+        return rate;
+    }
+
+    public AbsSlider getSize() {
+        return size;
+    }
+
+    public AbsSlider getChannel() {
+        return channel;
+    }
+
+    public AbsCustCheckBox getSigned() {
+        return signed;
+    }
+
+    public AbsCustCheckBox getBigEndian() {
+        return bigEndian;
+    }
+
+    public AbsTextField getFileSave() {
+        return fileSave;
+    }
+
+    public AbsButton getRecordSong() {
+        return recordSong;
+    }
+
+    public AbsButton getStopSong() {
+        return stopSong;
+    }
+
+    public AbsButton getPlaySong() {
+        return playSong;
+    }
+
+    public AbsPlayBack getPlayBack() {
+        return playBack;
+    }
+
     public boolean okStop(){
-        return playBack != null||soundRecord.isActive();
+        return getPlayBack() != null||soundRecord.isActive();
     }
     public boolean okPlay(){
-        return built&&playBack == null;
+        return built;
     }
+//    public boolean okPlay(){
+//        return built&&playBack == null;
+//    }
 }

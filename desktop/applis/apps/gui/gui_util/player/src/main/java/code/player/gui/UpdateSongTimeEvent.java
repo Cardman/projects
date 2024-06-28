@@ -1,6 +1,6 @@
 package code.player.gui;
 
-public class UpdateSongTimeEvent implements Runnable {
+public final class UpdateSongTimeEvent implements Runnable {
 
     private final WindowPlayer window;
 

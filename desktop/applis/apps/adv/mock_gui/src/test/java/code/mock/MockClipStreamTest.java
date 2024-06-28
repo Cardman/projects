@@ -10,9 +10,9 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         assertTrue(c_.isRunning());
-        assertEq(0, list_.getKi());
+        assertEq(3, list_.getKi());
         assertEq(0, list_.getPos());
-        assertEq("", list_.getTy());
+        assertEq("Start", list_.getTy());
 
     }
     @Test
@@ -24,7 +24,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         assertFalse(c_.isRunning());
         assertEq(3, list_.getKi());
         assertEq(120, list_.getPos());
-        assertEq("stop", list_.getTy());
+        assertEq("Stop", list_.getTy());
 
     }
     @Test
@@ -36,7 +36,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         c_.resume();
         assertEq(3, list_.getKi());
         assertEq(120, list_.getPos());
-        assertEq("start", list_.getTy());
+        assertEq("Start", list_.getTy());
 
     }
     @Test
@@ -49,7 +49,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         assertTrue(c_.closeClipStream());
         assertEq(3, list_.getKi());
         assertEq(120, list_.getPos());
-        assertEq("close", list_.getTy());
+        assertEq("Stop", list_.getTy());
 
     }
     @Test
@@ -62,7 +62,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         assertFalse(c_.closeClipStream());
         assertEq(3, list_.getKi());
         assertEq(120, list_.getPos());
-        assertEq("close", list_.getTy());
+        assertEq("Stop", list_.getTy());
 
     }
     @Test
@@ -71,9 +71,9 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         assertTrue(c_.isRunning());
-        assertEq(0, list_.getKi());
+        assertEq(4, list_.getKi());
         assertEq(0, list_.getPos());
-        assertEq("", list_.getTy());
+        assertEq("Start", list_.getTy());
 
     }
     @Test
@@ -85,7 +85,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         assertFalse(c_.isRunning());
         assertEq(4, list_.getKi());
         assertEq(120, list_.getPos());
-        assertEq("stop", list_.getTy());
+        assertEq("Stop", list_.getTy());
 
     }
     @Test
@@ -97,7 +97,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         c_.resume();
         assertEq(4, list_.getKi());
         assertEq(120, list_.getPos());
-        assertEq("start", list_.getTy());
+        assertEq("Start", list_.getTy());
 
     }
     @Test
@@ -110,7 +110,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         assertTrue(c_.closeClipStream());
         assertEq(4, list_.getKi());
         assertEq(120, list_.getPos());
-        assertEq("close", list_.getTy());
+        assertEq("Stop", list_.getTy());
 
     }
     @Test
@@ -123,7 +123,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         assertFalse(c_.closeClipStream());
         assertEq(4, list_.getKi());
         assertEq(120, list_.getPos());
-        assertEq("close", list_.getTy());
+        assertEq("Stop", list_.getTy());
 
     }
     @Test
@@ -151,7 +151,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         assertFalse(c_.isRunning());
         assertEq(3, list_.getKi());
         assertEq(152351, list_.getPos());
-        assertEq("stop", list_.getTy());
+        assertEq("Stop", list_.getTy());
     }
     @Test
     public void c14() {
@@ -162,6 +162,6 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
         assertFalse(c_.isRunning());
         assertEq(4, list_.getKi());
         assertEq(152351, list_.getPos());
-        assertEq("stop", list_.getTy());
+        assertEq("Stop", list_.getTy());
     }
 }

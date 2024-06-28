@@ -3,6 +3,7 @@ package code.vi.prot.impl;
 import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.ConverterGraphicBufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageInputStream;
@@ -38,6 +39,12 @@ public final class DefImageFactory implements AbstractImageFactory {
             StreamCoreUtil.close(mem_);
             return null;
         }
+    }
+
+    @Override
+    public byte[] decodeToImage(int[][] _bytes) {
+        AbstractImage img_ = ConverterGraphicBufferedImage.decodeToImage(this, _bytes);
+        return img_.writeImg("png");
     }
 
     public static ImageIcon icon(DefImage _img) {

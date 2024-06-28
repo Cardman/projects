@@ -1,13 +1,13 @@
 package code.player.gui;
 
-import code.gui.initialize.AbstractProgramInfos;
-import code.util.StringList;
-import code.util.StringMap;
+import code.gui.initialize.*;
+import code.util.*;
 
-public class CreateMainWindowPlayer implements Runnable {
+public final class CreateMainWindowPlayer implements Runnable {
     private final AbstractProgramInfos list;
-    private String lg;
-    private StringList args;
+    private final String lg;
+    private final StringList args;
+    private WindowPlayer window;
 
     public CreateMainWindowPlayer(String _lg, StringList _args, AbstractProgramInfos _list) {
         lg = _lg;
@@ -17,9 +17,14 @@ public class CreateMainWindowPlayer implements Runnable {
 
     @Override
     public void run() {
-        WindowPlayer window_ = new WindowPlayer(lg, list);
+        window = new WindowPlayer(lg, list);
+        WindowPlayer window_ = window;
         if (!args.isEmpty()) {
             window_.loadList(args.first());
         }
+    }
+
+    public WindowPlayer getWindow() {
+        return window;
     }
 }

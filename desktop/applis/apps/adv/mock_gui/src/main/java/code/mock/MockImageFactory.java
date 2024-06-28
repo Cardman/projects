@@ -37,4 +37,9 @@ public final class MockImageFactory implements AbstractImageFactory {
         }
         return new MockImage(imageByString_);
     }
+
+    @Override
+    public byte[] decodeToImage(int[][] _bytes) {
+        return new MockImage(_bytes).toBytes();
+    }
 }

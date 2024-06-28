@@ -6,14 +6,15 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public final class SongRenderer {
 
     private int noSong;
 
-    private StringList songs = new StringList();
+    private CustList<LoadedSongBytes> songs = new CustList<LoadedSongBytes>();
     private final AbsPaintableLabel paintableLabel;
     private final AbsCompoFactory compo;
     public SongRenderer(AbsCompoFactory _compoFactory) {
@@ -21,8 +22,8 @@ public final class SongRenderer {
         paintableLabel = _compoFactory.newAbsPaintableLabel();
     }
 
-    public void setSongs(StringList _songs) {
-        songs = new StringList(_songs);
+    public void setSongs(CustList<LoadedSongBytes> _songs) {
+        songs = new CustList<LoadedSongBytes>(_songs);
     }
 
     public void setNoSong(int _noSong) {
@@ -31,18 +32,15 @@ public final class SongRenderer {
 
     public void setSize(AbstractImageFactory _fact) {
         int w_ = 0;
-        for (String s: songs) {
-            int ws_ = compo.stringWidth(paintableLabel.getMetaFont(),s);
-            if (ws_ > w_) {
-                w_ = ws_;
-            }
+        for (LoadedSongBytes s: songs) {
+            w_ = NumberUtil.max(w_,compo.stringWidth(paintableLabel.getMetaFont(),s.getName()));
         }
         int h_ = compo.heightFont(paintableLabel.getMetaFont()) * songs.size();
-        if (w_ <= 0 || h_ <= 0) {
-            paintableLabel.setEmptyIcon();
-            return;
-        }
-        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//        if (w_ <= 0 || h_ <= 0) {
+//            paintableLabel.setEmptyIcon();
+//            return;
+//        }
+        AbstractImage img_ = _fact.newImageArgb(NumberUtil.max(1,w_), NumberUtil.max(1,h_));
 //        CustGraphics gr_ = new CustGraphics(img_.getGraphics());
         img_.setFont(paintableLabel);
         paintComponent(img_);
@@ -59,7 +57,7 @@ public final class SongRenderer {
                 _g.fillRect(0, hstring_ * i, paintableLabel.getWidth(), hstring_);
             }
             _g.setColor(GuiConstants.BLACK);
-            _g.drawString(songs.get(i), 0, hstring_ + hstring_ * i);
+            _g.drawString(songs.get(i).getName(), 0, hstring_ + hstring_ * i);
         }
     }
 
