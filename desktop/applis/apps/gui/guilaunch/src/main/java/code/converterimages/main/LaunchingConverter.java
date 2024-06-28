@@ -1,14 +1,8 @@
 package code.converterimages.main;
 
-import code.converterimages.gui.WindowConverter;
+import code.converterimages.gui.*;
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.initialize.LoadLanguageUtil;
-import code.stream.BytesInfo;
-import code.stream.FileListInfo;
-import code.stream.StreamBinaryFile;
-import code.converterimages.gui.CreateMainWindowConverter;
-import code.util.core.BoolVal;
+import code.gui.initialize.*;
 
 public class LaunchingConverter extends AdvSoftApplicationCore {
 
@@ -21,17 +15,17 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
     protected static void loadLaungage(String[] _args, LaunchingConverter _soft) {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
-
-    public BoolVal getObject(String _fileName) {
-        BytesInfo bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getStreams());
-        if (FileListInfo.isBinary(bytes_)) {
-            AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
-            if (img_ != null) {
-                return BoolVal.TRUE;
-            }
-        }
-        return BoolVal.FALSE;
-    }
+//
+//    public BoolVal getObject(String _fileName) {
+//        BytesInfo bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getStreams());
+//        if (FileListInfo.isBinary(bytes_)) {
+//            AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
+//            if (img_ != null) {
+//                return BoolVal.TRUE;
+//            }
+//        }
+//        return BoolVal.FALSE;
+//    }
 
     @Override
     protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
