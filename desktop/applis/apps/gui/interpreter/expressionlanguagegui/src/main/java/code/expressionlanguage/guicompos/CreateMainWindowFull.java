@@ -9,6 +9,7 @@ public final class CreateMainWindowFull implements Runnable {
     private final String language;
     private final StringList args;
     private final AbstractProgramInfos programInfos;
+    private WindowFull window;
 
     public CreateMainWindowFull(String _language, StringList _args, CdmFactory _list,AbstractProgramInfos _infos) {
         language = _language;
@@ -19,9 +20,18 @@ public final class CreateMainWindowFull implements Runnable {
 
     @Override
     public void run() {
-        WindowFull window_ = new WindowFull(language, list,programInfos);
+        window = new WindowFull(language, list, programInfos);
+        WindowFull window_ = window;
         if (!args.isEmpty()) {
             window_.launchFileConf(args.first(),false);
         }
+    }
+
+    public AbstractProgramInfos getProgramInfos() {
+        return programInfos;
+    }
+
+    public WindowFull getWindow() {
+        return window;
     }
 }

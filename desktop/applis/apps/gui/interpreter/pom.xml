@@ -17,4 +17,11 @@
 		<module>expressionlanguageunit</module>
 		<module>rendersgui</module>
 	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>expressionlanguageutilmock</groupId>
+			<artifactId>expressionlanguageutilmock</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

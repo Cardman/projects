@@ -16,6 +16,7 @@ import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 
 public final class WindowFull extends GroupFrame implements AbsOpenQuit{
@@ -105,14 +106,14 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
     }
 
 //    @Override
-    public void dispose() {
-        GuiBaseUtil.trEx(this);
-    }
+//    public void dispose() {
+//        GuiBaseUtil.trEx(this);
+//    }
 
     public void process() {
-        if (light != null) {
-            return;
-        }
+//        if (light != null) {
+//            return;
+//        }
         String txt_ = conf.getText().trim();
         GuiRunnable current_ = GuiProcess.build("", txt_, cdmFactory, getFrames());
 //        currentElements.setGuiRunnable(current_);
@@ -121,6 +122,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
             return;
         }
         light = getFrames();
+        launch.setEnabled(false);
         context = current_.getContext();
         ((LgNamesGui) current_.getContext().getStandards()).getGuiExecutingBlocks().setStop(stop);
         current_.run();
@@ -130,10 +132,10 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         if (light != null) {
             return;
         }
-        String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams());
-        if (content_ == null) {
-            return;
-        }
+        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams()));
+//        if (content_ == null) {
+//            return;
+//        }
         GuiRunnable current_ = GuiProcess.build(_fichier, content_, cdmFactory, getFrames());
 //        currentElements.setGuiRunnable(current_);
         if (current_ == null) {
@@ -141,6 +143,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
             return;
         }
         light = getFrames();
+        launch.setEnabled(false);
         context = current_.getContext();
         ((LgNamesGui) current_.getContext().getStandards()).getGuiExecutingBlocks().setStop(stop);
         if (_direct) {
@@ -148,6 +151,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         } else {
             getFrames().getCompoFactory().invokeNow(current_);
         }
+        coverage.setEnabled(true);
     }
 
     @Override
@@ -157,6 +161,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         }
         coverage.setEnabled(false);
         stop.setEnabled(false);
+        launch.setEnabled(true);
         light = null;
         GuiBaseUtil.trEx(this);
     }
@@ -173,7 +178,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
 
     @Override
     public void changeLanguage(String _language) {
-        setLanguageKey(_language);
+        getFrames().setLanguage(_language);
     }
 
 //    public GuiInterpreterElements getCurrentElements() {
@@ -184,10 +189,35 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         new CoveringCodeTask(context, context.getExecutingOptions()).run();
     }
 
+    public GuiContextEl getContext() {
+        return context;
+    }
+
+    public AbsTextArea getConf() {
+        return conf;
+    }
+
+    public AbsButton getLaunch() {
+        return launch;
+    }
+
+    public AbsButton getStop() {
+        return stop;
+    }
+
+    public AbsButton getCoverage() {
+        return coverage;
+    }
+
+    public EnabledMenu getOpen() {
+        return open;
+    }
+
     public void stopAction() {
         coverage.setEnabled(false);
         stop.setEnabled(false);
         light = null;
+        launch.setEnabled(true);
 //        ((LgNamesGui) context.getStandards()).getGuiExecutingBlocks().getGuiInterpreterElements().setGuiRunnable(null);
     }
 }
