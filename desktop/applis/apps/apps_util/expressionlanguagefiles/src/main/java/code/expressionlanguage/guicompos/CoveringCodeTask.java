@@ -6,8 +6,8 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.util.EntryCust;
 
 public final class CoveringCodeTask implements Runnable {
-    private GuiContextEl contextEl;
-    private ExecutingOptions executingOptions;
+    private final GuiContextEl contextEl;
+    private final ExecutingOptions executingOptions;
 
     public CoveringCodeTask(GuiContextEl _contextEl, ExecutingOptions _executingOptions) {
         this.contextEl = _contextEl;

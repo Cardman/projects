@@ -16,6 +16,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.gui.unit.CommonExecution;
+import code.expressionlanguage.gui.unit.ProgressingTestsImpl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
@@ -28,7 +29,6 @@ import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.CdmFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.BytesInfo;
-import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.core.OutputType;
 import code.stream.core.ReadFiles;
@@ -104,10 +104,11 @@ public final class GuiProcess implements GuiRunnable {
             MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();
             BytesInfo bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
-            if (!bytes_.isNul()) {
-                StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip(), _infos.getFileCoreStream());
-                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_.getBytes(), _infos.getStreams());
-            }
+            ProgressingTestsImpl.tryExp(exec_,bytes_, _infos.getFileCoreStream(), _infos.getStreams());
+//            if (!bytes_.isNul()) {
+//                StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip(), _infos.getFileCoreStream());
+//                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_.getBytes(), _infos.getStreams());
+//            }
             return null;
         }
         MemoryReporter.buildWarning(reportedMessages_,exec_,fileInfos_,time_);
@@ -148,6 +149,7 @@ public final class GuiProcess implements GuiRunnable {
             }
         } else {
             context.getCustInit().removeThreadFromList(context);
+            context.interrupt();
         }
 //        lastThread();
     }
@@ -158,6 +160,11 @@ public final class GuiProcess implements GuiRunnable {
 //            context.disposeAll(lg_.getGuiExecutingBlocks(),StackCall.newInstance(InitPhase.NOTHING,context));
 //        }
 //    }
+
+
+    public ExecutingOptions getExecutingOptions() {
+        return executingOptions;
+    }
 
     @Override
     public GuiContextEl getContext() {

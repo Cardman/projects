@@ -24,21 +24,21 @@ public final class ProgressingTestsImpl extends ProgressingTestsAbs {
     @Override
     public void showErrors(ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
         BytesInfo bytes_ = exportedErrors(_reportedMessages, _exec, _infos);
-        tryExp(_exec, bytes_);
+        tryExp(_exec, bytes_, fact, streams);
     }
 
     @Override
     public void setResults(ContextEl _ctx, ExecutingOptions _ex, Argument _res, LgNamesWithNewAliases _evolved) {
         BytesInfo export_ = exportedResults(_ctx,_ex, _res, _evolved);
-        tryExp(_ex, export_);
+        tryExp(_ex, export_, fact, streams);
     }
 
-    private void tryExp(ExecutingOptions _exec, BytesInfo _bytes) {
+    public static void tryExp(ExecutingOptions _exec, BytesInfo _bytes, AbstractFileCoreStream _fact, TechStreams _streams) {
         if (_bytes.isNul()) {
             return;
         }
-        StreamFolderFile.makeParent(_exec.getOutputFolder()+"/"+ _exec.getOutputZip(),fact);
-        StreamBinaryFile.writeFile(_exec.getOutputFolder()+"/"+ _exec.getOutputZip(), _bytes.getBytes(),streams);
+        StreamFolderFile.makeParent(_exec.getOutputFolder()+"/"+ _exec.getOutputZip(), _fact);
+        StreamBinaryFile.writeFile(_exec.getOutputFolder()+"/"+ _exec.getOutputZip(), _bytes.getBytes(), _streams);
     }
 
     @Override

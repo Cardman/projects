@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
+import code.expressionlanguage.guicompos.GuiProcess;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.DfInstancer;
@@ -42,6 +43,9 @@ public abstract class EquallableElUtFilesUtil {
         Assert.assertNull(_expected);
     }
     public static void assertNull(Struct _expected) {
+        Assert.assertNull(_expected);
+    }
+    public static void assertNull(GuiProcess _expected) {
         Assert.assertNull(_expected);
     }
     public static void assertNull(Runnable _expected) {
