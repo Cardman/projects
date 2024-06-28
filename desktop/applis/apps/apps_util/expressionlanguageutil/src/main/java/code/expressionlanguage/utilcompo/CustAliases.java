@@ -571,7 +571,7 @@ public final class CustAliases implements AbsAliasFileBuilder {
         ctor_ = new StandardConstructor(params_,false,new FctExecutorService0(interceptor, infos.getThreadFactory(), aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,"",params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(constructors_, ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasExecutorService1ExecutorService0()),new FctExecutorService1(interceptor, null, aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,"",params_).getSignature(_content.getDisplayedStrings())));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasExecutorService1ExecutorService0()),new FctExecutorService1(interceptor, infos.getThreadFactory(), aliasExecutorService+"."+new MethodId(MethodAccessKind.INSTANCE,"",params_).getSignature(_content.getDisplayedStrings())));
         StandardNamedFunction.addFct(constructors_, ctor_);
         std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasExecutorService, std_);
