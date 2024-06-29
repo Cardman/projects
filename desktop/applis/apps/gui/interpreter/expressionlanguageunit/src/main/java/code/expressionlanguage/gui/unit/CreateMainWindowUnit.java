@@ -7,8 +7,9 @@ import code.util.*;
 public final class CreateMainWindowUnit implements Runnable {
     private final CdmFactory list;
     private final AbstractProgramInfos programInfos;
-    private String language;
-    private StringList args;
+    private final String language;
+    private final StringList args;
+    private WindowUnit window;
 
     public CreateMainWindowUnit(String _language, StringList _args, CdmFactory _list, AbstractProgramInfos _frames) {
         language = _language;
@@ -19,9 +20,18 @@ public final class CreateMainWindowUnit implements Runnable {
 
     @Override
     public void run() {
-        WindowUnit window_ = new WindowUnit(language, list,programInfos);
+        window = new WindowUnit(language, list, programInfos);
+        WindowUnit window_ = window;
         if (!args.isEmpty()) {
             window_.launchFileConf(args.first(), window_);
         }
+    }
+
+    public WindowUnit getWindow() {
+        return window;
+    }
+
+    public AbstractProgramInfos getProgramInfos() {
+        return programInfos;
     }
 }

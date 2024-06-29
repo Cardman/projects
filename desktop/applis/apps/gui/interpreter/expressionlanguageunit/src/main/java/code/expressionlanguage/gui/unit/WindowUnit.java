@@ -165,14 +165,14 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
     }
 
 //    @Override
-    public void dispose() {
-        GuiBaseUtil.trEx(this);
-    }
+//    public void dispose() {
+//        GuiBaseUtil.trEx(this);
+//    }
 
     public void stop() {
         if (running != null) {
             ProgressingTests progressingTests_ = running.getProgressingTests();
-            if (progressingTests_ != null) {
+//            if (progressingTests_ != null) {
                 AbstractAtomicBoolean exec_ = progressingTests_.getStop();
                 if (exec_ != null) {
                     exec_.set(true);
@@ -182,7 +182,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
                     c_.getInterrupt().set(true);
                     c_.stopJoinSleep();
                 }
-            }
+//            }
         }
     }
     @Override
@@ -207,7 +207,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 
     @Override
     public void changeLanguage(String _language) {
-        setLanguageKey(_language);
+        getFrames().setLanguage(_language);
     }
 
     public void process(TestableFrame _mainWindow) {
@@ -306,7 +306,51 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         return fileOpenFrame;
     }
 
+    public SimpleFilesFrame getFilesFrame() {
+        return filesFrame;
+    }
+
     public EnabledMenu getSimpleFrame() {
         return simpleFrame;
+    }
+
+    public EnabledMenu getOpen() {
+        return open;
+    }
+
+    public EnabledMenu getLogErr() {
+        return logErr;
+    }
+
+    public EnabledMenu getStop() {
+        return stop;
+    }
+
+    public EnabledMenu getMemory() {
+        return memory;
+    }
+
+    public AbsTextArea getConf() {
+        return conf;
+    }
+
+    public AbsButton getLaunch() {
+        return launch;
+    }
+
+    public AbsTableGui getResultsTable() {
+        return resultsTable;
+    }
+
+    public RunningTest getRunning() {
+        return running;
+    }
+
+//    public CommonExecution getCommonExecution() {
+//        return commonExecution;
+//    }
+
+    public AbstractBaseExecutorService getExec() {
+        return exec;
     }
 }

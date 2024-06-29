@@ -15,7 +15,6 @@ import code.sml.util.ResourcesMessagesUtil;
 import code.stream.BytesInfo;
 import code.stream.PathsUtil;
 import code.stream.StreamBinaryFile;
-import code.threads.AbstractThreadFactory;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -50,6 +49,8 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
     private final AbsProgressBar progressBar;
     private final StringMap<String> messages;
     private final WindowUnit parent;
+    private final AbsButton srcButton;
+    private final AbsButton filesButton;
     private byte[] confFile;
     private BytesInfo src = new BytesInfo(new byte[0],true);
     private BytesInfo files = new BytesInfo(new byte[0],true);
@@ -101,12 +102,14 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
         subForm.add(parent.getCompoFactory().newPlainLabel(messages.getVal("folder")));
         subForm.add(folderField);
         srcField = parent.getCompoFactory().newTextField();
-        AbsButton srcButton_ = parent.getCompoFactory().newPlainButton(messages.getVal("src"));
+        srcButton = parent.getCompoFactory().newPlainButton(messages.getVal("src"));
+        AbsButton srcButton_ = srcButton;
         srcButton_.addActionListener(new LoadSrcEvent(this));
         subForm.add(srcButton_);
         subForm.add(srcField);
         filesField = parent.getCompoFactory().newTextField();
-        AbsButton filesButton_ = parent.getCompoFactory().newPlainButton(messages.getVal("files"));
+        filesButton = parent.getCompoFactory().newPlainButton(messages.getVal("files"));
+        AbsButton filesButton_ = filesButton;
         filesButton_.addActionListener(new LoadFilesEvent(this));
         subForm.add(filesButton_);
         subForm.add(filesField);
@@ -193,30 +196,32 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
 //            return new BytesInfo(new byte[0],true);
 //        }
         if (PathsUtil.isAbsolute(_fileField.getText(), parent.getFileCoreStream())) {
-            BytesInfo files_ = StreamBinaryFile.loadFile(_fileField.getText(), parent.getStreams());
-            if (files_.isNul()) {
-                errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
-                errors.append("\n");
-                return new BytesInfo(new byte[0],true);
-            }
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_fileField.getText()));
-            errors.append("\n");
-            return files_;
+            return readFile(_fileField.getText());
+//            BytesInfo files_ = StreamBinaryFile.loadFile(_fileField.getText(), parent.getStreams());
+//            if (files_.isNul()) {
+//                errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
+//                errors.append("\n");
+//                return new BytesInfo(new byte[0],true);
+//            }
+//            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_fileField.getText()));
+//            errors.append("\n");
+//            return files_;
         }
         if (!PathsUtil.isAbsolute(folderField.getText(), parent.getFileCoreStream())) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadPath"),_fileField.getText(),folderField.getText()));
             errors.append("\n");
             return new BytesInfo(new byte[0],true);
         }
-        BytesInfo files_ = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText(), parent.getStreams());
-        if (files_.isNul()) {
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
-            errors.append("\n");
-            return new BytesInfo(new byte[0],true);
-        }
-        errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText()));
-        errors.append("\n");
-        return files_;
+        return readFile(StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText());
+//        BytesInfo files_ = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText(), parent.getStreams());
+//        if (files_.isNul()) {
+//            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText()));
+//            errors.append("\n");
+//            return new BytesInfo(new byte[0],true);
+//        }
+//        errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText()));
+//        errors.append("\n");
+//        return files_;
 
     }
     @Override
@@ -233,10 +238,10 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
                 validator_,unitIssuer, new MemInputFiles(confFile, src, files), parent.getFrames().getZipFact(), parent.getThreadFactory());
     }
 
-    @Override
-    public AbstractThreadFactory getThreadFactory() {
-        return parent.getThreadFactory();
-    }
+//    @Override
+//    public AbstractThreadFactory getThreadFactory() {
+//        return parent.getThreadFactory();
+//    }
 
     public void showProgress(ContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved) {
         commonExecution.showProgress(_ctx, _infos, _evolved);
@@ -260,16 +265,72 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
 //            errors.append("\n");
 //            return;
 //        }
+        BytesInfo read_ = readFile(_filePath);
+        if (!read_.isNul()) {
+            this.filePath = _filePath;
+            confFile = read_.getBytes();
+        }
+//        BytesInfo confFile_ = StreamBinaryFile.loadFile(_filePath, parent.getStreams());
+//        if (confFile_.isNul()) {
+//            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_filePath));
+//            errors.append("\n");
+//            return;
+//        }
+//        this.filePath = _filePath;
+//        confFile = confFile_.getBytes();
+//        errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_filePath));
+//        errors.append("\n");
+    }
+
+    public BytesInfo readFile(String _filePath) {
         BytesInfo confFile_ = StreamBinaryFile.loadFile(_filePath, parent.getStreams());
         if (confFile_.isNul()) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_filePath));
             errors.append("\n");
-            return;
+            return new BytesInfo(new byte[0],true);
         }
-        this.filePath = _filePath;
-        confFile = confFile_.getBytes();
         errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_filePath));
         errors.append("\n");
+        return confFile_;
     }
 
+    public EnabledMenu getOpen() {
+        return open;
+    }
+
+    public EnabledMenu getStop() {
+        return stop;
+    }
+
+    public AbsTextField getFolderField() {
+        return folderField;
+    }
+
+    public AbsTextField getSrcField() {
+        return srcField;
+    }
+
+    public AbsTextField getFilesField() {
+        return filesField;
+    }
+
+    public AbsTextArea getConf() {
+        return conf;
+    }
+
+    public AbsButton getLaunch() {
+        return launch;
+    }
+
+    public AbsButton getSrcButton() {
+        return srcButton;
+    }
+
+    public AbsButton getFilesButton() {
+        return filesButton;
+    }
+
+    public AbsButton getLaunchByFile() {
+        return launchByFile;
+    }
 }
