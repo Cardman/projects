@@ -38,9 +38,10 @@ public final class CustRenderAction implements AbstractRenderAction {
     private String afterActionWithoutRemove(ContextEl _ctx, RendStackCall _stackCall) {
         String error_ = DefaultInitialization.afterActionWithoutRemove(_ctx, _stackCall);
         if (error_ != null) {
-            if (render.getArea() != null) {
-                render.getArea().append(error_);
-            }
+//            if (render.getArea() != null) {
+//                render.getArea().append(error_);
+//            }
+            render.getArea().append(error_);
             render.finish();
             return error_;
         }

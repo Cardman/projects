@@ -12,8 +12,9 @@ public final class RenderIssuer implements AbstractIssuer {
 
     @Override
     public void log(String _info) {
-        if (session.getArea() != null) {
-            session.getArea().append(_info);
-        }
+        session.getArea().append(_info);
+//        if (session.getArea() != null) {
+//            session.getArea().append(_info);
+//        }
     }
 }

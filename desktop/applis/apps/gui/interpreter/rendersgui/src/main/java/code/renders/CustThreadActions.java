@@ -37,9 +37,10 @@ public final class CustThreadActions extends AbstractThreadActions {
         String res_ = init.execute(navigation,new AdvContextGenerator(getPage().getGene().getThreadFactory().newAtomicBoolean()));
         getPage().setKeyWordDigit(init.getKeyWordDigit());
         if (res_ != null) {
-            if (getPage().getArea() != null) {
-                getPage().getArea().append(res_);
-            }
+//            if (getPage().getArea() != null) {
+//                getPage().getArea().append(res_);
+//            }
+            getPage().getArea().append(res_);
             finish();
             return;
         }
