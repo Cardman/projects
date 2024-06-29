@@ -18,6 +18,7 @@ import code.scripts.pages.aiki.*;
 import code.scripts.pages.cards.*;
 import code.sml.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public abstract class SoftApplicationCore {
 
@@ -132,6 +133,15 @@ public abstract class SoftApplicationCore {
         return new LanguageFrame(_dir, _args, this, _icon);
     }
 
+    protected StringList getFile(String[] _args) {
+        StringList files_ = new StringList();
+        if (_args.length > 0) {
+            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
+            fileName_ = StringUtil.replaceBackSlash(fileName_);
+            files_.add(fileName_);
+        }
+        return files_;
+    }
 
     protected abstract void launch(String _language, String[] _args, EnabledMenu _lgMenu);
 

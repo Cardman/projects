@@ -10,7 +10,6 @@ import code.gui.files.FileDialog;
 import code.gui.initialize.LoadLanguageUtil;
 import code.stream.StreamFolderFile;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public class LaunchingPokemon extends AdvSoftApplicationCore {
 
@@ -44,16 +43,6 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 //        CreateMainWindow create_ = new CreateMainWindow(param_, false, path_, topLeft_);
 //        create_.start();
         ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowAiki(param_, args_, path_, topLeft_, _lgMenu, getFrames(),getAppFactories().getAikiFactory()), getFrames());
-    }
-
-    protected StringList getFile(String[] _args) {
-        StringList files_ = new StringList();
-        if (_args.length > 0) {
-            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
-            fileName_ = StringUtil.replaceBackSlash(fileName_);
-            files_.add(fileName_);
-        }
-        return files_;
     }
 
     @Override
