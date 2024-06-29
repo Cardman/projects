@@ -32,6 +32,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
+    public static final String RESOURCES_RENDERS_ALIASES = "resources_renders/aliases";
     private final LgNamesUtilsContent execContent;
     private final StringMap<String> properties = MessCdmRenderGr.ms();
     public LgNamesRenderUtils(FileInfos _infos,AbstractInterceptor _inter) {
@@ -84,36 +85,16 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         StringBuilder styleUnitsPart_ = new StringBuilder();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringUtil.quickEq(fieldName_, "messages")) {
-                messPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "rendmessages")) {
-                rendMessPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "keywords")) {
-                keyWordsPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "aliases")) {
-                aliasesPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "tags")) {
-                tagsPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "attrs")) {
-                attrsPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "values")) {
-                valuesPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "styleAttrs")) {
-                styleAttrsPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "styleValues")) {
-                styleValuesPart_.append(c.getAttribute("value"));
-            }
-            if (StringUtil.quickEq(fieldName_, "styleUnits")) {
-                styleUnitsPart_.append(c.getAttribute("value"));
-            }
+            feed(fieldName_, "messages", messPart_, c);
+            feed(fieldName_, "rendmessages", rendMessPart_, c);
+            feed(fieldName_, "keywords", keyWordsPart_, c);
+            feed(fieldName_, "aliases", aliasesPart_, c);
+            feed(fieldName_, "tags", tagsPart_, c);
+            feed(fieldName_, "attrs", attrsPart_, c);
+            feed(fieldName_, "values", valuesPart_, c);
+            feed(fieldName_, "styleAttrs", styleAttrsPart_, c);
+            feed(fieldName_, "styleValues", styleValuesPart_, c);
+            feed(fieldName_, "styleUnits", styleUnitsPart_, c);
         }
         StringMap<String> mess_ = new StringMap<String>();
         StringMap<String> rendMess_ = new StringMap<String>();
@@ -160,12 +141,18 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         }
     }
 
+    private void feed(String _field, String _cst, StringBuilder _part, Element _c) {
+        if (StringUtil.quickEq(_field, _cst)) {
+            _part.append(_c.getAttribute("value"));
+        }
+    }
+
     private static void buildMap(StringBuilder _parts, StringMap<String> _map) {
         ParseLinesArgUtil.buildMap(_parts, _map);
     }
 
     private void otherStyleUnits(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"styleunits");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"styleunits");
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherStyleUnits(_rendKw,util_,_cust);
@@ -177,7 +164,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         _rendKw.otherStyleUnits(_util, _cust);
     }
     private void otherStyleValues(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"stylevalues");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"stylevalues");
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherStyleValues(_rendKw,util_,_cust);
@@ -189,7 +176,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         _rendKw.otherStyleValues(_util, _cust);
     }
     private void otherStyleAttrs(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"styleattrs");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"styleattrs");
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherStyleAttrs(_rendKw,util_,_cust);
@@ -201,7 +188,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         _rendKw.otherStyleAttrs(_util, _cust);
     }
     private void otherValues(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"values");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"values");
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherValues(_rendKw,util_,_cust);
@@ -213,7 +200,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         _rendKw.otherValues(_util, _cust);
     }
     private void otherAttrs(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"attrs");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"attrs");
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherAttrs(_rendKw,util_,_cust);
@@ -225,7 +212,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         _rendKw.otherAttrs(_util, _cust);
     }
     private void otherTags(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"tags");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"tags");
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherTags(_rendKw,util_,_cust);
@@ -237,7 +224,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         _rendKw.otherTags(_util, _cust);
     }
     private void otherAlias(String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"types");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"types");
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         getBeanAliases().build(util_, _cust);
@@ -250,7 +237,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
 
 
     private void rendMessages(RendAnalysisMessages _mess, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_renders/aliases",_lang,"messagesrender");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"messagesrender");
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         rendMessages(_mess,util_,_cust);

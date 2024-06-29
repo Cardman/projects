@@ -96,9 +96,9 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     }
 
 //    @Override
-    public void dispose() {
-        GuiBaseUtil.trEx(this);
-    }
+//    public void dispose() {
+//        GuiBaseUtil.trEx(this);
+//    }
 
     public void load() {
         if (!path.getText().trim().isEmpty()) {
@@ -126,10 +126,11 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     }
 
     public void loadRenderConf(String _fichier) {
-        String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams());
-        if (content_ == null) {
-            return;
-        }
+        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams()));
+//        String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams());
+//        if (content_ == null) {
+//            return;
+//        }
         StringList linesFiles_ = ExecutingOptions.lines(content_);
         if (linesFiles_.size() < 2) {
             return;
@@ -160,13 +161,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
                     mName_ = subLine_.substring(last_+1);
                 }
                 if (linesFiles_.size() > 3) {
-                    lg_ = linesFiles_.get(3);
-                    if (!StringUtil.contains(getFrames().getLanguages(),lg_)){
-                        lg_ = getFrames().getLanguage();
-                        ExecutingOptions.setupOptionals(3,opt_, exec_,linesFiles_);
-                    } else {
-                        ExecutingOptions.setupOptionals(4,opt_, exec_, linesFiles_);
-                    }
+                    lg_ = updateLg(linesFiles_, exec_, opt_);
                     exec_.setLg(lg_);
                     StringList curr_ = exec_.getLgs();
                     if (!curr_.isEmpty()) {
@@ -179,10 +174,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(new RenderIssuer(session),getFileCoreStream(),getStreams()),
                 new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(interceptor.getProgramInfos(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
         lgNames_.getExecContent().setExecutingOptions(exec_);
-        String lgCode_ = lgCode.getText();
-        if (!StringUtil.contains(getFrames().getLanguages(),lgCode_)){
-            lgCode_ = "";
-        }
+        String lgCode_ = lgCode();
         lgNames_.getExecContent().updateTranslations(getFrames().getTranslations(),getFrames().getLanguage(),lgCode_);
         Navigation n_ = nav();
         session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
@@ -192,6 +184,27 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         ini_.setLog(lgNames_.getExecContent());
         session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_));
     }
+
+    private String lgCode() {
+        String lgCode_ = lgCode.getText();
+        if (!StringUtil.contains(getFrames().getLanguages(),lgCode_)){
+            lgCode_ = "";
+        }
+        return lgCode_;
+    }
+
+    private String updateLg(StringList _linesFiles, ExecutingOptions _exec, Options _opt) {
+        String lg_;
+        lg_ = _linesFiles.get(3);
+        if (!StringUtil.contains(getFrames().getLanguages(),lg_)){
+            lg_ = getFrames().getLanguage();
+            ExecutingOptions.setupOptionals(3, _opt, _exec, _linesFiles);
+        } else {
+            ExecutingOptions.setupOptionals(4, _opt, _exec, _linesFiles);
+        }
+        return lg_;
+    }
+
     private static Navigation nav() {
         Navigation nav_ = new Navigation();
         nav_.setSession(new Configuration());
@@ -215,6 +228,22 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public void changeLanguage(String _language) {
-        setLanguageKey(_language);
+        getFrames().setLanguage(_language);
+    }
+
+    public RenderedPage getSession() {
+        return session;
+    }
+
+    public EnabledMenu getOpen() {
+        return open;
+    }
+
+    public AbsTextField getLgCode() {
+        return lgCode;
+    }
+
+    public AbsTextField getPath() {
+        return path;
     }
 }

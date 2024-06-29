@@ -7,9 +7,10 @@ import code.util.*;
 public final class CreateMainWindowRenders implements Runnable {
     private final CdmFactory list;
     private final AbstractProgramInfos programInfos;
-    private String language;
+    private final String language;
 
-    private StringList args;
+    private final StringList args;
+    private WindowRenders window;
 
     public CreateMainWindowRenders(String _language, StringList _args, CdmFactory _list, AbstractProgramInfos _frames) {
         language = _language;
@@ -20,9 +21,18 @@ public final class CreateMainWindowRenders implements Runnable {
 
     @Override
     public void run() {
-        WindowRenders mainWindow_ = new WindowRenders(language, list, programInfos);
+        window = new WindowRenders(language, list, programInfos);
+        WindowRenders mainWindow_ = window;
         if (!args.isEmpty()) {
             mainWindow_.loadRenderConf(args.first());
         }
+    }
+
+    public AbstractProgramInfos getProgramInfos() {
+        return programInfos;
+    }
+
+    public WindowRenders getWindow() {
+        return window;
     }
 }

@@ -110,4 +110,8 @@ public final class CustThreadActions extends AbstractThreadActions {
 //        stds_.initializeRendSessionDoc(ctx_, navigation_, rendStackCall_);
 //        afterActionWithoutRemove(ctx_, rendStackCall_);
     }
+
+    public DefaultInitialization getInit() {
+        return init;
+    }
 }
