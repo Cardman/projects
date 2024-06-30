@@ -1,7 +1,6 @@
 package code.gui;
 
 import code.util.CustList;
-import code.util.Ints;
 
 
 public final class FrameUtil {
@@ -163,35 +162,35 @@ public final class FrameUtil {
         _curr.innerRight(_scroll);
     }
 
-    public static Ints toList(int[] _ints) {
-        Ints ints_ = new Ints();
-        for (int i: _ints) {
-            ints_.add(i);
-        }
-        return ints_;
-    }
-    public static int[] toList(Ints _ints) {
-        int size_ = _ints.size();
-        int[] ints_ = new int[size_];
-        for (int i = 0; i < size_; i++) {
-            set(_ints, ints_, i);
-        }
-        return ints_;
-    }
+//    public static Ints toList(int[] _ints) {
+//        Ints ints_ = new Ints();
+//        for (int i: _ints) {
+//            ints_.add(i);
+//        }
+//        return ints_;
+//    }
+//    public static int[] toList(Ints _ints) {
+//        int size_ = _ints.size();
+//        int[] ints_ = new int[size_];
+//        for (int i = 0; i < size_; i++) {
+//            set(_ints, ints_, i);
+//        }
+//        return ints_;
+//    }
+//
+//    private static void set(Ints _ints, int[] _dest, int _i) {
+//        _dest[_i] = _ints.get(_i);
+//    }
 
-    private static void set(Ints _ints, int[] _dest, int _i) {
-        _dest[_i] = _ints.get(_i);
-    }
-
-    public static void act(ListSelection _list,SelectionInfo _e, boolean _skip) {
-        if (_skip) {
-            return;
-        }
-        _list.valueChanged(_e);
-    }
-    public static void act(ListSelection _list,SelectionInfo _e, int _state, int _value) {
-        if (_state == _value) {
-            _list.valueChanged(_e);
-        }
-    }
+//    public static void act(ListSelection _list,SelectionInfo _e, boolean _skip) {
+//        if (_skip) {
+//            return;
+//        }
+//        _list.valueChanged(_e);
+//    }
+//    public static void act(ListSelection _list,SelectionInfo _e, int _state, int _value) {
+//        if (_state == _value) {
+//            _list.valueChanged(_e);
+//        }
+//    }
 }
