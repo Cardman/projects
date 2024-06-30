@@ -29,7 +29,7 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowConverter(_language, getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowConverter(_language, getFile(_args), getFrames()), getFrames());
 //        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowConverter(_language,getFile(_args), getFrames()), getFrames());
     }
 

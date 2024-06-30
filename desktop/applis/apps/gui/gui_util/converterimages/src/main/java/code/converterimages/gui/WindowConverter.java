@@ -169,38 +169,6 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
         }
     }
 
-//    public void readOneImageArg(String _readPath) {
-//        byte[] bytes_ = StreamBinaryFile.loadFile(_readPath,getStreams()).getBytes();
-//        AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
-//        if (img_ == null) {
-//            return;
-//        }
-//        String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
-//        StreamTextFile.saveTextFile(_readPath, txt_,getStreams());
-//        if (_readPath.endsWith(DOT+PNG_EXT)) {
-//            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_,getStreams());
-//        } else  if (_readPath.endsWith(DOT+JPG_EXT)) {
-//            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+JPG_EXT, DOT+TXT_EXT), txt_,getStreams());
-//        } else  if (_readPath.endsWith(DOT+JPEG_EXT)) {
-//            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+JPEG_EXT, DOT+TXT_EXT), txt_,getStreams());
-//        }
-//    }
-//    public void writeOneImageArg(String _writePath) {
-//        String readImage_ = StreamTextFile.contentsOfFile(_writePath,getFileCoreStream(),getStreams());
-//        if (readImage_ == null) {
-//            return;
-//        }
-//        int[][] readImage_ = BaseSixtyFourUtil.getImageByString(StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_writePath,getFileCoreStream(),getStreams())));
-//        if (readImage_.length == 0) {
-//            return;
-//        }
-//        AbstractImage img_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),readImage_);
-//        AbstractImage img_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(readImage_));
-//        String file_ = StringUtil.replace(_writePath, DOT + TXT_EXT, DOT + PNG_EXT);
-//        StreamBinaryFile.writeFile(_writePath,getImageFactory().decodeToImage(readImage_),getStreams());
-//        StreamBinaryFile.writeFile(_writePath,img_.writeImg(PNG_EXT),getStreams());
-//        StreamBinaryFile.writeFile(file_,img_.writeImg(PNG_EXT),getStreams());
-//    }
     @Override
     public void quit() {
         GuiBaseUtil.trEx(this);

@@ -8,6 +8,7 @@ import aiki.sml.LoadingGame;
 import applications.gui.WindowApps;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.main.LaunchingCards;
+import code.converterimages.gui.DocumentImagesUtil;
 import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
@@ -53,7 +54,10 @@ public class LaunchingApplications extends SoftApplicationCore {
             return;
         }
         BytesInfo bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getStreams());
-        if (FileListInfo.isBinary(bytes_) && !FileListInfo.isZip(bytes_.getBytes()) && getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes()) != null) {
+        if (!bytes_.isNul() && !DocumentImagesUtil.parse(StringUtil.decode(bytes_.getBytes())).isEmpty()) {
+//
+//        }
+//        if (FileListInfo.isBinary(bytes_) && !FileListInfo.isZip(bytes_.getBytes()) && getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes()) != null) {
             launchWindow(_language, getFactories());
             LaunchingConverter launch_ = new LaunchingConverter(getFactories());
             launch_.launchWithoutLanguage(_language, _args);
@@ -97,12 +101,12 @@ public class LaunchingApplications extends SoftApplicationCore {
             launch_.launchWithoutLanguage(_language, _args);
             return;
         }
-        if (file_.indexOf('\n') < 0) {
-            launchWindow(_language, getFactories());
-            LaunchingConverter launch_ = new LaunchingConverter(getFactories());
-            launch_.launchWithoutLanguage(_language, _args);
-            return;
-        }
+//        if (file_.indexOf('\n') < 0) {
+//            launchWindow(_language, getFactories());
+//            LaunchingConverter launch_ = new LaunchingConverter(getFactories());
+//            launch_.launchWithoutLanguage(_language, _args);
+//            return;
+//        }
         StringList linesFiles_ = ExecutingOptions.lines(file_);
         if (linesFiles_.size() < 2) {
             return;
