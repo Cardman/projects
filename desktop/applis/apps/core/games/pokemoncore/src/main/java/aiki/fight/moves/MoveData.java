@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectGlobal;
+import aiki.fight.moves.effects.EffectStatus;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.DataInfoChecker;
@@ -94,6 +95,16 @@ public abstract class MoveData {
             Effect effect_ = effects.get(i);
             if (effect_.getTargetChoice() != TargetChoice.LANCEUR) {
                 targetChoiceRequired(_data, effect_);
+            }
+        }
+        checkSpecEffects(_data);
+    }
+
+    private void checkSpecEffects(DataBase _data) {
+        int nbEffects_ = nbEffets();
+        for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
+            if (effects.get(i) instanceof EffectStatus && ((EffectStatus)effects.get(i)).getKoUserHealSubst() && i + 1 < nbEffects_) {
+                _data.setError(true);
             }
         }
     }
