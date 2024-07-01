@@ -23,7 +23,7 @@ public final class DeltaSelectionUnit {
             if (_y.isZeroOrLt()) {
                 Rate nexty_ = Rate.plus(yTopLeftScreen_, _y);
                 if (nexty_.isZeroOrLt()) {
-                    return _cam;
+                    return new RatePoint(xTopLeftScreen_,Rate.zero());
                 }
                 return new RatePoint(xTopLeftScreen_, nexty_);
             }
@@ -36,7 +36,7 @@ public final class DeltaSelectionUnit {
         if (_x.isZeroOrLt()) {
             Rate nextx_ = Rate.plus(xTopLeftScreen_, _x);
             if (nextx_.isZeroOrLt()) {
-                return _cam;
+                return new RatePoint(Rate.zero(),yTopLeftScreen_);
             }
             return new RatePoint(nextx_, yTopLeftScreen_);
         }
