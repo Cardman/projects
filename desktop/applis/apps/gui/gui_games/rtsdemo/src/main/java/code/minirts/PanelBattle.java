@@ -1,6 +1,7 @@
 package code.minirts;
 
 import code.gui.AbsCustComponent;
+import code.gui.AbsPaintableLabel;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.gui.events.AbsMouseMotionListener;
@@ -23,7 +24,7 @@ public final class PanelBattle {
 
     private boolean paintSelection;
 
-    private final Selecting selecting;
+    private final AbsPaintableLabel selecting;
     private final AbsPanel container;
     private final AbsPanel content;
 
@@ -35,8 +36,9 @@ public final class PanelBattle {
         content.setBackground(GuiConstants.WHITE);
         container.setOpaque(true);
         container.setBackground(GuiConstants.WHITE);
-        selecting = new Selecting(_facade, _compoFactory);
-        container.add(selecting.getPaintableLabel());
+        selecting = _compoFactory.newAbsPaintableLabel();
+        selecting.setSize(new MetaDimension((int) _facade.getScreen().getWidth().ll(), (int) _facade.getScreen().getHeight().ll()));
+        container.add(selecting);
         container.add(content);
     }
 
@@ -96,16 +98,16 @@ public final class PanelBattle {
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
         if (isPaintSelection()) {
             //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setFont(selecting.getPaintableLabel());
+            img_.setFont(selecting);
             Rect r_ = facade.getSelection();
             img_.setColor(GuiConstants.BLUE);
             img_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());
+            //            selecting.paintComponent(img_);
         } else {
             img_.setColor(GuiConstants.newColor(255,255,255,0));
             img_.fillRect(0, 0, w_, h_);
         }
-        img_.setFont(selecting.getPaintableLabel());
-        selecting.paintComponent(img_);
+        img_.setFont(selecting);
         selecting.setIcon(_fact,img_);
     }
 
