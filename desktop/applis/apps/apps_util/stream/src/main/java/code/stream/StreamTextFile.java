@@ -68,7 +68,7 @@ public final class StreamTextFile {
     public static StringList files(String _folder,AbstractFileCoreStream _fact) {
         StringList files_ = new StringList();
         StringList current_ = new StringList(_folder);
-        String folder_ = _fact.newFile(_folder).getAbsolutePath();
+        String folder_ = StringUtil.replaceBackSlash(_fact.newFile(_folder).getAbsolutePath());
         while (true) {
             StringList new_ = new StringList();
             for (String c : current_) {
