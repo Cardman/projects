@@ -12,6 +12,7 @@ import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
 import code.threads.ConcreteInteger;
+import code.util.Bytes;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.*;
@@ -101,7 +102,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         StreamTextFile.saveTextFile("/from/two/sub2/2",toText(new int[][]{new int[]{1,2,3},new int[]{4,5,6},new int[]{7,8,9}}),w_.getStreams());
         w_.getPathExport().setText("/from");
         w_.getPath().setText("/to");
-        tryToggle(w_.getReadImages());
+//        tryToggle(w_.getReadImages());
         tryClick(w_.getOkButton());
         int[][] i1_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub1/2",w_.getStreams()).getBytes()));
         assertEq(2,i1_.length);
@@ -179,7 +180,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         cr_.run();
         assertEq("",cr_.getWindow().getPathExport().getText());
         assertEq("",cr_.getWindow().getPath().getText());
-        assertTrue(cr_.getWindow().getReadImages().isSelected());
+//        assertTrue(cr_.getWindow().getReadImages().isSelected());
     }
     @Test
     public void r5() {
@@ -195,7 +196,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         cr_.run();
         assertEq("",cr_.getWindow().getPathExport().getText());
         assertEq("",cr_.getWindow().getPath().getText());
-        assertTrue(cr_.getWindow().getReadImages().isSelected());
+//        assertTrue(cr_.getWindow().getReadImages().isSelected());
     }
     @Test
     public void r6() {
@@ -218,7 +219,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         StreamBinaryFile.writeFile("/from/two/sub2/1",new byte[0],pr_.getStreams());
         StreamBinaryFile.writeFile("/from/two/sub2/2",toBinary(new int[][]{new int[]{1,2,3},new int[]{4,5,6},new int[]{7,8,9}}),pr_.getStreams());
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        Element elt_ = d_.createElement(DocumentImagesUtil.ROOT_CONF1);
+        Element elt_ = d_.createElement(DocumentImagesUtil.ROOT_CONF);
         elt_.setAttribute(DocumentImagesUtil.INFO_IMP,"/from");
         elt_.setAttribute(DocumentImagesUtil.INFO_EXP,"/to");
         d_.appendChild(elt_);
@@ -227,7 +228,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         cr_.run();
         assertEq("/from",cr_.getWindow().getPathExport().getText());
         assertEq("/to",cr_.getWindow().getPath().getText());
-        assertTrue(cr_.getWindow().getReadImages().isSelected());
+//        assertTrue(cr_.getWindow().getReadImages().isSelected());
         int[][] i1_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/one/sub1/2", pr_.getFileCoreStream(), pr_.getStreams()));
         assertEq(2,i1_.length);
         assertEq(2,i1_[0].length);
@@ -293,7 +294,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         StreamBinaryFile.writeFile("/from/two/sub2/1",new byte[0],pr_.getStreams());
         StreamTextFile.saveTextFile("/from/two/sub2/2",toText(new int[][]{new int[]{1,2,3},new int[]{4,5,6},new int[]{7,8,9}}),pr_.getStreams());
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        Element elt_ = d_.createElement(DocumentImagesUtil.ROOT_CONF2);
+        Element elt_ = d_.createElement(DocumentImagesUtil.ROOT_CONF);
         elt_.setAttribute(DocumentImagesUtil.INFO_IMP,"/from");
         elt_.setAttribute(DocumentImagesUtil.INFO_EXP,"/to");
         d_.appendChild(elt_);
@@ -302,7 +303,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         cr_.run();
         assertEq("/from",cr_.getWindow().getPathExport().getText());
         assertEq("/to",cr_.getWindow().getPath().getText());
-        assertFalse(cr_.getWindow().getReadImages().isSelected());
+//        assertFalse(cr_.getWindow().getReadImages().isSelected());
         int[][] i1_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub1/2",pr_.getStreams()).getBytes()));
         assertEq(2,i1_.length);
         assertEq(2,i1_[0].length);
@@ -359,7 +360,9 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
 
     private static byte[] toBinary(int[][] _img) {
         AbstractImage img_ =  new MockImage(_img);
-        return img_.writeImg("");
+        Bytes bs_ = Bytes.newList((byte)0x89,(byte)0x50,(byte)0x4E,(byte)0x47,(byte)0x0D,(byte)0x0A,(byte)0x1A,(byte)0x0A);
+        bs_.addAllElts(Bytes.newList(img_.writeImg("")));
+        return bs_.toArrByte();
     }
     private static String toText(int[][] _img) {
         return BaseSixtyFourUtil.getStringByImage(_img);

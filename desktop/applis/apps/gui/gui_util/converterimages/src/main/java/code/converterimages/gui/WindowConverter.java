@@ -31,11 +31,11 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 
     private static final String READ = "read";
 
-    private static final String READ_IMAGES = "read images";
+//    private static final String READ_IMAGES = "read images";
 
     private static final String CONVERT_IMAGE = "convert image";
 
-    private final AbsCustCheckBox readImages;
+//    private final AbsCustCheckBox readImages;
 
     private final AbsTextField path;
 
@@ -52,9 +52,9 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         setTitle(CONVERT_IMAGE);
         AbsPanel content_ = _list.getCompoFactory().newPageBox();
-        readImages = getCompoFactory().newCustCheckBox(READ_IMAGES);
-        readImages.setSelected(true);
-        content_.add(readImages);
+//        readImages = getCompoFactory().newCustCheckBox(READ_IMAGES);
+//        readImages.setSelected(true);
+//        content_.add(readImages);
         path = getCompoFactory().newTextField(50);
         path.setText(EMPTY_STRING);
         //path.setText(Constants.getJarPath());
@@ -104,7 +104,7 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
             getFileCoreStream().newFile(path.getText()+f_).mkdirs();
 //            StreamFolderFile.makeParent(path.getText()+StreamTextFile.SEPARATEUR+f_,getFileCoreStream());
         }
-        if (readImages.isSelected()) {
+//        if (readImages.isSelected()) {
 //            StringList files_ = StreamTextFile.files(pathExport.getText(),getFileCoreStream());
 //            for (String f: files_) {
 //                String f_ = StringUtil.replaceBackSlash(f);
@@ -120,8 +120,12 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 //                }
                 String f_ = StringUtil.replaceBackSlash(f);
                 byte[] bytes_ = StreamBinaryFile.loadFile(pathExport.getText() + f, getStreams()).getBytes();
-                AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
+                AbstractImage img_ = startsWithPrefixes(bytes_,new byte[][]{new byte[]{(byte)0x89,(byte)0x50,(byte)0x4E,(byte)0x47,(byte)0x0D,(byte)0x0A,(byte)0x1A,(byte)0x0A}, new byte[]{(byte)0xFF,(byte)0xD8,(byte)0xFF}, new byte[]{(byte)0xFF,(byte)0x4F,(byte)0xFF}, new byte[]{(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x0C,(byte)0x6A,(byte)0x50,(byte)0x20,(byte)0x20,(byte)0x0D,(byte)0x0A,(byte)0x87,(byte)0x0A}});
                 if (img_ == null) {
+                    int[][] readImage_ = BaseSixtyFourUtil.getImageByString(StringUtil.nullToEmpty(StringUtil.decode(bytes_)));
+                    if (readImage_.length != 0) {
+                        StreamBinaryFile.writeFile(path.getText() + f_, getImageFactory().decodeToImage(readImage_), getStreams());
+                    }
                     continue;
                 }
                 String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
@@ -137,7 +141,7 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 //                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_,getStreams());
 //                }
             }
-        } else {
+//        } else {
 //            StringList files_ = StreamTextFile.files(pathExport.getText(),getFileCoreStream());
 //            for (String f: files_) {
 //                String f_ = StringUtil.replaceBackSlash(f);
@@ -146,27 +150,35 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 //                }
 //                StreamFolderFile.makeParent(path.getText()+StreamTextFile.SEPARATEUR+f_,getFileCoreStream());
 //            }
-            for (String f: reg_) {
+//            for (String f: reg_) {
 //            for (String f: files_)
 //                if (getFileCoreStream().newFile(pathExport.getText()+f).isDirectory()) {
 //                    continue;
 //                }
-                String f_ = StringUtil.replaceBackSlash(f);
+//                String f_ = StringUtil.replaceBackSlash(f);
 //                String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f,getFileCoreStream(),getStreams());
 //                if (readImage_ == null) {
 //                    continue;
 //                }
-                int[][] readImage_ = BaseSixtyFourUtil.getImageByString(StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(pathExport.getText()+f,getFileCoreStream(),getStreams())));
-                if (readImage_.length == 0) {
-                    continue;
-                }
+//                int[][] readImage_ = BaseSixtyFourUtil.getImageByString(StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(pathExport.getText()+f,getFileCoreStream(),getStreams())));
+//                if (readImage_.length == 0) {
+//                    continue;
+//                }
 //                AbstractImage img_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(), readImage_);
 //                String file_ = path.getText() + StreamTextFile.SEPARATEUR + StringUtil.replace(f_, DOT + TXT_EXT, DOT + PNG_EXT);
-                StreamBinaryFile.writeFile(path.getText() + f_,getImageFactory().decodeToImage(readImage_),getStreams());
+//                StreamBinaryFile.writeFile(path.getText() + f_,getImageFactory().decodeToImage(readImage_),getStreams());
 //                StreamBinaryFile.writeFile(path.getText() + StreamTextFile.SEPARATEUR + f_,img_.writeImg(PNG_EXT),getStreams());
 //                StreamBinaryFile.writeFile(file_,img_.writeImg(PNG_EXT),getStreams());
+//            }
+//        }
+    }
+    private AbstractImage startsWithPrefixes(byte[] _file, byte[][] _pref) {
+        for (byte[] p:_pref) {
+            if (FileListInfo.startsWith(_file,p)) {
+                return getFrames().getImageFactory().newImageFromBytes(_file);
             }
         }
+        return null;
     }
 
     @Override
@@ -201,9 +213,9 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
         return path;
     }
 
-    public AbsCustCheckBox getReadImages() {
-        return readImages;
-    }
+//    public AbsCustCheckBox getReadImages() {
+//        return readImages;
+//    }
 
     public AbsButton getOkButton() {
         return okButton;

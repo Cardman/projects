@@ -28,9 +28,11 @@ public final class CreateMainWindowConverter implements Runnable {
         if (infos_.isEmpty()) {
             return;
         }
-        window.getReadImages().setSelected(infos_.get(0).charAt(0) == '0');
-        window.getPathExport().setText(infos_.get(1));
-        window.getPath().setText(infos_.get(2));
+//        window.getReadImages().setSelected(infos_.get(0).charAt(0) == '0');
+//        window.getPathExport().setText(infos_.get(1));
+//        window.getPath().setText(infos_.get(2));
+        window.getPathExport().setText(infos_.get(0));
+        window.getPath().setText(infos_.get(1));
         window.export();
     }
 

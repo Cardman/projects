@@ -1,5 +1,7 @@
 package code.stream;
 
+import code.util.Bytes;
+
 public final class FileListInfo {
     private final AbstractFile[] names;
     private final boolean nul;
@@ -13,6 +15,25 @@ public final class FileListInfo {
         }
     }
 
+    public static BytesInfo extractWithPrefixes(byte[] _file, byte[] _pref) {
+        if (startsWith(_file,_pref)) {
+            return new BytesInfo(new Bytes(Bytes.newList(_file).mid(_pref.length)).toArrByte(),false);
+        }
+        return new BytesInfo(new byte[0],true);
+    }
+
+    public static boolean startsWith(byte[] _file, byte[] _pref) {
+        int len_ = _pref.length;
+        if (_file.length < len_) {
+            return false;
+        }
+        for (int i = 0; i <len_;i++) {
+            if (_file[i] != _pref[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean isZip(byte[] _bytes) {
         return _bytes != null && _bytes.length > 3
                 && _bytes[0] == (byte)0x50&& _bytes[1] == (byte)0x4b

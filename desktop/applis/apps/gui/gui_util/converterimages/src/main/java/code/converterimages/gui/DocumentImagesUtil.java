@@ -6,13 +6,14 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class DocumentImagesUtil {
-    public static final String ROOT_CONF1 = "_1";
-    public static final String ROOT_CONF2 = "_2";
+    public static final String ROOT_CONF = "__";
+//    public static final String ROOT_CONF1 = "_1";
+//    public static final String ROOT_CONF2 = "_2";
     public static final String INFO = "_";
     public static final String INFO_IMP = "0";
     public static final String INFO_EXP = "1";
-    public static final String READ_IMAGES = "0";
-    public static final String WRITE_IMAGES = "1";
+//    public static final String READ_IMAGES = "0";
+//    public static final String WRITE_IMAGES = "1";
 
     private DocumentImagesUtil() {
     }
@@ -21,20 +22,27 @@ public final class DocumentImagesUtil {
         if (doc_ == null) {
             return new CustList<String>();
         }
-        if (StringUtil.quickEq(doc_.getDocumentElement().getTagName(),ROOT_CONF1)) {
+        if (StringUtil.quickEq(doc_.getDocumentElement().getTagName(),ROOT_CONF)) {
             CustList<String> res_ = new CustList<String>();
-            res_.add(READ_IMAGES);
+//            res_.add(READ_IMAGES);
             res_.add(doc_.getDocumentElement().getAttribute(INFO_IMP));
             res_.add(doc_.getDocumentElement().getAttribute(INFO_EXP));
             return res_;
         }
-        if (StringUtil.quickEq(doc_.getDocumentElement().getTagName(),ROOT_CONF2)) {
-            CustList<String> res_ = new CustList<String>();
-            res_.add(WRITE_IMAGES);
-            res_.add(doc_.getDocumentElement().getAttribute(INFO_IMP));
-            res_.add(doc_.getDocumentElement().getAttribute(INFO_EXP));
-            return res_;
-        }
+//        if (StringUtil.quickEq(doc_.getDocumentElement().getTagName(),ROOT_CONF1)) {
+//            CustList<String> res_ = new CustList<String>();
+//            res_.add(READ_IMAGES);
+//            res_.add(doc_.getDocumentElement().getAttribute(INFO_IMP));
+//            res_.add(doc_.getDocumentElement().getAttribute(INFO_EXP));
+//            return res_;
+//        }
+//        if (StringUtil.quickEq(doc_.getDocumentElement().getTagName(),ROOT_CONF2)) {
+//            CustList<String> res_ = new CustList<String>();
+//            res_.add(WRITE_IMAGES);
+//            res_.add(doc_.getDocumentElement().getAttribute(INFO_IMP));
+//            res_.add(doc_.getDocumentElement().getAttribute(INFO_EXP));
+//            return res_;
+//        }
         return new CustList<String>();
     }
 }

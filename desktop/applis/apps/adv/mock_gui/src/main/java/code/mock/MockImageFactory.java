@@ -4,6 +4,7 @@ import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.images.BaseSixtyFourUtil;
+import code.stream.FileListInfo;
 import code.util.core.StringUtil;
 
 public final class MockImageFactory implements AbstractImageFactory {
@@ -27,15 +28,28 @@ public final class MockImageFactory implements AbstractImageFactory {
         if (_bs == null) {
             return null;
         }
-        String decode_ = StringUtil.decode(_bs);
-        if (decode_ == null) {
-            return null;
+        for (byte[] p: new byte[][]{new byte[]{},new byte[]{(byte)0x89,(byte)0x50,(byte)0x4E,(byte)0x47,(byte)0x0D,(byte)0x0A,(byte)0x1A,(byte)0x0A}}) {
+            if (FileListInfo.startsWith(_bs,p)) {
+                byte[] bytes_ = FileListInfo.extractWithPrefixes(_bs, p).getBytes();
+                String decode_ = StringUtil.decode(bytes_);
+                if (decode_ != null) {
+                    int[][] imageByString_ = BaseSixtyFourUtil.getImageByString(decode_);
+                    if (imageByString_.length != 0) {
+                        return new MockImage(imageByString_);
+                    }
+                }
+            }
         }
-        int[][] imageByString_ = BaseSixtyFourUtil.getImageByString(decode_);
-        if (imageByString_.length == 0) {
-            return null;
-        }
-        return new MockImage(imageByString_);
+        return null;
+//        String decode_ = StringUtil.decode(_bs);
+//        if (decode_ == null) {
+//            return null;
+//        }
+//        int[][] imageByString_ = BaseSixtyFourUtil.getImageByString(decode_);
+//        if (imageByString_.length == 0) {
+//            return null;
+//        }
+//        return new MockImage(imageByString_);
     }
 
     @Override

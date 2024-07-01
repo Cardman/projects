@@ -20,6 +20,9 @@ public abstract class EquallableMockGuiUtil {
     public static void assertNull(EnabledMenu _expected) {
         Assert.assertNull(_expected);
     }
+    public static void assertNotNull(AbstractImage _expected) {
+        Assert.assertNotNull(_expected);
+    }
     public static void assertNull(AbstractImage _expected) {
         Assert.assertNull(_expected);
     }

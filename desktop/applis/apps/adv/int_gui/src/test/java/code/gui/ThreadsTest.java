@@ -251,6 +251,26 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertFalse(FileListInfo.isBinary(new BytesInfo(wrapInts(),true)));
     }
     @Test
+    public void start1() {
+        assertFalse(FileListInfo.startsWith(wrapInts(5,8,6),wrapInts(5,8,6,7)));
+    }
+    @Test
+    public void start2() {
+        assertFalse(FileListInfo.startsWith(wrapInts(5,8,6),wrapInts(5,7)));
+    }
+    @Test
+    public void start3() {
+        assertTrue(FileListInfo.startsWith(wrapInts(5,8,6,7),wrapInts(5,8,6)));
+    }
+    @Test
+    public void start4() {
+        assertTrue(FileListInfo.extractWithPrefixes(wrapInts(5,8,6),wrapInts(5,7)).isNul());
+    }
+    @Test
+    public void start5() {
+        assertFalse(FileListInfo.extractWithPrefixes(wrapInts(5,8,6,7),wrapInts(5,8,6)).isNul());
+    }
+    @Test
     public void actList() {
         assertTrue(new AlwaysActionListenerAct().act());
     }
