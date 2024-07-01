@@ -101,6 +101,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     }
     @Override
     public void quit() {
+        getCommonFrame().setVisible(false);
         GuiBaseUtil.trEx(this);
     }
 

@@ -187,6 +187,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
     }
     @Override
     public void quit() {
+        getCommonFrame().setVisible(false);
         if (th != null) {
             stop();
         }

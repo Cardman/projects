@@ -159,6 +159,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         if (context != null) {
             context.interrupt();
         }
+        getCommonFrame().setVisible(false);
         coverage.setEnabled(false);
         stop.setEnabled(false);
         launch.setEnabled(true);

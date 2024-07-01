@@ -502,6 +502,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    }
 
     private void closeOpened() {
+        getCommonFrame().setVisible(false);
 //        if (helpFrames.getCommonFrame().isVisible()) {
 ////            helpFrames.first().dispose();
 //            helpFrames.closeWindow();

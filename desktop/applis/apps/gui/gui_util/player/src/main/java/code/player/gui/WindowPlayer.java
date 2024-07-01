@@ -516,6 +516,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     @Override
     public void quit() {
+        getCommonFrame().setVisible(false);
         GuiBaseUtil.trEx(this);
     }
 

@@ -346,6 +346,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }*/
     @Override
     public void quit() {
+        getCommonFrame().setVisible(false);
         AbsButton b_ = getFrames().getButtons().getVal(APPS_AIKI);
         LanguageDialogButtons.enable(b_,false);
 //        if (b_ != null) {

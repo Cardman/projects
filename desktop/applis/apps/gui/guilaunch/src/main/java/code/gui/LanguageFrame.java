@@ -83,6 +83,7 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
 
     @Override
     public void quit() {
+        getCommonFrame().setVisible(false);
         GuiBaseUtil.trEx(this);
     }
 }
