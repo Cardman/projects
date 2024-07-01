@@ -2,7 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.CstFieldInfo;
@@ -12,7 +11,6 @@ import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.stds.*;
@@ -163,17 +161,25 @@ public final class EventStructTest extends EquallableElUtUtil {
     public void run10() {
         MockProgramInfos pr_ = prs();
         StringMap<String> files_ = new StringMap<String>();
-        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){} public static Fct fct(){Thread.print(\"\");return new Sample().$lambda(Runnable,run);}}");
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){} public static Inner fct(){Thread.print(\"\");return (Inner)new Sample().$lambda(Runnable,run);}static interface Inner{void fct();}}");
+        files_.addEntry("src/base.txt","public class $core.InfoTest{public int nbThreads;}public class $core.Result{}public class $core.ExecutedTest{}public class $core.Table<K,V>{}public class $core.List<E>{}public class $core.Execute{public static Table<Class,List<ExecutedTest>> groupClass(InfoTest i){return null;}public static Object groupClassMethod(InfoTest i,Table<Class,List<ExecutedTest>> j){return null;} public static Object tests(InfoTest i,Table<Class,Table<Method,Result>> j){return null;}}");
         ContextEl ctx_ = ctxThreadRunnable(pr_, files_);
         StackCall st_ = stack(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        LgNamesGui.newGuiFunctionnal(ctx_, new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_, ((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod());
-//        EventStruct.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
+        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, ctx_, et_, st_, new ArgumentListCall()));
+        assertEq("pkg.Sample..Inner",lda_.getClassName(ctx_));
         assertFalse(st_.isFailInit());
-        ((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getExecuteMethodPair();
+        LgNamesUtilsContent execCont_ = ((LgNamesGui) ctx_.getStandards()).getExecContent();
+        execCont_.getExecutingBlocks().groupClassTests(execCont_.getCustAliases(), ctx_.getClasses());
+        execCont_.getExecutingBlocks().groupClassMethodTests(ctx_.getStandards().getContent(),execCont_.getCustAliases(), ctx_.getClasses());
+        execCont_.getExecutingBlocks().exec(ctx_.getStandards().getContent(),execCont_.getCustAliases(), ctx_.getClasses());
+        Struct it_ = execCont_.getExecutingBlocks().infoTests(ctx_, 2);
+        Struct gr_ = execCont_.getExecutingBlocks().groupClass(it_, ctx_);
+        Struct grMe_ = execCont_.getExecutingBlocks().groupClassMethod(it_, gr_, ctx_);
+        Struct res_ = execCont_.getExecutingBlocks().executeTests(it_, grMe_, ctx_);
+        assertSame(NullStruct.NULL_VALUE,res_);
     }
     @Test
     public void run11() {

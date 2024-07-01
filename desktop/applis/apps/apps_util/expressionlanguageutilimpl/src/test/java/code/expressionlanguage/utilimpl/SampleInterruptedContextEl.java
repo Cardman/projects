@@ -14,6 +14,8 @@ public final class SampleInterruptedContextEl extends InterruptibleContextEl {
     public void forwardAndClear() {
         super.forwardAndClear();
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) getStandards();
-        standards_.getExecContent().getExecutingBlocks().exec(standards_.getExecContent().getCustAliases(),getClasses());
+        standards_.getExecContent().getExecutingBlocks().groupClassMethodTests(standards_.getContent(), standards_.getExecContent().getCustAliases(),getClasses());
+        standards_.getExecContent().getExecutingBlocks().groupClassTests(standards_.getExecContent().getCustAliases(),getClasses());
+        standards_.getExecContent().getExecutingBlocks().exec(standards_.getContent(), standards_.getExecContent().getCustAliases(),getClasses());
     }
 }

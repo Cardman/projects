@@ -2462,9 +2462,13 @@ public final class CustAliases implements AbsAliasFileBuilder {
     public String executeType(KeyWords _kw, LgNamesContent _content) {
         String head_= _kw.getKeyWordPublic()+" "+_kw.getKeyWordAbstract()+" "+_kw.getKeyWordFinal()+" "+_kw.getKeyWordClass()+" "+aliasExecute+"{"+LR;
         String par_ = custAliasParameters.getAliasExecute0ExecuteTests0();
+        String ls_ = custAliasParameters.getAliasExecute0ExecuteTests1();
+        AliasReflection ref_ = _content.getReflect();
+        String cl_ = ref_.getAliasClassType();
+        String met_ = ref_.getAliasMethod();
         return head_
-                +SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+aliasTable+"<"+_content.getReflect().getAliasMethod()+","+aliasResult+"> "+aliasExecuteTests+"("+aliasInfoTest+" "+ par_ +"){"+LR
-                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+aliasExecuteLaunch+"("+par_+","+aliasExecuteFlat+"("+aliasExecuteGroupClassMethod+"("+par_+","+aliasExecuteGroupClass+"("+par_+"))));"+LR
+                +SPACES_4+_kw.getKeyWordPublic()+" "+_kw.getKeyWordStatic()+" "+aliasTable+"<"+_content.getReflect().getAliasMethod()+","+aliasResult+"> "+aliasExecuteTests+"("+aliasInfoTest+" "+ par_ +","+aliasTable+"<"+ cl_ +","+aliasTable+"<"+ met_ +","+aliasResult+">> "+ls_+"){"+LR
+                +SPACES_4+SPACES_4+_kw.getKeyWordReturn()+" "+aliasExecuteLaunch+"("+par_+","+aliasExecuteFlat+"("+ls_+"));"+LR
                 +SPACES_4+"}"+LR
                 +groupClass(_kw, _content)
                 +groupClassMethod(_kw, _content)

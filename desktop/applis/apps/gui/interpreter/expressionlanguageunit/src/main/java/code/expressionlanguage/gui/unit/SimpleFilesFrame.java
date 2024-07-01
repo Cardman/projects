@@ -333,4 +333,8 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
     public AbsButton getLaunchByFile() {
         return launchByFile;
     }
+
+    public AbsTableGui getResultsTable() {
+        return resultsTable;
+    }
 }

@@ -1,12 +1,5 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.*;
-import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.calls.util.*;
-import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.*;
-import code.expressionlanguage.utilimpl.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.mock.*;
@@ -19,23 +12,16 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
     public void p1() {
         CreateMainWindowUnit cr_ = create();
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
-        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
+        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
         w_.getConf().setText("/_.zip\nen");
         tryClick(w_.getLaunch());
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
-        assertEq(0,w_.getResultsTable().getRowCount());
+        assertEq(2,w_.getResultsTable().getRowCount());
         tryClick(w_.getStop());
-        assertEq(0,w_.getResultsTable().getRowCount());
-        ProgressingTests progressingTests_ = w_.getRunning().getProgressingTests();
-        ContextEl rCont_ =  progressingTests_.ctx().copy(w_.getThreadFactory().newAtomicBoolean(),null);
-        LgNamesWithNewAliases stds_ = (LgNamesWithNewAliases)rCont_.getStandards();
-        String infoTest_ = stds_.getExecContent().getCustAliases().getAliasInfoTest();
-        ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(rCont_,className_, new Argument()),rCont_, StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
-        new ShowUpdates(infoStruct_,rCont_,progressingTests_,stds_).run();
+        assertEq(2,w_.getResultsTable().getRowCount());
     }
     @Test
     public void p2() {
@@ -120,7 +106,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
     public void p7() {
         CreateMainWindowUnit cr_ = create();
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
-        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
+        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         StreamTextFile.saveTextFile("/conf.txt","/_.zip\nen", pr_.getStreams());
         cr_.run();
@@ -140,14 +126,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         tryAn(((MockThreadFactory)pr_.getThreadFactory()));
         tryClick(s_.getLaunchByFile());
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
-        assertEq(0,w_.getResultsTable().getRowCount());
-        ProgressingTests progressingTests_ = w_.getRunning().getProgressingTests();
-        ContextEl rCont_ =  progressingTests_.ctx().copy(w_.getThreadFactory().newAtomicBoolean(),null);
-        LgNamesWithNewAliases stds_ = (LgNamesWithNewAliases)rCont_.getStandards();
-        String infoTest_ = stds_.getExecContent().getCustAliases().getAliasInfoTest();
-        ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(rCont_,className_, new Argument()),rCont_, StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
-        new ShowUpdates(infoStruct_,rCont_,progressingTests_,stds_).run();
+        assertEq(2,s_.getResultsTable().getRowCount());
     }
     @Test
     public void p8() {

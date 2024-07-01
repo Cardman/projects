@@ -35,7 +35,13 @@ public final class EventStruct extends LaunchableStruct implements
 
     public static Argument invoke(Struct _global, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
         ExecTemplates.prepare(_cont,_stackCall,_global, _pair, _argList.getArguments());
-        Argument arg_ = ProcessMethod.calculate(_stackCall.getCallingState(), _cont, _stackCall).getValue();
+        Argument arg_ = ProcessMethod.tryCalculate(_cont,_stackCall,null);
+//        CallingState cs_ = _stackCall.getCallingState();
+//        if (cs_ != null) {
+//            arg_ = ProcessMethod.calculate(cs_, _cont, _stackCall).getValue();
+//        } else {
+//            arg_ = null;
+//        }
         String err_ = _cont.errorMessage(_stackCall);
         if (err_ != null) {
             return null;

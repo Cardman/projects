@@ -207,8 +207,8 @@ public class SampleExecFileBuilderGene implements AbsFileBuilderListGene {
                 "}";
         ls_.put("table", tableType_);
         String v_ = "public abstract final class $core.Execute{\n" +
-                "    public static $core.Table<$core.Method,$core.Result> tests($core.InfoTest a){\n" +
-                "        return launch(a,flat(groupClassMethod(a,groupClass(a))));\n" +
+                "    public static $core.Table<$core.Method,$core.Result> tests($core.InfoTest a, $core.Table<$core.Class,$core.Table<$core.Method,$core.Result>> b){\n" +
+                "        return launch(a,flat(b));\n" +
                 "    }\n" +
                 "    public static $core.Table<$core.Class,$core.List<$core.ExecutedTest>> groupClass($core.InfoTest a) {\n" +
                 "        $core.Table<$core.Class,$core.List<$core.ExecutedTest>> out = new();\n" +

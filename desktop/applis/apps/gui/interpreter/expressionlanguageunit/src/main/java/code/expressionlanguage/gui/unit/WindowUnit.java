@@ -342,10 +342,6 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         return resultsTable;
     }
 
-    public RunningTest getRunning() {
-        return running;
-    }
-
 //    public CommonExecution getCommonExecution() {
 //        return commonExecution;
 //    }

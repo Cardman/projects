@@ -3,19 +3,11 @@ package code.expressionlanguage.utilimpl;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.guicompos.GuiAliases;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
 import code.expressionlanguage.guicompos.LgNamesGui;
@@ -77,18 +69,32 @@ public final class CustContextFactory {
         _progressingTests.ctx((InterruptibleContextEl) rCont_);
         _progressingTests.showWarnings(_progressingTests.ctx(),reportedMessages_,_options,_exec,infos_);
         infos_.tryLogIssue("OK");
-        String infoTest_ = _definedLgNames.getExecContent().getCustAliases().getAliasInfoTest();
-        ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(rCont_,className_, new Argument()),rCont_,StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
-        ((FieldableStruct)infoStruct_).getEntryStruct(new ClassField(infoTest_,_definedLgNames.getExecContent().getCustAliases().getAliasInfoTestNbThreads())).setStruct(new IntStruct(2));
-        AbstractScheduledExecutorService sch_ = _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory().newScheduledExecutorService();
+//        String infoTest_ = _definedLgNames.getExecContent().getCustAliases().getAliasInfoTest();
+//        ContextEl cp_ = rCont_.copy(rCont_.getInterrupt(),NullStruct.NULL_VALUE);
+//        ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, cp_.getClasses());
+        ExecutingBlocks eb_ = _definedLgNames.getExecContent().getExecutingBlocks();
+        Struct infoStruct_ = eb_.infoTests(rCont_, 2);
+        Struct grClassRes_ = eb_.groupClass(infoStruct_,rCont_);
+        Struct grClassMetRes_ = eb_.groupClassMethod(infoStruct_, grClassRes_,rCont_);
+//        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(cp_,className_, new Argument()),cp_,StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
+//        ((FieldableStruct)infoStruct_).getEntryStruct(new ClassField(infoTest_,_definedLgNames.getExecContent().getCustAliases().getAliasInfoTestNbThreads())).setStruct(new IntStruct(2));
+//        ContextEl cpGr_ = rCont_.copy(rCont_.getInterrupt(),NullStruct.NULL_VALUE);
+//        ExecTypeFunction pairGrCl_ = eb_.getGroupClassPair();
+//        Struct grClassRes_ = ArgumentListCall.toStr(Argument.getNullableValue(EventStruct.invoke(NullStruct.NULL_VALUE,
+//                cpGr_, pairGrCl_, StackCall.newInstance(InitPhase.NOTHING,cpGr_), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(infoStruct_))))));
+//        ContextEl cpNext_ = rCont_.copy(rCont_.getInterrupt(),NullStruct.NULL_VALUE);
+//        ExecTypeFunction pairGrClTes_ = ((LgNamesWithNewAliases) cpNext_.getStandards()).getExecContent().getExecutingBlocks().getGroupClassMethodPair();
+//        Struct grClassMetRes_ = ArgumentListCall.toStr(Argument.getNullableValue(EventStruct.invoke(NullStruct.NULL_VALUE,
+//                cpNext_, pairGrClTes_, StackCall.newInstance(InitPhase.NOTHING,cpNext_), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(infoStruct_),new ArgumentWrapper(grClassRes_))))));
+
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_, rCont_,_progressingTests,_definedLgNames);
+        showUpdates_.run();
+        AbstractScheduledExecutorService sch_ = _definedLgNames.getExecContent().getCustAliases().getInfos().getThreadFactory().newScheduledExecutorService();
         AbstractFuture abstractFuture_ = sch_.scheduleAtFixedRateNanos(showUpdates_, 0, 1);
-        ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecContent().getExecutingBlocks().getExecuteMethodPair();
-        Argument argMethod_ = new Argument(infoStruct_);
-        ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
-        Argument arg_ = EventStruct.invoke(NullStruct.NULL_VALUE,
-                rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
+        Struct arg_ = eb_.executeTests(infoStruct_, grClassMetRes_,rCont_);
+//        ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecContent().getExecutingBlocks().getExecuteMethodPair();
+//        Argument arg_ = Argument.getNullableValue(EventStruct.invoke(NullStruct.NULL_VALUE,
+//                rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(infoStruct_),new ArgumentWrapper(grClassMetRes_)))));
         abstractFuture_.cancel(false);
         sch_.shutdown();
         _progressingTests.finish(rCont_,infoStruct_, _definedLgNames);
@@ -97,7 +103,7 @@ public final class CustContextFactory {
                 infos_.getReporter().coverFile(_exec, f.getKey(), f.getValue());
             }
         }
-        _progressingTests.setResults(rCont_,_exec,Argument.getNullableValue(arg_), _definedLgNames);
+        _progressingTests.setResults(rCont_,_exec,ArgumentListCall.toStr(arg_), _definedLgNames);
     }
     public static void reportErrors(Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
         if (_options.isGettingErrors()) {

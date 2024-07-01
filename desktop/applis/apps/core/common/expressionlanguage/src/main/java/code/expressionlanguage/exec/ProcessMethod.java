@@ -43,12 +43,19 @@ public final class ProcessMethod {
     public static String convertStr(Struct _str, ContextEl _r, StackCall _stackCall) {
         Argument out_ = new Argument(_str);
         out_ = IndirectCalledFctUtil.processString(out_, _r, _stackCall);
-        CallingState state_ = _stackCall.getCallingState();
-        if (state_ instanceof CustomFoundMethod) {
-            CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            out_ = calculate(method_, _r, _stackCall).getValue();
-        }
+        out_ = tryCalculate(_r, _stackCall, out_);
         return ExecCatOperation.getDisplayable(out_, _r).getInstance();
+    }
+
+    public static Argument tryCalculate(ContextEl _r, StackCall _stackCall, Argument _out) {
+        Argument out_;
+        CallingState state_ = _stackCall.getCallingState();
+        if (state_ != null) {
+            out_ = calculate(state_, _r, _stackCall).getValue();
+        } else {
+            out_ = _out;
+        }
+        return out_;
     }
 
     public static String error(ContextEl _cont, StackCall _stackCall) {
