@@ -65,7 +65,7 @@ public final class Fighter {
 
 //    public static final byte RATE_CENT = 100;
 
-    public static final byte BACK = -100;
+    public static final byte BACK = -1;
 
     public static final String FULL_HEAL = "0";
     public static final String GROW_LEVEL = "1";

@@ -3807,6 +3807,52 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
+    @Test
+    public void choiceFoeArtificialIntelligence14Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 17);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_,data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(data_);
+        player_.getTeam().add(lasPk_);
+        pokemon_ = new WildPk();
+        pokemon_.setName(PIKACHU);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        WildPk pokemonSec_ = new WildPk();
+        pokemonSec_.setName(PIKACHU);
+        pokemonSec_.setItem(PLAQUE_DRACO);
+        pokemonSec_.setAbility(METEO);
+        pokemonSec_.setGender(Gender.NO_GENDER);
+        pokemonSec_.setLevel((short) 1);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_, player_, diff_, new CustList<WildPk>(pokemon_,pokemonSec_), data_);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
+        fight_.getCatchingBalls().get(1).setCaught(true);
+        FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
+        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        ActionMove action_ = (ActionMove) fighter_.getAction();
+        assertEq(JACKPOT, action_.getFirstChosenMove());
+        assertEq(1, action_.getChosenTargets().size());
+        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertEq(Fighter.BACK, action_.getSubstitute());
+    }
     private Fight setFirstChosenMove9(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer((short)3, _foeMoves));
