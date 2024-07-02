@@ -25,7 +25,15 @@ public final class MiniCarpet {
 
     public static MiniCarpet newCarpet(AbstractImageFactory _fact, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos, AbsCompoFactory _compoFactory) {
         MiniCarpet m_ = new MiniCarpet();
-        if(_nombreDeJoueurs==4) {
+        if(_nombreDeJoueurs==2) {
+            m_.container = _compoFactory.newGrid();
+            for (int i = 0; i < 9; i++) {
+//                AbsPanel surPanneau_= _compoFactory.newLineBox();
+                popup(_compoFactory,m_,Carpet.keyTwo(i),_pseudos,(i+1) % 3 == 0);
+//                CellPlayer cell_ = new CellPlayer(_compoFactory);
+//                cell_.setPreferredSize(new MetaDimension(20,10));
+            }
+        } else if(_nombreDeJoueurs==4) {
             m_.container = _compoFactory.newGrid();
             for (int i = 0; i < 9; i++) {
 //                AbsPanel surPanneau_= _compoFactory.newLineBox();
@@ -230,13 +238,17 @@ public final class MiniCarpet {
 //                m_.container.add(cell_.getPaintableLabel());
 //            }
         }
-        for (CellPlayer c: m_.cellsPlayers.values()) {
+        defStat(_fact, m_);
+        return m_;
+    }
+
+    private static void defStat(AbstractImageFactory _fact, MiniCarpet _m) {
+        for (CellPlayer c: _m.cellsPlayers.values()) {
             c.setStatus(Role.DEFENDER);
         }
-        for (CellPlayer c: m_.cellsPlayersAll) {
+        for (CellPlayer c: _m.cellsPlayersAll) {
             AbsMetaLabelCard.paintCard(_fact,c);
         }
-        return m_;
     }
 
     private static void popup(AbsCompoFactory _compoFactory, MiniCarpet _c, int _k, StringList _pseudos, boolean _rem) {

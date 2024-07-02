@@ -1373,7 +1373,7 @@ public class HandBeloteTest extends EquallableBeloteUtil {
     @Test
     public void getRepartitionsValides_repartitionsToutesValides1(){
         IdList<DealingBelote> repartitionsValides_ = DealingBelote.getRepartitionsValides();
-        assertEq(10,repartitionsValides_.size());
+        assertEq(12,repartitionsValides_.size());
     }
     @Test
     public void vientAvant1Test() {

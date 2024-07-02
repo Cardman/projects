@@ -20,29 +20,12 @@ public abstract class AbsCarpet<T> {
     private final int ecart;
     protected AbsCarpet(TranslationsLg _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
         ecart = _nombre;
-        AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
-        AbsPanel cont_;
         if (_nombreDeJoueurs == 4) {
-            cont_ = compo_.newGrid();
-            for (int i = 0; i < 9; i++) {
-                int k_ = Carpet.keyFour(_horaire, i);
-                AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
-                popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
-                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
-            }
+            container= fourPlayers(_lg, _horaire, _nombre, _compoFactory);
+        } else if (_nombreDeJoueurs == 2) {
+            container= twoPlayers(_lg, _nombre, _compoFactory);
         } else if (_nombreDeJoueurs == 6) {
-            cont_ = compo_.newGrid();
-            for (int i = 0; i < 12; i++) {
-                if (i == 7) {
-                    continue;
-                }
-                int k_ = Carpet.keySix(_horaire, i);
-                AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
-                popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
-                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.add(compo_,cont_,surPanneau_,width(i));
-            }
+            container= sixPlayers(_lg, _horaire, _nombre, _compoFactory);
 //            cont_.add(sub1_);
 //            cont_.add(sub2_);
 //            cont_.add(sub3_);
@@ -99,26 +82,83 @@ public abstract class AbsCarpet<T> {
 //            }
 //            cont_.add(sub_);
         } else if (_nombreDeJoueurs == 3) {
-            cont_ = compo_.newGrid();
-            for (int i = 0; i < 9; i++) {
-                int k_ = Carpet.keyThree(_horaire, i);
-                AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
-                popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
-                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
-            }
+            container= threePlayers(_lg, _horaire, _nombre, _compoFactory);
         } else {
-            cont_ = compo_.newGrid();
-            for (int i = 0; i < 9; i++) {
-                int k_ = Carpet.keyFive(_horaire, i);
-                AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
-                popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
-                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
-                Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
-            }
+            container= fivePlayers(_lg, _horaire, _nombre, _compoFactory);
+        }
+    }
+
+    private AbsPanel fivePlayers(TranslationsLg _lg, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
+        AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
+        AbsPanel cont_ = compo_.newGrid();
+        for (int i = 0; i < 9; i++) {
+            int k_ = Carpet.keyFive(_horaire, i);
+            AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
+            popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
+            surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
+            Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
         }
         cont_.setBackground(GuiConstants.newColor(0, 125, 0));
-        container=cont_;
+        return cont_;
+    }
+
+    private AbsPanel threePlayers(TranslationsLg _lg, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
+        AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
+        AbsPanel cont_ = compo_.newGrid();
+        for (int i = 0; i < 9; i++) {
+            int k_ = Carpet.keyThree(_horaire, i);
+            AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
+            popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
+            surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
+            Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
+        }
+        cont_.setBackground(GuiConstants.newColor(0, 125, 0));
+        return cont_;
+    }
+
+    private AbsPanel sixPlayers(TranslationsLg _lg, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
+        AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
+        AbsPanel cont_ = compo_.newGrid();
+        for (int i = 0; i < 12; i++) {
+            if (i == 7) {
+                continue;
+            }
+            int k_ = Carpet.keySix(_horaire, i);
+            AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
+            popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
+            surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
+            Carpet.add(compo_,cont_,surPanneau_,width(i));
+        }
+        cont_.setBackground(GuiConstants.newColor(0, 125, 0));
+        return cont_;
+    }
+
+    private AbsPanel twoPlayers(TranslationsLg _lg, int _nombre, AbstractProgramInfos _compoFactory) {
+        AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
+        AbsPanel cont_ = compo_.newGrid();
+        for (int i = 0; i < 9; i++) {
+            int k_ = Carpet.keyTwo(i);
+            AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
+            popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
+            surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
+            Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
+        }
+        cont_.setBackground(GuiConstants.newColor(0, 125, 0));
+        return cont_;
+    }
+
+    private AbsPanel fourPlayers(TranslationsLg _lg, boolean _horaire, int _nombre, AbstractProgramInfos _compoFactory) {
+        AbsCompoFactory compo_ = _compoFactory.getCompoFactory();
+        AbsPanel cont_ = compo_.newGrid();
+        for (int i = 0; i < 9; i++) {
+            int k_ = Carpet.keyFour(_horaire, i);
+            AbsPanel surPanneau_ = Carpet.surPanneau(compo_, k_);
+            popup(_lg, _nombre, _compoFactory, surPanneau_, k_);
+            surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
+            Carpet.add(compo_,cont_,surPanneau_,(i+1) % 3 == 0);
+        }
+        cont_.setBackground(GuiConstants.newColor(0, 125, 0));
+        return cont_;
     }
 
     private static int width(int _i) {

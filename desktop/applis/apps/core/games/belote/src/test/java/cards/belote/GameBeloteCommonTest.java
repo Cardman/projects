@@ -131,6 +131,70 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         assertTrue(parts_.contains(2));
     }
     @Test
+    public void isSameTeam7Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_1);
+        int taker_ = 1;
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        assertEq(0,g_.partenaires((byte) taker_).size());
+        Bytes defs_ = g_.adversaires((byte) taker_);
+        assertEq(1, defs_.size());
+        assertTrue(defs_.contains(0));
+        Bytes atts_ = g_.adversaires((byte) 0);
+        assertEq(1, atts_.size());
+        assertTrue(atts_.contains(1));
+        Bytes parts_ = g_.partenaires((byte) 0);
+        assertEq(0, parts_.size());
+    }
+    @Test
+    public void isSameTeam8Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_1);
+        int taker_ = 0;
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        assertEq(0,g_.partenaires((byte) taker_).size());
+        Bytes defs_ = g_.adversaires((byte) taker_);
+        assertEq(1, defs_.size());
+        assertTrue(defs_.contains(1));
+        Bytes atts_ = g_.adversaires((byte) 0);
+        assertEq(1, atts_.size());
+        assertTrue(atts_.contains(1));
+        Bytes parts_ = g_.partenaires((byte) 0);
+        assertEq(0, parts_.size());
+    }
+    @Test
+    public void isSameTeam9Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_1);
+        int taker_ = 1;
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        assertEq(0,g_.partenaires((byte) taker_).size());
+        Bytes defs_ = g_.adversaires((byte) taker_);
+        assertEq(1, defs_.size());
+        assertTrue(defs_.contains(0));
+        Bytes atts_ = g_.adversaires((byte) 0);
+        assertEq(1, atts_.size());
+        assertTrue(atts_.contains(1));
+        Bytes parts_ = g_.partenaires((byte) 0);
+        assertEq(0, parts_.size());
+    }
+    @Test
+    public void isSameTeam10Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_1_VS_1);
+        int taker_ = 0;
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        assertEq(0,g_.partenaires((byte) taker_).size());
+        Bytes defs_ = g_.adversaires((byte) taker_);
+        assertEq(1, defs_.size());
+        assertTrue(defs_.contains(1));
+        Bytes atts_ = g_.adversaires((byte) 0);
+        assertEq(1, atts_.size());
+        assertTrue(atts_.contains(1));
+        Bytes parts_ = g_.partenaires((byte) 0);
+        assertEq(0, parts_.size());
+    }
+    @Test
     public void cartesMaitresses1Test() {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setBid(BidBelote.SUIT);

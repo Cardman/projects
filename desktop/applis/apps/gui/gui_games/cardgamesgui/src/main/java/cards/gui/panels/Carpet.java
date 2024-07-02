@@ -155,7 +155,18 @@ public class Carpet {
         }
         return NO;
     }
-
+    public static int keyTwo(int _i) {
+        if (_i % 2 != 1) {
+            if (_i == 4) {
+                return SIMPLE;
+            }
+            return NO;
+        }
+        if (_i == 1) {
+            return PL1;
+        }
+        return PL0;
+    }
     public static AbsPanel surPanneau(AbsCompoFactory _compoFactory, int _k) {
         AbsPanel surPanneau_;
         if (_k < 0) {
