@@ -46,6 +46,8 @@ public final class MessagesBelote {
         e_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_1_VS_2_2),"1 against 2 3,2,3,2 when 2 switched cards for taker free suit");
         e_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.CLASSIC_1_VS_2_24),"1 against 2 3,2 then 3 cards after bid");
         e_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_1_VS_2_24),"1 against 2 3,3,2 free suit");
+        e_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.CLASSIC_1_VS_1),"1 against 1 3,2,3,2 then 6 cards after bid");
+        e_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_1_VS_1),"1 against 1 3,2,3,2 then 6 cards after bid free suit");
         e_.add(BeloteCardsExporterUtil.LAST_TRICK,"Ten points at last trick");
         e_.add(BeloteCardsExporterUtil.DECLARE_PAIR,"Belote rebelote");
         return e_;
@@ -94,6 +96,8 @@ public final class MessagesBelote {
         f_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_1_VS_2_2),"1 contre 2 3,2,3,2 lors de 2 cartes échangées pour le preneur couleur libre");
         f_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.CLASSIC_1_VS_2_24),"1 contre 2 3,2 puis 3 cartes après contrat");
         f_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_1_VS_2_24),"1 contre 2 3,3,2 couleur libre");
+        f_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.CLASSIC_1_VS_1),"1 contre 1 3,2,3,2 puis 6 cartes après contrat");
+        f_.add(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(DealingBelote.COINCHE_1_VS_1),"1 contre 1 3,2,3,2 puis 6 cartes après contrat couleur libre");
         f_.add(BeloteCardsExporterUtil.LAST_TRICK,"Dix de der");
         f_.add(BeloteCardsExporterUtil.DECLARE_PAIR,"Belote rebelote");
         return f_;

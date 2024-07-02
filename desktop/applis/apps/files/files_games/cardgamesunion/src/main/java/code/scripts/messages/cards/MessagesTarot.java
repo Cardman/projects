@@ -27,6 +27,7 @@ public final class MessagesTarot {
         e_.add(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD_WITHOUT),"Guard without");
         e_.add(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD_AGAINST),"Guard against");
         e_.add(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM),"Slam");
+        e_.add(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_1_VS_1),"1 against 1");
         e_.add(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_1_VS_2),"1 against 2");
         e_.add(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_1_VS_3),"1 against 3");
         e_.add(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_2_VS_2_WITHOUT_CALL),"2 against 2 without call");
@@ -85,6 +86,7 @@ public final class MessagesTarot {
         f_.add(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD_WITHOUT),"Garde sans");
         f_.add(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD_AGAINST),"Garde contre");
         f_.add(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM),"Chelem");
+        f_.add(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_1_VS_1),"1 contre 1");
         f_.add(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_1_VS_2),"1 contre 2");
         f_.add(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_1_VS_3),"1 contre 3");
         f_.add(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_2_VS_2_WITHOUT_CALL),"2 contre 2 sans appel");
