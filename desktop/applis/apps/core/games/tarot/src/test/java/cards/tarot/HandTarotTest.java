@@ -838,7 +838,7 @@ public final class HandTarotTest extends EquallableTarotUtil {
     public void getRepartitionsValides_repartitionsToutesValides1(){
         IdList<DealingTarot> repartitionsValides_ = DealingTarot.getRepartitionsValides();
         assertTrue(!repartitionsValides_.isEmpty());
-        assertEq(11,repartitionsValides_.size());
+        assertEq(12,repartitionsValides_.size());
     }
     @Test
     public void getDeclarableHandFuls_poigneesToutesValides1(){

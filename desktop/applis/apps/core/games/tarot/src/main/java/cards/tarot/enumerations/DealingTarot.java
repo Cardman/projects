@@ -6,6 +6,7 @@ import code.util.Ints;
 import code.util.core.NumberUtil;
 
 public enum DealingTarot {
+    DEAL_1_VS_1(2,CallingCard.WITHOUT,6,0, 50, 90, "__"),
     DEAL_1_VS_2(3,CallingCard.WITHOUT,6,0, 90, 140, "0"),
     DEAL_1_VS_3(4,CallingCard.WITHOUT,6,0, 90, 160, "1"),
     DEAL_2_VS_2_WITHOUT_CALL(4,CallingCard.DEFINED,6,1, 50, 90, "2"),
@@ -63,6 +64,7 @@ public enum DealingTarot {
     }
     public static IdList<DealingTarot> getRepartitionsValides(){
         IdList<DealingTarot> repartitions_ = new IdList<DealingTarot>();
+        repartitions_.add(DEAL_1_VS_1);
         repartitions_.add(DEAL_1_VS_2);
         repartitions_.add(DEAL_1_VS_3);
         repartitions_.add(DEAL_2_VS_2_WITHOUT_CALL);
@@ -93,6 +95,9 @@ public enum DealingTarot {
         return nombreCartesParJoueur_;
     }
     private int[] valDistribution(){
+        if (getId().getNombreJoueurs() == 2) {
+            return NumberUtil.wrapIntArray(3,3,3,3,3,3,3,3,3,3,3,3);
+        }
         if (getId().getNombreJoueurs() == 3) {
             return NumberUtil.wrapIntArray(3,3,3,3,3,3,3,3);
         }

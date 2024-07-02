@@ -132,6 +132,15 @@ public final class DealTarotTest extends EquallableTarotUtil {
         assertEq(24, donne_.hand().total());
     }
     @Test
+    public void initDonne7Test() {
+        HandTarot main_ = initPileTarot();
+        DealTarot donne_ = dealTwoPlayers(main_, MixCardsChoice.NEVER, 0);
+        assertEq(3,donne_.nombreDeMains());
+        assertEq(36,donne_.hand((byte) 0).total());
+        assertEq(36,donne_.hand((byte) 1).total());
+        assertEq(6,donne_.hand((byte) 2).total());
+    }
+    @Test
     public void chosenTrumps1Test(){
         byte minAtout_ = 9;
         byte maxAtout_ = 12;
@@ -432,6 +441,15 @@ public final class DealTarotTest extends EquallableTarotUtil {
         return donne_;
     }
 
+    private DealTarot dealTwoPlayers(HandTarot _main, MixCardsChoice _m, int _nb) {
+        DealTarot donne_ = new DealTarot(_nb);
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_1);
+        regles_.getCommon().setMixedCards(_m);
+        donne_.setDealer((byte) 1);
+        initDonne(donne_,regles_,_main);
+        return donne_;
+    }
     private CustList<LgInt> fonctionRepartition(byte _minAtout, byte _maxAtout, int _nbCards) {
         return DealTarot.repartitionHunt(_nbCards, _minAtout, _maxAtout, _nbCards - _minAtout - 1L, 1L);
     }
