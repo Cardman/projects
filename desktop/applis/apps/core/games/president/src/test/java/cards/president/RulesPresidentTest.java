@@ -104,7 +104,7 @@ public class RulesPresidentTest extends EquallablePresidentUtil {
         assertEq(1,RulesPresident.getNbMinStacks(4));
         assertEq(2,RulesPresident.getNbMaxStacks(4));
         assertEq(19,RulesPresident.getNbMaxStacksPlayers());
-        assertEq(3,RulesPresident.getNbMinPlayers());
+        assertEq(2,RulesPresident.getNbMinPlayers());
         assertEq(32,RulesPresident.getNbMaxPlayers());
         assertNotSame(rules_,rulesTwo_);
     }

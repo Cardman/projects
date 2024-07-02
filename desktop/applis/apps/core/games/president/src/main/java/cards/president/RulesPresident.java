@@ -10,7 +10,7 @@ public final class RulesPresident {
 
     private static final int NB_MIN_CARDS = 4;
     private static final int NB_MAX_CARDS = 32;
-    private static final int NB_MIN_PLAYERS = 3;
+    private static final int NB_MIN_PLAYERS = 2;
     private static final int NB_MAX_PLAYERS = 32;
     private RulesCommon common = new RulesCommon();
     private int nbPlayers = 4;

@@ -1139,6 +1139,58 @@ public class GamePresidentTest extends EquallablePresidentUtil {
     }
 
     @Test
+    public void keepPlayingCurrentTrick10Test() {
+        RulesPresident r_ = new RulesPresident(2);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = dealTwoPlayers();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        assertTrue(g_.keepPlayingCurrentTrick());
+    }
+
+    @Test
+    public void keepPlayingCurrentTrick11Test() {
+        RulesPresident r_ = new RulesPresident(2);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = dealTwoPlayers();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.addCardsToCurrentTrickAndLoop(HandPresident.create(new CardPresident[]{CardPresident.HEART_7}));
+        assertTrue(g_.keepPlayingCurrentTrick());
+    }
+
+    @Test
+    public void keepPlayingCurrentTrick12Test() {
+        RulesPresident r_ = new RulesPresident(2);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = dealTwoPlayers();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.addCardsToCurrentTrickAndLoop(HandPresident.create(new CardPresident[]{CardPresident.HEART_7}));
+        g_.noPlay();
+        assertEq(1,g_.getTricks().size());
+        assertEq(0,g_.getProgressingTrick().total());
+        assertEq(1,g_.getProgressingTrick().getEntameur());
+    }
+
+    @Test
+    public void keepPlayingCurrentTrick13Test() {
+        RulesPresident r_ = new RulesPresident(2);
+        r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
+        Bytes rk_ = Bytes.newList();
+        CustList<HandPresident> hs_ = dealTwoPlayers();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.addCardsToCurrentTrickAndLoop(HandPresident.create(new CardPresident[]{CardPresident.HEART_7}));
+        g_.addCardsToCurrentTrickAndLoop(HandPresident.create(new CardPresident[]{CardPresident.CLUB_7}));
+        assertEq(0, g_.nextPlayer());
+    }
+
+    @Test
     public void addCardsToCurrentTrick1Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = Bytes.newList();
@@ -3330,6 +3382,68 @@ public class GamePresidentTest extends EquallablePresidentUtil {
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
         h_.ajouter(CardPresident.SPADE_3);
+        hs_.add(h_);
+        return hs_;
+    }
+
+    static CustList<HandPresident> dealTwoPlayers() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
+        HandPresident h_;
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.CLUB_3);
+        h_.ajouter(CardPresident.CLUB_4);
+        h_.ajouter(CardPresident.DIAMOND_4);
+        h_.ajouter(CardPresident.SPADE_7);
+        h_.ajouter(CardPresident.DIAMOND_8);
+        h_.ajouter(CardPresident.HEART_8);
+        h_.ajouter(CardPresident.CLUB_9);
+        h_.ajouter(CardPresident.SPADE_10);
+        h_.ajouter(CardPresident.CLUB_JACK);
+        h_.ajouter(CardPresident.SPADE_JACK);
+        h_.ajouter(CardPresident.SPADE_KING);
+        h_.ajouter(CardPresident.DIAMOND_1);
+        h_.ajouter(CardPresident.HEART_2);
+        h_.ajouter(CardPresident.SPADE_3);
+        h_.ajouter(CardPresident.SPADE_4);
+        h_.ajouter(CardPresident.HEART_4);
+        h_.ajouter(CardPresident.CLUB_7);
+        h_.ajouter(CardPresident.SPADE_8);
+        h_.ajouter(CardPresident.CLUB_8);
+        h_.ajouter(CardPresident.SPADE_9);
+        h_.ajouter(CardPresident.CLUB_10);
+        h_.ajouter(CardPresident.HEART_JACK);
+        h_.ajouter(CardPresident.DIAMOND_JACK);
+        h_.ajouter(CardPresident.CLUB_KING);
+        h_.ajouter(CardPresident.HEART_1);
+        h_.ajouter(CardPresident.DIAMOND_2);
+        hs_.add(h_);
+        h_ = new HandPresident();
+        h_.ajouter(CardPresident.HEART_3);
+        h_.ajouter(CardPresident.SPADE_5);
+        h_.ajouter(CardPresident.HEART_5);
+        h_.ajouter(CardPresident.SPADE_6);
+        h_.ajouter(CardPresident.CLUB_6);
+        h_.ajouter(CardPresident.HEART_7);
+        h_.ajouter(CardPresident.HEART_9);
+        h_.ajouter(CardPresident.HEART_10);
+        h_.ajouter(CardPresident.SPADE_QUEEN);
+        h_.ajouter(CardPresident.CLUB_QUEEN);
+        h_.ajouter(CardPresident.HEART_KING);
+        h_.ajouter(CardPresident.SPADE_2);
+        h_.ajouter(CardPresident.CLUB_2);
+        h_.ajouter(CardPresident.DIAMOND_3);
+        h_.ajouter(CardPresident.CLUB_5);
+        h_.ajouter(CardPresident.DIAMOND_5);
+        h_.ajouter(CardPresident.HEART_6);
+        h_.ajouter(CardPresident.DIAMOND_6);
+        h_.ajouter(CardPresident.DIAMOND_7);
+        h_.ajouter(CardPresident.DIAMOND_9);
+        h_.ajouter(CardPresident.DIAMOND_10);
+        h_.ajouter(CardPresident.HEART_QUEEN);
+        h_.ajouter(CardPresident.DIAMOND_QUEEN);
+        h_.ajouter(CardPresident.DIAMOND_KING);
+        h_.ajouter(CardPresident.SPADE_1);
+        h_.ajouter(CardPresident.CLUB_1);
         hs_.add(h_);
         return hs_;
     }
