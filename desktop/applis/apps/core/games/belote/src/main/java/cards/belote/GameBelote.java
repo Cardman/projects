@@ -740,7 +740,7 @@ public final class GameBelote {
     }
 
     public boolean changeFirstLeader() {
-        return getRegles().dealAll() && getBid().getPoints() >= RulesBelote.MOST;
+        return getBid().getPoints() >= RulesBelote.MOST;
     }
 
 //    CustList<BidBeloteSuit> maximumBid() {
