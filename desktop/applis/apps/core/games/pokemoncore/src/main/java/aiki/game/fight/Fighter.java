@@ -67,23 +67,14 @@ public final class Fighter {
 
     public static final byte BACK = -100;
 
-    public static final String FIGHTER_ACCESS = "aiki.game.fight.fighter";
-
-    private static final String WON_EV = "wonEv";
-
-    private static final String WON_EV_MAX = "wonEvMax";
-
-    private static final String WON_EXP = "wonExp";
-
-    private static final String GROW_LEVEL = "growLevel";
-
-    private static final String LEARN_MOVE = "learnMove";
-
-    private static final String WON_HAPPINESS = "wonHappiness";
-
-    private static final String MAX_HAPPINESS = "maxHappiness";
-
-    private static final String FULL_HEAL = "fullHeal";
+    public static final String FULL_HEAL = "0";
+    public static final String GROW_LEVEL = "1";
+    public static final String LEARN_MOVE = "2";
+    public static final String MAX_HAPPINESS = "3";
+    public static final String WON_EV = "4";
+    public static final String WON_EV_MAX = "5";
+    public static final String WON_EXP = "6";
+    public static final String WON_HAPPINESS = "7";
 
 //    private static final String CENT = Byte.toString(RATE_CENT);
 

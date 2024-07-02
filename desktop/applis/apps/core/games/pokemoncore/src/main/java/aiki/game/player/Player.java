@@ -53,51 +53,29 @@ import code.util.core.StringUtil;
 
 public final class Player {
 
-    public static final String PLAYER_ACCESS = "aiki.game.player.player";
-
     public static final String DEFAULT_NICKNAME_PREFIX = "CARD_";
 
-    private static final String CANNOT_EVOLVE = "cannotEvolve";
-
-    private static final String EVOLVE_INTO = "evolveInto";
-
-    private static final String BAD_NUMBER_MOVES = "badNumberMoves";
-
-    private static final String BETWEEN_NUMBER_MOVES = "betweenNumberMoves";
-
-    private static final String MISS_MOVES = "missMoves";
-
-    private static final String LEARN_MOVES = "learnMoves";
-
-    private static final String FORGET_MOVES = "forgetMoves";
-
-    private static final String KEEP_MOVES = "keepMoves";
-
-    private static final String HATCH = "hatch";
-
-    private static final String REPEL_OFF = "repelOff";
-
-    private static final String NEW_PK = "newPk";
-
-    private static final String NEW_PK_ADDED_BOX = "newPkAddedBox";
-
-    private static final String LEARN_MOVE = "learnMove";
-
-    private static final String LEARN_MOVE_FORGET = "learnMoveForget";
-
-    private static final String RESTORED_HP = "restoredHp";
-
-    private static final String RESTORED_MOVE = "restoredMove";
-
-    private static final String BOOSTED_MOVE = "boostedMove";
-
-    private static final String BOOSTED_STATISTIC = "boostedStatistic";
-
-    private static final String HEAL_STATUS = "healStatus";
-
-    private static final String ENABLE_REPEL = "enableRepel";
-
-    private static final String TAKEN_ITEM = "takenItem";
+    public static final String BAD_NUMBER_MOVES = "0";
+    public static final String BETWEEN_NUMBER_MOVES = "1";
+    public static final String BOOSTED_MOVE = "2";
+    public static final String BOOSTED_STATISTIC = "3";
+    public static final String CANNOT_EVOLVE = "4";
+    public static final String ENABLE_REPEL = "5";
+    public static final String EVOLVE_INTO = "6";
+    public static final String FORGET_MOVES = "7";
+    public static final String HATCH = "8";
+    public static final String HEAL_STATUS = "9";
+    public static final String KEEP_MOVES = "10";
+    public static final String LEARN_MOVE = "11";
+    public static final String LEARN_MOVES = "12";
+    public static final String LEARN_MOVE_FORGET = "13";
+    public static final String MISS_MOVES = "14";
+    public static final String NEW_PK = "15";
+    public static final String NEW_PK_ADDED_BOX = "16";
+    public static final String REPEL_OFF = "17";
+    public static final String RESTORED_HP = "18";
+    public static final String RESTORED_MOVE = "19";
+    public static final String TAKEN_ITEM = "20";
 
     /**nom du heros*/
     private String nickname;

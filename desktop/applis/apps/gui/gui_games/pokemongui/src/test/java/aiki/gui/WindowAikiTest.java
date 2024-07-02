@@ -188,7 +188,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         rend_.setNavCore(nav_);
         new ThreadRefresh(rend_).run();
         new NatRenderAction(new PokemonStandardsSample(),new NatNavigation()).execute(false,d_.getDocumentElement());
-        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
+//        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 
     @Test

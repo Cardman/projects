@@ -60,47 +60,28 @@ public final class Game {
 
     public static final String GAME_ACCESS = "aiki.game.game";
 
-    public static final String END_GAME = "endGame";
+    public static final int NB_HOSTED_POKEMON = 2;
 
-    private static final int NB_HOSTED_POKEMON = 2;
-
-    private static final String NO_BEATEN_TRAINER = "noBeatenTrainer";
-
-    private static final String BEATEN_TRAINER_FULL = "beatenTrainerFull";
-
-    private static final String BEATEN_TRAINER = "beatenTrainer";
-
-    private static final String POSSIBLE_BEAT_LEADER = "possibleBeatLeader";
-
-    private static final String REMAINING_TRAINERS_GYM = "remainingTrainersGym";
-
-    private static final String MISSING_PK = "missingPk";
-
-    private static final String SAME_PK = "samePk";
-
-    private static final String SAME_GENDER = "sameGender";
-
-    private static final String NO_COMMON_EGG = "noCommonEgg";
-
-    private static final String RECEIVED_EGG = "receivedEgg";
-
-    private static final String NOT_ENOUGH_PLACE = "notEnoughPlace";
-
-    private static final String RECEIVED_EGG_PARENTS = "receivedEggParents";
-
-    private static final String RECEIVED_EGG_WITHOUT_PARENT = "receivedEggWithoutParent";
-
-    private static final String RECEIVED_PARENTS = "receivedParents";
-
-    private static final String NOT_ENOUGH_PLACE_PARENTS = "notEnoughPlaceParents";
-
-    private static final String CAUGHT_PK = "caughtPk";
-
-    private static final String NOT_CAUGHT_PK = "notCaughtPk";
-
-    private static final String WON_MONEY = "wonMoney";
-
-    private static final String LOST_MONEY = "lostMoney";
+    public static final String BEATEN_TRAINER = "0";
+    public static final String BEATEN_TRAINER_FULL = "1";
+    public static final String CAUGHT_PK = "2";
+    public static final String END_GAME = "3";
+    public static final String LOST_MONEY = "4";
+    public static final String MISSING_PK = "5";
+    public static final String NOT_CAUGHT_PK = "6";
+    public static final String NOT_ENOUGH_PLACE = "7";
+    public static final String NOT_ENOUGH_PLACE_PARENTS = "8";
+    public static final String NO_BEATEN_TRAINER = "9";
+    public static final String NO_COMMON_EGG = "10";
+    public static final String POSSIBLE_BEAT_LEADER = "11";
+    public static final String RECEIVED_EGG = "12";
+    public static final String RECEIVED_EGG_PARENTS = "13";
+    public static final String RECEIVED_EGG_WITHOUT_PARENT = "14";
+    public static final String RECEIVED_PARENTS = "15";
+    public static final String REMAINING_TRAINERS_GYM = "16";
+    public static final String SAME_GENDER = "17";
+    public static final String SAME_PK = "18";
+    public static final String WON_MONEY = "19";
 
     private static final String SEPARATOR_TRAINERS = " ";
 

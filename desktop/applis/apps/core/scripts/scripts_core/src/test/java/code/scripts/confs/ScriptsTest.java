@@ -1,20 +1,9 @@
 package code.scripts.confs;
 
-import code.scripts.messages.aiki.*;
-import code.scripts.messages.cards.*;
 import code.scripts.messages.gui.*;
 import org.junit.Test;
 
 public final class ScriptsTest extends EquallableScriptsUtil {
-    @Test
-    public void cards(){
-        assertNotNull(MessagesCardsAll.ms());
-        assertNotNull(MessagesGuiGui.ms());
-    }
-    @Test
-    public void pk() {
-        assertNotNull(MessPkGr.ms());
-    }
     @Test
     public void global(){
         assertNotNull(MessCdmGuiGr.ms());

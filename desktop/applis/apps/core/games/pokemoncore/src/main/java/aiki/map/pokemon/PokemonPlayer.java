@@ -44,13 +44,9 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     public static final String SEPARATOR = "/";
 
-    public static final String POKEMON_PLAYER = "aiki.map.pokemon.pokemonplayer";
-
 //    private static final String CENT = Byte.toString(Fighter.RATE_CENT);
-
-    private static final String CST_HAPPINESS = "happiness";
-
-    private static final String DECREASING_HP = "decreasingHp";
+    public static final String CST_HAPPINESS = "0";
+    public static final String DECREASING_HP = "1";
 
 
     /***/

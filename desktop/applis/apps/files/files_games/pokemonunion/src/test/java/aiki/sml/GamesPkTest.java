@@ -14,7 +14,7 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.montecarlo.*;
-import code.sml.util.TranslationsLg;
+import code.sml.util.*;
 import code.threads.ConcreteBoolean;
 import code.threads.ConcreteInteger;
 import code.util.StringMap;
@@ -24,9 +24,13 @@ public final class GamesPkTest extends EquallablePkFileUtil {
     @Test
     public void t1() {
         DataBase d_ = new DataBase(new DefaultGenerator(new CustomSeedGene()));
-        GamesPk.initMessages(d_,"en");
-        GamesPk.initMessages(d_,"fr");
+        GamesPk.initMessages(d_, new TranslationsAppli());
         assertFalse(d_.isError());
+        TranslationsAppli app_ = new TranslationsAppli();
+        TranslationsFile file_ = new TranslationsFile();
+        file_.add("","");
+        app_.getMapping().addEntry("_", file_);
+        assertEq(1,GamesPk.messages(app_,"_").size());
     }
     @Test
     public void t2() {

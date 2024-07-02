@@ -27,11 +27,8 @@ public final class Team {
     public static final String EQUIPE_ADV_NB_UTILISATION = "EQUIPE_ADV_NB_UTILISATION";
     public static final String NB_UTILI_ATT_EQ_TOUR = "NB_UTILI_ATT_EQ_TOUR";
 
-    public static final String TEAM_ACCESS = "aiki.game.fight.team";
-
-    private static final String CANCEL_USE_ITEM = "cancelUseItem";
-
-    private static final String USE_ITEM = "useItem";
+    public static final String CANCEL_USE_ITEM = "0";
+    public static final String USE_ITEM = "1";
 
     /***/
     private ListActivityOfMoves enabledMovesByGroup;

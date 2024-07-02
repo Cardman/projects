@@ -6,52 +6,42 @@ package aiki.gui;
 
 
 import aiki.db.*;
-import aiki.gui.components.AbsMetaLabelPk;
-import aiki.gui.components.walk.IntTileRender;
+import aiki.gui.components.*;
+import aiki.gui.components.walk.*;
 import aiki.gui.dialogs.*;
 import aiki.gui.events.*;
-import aiki.gui.listeners.AbsTaskEnabled;
-import aiki.gui.listeners.DefTaskEnabled;
+import aiki.gui.listeners.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
 //import aiki.network.stream.*;
 import aiki.sml.*;
-import aiki.facade.FacadeGame;
-import aiki.game.Game;
-import aiki.game.player.enums.Sex;
-import aiki.gui.components.fight.FrontBattle;
-import aiki.gui.components.fight.FrontClickEvent;
-import aiki.gui.components.walk.ScenePanel;
+import aiki.facade.*;
+import aiki.game.*;
+import aiki.game.player.enums.*;
+import aiki.gui.components.fight.*;
 /*import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.NetAiki;
 import aiki.network.SendReceiveServerAiki;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;*/
-import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.filenames.*;
 import code.gui.*;
-import code.gui.events.AbsActionListenerAct;
-import code.gui.events.AlwaysActionListenerAct;
-import code.gui.events.QuitEvent;
 //import code.gui.events.QuittingEvent;
-import code.gui.events.QuittingEvent;
+import code.gui.events.*;
 import code.gui.files.*;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
-import code.gui.images.MetaPoint;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.images.*;
+import code.gui.initialize.*;
 //import code.gui.initialize.AbstractSocket;
 //import code.network.*;
-import code.scripts.messages.gui.MessGuiPkGr;
 //import code.sml.Document;
 //import code.sml.Element;
-import code.scripts.messages.gui.MessPkVideoGr;
-import code.sml.util.ResourcesMessagesUtil;
+import code.scripts.messages.gui.*;
+import code.sml.util.*;
 import code.stream.*;
 import code.threads.*;
 //import code.util.CustList;
 //import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.*;
 //import code.util.core.IndexConstants;
 //import code.util.core.NumberUtil;
@@ -308,14 +298,14 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         initMessages();
         setTitle(messages.getVal(TITLE));
     }
-    public static StringMap<String> getMessagesFromLocaleClass(String _loc) {
-        return getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _loc, DIALOG_ACCESS);
-    }
-    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        String loadedResourcesMessages_ = MessGuiPkGr.ms().getVal(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-    }
+//    public static StringMap<String> getMessagesFromLocaleClass(String _loc) {
+//        return getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _loc, DIALOG_ACCESS);
+//    }
+//    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
+//        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
+//        String loadedResourcesMessages_ = MessGuiPkGr.ms().getVal(fileName_);
+//        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//    }
 
     public static AbstractImage getIcon(AbstractImageFactory _fact) {
         return FileDialog.getImage(MessPkVideoGr.ms().getVal(StringUtil.concat(Resources.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, Resources.ICON_TXT)), _fact);
@@ -501,8 +491,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    }
     public void initMessages() {
         core.getFacade().getData().setLanguage(core.getFacade().getLanguage());
-        GamesPk.initMessages(core.getFacade().getData(), core.getFacade().getLanguage());
-        messages = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+        TranslationsAppli app_ = GamesPk.getAppliTr(getFrames().currentLg());
+        GamesPk.initMessages(core.getFacade().getData(), app_);
+        messages = GamesPk.getWindowPkContentTr(app_).getMapping();
         core.setMessages(messages);
         file.setText(messages.getVal(MessagesRenderWindowPk.CST_FILE));
         core.getZipLoad().setText(messages.getVal(MessagesRenderWindowPk.ZIP_LOAD));

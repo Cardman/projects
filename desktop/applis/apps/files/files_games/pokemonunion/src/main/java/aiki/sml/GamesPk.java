@@ -2,14 +2,7 @@ package aiki.sml;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.Game;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.Team;
-import aiki.game.player.Player;
-import aiki.map.pokemon.PokemonPlayer;
 import code.maths.montecarlo.AbstractGenerator;
-import code.scripts.messages.aiki.MessPkGr;
 import code.sml.util.*;
 import code.threads.AbstractAtomicBooleanCore;
 import code.threads.AbstractAtomicIntegerCoreAdd;
@@ -38,6 +31,12 @@ public final class GamesPk {
     public static final String WINDOW_PK = "win_pk";
     public static final String SCENE_PANEL = "scene_panel";
     public static final String BATTLE = "battle";
+    public static final String GAME_ACCESS = "aiki.game.game";
+    public static final String FIGHT_ACCESS = "aiki.game.fight.fight";
+    public static final String TEAM_ACCESS = "aiki.game.fight.team";
+    public static final String FIGHTER_ACCESS = "aiki.game.fight.fighter";
+    public static final String PLAYER_ACCESS = "aiki.game.player.player";
+    public static final String POKEMON_PLAYER = "aiki.map.pokemon.pokemonplayer";
     private GamesPk() {
     }
     public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
@@ -72,6 +71,12 @@ public final class GamesPk {
         appendWindowPkContent(_lgs,MessagesRenderWindowPk.en());
         appendScenePanelContent(_lgs,MessagesRenderScenePanel.en());
         appendBattleContent(_lgs,MessagesRenderBattle.en());
+        _lgs.getMapping().addEntry(GAME_ACCESS,MessagesCorePk.enGame());
+        _lgs.getMapping().addEntry(FIGHT_ACCESS,MessagesCorePk.enFight());
+        _lgs.getMapping().addEntry(TEAM_ACCESS,MessagesCorePk.enTeam());
+        _lgs.getMapping().addEntry(FIGHTER_ACCESS,MessagesCorePk.enFighter());
+        _lgs.getMapping().addEntry(PLAYER_ACCESS,MessagesCorePk.enPlayer());
+        _lgs.getMapping().addEntry(POKEMON_PLAYER,MessagesCorePk.enPokemonPlayer());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -96,6 +101,12 @@ public final class GamesPk {
         appendWindowPkContent(_lgs,MessagesRenderWindowPk.fr());
         appendScenePanelContent(_lgs,MessagesRenderScenePanel.fr());
         appendBattleContent(_lgs,MessagesRenderBattle.fr());
+        _lgs.getMapping().addEntry(GAME_ACCESS,MessagesCorePk.frGame());
+        _lgs.getMapping().addEntry(FIGHT_ACCESS,MessagesCorePk.frFight());
+        _lgs.getMapping().addEntry(TEAM_ACCESS,MessagesCorePk.frTeam());
+        _lgs.getMapping().addEntry(FIGHTER_ACCESS,MessagesCorePk.frFighter());
+        _lgs.getMapping().addEntry(PLAYER_ACCESS,MessagesCorePk.frPlayer());
+        _lgs.getMapping().addEntry(POKEMON_PLAYER,MessagesCorePk.frPokemonPlayer());
     }
 
     public static void appendPkGameDetailContent(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -266,20 +277,21 @@ public final class GamesPk {
         return _lgs.getMapping().getVal(BATTLE);
     }
 
-    public static void initMessages(DataBase _d, String _lg) {
-        StringMap<String> map_ = MessPkGr.ms();
-        _d.setMessagesPokemonPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, PokemonPlayer.POKEMON_PLAYER));
-        _d.setMessagesPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Player.PLAYER_ACCESS));
-        _d.setMessagesFighter(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fighter.FIGHTER_ACCESS));
-        _d.setMessagesTeam(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Team.TEAM_ACCESS));
-        _d.setMessagesFight(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fight.FIGHT_ACCESS));
-        _d.setMessagesGame(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Game.GAME_ACCESS));
+    public static void initMessages(DataBase _d, TranslationsAppli _app) {
+        _d.setMessagesPokemonPlayer(messages(_app, POKEMON_PLAYER));
+        _d.setMessagesPlayer(messages(_app, PLAYER_ACCESS));
+        _d.setMessagesFighter(messages(_app, FIGHTER_ACCESS));
+        _d.setMessagesTeam(messages(_app, TEAM_ACCESS));
+        _d.setMessagesFight(messages(_app, FIGHT_ACCESS));
+        _d.setMessagesGame(messages(_app, GAME_ACCESS));
     }
 
-    private static StringMap<String> getMessagesFromLocaleClass(StringMap<String> _map, String _folder, String _loc, String _class) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        String loadedResourcesMessages_ = _map.getVal(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    public static StringMap<String> messages(TranslationsAppli _app, String _key) {
+        TranslationsFile file_ = _app.getMapping().getVal(_key);
+        if (file_ == null) {
+            return new StringMap<String>();
+        }
+        return file_.getMapping();
     }
 
     // Load rom option
