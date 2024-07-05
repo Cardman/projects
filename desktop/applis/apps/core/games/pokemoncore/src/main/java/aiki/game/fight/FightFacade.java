@@ -1292,7 +1292,7 @@ public final class FightFacade {
     private static void anAlly(byte _groundPlace, Bytes _playerFightersTakenPlace, CustList<ChosableTargetName> _playerTargets) {
         for (byte k: _playerFightersTakenPlace) {
 //                playerTargets_.set(k,!Numbers.eq(k, _index));
-            _playerTargets.get(k).setChosable(ComparatorBoolean.of(!NumberUtil.eq(k, _groundPlace)));
+            _playerTargets.get(k).setChosable(ComparatorBoolean.of(!NumberUtil.eq(_playerTargets.get(k).getKey(), _groundPlace)));
         }
     }
 

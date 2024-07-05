@@ -497,7 +497,7 @@ final class FightOrder {
         ByteMap<Fighter> combattantsAttirant_ = combattantsAttirant(_import, membres_);
         //attraction des effets
         if(!combattantsAttirant_.isEmpty()){
-            TeamPositionList cbtsModif_= closestFoeFightersAmongList(noEqAdv_,combattantsAttirant_, _fight.getFighter(_lanceur).getGroundPlace());
+            TeamPositionList cbtsModif_= closestFoeFightersAmongList(noEqAdv_,combattantsAttirant_, _fight.getFighter(_lanceur));
             Bytes cbtsListe_ = new Bytes();
             ByteMap<TeamPosition> positions_ = new ByteMap<TeamPosition>();
             for(TeamPosition c:cbtsModif_){
@@ -624,7 +624,7 @@ final class FightOrder {
     static TeamPositionList closestFigthersFoeTeam(Fight _fight,TeamPosition _combattant,Difficulty _diff){
         byte noEq_=_combattant.getTeam();
         byte noEqAdv_=Fight.foe(noEq_);
-        byte fighterPlace_ = _fight.getFighter(_combattant).getGroundPlace();
+        Fighter fighterPlace_ = _fight.getFighter(_combattant);
         TeamPositionList cbts_ = closestFigthersTeam(fighterPlace_, noEqAdv_, _fight.getTeams().getVal(noEqAdv_), _diff);
         if(cbts_.isEmpty()){
             cbts_=closestFoeFighter(_fight,_combattant);
@@ -634,13 +634,13 @@ final class FightOrder {
 
     static TeamPositionList closestFigthersSameTeam(Fight _fight,TeamPosition _combattant,Difficulty _diff){
         byte noEq_=_combattant.getTeam();
-        byte fighterPlace_ = _fight.getFighter(_combattant).getGroundPlace();
+        Fighter fighterPlace_ = _fight.getFighter(_combattant);
         TeamPositionList cbts_ = closestFigthersTeam(fighterPlace_, noEq_, _fight.getTeams().getVal(noEq_), _diff);
         cbts_.removeObj(_combattant);
         return cbts_;
     }
 
-    static TeamPositionList closestFigthersTeam(byte _fighterPlace,byte _noTeam, Team _team, Difficulty _diff) {
+    static TeamPositionList closestFigthersTeam(Fighter _fighterPlace,byte _noTeam, Team _team, Difficulty _diff) {
         TeamPositionList cbts_ = new TeamPositionList();
         ByteMap<Fighter> membresAdv_=_team.getMembers();
         for(byte c:membresAdv_.getKeys()){
@@ -648,7 +648,7 @@ final class FightOrder {
             if(membre_.estArriere()){
                 continue;
             }
-            int diff_=membre_.getGroundPlace()-_fighterPlace;
+            int diff_=membre_.getGroundPlace()-_fighterPlace.getGroundPlace();
             if(NumberUtil.abs(diff_) <= 1||!_diff.getEnabledClosing()){
                 cbts_.add(new TeamPosition(_noTeam,c));
             }
@@ -661,10 +661,13 @@ final class FightOrder {
         byte noEquipeAdv_=Fight.foe(noEquipe_);
         Team equipeAdvCbt_=_fight.getTeams().getVal(noEquipeAdv_);
         ByteMap<Fighter> membresEquipeAdv_=equipeAdvCbt_.getMembers();
-        return closestFoeFightersAmongList(noEquipeAdv_,membresEquipeAdv_, _fight.getFighter(_cbt).getGroundPlace());
+        return closestFoeFightersAmongList(noEquipeAdv_,membresEquipeAdv_, _fight.getFighter(_cbt));
     }
 
-    static TeamPositionList closestFoeFightersAmongList(byte _noEquipeAdv, ByteMap<Fighter> _liste, byte _posCbt){
+    static TeamPositionList closestFoeFightersAmongList(byte _noEquipeAdv, ByteMap<Fighter> _liste, Fighter _posCbt){
+        if (_posCbt.estArriere()) {
+            return new TeamPositionList();
+        }
         Bytes posAdv_ = new Bytes();
         byte diff_=Fighter.BACK;
         for(EntryCust<Byte, Fighter> e:_liste.entryList()){
@@ -675,7 +678,7 @@ final class FightOrder {
             }
         }
         for(byte e:posAdv_){
-            int currDiff_ = NumberUtil.abs(e- _posCbt);
+            int currDiff_ = NumberUtil.abs(e- _posCbt.getGroundPlace());
             if (NumberUtil.eq(diff_, Fighter.BACK) || diff_ > currDiff_) {
                 diff_ = (byte) currDiff_;
             }
@@ -683,7 +686,7 @@ final class FightOrder {
         TeamPositionList cbtsProches_ = new TeamPositionList();
         for(EntryCust<Byte, Fighter> c:_liste.entryList()){
             Fighter membre_=c.getValue();
-            if (!membre_.estArriere() && NumberUtil.abs(membre_.getGroundPlace() - _posCbt) == diff_) {
+            if (!membre_.estArriere() && NumberUtil.abs(membre_.getGroundPlace() - _posCbt.getGroundPlace()) == diff_) {
                 cbtsProches_.add(new TeamPosition(_noEquipeAdv, c.getKey()));
             }
         }
