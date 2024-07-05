@@ -642,6 +642,9 @@ final class FightOrder {
 
     static TeamPositionList closestFigthersTeam(Fighter _fighterPlace,byte _noTeam, Team _team, Difficulty _diff) {
         TeamPositionList cbts_ = new TeamPositionList();
+        if (_fighterPlace.estArriere()) {
+            return cbts_;
+        }
         ByteMap<Fighter> membresAdv_=_team.getMembers();
         for(byte c:membresAdv_.getKeys()){
             Fighter membre_=membresAdv_.getVal(c);
