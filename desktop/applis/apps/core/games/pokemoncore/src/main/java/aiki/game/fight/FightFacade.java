@@ -2195,7 +2195,7 @@ public final class FightFacade {
     public static CustList<MovesListTeamPositionsList> sortedFightersBeginRoundWildFight(Fight _fight, Difficulty _diff, DataBase _data) {
         CustList<CustList<FighterNamePkNameMv>> allKeys_ = new CustList<CustList<FighterNamePkNameMv>>();
         allKeys_.add(new CustList<FighterNamePkNameMv>());
-        for (EntryCust<Byte,Fighter> e:FightOrder.filtered(_fight,_fight.getFoeTeam().getMembers())) {
+        for (EntryCust<Byte,Fighter> e:FightOrder.filteredFoe(_fight)) {
             StringList moves_ = allowedMovesNotEmpty(_fight, Fight.toFoeFighter(e.getKey()), _data);
             CustList<FighterNamePkNameMv> loc_ = new CustList<FighterNamePkNameMv>();
             NatStringTreeMap<String> s_ = new NatStringTreeMap<String>();

@@ -709,18 +709,23 @@ final class FightOrder {
         return PointViewChangementType.NOTHING;
     }
 
+    static CustList<EntryCust<Byte,Fighter>> filteredFoe(Fight _fight) {
+        return filtered(_fight,_fight.getFoeTeam().getMembers());
+    }
+
     static CustList<EntryCust<Byte,Fighter>> filtered(Fight _fight, ByteMap<Fighter> _ls) {
         CustList<EntryCust<Byte,Fighter>> out_ = new CustList<EntryCust<Byte, Fighter>>();
         for (EntryCust<Byte,Fighter> e: _ls.entryList()) {
-            if (FightOrder.position(_fight,e) != Fighter.BACK) {
+            if (FightOrder.position(_fight, new FighterId(e.getValue(), Fight.toFoeFighter(e.getKey()))) != Fighter.BACK) {
                 out_.add(e);
             }
         }
         return out_;
     }
-    static byte position(Fight _fight, EntryCust<Byte,Fighter> _fighter) {
-        if (notCaught(_fight,Fight.toFoeFighter(_fighter.getKey()))) {
-            return _fighter.getValue().getGroundPlace();
+
+    static byte position(Fight _fight, FighterId _id) {
+        if (notCaught(_fight,_id.getId())) {
+            return _id.getFighter().getGroundPlace();
         }
         return Fighter.BACK;
     }

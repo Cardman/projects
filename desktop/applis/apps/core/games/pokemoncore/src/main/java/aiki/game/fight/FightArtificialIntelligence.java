@@ -328,7 +328,7 @@ final class FightArtificialIntelligence {
         return new PairListsFighters(untouchablePartners_,untouchablePartnersBack_);
     }
     private static boolean unreachable(FighterId _fi,Fight _fight, TeamPosition _thrower, MoveData _move, Difficulty _diff, DataBase _import) {
-        return _fi.getFighter().estArriere() ||!reachable(_fight, _thrower, _fi.getId(), _diff, _import, _move);
+        return FightOrder.position(_fight,_fi) == Fighter.BACK ||!reachable(_fight, _thrower, _fi.getId(), _diff, _import, _move);
     }
 
     private static boolean selfOrImmu(Fight _fight, TeamPosition _thrower, String _move, DataBase _import, MoveDataTypesEffect _md, TeamPosition _f) {
@@ -414,7 +414,7 @@ final class FightArtificialIntelligence {
     }
 
     private static void choiceFoeArtificialIntelligenceWild(Fight _fight, Difficulty _diff, DataBase _import) {
-        for (EntryCust<Byte,Fighter> e: FightOrder.filtered(_fight, _fight.getFoeTeam().getMembers())) {
+        for (EntryCust<Byte,Fighter> e: FightOrder.filteredFoe(_fight)) {
             StringList attaquesUtilisables_= FightFacade.allowedMovesNotEmpty(_fight,Fight.toFoeFighter(e.getKey()), _import);
             MonteCarloString loi_ = new MonteCarloString();
             for(String m:attaquesUtilisables_){
