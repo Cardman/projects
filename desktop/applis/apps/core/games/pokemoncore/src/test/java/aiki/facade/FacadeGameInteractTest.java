@@ -35,7 +35,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
 
     @Test
     public void interact2Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
@@ -209,7 +209,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
 
     @Test
     public void interact13Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));

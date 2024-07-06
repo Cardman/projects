@@ -29,7 +29,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void lawCopy1Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -54,7 +54,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void lawCopy2Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -73,7 +73,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void lawCopy3Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -94,7 +94,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void lawCopy4Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
         game_.initUtilisateur(NICKNAME, diff_, data_);
@@ -122,7 +122,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void lawCopy5Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
         game_.initUtilisateur(NICKNAME, diff_, data_);
@@ -200,7 +200,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     }
     @Test
     public void newRandomPokemon1Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
         game_.initUtilisateur(NICKNAME, diff_, data_);
@@ -237,7 +237,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void newRandomPokemon2Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -255,7 +255,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void newIndex1Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -273,7 +273,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void newIndex2Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -291,7 +291,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void newIndex3Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -309,7 +309,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void newIndex4Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -328,7 +328,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void newIndex5Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
         game_.initUtilisateur(NICKNAME, diff_, data_);
@@ -356,7 +356,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void newIndex6Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
         game_.initUtilisateur(NICKNAME, diff_, data_);
@@ -389,7 +389,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void newIndex7Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
         game_.initUtilisateur(NICKNAME, diff_, data_);
@@ -422,7 +422,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void incrementPeriod1Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -441,7 +441,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void incrementPeriod2Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
@@ -478,7 +478,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void initFishing2Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
@@ -492,7 +492,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void initFishing3Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
@@ -505,7 +505,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void initFishing4Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 3));
@@ -549,7 +549,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void initTrainerFight2Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -567,7 +567,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void initTrainerFight3Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
@@ -664,7 +664,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void initTrainerFight9Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
@@ -680,7 +680,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void initTrainerFight10Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -699,7 +699,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test
     public void initTrainerFight11Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));

@@ -14,7 +14,7 @@ import org.junit.Test;
 public final class FacadeGameFishTest extends InitializationDataBase {
 
     public static FacadeGame initTests() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));

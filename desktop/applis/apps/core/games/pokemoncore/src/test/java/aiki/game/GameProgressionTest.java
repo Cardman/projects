@@ -28,7 +28,7 @@ public class GameProgressionTest extends InitializationDataBase {
     }
     @Test
     public void new_GameProgression_DataBase_Game_1Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         GameProgression gameProgression_ = new GameProgression(data_,game_);
@@ -143,7 +143,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_2Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         Pokemon pk_ = new WildPk();
@@ -266,7 +266,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_3Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1), 0));
@@ -382,7 +382,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_4Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1), 0));
@@ -498,7 +498,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_5Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
@@ -614,7 +614,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_6Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -730,7 +730,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_7Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         Pokemon pk_ = new WildPk();
@@ -855,7 +855,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_8Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.getPlayer().getBox().add(new Egg(PTITARD));
@@ -971,7 +971,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_9Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
@@ -1088,7 +1088,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_10Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
@@ -1205,7 +1205,7 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_11Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);

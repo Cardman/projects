@@ -236,7 +236,7 @@ public class GameEndTest extends InitializationDataBase {
 
     @Test
     public void endGame9Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
@@ -267,7 +267,7 @@ public class GameEndTest extends InitializationDataBase {
 
     @Test
     public void endGame10Test() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);

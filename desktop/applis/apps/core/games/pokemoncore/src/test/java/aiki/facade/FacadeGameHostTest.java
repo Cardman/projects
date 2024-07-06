@@ -38,6 +38,27 @@ public final class FacadeGameHostTest extends InitializationDataBase {
         return facadeGame_;
     }
 
+    public static FacadeGame initTestsSimple() {
+        DataBase data_ = initDbAccessSimple();
+        Game game_ = new Game(data_);
+        Difficulty diff_ = new Difficulty();
+        game_.initUtilisateur(NICKNAME, diff_, data_);
+        game_.setPlayerCoords(newCoords(3, 0, 2, 1, 8, 5));
+        game_.setPlayerOrientation(Direction.UP);
+        game_.getDifficulty().setRandomWildFight(false);
+        game_.getPlayer().getItem(LAVA);
+        game_.getPlayer().doRevivingFossil(LAVA, diff_, data_);
+        PokemonPlayer pk_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
+        pk_.setItem(PIERRE_LUNE);
+        FacadeGame facadeGame_ = new FacadeGame();
+        facadeGame_.setData(data_);
+        facadeGame_.setLanguage(LANGUAGE);
+        facadeGame_.setGame(game_);
+        facadeGame_.directInteraction();
+        facadeGame_.interact();
+        return facadeGame_;
+    }
+
     @Test
     public void host1Test() {
         FacadeGame facadeGame_ = initTests();
@@ -71,7 +92,7 @@ public final class FacadeGameHostTest extends InitializationDataBase {
 
     @Test
     public void host3Test() {
-        FacadeGame facadeGame_ = initTests();
+        FacadeGame facadeGame_ = initTestsSimple();
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -94,7 +115,7 @@ public final class FacadeGameHostTest extends InitializationDataBase {
 
     @Test
     public void host4Test() {
-        FacadeGame facadeGame_ = initTests();
+        FacadeGame facadeGame_ = initTestsSimple();
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -133,7 +154,7 @@ public final class FacadeGameHostTest extends InitializationDataBase {
     }
     @Test
     public void group3() {
-        FacadeGame facadeGame_ = initTests();
+        FacadeGame facadeGame_ = initTestsSimple();
         assertEq(2,facadeGame_.groupedHost().size());
     }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {

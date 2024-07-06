@@ -3552,6 +3552,7 @@ public class FighterValidationTest extends InitializationDataBase {
     }
 
     private static Game newGameInFight(Sex _sex, Difficulty _diff, DataBase _data) {
+        _data.initializeWildPokemon();
         Game game_ = new Game(_data);
         //coords begin = newCoords(0, 0, 0, 0)
         game_.initUtilisateur(NICKNAME, _sex, _diff, _data);

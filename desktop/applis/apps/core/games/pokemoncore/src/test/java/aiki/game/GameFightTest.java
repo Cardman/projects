@@ -88,7 +88,7 @@ public class GameFightTest extends InitializationDataBase {
     }
     @Test
     public void getTrainerImage4(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
@@ -104,7 +104,7 @@ public class GameFightTest extends InitializationDataBase {
     }
     @Test
     public void getTrainerImage5(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 1, 6));
@@ -120,7 +120,7 @@ public class GameFightTest extends InitializationDataBase {
     }
     @Test
     public void getTrainerImage6(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -543,7 +543,7 @@ public class GameFightTest extends InitializationDataBase {
     }
     @Test
     public void calculateCatchingRates1(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         //coords begin = newCoords(0, 0, 0, 0)
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
@@ -679,7 +679,7 @@ public class GameFightTest extends InitializationDataBase {
     }
     @Test
     public void sortedFightersBeginRoundWildFight1(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         //coords begin = newCoords(0, 0, 0, 0)
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
@@ -699,7 +699,7 @@ public class GameFightTest extends InitializationDataBase {
     }
     @Test
     public void sortedFightersBeginRoundWildFight2(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         //coords begin = newCoords(0, 0, 0, 0)
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);

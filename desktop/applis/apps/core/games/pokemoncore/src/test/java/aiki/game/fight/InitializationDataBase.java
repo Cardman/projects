@@ -969,6 +969,243 @@ public class InitializationDataBase extends EquallablePkUtil {
 
         InitializationMap.initImages(data_);
         data_.getMap().initializeLinks();
+//        data_.initializeWildPokemon();
+//        data_.getMap().initInteractiveElements();
+//        data_.getMap().initializeTree();
+//        data_.getMap().initializeAccessibility();
+        data_.completeVariables();
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        initTmHm(data_);
+        data_.initTypesByTable();
+        initTranslations(data_);
+        data_.initFamilies();
+        return data_;
+    }
+
+    public static DataBase initDbAccess() {
+        DataBase data_ = coreDataBase();
+        data_.sortEndRound();
+        initPlaces(data_);
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
+        data_.getMap().setUnlockedCity(NULL_REF);
+        data_.getMap().setSideLength(2);
+        //data_.getMap().setSpritesGirlBoy(new Map<EnvironmentType,String>());
+
+        //InitializationMap.initPlaces(data_);
+        InitializationMap.initBegin(data_);
+
+        InitializationMap.initBlockFirstRoad(data_);
+        InitializationMap.initTrainersFirstRoad(data_);
+        InitializationMap.initFirstRoadAreas(data_);
+        InitializationMap.initOtherCharactersFirstRoad(data_);
+
+        InitializationMap.initBlockFirstCity(data_);
+        InitializationMap.initBuildingsFirstCity(data_);
+        InitializationMap.initTrainersFirstCity(data_);
+        InitializationMap.initPokemonCenterFirstCity(data_);
+
+        InitializationMap.initBlockSecondRoad(data_);
+        InitializationMap.initTrainersSecondRoad(data_);
+        InitializationMap.initSecondRoadAreas(data_);
+        InitializationMap.initItemsSecondRoad(data_);
+
+        InitializationMap.initBlockSecondCity(data_);
+        InitializationMap.initBuildingsSecondCity(data_);
+        InitializationMap.initTrainersSecondCity(data_);
+        InitializationMap.initPokemonCenterSecondCity(data_);
+
+        InitializationMap.initBlockThirdRoad(data_);
+
+        InitializationMap.initBlockCave(data_);
+        InitializationMap.initTrainersCave(data_);
+        InitializationMap.initCaveAreas(data_);
+
+        //InitializationMap.initBuildings(data_);
+        //InitializationMap.initRoadAreas(data_);
+
+
+        //data_.initializeWildPokemon();
+        //InitializationMap.initObjects(data_);
+        //InitializationMap.joinPlaces(data_);
+
+        InitializationMap.initLeague(data_);
+        InitializationMap.initBlockLeague(data_);
+        InitializationMap.initLeagueTrainers(data_);
+
+        InitializationMap.initBlockThirdCity(data_);
+        InitializationMap.initBuildingsThirdCity(data_);
+
+        InitializationMap.initBlockFourthCity(data_);
+        InitializationMap.initBuildingsFourthCity(data_);
+
+        InitializationMap.initBlockFourthRoad(data_);
+        InitializationMap.initTrainersFourthRoad(data_);
+
+        InitializationMap.joinPlaces(data_);
+
+        InitializationMap.initMiniMap(data_);
+
+        InitializationMap.initImages(data_);
+        data_.getMap().initializeLinks();
+//        data_.initializeWildPokemon();
+        data_.getMap().initInteractiveElements();
+        data_.getMap().initializeTree();
+        data_.getMap().initializeAccessibility();
+        data_.completeVariables();
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        initTmHm(data_);
+        data_.initTypesByTable();
+        initTranslations(data_);
+        data_.initFamilies();
+        return data_;
+    }
+
+    public static DataBase initDbAccessSimple() {
+        DataBase data_ = coreDataBase();
+        data_.sortEndRound();
+        initPlaces(data_);
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
+        data_.getMap().setUnlockedCity(NULL_REF);
+        data_.getMap().setSideLength(2);
+        //data_.getMap().setSpritesGirlBoy(new Map<EnvironmentType,String>());
+
+        //InitializationMap.initPlaces(data_);
+        InitializationMap.initBegin(data_);
+
+        InitializationMap.initBlockFirstRoad(data_);
+        InitializationMap.initTrainersFirstRoad(data_);
+        InitializationMap.initFirstRoadAreas(data_);
+        InitializationMap.initOtherCharactersFirstRoad(data_);
+
+        InitializationMap.initBlockFirstCity(data_);
+        InitializationMap.initBuildingsFirstCity(data_);
+        InitializationMap.initTrainersFirstCity(data_);
+        InitializationMap.initPokemonCenterFirstCity(data_);
+
+        InitializationMap.initBlockSecondRoad(data_);
+        InitializationMap.initTrainersSecondRoad(data_);
+        InitializationMap.initSecondRoadAreas(data_);
+        InitializationMap.initItemsSecondRoad(data_);
+
+        InitializationMap.initBlockSecondCity(data_);
+        InitializationMap.initBuildingsSecondCity(data_);
+        InitializationMap.initTrainersSecondCity(data_);
+        InitializationMap.initPokemonCenterSecondCity(data_);
+
+        InitializationMap.initBlockThirdRoad(data_);
+
+        InitializationMap.initBlockCave(data_);
+        InitializationMap.initTrainersCave(data_);
+        InitializationMap.initCaveAreas(data_);
+
+        //InitializationMap.initBuildings(data_);
+        //InitializationMap.initRoadAreas(data_);
+
+
+        //data_.initializeWildPokemon();
+        //InitializationMap.initObjects(data_);
+        //InitializationMap.joinPlaces(data_);
+
+        InitializationMap.initLeague(data_);
+        InitializationMap.initBlockLeague(data_);
+        InitializationMap.initLeagueTrainers(data_);
+
+        InitializationMap.initBlockThirdCity(data_);
+        InitializationMap.initBuildingsThirdCity(data_);
+
+        InitializationMap.initBlockFourthCity(data_);
+        InitializationMap.initBuildingsFourthCity(data_);
+
+        InitializationMap.initBlockFourthRoad(data_);
+        InitializationMap.initTrainersFourthRoad(data_);
+
+        InitializationMap.joinPlaces(data_);
+
+        InitializationMap.initMiniMap(data_);
+
+        InitializationMap.initImages(data_);
+        data_.getMap().initializeLinks();
+//        data_.initializeWildPokemon();
+        data_.getMap().initInteractiveElements();
+//        data_.getMap().initializeTree();
+//        data_.getMap().initializeAccessibility();
+        data_.completeVariables();
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        initTmHm(data_);
+        data_.initTypesByTable();
+        initTranslations(data_);
+        data_.initFamilies();
+        return data_;
+    }
+
+    public static DataBase initDbFacade() {
+        DataBase data_ = coreDataBase();
+        data_.sortEndRound();
+        initPlaces(data_);
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
+        data_.getMap().setUnlockedCity(NULL_REF);
+        data_.getMap().setSideLength(2);
+        //data_.getMap().setSpritesGirlBoy(new Map<EnvironmentType,String>());
+
+        //InitializationMap.initPlaces(data_);
+        InitializationMap.initBegin(data_);
+
+        InitializationMap.initBlockFirstRoad(data_);
+        InitializationMap.initTrainersFirstRoad(data_);
+        InitializationMap.initFirstRoadAreas(data_);
+        InitializationMap.initOtherCharactersFirstRoad(data_);
+
+        InitializationMap.initBlockFirstCity(data_);
+        InitializationMap.initBuildingsFirstCity(data_);
+        InitializationMap.initTrainersFirstCity(data_);
+        InitializationMap.initPokemonCenterFirstCity(data_);
+
+        InitializationMap.initBlockSecondRoad(data_);
+        InitializationMap.initTrainersSecondRoad(data_);
+        InitializationMap.initSecondRoadAreas(data_);
+        InitializationMap.initItemsSecondRoad(data_);
+
+        InitializationMap.initBlockSecondCity(data_);
+        InitializationMap.initBuildingsSecondCity(data_);
+        InitializationMap.initTrainersSecondCity(data_);
+        InitializationMap.initPokemonCenterSecondCity(data_);
+
+        InitializationMap.initBlockThirdRoad(data_);
+
+        InitializationMap.initBlockCave(data_);
+        InitializationMap.initTrainersCave(data_);
+        InitializationMap.initCaveAreas(data_);
+
+        //InitializationMap.initBuildings(data_);
+        //InitializationMap.initRoadAreas(data_);
+
+
+        //data_.initializeWildPokemon();
+        //InitializationMap.initObjects(data_);
+        //InitializationMap.joinPlaces(data_);
+
+        InitializationMap.initLeague(data_);
+        InitializationMap.initBlockLeague(data_);
+        InitializationMap.initLeagueTrainers(data_);
+
+        InitializationMap.initBlockThirdCity(data_);
+        InitializationMap.initBuildingsThirdCity(data_);
+
+        InitializationMap.initBlockFourthCity(data_);
+        InitializationMap.initBuildingsFourthCity(data_);
+
+        InitializationMap.initBlockFourthRoad(data_);
+        InitializationMap.initTrainersFourthRoad(data_);
+
+        InitializationMap.joinPlaces(data_);
+
+        InitializationMap.initMiniMap(data_);
+
+        InitializationMap.initImages(data_);
+        data_.getMap().initializeLinks();
         data_.initializeWildPokemon();
         data_.getMap().initInteractiveElements();
         data_.getMap().initializeTree();

@@ -35,25 +35,25 @@ public class TeamValidationTest extends InitializationDataBase {
         return new Point((short)_x, (short)_y);
     }    @Test
     public void validate1Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.GIRL, data_);
         assertTrue(game_.getFight().getUserTeam().validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
     public void validate2Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.BOY, data_);
         assertTrue(game_.getFight().getUserTeam().validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
     public void validate3Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.GIRL, data_);
         assertTrue(game_.getFight().getFoeTeam().validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
     public void validate4Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.BOY, data_);
         assertTrue(game_.getFight().getFoeTeam().validate(data_, Fight.CST_FOE, game_.getFight()));
     }
@@ -1051,28 +1051,28 @@ public class TeamValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate119Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.GIRL, data_);
         game_.getFight().getFoeTeam().getMembers().clear();
         assertTrue(!game_.getFight().getFoeTeam().validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
     public void validate120Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.BOY, data_);
         game_.getFight().getFoeTeam().getMembers().clear();
         assertTrue(!game_.getFight().getFoeTeam().validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
     public void validate121Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.GIRL, data_);
         game_.getFight().getUserTeam().getMembers().clear();
         assertTrue(!game_.getFight().getUserTeam().validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
     public void validate122Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.BOY, data_);
         game_.getFight().getUserTeam().getMembers().clear();
         assertTrue(!game_.getFight().getUserTeam().validate(data_, Fight.CST_PLAYER, game_.getFight()));

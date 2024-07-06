@@ -19,7 +19,7 @@ import org.junit.Test;
 public final class FacadeGameBallTest extends InitializationDataBase {
 
     public static FacadeGame initTests() {
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setRandomWildFight(false);

@@ -29,7 +29,7 @@ public class GameValidationTest extends InitializationDataBase {
 
     @Test
     public void validate1Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         assertTrue(validate(game_, data_));
@@ -40,7 +40,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate2Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         assertTrue(validate(game_, data_));
@@ -51,7 +51,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate3Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.moving(Direction.DOWN, data_);
@@ -66,7 +66,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate4Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.moving(Direction.DOWN, data_);
@@ -81,7 +81,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate5Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -108,7 +108,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate6Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -135,7 +135,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate7Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -161,7 +161,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate8Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -187,7 +187,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate9Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -215,7 +215,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate10Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -243,7 +243,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate11Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -305,7 +305,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate12Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -367,7 +367,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate13Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -417,7 +417,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate14Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -467,7 +467,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate15Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -517,7 +517,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate16Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -567,7 +567,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate17Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -622,7 +622,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate18Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -677,7 +677,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate19Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -735,7 +735,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate20Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -793,7 +793,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate21Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -862,7 +862,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate22Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -931,7 +931,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate23Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1004,7 +1004,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate24Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1077,7 +1077,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate25Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1153,7 +1153,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate26Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1229,7 +1229,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate27Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1316,7 +1316,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate28Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1403,7 +1403,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate29Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1421,7 +1421,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate30Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbFacade();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1439,7 +1439,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate31Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1457,7 +1457,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate32Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1475,7 +1475,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate33Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1493,7 +1493,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate34Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1511,7 +1511,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate35Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1529,7 +1529,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate36Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1547,7 +1547,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate37Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1566,7 +1566,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate38Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1585,7 +1585,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate39Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         Pokemon pk_;
@@ -1617,7 +1617,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate40Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         Pokemon pk_;
@@ -1649,7 +1649,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate41Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().recupererOeufPensions(new Egg(PTITARD));
@@ -1663,7 +1663,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate42Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().recupererOeufPensions(new Egg(PTITARD));
@@ -1677,7 +1677,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate43Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         Pokemon pk_;
@@ -1698,7 +1698,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate44Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         Pokemon pk_;
@@ -1719,7 +1719,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate45Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         Pokemon pk_;
@@ -1742,7 +1742,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate46Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         Pokemon pk_;
@@ -1765,7 +1765,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate47Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().recupererOeufPensions(new Egg(PTITARD));
@@ -1777,7 +1777,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate48Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().recupererOeufPensions(new Egg(PTITARD));
@@ -1789,7 +1789,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate49Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1809,7 +1809,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate50Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1829,7 +1829,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate51Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1852,7 +1852,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate52Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1875,7 +1875,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate53Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1898,7 +1898,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate54Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1921,7 +1921,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate55Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1948,7 +1948,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate56Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -1975,7 +1975,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate57Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2005,7 +2005,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate58Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2035,7 +2035,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate59Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2070,7 +2070,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate60Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2105,7 +2105,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate61Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2144,7 +2144,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate62Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2183,7 +2183,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate63Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getVisitedPlaces().put(newCoords(1, 0, 1, 2), BoolVal.FALSE);
@@ -2194,7 +2194,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate64Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getVisitedPlaces().put(newCoords(1, 0, 1, 2), BoolVal.FALSE);
@@ -2205,7 +2205,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate65Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data
@@ -2214,7 +2214,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate66Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data
@@ -2223,7 +2223,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate67Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         Pokemon pk_;
@@ -2247,7 +2247,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate68Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         Pokemon pk_;
@@ -2363,7 +2363,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate79Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data
@@ -2372,7 +2372,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate80Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data
@@ -2417,7 +2417,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate85Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -2427,7 +2427,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate86Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -2515,7 +2515,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate95Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data
@@ -2524,7 +2524,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate96Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data
@@ -2587,7 +2587,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate103Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data
@@ -2596,7 +2596,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate104Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data
@@ -2605,7 +2605,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate105Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2669,7 +2669,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate106Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2733,7 +2733,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate107Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2797,7 +2797,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate108Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2911,7 +2911,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate111Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2942,7 +2942,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate112Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -2973,7 +2973,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate113Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3003,7 +3003,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate114Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3033,7 +3033,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate115Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3063,7 +3063,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate116Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3093,7 +3093,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate117Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3123,7 +3123,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate118Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3153,7 +3153,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate119Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data because of inaccessibility of block
@@ -3167,7 +3167,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate120Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data because of inaccessibility of block
@@ -3181,7 +3181,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate121Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data because of inaccessibility of block
@@ -3195,7 +3195,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void validate122Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data because of inaccessibility of block
@@ -3209,7 +3209,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize1Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         assertTrue(checkAndInitialize(game_, data_));
@@ -3223,7 +3223,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize2Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         assertTrue(checkAndInitialize(game_, data_));
@@ -3237,7 +3237,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize3Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.moving(Direction.LEFT, data_);
@@ -3253,7 +3253,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize4Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.moving(Direction.LEFT, data_);
@@ -3269,7 +3269,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize5Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.moving(Direction.DOWN, data_);
@@ -3285,7 +3285,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize6Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.moving(Direction.DOWN, data_);
@@ -3301,7 +3301,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize7Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3325,7 +3325,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize8Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3349,7 +3349,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize9Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -3710,7 +3710,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize10Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccess();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().getItem(REPOUSSE);
@@ -4146,7 +4146,7 @@ public class GameValidationTest extends InitializationDataBase {
     }
     @Test
     public void checkAndInitialize18Test(){
-        DataBase data_ = initDb();
+        DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid

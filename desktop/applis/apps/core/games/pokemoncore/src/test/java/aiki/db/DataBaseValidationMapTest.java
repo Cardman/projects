@@ -2397,7 +2397,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     }
     @Test
     public void bg1Test() {
-        DataBase data_ = InitializationDataBase.initDb();
+        DataBase data_ = InitializationDataBase.initDbAccessSimple();
         assertEq(81,Level.getLevelBackgroundImage(data_,newCoords(6, 1, 4, 5)).size());
         assertEq(new Coords(),data_.getMap().getCity(new MiniMapCoords((short)0,(short)0)));
         assertEq(newCoords(1,0,1,2), data_.getMap().getCity(new MiniMapCoords((short)0,(short)1)));
