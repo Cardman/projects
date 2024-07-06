@@ -2414,8 +2414,10 @@ final class FightEffects {
         //the substitute is not knocked out while sent
         //==> it is impossible that the fight is finished
         _fight.getTemp().setFullHealing(true);
-        FightSending.sending(_fight,remplacant_, _diff, _import);
         Fighter creatureCbtRemplacant_=equipeLanceur_.refPartMembres(remplacant_.getPosition());
+        creatureCbtRemplacant_.setGroundPlace(place_);
+        creatureCbtRemplacant_.setGroundPlaceSubst(placeSub_);
+        FightSending.sending(_fight,remplacant_, _diff, _import);
         //soin du remplacant pv,pp,statuts
         creatureCbtRemplacant_.fullHeal();
         creatureCbtRemplacant_.fullHealMessage(_import,_fight.getTemp());

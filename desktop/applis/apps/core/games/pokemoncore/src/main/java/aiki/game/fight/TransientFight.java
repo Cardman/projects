@@ -163,6 +163,7 @@ public final class TransientFight {
     /***/
     private boolean endRoundFightKoPlayer = true;
 
+    private boolean mustFront = true;
     /***/
     private CustList<AnimationInt> effects = new CustList<AnimationInt>();
 
@@ -610,5 +611,13 @@ public final class TransientFight {
 
     void setTombeKo(boolean _p) {
         this.tombeKo = _p;
+    }
+
+    boolean isMustFront() {
+        return mustFront;
+    }
+
+    void setMustFront(boolean _m) {
+        this.mustFront = _m;
     }
 }

@@ -1294,6 +1294,7 @@ final class FightRound {
                 //allyPk_.getGroundPlace() == 0 or allyPk_.getGroundPlace() == 1
                 byte pl_ = (byte) (_fight.getPlayerMaxNumberFrontFighters() - allyPk_.getGroundPlace());
                 Fighter fighter_ = _fight.getFighter(pkPlayers_.first());
+                fighter_.groundPlaceSubst(pl_);
                 FightSending.sending(_fight, pkPlayers_.first(), _diff, _import);
                 fighter_.fullHeal();
                 fighter_.fullHealMessage(_import,_fight.getTemp());

@@ -2525,11 +2525,15 @@ public class FightSendingTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = effectWhileSendingAbility(diff_, data_);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).exitFrontBattle();
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ONE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(PIERRALLEGEE);
         fighter_.setCurrentAbility(TELECHARGE);
+        fighter_.groundPlaceSubst((byte) 0);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
+        FightSending.withdrawal(fight_,POKEMON_PLAYER_FIGHTER_ZERO,data_);
         FightSending.sending(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
         ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();

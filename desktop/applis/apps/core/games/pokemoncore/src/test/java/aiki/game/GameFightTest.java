@@ -667,7 +667,7 @@ public class GameFightTest extends InitializationDataBase {
         mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ONE);
         mapFighters_ = mapMoves_.getVal(JACKPOT);
         assertEq(2, mapFighters_.getFoe().size());
-        assertEq(new Rate("219/5"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
+        assertEq(new Rate("76457/1875"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
         assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getFront());
         assertEq(new Rate("76457/1875"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
         assertEq(new Rate("516992/11875"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getBack());

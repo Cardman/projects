@@ -438,6 +438,9 @@ final class FightOrder {
     }
 
     static TeamPositionList chosenTargets(Fight _fight,TeamPosition _lanceur,TargetChoice _choice,Difficulty _diff,DataBase _import){
+        if (_fight.getTemp().isMustFront() && _fight.getTeams().getVal(_lanceur.getTeam()).getMembers().getVal(_lanceur.getPosition()).estArriere()) {
+            return new TeamPositionList();
+        }
         if (_choice == TargetChoice.NOTHING) {
             return new TeamPositionList();
         }
@@ -497,7 +500,7 @@ final class FightOrder {
         ByteMap<Fighter> combattantsAttirant_ = combattantsAttirant(_import, membres_);
         //attraction des effets
         if(!combattantsAttirant_.isEmpty()){
-            TeamPositionList cbtsModif_= closestFoeFightersAmongList(noEqAdv_,combattantsAttirant_, _fight.getFighter(_lanceur));
+            TeamPositionList cbtsModif_= closestFoeFightersAmongList(_fight, noEqAdv_,combattantsAttirant_, _fight.getFighter(_lanceur));
             Bytes cbtsListe_ = new Bytes();
             ByteMap<TeamPosition> positions_ = new ByteMap<TeamPosition>();
             for(TeamPosition c:cbtsModif_){
@@ -625,7 +628,7 @@ final class FightOrder {
         byte noEq_=_combattant.getTeam();
         byte noEqAdv_=Fight.foe(noEq_);
         Fighter fighterPlace_ = _fight.getFighter(_combattant);
-        TeamPositionList cbts_ = closestFigthersTeam(fighterPlace_, noEqAdv_, _fight.getTeams().getVal(noEqAdv_), _diff);
+        TeamPositionList cbts_ = closestFigthersTeam(_fight, fighterPlace_, noEqAdv_, _fight.getTeams().getVal(noEqAdv_), _diff);
         if(cbts_.isEmpty()){
             cbts_=closestFoeFighter(_fight,_combattant);
         }
@@ -635,14 +638,14 @@ final class FightOrder {
     static TeamPositionList closestFigthersSameTeam(Fight _fight,TeamPosition _combattant,Difficulty _diff){
         byte noEq_=_combattant.getTeam();
         Fighter fighterPlace_ = _fight.getFighter(_combattant);
-        TeamPositionList cbts_ = closestFigthersTeam(fighterPlace_, noEq_, _fight.getTeams().getVal(noEq_), _diff);
+        TeamPositionList cbts_ = closestFigthersTeam(_fight, fighterPlace_, noEq_, _fight.getTeams().getVal(noEq_), _diff);
         cbts_.removeObj(_combattant);
         return cbts_;
     }
 
-    static TeamPositionList closestFigthersTeam(Fighter _fighterPlace,byte _noTeam, Team _team, Difficulty _diff) {
+    static TeamPositionList closestFigthersTeam(Fight _fight, Fighter _fighterPlace, byte _noTeam, Team _team, Difficulty _diff) {
         TeamPositionList cbts_ = new TeamPositionList();
-        if (_fighterPlace.estArriere()) {
+        if (excludedByPosition(_fight, _fighterPlace)) {
             return cbts_;
         }
         ByteMap<Fighter> membresAdv_=_team.getMembers();
@@ -651,8 +654,7 @@ final class FightOrder {
             if(membre_.estArriere()){
                 continue;
             }
-            int diff_=membre_.getGroundPlace()-_fighterPlace.getGroundPlace();
-            if(NumberUtil.abs(diff_) <= 1||!_diff.getEnabledClosing()){
+            if(!_fight.getTemp().isMustFront() || NumberUtil.abs(membre_.getGroundPlace()-_fighterPlace.getGroundPlace()) <= 1 || !_diff.getEnabledClosing()){
                 cbts_.add(new TeamPosition(_noTeam,c));
             }
         }
@@ -664,11 +666,11 @@ final class FightOrder {
         byte noEquipeAdv_=Fight.foe(noEquipe_);
         Team equipeAdvCbt_=_fight.getTeams().getVal(noEquipeAdv_);
         ByteMap<Fighter> membresEquipeAdv_=equipeAdvCbt_.getMembers();
-        return closestFoeFightersAmongList(noEquipeAdv_,membresEquipeAdv_, _fight.getFighter(_cbt));
+        return closestFoeFightersAmongList(_fight, noEquipeAdv_,membresEquipeAdv_, _fight.getFighter(_cbt));
     }
 
-    static TeamPositionList closestFoeFightersAmongList(byte _noEquipeAdv, ByteMap<Fighter> _liste, Fighter _posCbt){
-        if (_posCbt.estArriere()) {
+    static TeamPositionList closestFoeFightersAmongList(Fight _fight, byte _noEquipeAdv, ByteMap<Fighter> _liste, Fighter _posCbt){
+        if (excludedByPosition(_fight, _posCbt)) {
             return new TeamPositionList();
         }
         Bytes posAdv_ = new Bytes();
@@ -689,12 +691,17 @@ final class FightOrder {
         TeamPositionList cbtsProches_ = new TeamPositionList();
         for(EntryCust<Byte, Fighter> c:_liste.entryList()){
             Fighter membre_=c.getValue();
-            if (!membre_.estArriere() && NumberUtil.abs(membre_.getGroundPlace() - _posCbt.getGroundPlace()) == diff_) {
+            if (!membre_.estArriere() && (!_fight.getTemp().isMustFront() || NumberUtil.abs(membre_.getGroundPlace() - _posCbt.getGroundPlace()) == diff_)) {
                 cbtsProches_.add(new TeamPosition(_noEquipeAdv, c.getKey()));
             }
         }
         return cbtsProches_;
     }
+
+    private static boolean excludedByPosition(Fight _fight, Fighter _posCbt) {
+        return _posCbt.estArriere() && _fight.getTemp().isMustFront();
+    }
+
     static PointViewChangementType getPointViewChangementType(String _move,DataBase _import) {
         MoveData fAttCible_ = _import.getMove(_move);
         int nbEffetsCible_=fAttCible_.nbEffets();

@@ -2170,6 +2170,7 @@ public final class FightFacade {
             remainingThrowersTargetsHp(Fight _fight, Difficulty _diff, DataBase _import) {
         TeamPositionsStringMapTeamPositionsRate map_;
         map_ = new TeamPositionsStringMapTeamPositionsRate();
+        _fight.getTemp().setMustFront(false);
         for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
             StringList moves_ = allowedMovesNotEmpty(_fight, f, _import);
             StringMap<TeamPositionsPairRatesPair> mapMovesTargets_ = new StringMap<TeamPositionsPairRatesPair>();
@@ -2189,10 +2190,12 @@ public final class FightFacade {
             }
             map_.put(f, mapMovesTargets_);
         }
+        _fight.getTemp().setMustFront(true);
         return map_;
     }
 
     public static CustList<MovesListTeamPositionsList> sortedFightersBeginRoundWildFight(Fight _fight, Difficulty _diff, DataBase _data) {
+        _fight.getTemp().setMustFront(false);
         CustList<CustList<FighterNamePkNameMv>> allKeys_ = new CustList<CustList<FighterNamePkNameMv>>();
         allKeys_.add(new CustList<FighterNamePkNameMv>());
         for (EntryCust<Byte,Fighter> e:FightOrder.filteredFoe(_fight)) {
@@ -2223,13 +2226,16 @@ public final class FightFacade {
                 _fight.getFoeTeam().getMembers().getVal(k.getNumber()).cancelActions();
             }
         }
+        _fight.getTemp().setMustFront(true);
         return ls_;
     }
 
     public static TeamPositionList sortedFightersBeginRound(Fight _fight, DataBase _data) {
+        _fight.getTemp().setMustFront(false);
         FightRound.setAllyChoices(_fight, _data);
         fightersSortMove(_fight, _data);
         cancelActions(_fight, FightOrder.fightersBelongingToUser(_fight, false));
+        _fight.getTemp().setMustFront(true);
         return _fight.getTemp().getOrderedFighters();
     }
 

@@ -2760,6 +2760,15 @@ public class FightOrderTest extends InitializationDataBase {
         list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        fight_.getTemp().setMustFront(false);
+        list_ = closestFightersAmongList(fight_, POKEMON_PLAYER_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
+        assertEq(2,list_.size());
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
+        list_ = closestFightersAmongList(fight_, POKEMON_FOE_FIGHTER_ZERO, Bytes.newList((byte)0,(byte)1));
+        assertEq(2,list_.size());
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
     }
 
     @Test
@@ -3087,10 +3096,23 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_.getUserTeam());
+        TeamPositionList list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
-        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_.getFoeTeam());
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_);
+        assertEq(1, list_.size());
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        fight_.getTemp().setMustFront(false);
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_);
+        assertEq(1, list_.size());
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_);
+        assertEq(1, list_.size());
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        list_ = closestFigthersTeam(diff_, 1, Fight.CST_PLAYER, fight_);
+        assertEq(1, list_.size());
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        list_ = closestFigthersTeam(diff_, 1, Fight.CST_FOE, fight_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
     }
@@ -3138,11 +3160,11 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 2);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_.getUserTeam());
+        TeamPositionList list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_.getFoeTeam());
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
@@ -3197,31 +3219,63 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        TeamPositionList list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_.getUserTeam());
+        TeamPositionList list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_.getFoeTeam());
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
-        list_ = closestFigthersTeam(diff_, 1, Fight.CST_PLAYER, fight_.getUserTeam());
+        list_ = closestFigthersTeam(diff_, 1, Fight.CST_PLAYER, fight_);
         assertEq(3, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        list_ = closestFigthersTeam(diff_, 1, Fight.CST_FOE, fight_.getFoeTeam());
+        list_ = closestFigthersTeam(diff_, 1, Fight.CST_FOE, fight_);
         assertEq(3, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_TWO));
-        diff_.setEnabledClosing(false);
-        list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_.getUserTeam());
+        fight_.getTemp().setMustFront(false);
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_);
         assertEq(3, list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_.getFoeTeam());
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_);
+        assertEq(3, list_.size());
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_TWO));
+        list_ = closestFigthersTeam(diff_, 1, Fight.CST_PLAYER, fight_);
+        assertEq(3, list_.size());
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
+        list_ = closestFigthersTeam(diff_, 1, Fight.CST_FOE, fight_);
+        assertEq(3, list_.size());
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_TWO));
+        fight_.getTemp().setMustFront(true);
+        diff_.setEnabledClosing(false);
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_);
+        assertEq(3, list_.size());
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_);
+        assertEq(3, list_.size());
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
+        assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_TWO));
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_PLAYER, fight_);
+        assertEq(3, list_.size());
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
+        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
+        list_ = closestFigthersTeam(diff_, 0, Fight.CST_FOE, fight_);
         assertEq(3, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ONE));
@@ -3551,6 +3605,9 @@ public class FightOrderTest extends InitializationDataBase {
 //        assertEq(0, list_.size());
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        list_ = FightOrder.chosenTargets(fight_,POKEMON_PLAYER_FIGHTER_ONE, TargetChoice.AUTRE_UNIQ, diff_, data_);
+//        assertEq(0, list_.size());
+        assertEq(0, list_.size());
     }
 
     @Test
@@ -4552,12 +4609,13 @@ public class FightOrderTest extends InitializationDataBase {
         return foePokemon_;
     }
 
-    private TeamPositionList closestFigthersTeam(Difficulty _diff, int _i, byte _cst, Team _team) {
-        return FightOrder.closestFigthersTeam(_team.getMembers().getVal((byte) _i), _cst, _team, _diff);
+    private TeamPositionList closestFigthersTeam(Difficulty _diff, int _i, byte _cst, Fight _fight) {
+        Team team_ = _fight.getTeams().getVal(_cst);
+        return FightOrder.closestFigthersTeam(_fight, team_.getMembers().getVal((byte) _i), _cst, team_, _diff);
     }
 
     private TeamPositionList closestFightersAmongList(Fight _fight, TeamPosition _tp, Bytes _ls) {
-        return FightOrder.closestFoeFightersAmongList(Fight.foe(_tp.getTeam()), FightOrder.fighters(_fight,Fight.foe(_tp.getTeam()),_ls), _fight.getFighter(_tp));
+        return FightOrder.closestFoeFightersAmongList(_fight,Fight.foe(_tp.getTeam()), FightOrder.fighters(_fight,Fight.foe(_tp.getTeam()),_ls), _fight.getFighter(_tp));
     }
 
     private TeamPositionList randomFigtherHavingToAct(int _ind, DataBase _data, Fight _fight, TeamPositionList _list) {
