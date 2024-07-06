@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.fight.moves.enums.SwitchType;
 import aiki.util.TeamPositionList;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.core.BoolVal;
@@ -4800,7 +4801,11 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new LgInt("100"), animSwitch_.getRateRemainHp());
         assertEq(new LgInt("0"), animSwitch_.getWonExpRate());
     }
-
+    @Test
+    public void roundThrowerSwitch0Test() {
+        DataBase data_ = initDb();
+        assertSame(SwitchType.NOTHING, FightRound.swType(data_,""));
+    }
     @Test
     public void roundThrowerSwitch1Test() {
         DataBase data_ = initDb();

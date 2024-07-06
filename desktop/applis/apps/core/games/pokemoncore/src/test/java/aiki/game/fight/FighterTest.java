@@ -7273,6 +7273,213 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(fighter_.isKoAt((byte) 0));
     }
 
+    @Test
+    public void patch1() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.patch(data_);
+        assertNull(fighter_.getAction());
+    }
+
+    @Test
+    public void patch2() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.setRemainedHp(Rate.zero());
+        fighter_.patch(data_);
+        assertNull(fighter_.getAction());
+    }
+
+    @Test
+    public void patch3() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.setRemainedHp(Rate.zero());
+        ActionSimpleHeal act_ = new ActionSimpleHeal();
+        act_.setChosenHealingItem(EAU_FRAICHE);
+        fighter_.setAction(act_);
+        fighter_.patch(data_);
+        assertEq(EAU_FRAICHE,fighter_.getChosenHealingItem());
+    }
+
+    @Test
+    public void patch4() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.setRemainedHp(Rate.zero());
+        ActionHealMove act_ = new ActionHealMove();
+        act_.setChosenHealingItem(EAU_FRAICHE);
+        act_.setFirstChosenMove(POURSUITE);
+        fighter_.setAction(act_);
+        fighter_.patch(data_);
+        assertEq(EAU_FRAICHE,fighter_.getChosenHealingItem());
+        assertEq(POURSUITE,fighter_.getFirstChosenMove());
+    }
+
+    @Test
+    public void patch5() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        ActionMove act_ = new ActionMove();
+        act_.setFirstChosenMove(NULL_REF);
+        fighter_.setAction(act_);
+        fighter_.patch(data_);
+        assertNull(fighter_.getAction());
+    }
+
+    @Test
+    public void patch6() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        ActionMove act_ = new ActionMove();
+        act_.setFirstChosenMove(BULLES_D_O);
+        act_.setChosenTargets(TargetCoordsList.newList(TargetCoords.toFoeTarget((short) 1)));
+        fighter_.setAction(act_);
+        fighter_.patch(data_);
+        assertEq(BULLES_D_O,fighter_.getFirstChosenMove());
+        assertEq(1,fighter_.getChosenTargets().size());
+        assertEq(POKEMON_FOE_TARGET_ONE,fighter_.getChosenTargets().get(0));
+    }
+
+    @Test
+    public void patch7() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
+        pokemonUser_.initIv(new Difficulty());
+        pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        ActionMove act_ = new ActionMove();
+        act_.setFirstChosenMove(SEISME);
+        act_.setChosenTargets(TargetCoordsList.newList(TargetCoords.toFoeTarget((short) 1)));
+        fighter_.setAction(act_);
+        fighter_.patch(data_);
+        assertEq(SEISME,fighter_.getFirstChosenMove());
+        assertEq(0,fighter_.getChosenTargets().size());
+    }
+
     private void learnMoves(Fighter _f, StringList _a, DataBase _data) {
         _f.learnMoves(_a, _data, new TransientFight());
     }

@@ -2427,6 +2427,24 @@ public final class Fighter {
         return BACK;
     }
 
+    public void patch(DataBase _data) {
+        AbstractAction action_ = getAction();
+        if (!(action_ instanceof ActionHeal) && estKo()) {
+            cancelActions();
+        }
+        if (action_ instanceof ActionMove) {
+            String move_ = getFirstChosenMove();
+            MoveData fAtt_ = _data.getMove(move_);
+            if (fAtt_ == null) {
+                cancelActions();
+                return;
+            }
+            if (!fAtt_.getTargetChoice().isWithChoice()) {
+                getChosenTargets().clear();
+            }
+        }
+    }
+
     /**Method for test*/
     public void setRemainedHp(Rate _hp) {
         remainingHp.affect(_hp);

@@ -53,6 +53,7 @@ final class FightKo {
         creature_.variationLeftHp(creature_.getRemainingHp().opposNb());
         _fight.addKoFighterMessage(_combattant, _import);
         creature_.exitFrontBattle();
+        creature_.cancelActions();
         for(String c:creature_.getStatusSet()){
             creature_.supprimerStatut(c);
         }

@@ -2859,18 +2859,7 @@ public final class FightFacade {
         }
         for (TeamPosition f: FightOrder.fighters(_fight)) {
             Fighter fighter_ = _fight.getFighter(f);
-            AbstractAction action_ = fighter_.getAction();
-            if (action_ instanceof ActionMove) {
-                String move_ = ((ActionMove) action_).getFirstChosenMove();
-                MoveData fAtt_ = _data.getMove(move_);
-                if (fAtt_ == null) {
-                    fighter_.cancelActions();
-                    continue;
-                }
-                if (!fAtt_.getTargetChoice().isWithChoice()) {
-                    fighter_.getChosenTargets().clear();
-                }
-            }
+            fighter_.patch(_data);
         }
     }
 

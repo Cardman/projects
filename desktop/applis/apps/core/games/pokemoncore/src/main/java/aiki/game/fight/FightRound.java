@@ -1483,8 +1483,8 @@ final class FightRound {
         if (!creature_.isSuccessfulMove()) {
             return false;
         }
-        MoveData fAtt_=_import.getMove(creature_.getFinalChosenMove());
-        if(fAtt_.getSwitchType() != SwitchType.LANCEUR){
+        SwitchType v_ = swType(_import, creature_.getFinalChosenMove());
+        if(v_ != SwitchType.LANCEUR){
             return false;
         }
         if(creature_.isBelongingToPlayer()){
@@ -1500,6 +1500,17 @@ final class FightRound {
             roundThrowerSwitch(_fight, _thrower, _diff, _import);
         }
         return false;
+    }
+
+    static SwitchType swType(DataBase _import, String _f) {
+        SwitchType v_ = SwitchType.NOTHING;
+        for (EntryCust<String,MoveData> e: _import.getMoves().entryList()) {
+            if (StringUtil.quickEq(e.getKey(), _f)) {
+                v_ = e.getValue().getSwitchType();
+                break;
+            }
+        }
+        return v_;
     }
 
     static void endRoundShowActions(Fight _fight,Difficulty _diff,Player _user, DataBase _import) {

@@ -12761,10 +12761,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(BULLES_D_O,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
         assertEq(POKEMON_FOE_TARGET_ZERO, playerPk_.getChosenTargets().get(0));
-        assertTrue(wildPk_.getAction() instanceof ActionMove);
-        assertEq(JACKPOT,wildPk_.getFirstChosenMove());
-        assertEq(1, wildPk_.getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, wildPk_.getChosenTargets().get(0));
+        assertTrue(wildPk_.estKo());
         assertTrue(loadedFight_.getTemp().getAcceptableChoices());
     }
 
