@@ -674,7 +674,6 @@ final class FightOrder {
             return new TeamPositionList();
         }
         Bytes posAdv_ = new Bytes();
-        byte diff_=Fighter.BACK;
         for(EntryCust<Byte, Fighter> e:_liste.entryList()){
             Fighter membre_=e.getValue();
             if(!membre_.estArriere()){
@@ -682,12 +681,7 @@ final class FightOrder {
                 posAdv_.add(posCbtAdv_);
             }
         }
-        for(byte e:posAdv_){
-            int currDiff_ = NumberUtil.abs(e- _posCbt.getGroundPlace());
-            if (NumberUtil.eq(diff_, Fighter.BACK) || diff_ > currDiff_) {
-                diff_ = (byte) currDiff_;
-            }
-        }
+        byte diff_ = dist(_fight, _posCbt, posAdv_);
         TeamPositionList cbtsProches_ = new TeamPositionList();
         for(EntryCust<Byte, Fighter> c:_liste.entryList()){
             Fighter membre_=c.getValue();
@@ -696,6 +690,19 @@ final class FightOrder {
             }
         }
         return cbtsProches_;
+    }
+
+    private static byte dist(Fight _fight, Fighter _posCbt, Bytes _posAdv) {
+        byte diff_=Fighter.BACK;
+        if (_fight.getTemp().isMustFront()) {
+            for (byte e : _posAdv) {
+                int currDiff_ = NumberUtil.abs(e - _posCbt.getGroundPlace());
+                if (NumberUtil.eq(diff_, Fighter.BACK) || diff_ > currDiff_) {
+                    diff_ = (byte) currDiff_;
+                }
+            }
+        }
+        return diff_;
     }
 
     private static boolean excludedByPosition(Fight _fight, Fighter _posCbt) {
