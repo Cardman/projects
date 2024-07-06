@@ -11,7 +11,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
-import aiki.map.levels.AreaApparition;
+import aiki.map.levels.AbsAreaApparition;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.Place;
@@ -366,7 +366,7 @@ public class PokemonBean extends CommonBean {
             return false;
         }
         LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
-        for (AreaApparition a: w_.getWildPokemonAreas()) {
+        for (AbsAreaApparition a: w_.getWildPokemonAreas()) {
             for (Pokemon p: a.getWildPokemon()) {
                 if (StringUtil.quickEq(p.getName(), name)) {
                     return true;

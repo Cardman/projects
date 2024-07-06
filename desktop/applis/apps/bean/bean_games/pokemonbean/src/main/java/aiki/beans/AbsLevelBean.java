@@ -7,7 +7,7 @@ import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
-import aiki.map.levels.AreaApparition;
+import aiki.map.levels.AbsAreaApparition;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.*;
@@ -30,11 +30,11 @@ public abstract class AbsLevelBean extends CommonBean {
     private boolean pokemonCenter;
     private boolean gym;
     private boolean possibleMultiLayer;
-    private CustList<AreaApparition> wildPokemonAreas = new CustList<AreaApparition>();
+    private CustList<AbsAreaApparition> wildPokemonAreas = new CustList<AbsAreaApparition>();
     private DictionaryComparator<Short,String> neighbours;
 
     protected void initTiles(boolean _addBorder) {
-        wildPokemonAreas = new CustList<AreaApparition>();
+        wildPokemonAreas = new CustList<AbsAreaApparition>();
         neighbours = DictionaryComparatorUtil.buildStringPlaces(getDataBase().getMap());
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
         tiles = DictionaryComparatorUtil.buildPointString();
@@ -105,7 +105,7 @@ public abstract class AbsLevelBean extends CommonBean {
         cp_.getLevel().setPoint(pt_);
         getForms().put(CST_COORDS, cp_);
         DataBase data_ = getDataBase();
-        AreaApparition app_ = data_.getMap().getAreaByCoords(cp_);
+        AbsAreaApparition app_ = data_.getMap().getAreaByCoords(cp_);
         if (app_.isVirtual()) {
             return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
         }
@@ -160,7 +160,7 @@ public abstract class AbsLevelBean extends CommonBean {
         return pokemonCenter;
     }
 
-    public CustList<AreaApparition> getWildPokemonAreas() {
+    public CustList<AbsAreaApparition> getWildPokemonAreas() {
         return wildPokemonAreas;
     }
 

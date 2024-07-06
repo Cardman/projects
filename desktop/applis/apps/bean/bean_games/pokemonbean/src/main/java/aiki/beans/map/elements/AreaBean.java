@@ -3,7 +3,7 @@ package aiki.beans.map.elements;
 import aiki.beans.CommonBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.map.levels.AreaApparition;
+import aiki.map.levels.AbsAreaApparition;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
@@ -12,7 +12,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class AreaBean extends CommonBean {
-    private AreaApparition area;
+    private AbsAreaApparition area;
 
     @Override
     public void beforeDisplaying() {
@@ -267,7 +267,7 @@ public class AreaBean extends CommonBean {
         return moves_;
     }
 
-    public AreaApparition getArea() {
+    public AbsAreaApparition getArea() {
         return area;
     }
 }

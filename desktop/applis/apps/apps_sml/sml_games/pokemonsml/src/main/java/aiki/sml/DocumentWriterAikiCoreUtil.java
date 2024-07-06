@@ -3396,18 +3396,28 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setAreaApparition(AreaApparition _object, String _fieldName, Document _document) {
+    private static Element setAreaApparition(AbsAreaApparition _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setAreaApparition(_object,element_,_document);
         return element_;
     }
 
-    private static void setAreaApparition(AreaApparition _object, Element _element, Document _document) {
-        _element.appendChild(setListWildPk(_object.getWildPokemon(),FIELD_WILD_POKEMON,_document));
+    private static void setAreaApparition(AbsAreaApparition _object, Element _element, Document _document) {
+        if (_object instanceof AreaApparition) {
+            _element.appendChild(setListWildPk(_object.getWildPokemon(),FIELD_WILD_POKEMON,_document));
+        } else {
+            _element.appendChild(setListListWildPk(_object.getWildPokemonList(),FIELD_WILD_POKEMON,_document));
+        }
         _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getAvgNbSteps(),FIELD_AVG_NB_STEPS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getMultFight(),FIELD_MULT_FIGHT,_document));
-        _element.appendChild(setListWildPk(_object.getWildPokemonFishing(),FIELD_WILD_POKEMON_FISHING,_document));
+        if (_object instanceof AreaApparition) {
+            _element.appendChild(DocumentWriterCoreUtil.setByte(((AreaApparition)_object).getMultFight(),FIELD_MULT_FIGHT,_document));
+        }
+        if (_object instanceof AreaApparition) {
+            _element.appendChild(setListWildPk(_object.getWildPokemonFishing(),FIELD_WILD_POKEMON_FISHING,_document));
+        } else {
+            _element.appendChild(setListListWildPk(_object.getWildPokemonFishingList(),FIELD_WILD_POKEMON_FISHING,_document));
+        }
     }
 
     private static Element setBlock(Block _object, String _fieldName, Document _document) {
@@ -3822,10 +3832,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setListAreaApparition(CustList<AreaApparition> _object, String _fieldName, Document _document) {
+    private static Element setListAreaApparition(CustList<AbsAreaApparition> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (AreaApparition s: _object) {
+        for (AbsAreaApparition s: _object) {
             elt_.appendChild(setAreaApparition(s,EMPTY_STRING,_document));
         }
         return elt_;
@@ -3999,6 +4009,15 @@ public final class DocumentWriterAikiCoreUtil {
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (TargetCoords s: _object) {
             elt_.appendChild(setTargetCoords(s,EMPTY_STRING,_document));
+        }
+        return elt_;
+    }
+
+    private static Element setListListWildPk(CustList<CustList<WildPk>> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (CustList<WildPk> s: _object) {
+            elt_.appendChild(setListWildPk(s,EMPTY_STRING,_document));
         }
         return elt_;
     }

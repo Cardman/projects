@@ -23,15 +23,7 @@ import aiki.map.characters.*;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.Level;
-import aiki.map.levels.LevelCave;
-import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelIndoorPokemonCenter;
-import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelWithWildPokemon;
-import aiki.map.levels.Link;
+import aiki.map.levels.*;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Campaign;
 import aiki.map.places.Cave;
@@ -1172,7 +1164,7 @@ public final class Game {
     public void initFishing(DataBase _d) {
         DataMap d_=_d.getMap();
         Coords voisin_ = closestTile(d_);
-        AreaApparition area_ = d_.getAreaByCoords(voisin_);
+        AbsAreaApparition area_ = d_.getAreaByCoords(voisin_);
         if (area_.isVirtual()) {
             return;
         }
@@ -2030,7 +2022,7 @@ public final class Game {
 
     private void attract(Coords _coords, DataBase _d) {
         DataMap d_ = _d.getMap();
-        AreaApparition area_ = d_.getAreaByCoords(playerCoords);
+        AbsAreaApparition area_ = d_.getAreaByCoords(playerCoords);
         if (area_.isVirtual()) {
             directInteractionValid(_coords, d_);
             return;
@@ -2054,7 +2046,7 @@ public final class Game {
         }
         interfaceType=InterfaceType.RIEN;
     }
-    void incrementPeriod(AreaApparition _area, DataBase _d) {
+    void incrementPeriod(AbsAreaApparition _area, DataBase _d) {
         indexStep++;
         if(indexStep >= _area.getAvgNbSteps()){
             newIndex(true, indexPeriod, _area, _d);
@@ -2385,7 +2377,7 @@ public final class Game {
         commentGame.clearMessages();
     }
 
-    public void newIndex(boolean _walking, int _index, AreaApparition _area, DataBase _d) {
+    public void newIndex(boolean _walking, int _index, AbsAreaApparition _area, DataBase _d) {
         //CustList<WildPokemon> _pokemon,
 //        int nb_=_pokemon.size();
         int nb_= _area.getPokemonListLength(_walking);

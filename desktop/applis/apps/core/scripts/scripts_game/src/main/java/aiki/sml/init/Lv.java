@@ -254,7 +254,7 @@ return m518levelOutdoor_;
 }
 public static LevelRoad p1(){
 LevelRoad m519levelRoad_ = Instances.newLevelRoad();
- CustList<AreaApparition> m519custListAreaApparition_=new  CustList<AreaApparition>(new CollCapacity(8));
+ CustList<AbsAreaApparition> m519custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(8));
 m519custListAreaApparition_.add(Ar.p1l0a0());
 m519custListAreaApparition_.add(Ar.p1l0a1());
 m519custListAreaApparition_.add(Ar.p1l0a2());
@@ -550,7 +550,7 @@ return m522levelOutdoor_;
 }
 public static LevelRoad p3(){
 LevelRoad m523levelRoad_ = Instances.newLevelRoad();
- CustList<AreaApparition> m523custListAreaApparition_=new  CustList<AreaApparition>(new CollCapacity(8));
+ CustList<AbsAreaApparition> m523custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(8));
 m523custListAreaApparition_.add(Ar.p3l0a0());
 m523custListAreaApparition_.add(Ar.p3l0a1());
 m523custListAreaApparition_.add(Ar.p3l0a2());
@@ -846,7 +846,7 @@ return m526levelOutdoor_;
 }
 public static LevelRoad p5(){
 LevelRoad m527levelRoad_ = Instances.newLevelRoad();
- CustList<AreaApparition> m527custListAreaApparition_=new  CustList<AreaApparition>(new CollCapacity(2));
+ CustList<AbsAreaApparition> m527custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(2));
 m527custListAreaApparition_.add(Ar.p5l0a0());
 m527custListAreaApparition_.add(Ar.p5l0a1());
 m527levelRoad_.setWildPokemonAreas(m527custListAreaApparition_);
@@ -928,7 +928,7 @@ PointsLink m528objectMapPointLink_=new PointsLink(new CollCapacity(2));
 m528objectMapPointLink_.addEntry(new Point(X5,Y17),LvUt.newLink(F_UP_CAVE_TXT,LvUt.newCoords(6,1,new Point(X5,Y17)),null));
 m528objectMapPointLink_.addEntry(new Point(X5,Y6),LvUt.newLink(F_UP_CAVE_TXT,LvUt.newCoords(6,1,new Point(X5,Y6)),null));
 m528levelCave_.setLinksOtherLevels(m528objectMapPointLink_);
- CustList<AreaApparition> m528custListAreaApparition_=new  CustList<AreaApparition>(new CollCapacity(1));
+ CustList<AbsAreaApparition> m528custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(1));
 m528custListAreaApparition_.add(Ar.p6l0a0());
 m528levelCave_.setWildPokemonAreas(m528custListAreaApparition_);
 PointsBlock m528objectMapPointBlock_=new PointsBlock(new CollCapacity(7));
@@ -985,7 +985,7 @@ PointsLink m529objectMapPointLink_=new PointsLink(new CollCapacity(2));
 m529objectMapPointLink_.addEntry(new Point(X5,Y6),LvUt.newLink(F_DOWN_CAVE_TXT,LvUt.newCoords(6,0,new Point(X5,Y6)),null));
 m529objectMapPointLink_.addEntry(new Point(X5,Y17),LvUt.newLink(F_DOWN_CAVE_TXT,LvUt.newCoords(6,0,new Point(X5,Y17)),null));
 m529levelCave_.setLinksOtherLevels(m529objectMapPointLink_);
- CustList<AreaApparition> m529custListAreaApparition_=new  CustList<AreaApparition>(new CollCapacity(2));
+ CustList<AbsAreaApparition> m529custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(2));
 m529custListAreaApparition_.add(Ar.p6l1a0());
 m529custListAreaApparition_.add(Ar.p6l1a1());
 m529levelCave_.setWildPokemonAreas(m529custListAreaApparition_);
@@ -1040,7 +1040,7 @@ return m529levelCave_;
 }
 public static LevelRoad p7(){
 LevelRoad m530levelRoad_ = Instances.newLevelRoad();
- CustList<AreaApparition> m530custListAreaApparition_=new  CustList<AreaApparition>(new CollCapacity(1));
+ CustList<AbsAreaApparition> m530custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(1));
 m530custListAreaApparition_.add(Ar.p7l0a0());
 m530levelRoad_.setWildPokemonAreas(m530custListAreaApparition_);
 PointsBlock m530objectMapPointBlock_=new PointsBlock(new CollCapacity(8));
@@ -1257,7 +1257,7 @@ return m532levelOutdoor_;
 }
 public static LevelRoad p9(){
 LevelRoad m533levelRoad_ = Instances.newLevelRoad();
- CustList<AreaApparition> m533custListAreaApparition_=new  CustList<AreaApparition>(new CollCapacity(1));
+ CustList<AbsAreaApparition> m533custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(1));
 m533custListAreaApparition_.add(Ar.p9l0a0());
 m533levelRoad_.setWildPokemonAreas(m533custListAreaApparition_);
 PointsDualFight m533objectMapPointDualFight_=new PointsDualFight(new CollCapacity(1));
@@ -1328,7 +1328,7 @@ return m535levelLeague_;
 }
 public static LevelRoad p11(){
 LevelRoad m536levelRoad_ = Instances.newLevelRoad();
- CustList<AreaApparition> m536custListAreaApparition_=new  CustList<AreaApparition>(new CollCapacity(1));
+ CustList<AbsAreaApparition> m536custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(1));
 m536custListAreaApparition_.add(Ar.p11l0a0());
 m536levelRoad_.setWildPokemonAreas(m536custListAreaApparition_);
 PointsWildPk m536objectMapPointWildPk_=new PointsWildPk(new CollCapacity(22));

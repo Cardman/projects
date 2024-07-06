@@ -80,14 +80,7 @@ import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.LevelCave;
-import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelIndoorPokemonCenter;
-import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelOutdoor;
-import aiki.map.levels.LevelRoad;
+import aiki.map.levels.*;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.City;
@@ -1356,7 +1349,7 @@ public final class Instances {
         LevelCave object_ = new LevelCave();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setLinksOtherLevels(new PointsLink(cap_));
-        object_.setWildPokemonAreas(new CustList<AreaApparition>(cap_));
+        object_.setWildPokemonAreas(new CustList<AbsAreaApparition>(cap_));
         object_.setCharacters(new PointsCharacterInRoadCave(cap_));
         object_.setDualFights(new PointsDualFight(cap_));
         object_.setLegendaryPks(new PointsWildPk(cap_));
@@ -1408,7 +1401,7 @@ public final class Instances {
     public static LevelRoad newLevelRoad() {
         LevelRoad object_ = new LevelRoad();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setWildPokemonAreas(new CustList<AreaApparition>(cap_));
+        object_.setWildPokemonAreas(new CustList<AbsAreaApparition>(cap_));
         object_.setCharacters(new PointsCharacterInRoadCave(cap_));
         object_.setDualFights(new PointsDualFight(cap_));
         object_.setLegendaryPks(new PointsWildPk(cap_));

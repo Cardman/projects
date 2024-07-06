@@ -15,7 +15,7 @@ import code.util.CustList;
 
 public abstract class LevelWithWildPokemon extends Level {
 
-    private CustList<AreaApparition> wildPokemonAreas;
+    private CustList<AbsAreaApparition> wildPokemonAreas;
 
     private Points< CharacterInRoadCave> characters;
 
@@ -86,7 +86,7 @@ public abstract class LevelWithWildPokemon extends Level {
             }
         }
         for (CommonParam<Point,Block> e : getBlocks().entryList()) {
-            AreaApparition a_ = getAreaByBlockId(e.getKey());
+            AbsAreaApparition a_ = getAreaByBlockId(e.getKey());
             if (!a_.isVirtual() && !a_.getWildPokemonFishing().isEmpty() && e.getValue().getType() != EnvironmentType.WATER) {
                 _data.setError(true);
             }
@@ -185,12 +185,12 @@ public abstract class LevelWithWildPokemon extends Level {
     }
 
     public void initializeWildPokemon() {
-        for (AreaApparition a : wildPokemonAreas) {
+        for (AbsAreaApparition a : wildPokemonAreas) {
             a.initializeWildPokemon();
         }
     }
 
-    public AreaApparition getAreaByBlockId(Point _key) {
+    public AbsAreaApparition getAreaByBlockId(Point _key) {
         int index_ = getBlocks().getVal(_key).getIndexApparition();
         if (!wildPokemonAreas.isValidIndex(index_)) {
             return new AreaApparition();
@@ -198,7 +198,7 @@ public abstract class LevelWithWildPokemon extends Level {
         return wildPokemonAreas.get(index_);
     }
 
-    public AreaApparition getAreaByPoint(Point _point) {
+    public AbsAreaApparition getAreaByPoint(Point _point) {
         int index_ = getBlockByPoint(_point).getIndexApparition();
         if (!wildPokemonAreas.isValidIndex(index_)) {
             return new AreaApparition();
@@ -217,11 +217,11 @@ public abstract class LevelWithWildPokemon extends Level {
         return trainers_;
     }
 
-    public CustList<AreaApparition> getWildPokemonAreas() {
+    public CustList<AbsAreaApparition> getWildPokemonAreas() {
         return wildPokemonAreas;
     }
 
-    public void setWildPokemonAreas(CustList<AreaApparition> _wildPokemonAreas) {
+    public void setWildPokemonAreas(CustList<AbsAreaApparition> _wildPokemonAreas) {
         wildPokemonAreas = _wildPokemonAreas;
     }
 

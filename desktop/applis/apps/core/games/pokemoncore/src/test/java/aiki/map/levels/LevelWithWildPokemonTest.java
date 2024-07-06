@@ -19,7 +19,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
     public void getAreaByPoint1FailTest() {
         LevelWithWildPokemon level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         assertTrue(level_.getAreaByPoint(new Point((short)0,(short)0)).isVirtual());
     }
 
@@ -29,7 +29,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
         level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         assertTrue(level_.getAreaByPoint(new Point((short)0,(short)0)).isVirtual());
     }
 
@@ -37,7 +37,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
     public void getAreaByPoint1Test() {
         LevelWithWildPokemon level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         block_.setIndexApparition((short) 0);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
@@ -52,7 +52,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
         pk_.setItem("");
         area_.getWildPokemon().add(pk_);
         level_.getWildPokemonAreas().add(area_);
-        AreaApparition storedArea_ = level_.getAreaByPoint(new Point((short)1,(short)0));
+        AbsAreaApparition storedArea_ = level_.getAreaByPoint(new Point((short)1,(short)0));
         assertSame(area_, storedArea_);
     }
 }

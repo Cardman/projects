@@ -10,7 +10,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.status.Status;
 import aiki.map.characters.Ally;
 import aiki.map.characters.Person;
-import aiki.map.levels.AreaApparition;
+import aiki.map.levels.AbsAreaApparition;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
@@ -36,7 +36,7 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<AbsMap<String,AbilityData>> mapAbilities = new StringMap<AbsMap<String,AbilityData>>();
     private final StringMap<AbsMap<String,Status>> mapStatus = new StringMap<AbsMap<String,Status>>();
 
-    public void put(String _key, AreaApparition _v) {
+    public void put(String _key, AbsAreaApparition _v) {
         getBeansOthers().put(_key,new AreaApparitionStruct(_v));
     }
 
@@ -165,7 +165,7 @@ public final class StringMapObject extends StringMapObjectBase {
     public WildPk getValPk(String _key) {
         return mapWildPk.getVal(_key);
     }
-    public AreaApparition getValArea(String _key) {
+    public AbsAreaApparition getValArea(String _key) {
         return ((AreaApparitionStruct)getBeansOthers().getVal(_key)).getWildPk();
     }
     public Person getValPers(String _key) {

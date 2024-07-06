@@ -7,7 +7,7 @@ import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.map.DataMap;
-import aiki.map.levels.AreaApparition;
+import aiki.map.levels.AbsAreaApparition;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.Campaign;
 import aiki.util.Coords;
@@ -35,7 +35,7 @@ public final class FacadeGameBallTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         FacadeGame facadeGame_ = new FacadeGame();

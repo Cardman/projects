@@ -1,6 +1,7 @@
 package aiki.game;
 
 import aiki.db.DataBase;
+import aiki.map.levels.AbsAreaApparition;
 import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
 import code.util.core.BoolVal;
@@ -11,7 +12,6 @@ import aiki.game.fight.enums.FightType;
 import aiki.game.params.Difficulty;
 import aiki.map.DataMap;
 import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Campaign;
@@ -36,7 +36,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(2, law_.nbEvents());
@@ -62,7 +62,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(1, law_.nbEvents());
@@ -81,7 +81,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(2, law_.nbEvents());
@@ -113,7 +113,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(1, nbPk(law_));
@@ -151,7 +151,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloList<CustList<WildPk>> law_ = lawCopy(game_, area_, data_);
         assertEq(1, nbPk(law_));
@@ -229,7 +229,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         newRandomPokemon(game_, area_, data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
@@ -245,7 +245,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         newRandomPokemon(game_, area_, data_);
         assertTrue(game_.getFight().getFightType().isExisting());
@@ -262,7 +262,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         assertEq(1, game_.getIndexPeriod());
@@ -280,7 +280,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 1, area_, data_);
         assertEq(0, game_.getIndexPeriod());
@@ -298,7 +298,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 2, area_, data_);
         assertEq(0, game_.getIndexPeriod());
@@ -317,7 +317,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         assertEq(0, game_.getIndexPeriod());
@@ -347,7 +347,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         assertEq(0, game_.getIndexPeriod());
@@ -377,7 +377,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Coords next_ = game_.closestTile(map_);
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(next_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(next_.getLevel().getPoint());
         game_.newIndex(false, 0, area_, data_);
         assertEq(1, game_.getIndexPeriodFishing());
@@ -410,7 +410,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Coords next_ = game_.closestTile(map_);
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(next_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(next_.getLevel().getPoint());
         game_.newIndex(false, 1, area_, data_);
         assertEq(0, game_.getIndexPeriodFishing());
@@ -429,7 +429,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.incrementPeriod(area_, data_);
         assertEq(0, game_.getIndexStep());
@@ -449,7 +449,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
-        AreaApparition area_;
+        AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.incrementPeriod(area_, data_);
         assertEq(1, game_.getIndexStep());
@@ -745,11 +745,11 @@ public class GameInitializeFightTest extends InitializationDataBase {
         assertTrue(!game_.isDualFight());
     }
 
-    private MonteCarloList<CustList<WildPk>> lawCopy(Game _game, AreaApparition _area, DataBase _data) {
+    private MonteCarloList<CustList<WildPk>> lawCopy(Game _game, AbsAreaApparition _area, DataBase _data) {
         return _game.lawCopy(_area.getWildPokemonRand(), _data);
     }
 
-    private void newRandomPokemon(Game _game, AreaApparition _area, DataBase _data) {
+    private void newRandomPokemon(Game _game, AbsAreaApparition _area, DataBase _data) {
         _game.newRandomPokemon(_area.getWildPokemonRand(), _data);
     }
 

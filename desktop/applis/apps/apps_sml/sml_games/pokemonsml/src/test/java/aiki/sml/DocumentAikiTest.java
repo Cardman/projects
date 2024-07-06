@@ -397,6 +397,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         Road r_ = Instances.newRoad();
         AreaApparition a_ = Instances.newAreaApparition();
         WildPk w_ = Instances.newWildPk();
+        w_.setName("_");
         a_.getWildPokemon().add(w_);
         r_.getLevelRoad().getWildPokemonAreas().add(a_);
         DualFight d_ = Instances.newDualFight();
@@ -443,6 +444,10 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         c_.getPlaces().add(ca_);
         DataMap o_ = save(c_);
         assertEq(4,o_.getPlaces().size());
+        CustList<AbsAreaApparition> wa_ = ((Road) o_.getPlace(0)).getLevelRoad().getWildPokemonAreas();
+        assertEq(1, wa_.size());
+        assertEq(1, wa_.get(0).getWildPokemon().size());
+        assertEq("_", wa_.get(0).getWildPokemon().get(0).getName());
     }
     @Test
     public void t43() {
@@ -743,6 +748,77 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         txt_.addEntry("_","");
         DocumentReaderAikiCoreUtil.loadRom(f_.getData(), txt_,new ConcreteInteger(),new SexListImpl());
         assertEq(0,f_.getData().getPokedex().size());
+    }
+    @Test
+    public void t68() {
+        DataMap c_ = Instances.newDataMap();
+        Condition i_ = Instances.newCondition();
+        i_.add(Coords.newCoords(""));
+        c_.getAccessCondition().addEntry(Coords.newCoords(""), i_);
+        c_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0),Instances.newTileMiniMap());
+        Road r_ = Instances.newRoad();
+        MultAreaApparition a_ = new MultAreaApparition();
+        WildPk w_ = Instances.newWildPk();
+        w_.setName("P1");
+        a_.getWildPokemonList().add(new CustList<WildPk>(w_));
+        WildPk w2_ = Instances.newWildPk();
+        w2_.setName("P2");
+        WildPk w3_ = Instances.newWildPk();
+        w3_.setName("P3");
+        a_.getWildPokemonList().add(new CustList<WildPk>(w2_,w3_));
+        r_.getLevelRoad().getWildPokemonAreas().add(a_);
+        DualFight d_ = Instances.newDualFight();
+        CustList<PkTrainer> tp_ = new CustList<PkTrainer>();
+        tp_.add(Instances.newPkTrainer());
+        d_.getFoeTrainer().setTeam(tp_);
+        r_.getLevelRoad().getDualFights().addEntry(new Point(""), d_);
+        r_.getLevelRoad().getItems().addEntry(new Point(""),"");
+        r_.getLevelRoad().getBlocks().addEntry(new Point(""),Instances.newBlock());
+        r_.getLevelRoad().getTm().addEntry(new Point(""),(short)1);
+        r_.getLevelRoad().getCharacters().addEntry(new Point("0"),Instances.newDealerItem());
+        TrainerMultiFights t_ = Instances.newTrainerMultiFights();
+        t_.getTeamsRewards().add(Instances.newPokemonTeam());
+        r_.getLevelRoad().getCharacters().addEntry(new Point("1"),t_);
+        r_.getLevelRoad().getLegendaryPks().addEntry(new Point(""),Instances.newWildPk());
+        PokemonTeam tps_ = Instances.newPokemonTeam();
+        tps_.getTeam().add(Instances.newPkTrainer());
+        r_.getLinksWithCaves().addEntry(new Point(""),new Link(""));
+        r_.getSavedlinks().addEntry(new PlaceInterConnect(""),new Coords(""));
+        c_.getPlaces().add(r_);
+        City ci_ = Instances.newCity();
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getGymTrainers().addEntry(new Point(""),Instances.newGymTrainer());
+        ci_.getBuildings().addEntry(new Point("0"), g_);
+        PokemonCenter pc_ = Instances.newPokemonCenter();
+        pc_.getIndoor().getGerants().addEntry(new Point("0"),Instances.newGerantPokemon());
+        pc_.getIndoor().getGerants().addEntry(new Point("1"),Instances.newSeller());
+        pc_.getIndoor().getGerants().addEntry(new Point("2"),Instances.newDealerItem());
+        pc_.getIndoor().getGerants().addEntry(new Point("3"),Instances.newGymTrainer());
+        pc_.getIndoor().getGerants().addEntry(new Point("4"),Instances.newGymLeader());
+        pc_.getIndoor().getGerants().addEntry(new Point("5"),Instances.newTrainerMultiFights());
+        pc_.getIndoor().getGerants().addEntry(new Point("6"),Instances.newTrainerLeague());
+        pc_.getIndoor().getGerants().addEntry(new Point("7"),Instances.newTempTrainer());
+        ci_.getBuildings().addEntry(new Point("1"), pc_);
+        c_.getPlaces().add(ci_);
+        League l_ = Instances.newLeague();
+        l_.getRooms().add(Instances.newLevelLeague());
+        c_.getPlaces().add(l_);
+        Cave ca_ = Instances.newCave();
+        LevelCave lc_ = Instances.newLevelCave();
+        lc_.getLinksOtherLevels().addEntry(new Point(""),new Link(""));
+        ca_.getLevels().add(lc_);
+        ca_.getLinksWithOtherPlaces().addEntry(new LevelPoint(""),new Link(""));
+        c_.getPlaces().add(ca_);
+        DataMap o_ = save(c_);
+        assertEq(4,o_.getPlaces().size());
+        CustList<AbsAreaApparition> wa_ = ((Road) o_.getPlace(0)).getLevelRoad().getWildPokemonAreas();
+        assertEq(1, wa_.size());
+        assertEq(2, wa_.get(0).getWildPokemonList().size());
+        assertEq(1, wa_.get(0).getWildPokemonList().get(0).size());
+        assertEq("P1", wa_.get(0).getWildPokemonList().get(0).get(0).getName());
+        assertEq(2, wa_.get(0).getWildPokemonList().get(1).size());
+        assertEq("P2", wa_.get(0).getWildPokemonList().get(1).get(0).getName());
+        assertEq("P3", wa_.get(0).getWildPokemonList().get(1).get(1).getName());
     }
     private StringMap<String> one() {
         StringMap<String> o_ = new StringMap<String>();

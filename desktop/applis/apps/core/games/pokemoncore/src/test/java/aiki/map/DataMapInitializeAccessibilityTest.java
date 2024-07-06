@@ -2,6 +2,7 @@ package aiki.map;
 
 import aiki.db.EquallablePkUtil;
 import aiki.game.fight.InitializationDataBase;
+import aiki.map.levels.*;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.*;
 import org.junit.Test;
@@ -11,14 +12,6 @@ import aiki.map.buildings.PokemonCenter;
 import aiki.map.characters.DealerItem;
 import aiki.map.characters.DualFight;
 import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.LevelCave;
-import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelIndoorPokemonCenter;
-import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelOutdoor;
-import aiki.map.levels.LevelRoad;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.City;
@@ -123,7 +116,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         level_.setItems(new PointsString());
         level_.setHm(new PointsShort());
         level_.setTm(new PointsShort());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)6,(short)3, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         road_.setLevel(level_);
@@ -141,7 +134,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         level_.setItems(new PointsString());
         level_.setHm(new PointsShort());
         level_.setTm(new PointsShort());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         road_.setLevel(level_);
@@ -160,7 +153,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         level_.setItems(new PointsString());
         level_.setHm(new PointsShort());
         level_.setTm(new PointsShort());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, VOIE);
@@ -186,7 +179,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levelCave_.setItems(new PointsString());
         levelCave_.setHm(new PointsShort());
         levelCave_.setTm(new PointsShort());
-        levelCave_.setWildPokemonAreas(new CustList<AreaApparition>());
+        levelCave_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROCK, VOIE);
         levelCave_.getBlocks().put(new Point((short)0,(short)0), block_);
         return levelCave_;
@@ -202,7 +195,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levelCave_.setItems(new PointsString());
         levelCave_.setHm(new PointsShort());
         levelCave_.setTm(new PointsShort());
-        levelCave_.setWildPokemonAreas(new CustList<AreaApparition>());
+        levelCave_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROCK, VOIE);
         levelCave_.getBlocks().put(new Point((short)0,(short)0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, VOIE);

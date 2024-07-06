@@ -11,7 +11,7 @@ import aiki.map.characters.*;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
+import aiki.map.levels.AbsAreaApparition;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.*;
@@ -352,7 +352,7 @@ public class MapLevelBean extends AbsLevelBean {
         getForms().put(CST_COORDS, cp_);
         int pl_ = co_.getNumberPlace();
         DataBase data_ = getDataBase();
-        AreaApparition app_ = data_.getMap().getAreaByCoords(cp_);
+        AbsAreaApparition app_ = data_.getMap().getAreaByCoords(cp_);
 //        BoolVal seeArea_ = BoolVal.FALSE;
 //        if (!app_.isVirtual()) {
 //            getForms().put(CST_AREA, app_);
@@ -407,7 +407,7 @@ public class MapLevelBean extends AbsLevelBean {
 //        getForms().put(CST_COORDS, cp_);
 //        return clickTile();
 //    }
-    private String atMostOneDir(Point _pt, AreaApparition _app, Place _p) {
+    private String atMostOneDir(Point _pt, AbsAreaApparition _app, Place _p) {
         String return_ = clickTile();
         if (!return_.isEmpty()) {
             return return_;
@@ -415,7 +415,7 @@ public class MapLevelBean extends AbsLevelBean {
         return whenNoTile(_pt, _app, _p);
     }
 
-    private String whenNoTile(Point _pt, AreaApparition _app, Place _p) {
+    private String whenNoTile(Point _pt, AbsAreaApparition _app, Place _p) {
         if (_p instanceof Campaign && !_app.isVirtual()) {
             getForms().put(CST_AREA, _app);
             return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;

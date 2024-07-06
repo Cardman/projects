@@ -25,7 +25,7 @@ import aiki.fight.util.StatBaseEv;
 import aiki.instances.Instances;
 import aiki.map.characters.Ally;
 import aiki.map.characters.Person;
-import aiki.map.levels.AreaApparition;
+import aiki.map.levels.AbsAreaApparition;
 import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
 import code.bean.nat.*;
@@ -593,7 +593,7 @@ public abstract class InitDbConstr extends InitDbBean {
 //        return forms(_bean).getValPt(CST_CURRENT_TILE);
 //    }
 
-    protected static AreaApparition getValArea(NaSt _bean) {
+    protected static AbsAreaApparition getValArea(NaSt _bean) {
         return forms(_bean).getValArea(CST_AREA);
     }
     protected static Person getValPers(NaSt _key){

@@ -284,7 +284,7 @@ public abstract class EquallablePkUtil {
     public static void assertSame(IssueSimulation _expected, IssueSimulation _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertSame(AreaApparition _expected, AreaApparition _result) {
+    public static void assertSame(AbsAreaApparition _expected, AbsAreaApparition _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(UsablePokemon _expected, UsablePokemon _result) {

@@ -25,17 +25,7 @@ import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.Level;
-import aiki.map.levels.LevelCave;
-import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelIndoorPokemonCenter;
-import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelOutdoor;
-import aiki.map.levels.LevelRoad;
-import aiki.map.levels.LevelWithWildPokemon;
-import aiki.map.levels.Link;
+import aiki.map.levels.*;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Campaign;
 import aiki.map.places.Cave;
@@ -411,7 +401,7 @@ public final class DataMap {
             levels_ = pl_.getLevelsMap();
             LevelWithWildPokemon level_ = (LevelWithWildPokemon) levels_
                     .getVal(c.getLevel().getLevelIndex());
-            AreaApparition area_ = level_.getAreaByPoint(c.getLevel()
+            AbsAreaApparition area_ = level_.getAreaByPoint(c.getLevel()
                     .getPoint());
             if (!area_.isVirtual()) {
                 for (WildPk pk_ : area_.getWildPokemon()) {
@@ -509,9 +499,9 @@ public final class DataMap {
         levelPokemon_ = _wildPokemonBeforeFirstLeague
                 .getVal(keyPlaceLevel_);
         for (int index_ : levelPokemon_) {
-            CustList<AreaApparition> wildPokemonAreas_ = _levelWild.getWildPokemonAreas();
+            CustList<AbsAreaApparition> wildPokemonAreas_ = _levelWild.getWildPokemonAreas();
             if (wildPokemonAreas_.isValidIndex(index_)) {
-                AreaApparition areaApparition_ = wildPokemonAreas_
+                AbsAreaApparition areaApparition_ = wildPokemonAreas_
                         .get(index_);
                 CustList<WildPk> wildPokemon_ = areaApparition_.getWildPokemon();
                 feedDirectCatch(_directCatchPk, wildPokemon_);
@@ -949,7 +939,7 @@ public final class DataMap {
     private static boolean checkLevel(Level _l, Coords _c) {
         return _l.getEnvBlockByPoint(_c.getLevel().getPoint()).isValid();
     }
-    public AreaApparition getAreaByCoords(Coords _coords) {
+    public AbsAreaApparition getAreaByCoords(Coords _coords) {
         if (!_coords.isValid()) {
             return new AreaApparition();
         }
@@ -2039,7 +2029,7 @@ public final class DataMap {
         level_.setTm(new PointsShort());
         level_.setItems(new PointsString());
         level_.setLegendaryPks(new PointsWildPk());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         road_.setLevel(level_);
         addPlace(road_);
     }

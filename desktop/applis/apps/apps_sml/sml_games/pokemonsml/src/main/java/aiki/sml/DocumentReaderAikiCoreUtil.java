@@ -5629,29 +5629,51 @@ public final class DocumentReaderAikiCoreUtil {
         return Direction.getDirectionByName(_elt.getAttribute(DocumentReaderCoreUtil.VALUE));
     }
 
-    private static AreaApparition getAreaApparition(Element _element) {
+    private static AbsAreaApparition getAreaApparition(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        AreaApparition object_ = Instances.newAreaApparition();
+        AbsAreaApparition candidate_ = null;
         for (Element c: childElements_) {
-            getAreaApparition(object_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+            candidate_ = createAreaApparition(candidate_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
         }
-        return object_;
+        if (candidate_ == null) {
+            candidate_ = new MultAreaApparition();
+        }
+        for (Element c: childElements_) {
+            getAreaApparition(candidate_,c.getAttribute(DocumentReaderCoreUtil.FIELD),c);
+        }
+        return candidate_;
     }
 
-    private static void getAreaApparition(AreaApparition _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_WILD_POKEMON)) {
-            _object.setWildPokemon(getListWildPk(_element));
-            return;
+    private static AbsAreaApparition createAreaApparition(AbsAreaApparition _object, String _fieldName, Element _element) {
+        if (_object != null) {
+            return _object;
         }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_FIGHT)) {
+            AreaApparition ar_ = new AreaApparition();
+            ar_.setMultFight(DocumentReaderCoreUtil.getByte(_element));
+            return ar_;
+        }
+        return null;
+    }
+
+    private static void getAreaApparition(AbsAreaApparition _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_AVG_NB_STEPS)) {
             _object.setAvgNbSteps(DocumentReaderCoreUtil.getShort(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_FIGHT)) {
-            _object.setMultFight(DocumentReaderCoreUtil.getByte(_element));
+        if (_object instanceof AreaApparition) {
+            if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_WILD_POKEMON)) {
+                ((AreaApparition)_object).setWildPokemon(getListWildPk(_element));
+                return;
+            }
+            ((AreaApparition)_object).setWildPokemonFishing(getListWildPk(_element));
             return;
         }
-        _object.setWildPokemonFishing(getListWildPk(_element));
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_WILD_POKEMON)) {
+            _object.setWildPokemonList(getListListWildPk(_element));
+            return;
+        }
+        _object.setWildPokemonFishingList(getListListWildPk(_element));
     }
 
     private static Block getBlock(Element _element) {
@@ -6230,11 +6252,11 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    private static CustList<AreaApparition> getListAreaApparition(Element _elt) {
+    private static CustList<AbsAreaApparition> getListAreaApparition(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        CustList<AreaApparition> list_ = new CustList<AreaApparition>(cap_);
+        CustList<AbsAreaApparition> list_ = new CustList<AbsAreaApparition>(cap_);
         for (Element c: childElements_) {
             list_.add(getAreaApparition(c));
         }
@@ -6476,6 +6498,17 @@ public final class DocumentReaderAikiCoreUtil {
         TargetCoordsList list_ = new TargetCoordsList(cap_);
         for (Element c: childElements_) {
             list_.add(getTargetCoords(c));
+        }
+        return list_;
+    }
+
+    private static CustList<CustList<WildPk>> getListListWildPk(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        CollCapacity cap_ = new CollCapacity(len_);
+        CustList<CustList<WildPk>> list_ = new CustList<CustList<WildPk>>(cap_);
+        for (Element c: childElements_) {
+            list_.add(getListWildPk(c));
         }
         return list_;
     }

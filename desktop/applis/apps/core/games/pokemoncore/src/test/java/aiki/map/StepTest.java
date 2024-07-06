@@ -1,6 +1,7 @@
 package aiki.map;
 
 import aiki.db.EquallablePkUtil;
+import aiki.map.levels.*;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.*;
 import code.util.core.StringUtil;
@@ -13,13 +14,6 @@ import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.GymTrainer;
 import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelOutdoor;
-import aiki.map.levels.LevelRoad;
-import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
 import aiki.map.places.League;
@@ -89,7 +83,7 @@ public class StepTest extends EquallablePkUtil {
         level_.setItems(new PointsString());
         level_.setHm(new PointsShort());
         level_.setTm(new PointsShort());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)6,(short)3, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         road_.setLevel(level_);
@@ -107,7 +101,7 @@ public class StepTest extends EquallablePkUtil {
         level_.setItems(new PointsString());
         level_.setHm(new PointsShort());
         level_.setTm(new PointsShort());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         road_.setLevel(level_);

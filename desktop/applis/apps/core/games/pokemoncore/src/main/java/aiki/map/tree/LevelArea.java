@@ -1,10 +1,7 @@
 package aiki.map.tree;
 
 import aiki.fight.pokemon.GenderName;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.Level;
-import aiki.map.levels.LevelWithWildPokemon;
+import aiki.map.levels.*;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.WildPk;
 import aiki.map.tree.util.Dims;
@@ -60,7 +57,7 @@ public class LevelArea {
     private void listPk(Level _level) {
         pokemon = new CustList<CustList<GenderName>>();
         if (_level instanceof LevelWithWildPokemon) {
-            for (AreaApparition a : ((LevelWithWildPokemon) _level)
+            for (AbsAreaApparition a : ((LevelWithWildPokemon) _level)
                     .getWildPokemonAreas()) {
                 CustList<GenderName> list_ = new CustList<GenderName>();
                 for (WildPk p : a.getWildPokemon()) {

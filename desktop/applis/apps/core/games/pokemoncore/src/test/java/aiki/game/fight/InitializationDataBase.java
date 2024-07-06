@@ -12,6 +12,7 @@ import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.DataMap;
+import aiki.map.levels.AbsAreaApparition;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.enums.EnvironmentType;
@@ -1925,7 +1926,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         level_.setTm(new PointsShort());
         level_.setItems(new PointsString());
         level_.setLegendaryPks(new PointsWildPk());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         level_.setLinksOtherLevels(new PointsLink());
         _cave.getLevels().add(level_);
     }
