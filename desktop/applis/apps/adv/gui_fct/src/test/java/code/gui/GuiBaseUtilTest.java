@@ -4,6 +4,7 @@ import code.gui.events.*;
 import code.gui.files.ClosingFileFrameEvent;
 import code.gui.initialize.*;
 import code.mock.*;
+import code.sml.DocumentBuilder;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.ConcreteBoolean;
 import code.threads.ConcreteInteger;
@@ -650,6 +651,47 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void getStringTime2() {
         assertEq("10:10:10",GuiBaseUtil.getStringTime(10000000L*(1L+60L+60L*60L)));
+    }
+
+    @Test
+    public void interpretedFile1() {
+        MockProgramInfosSecSample init_ = init();
+        InterpretedFile i_ = new InterpretedFile(init_,new String[0]);
+        assertTrue(i_.getInput().isNul());
+    }
+
+    @Test
+    public void interpretedFile2() {
+        MockProgramInfosSecSample init_ = init();
+        init_.getStreams().getTextFact().write("/file", "<_/>", false);
+        InterpretedFile i_ = new InterpretedFile(init_,new String[]{"/file"});
+        assertFalse(i_.getInput().isNul());
+        assertEq("<_/>",i_.getText());
+        assertEq("<_/>",i_.getDocument().export());
+    }
+
+    @Test
+    public void interpretedFile3() {
+        MockProgramInfosSecSample init_ = init();
+        MockSoundRecord sr_ = new MockSoundRecord();
+        sr_.appendHeader();
+        sr_.append(new int[]{1});
+        init_.getStreams().getBinFact().writeFile("/file",sr_.recordSong());
+        InterpretedFile i_ = new InterpretedFile(init_,new String[]{"/file"});
+        assertFalse(i_.getInput().isNul());
+        assertEq(1,i_.getClipSimple().getMicrosecondLength());
+    }
+
+    @Test
+    public void interpretedFile4() {
+        MockProgramInfosSecSample init_ = init();
+        MockSoundRecord sr_ = new MockSoundRecord();
+        sr_.append(new int[]{'I','D','3'});
+        sr_.append(new int[]{1});
+        init_.getStreams().getBinFact().writeFile("/file",sr_.recordSong());
+        InterpretedFile i_ = new InterpretedFile(init_,new String[]{"/file"});
+        assertFalse(i_.getInput().isNul());
+        assertEq(1,i_.getClipMp3().getMicrosecondLength());
     }
 
     public static byte[] wrapInts(int... _files) {
