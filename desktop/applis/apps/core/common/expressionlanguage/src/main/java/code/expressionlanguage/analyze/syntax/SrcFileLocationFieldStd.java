@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.syntax;
 
-import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
 
@@ -13,13 +12,8 @@ public final class SrcFileLocationFieldStd extends SrcFileLocationField {
     }
 
     @Override
-    public FileBlock getFile() {
-        return null;
-    }
-
-    @Override
-    public int getIndex() {
-        return 0;
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(null,0);
     }
 
     @Override

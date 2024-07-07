@@ -29,6 +29,12 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         arrRef = _a;
     }
 
+    protected AbstractRefectMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, ArrayRefState _a, AbstractParamReflectCheckerStepping _abParam) {
+        super(_instance, _metaInfo, _preparer,false,_abParam);
+        callee = _metaInfo.getCallee();
+        arrRef = _a;
+    }
+
     ExecMemberCallingsBlock getCallee() {
         return callee;
     }

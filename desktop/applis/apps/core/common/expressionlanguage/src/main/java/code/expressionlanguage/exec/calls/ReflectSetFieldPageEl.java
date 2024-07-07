@@ -7,64 +7,42 @@ import code.expressionlanguage.exec.calls.util.IntParentRetriever;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.FieldMetaInfo;
-import code.expressionlanguage.structs.Struct;
 
 public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
 
-    private boolean initClass;
-    private final IntParentRetriever intParentRetriever;
-    private final FieldMetaInfo metaInfo;
+    private final ReflectFieldContent content;
 
     private final Argument last;
-    private final int ancestor;
 
     public ReflectSetFieldPageEl(IntParentRetriever _i, int _anc, Argument _last, FieldMetaInfo _metaInfo, boolean _lambda) {
-        super(_lambda);
-        intParentRetriever = _i;
-        ancestor = _anc;
-        last = _last;
+        this(new ReflectFieldContent(_i, _anc, _metaInfo),_last,_lambda);
         setGlobalArgumentStruct(_metaInfo);
-        metaInfo = _metaInfo;
+    }
+
+    public ReflectSetFieldPageEl(ReflectFieldContent _cont, Argument _last, boolean _lambda) {
+        super(_lambda, _cont);
+        last = _last;
+        content = _cont;
     }
 
     @Override
     Argument calculate(ContextEl _context, StackCall _stack) {
-        Argument arg_ = ExecFieldTemplates.setField(metaInfo, ArgumentListCall.toStr(intParentRetriever.getParent()), last, _context, _stack);
+        Argument arg_ = ExecFieldTemplates.setField(content.getMetaInfo(), ArgumentListCall.toStr(content.getIntParentRetriever().getParent()), last, _context, _stack);
         if (_context.callsOrException(_stack)) {
             return Argument.createVoid();
         }
         return arg_;
     }
 
-    @Override
-    boolean hasToExit(ContextEl _context, StackCall _stack) {
-        if (!initClass) {
-            initClass = true;
-            return metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock());
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean koParent(ContextEl _context, StackCall _stack) {
-        return !intParentRetriever.retrieve(_context, _stack);
-    }
-
-    public Struct getOriginalInstance() {
-        return intParentRetriever.getOriginalInstance();
-    }
-    public int getAncestor(){
-        return ancestor;
-    }
     public Argument getFirst() {
-        return ArgumentListCall.toStr(intParentRetriever.getParent());
+        return ArgumentListCall.toStr(content.getIntParentRetriever().getParent());
     }
 
     public Argument getLast() {
         return last;
     }
 
-    public FieldMetaInfo getMetaInfo() {
-        return metaInfo;
+    public ReflectFieldContent getContent() {
+        return content;
     }
 }

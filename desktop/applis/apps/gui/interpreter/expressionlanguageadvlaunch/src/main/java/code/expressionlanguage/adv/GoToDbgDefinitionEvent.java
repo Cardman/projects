@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.syntax.FileBlockCursor;
 import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.analyze.syntax.SrcFileLocation;
 import code.expressionlanguage.options.ResultContext;
@@ -27,11 +28,12 @@ public final class GoToDbgDefinitionEvent implements AbsActionListener {
         int caret_ = tabEditor.getCenter().getCaretPosition();
         CustList<SrcFileLocation> l_ = ResultExpressionOperationNode.locations(page_, relPath_, caret_);
         if (l_.size() == 1) {
-            FileBlock file_ = l_.get(0).getFile();
+            FileBlockCursor cursor_ = l_.get(0).cursor();
+            FileBlock file_ = cursor_.getFile();
             if (file_ == null) {
                 return;
             }
-            int index_ = l_.get(0).getIndex();
+            int index_ = cursor_.getIndex();
             new TabOpeningReadOnlyFile().openFile(debuggerGui,resultContext,file_.getFileName(),file_.getContent());
             int ind_ = debuggerGui.getTabbedPane().getSelectedIndex();
             ReadOnlyTabEditor tab_ = debuggerGui.getTabs().get(ind_);

@@ -33,7 +33,8 @@ public final class LookForCallersTask implements Runnable {
         CalleeToCaller parent_ = new CalleeToCaller(_r);
         for (SrcFileLocation s: _result.getUsages()) {
             CustList<FileBlockIndex> ave_ = new CustList<FileBlockIndex>();
-            ave_.add(new FileBlockIndex(s.getFile(),s.getIndex(),null,s));
+            FileBlockCursor cursor_ = s.cursor();
+            ave_.add(new FileBlockIndex(cursor_.getFile(), cursor_.getIndex(),null,s));
             MetaCaller m_ = new MetaCaller(null,s, ave_);
             current_.add(new CalleeToCaller(m_,parent_));
             roots_.add(m_);

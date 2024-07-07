@@ -5,12 +5,8 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public interface AccessedBlock extends ImportingBlock {
-    StringList getFileImports();
     FileBlock getFile();
     StringList getAllReservedInners();
     StringMap<MappingLocalType> getRefMappings();
-
-    int getAccessNb();
-
-    void setAccessNb(int _a);
+    AccessNbContent contentNb();
 }

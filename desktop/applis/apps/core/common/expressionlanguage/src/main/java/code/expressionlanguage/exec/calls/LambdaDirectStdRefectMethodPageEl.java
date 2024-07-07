@@ -14,23 +14,10 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
 
     private final MethodId methodId;
     public LambdaDirectStdRefectMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r, LambdaMethodStruct _lms) {
-        super(_array, _metaInfo, new DefPreparer(), _r, _lms);
+        super(_array, _metaInfo, new DefPreparer(), _r, _lms,new DefParamReflectCheckerStepping());
         methodId = _metaInfo.getRealId();
     }
 
-    @Override
-    protected boolean checkParams(ContextEl _context, StackCall _stack) {
-        if (getCheckedParams() == 0) {
-            setCheckedParams(1);
-            return _stack.getStopper().isStopAtExcMethod();
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean postArg(StackCall _stack) {
-        return postArgBase(_stack);
-    }
     @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
         return ParamCheckerUtil.callStd(_context.getExiting(), _context, new ClassMethodId(getClassName().getFormatted(),methodId), ArgumentListCall.toStr(getParent()), _list, _stack, getStdCallee());

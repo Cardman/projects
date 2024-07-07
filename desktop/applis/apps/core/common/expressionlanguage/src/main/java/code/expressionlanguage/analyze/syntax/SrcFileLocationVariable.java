@@ -17,26 +17,17 @@ public final class SrcFileLocationVariable extends AbsSrcFileLocation {
     }
 
     @Override
-    public FileBlock getFile() {
-        return file;
-    }
-
-    @Override
-    public String getFileName() {
-        return FileBlock.name(getFile());
-    }
-
-    @Override
-    public int getIndex() {
-        return index;
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(file,index);
     }
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
+        FileBlockCursor cursor_ = cursor();
         if (getDeep() < 0) {
-            return new RowSrcLocation(EnSrcLocation.VARIABLE,getName(),getFileName(),getIndex());
+            return new RowSrcLocation(EnSrcLocation.VARIABLE,getName(),FileBlock.name(cursor_.getFile()), cursor_.getIndex());
         }
-        return new RowSrcLocation(EnSrcLocation.VARIABLE,getDeep()+"/"+getName(),getFileName(),getIndex());
+        return new RowSrcLocation(EnSrcLocation.VARIABLE,getDeep()+"/"+getName(),FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 
     public int getDeep() {

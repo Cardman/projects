@@ -12,18 +12,8 @@ public final class SrcFileLocationCall extends AbsSrcFileLocation {
     }
 
     @Override
-    public String getFileName() {
-        return "";
-    }
-
-    @Override
-    public int getIndex() {
-        return 0;
-    }
-
-    @Override
-    public FileBlock getFile() {
-        return null;
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(null,0);
     }
 
     @Override
@@ -33,7 +23,8 @@ public final class SrcFileLocationCall extends AbsSrcFileLocation {
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
-        return new RowSrcLocation(EnSrcLocation.REF,getTypeRef(),getFileName(),getIndex());
+        FileBlockCursor cursor_ = cursor();
+        return new RowSrcLocation(EnSrcLocation.REF,getTypeRef(),FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 
     public String getTypeRef() {

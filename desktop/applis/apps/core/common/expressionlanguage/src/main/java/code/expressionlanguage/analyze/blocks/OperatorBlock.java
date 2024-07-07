@@ -18,8 +18,8 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
 
     private final Ints importsOffset = new Ints();
     private int operatorNumber;
-    private int accessNb;
-    private int accessMemNb;
+    private final AccessMemNbContent accessMemNb = new AccessMemNbContent();
+    private final AccessNbContent accessNb = new AccessNbContent();
 
     public OperatorBlock(ParsedFctHeader _header, OffsetStringInfo _retType, OffsetStringInfo _fctName,
                          int _offset) {
@@ -67,12 +67,8 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     }
 
     @Override
-    public int getAccessNb() {
+    public AccessNbContent contentNb() {
         return accessNb;
-    }
-
-    public void setAccessNb(int _a) {
-        this.accessNb = _a;
     }
 
     @Override
@@ -84,23 +80,13 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
         return imports;
     }
 
-    @Override
-    public StringList getFileImports() {
-        return getFile().getImports();
-    }
-
     public Ints getImportsOffset() {
         return importsOffset;
     }
 
     @Override
-    public int getAccessMemNb() {
+    public AccessMemNbContent contentMemNb() {
         return accessMemNb;
-    }
-
-    @Override
-    public void setAccessMemNb(int _a) {
-        this.accessMemNb = _a;
     }
 
     public int getOperatorNumber() {

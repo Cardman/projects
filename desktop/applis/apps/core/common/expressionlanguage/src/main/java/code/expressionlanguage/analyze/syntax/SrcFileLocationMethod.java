@@ -13,39 +13,33 @@ public final class SrcFileLocationMethod extends AbsSrcFileLocation {
     }
 
     @Override
-    public FileBlock getFile() {
-        return getMethod().getFile();
-    }
-
-    @Override
-    public String getFileName() {
-        return FileBlock.name(getFile());
-    }
-
-    @Override
-    public int getIndex() {
+    public FileBlockCursor cursor() {
+        int index_;
         MemberCallingsBlock m_ = getMethod();
         if (m_ instanceof NamedFunctionBlock) {
-            return ((NamedFunctionBlock)m_).getNameOffset();
+            index_ = ((NamedFunctionBlock)m_).getNameOffset();
+        } else {
+            index_ = m_.getOffset();
         }
-        return m_.getOffset();
+        return new FileBlockCursor(getMethod().getFile(),index_);
     }
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
         MemberCallingsBlock m_ = getMethod();
         AccessedBlock acc_ = MemberCallingsBlock.accessed(m_);
+        FileBlockCursor cursor_ = cursor();
         if (acc_ instanceof RootBlock) {
-            return new RowSrcLocation(EnSrcLocation.METHOD,((RootBlock)acc_).getFullName()+"."+ m_.getSignature(_dis), getFileName(),getIndex());
+            return new RowSrcLocation(EnSrcLocation.METHOD,((RootBlock)acc_).getFullName()+"."+ m_.getSignature(_dis), FileBlock.name(cursor_.getFile()), cursor_.getIndex());
         }
         if (acc_ instanceof OperatorBlock) {
-            return new RowSrcLocation(EnSrcLocation.METHOD,((OperatorBlock)acc_).getSignature(_dis)+"."+ m_.getSignature(_dis), getFileName(),getIndex());
+            return new RowSrcLocation(EnSrcLocation.METHOD,((OperatorBlock)acc_).getSignature(_dis)+"."+ m_.getSignature(_dis), FileBlock.name(cursor_.getFile()), cursor_.getIndex());
         }
         BracedBlock o_ = getOwner();
         if (o_ instanceof RootBlock) {
-            return new RowSrcLocation(EnSrcLocation.METHOD,((RootBlock) o_).getFullName()+"."+ m_.getSignature(_dis), getFileName(),getIndex());
+            return new RowSrcLocation(EnSrcLocation.METHOD,((RootBlock) o_).getFullName()+"."+ m_.getSignature(_dis), FileBlock.name(cursor_.getFile()), cursor_.getIndex());
         }
-        return new RowSrcLocation(EnSrcLocation.METHOD, m_.getSignature(_dis), getFileName(),getIndex());
+        return new RowSrcLocation(EnSrcLocation.METHOD, m_.getSignature(_dis), FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 
     public BracedBlock getOwner() {

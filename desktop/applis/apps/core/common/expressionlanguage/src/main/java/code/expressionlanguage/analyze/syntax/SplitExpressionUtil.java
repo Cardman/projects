@@ -94,7 +94,7 @@ public final class SplitExpressionUtil {
             _page.getCountElts().setCountOut(ne_);
             return ne_;
         }
-        int index_ = _operator.getAccessNb();
+        int index_ = _operator.contentNb().getAccessNb();
         long old_ = _page.getCountElts().getCountAnon().get(index_);
         long ne_ = old_ + 1;
         _page.getCountElts().getCountAnon().set(index_,ne_);
@@ -174,7 +174,7 @@ public final class SplitExpressionUtil {
             } else {
                 if (_a instanceof AccessedBlockMembers) {
                     _current.setAccessedBlock(_a);
-                    _page.getCountElts().getLocalTypes().get(((AccessedBlockMembers)_a).getAccessMemNb()).add(_current);
+                    _page.getCountElts().getLocalTypes().get(((AccessedBlockMembers)_a).contentMemNb().getAccessMemNb()).add(_current);
                 } else {
                     String s_ = _current.getName();
                     ClassesUtil.incre(_current,_page.getCountElts().getCountLocalType(),s_,"+");
@@ -508,7 +508,7 @@ public final class SplitExpressionUtil {
         }
         if (type_ instanceof AnonymousTypeBlock) {
             if (_op instanceof AccessedBlockMembers) {
-                _page.getCountElts().getAnonTypes().get(((AccessedBlockMembers)_op).getAccessMemNb()).add((AnonymousTypeBlock)type_);
+                _page.getCountElts().getAnonTypes().get(((AccessedBlockMembers)_op).contentMemNb().getAccessMemNb()).add((AnonymousTypeBlock)type_);
             }
             _int.getAnonymousTypes().add((AnonymousTypeBlock)type_);
         }

@@ -343,7 +343,7 @@ public final class FileResolver {
 
     public static void postInst(AnaBlockCounts _countAnon, AbsBk _created) {
         if (_created instanceof AccessedBlock) {
-            ((AccessedBlock) _created).setAccessNb(_countAnon.getCountAnon().size());
+            ((AccessedBlock) _created).contentNb().setAccessNb(_countAnon.getCountAnon().size());
             _countAnon.getCountAnon().add(0L);
         }
         if (_created instanceof AccessedFct) {
@@ -351,7 +351,7 @@ public final class FileResolver {
             _countAnon.getAnonElts().add(new AnonymousElementsFct());
         }
         if (_created instanceof AccessedBlockMembers) {
-            ((AccessedBlockMembers) _created).setAccessMemNb(_countAnon.getAnonTypes().size());
+            ((AccessedBlockMembers) _created).contentMemNb().setAccessMemNb(_countAnon.getAnonTypes().size());
             _countAnon.getAnonTypes().add(new CustList<AnonymousTypeBlock>());
             _countAnon.getLocalTypes().add(new CustList<RootBlock>());
         }

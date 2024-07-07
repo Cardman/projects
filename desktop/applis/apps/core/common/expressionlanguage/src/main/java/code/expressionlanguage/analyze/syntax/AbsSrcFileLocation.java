@@ -3,6 +3,8 @@ package code.expressionlanguage.analyze.syntax;
 public abstract class AbsSrcFileLocation implements SrcFileLocation {
     @Override
     public boolean match(SrcFileLocation _o){
-        return getFile() == _o.getFile() && getIndex() == _o.getIndex();
+        FileBlockCursor current_ = cursor();
+        FileBlockCursor other_ = _o.cursor();
+        return current_.getFile() == other_.getFile() && current_.getIndex() == other_.getIndex();
     }
 }

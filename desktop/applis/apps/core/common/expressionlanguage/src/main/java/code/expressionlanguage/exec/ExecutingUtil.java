@@ -307,11 +307,11 @@ public final class ExecutingUtil {
         } else if (reflect_ == ReflectingType.STD_FCT) {
             refMet_ = new DirectStdRefectMethodPageEl(instance_, metaInfo_, a_);
         } else if (reflect_ == ReflectingType.CLONE_FCT) {
-            refMet_ = new DirectCloneRefectMethodPageEl(instance_, metaInfo_, a_);
+            refMet_ = new DirectCallRefectMethodPageEl(instance_, metaInfo_, a_, new CloneQuickCall());
         } else if (reflect_ == ReflectingType.ENUM_METHODS) {
             refMet_ = new DirectEnumMethods(instance_, metaInfo_, a_);
         } else {
-            refMet_ = new DirectAnnotationRefectMethodPageEl(instance_, metaInfo_, a_);
+            refMet_ = new DirectCallRefectMethodPageEl(instance_, metaInfo_, a_, new AnnotationsQuickCall());
         }
         pageLoc_ = refMet_;
         return pageLoc_;

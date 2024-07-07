@@ -14,22 +14,13 @@ public final class SrcFileLocationAnnotationMember extends AbsSrcFileLocation {
     }
 
     @Override
-    public String getFileName() {
-        return getFile().getFileName();
-    }
-
-    @Override
-    public int getIndex() {
-        return expression.getIndex();
-    }
-
-    @Override
-    public FileBlock getFile() {
-        return file;
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(file,expression.getIndex());
     }
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
-        return new RowSrcLocation(EnSrcLocation.ANNOTATION,expression.getAnnotation(),getFileName(),getIndex());
+        FileBlockCursor cursor_ = cursor();
+        return new RowSrcLocation(EnSrcLocation.ANNOTATION,expression.getAnnotation(),FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 }

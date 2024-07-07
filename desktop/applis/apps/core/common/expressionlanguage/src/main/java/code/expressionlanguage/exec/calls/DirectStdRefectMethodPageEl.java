@@ -13,22 +13,9 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 public final class DirectStdRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     public DirectStdRefectMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, ArrayRefState _a) {
-        super(_instance, _metaInfo, new DefPreparer(), _a);
+        super(_instance, _metaInfo, new DefPreparer(), _a, new DefParamReflectCheckerStepping());
     }
 
-    @Override
-    protected boolean postArg(StackCall _stack) {
-        return postArgBase(_stack);
-    }
-
-    @Override
-    protected boolean checkParams(ContextEl _context, StackCall _stack) {
-        if (getCheckedParams() == 0) {
-            setCheckedParams(1);
-            return _stack.getStopper().isStopAtExcMethod();
-        }
-        return false;
-    }
     @Override
     Argument prepare(ContextEl _context, ArrayRefState _args, Argument _right, StackCall _stack) {
         MethodId mid_ = getMetaInfo().getRealId();

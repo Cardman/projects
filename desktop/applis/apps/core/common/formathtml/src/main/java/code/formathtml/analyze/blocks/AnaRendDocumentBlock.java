@@ -32,8 +32,8 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private final IntTreeMap<Integer> escapedChar;
     private MethodAccessKind accessKind;
     private AnaFormattedRootBlock declClass = AnaFormattedRootBlock.defValue();
-    private int accessNb;
-    private int accessMemNb;
+    private final AccessNbContent accessNb = new AccessNbContent();
+    private final AccessMemNbContent accessMemNb = new AccessMemNbContent();
 
     public AnaRendDocumentBlock(Element _elt, int _offset, AdvFileEscapedCalc _e, FileBlock _fileBl) {
         super(_offset);
@@ -165,22 +165,13 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     @Override
-    public int getAccessNb() {
-        return accessNb;
-    }
-
-    public void setAccessNb(int _a) {
-        this.accessNb = _a;
-    }
-
-    @Override
-    public int getAccessMemNb() {
+    public AccessMemNbContent contentMemNb() {
         return accessMemNb;
     }
 
     @Override
-    public void setAccessMemNb(int _a) {
-        this.accessMemNb = _a;
+    public AccessNbContent contentNb() {
+        return accessNb;
     }
 
     @Override
@@ -195,11 +186,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     @Override
     public FileBlock getFile() {
         return fileBlock;
-    }
-
-    @Override
-    public StringList getFileImports() {
-        return getImports();
     }
 
     @Override

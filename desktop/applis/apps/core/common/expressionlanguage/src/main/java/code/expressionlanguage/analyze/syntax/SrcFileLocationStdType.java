@@ -14,22 +14,12 @@ public final class SrcFileLocationStdType extends AbsSrcFileLocationType  {
     }
 
     @Override
-    public FileBlock getFile() {
-        return null;
-    }
-
-    @Override
-    public String getFileName() {
-        return "";
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(null,0);
     }
 
     public String getType() {
         return type;
-    }
-
-    @Override
-    public int getIndex() {
-        return 0;
     }
 
     @Override
@@ -39,6 +29,7 @@ public final class SrcFileLocationStdType extends AbsSrcFileLocationType  {
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
-        return new RowSrcLocation(EnSrcLocation.STD_TYPE,getType(),getFileName(),getIndex());
+        FileBlockCursor cursor_ = cursor();
+        return new RowSrcLocation(EnSrcLocation.STD_TYPE,getType(),FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 }

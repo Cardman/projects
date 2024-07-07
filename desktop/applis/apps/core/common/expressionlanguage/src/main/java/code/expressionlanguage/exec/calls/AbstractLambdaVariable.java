@@ -10,19 +10,26 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
     private boolean checkField;
     private boolean checkingParent;
     private boolean exiting;
+    private final AbstractInitClass initClass;
 
-    protected AbstractLambdaVariable(boolean _lambda) {
+    protected AbstractLambdaVariable(boolean _lambda, AbstractInitClass _init) {
         super(_lambda);
+        initClass = _init;
+    }
+
+    protected AbstractLambdaVariable(boolean _lambda, ReflectFieldContent _init) {
+        super(_lambda);
+        initClass = new FieldInitClass(_init);
     }
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         setWrapException(false);
-        if (hasToExit(_context, _stack)) {
+        if (initClass.hasToExit(this,_context, _stack)) {
             possibleWrap(_stack);
             return false;
         }
         checkingParent = true;
-        if (koParent(_context, _stack)) {
+        if (initClass.koParent(this,_context, _stack)) {
             checkingParent = _stack.trueException() == null;
             return false;
         }
@@ -61,8 +68,6 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         return true;
     }
 
-    protected abstract boolean koParent(ContextEl _context, StackCall _stack);
-
     private void possibleWrap(StackCall _stack) {
         setWrapException(_stack.calls());
     }
@@ -79,7 +84,6 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         return checkingParent;
     }
 
-    abstract boolean hasToExit(ContextEl _context, StackCall _stack);
     abstract Argument calculate(ContextEl _context, StackCall _stack);
 
 }

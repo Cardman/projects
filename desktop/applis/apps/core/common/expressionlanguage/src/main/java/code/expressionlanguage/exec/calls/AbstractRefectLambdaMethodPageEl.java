@@ -29,6 +29,12 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         ref = _r;
     }
 
+    protected AbstractRefectLambdaMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, int _r, LambdaMethodStruct _lms,AbstractParamReflectCheckerStepping _a) {
+        super(_lms.getInstanceCall(), _metaInfo, _preparer,true, _a);
+        methodLambdaParentRetriever = new MethodLambdaParentRetriever(_array,_lms);
+        ref = _r;
+    }
+
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         entered = true;
         if (!methodLambdaParentRetriever.retrieve(_context, _stack)) {

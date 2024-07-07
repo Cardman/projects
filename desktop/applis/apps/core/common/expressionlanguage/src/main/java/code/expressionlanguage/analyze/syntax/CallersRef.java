@@ -371,7 +371,8 @@ public final class CallersRef {
             NamedCalledFunctionBlock redef_ = e.getKey();
             SrcFileLocationMethod caller_ = new SrcFileLocationMethod(redef_.getParent(), redef_);
             for (GeneStringOverridable g: e.getValue().values()) {
-                addIfMatch(new SrcFileLocationMethod(g.getType(),g.getBlock()),caller_,caller_.getFile(),caller_.getIndex(), out_, _piano);
+                FileBlockCursor cursor_ = caller_.cursor();
+                addIfMatch(new SrcFileLocationMethod(g.getType(),g.getBlock()),caller_, cursor_.getFile(), cursor_.getIndex(), out_, _piano);
             }
         }
         return out_;
@@ -386,7 +387,8 @@ public final class CallersRef {
                 if (s.match(caller_)) {
                     for (GeneStringOverridable g: e.getValue().values()) {
                         SrcFileLocationMethod c_ = new SrcFileLocationMethod(g.getType(), g.getBlock());
-                        FileBlockIndex location_ = new FileBlockIndex(caller_.getFile(),caller_.getIndex(),caller_, c_);
+                        FileBlockCursor cursor_ = caller_.cursor();
+                        FileBlockIndex location_ = new FileBlockIndex(cursor_.getFile(), cursor_.getIndex(),caller_, c_);
                         merge(out_,c_,location_);
                     }
                 }
@@ -821,7 +823,7 @@ public final class CallersRef {
         if (!_added.isEmpty()) {
             return;
         }
-        addIfMatch(_inf,_c.getCaller(),_inf.getFile(),_inf.begin(),variableDeclaringInferred,_piano);
+        addIfMatch(_inf,_c.getCaller(),_inf.cursor().getFile(),_inf.begin(),variableDeclaringInferred,_piano);
     }
     private void typesFound(ResultExpressionBlockOperation _c, CustList<SrcFileLocation> _piano) {
         OperationNode o_ = _c.getBlock();

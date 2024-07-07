@@ -12,25 +12,11 @@ import code.expressionlanguage.structs.NullStruct;
 public final class LambdaDirectRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
     public LambdaDirectRefectMethodPageEl(ArgumentListCall _array, MethodMetaInfo _metaInfo, int _r, LambdaMethodStruct _lms) {
-        super(_array, _metaInfo, new DefInitPreparerAbs(_metaInfo), _r, _lms);
+        super(_array, _metaInfo, new DefInitPreparerAbs(_metaInfo), _r, _lms, new DefParamReflectCheckerStepping());
     }
 
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
         new MethodParamChecker(getPair(), _list, getAccessKind()).checkParams(getClassName(), ArgumentListCall.toStr(getParent()), getMetaInfo().getCache(), _context, _stack);
         return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
-    }
-
-    @Override
-    protected boolean postArg(StackCall _stack) {
-        return postArgBase(_stack);
-    }
-
-    @Override
-    protected boolean checkParams(ContextEl _context, StackCall _stack) {
-        if (getCheckedParams() == 0) {
-            setCheckedParams(1);
-            return _stack.getStopper().isStopAtExcMethod();
-        }
-        return false;
     }
 }

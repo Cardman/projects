@@ -728,10 +728,10 @@ public final class AnalyzedPageEl {
                     importingTypes.add(operator_.getImports());
                 }
             }
-            importingTypes.add(r_.getFileImports());
+            importingTypes.add(r_.getFile().getImports());
         } else {
             importingTypes.add(_importingTypes.getImports());
-            importingTypes.add(_importingTypes.getFileImports());
+            importingTypes.add(_importingTypes.getFile().getImports());
         }
     }
 

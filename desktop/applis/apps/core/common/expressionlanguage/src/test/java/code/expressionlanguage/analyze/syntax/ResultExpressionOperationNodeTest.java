@@ -1239,8 +1239,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",60);
         assertEq(1,r_.size());
-        assertEq(93,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(93, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
 
     @Test
@@ -1274,8 +1274,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",81);
         assertEq(1,r_.size());
-        assertEq(0,r_.get(0).getIndex());
-        assertEq("",r_.get(0).getFileName());
+        assertEq(0, index(r_.get(0)));
+        assertEq("", fileName(r_.get(0)));
         assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
     }
 
@@ -1293,8 +1293,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",79);
         assertEq(1,r_.size());
-        assertEq(0,r_.get(0).getIndex());
-        assertEq("",r_.get(0).getFileName());
+        assertEq(0, index(r_.get(0)));
+        assertEq("", fileName(r_.get(0)));
         assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
     }
     @Test
@@ -1312,8 +1312,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",60);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations6() {
@@ -1330,8 +1330,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",84);
         assertEq(1,r_.size());
-        assertEq(25,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(25, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq("T",((SrcFileLocationTypeVar)r_.get(0)).getName());
     }
     @Test
@@ -1349,9 +1349,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",84);
         assertEq(1,r_.size());
-        assertEq(0,r_.get(0).getIndex());
-        assertEq("",r_.get(0).getFileName());
-        assertEq(-1, FileBlock.number(r_.get(0).getFile()));
+        assertEq(0, index(r_.get(0)));
+        assertEq("", fileName(r_.get(0)));
+        assertEq(-1, FileBlock.number(file(r_.get(0))));
         assertEq("java.lang.String",((SrcFileLocationStdType)r_.get(0)).getType());
     }
     @Test
@@ -1375,8 +1375,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",105);
         assertEq(1,r_.size());
-        assertEq(26,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(26, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("T",((SrcFileLocationTypeVar)r_.get(0)).getName());
     }
     @Test
@@ -1392,8 +1392,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",74);
         assertEq(1,r_.size());
-        assertEq(0,r_.get(0).getIndex());
-        assertEq("",r_.get(0).getFileName());
+        assertEq(0, index(r_.get(0)));
+        assertEq("", fileName(r_.get(0)));
         assertEq("java.lang.$enums",((SrcFileLocationStdType)r_.get(0)).getType());
     }
     @Test
@@ -1445,8 +1445,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",91);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations13() {
@@ -1467,8 +1467,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",103);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations14() {
@@ -1489,8 +1489,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",96);
         assertEq(1,r_.size());
-        assertEq(25,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(25, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq("T",((SrcFileLocationTypeVar)r_.get(0)).getName());
     }
     @Test
@@ -1512,8 +1512,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",108);
         assertEq(1,r_.size());
-        assertEq(25,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(25, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq("T",((SrcFileLocationTypeVar)r_.get(0)).getName());
     }
     @Test
@@ -1531,8 +1531,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",78);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations17() {
@@ -1550,8 +1550,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",33);
         assertEq(1,r_.size());
-        assertEq(89,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(89, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations18() {
@@ -1569,8 +1569,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",46);
         assertEq(1,r_.size());
-        assertEq(97,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(97, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations19() {
@@ -1590,8 +1590,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",80);
         assertEq(1,r_.size());
-        assertEq(132,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(132, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations20() {
@@ -1610,10 +1610,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",62);
         assertEq(2,r_.size());
-        assertEq(108, r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
-        assertEq(96, r_.get(97-96).getIndex());
-        assertEq("pkg/Ex",r_.get(97-96).getFileName());
+        assertEq(108, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
+        assertEq(96, index(r_.get(97-96)));
+        assertEq("pkg/Ex", fileName(r_.get(97-96)));
     }
     @Test
     public void locations21() {
@@ -1630,8 +1630,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",62);
         assertEq(1,r_.size());
-        assertEq(109-12,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(109-12, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations22() {
@@ -1660,9 +1660,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",62);
         assertEq(1,r_.size());
-        assertEq(0,r_.get(0).getIndex());
-        assertEq("",r_.get(0).getFileName());
-        assertEq(-1, FileBlock.number(r_.get(0).getFile()));
+        assertEq(0, index(r_.get(0)));
+        assertEq("", fileName(r_.get(0)));
+        assertEq(-1, FileBlock.number(file(r_.get(0))));
         assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
     }
     @Test
@@ -1679,10 +1679,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",26);
         assertEq(2,r_.size());
-        assertEq(42,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
-        assertEq(14,r_.get(1).getIndex());
-        assertEq("pkg/Ex",r_.get(1).getFileName());
+        assertEq(42, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
+        assertEq(14, index(r_.get(1)));
+        assertEq("pkg/Ex", fileName(r_.get(1)));
     }
     @Test
     public void locations25() {
@@ -1701,8 +1701,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",27);
         assertEq(1,r_.size());
-        assertEq(83,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(83, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations26() {
@@ -1741,8 +1741,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",33);
         assertEq(1,r_.size());
-        assertEq(104,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(104, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations28() {
@@ -1759,11 +1759,12 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",74);
         assertEq(2,r_.size());
-        assertEq(81,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
-        assertEq(79,r_.get(1).getIndex());
-        assertEq("pkg/Ex",r_.get(1).getFileName());
+        assertEq(81, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
+        assertEq(79, index(r_.get(1)));
+        assertEq("pkg/Ex", fileName(r_.get(1)));
     }
+
     @Test
     public void locations29() {
         StringMap<String> files_ = new StringMap<String>();
@@ -1782,8 +1783,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",78);
         assertEq(1,r_.size());
-        assertEq(130,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(130, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations30() {
@@ -1803,8 +1804,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",78);
         assertEq(1,r_.size());
-        assertEq(126,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(126, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations31() {
@@ -1824,8 +1825,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",82);
         assertEq(1,r_.size());
-        assertEq(145,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(145, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations32() {
@@ -1845,8 +1846,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",82);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations33() {
@@ -1866,8 +1867,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",106);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations34() {
@@ -1884,10 +1885,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",68);
         assertEq(2,r_.size());
-        assertEq(81,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
-        assertEq(79,r_.get(1).getIndex());
-        assertEq("pkg/Ex",r_.get(1).getFileName());
+        assertEq(81, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
+        assertEq(79, index(r_.get(1)));
+        assertEq("pkg/Ex", fileName(r_.get(1)));
     }
     @Test
     public void locations35() {
@@ -1903,8 +1904,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",58);
         assertEq(1,r_.size());
-        assertEq(58,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(58, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations36() {
@@ -1920,8 +1921,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",64);
         assertEq(1,r_.size());
-        assertEq(26,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(26, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations37() {
@@ -1937,8 +1938,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",78);
         assertEq(1,r_.size());
-        assertEq(31,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(31, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations38() {
@@ -1954,8 +1955,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",92);
         assertEq(1,r_.size());
-        assertEq(92,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(92, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations39() {
@@ -1971,8 +1972,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",98);
         assertEq(1,r_.size());
-        assertEq(58,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(58, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations40() {
@@ -1988,8 +1989,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",26);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations41() {
@@ -2005,8 +2006,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",31);
         assertEq(1,r_.size());
-        assertEq(31,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(31, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations42() {
@@ -2044,8 +2045,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",71);
         assertEq(1,r_.size());
-        assertEq(58,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(58, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq("pkg.Outer",((SrcFileLocationField)r_.get(0)).getCf().getClassName());
         assertEq("THREE",((SrcFileLocationField)r_.get(0)).getCf().getFieldName());
     }
@@ -2070,8 +2071,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",84);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations45() {
@@ -2093,8 +2094,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",84);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations46() {
@@ -2116,8 +2117,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",80);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations47() {
@@ -2158,8 +2159,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",91);
         assertEq(1,r_.size());
-        assertEq(71,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(71, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("i",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -2181,8 +2182,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",129);
         assertEq(1,r_.size());
-        assertEq(71,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(71, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq(0,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("i",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -2227,8 +2228,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",45);
         assertEq(1,r_.size());
-        assertEq(45,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(45, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("a",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -2252,8 +2253,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",51);
         assertEq(1,r_.size());
-        assertEq(45,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(45, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("a",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -2277,8 +2278,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",78);
         assertEq(1,r_.size());
-        assertEq(45,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(45, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq(0,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("a",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -2302,8 +2303,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",55);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations55() {
@@ -2325,8 +2326,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",54);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations56() {
@@ -2348,8 +2349,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",73);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations57() {
@@ -2392,8 +2393,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",40);
         assertEq(1,r_.size());
-        assertEq(27,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(27, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("pkg.Outer2",((SrcFileLocationField)r_.get(0)).getCf().getClassName());
         assertEq("ONE",((SrcFileLocationField)r_.get(0)).getCf().getFieldName());
     }
@@ -2417,8 +2418,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",40);
         assertEq(1,r_.size());
-        assertEq(40,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(40, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations60() {
@@ -2445,8 +2446,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",59);
         assertEq(1,r_.size());
-        assertEq(19,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(19, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations61() {
@@ -2473,8 +2474,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",66);
         assertEq(1,r_.size());
-        assertEq(37,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(37, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
         assertEq("pkg.Outer3",((SrcFileLocationField)r_.get(0)).getCf().getClassName());
         assertEq("field",((SrcFileLocationField)r_.get(0)).getCf().getFieldName());
     }
@@ -2529,8 +2530,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",48);
         assertEq(1,r_.size());
-        assertEq(16,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(16, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations64() {
@@ -2558,8 +2559,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",51);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations65() {
@@ -2587,8 +2588,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",57);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
     }
     @Test
     public void locations66() {
@@ -2616,8 +2617,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",49);
         assertEq(1,r_.size());
-        assertEq(48,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(48, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations67() {
@@ -2645,8 +2646,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",51);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations68() {
@@ -2674,8 +2675,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",51);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations69() {
@@ -2697,8 +2698,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",56);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations70() {
@@ -2720,8 +2721,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",67);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations71() {
@@ -2744,8 +2745,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",47);
         assertEq(1,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations72() {
@@ -2790,8 +2791,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",48);
         assertEq(1,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations74() {
@@ -2814,8 +2815,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",57);
         assertEq(1,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations75() {
@@ -2843,8 +2844,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",57);
         assertEq(1,r_.size());
-        assertEq(132,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(132, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("w",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -2874,8 +2875,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",53);
         assertEq(1,r_.size());
-        assertEq(125,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(125, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("v",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -2904,8 +2905,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",58);
         assertEq(1,r_.size());
-        assertEq(37,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(37, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations78() {
@@ -2932,8 +2933,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",51);
         assertEq(1,r_.size());
-        assertEq(19,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(19, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations79() {
@@ -2985,8 +2986,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",39);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations81() {
@@ -3012,8 +3013,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",46);
         assertEq(1,r_.size());
-        assertEq(20,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(20, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
     }
     @Test
     public void locations82() {
@@ -3039,8 +3040,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",53);
         assertEq(1,r_.size());
-        assertEq(20,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(20, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations83() {
@@ -3066,8 +3067,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",87);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations84() {
@@ -3090,8 +3091,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",56);
         assertEq(1,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations85() {
@@ -3114,8 +3115,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",56);
         assertEq(1,r_.size());
-        assertEq(88,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(88, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations86() {
@@ -3139,10 +3140,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",56);
         assertEq(2,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
-        assertEq(154,r_.get(1).getIndex());
-        assertEq("pkg/Ex",r_.get(1).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
+        assertEq(154, index(r_.get(1)));
+        assertEq("pkg/Ex", fileName(r_.get(1)));
     }
     @Test
     public void locations87() {
@@ -3165,8 +3166,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",49);
         assertEq(1,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations88() {
@@ -3189,8 +3190,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",48);
         assertEq(1,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations89() {
@@ -3213,8 +3214,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",60);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations90() {
@@ -3241,10 +3242,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",52);
         assertEq(2,r_.size());
-        assertEq(73,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
-        assertEq(105,r_.get(1).getIndex());
-        assertEq("pkg/Ex",r_.get(1).getFileName());
+        assertEq(73, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
+        assertEq(105, index(r_.get(1)));
+        assertEq("pkg/Ex", fileName(r_.get(1)));
     }
     @Test
     public void locations91() {
@@ -3271,8 +3272,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",55);
         assertEq(1,r_.size());
-        assertEq(19,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(19, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations92() {
@@ -3300,10 +3301,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",43);
         assertEq(2,r_.size());
-        assertEq(54,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
-        assertEq(15,r_.get(1).getIndex());
-        assertEq("pkg/Ex",r_.get(1).getFileName());
+        assertEq(54, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
+        assertEq(15, index(r_.get(1)));
+        assertEq("pkg/Ex", fileName(r_.get(1)));
     }
     @Test
     public void locations93() {
@@ -3331,8 +3332,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",45);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations94() {
@@ -3360,8 +3361,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",45);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations95() {
@@ -3384,8 +3385,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",52);
         assertEq(1,r_.size());
-        assertEq(88,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(88, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations96() {
@@ -3408,10 +3409,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",53);
         assertEq(2,r_.size());
-        assertEq(26,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
-        assertEq(88,r_.get(1).getIndex());
-        assertEq("pkg/Ex",r_.get(1).getFileName());
+        assertEq(26, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
+        assertEq(88, index(r_.get(1)));
+        assertEq("pkg/Ex", fileName(r_.get(1)));
     }
     @Test
     public void locations97() {
@@ -3434,8 +3435,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",65);
         assertEq(1,r_.size());
-        assertEq(65,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(65, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("label",((SrcFileLocationLabel)r_.get(0)).getLabel());
     }
     @Test
@@ -3459,8 +3460,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",50);
         assertEq(1,r_.size());
-        assertEq(26,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(26, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations99() {
@@ -3483,8 +3484,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",40);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations100() {
@@ -3529,8 +3530,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",45);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations102() {
@@ -3553,8 +3554,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",51);
         assertEq(1,r_.size());
-        assertEq(51,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(51, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("o",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -3579,8 +3580,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",45);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations104() {
@@ -3603,8 +3604,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",51);
         assertEq(1,r_.size());
-        assertEq(51,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(51, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("o",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -3629,8 +3630,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",60);
         assertEq(1,r_.size());
-        assertEq(60,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(60, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("p",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -3655,8 +3656,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",45);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations107() {
@@ -3679,8 +3680,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",53);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
     }
     @Test
     public void locations108() {
@@ -3703,8 +3704,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",74);
         assertEq(1,r_.size());
-        assertEq(74,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(74, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("v",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -3729,8 +3730,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",68);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations110() {
@@ -3753,8 +3754,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",71);
         assertEq(1,r_.size());
-        assertEq(71,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(71, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("v",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -3801,8 +3802,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",58);
         assertEq(1,r_.size());
-        assertEq(48,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(48, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("label",((SrcFileLocationLabel)r_.get(0)).getLabel());
     }
     @Test
@@ -3826,8 +3827,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",58);
         assertEq(1,r_.size());
-        assertEq(48,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(48, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("label",((SrcFileLocationLabel)r_.get(0)).getLabel());
     }
     @Test
@@ -3851,8 +3852,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",58);
         assertEq(1,r_.size());
-        assertEq(48,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(48, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("",((SrcFileLocationLabel)r_.get(0)).getLabel());
     }
     @Test
@@ -3876,8 +3877,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",58);
         assertEq(1,r_.size());
-        assertEq(48,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(48, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("",((SrcFileLocationLabel)r_.get(0)).getLabel());
     }
     @Test
@@ -3902,8 +3903,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",39);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations117() {
@@ -3952,8 +3953,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",25);
         assertEq(1,r_.size());
-        assertEq(25,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(25, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("T",((SrcFileLocationTypeVar)r_.get(0)).getName());
     }
     @Test
@@ -3981,8 +3982,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",27);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations120() {
@@ -4009,8 +4010,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",14);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
     }
     @Test
     public void locations121() {
@@ -4037,8 +4038,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",90);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations122() {
@@ -4066,8 +4067,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",29);
         assertEq(1,r_.size());
-        assertEq(14,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(14, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations123() {
@@ -4095,8 +4096,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",35);
         assertEq(1,r_.size());
-        assertEq(35,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(35, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("p",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -4126,8 +4127,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",52);
         assertEq(1,r_.size());
-        assertEq(34,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(34, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations125() {
@@ -4156,8 +4157,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",40);
         assertEq(1,r_.size());
-        assertEq(68,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(68, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations126() {
@@ -4185,8 +4186,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",34);
         assertEq(1,r_.size());
-        assertEq(34,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(34, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations127() {
@@ -4214,8 +4215,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",35);
         assertEq(1,r_.size());
-        assertEq(34,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(34, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations128() {
@@ -4243,8 +4244,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex3",28);
         assertEq(1,r_.size());
-        assertEq(28,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(28, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations129() {
@@ -4267,8 +4268,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",80);
         assertEq(1,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations130() {
@@ -4295,8 +4296,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",73);
         assertEq(1,r_.size());
-        assertEq(73,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(73, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations131() {
@@ -4324,8 +4325,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",48);
         assertEq(1,r_.size());
-        assertEq(48,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(48, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations132() {
@@ -4342,8 +4343,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",81);
         assertEq(1,r_.size());
-        assertEq(80,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(80, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
     }
     @Test
     public void locations133() {
@@ -4360,8 +4361,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",79);
         assertEq(1,r_.size());
-        assertEq(79,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(79, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("a",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -4386,8 +4387,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",80);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
     }
     @Test
     public void locations135() {
@@ -4410,8 +4411,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",89);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations136() {
@@ -4434,8 +4435,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",81);
         assertEq(1,r_.size());
-        assertEq(20,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(20, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
     }
     @Test
     public void locations137() {
@@ -4458,8 +4459,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",91);
         assertEq(1,r_.size());
-        assertEq(20,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(20, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations138() {
@@ -4482,9 +4483,9 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",71);
         assertEq(1,r_.size());
-        assertEq(0,r_.get(0).getIndex());
-        assertEq("",r_.get(0).getFileName());
-        assertEq(-1, FileBlock.number(r_.get(0).getFile()));
+        assertEq(0, index(r_.get(0)));
+        assertEq("", fileName(r_.get(0)));
+        assertEq(-1, FileBlock.number(file(r_.get(0))));
         assertEq("java.lang.Short",((SrcFileLocationField)r_.get(0)).getCf().getClassName());
         assertEq("MAX_VALUE",((SrcFileLocationField)r_.get(0)).getCf().getFieldName());
     }
@@ -4509,7 +4510,7 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",62);
         assertEq(2,r_.size());
         assertNotNull(((SrcFileLocationStdMethod)r_.get(0)).getStd());
-        assertEq(-1, FileBlock.number(r_.get(1).getFile()));
+        assertEq(-1, FileBlock.number(file(r_.get(1))));
         assertEq("java.lang.$Fct<java.lang.String,$int>",((SrcFileLocationCall)r_.get(1)).getTypeRef());
     }
     @Test
@@ -4532,9 +4533,10 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",62);
         assertEq(1,r_.size());
-        assertEq(-1, FileBlock.number(r_.get(0).getFile()));
+        assertEq(-1, FileBlock.number(file(r_.get(0))));
         assertEq("java.lang.$Fct<java.lang.String,$int>",((SrcFileLocationCall)r_.get(0)).getTypeRef());
     }
+
     @Test
     public void locations141() {
         StringMap<String> files_ = new StringMap<String>();
@@ -4580,8 +4582,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",43);
         assertEq(1,r_.size());
-        assertEq(15,r_.get(0).getIndex());
-        assertEq("pkg/Ex3",r_.get(0).getFileName());
+        assertEq(15, index(r_.get(0)));
+        assertEq("pkg/Ex3", fileName(r_.get(0)));
     }
     @Test
     public void locations143() {
@@ -4601,8 +4603,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex",71);
         assertEq(1,r_.size());
-        assertEq(71,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(71, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("i",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -4651,8 +4653,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",57);
         assertEq(1,r_.size());
-        assertEq(164,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(164, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("w",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -4682,8 +4684,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex3", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",53);
         assertEq(1,r_.size());
-        assertEq(171,r_.get(0).getIndex());
-        assertEq("pkg/Ex",r_.get(0).getFileName());
+        assertEq(171, index(r_.get(0)));
+        assertEq("pkg/Ex", fileName(r_.get(0)));
         assertEq(-1,((SrcFileLocationVariable)r_.get(0)).getDeep());
         assertEq("v",((SrcFileLocationVariable)r_.get(0)).getName());
     }
@@ -4733,8 +4735,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",40);
         assertEq(1,r_.size());
-        assertEq(65,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(65, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("label",((SrcFileLocationLabel)r_.get(0)).getLabel());
     }
     @Test
@@ -4802,8 +4804,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",53);
         assertEq(1,r_.size());
-        assertEq(53,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(53, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("pkg.Outer2",((SrcFileLocationInferredType)r_.get(0)).getType());
     }
     @Test
@@ -4827,8 +4829,8 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         files_.put("pkg/Ex2", xml_.toString());
         CustList<SrcFileLocation> r_ = locations(files_,"pkg/Ex2",45);
         assertEq(1,r_.size());
-        assertEq(45,r_.get(0).getIndex());
-        assertEq("pkg/Ex2",r_.get(0).getFileName());
+        assertEq(45, index(r_.get(0)));
+        assertEq("pkg/Ex2", fileName(r_.get(0)));
         assertEq("pkg.Outer",((SrcFileLocationInferredType)r_.get(0)).getType());
     }
     @Test
@@ -5347,6 +5349,19 @@ public final class ResultExpressionOperationNodeTest extends ProcessMethodCommon
         assertEq("pkg.Outer", cf_.getClassName());
         assertEq("rec", cf_.getFieldName());
     }
+
+    private String fileName(SrcFileLocation _r) {
+        return FileBlock.name(file(_r));
+    }
+
+    private FileBlock file(SrcFileLocation _r) {
+        return _r.cursor().getFile();
+    }
+
+    private int index(SrcFileLocation _r) {
+        return _r.cursor().getIndex();
+    }
+
     private static CustList<RowSrcLocation> locationsDisplay(StringMap<String> _files, String _fileName, int _caret) {
         AnalyzedPageEl a_ = quickAnalyze(_files);
         return ResultExpressionOperationNode.locationsDisplay(a_,_fileName,_caret);

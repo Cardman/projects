@@ -131,9 +131,9 @@ public final class Configuration {
                 continue;
             }
             AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(document_, file_, _page, _analyzingDoc, es_, fileBl_);
-            anaDoc_.setAccessNb(_page.getCountElts().getCountAnon().size());
+            anaDoc_.contentNb().setAccessNb(_page.getCountElts().getCountAnon().size());
             _page.getCountElts().getCountAnon().add(0L);
-            anaDoc_.setAccessMemNb(_page.getCountElts().getAnonTypes().size());
+            anaDoc_.contentMemNb().setAccessMemNb(_page.getCountElts().getAnonTypes().size());
             _page.getCountElts().getAnonTypes().add(new CustList<AnonymousTypeBlock>());
             _page.getCountElts().getLocalTypes().add(new CustList<RootBlock>());
             anaDoc_.setAccessedFctNb(_page.getCountElts().getAnonElts().size());

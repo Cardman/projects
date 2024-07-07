@@ -13,13 +13,8 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
 
     private final ArgumentListCall arr;
     public LambdaVariableSetValuePageEl(ArgumentListCall _array) {
-        super(true);
+        super(true, new NoInitClass());
         arr = _array;
-    }
-
-    @Override
-    boolean hasToExit(ContextEl _context, StackCall _stack) {
-        return false;
     }
 
     Argument calculate(ContextEl _context, StackCall _stack) {
@@ -28,11 +23,6 @@ public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
         Argument right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));
         ExecTemplates.getWrap(firstArgumentWrapper_.getWrapper()).setValue(_stack,_context,right_);
         return right_;
-    }
-
-    @Override
-    protected boolean koParent(ContextEl _context, StackCall _stack) {
-        return false;
     }
 
     public ArgumentListCall getArr() {

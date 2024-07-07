@@ -80,7 +80,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
     private int nbOperators;
     private int numberAll = -1;
-    private int accessNb;
+    private final AccessNbContent accessNb = new AccessNbContent();
     private int created;
     private final StringList allSuperTypes = new StringList();
     private final IdList<AnaGeneType> allSuperTypesInfo = new IdList<AnaGeneType>();
@@ -195,11 +195,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return imports;
     }
 
-
-    @Override
-    public StringList getFileImports() {
-        return getFile().getImports();
-    }
 
     public Ints getImportsOffset() {
         return importsOffset;
@@ -2013,12 +2008,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     @Override
-    public int getAccessNb() {
+    public AccessNbContent contentNb() {
         return accessNb;
-    }
-
-    public void setAccessNb(int _a) {
-        this.accessNb = _a;
     }
 
     public CustList<AnaFormattedRootBlock> getImportedDirectSuperTypesInfo() {

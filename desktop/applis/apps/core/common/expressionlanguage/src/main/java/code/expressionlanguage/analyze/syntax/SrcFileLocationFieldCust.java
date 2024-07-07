@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.syntax;
 
-import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ClassField;
 
@@ -15,17 +14,12 @@ public final class SrcFileLocationFieldCust extends SrcFileLocationField {
     }
 
     @Override
-    public FileBlock getFile() {
-        return getDeclaring().getFile();
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(getDeclaring().getFile(),index);
     }
 
     public RootBlock getDeclaring() {
         return declaring;
-    }
-
-    @Override
-    public int getIndex() {
-        return index;
     }
 
 }

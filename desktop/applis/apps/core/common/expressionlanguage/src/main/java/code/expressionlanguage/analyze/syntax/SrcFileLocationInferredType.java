@@ -16,18 +16,8 @@ public final class SrcFileLocationInferredType extends AbsSrcFileLocationType  {
     }
 
     @Override
-    public FileBlock getFile() {
-        return file;
-    }
-
-    @Override
-    public String getFileName() {
-        return FileBlock.name(getFile());
-    }
-
-    @Override
-    public int getIndex() {
-        return begin();
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(file,begin());
     }
 
     @Override
@@ -37,7 +27,8 @@ public final class SrcFileLocationInferredType extends AbsSrcFileLocationType  {
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
-        return new RowSrcLocation(EnSrcLocation.INFERRED,getType(),getFileName(),getIndex());
+        FileBlockCursor cursor_ = cursor();
+        return new RowSrcLocation(EnSrcLocation.INFERRED,getType(),FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 
     public String getType() {

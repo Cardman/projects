@@ -14,23 +14,14 @@ public final class SrcFileLocationType extends AbsSrcFileLocationType  {
     }
 
     @Override
-    public FileBlock getFile() {
-        return getType().getFile();
-    }
-
-    @Override
-    public String getFileName() {
-        return FileBlock.name(getFile());
-    }
-
-    @Override
-    public int getIndex() {
-        return getType().getIdRowCol();
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(getType().getFile(),getType().getIdRowCol());
     }
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
-        return new RowSrcLocation(EnSrcLocation.TYPE,getType().getFullName(),getFileName(),getIndex());
+        FileBlockCursor cursor_ = cursor();
+        return new RowSrcLocation(EnSrcLocation.TYPE,getType().getFullName(),FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 
     public RootBlock getType() {

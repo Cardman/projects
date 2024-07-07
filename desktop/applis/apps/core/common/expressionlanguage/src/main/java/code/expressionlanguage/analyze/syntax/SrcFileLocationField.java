@@ -35,13 +35,9 @@ public abstract class SrcFileLocationField extends AbsSrcFileLocation {
     }
 
     @Override
-    public String getFileName() {
-        return FileBlock.name(getFile());
-    }
-
-    @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
-        return new RowSrcLocation(EnSrcLocation.FIELD,getCf().getClassName()+"."+getCf().getFieldName(),getFileName(),getIndex());
+        FileBlockCursor cursor_ = cursor();
+        return new RowSrcLocation(EnSrcLocation.FIELD,getCf().getClassName()+"."+getCf().getFieldName(),FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 
     public ClassField getCf() {

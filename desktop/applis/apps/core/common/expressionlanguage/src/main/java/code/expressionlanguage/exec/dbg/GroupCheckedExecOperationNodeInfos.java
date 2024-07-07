@@ -546,12 +546,14 @@ public final class GroupCheckedExecOperationNodeInfos {
             infos_ = reflectGet(_context, (ReflectGetFieldPageEl) p_);
         } else if (p_ instanceof ReflectSetFieldPageEl) {
             infos_ = reflectSet(_context, (ReflectSetFieldPageEl) p_);
-        } else if (p_ instanceof DirectAnnotationRefectMethodPageEl) {
-            infos_ = refMethod(_context, (DirectAnnotationRefectMethodPageEl) p_);
+        } else if (p_ instanceof DirectCallRefectMethodPageEl) {
+            infos_ = refMethod(_context, (DirectCallRefectMethodPageEl) p_);
+//        } else if (p_ instanceof DirectAnnotationRefectMethodPageEl) {
+//            infos_ = refMethod(_context, (DirectAnnotationRefectMethodPageEl) p_);
         } else if (p_ instanceof LambdaAnnotationRefectMethodPageEl) {
             infos_ = refMethod(_context, (LambdaAnnotationRefectMethodPageEl) p_);
-        } else if (p_ instanceof DirectCloneRefectMethodPageEl) {
-            infos_ = refMethod(_context, (DirectCloneRefectMethodPageEl) p_);
+//        } else if (p_ instanceof DirectCloneRefectMethodPageEl) {
+//            infos_ = refMethod(_context, (DirectCloneRefectMethodPageEl) p_);
         } else if (p_ instanceof LambdaDirectCloneRefectMethodPageEl) {
             infos_ = refMethod(_context, (LambdaDirectCloneRefectMethodPageEl) p_);
         } else if (!p_.isEmptyEl()){
@@ -731,7 +733,14 @@ public final class GroupCheckedExecOperationNodeInfos {
         }
         return null;
     }
-    private static CoreCheckedExecOperationNodeInfos refMethod(ContextEl _context, DirectAnnotationRefectMethodPageEl _p) {
+    private static CoreCheckedExecOperationNodeInfos refMethod(ContextEl _context, DirectCallRefectMethodPageEl _p) {
+        if (_p.getQuickCall() instanceof CloneQuickCall) {
+            if (_p.isCheckingEntryExit()) {
+                Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
+                return new ArrCheckedExecOperationNodeInfos(_context,instance_, ArrPoint.BPC_CLONE);
+            }
+            return null;
+        }
         if (_p.isCheckingEntryExit()) {
             Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
             return new FieldCheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
@@ -742,13 +751,6 @@ public final class GroupCheckedExecOperationNodeInfos {
         if (_p.isCheckingEntryExit()) {
             Struct instance_ = _p.getParent();
             return new FieldCheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
-        }
-        return null;
-    }
-    private static CoreCheckedExecOperationNodeInfos refMethod(ContextEl _context, DirectCloneRefectMethodPageEl _p) {
-        if (_p.isCheckingEntryExit()) {
-            Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
-            return new ArrCheckedExecOperationNodeInfos(_context,instance_, ArrPoint.BPC_CLONE);
         }
         return null;
     }
@@ -849,7 +851,7 @@ public final class GroupCheckedExecOperationNodeInfos {
             return null;
         }
         Struct instance_ = ArgumentListCall.toStr(_p.getArgument());
-        return new FieldCheckedExecOperationNodeInfos(_context, _p.getMetaInfo(), WatchPoint.BPC_READ, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, null);
+        return new FieldCheckedExecOperationNodeInfos(_context, _p.getContent().getMetaInfo(), WatchPoint.BPC_READ, formatted(_context, _p.getContent().getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, null);
     }
 
     private static CoreCheckedExecOperationNodeInfos reflectSet(ContextEl _context, ReflectSetFieldPageEl _p) {
@@ -861,21 +863,21 @@ public final class GroupCheckedExecOperationNodeInfos {
         }
         Struct instance_ = ArgumentListCall.toStr(_p.getFirst());
         Struct right_ = ArgumentListCall.toStr(_p.getLast());
-        return new FieldCheckedExecOperationNodeInfos(_context, _p.getMetaInfo(), WatchPoint.BPC_WRITE, formatted(_context, _p.getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, right_);
+        return new FieldCheckedExecOperationNodeInfos(_context, _p.getContent().getMetaInfo(), WatchPoint.BPC_WRITE, formatted(_context, _p.getContent().getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, right_);
     }
 
     private static CoreCheckedExecOperationNodeInfos reflectGetPar(ContextEl _context, ReflectGetFieldPageEl _p) {
-        if (!_p.getMetaInfo().isStaticField()&&_p.isCheckingParent()) {
-            Struct instance_ = _p.getOriginalInstance();
-            return new ParCheckedExecOperationNodeInfos(_context, instance_, _p.getAncestor());
+        if (!_p.getContent().getMetaInfo().isStaticField()&&_p.isCheckingParent()) {
+            Struct instance_ = _p.getContent().getOriginalInstance();
+            return new ParCheckedExecOperationNodeInfos(_context, instance_, _p.getContent().getAncestor());
         }
         return null;
     }
 
     private static CoreCheckedExecOperationNodeInfos reflectSetPar(ContextEl _context, ReflectSetFieldPageEl _p) {
-        if (!_p.getMetaInfo().isStaticField()&&_p.isCheckingParent()) {
-            Struct instance_ = _p.getOriginalInstance();
-            return new ParCheckedExecOperationNodeInfos(_context, instance_, _p.getAncestor());
+        if (!_p.getContent().getMetaInfo().isStaticField()&&_p.isCheckingParent()) {
+            Struct instance_ = _p.getContent().getOriginalInstance();
+            return new ParCheckedExecOperationNodeInfos(_context, instance_, _p.getContent().getAncestor());
         }
         return null;
     }

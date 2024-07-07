@@ -6,14 +6,15 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
-public final class DirectAnnotationRefectMethodPageEl extends AbstractRefectMethodPageEl {
+public final class DirectCallRefectMethodPageEl extends AbstractRefectMethodPageEl {
+    private final AbstractQuickCall quickCall;
 
-    public DirectAnnotationRefectMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, ArrayRefState _a) {
+    public DirectCallRefectMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, ArrayRefState _a, AbstractQuickCall _abs) {
         super(_instance, _metaInfo, new DefPreparer(), _a);
+        quickCall = _abs;
     }
 
     @Override
@@ -23,12 +24,16 @@ public final class DirectAnnotationRefectMethodPageEl extends AbstractRefectMeth
 
     @Override
     Argument prepare(ContextEl _context, ArrayRefState _args, Argument _right, StackCall _stack) {
-        MethodId dir_ = getMetaInfo().getRealId();
-        CustomFoundExc ex_ = ExecTemplates.checkParams(_context, getClassName().getFormatted(), dir_, getInstance(), _args.getArray().listArgs(), _stack);
+        MethodId mid_ = getMetaInfo().getRealId();
+        CustomFoundExc ex_ = ExecTemplates.checkParams(_context, getClassName().getFormatted(), mid_, getInstance(), _args.getArray().listArgs(), _stack);
         if (ex_ != null) {
             _stack.setCallingState(ex_);
             return Argument.createVoid();
         }
-        return ExecInvokingOperation.getAnnotation(getInstance(),dir_.getName(),_context, _stack);
+        return quickCall.calculate(this,_context, _stack);
+    }
+
+    public AbstractQuickCall getQuickCall() {
+        return quickCall;
     }
 }

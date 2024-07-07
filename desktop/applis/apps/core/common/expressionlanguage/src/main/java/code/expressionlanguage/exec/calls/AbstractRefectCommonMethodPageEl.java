@@ -33,13 +33,19 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     private boolean calledAf;
     private boolean checkingEntryExit;
     private int checkedParams;
+    private final AbstractParamReflectCheckerStepping paramCheck;
 
     protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda) {
+        this(_instance,_metaInfo,_preparer,_lda,new AllParamReflectCheckerStepping());
+    }
+
+    protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda, AbstractParamReflectCheckerStepping _abParam) {
         super(_lda);
         instance = _instance;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
         preparer = _preparer;
+        paramCheck = _abParam;
     }
     @Override
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
@@ -125,7 +131,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         if (!calledAf) {
             setWrapException(false);
             checkingEntryExit = true;
-            if (checkParams(_context, _stack)) {
+            if (paramCheck.checkParams(this,_context, _stack)) {
                 return false;
             }
             checkingEntryExit = false;
@@ -141,7 +147,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             }
             setReturnedArgument(arg_);
         }
-        return postArg(_stack);
+        return paramCheck.postArg(this,_stack);
     }
     protected abstract boolean checkParams(ContextEl _context, StackCall _stack);
 

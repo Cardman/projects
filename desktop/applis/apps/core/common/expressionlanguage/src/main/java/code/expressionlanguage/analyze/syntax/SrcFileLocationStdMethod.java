@@ -15,22 +15,12 @@ public final class SrcFileLocationStdMethod extends AbsSrcFileLocation  {
     }
 
     @Override
-    public FileBlock getFile() {
-        return null;
-    }
-
-    @Override
-    public String getFileName() {
-        return "";
+    public FileBlockCursor cursor() {
+        return new FileBlockCursor(null,0);
     }
 
     public StandardNamedFunction getStd() {
         return std;
-    }
-
-    @Override
-    public int getIndex() {
-        return 0;
     }
 
     @Override
@@ -40,6 +30,7 @@ public final class SrcFileLocationStdMethod extends AbsSrcFileLocation  {
 
     @Override
     public RowSrcLocation build(DisplayedStrings _dis) {
-        return new RowSrcLocation(EnSrcLocation.STD_METHOD,type.getFullName()+"."+getStd().getSignature(_dis), getFileName(),getIndex());
+        FileBlockCursor cursor_ = cursor();
+        return new RowSrcLocation(EnSrcLocation.STD_METHOD,type.getFullName()+"."+getStd().getSignature(_dis), FileBlock.name(cursor_.getFile()), cursor_.getIndex());
     }
 }

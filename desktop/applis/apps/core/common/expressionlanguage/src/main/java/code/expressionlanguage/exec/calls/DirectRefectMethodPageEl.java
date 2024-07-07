@@ -37,11 +37,7 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
         if (callee_ instanceof ExecAbstractSwitchMethod) {
             return false;
         }
-        if (getCheckedParams() == 0) {
-            setCheckedParams(1);
-            return _stack.getStopper().isStopAtExcMethod();
-        }
-        return false;
+        return checkParamsAnnot(_stack);
     }
 
     @Override

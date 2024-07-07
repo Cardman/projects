@@ -358,10 +358,10 @@ public final class ClassesUtil {
     }
 
     public static void nbTypesOpers(AnalyzedPageEl _page, AccessedBlockMembers _o) {
-        for (RootBlock c: _page.getCountElts().getAnonTypes().get(_o.getAccessMemNb())) {
+        for (RootBlock c: _page.getCountElts().getAnonTypes().get(_o.contentMemNb().getAccessMemNb())) {
             incre(c, _page.getCountsAnon(), c.getName(), "*");
         }
-        for (RootBlock c: _page.getCountElts().getLocalTypes().get(_o.getAccessMemNb())) {
+        for (RootBlock c: _page.getCountElts().getLocalTypes().get(_o.contentMemNb().getAccessMemNb())) {
             incre(c, _page.getCounts(), c.getName(), "+");
         }
     }
