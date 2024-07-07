@@ -1,6 +1,5 @@
 package aiki.map.levels;
 
-import aiki.db.DataBase;
 import aiki.map.pokemon.WildPk;
 import code.util.CustList;
 
@@ -9,19 +8,6 @@ public final class MultAreaApparition extends AbsAreaApparition {
     public MultAreaApparition() {
         setWildPokemonList(new CustList<CustList<WildPk>>());
         setWildPokemonFishingList(new CustList<CustList<WildPk>>());
-    }
-    @Override
-    public void validate(DataBase _data) {
-        super.validate(_data);
-        for (WildPk p : getWildPokemon()) {
-            p.validateAsNpc(_data);
-        }
-        if (getWildPokemon().isEmpty()) {
-            _data.setError(true);
-        }
-        for (WildPk p : getWildPokemonFishing()) {
-            p.validateAsNpc(_data);
-        }
     }
 
     @Override

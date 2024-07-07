@@ -21,15 +21,6 @@ public final class AreaApparition extends AbsAreaApparition {
         super.validate(_data);
         DataInfoChecker.checkLower(1,multFight,_data);
         DataInfoChecker.checkGreater(DataBase.MAX_MULT_FIGHT,multFight,_data);
-        for (WildPk p : wildPokemon) {
-            p.validateAsNpc(_data);
-        }
-        if (wildPokemon.isEmpty()) {
-            _data.setError(true);
-        }
-        for (WildPk p : wildPokemonFishing) {
-            p.validateAsNpc(_data);
-        }
     }
 
     public void initializeWildPokemon() {

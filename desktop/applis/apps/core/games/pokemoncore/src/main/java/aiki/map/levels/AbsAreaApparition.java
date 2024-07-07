@@ -21,6 +21,15 @@ public abstract class AbsAreaApparition {
 
     public void validate(DataBase _data) {
         DataInfoChecker.checkLower(ALWAYS_APPARITION,avgNbSteps,_data);
+        for (WildPk p : getWildPokemon()) {
+            p.validateAsNpc(_data);
+        }
+        if (getWildPokemon().isEmpty()) {
+            _data.setError(true);
+        }
+        for (WildPk p : getWildPokemonFishing()) {
+            p.validateAsNpc(_data);
+        }
     }
     public int getPokemonListLength(boolean _walking) {
         if (_walking) {
