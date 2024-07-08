@@ -16,11 +16,11 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
 
     private String langue;
 
-    private String[] args;
+    private final String[] args;
 
-    private SoftApplicationCore soft;
+    private final SoftApplicationCore soft;
 
-    private String dir;
+    private final String dir;
 //    private final AbsCommonFrame commonFrame;
     private final LanguageDialogButtons content;
 
@@ -29,7 +29,7 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
         GuiBaseUtil.choose("", this, MessGuiGr.ms());
 //        commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame(_soft.getFrames(), null);
         content = new LanguageDialogButtons(_soft.getFrames(),null,new AlwaysActionListenerAct());
-        _soft.getFrames().getFrames().add(this);
+//        _soft.getFrames().getFrames().add(this);
         dir = _dir;
         if (_icon != null) {
             content.getCommonFrame().setIconImage(_icon);
@@ -57,7 +57,7 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
 //        commonFrame.dispose();
         StreamLanguageUtil.saveLanguage(dir, _language,soft.getFrames().getStreams());
 //        commonFrame.getPane().removeAll();
-        getFrames().getFrames().removeLast();
+        getFrames().getFrames().clear();
         soft.launchFile(args,langue);
     }
 
