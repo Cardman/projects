@@ -377,8 +377,8 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         pr_.getZipFact();
         pr_.light();
         pr_.getHomePath();
-        pr_.getCounts();
-        pr_.getButtons();
+//        pr_.getCounts();
+//        pr_.getButtons();
         pr_.getFrames();
         pr_.getValidator();
         pr_.getTmpUserFolder();

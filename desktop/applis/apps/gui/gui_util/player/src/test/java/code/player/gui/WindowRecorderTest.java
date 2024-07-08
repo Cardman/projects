@@ -1,5 +1,6 @@
 package code.player.gui;
 
+import code.gui.GuiBaseUtil;
 import code.mock.MockSoundRecord;
 import code.mock.MockThreadFactory;
 import code.threads.ConcreteInteger;
@@ -28,7 +29,7 @@ public final class WindowRecorderTest extends EquallableSoundPlayerUtil {
     }
     @Test
     public void playWithRecord1() {
-        CreateMainWindowRecorder cr_ = new CreateMainWindowRecorder(build(),"");
+        CreateMainWindowRecorder cr_ = new CreateMainWindowRecorder(build(),"", null);
         cr_.run();
         WindowRecorder w_ = cr_.getWindowRecorder();
         assertTrue(w_.getRecordSong().isEnabled());
@@ -38,8 +39,9 @@ public final class WindowRecorderTest extends EquallableSoundPlayerUtil {
         tryAn((MockThreadFactory) w_.getFrames().getThreadFactory());
         assertFalse(w_.getFrames().getFileCoreStream().newFile("file").exists());
         w_.changeLanguage("");
-        w_.getFrames().getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        w_.getFrames().getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.quit();
+        GuiBaseUtil.tryToReopen(w_.getApplicationName(),w_.getFrames());
     }
     @Test
     public void playWithRecord2() {

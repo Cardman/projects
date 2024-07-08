@@ -72,9 +72,11 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
     private final CommonExecution commonExecution;
     private final AbstractAtomicBoolean atomicBoolean;
     private final FileOpenFrame fileOpenFrame;
+    private final AbsButton mainButton;
 
-    public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
+    public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos, AbsButton _ma) {
         super(_programInfos);
+        mainButton = _ma;
         atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
         fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
         GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());
@@ -193,6 +195,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         }
         filesFrame.setVisible(false);
         simpleFrame.setEnabled(true);
+        LanguageDialogButtons.enable(mainButton,true);
         GuiBaseUtil.trEx(this);
     }
 

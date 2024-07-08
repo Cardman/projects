@@ -1,15 +1,15 @@
 package applications.gui;
 
+import code.gui.AbsButton;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.renders.LaunchingRenders;
 import code.renders.WindowRenders;
-import code.threads.AbstractAtomicInteger;
 
 public final class RenderEvent extends AbstractEvent {
 
-    RenderEvent(WindowApps _window, AbstractAtomicInteger _at) {
-        super(_window,_at);
+    RenderEvent(WindowApps _window, AbsButton _but) {
+        super(_window, _but);
     }
 
     @Override
@@ -22,6 +22,6 @@ public final class RenderEvent extends AbstractEvent {
         String lg_ = _window.getFrames().getLanguage();
         LaunchingRenders l_;
         l_ = new LaunchingRenders(_window.getWithAppFactories());
-        l_.launch(lg_);
+        l_.launch(lg_, getMainButton());
     }
 }

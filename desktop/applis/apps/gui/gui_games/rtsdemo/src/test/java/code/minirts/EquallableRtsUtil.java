@@ -12,7 +12,7 @@ import org.junit.Assert;
 public abstract class EquallableRtsUtil {
     public static WindowRts window() {
         MockProgramInfos pr_ = build();
-        WindowRts wa_ = new WindowRts("",pr_);
+        WindowRts wa_ = new WindowRts("",pr_, null);
         wa_.setTaskEnabled(new MockRtsTaskEnabled());
         wa_.pack();
         wa_.setVisible(true);

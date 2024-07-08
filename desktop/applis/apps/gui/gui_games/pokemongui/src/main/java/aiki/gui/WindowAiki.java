@@ -227,8 +227,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final DialogHeros dialogHeros = new DialogHeros(getFrames(),this);
     private final FrameHtmlData renderDataWeb;
     private final AbsActionListenerAct guardRender;
-    public WindowAiki(EnabledMenu _lg, AbstractProgramInfos _list, AikiFactory _fact) {
+    private final AbsButton mainButton;
+    public WindowAiki(EnabledMenu _lg, AbstractProgramInfos _list, AikiFactory _fact, AbsButton _main) {
         super(_list);
+        mainButton = _main;
         guardRender = new AlwaysActionListenerAct();
         setTaskEnabled(new DefTaskEnabled());
         modal = _list.getThreadFactory().newAtomicBoolean();
@@ -337,8 +339,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     @Override
     public void quit() {
         getCommonFrame().setVisible(false);
-        AbsButton b_ = getFrames().getButtons().getVal(APPS_AIKI);
-        LanguageDialogButtons.enable(b_,false);
+//        AbsButton b_ = getFrames().getButtons().getVal(APPS_AIKI);
+//        LanguageDialogButtons.enable(b_,false);
 //        if (b_ != null) {
 //            b_.setEnabled(false);
 //        }
@@ -354,7 +356,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
             }
             core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
         }
-        LanguageDialogButtons.enable(b_,true);
+//        LanguageDialogButtons.enable(b_,true);
+        LanguageDialogButtons.enable(mainButton,true);
 //        if (b_ != null) {
 //            b_.setEnabled(true);
 //        }

@@ -266,12 +266,12 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         Exiting forcedBye_ = new Exiting();
         forcedBye_.setForced(false);
         forcedBye_.setClosing(true);
-        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
+//        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
         assertFalse(BasicClient.iterate(socketServ_,server_,NetCommon.exportExiting(forcedBye_)));
-
-        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
+//        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
         client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
         tryClick(client_.getExit());
+        GuiBaseUtil.tryToReopen(client_.getApplicationName(),client_.getFrames());
     }
 
     @Test
@@ -378,10 +378,10 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         forcedBye_.setForced(false);
         forcedBye_.setClosing(true);
         forcedBye_.setServer(true);
-        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
+//        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
         assertFalse(BasicClient.iterate(socketServ_,server_,NetCommon.exportExiting(forcedBye_)));
 
-        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
+//        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
         client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
         tryClick(client_.getExit());
     }

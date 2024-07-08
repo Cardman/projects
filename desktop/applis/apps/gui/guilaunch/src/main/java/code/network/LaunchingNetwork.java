@@ -7,11 +7,8 @@ import code.gui.WithAppFactories;
 
 public final class LaunchingNetwork extends AdvSoftApplicationCore {
 
-    private final AbsButton button;
-
-    public LaunchingNetwork(WithAppFactories _frames, AbsButton _b) {
+    public LaunchingNetwork(WithAppFactories _frames) {
         super(_frames);
-        button = _b;
     }
 
     @Override
@@ -20,8 +17,8 @@ public final class LaunchingNetwork extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
-        getFrames().getCompoFactory().invokeNow(new LaunchNetwork(_language,getFrames(), button,_lgMenu,getAppFactories().getAikiFactory(),getAppFactories().getCardFactories()));
+    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
+        getFrames().getCompoFactory().invokeNow(new LaunchNetwork(_language,getFrames(), _main,_lgMenu,getAppFactories().getAikiFactory(),getAppFactories().getCardFactories()));
     }
 
 }

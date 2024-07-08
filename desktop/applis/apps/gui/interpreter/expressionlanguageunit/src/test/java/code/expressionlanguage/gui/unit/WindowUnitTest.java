@@ -51,7 +51,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
         tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
         assertEq(0,w_.getResultsTable().getRowCount());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.changeLanguage("");
         w_.quit();
         assertEq(0,w_.getResultsTable().getRowCount());
@@ -68,7 +68,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         tryClick(w_.getLaunch());
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
         assertEq(0,w_.getResultsTable().getRowCount());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.quit();
         assertEq(0,w_.getResultsTable().getRowCount());
     }
@@ -98,9 +98,10 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         w_.getConf().setText("/_.zip\nen");
         tryClick(w_.getLogErr());
         tryClick(w_.getLogErr());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.quit();
         assertEq(0,w_.getResultsTable().getRowCount());
+        GuiBaseUtil.tryToReopen(w_.getApplicationName(),w_.getFrames());
     }
     @Test
     public void p7() {

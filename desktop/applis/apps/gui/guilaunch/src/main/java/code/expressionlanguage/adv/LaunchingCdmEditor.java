@@ -17,7 +17,7 @@ public class LaunchingCdmEditor extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateWindowCdm(_language, StreamFolderFile.getFilesNames(getFrames().getFileCoreStream(), _args), getAppFactories().getCdmFactory(),getFrames()), getFrames());
+    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateWindowCdm(_language, StreamFolderFile.getFilesNames(getFrames().getFileCoreStream(), _args), getAppFactories().getCdmFactory(),getFrames(), _main), getFrames());
     }
 }

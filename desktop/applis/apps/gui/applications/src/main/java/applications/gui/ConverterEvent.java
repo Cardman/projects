@@ -2,14 +2,14 @@ package applications.gui;
 
 import code.converterimages.gui.WindowConverter;
 import code.converterimages.main.LaunchingConverter;
+import code.gui.AbsButton;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
-import code.threads.AbstractAtomicInteger;
 
 public final class ConverterEvent extends AbstractEvent {
 
-    ConverterEvent(WindowApps _window, AbstractAtomicInteger _at) {
-        super(_window,_at);
+    ConverterEvent(WindowApps _window, AbsButton _but) {
+        super(_window, _but);
     }
 
     @Override
@@ -22,6 +22,6 @@ public final class ConverterEvent extends AbstractEvent {
         String lg_ = _window.getFrames().getLanguage();
         LaunchingConverter l_;
         l_ = new LaunchingConverter(_window.getWithAppFactories());
-        l_.launch(lg_);
+        l_.launch(lg_, getMainButton());
     }
 }

@@ -39,7 +39,6 @@ import code.sml.NavigationCore;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
-import code.stream.*;
 import code.threads.*;
 import code.util.*;
 import code.util.core.*;
@@ -842,18 +841,19 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void save1() {
         WindowAiki window_ = newGame();
-        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+//        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
         window_.setVisible(false);
         window_.quit();
         assertFalse(window_.getCommonFrame().isVisible());
+        GuiBaseUtil.tryToReopen(window_.getApplicationName(),window_.getFrames());
     }
     @Test
     public void save2() {
         WindowAiki window_ = newGame();
-        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+//        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
         window_.getLoadingConf().setLastSavedGame("_");
@@ -865,7 +865,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void save3() {
         WindowAiki window_ = newGame();
-        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+//        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
         window_.getLoadingConf().setSaveGameAtExit(false);
@@ -877,7 +877,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void save4() {
         WindowAiki window_ = newGame();
-        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+//        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
@@ -890,7 +890,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void save5() {
         WindowAiki window_ = newGame();
-        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
+//        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
         window_.getLoadingConf().setLastSavedGame("_");
@@ -1669,7 +1669,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = GamesPk.initAppliTr(en_);
         windowPk(app_);
-        return new CreateMainWindowAiki(_conf, new StringList(), StreamFolderFile.getCurrentPath(_pr.getFileCoreStream()), new TopLeftFrame(), _pr.getCompoFactory().newMenuItem(), _pr, _fact);
+        return new CreateMainWindowAiki(_conf, new StringList(), _pr.getCompoFactory().newMenuItem(), _pr, _fact, null);
     }
 
     private static CreateMainWindowAiki launcher(MockProgramInfos _pr, AikiFactory _fact, String _file) {
@@ -1682,6 +1682,6 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = GamesPk.initAppliTr(en_);
         windowPk(app_);
-        return new CreateMainWindowAiki(_conf, path_, StreamFolderFile.getCurrentPath(_pr.getFileCoreStream()), new TopLeftFrame(), _pr.getCompoFactory().newMenuItem(), _pr, _fact);
+        return new CreateMainWindowAiki(_conf, path_, _pr.getCompoFactory().newMenuItem(), _pr, _fact, null);
     }
 }

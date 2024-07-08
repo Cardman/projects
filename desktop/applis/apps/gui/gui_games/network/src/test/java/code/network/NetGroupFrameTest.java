@@ -65,7 +65,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         Games.appendNickNames(Games.getAppliTr(api_.currentLg()), Nicknames.en());
         AikiFactory ai_ = new AikiFactory(api_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
         CardFactories cf_ = new CardFactories(api_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        LaunchNetwork l_ = new LaunchNetwork(EN, api_,api_.getCompoFactory().newPlainButton(),api_.getCompoFactory().newMenuItem(), ai_, cf_);
+        LaunchNetwork l_ = new LaunchNetwork(EN, api_,null,api_.getCompoFactory().newMenuItem(), ai_, cf_);
         l_.run();
         assertTrue(l_.getWindow().getCommonFrame().isVisible());
         tryClick(l_.getWindow().getNetg().getLanguage());

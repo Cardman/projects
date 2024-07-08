@@ -90,9 +90,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
 //    private final CustList<AbsRadioButton> radios = new CustList<AbsRadioButton>();
     private AbstractFuture abstractFuture;
+    private final AbsButton mainButton;
 
-    public WindowPlayer(String _lg, AbstractProgramInfos _list) {
+    public WindowPlayer(String _lg, AbstractProgramInfos _list, AbsButton _ma) {
         super(_list);
+        mainButton = _ma;
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));
@@ -517,6 +519,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     @Override
     public void quit() {
         getCommonFrame().setVisible(false);
+        LanguageDialogButtons.enable(mainButton,true);
         GuiBaseUtil.trEx(this);
     }
 

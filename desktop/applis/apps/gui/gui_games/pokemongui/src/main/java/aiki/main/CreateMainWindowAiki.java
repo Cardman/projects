@@ -2,10 +2,12 @@ package aiki.main;
 
 import aiki.gui.WindowAiki;
 import aiki.sml.LoadingGame;
+import aiki.sml.Resources;
+import code.gui.AbsButton;
 import code.gui.EnabledMenu;
-import code.gui.TopLeftFrame;
 import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
+import code.stream.StreamFolderFile;
 import code.util.StringList;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -17,23 +19,19 @@ public final class CreateMainWindowAiki implements Runnable {
 
     private final StringList withParam;
 
-    private final String path;
-
-    private final TopLeftFrame topLeft;
-
     private final EnabledMenu lg;
     private final AikiFactory aikiFactory;
+    private final AbsButton main;
     private WindowAiki window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, EnabledMenu _lg, AbstractProgramInfos _list,AikiFactory _fact) {
+    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, EnabledMenu _lg, AbstractProgramInfos _list, AikiFactory _fact, AbsButton _ma) {
         load = _load;
         withParam = _withParam;
-        path = _path;
-        topLeft = _topLeft;
         lg = _lg;
         list = _list;
         aikiFactory = _fact;
+        main = _ma;
     }
 
     @Override
@@ -47,9 +45,9 @@ public final class CreateMainWindowAiki implements Runnable {
 //        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd(), list.getLanguages());
 //        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), builtMessages_, builtOther_, new PkDiff(), list.getLanguages());
 //        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), builtMessages_, builtOther_, new PkProg(), list.getLanguages());
-        WindowAiki window_ = new WindowAiki(lg, list,aikiFactory);
+        WindowAiki window_ = new WindowAiki(lg, list,aikiFactory, main);
 //        window_.getDataWeb().setEnabled(false);
-        FileDialog.setLocation(window_.getCommonFrame(), topLeft);
+        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), Resources.COORDS, list.getFileCoreStream(), list.getStreams()));
 //        fight_.run();
 //        pk_.run();
 //        pkNet_.run();
@@ -64,9 +62,9 @@ public final class CreateMainWindowAiki implements Runnable {
         window_.setPreparedDiffTask(aikiFactory.getPreparedDiffTask());
         window_.setPreparedProgTask(aikiFactory.getPreparedProgTask());
         if (!withParam.isEmpty()) {
-            window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, path, withParam));
+            window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, StreamFolderFile.getCurrentPath(list.getFileCoreStream()), withParam));
         } else {
-            window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, path));
+            window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, StreamFolderFile.getCurrentPath(list.getFileCoreStream())));
         }
         window = window_;
 //        AbstractBaseExecutorService es_ = list.getThreadFactory().newExecutorService();

@@ -7,7 +7,7 @@ import cards.gui.labels.AbsMetaLabelCard;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import cards.main.LaunchingGame;
-import code.gui.TopLeftFrame;
+import code.gui.GuiBaseUtil;
 import code.mock.MockBaseExecutorServiceParam;
 import code.util.StringList;
 import code.util.StringMap;
@@ -52,15 +52,16 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
         tryClick(wc_.getLanguageDialogButtons().getContent().getGroupe().get(wc_.getFrames().getTranslations().getMapping().indexOfEntry(EN)));
         tryClick(wc_.getLanguageDialogButtons().getContent().getGroupe().get(wc_.getFrames().getTranslations().getMapping().indexOfEntry(FR)));
         assertTrue(wc_.getCommonFrame().isVisible());
-        wc_.getFrames().getCounts().put(wc_.getApplicationName(),wc_.getFrames().getThreadFactory().newAtomicInteger());
+//        wc_.getFrames().getCounts().put(wc_.getApplicationName(),wc_.getFrames().getThreadFactory().newAtomicInteger());
         wc_.quit();
         Games.appendNickNames(Games.getAppliTr(wc_.getFrames().currentLg()),Nicknames.en());
         WindowCards.getIcon(wc_.getImageFactory());
 //        FacadeCards.install(WindowCards.getTempFolderSl(wc_.getFrames()),wc_.getFrames());
-        LaunchingGame lg_ = new LaunchingGame(new StringList(), new TopLeftFrame(),wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>()), null);
+        LaunchingGame lg_ = new LaunchingGame(new StringList(), wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>()), null, null);
         lg_.run();
         AbsMetaLabelCard.sels();
         AbsMetaLabelCard.defs();
+        GuiBaseUtil.tryToReopen(wc_.getApplicationName(),wc_.getFrames());
     }
     private WindowCards loadBeloteOtherDisplay(StringList _ls) {
         WindowCards wc_ = frameDialogSoft("/__/", "/_/");

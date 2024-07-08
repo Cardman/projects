@@ -21,9 +21,11 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     private final AbsSoundRecord soundRecord;
     private AbsPlayBack playBack;
     private boolean built;
+    private final AbsButton mainButton;
 
-    public WindowRecorder(String _lg, AbstractProgramInfos _list) {
+    public WindowRecorder(String _lg, AbstractProgramInfos _list, AbsButton _ma) {
         super(_list);
+        mainButton = _ma;
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         setTitle("recorder");
         soundRecord = _list.newSoundPattern();
@@ -102,6 +104,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     @Override
     public void quit() {
         getCommonFrame().setVisible(false);
+        LanguageDialogButtons.enable(mainButton,true);
         GuiBaseUtil.trEx(this);
     }
 

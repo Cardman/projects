@@ -11,7 +11,7 @@ import org.junit.Assert;
 public abstract class EquallableConverterGuiUtil {
     public static WindowConverter window() {
         MockProgramInfos pr_ = build();
-        return new WindowConverter("",pr_);
+        return new WindowConverter("",pr_, null);
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

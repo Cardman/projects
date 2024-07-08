@@ -30,7 +30,7 @@ public final class LaunchNetwork implements Runnable {
     }
     @Override
     public void run() {
-        button.setEnabled(false);
+//        button.setEnabled(false);
 //        StringList lgs_ = list.getLanguages();
 //        StringMap<String> builtMessages_ = MessagesInit.ms();
 //        NavigationCore.adjust(builtMessages_);

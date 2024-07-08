@@ -514,7 +514,7 @@ public final class GuiBaseUtil {
 
     public static void trEx(AbsOpenQuit _t) {
         tryExit(_t.getCommonFrame());
-        _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
+//        _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
     }
 
 //    public static void setLanguageDialog(AbsGroupFrame _owner,WithDialogs _w, String _title) {

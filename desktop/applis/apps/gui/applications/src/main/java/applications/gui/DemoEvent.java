@@ -1,15 +1,15 @@
 package applications.gui;
 
+import code.gui.AbsButton;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.minirts.LaunchingDemo;
 import code.minirts.WindowRts;
-import code.threads.AbstractAtomicInteger;
 
 public final class DemoEvent extends AbstractEvent {
 
-    DemoEvent(WindowApps _window, AbstractAtomicInteger _at) {
-        super(_window,_at);
+    DemoEvent(WindowApps _window, AbsButton _but) {
+        super(_window, _but);
     }
 
     @Override
@@ -22,6 +22,6 @@ public final class DemoEvent extends AbstractEvent {
         String lg_ = _window.getFrames().getLanguage();
         LaunchingDemo l_;
         l_ = new LaunchingDemo(_window.getWithAppFactories());
-        l_.launch(lg_);
+        l_.launch(lg_, getMainButton());
     }
 }

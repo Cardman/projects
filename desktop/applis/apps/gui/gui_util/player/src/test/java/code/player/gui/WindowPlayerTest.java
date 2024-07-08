@@ -1,5 +1,6 @@
 package code.player.gui;
 
+import code.gui.GuiBaseUtil;
 import code.mock.MockClipStream;
 import code.mock.MockProgramInfos;
 import code.sml.DocumentBuilder;
@@ -21,13 +22,14 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     @Test
     public void noLaunchArg() {
         MockProgramInfos pr_ = build();
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList(), pr_);
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList(), pr_, null);
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());
         w_.changeLanguage("");
-        w_.getFrames().getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        w_.getFrames().getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.quit();
+        GuiBaseUtil.tryToReopen(w_.getApplicationName(),w_.getFrames());
     }
     @Test
     public void wave1() {
@@ -299,7 +301,7 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     public void badList() {
         MockProgramInfos pr_ = build();
         StreamBinaryFile.writeFile("file",wrapInts('<'),pr_.getStreams());
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList("file"), pr_);
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList("file"), pr_, null);
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());
@@ -308,7 +310,7 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     public void badListNoFile() {
         MockProgramInfos pr_ = build();
         StreamBinaryFile.writeFile("file",wrapInts(),pr_.getStreams());
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList("file"), pr_);
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList("file"), pr_, null);
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());

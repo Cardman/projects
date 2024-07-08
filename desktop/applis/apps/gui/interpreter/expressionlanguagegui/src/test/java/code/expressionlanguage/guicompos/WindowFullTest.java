@@ -18,7 +18,7 @@ public final class WindowFullTest extends EquallableGuiInterpreterUtil {
         w_.getConf().setText("/_.zip\nen\nmain=pkg.Sample.m\ncover=\nargs=");
         tryClick(w_.getLaunch());
         assertFalse(w_.getContext().getInterrupt().get());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         tryClick(w_.getCoverage());
         w_.quit();
         assertTrue(w_.getContext().getInterrupt().get());
@@ -34,7 +34,7 @@ public final class WindowFullTest extends EquallableGuiInterpreterUtil {
         w_.getConf().setText("");
         tryClick(w_.getLaunch());
         tryClick(w_.getStop());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.quit();
         assertTrue(w_.getLaunch().isEnabled());
     }
@@ -50,7 +50,7 @@ public final class WindowFullTest extends EquallableGuiInterpreterUtil {
         assertFalse(w_.getContext().getInterrupt().get());
         w_.launchFileConf("",false);
         assertFalse(w_.getContext().getInterrupt().get());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         tryClick(w_.getCoverage());
         w_.quit();
         assertTrue(w_.getContext().getInterrupt().get());
@@ -65,7 +65,7 @@ public final class WindowFullTest extends EquallableGuiInterpreterUtil {
         cr_.run();
         WindowFull w_ = cr_.getWindow();
         tryClick(w_.getStop());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.quit();
         assertTrue(w_.getLaunch().isEnabled());
     }
@@ -82,10 +82,11 @@ public final class WindowFullTest extends EquallableGuiInterpreterUtil {
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
         tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
         assertFalse(w_.getContext().getInterrupt().get());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         tryClick(w_.getCoverage());
         w_.changeLanguage("");
         w_.quit();
         assertTrue(w_.getContext().getInterrupt().get());
+        GuiBaseUtil.tryToReopen(w_.getApplicationName(),w_.getFrames());
     }
 }

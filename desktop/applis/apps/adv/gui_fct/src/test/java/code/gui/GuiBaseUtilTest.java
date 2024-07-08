@@ -324,7 +324,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void gr() {
         MockProgramInfosSecSample pr_ = init();
-        pr_.getCounts().addEntry("",new ConcreteInteger());
+//        pr_.getCounts().addEntry("",new ConcreteInteger());
         GroupFrame s_ = new SampleGroupFrame("",pr_,new StringMap<String>());
         s_.setImageIconFrame(null);
 //        s_.getLanguageDialog();

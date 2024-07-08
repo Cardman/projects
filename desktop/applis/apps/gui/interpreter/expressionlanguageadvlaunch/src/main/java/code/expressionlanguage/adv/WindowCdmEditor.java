@@ -82,9 +82,11 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final FileSaveFrame fileSaveFrame;
     private final FileOpenFrame fileOpenFrame;
     private final FolderOpenFrame folderOpenFrame;
+    private final AbsButton mainButton;
 
-    public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
+    public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact, AbsButton _ma) {
         super(null, _list, _fact);
+        mainButton = _ma;
         languageDialogButtons = new LanguageDialogButtons(_list,null, new AlwaysActionListenerAct());
         modal = _list.getThreadFactory().newAtomicBoolean();
         fileSaveFrame = new FileSaveFrame(_list,modal);
@@ -537,6 +539,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     @Override
     public void quit() {
         closeAll();
+        LanguageDialogButtons.enable(mainButton,true);
         GuiBaseUtil.trEx(this);
     }
 

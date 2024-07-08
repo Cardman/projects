@@ -1,14 +1,12 @@
 package code.gui.initialize;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.gui.AbsButton;
 import code.gui.AbsOpenQuit;
 import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsLg;
 import code.stream.core.AbstractZipFact;
-import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
@@ -17,8 +15,8 @@ import code.util.StringMap;
 public class ProgramInfosBase {
     private Translations translations = new Translations();
     private final CustList<AbsOpenQuit> frames = new CustList<AbsOpenQuit>();
-    private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
-    private final StringMap<AbsButton> buttons = new StringMap<AbsButton>();
+//    private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
+//    private final StringMap<AbsButton> buttons = new StringMap<AbsButton>();
     private final String homePath;
     private final String tmpUserFolder;
     private final AbstractGenerator generator;
@@ -70,13 +68,13 @@ public class ProgramInfosBase {
         return frames;
     }
 
-    public StringMap<AbstractAtomicInteger> getCounts() {
-        return counts;
-    }
+//    public StringMap<AbstractAtomicInteger> getCounts() {
+//        return counts;
+//    }
 
-    public StringMap<AbsButton> getButtons() {
-        return buttons;
-    }
+//    public StringMap<AbsButton> getButtons() {
+//        return buttons;
+//    }
 
 //    public AbstractAdvGraphicListGenerator getGeneStrCompo() {
 //        return geneStrCompo;

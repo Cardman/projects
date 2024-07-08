@@ -329,13 +329,14 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     @Test
     public void quit() {
         MockProgramInfos pr_ = build();
-        CreateMainWindowRts c_ = new CreateMainWindowRts("", pr_);
+        CreateMainWindowRts c_ = new CreateMainWindowRts("", pr_, null);
         c_.run();
         WindowRts w_ = c_.getWindowRts();
         w_.changeLanguage("");
-        w_.getCommonFrame().getFrames().getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        w_.getCommonFrame().getFrames().getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.quit();
         w_.setVisible(false);
         assertFalse(w_.getCommonFrame().isVisible());
+        GuiBaseUtil.tryToReopen(w_.getApplicationName(),w_.getFrames());
     }
 }

@@ -228,7 +228,7 @@ public final class ContainerMultiContentTest extends EquallableNetworkUtil {
         Exiting forcedBye_ = new Exiting();
         forcedBye_.setForced(false);
         forcedBye_.setClosing(true);
-        clientKo_.getFrames().getCounts().put(clientKo_.getApplicationName(),clientKo_.getFrames().getThreadFactory().newAtomicInteger());
+//        clientKo_.getFrames().getCounts().put(clientKo_.getApplicationName(),clientKo_.getFrames().getThreadFactory().newAtomicInteger());
         assertFalse(BasicClient.iterate(socket_,clientKo_,NetCommon.exportExiting(forcedBye_)));
 
 

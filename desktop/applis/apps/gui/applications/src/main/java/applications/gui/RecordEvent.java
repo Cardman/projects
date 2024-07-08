@@ -1,15 +1,15 @@
 package applications.gui;
 
 import code.expressionlanguage.guicompos.WindowFull;
+import code.gui.AbsButton;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.player.main.LaunchRecord;
-import code.threads.AbstractAtomicInteger;
 
 public final class RecordEvent extends AbstractEvent {
 
-    RecordEvent(WindowApps _window, AbstractAtomicInteger _at) {
-        super(_window,_at);
+    RecordEvent(WindowApps _window, AbsButton _but) {
+        super(_window, _but);
     }
 
     @Override
@@ -22,6 +22,6 @@ public final class RecordEvent extends AbstractEvent {
         String lg_ = _window.getFrames().getLanguage();
         LaunchRecord l_;
         l_ = new LaunchRecord(_window.getWithAppFactories());
-        l_.launch(lg_);
+        l_.launch(lg_, getMainButton());
     }
 }

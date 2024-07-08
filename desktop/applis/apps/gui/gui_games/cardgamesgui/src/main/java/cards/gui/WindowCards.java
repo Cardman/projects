@@ -218,15 +218,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final ReportingFrame errorsFile = ReportingFrame.newInstance(getFrames());
     private String lastFile = "";
     private final AbsActionListenerAct guardRender;
+    private final AbsButton mainButton;
 
     public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list) {
         this(_nicknames, _list,new IntArtCardGames());
     }
     public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia) {
-        this(_nicknames, _list,_list.getCompoFactory().newMenuItem(), null,_ia);
+        this(_nicknames, _list,_list.getCompoFactory().newMenuItem(), null,_ia, null);
     }
-    public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, EnabledMenu _geneHelp, EnabledMenu _lgMenu, IntArtCardGames _ia) {
+    public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, EnabledMenu _geneHelp, EnabledMenu _lgMenu, IntArtCardGames _ia, AbsButton _ma) {
         super(_list);
+        mainButton = _ma;
         guardRender = new AlwaysActionListenerAct();
         languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu, new AlwaysActionListenerAct());
         setPausingCardsAnims(new DefPausingCardsAnims());
@@ -445,6 +447,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     @Override
     public void quit() {
         beforeClose();
+        LanguageDialogButtons.enable(mainButton,true);
         GuiBaseUtil.trEx(this);
 //        closeOpened();
         /*if (containerGame instanceof ContainerMulti) {

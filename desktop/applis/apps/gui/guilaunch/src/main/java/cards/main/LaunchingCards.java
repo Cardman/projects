@@ -2,9 +2,7 @@ package cards.main;
 
 import cards.facade.FacadeCards;
 import cards.gui.WindowCards;
-import cards.gui.dialogs.FileConst;
 import code.gui.*;
-import code.gui.files.FileDialog;
 import code.gui.initialize.LoadLanguageUtil;
 
 /**
@@ -18,10 +16,10 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
+    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
         FacadeCards.coreFolder(WindowCards.getTempFolderSl(getFrames()),getFrames());
-        TopLeftFrame coordonnees_= FileDialog.loadCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
-        getFrames().getCompoFactory().invokeNow(new LaunchingGame(getFile(_args), coordonnees_, getFrames(),getAppFactories().getCardFactories(), _lgMenu));
+//        TopLeftFrame coordonnees_= FileDialog.loadCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
+        getFrames().getCompoFactory().invokeNow(new LaunchingGame(getFile(_args), getFrames(),getAppFactories().getCardFactories(), _lgMenu, _main));
     }
 
     protected static void loadLaungage(String[] _args, LaunchingCards _soft) {

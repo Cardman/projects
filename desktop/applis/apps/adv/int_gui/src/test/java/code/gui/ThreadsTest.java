@@ -108,8 +108,8 @@ public class ThreadsTest extends EquallableIntGuiUtil {
 //        assertNull(t_.getInterceptor());
         assertEq("",t_.getHomePath());
         assertEq("",t_.getTmpUserFolder());
-        assertEq(0, t_.getCounts().size());
-        assertEq(0, t_.getButtons().size());
+//        assertEq(0, t_.getCounts().size());
+//        assertEq(0, t_.getButtons().size());
         assertEq(0, t_.getFrames().size());
         assertEq(0, t_.getLanguages().size());
         assertEq(0, t_.getDisplayLanguages().size());

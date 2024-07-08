@@ -696,7 +696,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     @Override
     public void quit() {
         GuiBaseUtil.trEx(this);
-        getButtonClick().setEnabled(true);
+        LanguageDialogButtons.enable(getButtonClick(),true);
         netg.changerNombreDePartiesEnQuittant(this);
         ecrireCoordonnees();
         netg.closeWindows();

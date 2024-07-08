@@ -420,7 +420,7 @@ public abstract class EquallableCardsGuiUtil {
     protected WindowCards frameLanguage() {
         MockProgramInfos pr_ = updateDialogSoft(build("/__/", "/_/", dbs(0.75)));
         pr_.setLanguages(new StringList(EN,FR));
-        return new WindowCards(stream(pr_), pr_,pr_.getCompoFactory().newMenuItem(),pr_.getCompoFactory().newMenuItem(),new IntArtCardGames());
+        return new WindowCards(stream(pr_), pr_,pr_.getCompoFactory().newMenuItem(),pr_.getCompoFactory().newMenuItem(),new IntArtCardGames(), null);
     }
 
     protected WindowCards frameDialogDisplay(String _h, String _t) {
@@ -513,7 +513,7 @@ public abstract class EquallableCardsGuiUtil {
         cf_.submitHelp(pr_);
         AbstractFutureParam<StringMap<HelpIndexesTree>> helpTask_ = cf_.getHelpTask();
         helpTask_.attendreResultat();
-        WindowCards wc_ = new WindowCards(stream(pr_), pr_, cf_.getGeneralHelp(),null,new IntArtCardGames());
+        WindowCards wc_ = new WindowCards(stream(pr_), pr_, cf_.getGeneralHelp(),null,new IntArtCardGames(), null);
         wc_.setHelpInitializerTask(helpTask_);
         return wc_;
     }

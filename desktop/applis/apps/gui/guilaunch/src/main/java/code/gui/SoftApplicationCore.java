@@ -118,7 +118,7 @@ public abstract class SoftApplicationCore {
 
     protected void launchFile(String[] _args, String _lg) {
         getFrames().setLanguage(_lg);
-        launch(_lg, _args, languageMenu);
+        launch(_lg, _args, languageMenu, null);
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
@@ -143,7 +143,7 @@ public abstract class SoftApplicationCore {
         return files_;
     }
 
-    protected abstract void launch(String _language, String[] _args, EnabledMenu _lgMenu);
+    protected abstract void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main);
 
     public EnabledMenu getLanguageMenu() {
         return languageMenu;

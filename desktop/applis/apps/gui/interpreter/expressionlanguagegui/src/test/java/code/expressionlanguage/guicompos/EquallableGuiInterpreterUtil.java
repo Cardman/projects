@@ -42,7 +42,7 @@ public abstract class EquallableGuiInterpreterUtil {
     public static CreateMainWindowFull create(MockProgramInfos _pr,String..._args) {
         update(_pr);
         CdmFactory cdm_ = new CdmFactory(_pr,new MockInterceptor());
-        return new CreateMainWindowFull("",new StringList(_args),cdm_,_pr);
+        return new CreateMainWindowFull("",new StringList(_args),cdm_,_pr, null);
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

@@ -13,11 +13,11 @@ public abstract class EquallableSoundPlayerUtil {
 
     public static WindowPlayer windowPlayer() {
         MockProgramInfos pr_ = build();
-        return new WindowPlayer("",pr_);
+        return new WindowPlayer("",pr_, null);
     }
     public static WindowRecorder windowRecorder() {
         MockProgramInfos pr_ = build();
-        return new WindowRecorder("",pr_);
+        return new WindowRecorder("",pr_, null);
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

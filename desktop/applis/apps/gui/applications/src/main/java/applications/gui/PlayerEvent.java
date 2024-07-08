@@ -1,14 +1,14 @@
 package applications.gui;
 
+import code.gui.AbsButton;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.player.gui.WindowPlayer;
 import code.player.main.LaunchingPlayer;
-import code.threads.AbstractAtomicInteger;
 
 public final class PlayerEvent extends AbstractEvent {
-    PlayerEvent(WindowApps _window, AbstractAtomicInteger _at) {
-        super(_window,_at);
+    PlayerEvent(WindowApps _window, AbsButton _but) {
+        super(_window, _but);
     }
 
     @Override
@@ -21,6 +21,6 @@ public final class PlayerEvent extends AbstractEvent {
         String lg_ = _window.getFrames().getLanguage();
         LaunchingPlayer l_;
         l_ = new LaunchingPlayer(_window.getWithAppFactories());
-        l_.launch(lg_);
+        l_.launch(lg_, getMainButton());
     }
 }

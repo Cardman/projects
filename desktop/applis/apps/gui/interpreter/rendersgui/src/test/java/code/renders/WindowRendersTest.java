@@ -2,6 +2,7 @@ package code.renders;
 
 import code.expressionlanguage.utilcompo.RateStruct;
 import code.gui.AbsButton;
+import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.Rate;
 import code.mock.MockThreadFactory;
@@ -132,9 +133,10 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
         assertFalse(((CustThreadActions)exec_).isRendered());
-        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
+//        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.changeLanguage("");
         w_.quit();
+        GuiBaseUtil.tryToReopen(w_.getApplicationName(),w_.getFrames());
     }
     @Test
     public void r3() {

@@ -47,7 +47,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     @Override
-    protected final void launch(String _language, String[] _args, EnabledMenu _lgMenu) {
+    protected final void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
         StringList args_ = getFile(_args);
         if (args_.isEmpty()) {
             launchWindow(_language, getFactories());
@@ -58,9 +58,9 @@ public class LaunchingApplications extends SoftApplicationCore {
 //
 //        }
 //        if (FileListInfo.isBinary(bytes_) && !FileListInfo.isZip(bytes_.getBytes()) && getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes()) != null) {
-            launchWindow(_language, getFactories());
+            AbsButton bu_ = launchWindow(_language, getFactories()).getButtonConverter();
             LaunchingConverter launch_ = new LaunchingConverter(getFactories());
-            launch_.launchWithoutLanguage(_language, _args);
+            launch_.launchWithoutLanguage(_language, _args, bu_);
             return;
 //            AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
 //            if (img_ != null) {
@@ -75,30 +75,30 @@ public class LaunchingApplications extends SoftApplicationCore {
             return;
         }
         if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
-            launchWindow(_language, getFactories());
+            AbsButton bu_ = launchWindow(_language, getFactories()).getButtonCards();
             LaunchingCards launch_ = new LaunchingCards(getFactories());
-            launch_.launchWithoutLanguage(_language, _args);
+            launch_.launchWithoutLanguage(_language, _args, bu_);
             return;
         }
         Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_, new SexListImpl());
         LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
         if (loadingGameOrNull_ != null || gameOrNull_ != null) {
-            launchWindow(_language, getFactories());
+            AbsButton bu_ = launchWindow(_language, getFactories()).getButtonPokemon();
             LaunchingPokemon launch_ = new LaunchingPokemon(getFactories());
-            launch_.launchWithoutLanguage(_language, _args);
+            launch_.launchWithoutLanguage(_language, _args, bu_);
             return;
         }
         Document doc_ = DocumentBuilder.parseNoTextDocument(file_);
         if (doc_ != null) {
             if (StringUtil.quickEq("smil", doc_.getDocumentElement().getTagName())) {
-                launchWindow(_language, getFactories());
+                AbsButton bu_ = launchWindow(_language, getFactories()).getButtonPlayer();
                 LaunchingPlayer launch_ = new LaunchingPlayer(getFactories());
-                launch_.launchWithoutLanguage(_language, _args);
+                launch_.launchWithoutLanguage(_language, _args, bu_);
                 return;
             }
-            launchWindow(_language, getFactories());
+            AbsButton bu_ = launchWindow(_language, getFactories()).getButtonDemo();
             LaunchingDemo launch_ = new LaunchingDemo(getFactories());
-            launch_.launchWithoutLanguage(_language, _args);
+            launch_.launchWithoutLanguage(_language, _args, bu_);
             return;
         }
 //        if (file_.indexOf('\n') < 0) {
@@ -112,33 +112,34 @@ public class LaunchingApplications extends SoftApplicationCore {
             return;
         }
         if (linesFiles_.size() < 3) {
-            launchWindow(_language, getFactories());
+            AbsButton bu_ = launchWindow(_language, getFactories()).getButtonTests();
             LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFactories());
-            launch_.launchWithoutLanguage(_language, _args);
+            launch_.launchWithoutLanguage(_language, _args, bu_);
             return;
         }
         String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
         if (possibleMethod_.startsWith("initDb=")) {
-            launchWindow(_language, getFactories());
+            AbsButton bu_ = launchWindow(_language, getFactories()).getButtonRenders();
             LaunchingRenders launch_ = new LaunchingRenders(getFactories());
-            launch_.launchWithoutLanguage(_language, _args);
+            launch_.launchWithoutLanguage(_language, _args, bu_);
             return;
         }
         if (possibleMethod_.startsWith("main=")) {
-            launchWindow(_language, getFactories());
+            AbsButton bu_ = launchWindow(_language, getFactories()).getButtonApps();
             LaunchingFull launch_ = new LaunchingFull(getFactories());
-            launch_.launchWithoutLanguage(_language, _args);
+            launch_.launchWithoutLanguage(_language, _args, bu_);
             return;
         }
-        launchWindow(_language, getFactories());
+        AbsButton bu_ = launchWindow(_language, getFactories()).getButtonTests();
         LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFactories());
-        launch_.launchWithoutLanguage(_language, _args);
+        launch_.launchWithoutLanguage(_language, _args, bu_);
     }
 
-    private void launchWindow(String _language, WithAppFactories _list) {
+    private WindowApps launchWindow(String _language, WithAppFactories _list) {
         TopLeftFrame topLeft_ = FileDialog.loadCoords(getTempFolder(_list.getProgramInfos()),COORDS, _list.getProgramInfos().getFileCoreStream(), _list.getProgramInfos().getStreams());
         WindowApps w_ = getWindow(_language, _list);
         FileDialog.setLocation(w_.getCommonFrame(), topLeft_);
+        return w_;
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
         return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
