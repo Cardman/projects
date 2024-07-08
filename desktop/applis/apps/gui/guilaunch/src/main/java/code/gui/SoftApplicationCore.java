@@ -18,7 +18,6 @@ import code.scripts.pages.aiki.*;
 import code.scripts.pages.cards.*;
 import code.sml.*;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public abstract class SoftApplicationCore {
 
@@ -118,7 +117,7 @@ public abstract class SoftApplicationCore {
 
     protected void launchFile(String[] _args, String _lg) {
         getFrames().setLanguage(_lg);
-        launch(_lg, _args, languageMenu, null);
+        launch(_lg, new InterpretedFile(getFrames(),_args), languageMenu, null);
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
@@ -133,17 +132,17 @@ public abstract class SoftApplicationCore {
         return new LanguageFrame(_dir, _args, this, _icon);
     }
 
-    protected StringList getFile(String[] _args) {
-        StringList files_ = new StringList();
-        if (_args.length > 0) {
-            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
-            fileName_ = StringUtil.replaceBackSlash(fileName_);
-            files_.add(fileName_);
-        }
-        return files_;
-    }
+//    protected StringList getFile(String[] _args) {
+//        StringList files_ = new StringList();
+//        if (_args.length > 0) {
+//            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
+//            fileName_ = StringUtil.replaceBackSlash(fileName_);
+//            files_.add(fileName_);
+//        }
+//        return files_;
+//    }
 
-    protected abstract void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main);
+    protected abstract void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main);
 
     public EnabledMenu getLanguageMenu() {
         return languageMenu;

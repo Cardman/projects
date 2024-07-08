@@ -21,8 +21,8 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
-        StringList args_ = getFile(_args);
+    protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
+        StringList args_ = _args.getFileNames();
         LoadedGameConf load_ = getAppFactories().getAikiFactory().getConfPkStream().load(WindowAiki.getTempFolder(getFrames()), args_, new SexListImpl());
         LoadingGame param_ = load_.getLoadingGame();
         //String path_ = getFolderJarPath();

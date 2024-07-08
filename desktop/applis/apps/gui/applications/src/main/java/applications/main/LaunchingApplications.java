@@ -22,7 +22,6 @@ import code.minirts.LaunchingDemo;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.stream.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -47,14 +46,14 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     @Override
-    protected final void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
-        StringList args_ = getFile(_args);
-        if (args_.isEmpty()) {
+    protected final void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
+//        StringList args_ = _args.getFileNames();
+        BytesInfo bytes_ = _args.getInput();
+        if (bytes_.isNul()) {
             launchWindow(_language, getFactories());
             return;
         }
-        BytesInfo bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getStreams());
-        if (!bytes_.isNul() && !DocumentImagesUtil.parse(StringUtil.decode(bytes_.getBytes())).isEmpty()) {
+        if (!DocumentImagesUtil.parse(StringUtil.decode(bytes_.getBytes())).isEmpty()) {
 //
 //        }
 //        if (FileListInfo.isBinary(bytes_) && !FileListInfo.isZip(bytes_.getBytes()) && getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes()) != null) {
@@ -70,10 +69,10 @@ public class LaunchingApplications extends SoftApplicationCore {
 //                return;
 //            }
         }
-        String file_ = StreamTextFile.contentsOfFile(args_.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
-        if (file_ == null) {
-            return;
-        }
+        String file_ = _args.getText();
+//        if (file_ == null) {
+//            return;
+//        }
         if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
             AbsButton bu_ = launchWindow(_language, getFactories()).getButtonCards();
             LaunchingCards launch_ = new LaunchingCards(getFactories());
@@ -88,7 +87,7 @@ public class LaunchingApplications extends SoftApplicationCore {
             launch_.launchWithoutLanguage(_language, _args, bu_);
             return;
         }
-        Document doc_ = DocumentBuilder.parseNoTextDocument(file_);
+        Document doc_ = _args.getDocument();
         if (doc_ != null) {
             if (StringUtil.quickEq("smil", doc_.getDocumentElement().getTagName())) {
                 AbsButton bu_ = launchWindow(_language, getFactories()).getButtonPlayer();
@@ -109,6 +108,7 @@ public class LaunchingApplications extends SoftApplicationCore {
 //        }
         StringList linesFiles_ = ExecutingOptions.lines(file_);
         if (linesFiles_.size() < 2) {
+            launchWindow(_language, getFactories());
             return;
         }
         if (linesFiles_.size() < 3) {

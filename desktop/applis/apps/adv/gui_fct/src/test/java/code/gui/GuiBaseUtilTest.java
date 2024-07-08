@@ -666,6 +666,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         init_.getStreams().getTextFact().write("/file", "<_/>", false);
         InterpretedFile i_ = new InterpretedFile(init_,new String[]{"/file"});
         assertFalse(i_.getInput().isNul());
+        assertEq("/file",i_.getFileNames().get(0));
         assertEq("<_/>",i_.getText());
         assertEq("<_/>",i_.getDocument().export());
     }

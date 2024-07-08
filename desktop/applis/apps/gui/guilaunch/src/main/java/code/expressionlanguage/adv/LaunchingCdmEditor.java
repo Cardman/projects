@@ -2,7 +2,6 @@ package code.expressionlanguage.adv;
 
 import code.gui.*;
 import code.gui.initialize.LoadLanguageUtil;
-import code.stream.StreamFolderFile;
 
 public class LaunchingCdmEditor extends AdvSoftApplicationCore {
     public LaunchingCdmEditor(WithAppFactories _infos) {
@@ -17,7 +16,7 @@ public class LaunchingCdmEditor extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateWindowCdm(_language, StreamFolderFile.getFilesNames(getFrames().getFileCoreStream(), _args), getAppFactories().getCdmFactory(),getFrames(), _main), getFrames());
+    protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateWindowCdm(_language, _args.getFileNames(), getAppFactories().getCdmFactory(),getFrames(), _main), getFrames());
     }
 }

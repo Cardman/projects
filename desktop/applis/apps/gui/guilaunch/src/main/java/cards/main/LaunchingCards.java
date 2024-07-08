@@ -16,10 +16,10 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
+    protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
         FacadeCards.coreFolder(WindowCards.getTempFolderSl(getFrames()),getFrames());
 //        TopLeftFrame coordonnees_= FileDialog.loadCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
-        getFrames().getCompoFactory().invokeNow(new LaunchingGame(getFile(_args), getFrames(),getAppFactories().getCardFactories(), _lgMenu, _main));
+        getFrames().getCompoFactory().invokeNow(new LaunchingGame(_args.getFileNames(), getFrames(),getAppFactories().getCardFactories(), _lgMenu, _main));
     }
 
     protected static void loadLaungage(String[] _args, LaunchingCards _soft) {

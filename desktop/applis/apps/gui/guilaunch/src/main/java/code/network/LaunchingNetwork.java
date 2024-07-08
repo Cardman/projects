@@ -1,9 +1,6 @@
 package code.network;
 
-import code.gui.AbsButton;
-import code.gui.AdvSoftApplicationCore;
-import code.gui.EnabledMenu;
-import code.gui.WithAppFactories;
+import code.gui.*;
 
 public final class LaunchingNetwork extends AdvSoftApplicationCore {
 
@@ -17,7 +14,7 @@ public final class LaunchingNetwork extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, String[] _args, EnabledMenu _lgMenu, AbsButton _main) {
+    protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
         getFrames().getCompoFactory().invokeNow(new LaunchNetwork(_language,getFrames(), _main,_lgMenu,getAppFactories().getAikiFactory(),getAppFactories().getCardFactories()));
     }
 
