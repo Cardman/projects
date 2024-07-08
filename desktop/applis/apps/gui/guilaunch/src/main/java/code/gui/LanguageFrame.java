@@ -31,9 +31,10 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
         content = new LanguageDialogButtons(_soft.getFrames(),null,new AlwaysActionListenerAct());
 //        _soft.getFrames().getFrames().add(this);
         dir = _dir;
-        if (_icon != null) {
-            content.getCommonFrame().setIconImage(_icon);
-        }
+//        if (_icon != null) {
+//            content.getCommonFrame().setIconImage(_icon);
+//        }
+        content.getCommonFrame().setIconImage(_icon);
         soft = _soft;
         args = _args;
         init(null,_soft.getFrames(), TITLE);
