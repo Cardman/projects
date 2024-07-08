@@ -1,11 +1,11 @@
 package cards.gui;
 
-import cards.president.beans.PresidentStandards;
-import code.bean.nat.InvokedPageOutput;
-import code.bean.nat.NaSt;
-import code.bean.nat.analyze.NatConfigurationCore;
-import code.bean.nat.exec.NatRendStackCall;
-import code.sml.DocumentBuilder;
+import cards.president.beans.*;
+import code.bean.nat.*;
+import code.bean.nat.analyze.*;
+import code.bean.nat.exec.*;
+import code.sml.*;
+import code.util.*;
 
 public final class PresidentStandardsSample extends PresidentStandards {
     @Override
@@ -29,5 +29,10 @@ public final class PresidentStandardsSample extends PresidentStandards {
         InvokedPageOutput out_ = new InvokedPageOutput(_dest, empty_);
         _rendStack.setDocument(DocumentBuilder.parseSax(empty_));
         return out_;
+    }
+
+    @Override
+    public NatNavigation nav(StringList _languages, String _lg, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<String> _otherMessage, String _rel) {
+        return null;
     }
 }
