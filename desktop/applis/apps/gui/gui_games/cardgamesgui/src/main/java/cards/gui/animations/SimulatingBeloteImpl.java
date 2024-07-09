@@ -6,7 +6,6 @@ import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.facade.Games;
 import cards.gui.containers.*;
-import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.BeloteCardConverter;
 import cards.gui.panels.CarpetBelote;
@@ -374,7 +373,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
         res_.getRes().setGeneral(container.readCoreResourceSuit());
         res_.getRes().setSpecific(container.readResource());
-        CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
+        CardNatLgNamesNavigation stds_ = container.retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

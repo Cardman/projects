@@ -2,7 +2,6 @@ package aiki.main;
 
 import aiki.gui.WindowAiki;
 import aiki.sml.LoadingGame;
-import aiki.sml.Resources;
 import code.gui.AbsButton;
 import code.gui.EnabledMenu;
 import code.gui.files.FileDialog;
@@ -47,7 +46,7 @@ public final class CreateMainWindowAiki implements Runnable {
 //        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), builtMessages_, builtOther_, new PkProg(), list.getLanguages());
         WindowAiki window_ = new WindowAiki(lg, list,aikiFactory, main);
 //        window_.getDataWeb().setEnabled(false);
-        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), Resources.COORDS, list.getFileCoreStream(), list.getStreams()));
+        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), LoadingGame.COORDS, list.getFileCoreStream(), list.getStreams()));
 //        fight_.run();
 //        pk_.run();
 //        pkNet_.run();

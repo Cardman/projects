@@ -553,7 +553,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setScores(res_.getRes().getScores());
 
         RenderedPage editor_;
-        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
+        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), win.getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

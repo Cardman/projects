@@ -8,8 +8,8 @@ import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.GamesPk;
+import aiki.sml.LoadingGame;
 import aiki.sml.MessagesRenderScenePanel;
-import aiki.sml.Resources;
 import cards.facade.enumerations.GameEnum;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
@@ -605,7 +605,7 @@ public class ScenePanelMulti {
 
     public void manageNetwork() {
 //        window.getLanguageKey();
-        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), Resources.PORT_INI);
+        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), LoadingGame.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, NetAiki.getPort(), window.getFileCoreStream(), window.getStreams());
         DialogServerContent.setDialogServer(window, GameEnum.NONE,port_);
 //        DialogServerAiki.setDialogServer(window);

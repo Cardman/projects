@@ -1181,12 +1181,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         res_.getRes().setGeneralCards(readCoreResourceCards());
 
         RenderedPage editor_;
-        CardNatLgNamesNavigation sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
+        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
         ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
         editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), win.getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
-        CardNatLgNamesNavigation sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT).attendreResultat();
+        CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT).attendreResultat();
         ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
         editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), win.getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

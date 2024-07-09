@@ -98,7 +98,7 @@ public final class DefConfPkStreamTest extends EquallablePkFileUtil {
         conf_.setLoadHomeFolder(true);
         conf_.setLoadLastGame(true);
         String tmp_ = StreamFolderFile.getTempFolder(pr_, "__");
-        def_.save(StringUtil.concat(tmp_, Resources.LOAD_CONFIG_FILE), conf_);
+        def_.save(StringUtil.concat(tmp_, LoadingGame.LOAD_CONFIG_FILE), conf_);
         LoadedGameConf load_ = def_.load(tmp_, new StringList(), new MockLSexList());
         assertEq("",load_.getLoadingGame().getLastRom());
         assertEq("",load_.getLoadingGame().getLastSavedGame());
@@ -128,7 +128,7 @@ public final class DefConfPkStreamTest extends EquallablePkFileUtil {
         conf_.setLoadHomeFolder(true);
         conf_.setLoadLastGame(true);
         String tmp_ = StreamFolderFile.getTempFolder(pr_, "__");
-        def_.save(StringUtil.concat(tmp_, Resources.LOAD_CONFIG_FILE), conf_);
+        def_.save(StringUtil.concat(tmp_, LoadingGame.LOAD_CONFIG_FILE), conf_);
         LoadedGameConf load_ = def_.load(tmp_, new StringList(), new MockLSexList());
         assertEq("3",load_.getLoadingGame().getLastRom());
         assertEq("4",load_.getLoadingGame().getLastSavedGame());

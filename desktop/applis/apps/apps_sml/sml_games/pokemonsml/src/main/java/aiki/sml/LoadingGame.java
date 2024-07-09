@@ -5,6 +5,16 @@ public final class LoadingGame {
 
 //    public static final String DEFAULT_SAVE_GAME = "last_save"+Resources.GAME_EXT;
     public static final String DEFAULT_SAVE_GAME = "last_save";
+    public static final String PORT_INI = "pokemon_port.ini";
+    public static final String ZIPPED_DATA_EXT = ".zip";
+    public static final String GAME_EXT = ".pkgame";
+    public static final String CONF_EXT = ".pkconf";
+    public static final String LOAD_CONFIG_FILE = "loadconfig.pkconf";
+    public static final String RESOURCES_FOLDER= "resources_pk";
+    public static final String ICON_TXT = "pokemon.txt";
+    public static final String MESSAGES_FOLDER= "resources_pk/gui/messages";
+    public static final String COORDS="pk.coords";
+    public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
 
     private String lastRom = "";
 

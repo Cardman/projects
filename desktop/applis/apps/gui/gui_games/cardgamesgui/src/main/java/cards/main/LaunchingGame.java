@@ -3,7 +3,7 @@ package cards.main;
 import cards.facade.CardGamesStream;
 import cards.facade.IntArtCardGames;
 import cards.gui.WindowCards;
-import cards.gui.dialogs.FileConst;
+import cards.gui.dialogs.FrameGeneralHelp;
 import code.gui.AbsButton;
 import code.gui.EnabledMenu;
 import code.gui.files.FileDialog;
@@ -35,7 +35,7 @@ public final class LaunchingGame implements Runnable {
         WindowCards window_ = new WindowCards(new CardGamesStream(list,WindowCards.getTempFolderSl(list)), list,taskLoadImgs.getGeneralHelp(),languageMenu,new IntArtCardGames(), main);
         window_.setPrepare(taskLoadImgs.getTaskNav());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
-        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowCards.getTempFolder(list), FileConst.COORDS, list.getFileCoreStream(), list.getStreams()));
+        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowCards.getTempFolder(list), FrameGeneralHelp.COORDS, list.getFileCoreStream(), list.getStreams()));
         window_.setImageIconFrame(WindowCards.getIcon(window_.getImageFactory()));
         window_.pack();
         window_.setVisible(true);

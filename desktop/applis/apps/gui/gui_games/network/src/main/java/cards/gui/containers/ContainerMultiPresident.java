@@ -125,7 +125,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
 
         rulesPresidentMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesPresidentMulti.getCommon().setSpecific(readResource());
-        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
+        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         containerMultiContent.setEditor(FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), containerMultiContent.window().getGuardRender()));
 
@@ -209,7 +209,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
         Net.getGames(getContainerMultiContent().window().getNet()).setRulesPresident(getRulesPresidentMulti());
-        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
+        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         FrameGeneralHelp.initialize(stds_, containerMultiContent.getEditor());
     }
@@ -662,7 +662,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         setScores(_res.getRes().getScores());
 
         RenderedPage editor_;
-        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
+        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

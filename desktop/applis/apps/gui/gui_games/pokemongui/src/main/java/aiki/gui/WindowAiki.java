@@ -310,7 +310,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    }
 
     public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return FileDialog.getImage(MessPkVideoGr.ms().getVal(StringUtil.concat(Resources.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, Resources.ICON_TXT)), _fact);
+        return FileDialog.getImage(MessPkVideoGr.ms().getVal(StringUtil.concat(LoadingGame.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, LoadingGame.ICON_TXT)), _fact);
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
@@ -347,14 +347,14 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (loadingConf.isSaveGameAtExit()) {
 //        if (loadingConf != null && loadingConf.isSaveGameAtExit()) {
             if (loadingConf.getLastSavedGame().isEmpty()) {
-                String name_ = StringUtil.concat(getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+                String name_ = StringUtil.concat(getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME, LoadingGame.GAME_EXT);
                 loadingConf.setLastSavedGame(name_);
                 save(name_);
             } else {
                 String path_ = StringUtil.replaceBackSlash(getFileCoreStream().newFile(loadingConf.getLastSavedGame()).getAbsolutePath());
                 save(path_);
             }
-            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), LoadingGame.LOAD_CONFIG_FILE), loadingConf);
         }
 //        LanguageDialogButtons.enable(b_,true);
         LanguageDialogButtons.enable(mainButton,true);
@@ -896,7 +896,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    }
 
     public boolean updateConf() {
-        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
+        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), LoadingGame.LOAD_CONFIG_FILE), loadingConf);
         return true;
     }
 
@@ -1027,7 +1027,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void afterClickParam() {
         DialogSoftParams.setParams(loadingConf, getSoftParams());
-        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
+        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), LoadingGame.LOAD_CONFIG_FILE), loadingConf);
 //        if (DialogSoftParams.isOk(getSoftParams())) {
 //            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
 //        }
@@ -1186,7 +1186,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
-        FileDialog.saveCoords(getTempFolder(getFrames()),Resources.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
+        FileDialog.saveCoords(getTempFolder(getFrames()), LoadingGame.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 
     public static void processLoad(WindowAikiInt _w,String _fileName, AbstractAtomicIntegerCoreAdd _p) {
@@ -1517,7 +1517,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void setLoadingConf(LoadingGame _loadingConf, boolean _save) {
         loadingConf = _loadingConf;
         if (_save) {
-            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), LoadingGame.LOAD_CONFIG_FILE), loadingConf);
         }
     }
 

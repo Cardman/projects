@@ -798,7 +798,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
-        FileDialog.saveCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
+        FileDialog.saveCoords(WindowCards.getTempFolder(getFrames()), FrameGeneralHelp.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 //    public int getNoClient() {
 //        return ((ContainerMulti) netg.getContainerGame()).getNoClient();
@@ -1134,7 +1134,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        setMessages(WindowNetWork.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getFrames().getLanguage(), getAccessFile()));
+        setMessages(WindowNetWork.getMessagesFromLocaleClass(FrameGeneralHelp.FOLDER_MESSAGES_GUI, getFrames().getLanguage(), getAccessFile()));
 //        messagesAiki = WindowAiki.getMessagesFromLocaleClass(getLanguageKey());
     }
 //    public void loadGameBegin(String _file) {
@@ -1942,7 +1942,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         */
-        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), FileConst.PORT_INI);
+        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), FrameGeneralHelp.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(),getFileCoreStream(),getStreams());
         DialogServerContent.setDialogServer(this,_jeuBouton,port_);
 //        ResultCardsServer result_ = getResultCardsServerInteract().interact(this, _jeuBouton);

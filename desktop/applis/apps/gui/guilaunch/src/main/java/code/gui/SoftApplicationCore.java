@@ -59,12 +59,12 @@ public abstract class SoftApplicationCore {
     private static void aiki(AikiFactory _af, StringList _lgs, StringMap<String> _msg, StringMap<String> _dis, AbstractGenerator _gene) {
         _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl()));
         StringMap<String> builtOther_ = CssInit.ms();
-        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), PagesInit.build(), _msg, builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
-        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), PagesInit.buildFight(), _msg, builtOther_, new PkFight(), _lgs),null));
-        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs),null));
-        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs),null));
-        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), _msg, builtOther_, new PkDiff(), _lgs),null));
-        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), _msg, builtOther_, new PkProg(), _lgs),null));
+        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), PagesInit.build(), _msg, builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
+        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), PagesInit.buildFight(), _msg, builtOther_, new PkFight(), _lgs),null));
+        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs),null));
+        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs),null));
+        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), _msg, builtOther_, new PkDiff(), _lgs),null));
+        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), _msg, builtOther_, new PkProg(), _lgs),null));
     }
     private static StringMap<String> aikiMsg() {
         StringMap<String> builtMessages_ = MessagesInit.ms();
@@ -73,9 +73,9 @@ public abstract class SoftApplicationCore {
     }
 
     private static void belote(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), _msg, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), _msg, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), _msg, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), _msg, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), _msg, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), _msg, _lgs));
     }
 
     private static StringMap<String> beloteMsg() {
@@ -85,8 +85,8 @@ public abstract class SoftApplicationCore {
     }
 
     private static void president(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), _msg, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), _msg, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), _msg, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), _msg, _lgs));
     }
 
     private static StringMap<String> presidentMsg() {
@@ -96,9 +96,9 @@ public abstract class SoftApplicationCore {
     }
 
     private static void tarot(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), _msg, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), _msg, _lgs));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), _msg, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), _msg, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), _msg, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), _msg, _lgs));
     }
 
     private static StringMap<String> tarotMsg() {

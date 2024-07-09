@@ -4,7 +4,6 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.containers.*;
 import cards.gui.dialogs.EditorCards;
-import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.PresidentCardConverter;
 import cards.gui.panels.CarpetPresident;
@@ -429,7 +428,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container.setScores(res_.getRes().getScores());
         res_.getRes().setUser(DealPresident.NUMERO_UTILISATEUR);
         Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
-        CardNatLgNamesNavigation stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
+        CardNatLgNamesNavigation stds_ = container.retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));

@@ -279,7 +279,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 
         rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
-        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
+        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
         containerMultiContent.setEditor(FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), containerMultiContent.window().getGuardRender()));
 
@@ -365,7 +365,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
         Net.getGames(getContainerMultiContent().window().getNet()).setRulesBelote(getRulesBeloteMulti());
         rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
-        CardNatLgNamesNavigation stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
+        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
         FrameGeneralHelp.initialize(stds_, containerMultiContent.getEditor());
     }
@@ -1040,12 +1040,12 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 //        String lg_ = getOwner().getLanguageKey();
 
         RenderedPage editor_;
-        CardNatLgNamesNavigation sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
+        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
-        CardNatLgNamesNavigation sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
+        CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
         ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
         editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
