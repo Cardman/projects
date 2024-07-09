@@ -13,6 +13,6 @@ public final class LaunchingApplicationsSys extends LaunchingApplications {
         super(_p);
     }
     public static void loadLaungage(String[] _args) {
-        LaunchingApplications.loadLaungage(_args,new LaunchingApplicationsSys());
+        new LaunchingApplicationsSys().loadLanguage(TEMP_FOLDER,_args);
     }
 }

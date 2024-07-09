@@ -8,6 +8,6 @@ public final class LaunchingPlayerSys extends LaunchingPlayer {
         super(DefProgramInfos.build());
     }
     public static void loadLaungage(String[] _args) {
-        LaunchingPlayer.loadLaungage(_args,new LaunchingPlayerSys());
+        new LaunchingPlayerSys().loadLanguage(TEMP_FOLDER,_args);
     }
 }

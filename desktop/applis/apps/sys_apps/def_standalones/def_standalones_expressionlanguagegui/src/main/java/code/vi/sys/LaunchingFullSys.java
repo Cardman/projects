@@ -12,6 +12,6 @@ public final class LaunchingFullSys extends LaunchingFull {
         super(_p);
     }
     public static void loadLaungage(String[] _args) {
-        LaunchingFull.loadLaungage(_args,new LaunchingFullSys());
+        new LaunchingFullSys().loadLanguage(TEMP_FOLDER,_args);
     }
 }

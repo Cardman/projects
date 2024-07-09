@@ -1,15 +1,14 @@
 package code.expressionlanguage.adv;
 
 import code.gui.*;
-import code.gui.initialize.LoadLanguageUtil;
 
 public class LaunchingCdmEditor extends AdvSoftApplicationCore {
     public LaunchingCdmEditor(WithAppFactories _infos) {
         super(_infos);
     }
-    protected static void loadLaungage(String[] _args, LaunchingCdmEditor _soft) {
-        LoadLanguageUtil.loadLaungage(_soft, WindowCdmEditor.TEMP_FOLDER, _args);
-    }
+//    protected static void loadLaungage(String[] _args, LaunchingCdmEditor _soft) {
+//        LoadLanguageUtil.loadLaungage(_soft, WindowCdmEditor.TEMP_FOLDER, _args);
+//    }
     @Override
     protected String getApplicationName() {
         return WindowCdmEditor.CDM_EDITOR;

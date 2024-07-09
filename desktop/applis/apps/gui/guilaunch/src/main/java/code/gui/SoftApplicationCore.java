@@ -32,7 +32,9 @@ public abstract class SoftApplicationCore {
     public AppFactories getAppFactories() {
         return getFactories().getAppFactories();
     }
-
+    public void loadLanguage(String _folder, String[] _args) {
+        LoadLanguageUtil.loadLaungage(this, _folder, _args);
+    }
     protected void loadLaungage(String _dir, String[] _args, AbstractImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
         submitTasks();

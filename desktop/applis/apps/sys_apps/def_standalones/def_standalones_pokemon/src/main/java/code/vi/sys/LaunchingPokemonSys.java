@@ -1,5 +1,6 @@
 package code.vi.sys;
 
+import aiki.gui.WindowAiki;
 import aiki.main.LaunchingPokemon;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
@@ -8,6 +9,6 @@ public final class LaunchingPokemonSys extends LaunchingPokemon {
         super(DefProgramInfos.build());
     }
     public static void loadLaungage(String[] _args) {
-        LaunchingPokemon.loadLaungage(_args,new LaunchingPokemonSys());
+        new LaunchingPokemonSys().loadLanguage(WindowAiki.TEMP_FOLDER,_args);
     }
 }

@@ -5,19 +5,12 @@ import aiki.gui.WindowAiki;
 import aiki.sml.LoadedGameConf;
 import aiki.sml.LoadingGame;
 import code.gui.*;
-import code.gui.initialize.LoadLanguageUtil;
 import code.util.StringList;
 
 public class LaunchingPokemon extends AdvSoftApplicationCore {
 
     public LaunchingPokemon(WithAppFactories _frames) {
         super(_frames);
-    }
-
-    protected static void loadLaungage(String[] _args, LaunchingPokemon _soft) {
-        //loadLaungage(_args, _icon_);
-//        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), this, _args, getIcon()));
-        LoadLanguageUtil.loadLaungage(_soft, WindowAiki.TEMP_FOLDER, _args);
     }
 
     @Override

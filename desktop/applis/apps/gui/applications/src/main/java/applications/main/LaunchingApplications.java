@@ -17,7 +17,7 @@ import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.gui.*;
 import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
-import code.gui.initialize.LoadLanguageUtil;
+//import code.gui.initialize.LoadLanguageUtil;
 import code.minirts.LaunchingDemo;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
@@ -30,16 +30,16 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     public static final String COORDS = "applications.coords";
 
-    private static final String TEMP_FOLDER = "applications";
+    public static final String TEMP_FOLDER = "applications";
 
 
     public LaunchingApplications(WithAppFactories _infos) {
         super(_infos);
     }
 
-    protected static void loadLaungage(String[] _args, LaunchingApplications _soft) {
-        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
-    }
+//    protected static void loadLaungage(String[] _args, LaunchingApplications _soft) {
+//        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
+//    }
 
     private WindowApps getWindow(String _lg, WithAppFactories _list) {
         return new WindowApps(_lg, _list);

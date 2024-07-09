@@ -8,6 +8,6 @@ public final class LaunchingConverterSys extends LaunchingConverter {
         super(DefProgramInfos.build());
     }
     public static void loadLaungage(String[] _args) {
-        LaunchingConverter.loadLaungage(_args,new LaunchingConverterSys());
+        new LaunchingConverterSys().loadLanguage(TEMP_FOLDER,_args);
     }
 }

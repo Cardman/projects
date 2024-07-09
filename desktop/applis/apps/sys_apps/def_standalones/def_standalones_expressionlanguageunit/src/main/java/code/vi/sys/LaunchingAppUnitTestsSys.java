@@ -8,6 +8,6 @@ public final class LaunchingAppUnitTestsSys extends LaunchingAppUnitTests {
         super(DefProgramInfos.build());
     }
     public static void loadLaungage(String[] _args) {
-        LaunchingAppUnitTests.loadLaungage(_args,new LaunchingAppUnitTestsSys());
+        new LaunchingAppUnitTestsSys().loadLanguage(TEMP_FOLDER,_args);
     }
 }

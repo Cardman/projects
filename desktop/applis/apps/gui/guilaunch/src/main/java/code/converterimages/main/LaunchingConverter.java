@@ -2,18 +2,13 @@ package code.converterimages.main;
 
 import code.converterimages.gui.*;
 import code.gui.*;
-import code.gui.initialize.*;
 
 public class LaunchingConverter extends AdvSoftApplicationCore {
 
-    private static final String TEMP_FOLDER = WindowConverter.APPS_CONVERTER;
+    public static final String TEMP_FOLDER = WindowConverter.APPS_CONVERTER;
 
     public LaunchingConverter(WithAppFactories _infos){
         super(_infos);
-    }
-
-    protected static void loadLaungage(String[] _args, LaunchingConverter _soft) {
-        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 //
 //    public BoolVal getObject(String _fileName) {

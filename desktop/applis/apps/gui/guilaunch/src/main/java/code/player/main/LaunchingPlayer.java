@@ -2,20 +2,15 @@ package code.player.main;
 
 
 import code.gui.*;
-import code.gui.initialize.LoadLanguageUtil;
 import code.player.gui.CreateMainWindowPlayer;
 import code.player.gui.WindowPlayer;
 
 public class LaunchingPlayer extends AdvSoftApplicationCore {
 
-    private static final String TEMP_FOLDER = "playersongs";
+    public static final String TEMP_FOLDER = "playersongs";
 
     public LaunchingPlayer(WithAppFactories _infos){
         super(_infos);
-    }
-
-    protected static void loadLaungage(String[] _args, LaunchingPlayer _soft) {
-        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
     @Override

@@ -8,6 +8,6 @@ public final class LaunchingRendersSys extends LaunchingRenders {
         super(DefProgramInfos.build());
     }
     public static void loadLaungage(String[] _args) {
-        LaunchingRenders.loadLaungage(_args,new LaunchingRendersSys());
+        new LaunchingRendersSys().loadLanguage(TEMP_FOLDER,_args);
     }
 }
