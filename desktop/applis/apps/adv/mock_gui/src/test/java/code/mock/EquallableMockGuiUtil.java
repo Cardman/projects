@@ -7,7 +7,7 @@ import code.stream.core.ContentTime;
 import code.threads.FileStruct;
 import code.threads.ThState;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import org.junit.Assert;
 
 public abstract class EquallableMockGuiUtil {
@@ -89,7 +89,7 @@ public abstract class EquallableMockGuiUtil {
     }
 
     protected static byte[] wrapInts(int... _files) {
-        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+        return SortConstants.wrapByteArray(MockZipFact.wrapInts(_files));
     }
 
     protected static long[] wrapLongs(long... _files) {

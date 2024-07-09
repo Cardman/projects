@@ -10,7 +10,7 @@ import code.stream.AbsClipStream;
 import code.stream.core.ContentTime;
 import code.threads.ThState;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import org.junit.Assert;
 
 public abstract class EquallableMockCdmUtil {
@@ -83,7 +83,7 @@ public abstract class EquallableMockCdmUtil {
     }
 
     protected static byte[] wrapInts(int... _files) {
-        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+        return SortConstants.wrapByteArray(MockZipFact.wrapInts(_files));
     }
 
     protected static long[] wrapLongs(long... _files) {

@@ -4,7 +4,7 @@ import code.mock.MockNameFile;
 import code.mock.MockZipFact;
 import code.stream.BytesInfo;
 import code.util.core.DefaultUniformingString;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -49,7 +49,7 @@ public class StreamZipFileTest extends EquallableStreamCoreUtil {
         assertEq(0, zippedFiles_.getZipFolders().size());
     }
     private static byte[] wrapInts(int... _files) {
-        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+        return SortConstants.wrapByteArray(MockZipFact.wrapInts(_files));
     }
     private static MockNameFile[] wrap(MockNameFile... _files) {
         return _files;

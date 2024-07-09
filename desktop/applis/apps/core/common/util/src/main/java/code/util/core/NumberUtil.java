@@ -53,12 +53,7 @@ public final class NumberUtil {
     public static double max(double _dOne, double _dTwo) {
         return Math.max(_dOne, _dTwo);
     }
-    public static boolean isValidIndex(int _index, int _max) {
-        if (_index < IndexConstants.FIRST_INDEX) {
-            return false;
-        }
-        return _index < _max;
-    }
+
     public static boolean equalsSetBytes(Listable<Byte> _list1, Listable<Byte> _list2) {
         for (Byte c: _list2) {
             boolean contains_ = containsByte(_list1, c);
@@ -176,10 +171,6 @@ public final class NumberUtil {
     }
 
     public static int[] wrapIntArray(int... _ints) {
-        return _ints;
-    }
-
-    public static byte[] wrapByteArray(byte... _ints) {
         return _ints;
     }
 

@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.structs.*;
-import code.gui.TextAnswerValue;
 import code.gui.initialize.*;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
@@ -72,7 +71,7 @@ public abstract class EquallableElIntUtil {
         return _args;
     }
     public static byte[] wrapInts(int... _files) {
-        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+        return SortConstants.wrapByteArray(MockZipFact.wrapInts(_files));
     }
     public static MockNameFile[] wrap(MockNameFile... _files) {
         return _files;

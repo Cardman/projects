@@ -39,7 +39,7 @@ import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -372,7 +372,7 @@ public abstract class EquallableElUtUtil {
         return _args;
     }
     public static byte[] wrapInts(int... _files) {
-        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+        return SortConstants.wrapByteArray(MockZipFact.wrapInts(_files));
     }
     public static MockNameFile[] wrap(MockNameFile... _files) {
         return _files;

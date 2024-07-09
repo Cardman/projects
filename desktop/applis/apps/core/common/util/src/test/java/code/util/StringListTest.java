@@ -1840,91 +1840,91 @@ public class StringListTest extends EquallableExUtil {
     }
     @Test
     public void decode1Test() {
-        assertEq("a", StringUtil.decode(NumberUtil.wrapByteArray((byte)97)));
+        assertEq("a", StringUtil.decode(SortConstants.wrapByteArray((byte)97)));
     }
     @Test
     public void decode2Test() {
-        assertEq("\u0090", StringUtil.decode(NumberUtil.wrapByteArray((byte)-62,(byte)-112)));
+        assertEq("\u0090", StringUtil.decode(SortConstants.wrapByteArray((byte)-62,(byte)-112)));
     }
     @Test
     public void decode3Test() {
-        assertEq("\u0b00", StringUtil.decode(NumberUtil.wrapByteArray((byte)-32,(byte)-84,(byte)-128)));
+        assertEq("\u0b00", StringUtil.decode(SortConstants.wrapByteArray((byte)-32,(byte)-84,(byte)-128)));
     }
     @Test
     public void decode4Test() {
-        assertEq("\ub000", StringUtil.decode(NumberUtil.wrapByteArray((byte)-21,(byte)-128,(byte)-128)));
+        assertEq("\ub000", StringUtil.decode(SortConstants.wrapByteArray((byte)-21,(byte)-128,(byte)-128)));
     }
     @Test
     public void decode5Test() {
-        assertEq("", StringUtil.decode(NumberUtil.wrapByteArray()));
+        assertEq("", StringUtil.decode(SortConstants.wrapByteArray()));
     }
     @Test
     public void decode6Test() {
-        assertNull(StringUtil.decode(NumberUtil.wrapByteArray((byte)-1)));
+        assertNull(StringUtil.decode(SortConstants.wrapByteArray((byte)-1)));
     }
     @Test
     public void decode7Test() {
-        assertNull(StringUtil.decode(NumberUtil.wrapByteArray((byte)-63,(byte)-1)));
+        assertNull(StringUtil.decode(SortConstants.wrapByteArray((byte)-63,(byte)-1)));
     }
     @Test
     public void decode8Test() {
-        assertNull(StringUtil.decode(NumberUtil.wrapByteArray((byte)-16,(byte)-1)));
+        assertNull(StringUtil.decode(SortConstants.wrapByteArray((byte)-16,(byte)-1)));
     }
     @Test
     public void decode9Test() {
-        assertNull(StringUtil.decode(NumberUtil.wrapByteArray((byte)-17,(byte)-64)));
+        assertNull(StringUtil.decode(SortConstants.wrapByteArray((byte)-17,(byte)-64)));
     }
     @Test
     public void decode10Test() {
-        assertNull(StringUtil.decode(NumberUtil.wrapByteArray((byte)-17,(byte)-65)));
+        assertNull(StringUtil.decode(SortConstants.wrapByteArray((byte)-17,(byte)-65)));
     }
     @Test
     public void decode11Test() {
-        assertNull(StringUtil.decode(NumberUtil.wrapByteArray((byte)-17,(byte)-65,(byte)-64)));
+        assertNull(StringUtil.decode(SortConstants.wrapByteArray((byte)-17,(byte)-65,(byte)-64)));
     }
     @Test
     public void badDecode1Test() {
-        assertEq(-1, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)97),0,1));
+        assertEq(-1, StringUtil.badDecode(SortConstants.wrapByteArray((byte)97),0,1));
     }
     @Test
     public void badDecode2Test() {
-        assertEq(-1, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-62,(byte)-112),0,2));
+        assertEq(-1, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-62,(byte)-112),0,2));
     }
     @Test
     public void badDecode3Test() {
-        assertEq(-1, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-32,(byte)-84,(byte)-128),0,3));
+        assertEq(-1, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-32,(byte)-84,(byte)-128),0,3));
     }
     @Test
     public void badDecode4Test() {
-        assertEq(-1, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-21,(byte)-128,(byte)-128),0,3));
+        assertEq(-1, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-21,(byte)-128,(byte)-128),0,3));
     }
     @Test
     public void badDecode5Test() {
-        assertEq(-1, StringUtil.badDecode(NumberUtil.wrapByteArray(),0,0));
+        assertEq(-1, StringUtil.badDecode(SortConstants.wrapByteArray(),0,0));
     }
     @Test
     public void badDecode6Test() {
-        assertEq(0, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-1),0,1));
+        assertEq(0, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-1),0,1));
     }
     @Test
     public void badDecode7Test() {
-        assertEq(0, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-63,(byte)-1),0,2));
+        assertEq(0, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-63,(byte)-1),0,2));
     }
     @Test
     public void badDecode8Test() {
-        assertEq(0, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-16,(byte)-1),0,2));
+        assertEq(0, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-16,(byte)-1),0,2));
     }
     @Test
     public void badDecode9Test() {
-        assertEq(0, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-17,(byte)-64),0,2));
+        assertEq(0, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-17,(byte)-64),0,2));
     }
     @Test
     public void badDecode10Test() {
-        assertEq(0, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-17,(byte)-65),0,2));
+        assertEq(0, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-17,(byte)-65),0,2));
     }
     @Test
     public void badDecode11Test() {
-        assertEq(0, StringUtil.badDecode(NumberUtil.wrapByteArray((byte)-17,(byte)-65,(byte)-64),0,3));
+        assertEq(0, StringUtil.badDecode(SortConstants.wrapByteArray((byte)-17,(byte)-65,(byte)-64),0,3));
     }
     @Test
     public void eqStrings1Test(){

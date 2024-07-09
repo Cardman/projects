@@ -1,5 +1,6 @@
 package code.util;
 
+import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
@@ -7,15 +8,15 @@ import org.junit.Test;
 public class NumbersTest extends EquallableExUtil {
     @Test
     public void isValidIndex1() {
-        assertTrue(!NumberUtil.isValidIndex(-1,2));
+        assertTrue(!IndexConstants.isValidIndex(-1,2));
     }
     @Test
     public void isValidIndex2() {
-        assertTrue(!NumberUtil.isValidIndex(5,2));
+        assertTrue(!IndexConstants.isValidIndex(5,2));
     }
     @Test
     public void isValidIndex3() {
-        assertTrue(NumberUtil.isValidIndex(1,2));
+        assertTrue(IndexConstants.isValidIndex(1,2));
     }
     @Test
     public void singleOrEmpty1() {

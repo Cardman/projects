@@ -1,13 +1,12 @@
 package code.stream;
 
-import code.gui.TextAnswerValue;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.sml.*;
 import code.stream.core.ContentTime;
 import code.stream.core.OutputType;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import org.junit.Assert;
 
 public abstract class EquallableStreamUtil {
@@ -55,7 +54,7 @@ public abstract class EquallableStreamUtil {
         return _args;
     }
     public static byte[] wrapInts(int... _files) {
-        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+        return SortConstants.wrapByteArray(MockZipFact.wrapInts(_files));
     }
     public static MockNameFile[] wrap(MockNameFile... _files) {
         return _files;

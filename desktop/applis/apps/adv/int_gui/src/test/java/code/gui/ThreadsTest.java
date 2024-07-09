@@ -132,23 +132,23 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     }
     @Test
     public void isZip4(){
-        assertFalse(isZip(NumberUtil.wrapByteArray((byte)0x0,(byte)0x0, (byte)0x0,(byte)0x0)));
+        assertFalse(isZip(SortConstants.wrapByteArray((byte)0x0,(byte)0x0, (byte)0x0,(byte)0x0)));
     }
     @Test
     public void isZip5(){
-        assertFalse(isZip(NumberUtil.wrapByteArray((byte)0x50,(byte)0x0, (byte)0x0,(byte)0x0)));
+        assertFalse(isZip(SortConstants.wrapByteArray((byte)0x50,(byte)0x0, (byte)0x0,(byte)0x0)));
     }
     @Test
     public void isZip6(){
-        assertFalse(isZip(NumberUtil.wrapByteArray((byte)0x50,(byte)0x4b, (byte)0x0,(byte)0x0)));
+        assertFalse(isZip(SortConstants.wrapByteArray((byte)0x50,(byte)0x4b, (byte)0x0,(byte)0x0)));
     }
     @Test
     public void isZip7(){
-        assertFalse(isZip(NumberUtil.wrapByteArray((byte)0x50,(byte)0x4b, (byte)0x03,(byte)0x0)));
+        assertFalse(isZip(SortConstants.wrapByteArray((byte)0x50,(byte)0x4b, (byte)0x03,(byte)0x0)));
     }
     @Test
     public void isZip8(){
-        assertTrue(isZip(NumberUtil.wrapByteArray((byte)0x50,(byte)0x4b, (byte)0x03,(byte)0x4)));
+        assertTrue(isZip(SortConstants.wrapByteArray((byte)0x50,(byte)0x4b, (byte)0x03,(byte)0x4)));
     }
     @Test
     public void s1() {

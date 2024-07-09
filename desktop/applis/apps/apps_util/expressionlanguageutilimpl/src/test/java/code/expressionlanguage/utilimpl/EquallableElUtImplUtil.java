@@ -7,17 +7,13 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.gui.unit.ProgTestBar;
-import code.expressionlanguage.guicompos.GuiFileBuilder;
 import code.expressionlanguage.guicompos.LgNamesGui;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.DfInstancer;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.GuiConstants;
-import code.gui.TextAnswerValue;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
@@ -32,7 +28,7 @@ import code.stream.core.OutputType;
 import code.stream.core.StreamZipFile;
 import code.util.CustList;
 import code.util.*;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -279,7 +275,7 @@ public abstract class EquallableElUtImplUtil {
         return _args;
     }
     public static byte[] wrapInts(int... _files) {
-        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+        return SortConstants.wrapByteArray(MockZipFact.wrapInts(_files));
     }
     public static MockNameFile[] wrap(MockNameFile... _files) {
         return _files;

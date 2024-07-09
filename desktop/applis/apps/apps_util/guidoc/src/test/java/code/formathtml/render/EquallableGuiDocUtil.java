@@ -11,7 +11,7 @@ import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import org.junit.Assert;
 
 public abstract class EquallableGuiDocUtil {
@@ -148,7 +148,7 @@ public abstract class EquallableGuiDocUtil {
         return _args;
     }
     public static byte[] wrapInts(int... _files) {
-        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+        return SortConstants.wrapByteArray(MockZipFact.wrapInts(_files));
     }
     public static MockNameFile[] wrap(MockNameFile... _files) {
         return _files;

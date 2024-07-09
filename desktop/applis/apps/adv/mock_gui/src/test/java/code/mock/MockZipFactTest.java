@@ -3,7 +3,7 @@ package code.mock;
 import code.stream.BytesInfo;
 import code.stream.core.ContentTime;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public final class MockZipFactTest extends EquallableMockGuiUtil {
     @Test
     public void zipBinFiles2() {
         MockZipFact m_ = new MockZipFact();
-        byte[] arr_ = m_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_","-"),new MockNameFile("0", NumberUtil.wrapByteArray((byte)'+')))));
+        byte[] arr_ = m_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_","-"),new MockNameFile("0", SortConstants.wrapByteArray((byte)'+')))));
         assertEq(21, arr_.length);
     }
     @Test
@@ -29,7 +29,7 @@ public final class MockZipFactTest extends EquallableMockGuiUtil {
     @Test
     public void zippedBinaryFiles2() {
         MockZipFact m_ = new MockZipFact();
-        byte[] arr_ = m_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_","-"),new MockNameFile("0", NumberUtil.wrapByteArray((byte)'+')))));
+        byte[] arr_ = m_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_","-"),new MockNameFile("0", SortConstants.wrapByteArray((byte)'+')))));
         StringMap<ContentTime> cont_ = m_.zippedBinaryFiles(new BytesInfo(arr_,false));
         assertEq(2, cont_.size());
         assertEq("-", StringUtil.decode(cont_.getVal("_").getContent()));
@@ -38,7 +38,7 @@ public final class MockZipFactTest extends EquallableMockGuiUtil {
     @Test
     public void zippedBinaryFiles3() {
         MockZipFact m_ = new MockZipFact();
-        byte[] arr_ = m_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_","-",5),new MockNameFile("0", NumberUtil.wrapByteArray((byte)'+'),7))));
+        byte[] arr_ = m_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_","-",5),new MockNameFile("0", SortConstants.wrapByteArray((byte)'+'),7))));
         StringMap<ContentTime> cont_ = m_.zippedBinaryFiles(new BytesInfo(arr_,false));
         assertEq(2, cont_.size());
         assertEq(5, cont_.getVal("_").getLastModifTime());

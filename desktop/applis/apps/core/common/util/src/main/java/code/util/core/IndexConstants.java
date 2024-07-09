@@ -9,4 +9,11 @@ public final class IndexConstants {
 
     private IndexConstants(){
     }
+
+    public static boolean isValidIndex(int _index, int _max) {
+        if (_index < FIRST_INDEX) {
+            return false;
+        }
+        return _index < _max;
+    }
 }

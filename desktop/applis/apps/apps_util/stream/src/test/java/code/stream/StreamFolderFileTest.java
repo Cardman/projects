@@ -9,7 +9,7 @@ import code.stream.core.ReadBinFiles;
 import code.threads.FileStruct;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -55,7 +55,7 @@ public final class StreamFolderFileTest extends EquallableStreamUtil {
         StreamTextFile.saveTextFile("/one/tmp/hello2.txt","1",pr_.getStreams());
         StreamTextFile.saveTextFile("/one/tmp2/hello3.txt","2",pr_.getStreams());
         StreamTextFile.saveTextFile("/one/tmp2/hello4.txt","3",pr_.getStreams());
-        StreamBinaryFile.writeFile("/one/tmp2/bad", NumberUtil.wrapByteArray((byte)-17,(byte)-65),pr_.getStreams());
+        StreamBinaryFile.writeFile("/one/tmp2/bad", SortConstants.wrapByteArray((byte)-17,(byte)-65),pr_.getStreams());
         StreamTextFile.saveTextFile("/two/tmp3/hello5.txt","4",pr_.getStreams());
         StreamTextFile.saveTextFile("/two/tmp3/hello6.txt","5",pr_.getStreams());
         StreamTextFile.saveTextFile("/two/tmp4/hello7.txt","6",pr_.getStreams());

@@ -7,4 +7,8 @@ public final class SortConstants {
 
     private SortConstants() {
     }
+
+    public static byte[] wrapByteArray(byte... _ints) {
+        return _ints;
+    }
 }
