@@ -12,12 +12,7 @@ public class LaunchingFull extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowFull(_language,_args.getFileNames(), getAppFactories().getCdmFactory(),getFrames(), _main), getFrames());
-    }
-
-    @Override
-    protected String getApplicationName() {
-        return WindowFull.APPS_LAUNCHER;
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowFull(_language,_args.getFileNames(), getAppFactories().getCdmFactory(),getFrames(), _main));
     }
 
 }

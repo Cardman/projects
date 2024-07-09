@@ -14,5 +14,4 @@ public abstract class AdvSoftApplicationCore extends SoftApplicationCore {
         LanguageDialogButtons.enable(_main,false);
         launch(_language,_args, null, _main);
     }
-    protected abstract String getApplicationName();
 }

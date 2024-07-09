@@ -3,7 +3,6 @@ package code.player.main;
 
 import code.gui.*;
 import code.player.gui.CreateMainWindowPlayer;
-import code.player.gui.WindowPlayer;
 
 public class LaunchingPlayer extends AdvSoftApplicationCore {
 
@@ -15,12 +14,7 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowPlayer(_language,_args.getFileNames(), getFrames(), _main), getFrames());
-    }
-
-    @Override
-    protected String getApplicationName() {
-        return WindowPlayer.APPS_MUSICPLAYER;
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowPlayer(_language,_args.getFileNames(), getFrames(), _main));
     }
 
 }

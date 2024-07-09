@@ -21,9 +21,4 @@ public class LaunchingCards extends AdvSoftApplicationCore {
         getFrames().getCompoFactory().invokeNow(new LaunchingGame(_args.getFileNames(), getFrames(),getAppFactories().getCardFactories(), _lgMenu, _main));
     }
 
-    @Override
-    protected String getApplicationName() {
-        return WindowCards.APP_CARDS;
-    }
-
 }

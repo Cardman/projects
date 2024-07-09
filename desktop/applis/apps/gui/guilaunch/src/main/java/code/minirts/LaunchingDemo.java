@@ -16,13 +16,8 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRts(_language, getFrames(), _main), getFrames());
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowRts(_language, getFrames(), _main));
     }
 
-
-    @Override
-    protected String getApplicationName() {
-        return WindowRts.APPS_RTS;
-    }
 
 }

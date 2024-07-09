@@ -9,13 +9,8 @@ public class LaunchRecord extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected String getApplicationName() {
-        return "recorder";
-    }
-
-    @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRecorder(getFrames(), _language, _main), getFrames());
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowRecorder(getFrames(), _language, _main));
 
     }
 }

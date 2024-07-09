@@ -9,11 +9,6 @@ public final class LaunchingNetwork extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected String getApplicationName() {
-        return WindowNetWork.APPS_NETWORK;
-    }
-
-    @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main) {
         getFrames().getCompoFactory().invokeNow(new LaunchNetwork(_language,getFrames(), _main,_lgMenu,getAppFactories().getAikiFactory(),getAppFactories().getCardFactories()));
     }
