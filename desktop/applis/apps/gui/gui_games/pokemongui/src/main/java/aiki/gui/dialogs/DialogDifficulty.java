@@ -12,6 +12,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractFutureParam;
 import code.util.StringMap;
 
 public final class DialogDifficulty {
@@ -32,8 +33,8 @@ public final class DialogDifficulty {
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setDialogDifficulty(WindowAiki _window, String _title, FacadeGame _facade, AikiNatLgNamesNavigation _pre) {
-        _window.getDialogDifficulty().init(_window, _title, _facade,_pre);
+    public static void setDialogDifficulty(WindowAiki _window, String _title, FacadeGame _facade, AbstractFutureParam<AikiNatLgNamesNavigation> _pre) {
+        _window.getDialogDifficulty().init(_window, _title, _facade,_pre.attendreResultat());
     }
 
     private void init(WindowAiki _window, String _title, FacadeGame _facade, AikiNatLgNamesNavigation _pre) {

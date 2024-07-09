@@ -177,11 +177,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
-    private AikiNatLgNamesNavigation preparedFightTask;
-    private AikiNatLgNamesNavigation preparedPkTask;
-    private AikiNatLgNamesNavigation preparedPkNetTask;
-    private AikiNatLgNamesNavigation preparedDiffTask;
-    private AikiNatLgNamesNavigation preparedProgTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedFightTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedPkTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedPkNetTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDiffTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedProgTask;
 //    private AbstractThread preparedDataWebThread;
 //    private AbstractThread preparedFightThread;
 //    private AbstractThread preparedPkThread;
@@ -1787,43 +1787,43 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         preparedDataWebTask = _preparedDataWebTask;
     }
 
-    public AikiNatLgNamesNavigation getPreparedFightTask() {
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedFightTask() {
         return preparedFightTask;
     }
 
-    public void setPreparedFightTask(AikiNatLgNamesNavigation _preparedFightTask) {
+    public void setPreparedFightTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedFightTask) {
         preparedFightTask = _preparedFightTask;
     }
 
-    public AikiNatLgNamesNavigation getPreparedPkTask() {
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedPkTask() {
         return preparedPkTask;
     }
 
-    public void setPreparedPkTask(AikiNatLgNamesNavigation _preparedPkTask) {
+    public void setPreparedPkTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedPkTask) {
         preparedPkTask = _preparedPkTask;
     }
 
-    public AikiNatLgNamesNavigation getPreparedPkNetTask() {
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedPkNetTask() {
         return preparedPkNetTask;
     }
 
-    public void setPreparedPkNetTask(AikiNatLgNamesNavigation _preparedPkTask) {
+    public void setPreparedPkNetTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedPkTask) {
         preparedPkNetTask = _preparedPkTask;
     }
 
-    public AikiNatLgNamesNavigation getPreparedDiffTask() {
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedDiffTask() {
         return preparedDiffTask;
     }
 
-    public void setPreparedDiffTask(AikiNatLgNamesNavigation _preparedDiffTask) {
+    public void setPreparedDiffTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDiffTask) {
         preparedDiffTask = _preparedDiffTask;
     }
 
-    public AikiNatLgNamesNavigation getPreparedProgTask() {
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedProgTask() {
         return preparedProgTask;
     }
 
-    public void setPreparedProgTask(AikiNatLgNamesNavigation _preparedProgTask) {
+    public void setPreparedProgTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedProgTask) {
         preparedProgTask = _preparedProgTask;
     }
 

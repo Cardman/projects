@@ -5,7 +5,6 @@ import aiki.fight.enums.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.game.Game;
 import aiki.game.player.enums.Sex;
-import aiki.instances.Instances;
 import aiki.main.*;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
@@ -36,6 +35,7 @@ import code.mock.*;
 import code.netw.*;
 import code.network.enums.*;
 import code.scripts.messages.cards.*;
+import code.sml.*;
 import code.sml.util.*;
 import code.threads.*;
 import code.util.*;
@@ -210,7 +210,7 @@ public abstract class EquallableNetworkUtil {
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoBelote(pr_), EN, pr_, null, null, ia_);
         CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        belote(cf_);
+        belote(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
         w_.pack();
         w_.setVisible(true);
@@ -227,7 +227,7 @@ public abstract class EquallableNetworkUtil {
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoPresident(pr_), EN, pr_, null, null, ia_);
         CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        president(cf_);
+        president(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
         w_.pack();
         w_.setVisible(true);
@@ -244,7 +244,7 @@ public abstract class EquallableNetworkUtil {
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, null, null, ia_);
         CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        tarot(cf_);
+        tarot(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
         w_.pack();
         w_.setVisible(true);
@@ -274,10 +274,10 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, null, new IntArtCardGames());
         updateBase(pr_.currentLg());
-        ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
+        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
-        w_.setPreparedPkNetTask(ai_.getPreparedPkNetTask());
+        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
         w_.getAiki().setGameCheck(new MockGameChecker());
         w_.getAiki().getAikiFactory().setDataBaseStream(_i);
         tryClick(w_.getZipLoad());
@@ -307,10 +307,10 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, null, new IntArtCardGames());
         updateBase(pr_.currentLg());
-        ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
+        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
-        w_.setPreparedPkNetTask(ai_.getPreparedPkNetTask());
+        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
         w_.getAiki().setGameCheck(new MockGameChecker());
         w_.getAiki().getAikiFactory().setDataBaseStream(_i);
         tryClick(w_.getFolderLoad());
@@ -342,10 +342,10 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, ai_, null, new IntArtCardGames());
         updateBase(pr_.currentLg());
-        ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
+        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
-        w_.setPreparedPkNetTask(ai_.getPreparedPkNetTask());
+        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
         w_.getAiki().setGameCheck(new MockGameChecker());
         w_.getAiki().getAikiFactory().setDataBaseStream(_i);
         tryClick(w_.getZipLoad());
@@ -376,25 +376,22 @@ public abstract class EquallableNetworkUtil {
         en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
         en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
     }
-    private static void belote(CardFactories _cf) {
-        NatNavigation nav_ = nav();
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSampleNet(), nav_)));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSampleNet(), nav_)));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new BeloteStandardsSampleNet(), nav_)));
+    private static void belote(CardFactories _cf, WindowNetWork _w) {
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
     }
 
-    private static void president(CardFactories _cf) {
-        NatNavigation nav_ = nav();
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new PresidentStandardsSampleNet(), nav_)));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new PresidentStandardsSampleNet(), nav_)));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_PRESIDENT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new PresidentStandardsSampleNet(), nav_)));
+    private static void president(CardFactories _cf, WindowNetWork _w) {
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
     }
 
-    private static void tarot(CardFactories _cf) {
-        NatNavigation nav_ = nav();
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSampleNet(), nav_)));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSampleNet(), nav_)));
-        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new MockCallable<CardNatLgNamesNavigation>(new CardNatLgNamesNavigation(new TarotStandardsSampleNet(), nav_)));
+    private static void tarot(CardFactories _cf, WindowNetWork _w) {
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
     }
 
     public static NatNavigation nav() {

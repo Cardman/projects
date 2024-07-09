@@ -4,13 +4,11 @@ import cards.facade.*;
 import cards.gui.dialogs.EditorCardsNonModalEvent;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.AbsMetaLabelCard;
-import cards.main.CallablePreparedPagesCards;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import cards.main.LaunchingGame;
 import code.gui.GuiBaseUtil;
 import code.mock.MockBaseExecutorServiceParam;
-import code.sml.Document;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -64,9 +62,9 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
         AbsMetaLabelCard.sels();
         AbsMetaLabelCard.defs();
         GuiBaseUtil.tryToReopen(wc_.getApplicationName(),wc_.getFrames());
-        new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();
-        new CallablePreparedPagesCards(new PresidentStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();
-        new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();
+//        new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();
+//        new CallablePreparedPagesCards(new PresidentStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();
+//        new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();
     }
     private WindowCards loadBeloteOtherDisplay(StringList _ls) {
         WindowCards wc_ = frameDialogSoft("/__/", "/_/");

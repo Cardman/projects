@@ -33,6 +33,6 @@ public final class BeloteStandardsSample extends BeloteStandards {
 
     @Override
     public NatNavigation nav(StringList _languages, String _lg, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<String> _otherMessage, String _rel) {
-        return null;
+        return EquallableCardsGuiUtil.nav();
     }
 }

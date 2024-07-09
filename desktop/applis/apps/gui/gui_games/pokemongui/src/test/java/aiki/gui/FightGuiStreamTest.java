@@ -926,15 +926,15 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         assertTrue(window_.getCommonFrame().isVisible());
-        window_.getCore().getAikiFactory().getTaskNav().attendreResultat();
-        window_.setPreparedDataWebTask(window_.getCore().getAikiFactory().getTaskNav());
+//        window_.getCore().getAikiFactory().getTaskNav().attendreResultat();
+//        window_.setPreparedDataWebTask(window_.getCore().getAikiFactory().getTaskNav());
         window_.getRenderDataWeb().getSession().setNavCore(new NavigationCore());
         window_.getDataWeb().getActionListeners().get(0).action();
         new LoadGame(window_,new ConcreteInteger()).run();
         new OpeningGame(window_,new ConcreteInteger()).run();
-        window_.getCore().getAikiFactory().setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),new NatNavigation()));
+        window_.getCore().getAikiFactory().submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),new NatNavigation())));
         window_.setPreparedPkNetTask(window_.getPreparedPkNetTask());
-        window_.setPreparedPkNetTask(window_.getCore().getAikiFactory().getPreparedPkNetTask());
+        window_.setPreparedPkNetTask(window_.getCore().getAikiFactory().getTaskNavPkNetTask());
         window_.setTileRender(new DefTileRender());
     }
     @Test

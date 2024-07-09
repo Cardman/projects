@@ -55,12 +55,12 @@ public final class CreateMainWindowAiki implements Runnable {
 //        prog_.run();
         window_.pack();
         window_.setVisible(true);
-        window_.setPreparedDataWebTask(aikiFactory.getTaskNav());
-        window_.setPreparedFightTask(aikiFactory.getPreparedFightTask());
-        window_.setPreparedPkTask(aikiFactory.getPreparedPkTask());
-        window_.setPreparedPkNetTask(aikiFactory.getPreparedPkNetTask());
-        window_.setPreparedDiffTask(aikiFactory.getPreparedDiffTask());
-        window_.setPreparedProgTask(aikiFactory.getPreparedProgTask());
+        window_.setPreparedDataWebTask(aikiFactory.getTaskNavData());
+        window_.setPreparedFightTask(aikiFactory.getTaskNavFight());
+        window_.setPreparedPkTask(aikiFactory.getTaskNavPkTask());
+        window_.setPreparedPkNetTask(aikiFactory.getTaskNavPkNetTask());
+        window_.setPreparedDiffTask(aikiFactory.getTaskNavDiff());
+        window_.setPreparedProgTask(aikiFactory.getTaskNavProg());
         if (!withParam.isEmpty()) {
             window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, StreamFolderFile.getCurrentPath(list.getFileCoreStream()), withParam));
         } else {

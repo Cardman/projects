@@ -59,22 +59,12 @@ public abstract class SoftApplicationCore {
     private static void aiki(AikiFactory _af, StringList _lgs, StringMap<String> _msg, StringMap<String> _dis, AbstractGenerator _gene) {
         _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl()));
         StringMap<String> builtOther_ = CssInit.ms();
-        _af.submitNav(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), PagesInit.build(), _msg, builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
-        PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), PagesInit.buildFight(), _msg, builtOther_, new PkFight(), _lgs);
-        PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs);
-        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs);
-        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), _msg, builtOther_, new PkDiff(), _lgs);
-        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), _msg, builtOther_, new PkProg(), _lgs);
-        fight_.run();
-        _af.setPreparedFightTask(new AikiNatLgNamesNavigation(fight_.getBeanNatLgNames(),fight_.getNavigation()));
-        pk_.run();
-        _af.setPreparedPkTask(new AikiNatLgNamesNavigation(pk_.getBeanNatLgNames(),pk_.getNavigation()));
-        pkNet_.run();
-        _af.setPreparedPkNetTask(new AikiNatLgNamesNavigation(pkNet_.getBeanNatLgNames(),pkNet_.getNavigation()));
-        diff_.run();
-        _af.setPreparedDiffTask(new AikiNatLgNamesNavigation(diff_.getBeanNatLgNames(),diff_.getNavigation()));
-        prog_.run();
-        _af.setPreparedProgTask(new AikiNatLgNamesNavigation(prog_.getBeanNatLgNames(),prog_.getNavigation()));
+        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), PagesInit.build(), _msg, builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
+        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), PagesInit.buildFight(), _msg, builtOther_, new PkFight(), _lgs),null));
+        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs),null));
+        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs),null));
+        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), _msg, builtOther_, new PkDiff(), _lgs),null));
+        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), _msg, builtOther_, new PkProg(), _lgs),null));
     }
     private static StringMap<String> aikiMsg() {
         StringMap<String> builtMessages_ = MessagesInit.ms();

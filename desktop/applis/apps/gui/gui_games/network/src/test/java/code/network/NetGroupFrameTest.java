@@ -199,10 +199,10 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, null, new IntArtCardGames());
         updateBase(pr_.currentLg());
-        ai_.setPreparedPkNetTask(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav()));
+        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
-        w_.setPreparedPkNetTask(ai_.getPreparedPkNetTask());
+        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
         w_.getAiki().setGameCheck(new MockGameChecker());
         w_.getAiki().getAikiFactory().setDataBaseStream(_i);
         tryClick(w_.getFolderLoad());

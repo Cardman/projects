@@ -13,6 +13,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBooleanCore;
+import code.threads.AbstractFutureParam;
 import code.util.StringMap;
 
 public final class PkDetailContent {
@@ -29,11 +30,12 @@ public final class PkDetailContent {
         content.setVisible(false);
     }
 
-    public void group(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg, Packable _p, AbstractAtomicBooleanCore _at) {
+    public void group(WindowAiki _parent, FacadeGame _dataBase, AbstractFutureParam<AikiNatLgNamesNavigation> _pre, String _lg, Packable _p, AbstractAtomicBooleanCore _at) {
         StringMap<String> messages_ = file(_parent.getFrames().currentLg());
 //        DialogHtmlData d_ = _parent.getDialogHtmlData();
-        _pre.getBeanNatLgNames().setDataBase(_dataBase);
-        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, _pre.getBeanNatLgNames(), _parent.getFrames(), _parent.getGuardRender());
+        AikiNatLgNamesNavigation res_ = _pre.attendreResultat();
+        res_.getBeanNatLgNames().setDataBase(_dataBase);
+        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(res_, _lg, res_.getBeanNatLgNames(), _parent.getFrames(), _parent.getGuardRender());
 //        d_.messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), d_.absDialog.getAccessFile());
 //        session = _session;
 //        _session.setFrame(absDialog);

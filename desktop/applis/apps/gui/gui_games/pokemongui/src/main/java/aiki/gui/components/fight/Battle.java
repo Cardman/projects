@@ -35,6 +35,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.sml.util.*;
+import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -1139,7 +1140,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            return;
 //        }
 //        AbstractThread fightThread_ = window.getPreparedFightThread();
-        AikiNatLgNamesNavigation fightTask_ = window.getPreparedFightTask();
+        AbstractFutureParam<AikiNatLgNamesNavigation> fightTask_ = window.getPreparedFightTask();
 //        if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
 //            return;
 //        }
@@ -1186,7 +1187,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         if (facade.isChangeToFightScene()) {
             renderDataFight.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
 //        dialog_.setTitle(messages.getVal(TITLE));
-            AikiNatLgNamesNavigation fightTask_ = window.getPreparedFightTask();
+            AbstractFutureParam<AikiNatLgNamesNavigation> fightTask_ = window.getPreparedFightTask();
             renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
             renderDataFight.pack();
 //            if (!htmlDialogs.isEmpty()) {

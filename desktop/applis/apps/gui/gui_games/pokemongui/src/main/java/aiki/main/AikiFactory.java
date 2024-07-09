@@ -18,14 +18,14 @@ import code.threads.IntCallable;
 public final class AikiFactory {
     private final AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> navigation;
     private final EnabledMenu generalHelp;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNav;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavData;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavFight;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavPkTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavPkNetTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavDiff;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavProg;
     private final AbstractBaseExecutorServiceParam<DataBase> geneDb;
     private AbstractFutureParam<DataBase> taskLoad;
-    private AikiNatLgNamesNavigation preparedFightTask;
-    private AikiNatLgNamesNavigation preparedPkTask;
-    private AikiNatLgNamesNavigation preparedPkNetTask;
-    private AikiNatLgNamesNavigation preparedDiffTask;
-    private AikiNatLgNamesNavigation preparedProgTask;
     private IntDataBaseStream dataBaseStream;
     private IntGamePkStream gamePkStream;
     private IntConfPkStream confPkStream;
@@ -54,54 +54,64 @@ public final class AikiFactory {
         return generalHelp;
     }
 
-    public void submitNav(IntCallable<AikiNatLgNamesNavigation> _n) {
+    public void submitNavData(IntCallable<AikiNatLgNamesNavigation> _n) {
         AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
-        taskNav = n_.submitWrCallable(_n);
+        taskNavData = n_.submitWrCallable(_n);
         n_.shutdown();
     }
 
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNav() {
-        return taskNav;
+    public void submitNavFight(IntCallable<AikiNatLgNamesNavigation> _n) {
+        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
+        taskNavFight = n_.submitWrCallable(_n);
+        n_.shutdown();
     }
 
-    public AikiNatLgNamesNavigation getPreparedFightTask() {
-        return preparedFightTask;
+    public void submitNavPkTask(IntCallable<AikiNatLgNamesNavigation> _n) {
+        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
+        taskNavPkTask = n_.submitWrCallable(_n);
+        n_.shutdown();
     }
 
-    public void setPreparedFightTask(AikiNatLgNamesNavigation _p) {
-        this.preparedFightTask = _p;
+    public void submitNavPkNetTask(IntCallable<AikiNatLgNamesNavigation> _n) {
+        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
+        taskNavPkNetTask = n_.submitWrCallable(_n);
+        n_.shutdown();
     }
 
-    public AikiNatLgNamesNavigation getPreparedPkTask() {
-        return preparedPkTask;
+    public void submitNavDiffTask(IntCallable<AikiNatLgNamesNavigation> _n) {
+        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
+        taskNavDiff = n_.submitWrCallable(_n);
+        n_.shutdown();
     }
 
-    public void setPreparedPkTask(AikiNatLgNamesNavigation _p) {
-        this.preparedPkTask = _p;
+    public void submitNavProgTask(IntCallable<AikiNatLgNamesNavigation> _n) {
+        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
+        taskNavProg = n_.submitWrCallable(_n);
+        n_.shutdown();
     }
 
-    public AikiNatLgNamesNavigation getPreparedPkNetTask() {
-        return preparedPkNetTask;
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavData() {
+        return taskNavData;
     }
 
-    public void setPreparedPkNetTask(AikiNatLgNamesNavigation _p) {
-        this.preparedPkNetTask = _p;
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavFight() {
+        return taskNavFight;
     }
 
-    public AikiNatLgNamesNavigation getPreparedDiffTask() {
-        return preparedDiffTask;
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavPkTask() {
+        return taskNavPkTask;
     }
 
-    public void setPreparedDiffTask(AikiNatLgNamesNavigation _p) {
-        this.preparedDiffTask = _p;
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavPkNetTask() {
+        return taskNavPkNetTask;
     }
 
-    public AikiNatLgNamesNavigation getPreparedProgTask() {
-        return preparedProgTask;
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavDiff() {
+        return taskNavDiff;
     }
 
-    public void setPreparedProgTask(AikiNatLgNamesNavigation _p) {
-        this.preparedProgTask = _p;
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavProg() {
+        return taskNavProg;
     }
 
     public IntDataBaseStream getDataBaseStream() {

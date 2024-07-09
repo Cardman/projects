@@ -771,7 +771,7 @@ public class ScenePanelMulti {
 
     public void seeNetPokemonDetail() {
 //        AbstractThread thread_ = window.getPreparedPkNetThread();
-        AikiNatLgNamesNavigation task_ = window.getPreparedPkNetTask();
+        AikiNatLgNamesNavigation task_ = window.getPreparedPkNetTask().attendreResultat();
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }

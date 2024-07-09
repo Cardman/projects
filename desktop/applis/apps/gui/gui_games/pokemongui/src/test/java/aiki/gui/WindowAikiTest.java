@@ -156,7 +156,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         GamesPk.appendPkGameDetailContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         prepareWebTask(window_);
-        window_.getCore().getAikiFactory().getTaskNav().attendreResultat();
+        window_.getCore().getAikiFactory().getTaskNavData().attendreResultat();
         window_.getRenderDataWeb().getSession().setNavCore(new NavigationCore());
         window_.getBattle().getRenderDataFight().getSession().setNavCore(new NavigationCore());
         coreDataBaseFish(window_);

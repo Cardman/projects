@@ -2,6 +2,7 @@ package aiki.main;
 
 import aiki.gui.threads.PreparedRenderedPages;
 import code.gui.EnabledMenu;
+import code.gui.LanguageDialogButtons;
 import code.threads.IntCallable;
 
 public final class DataWebInit implements IntCallable<AikiNatLgNamesNavigation> {
@@ -16,7 +17,7 @@ public final class DataWebInit implements IntCallable<AikiNatLgNamesNavigation> 
     @Override
     public AikiNatLgNamesNavigation call() {
         render.run();
-        generalHelp.setEnabled(true);
+        LanguageDialogButtons.enable(generalHelp,true);
         return new AikiNatLgNamesNavigation(render.getBeanNatLgNames(),render.getNavigation());
     }
 }

@@ -23,6 +23,7 @@ import code.gui.AbsCustComponent;
 import code.gui.events.AlwaysActionListenerAct;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.mock.MockCallable;
 import code.mock.MockCustComponent;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -33,8 +34,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void progress() {
         WindowAiki window_ = newProg();
-        window_.getCore().getAikiFactory().setPreparedProgTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
-        window_.setPreparedProgTask(window_.getCore().getAikiFactory().getPreparedProgTask());
+        window_.getCore().getAikiFactory().submitNavProgTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
+        window_.setPreparedProgTask(window_.getCore().getAikiFactory().getTaskNavProg());
         loadRomGame(window_);
         tryClick(window_.getScenePanel().getGame());
         assertTrue(window_.getDialogGameProgess().getAbsDialog().isVisible());

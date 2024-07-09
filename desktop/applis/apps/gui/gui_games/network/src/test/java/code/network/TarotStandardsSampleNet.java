@@ -1,11 +1,16 @@
 package code.network;
 
 import cards.tarot.beans.TarotStandards;
+import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.InvokedPageOutput;
 import code.bean.nat.NaSt;
+import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
+import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class TarotStandardsSampleNet extends TarotStandards {
     @Override
@@ -29,5 +34,10 @@ public final class TarotStandardsSampleNet extends TarotStandards {
         InvokedPageOutput out_ = new InvokedPageOutput(_dest, empty_);
         _rendStack.setDocument(DocumentBuilder.parseSax(empty_));
         return out_;
+    }
+
+    @Override
+    public NatNavigation nav(StringList _languages, String _lg, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<String> _otherMessage, String _rel) {
+        return EquallableNetworkUtil.nav();
     }
 }
