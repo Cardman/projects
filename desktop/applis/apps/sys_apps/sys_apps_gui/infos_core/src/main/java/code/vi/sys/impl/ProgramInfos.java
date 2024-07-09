@@ -28,7 +28,6 @@ import code.stream.core.DefZipFact;
 import code.stream.core.TechStreams;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.StringUtil;
 import code.vi.maths.random.AdvancedGenerator;
 import code.vi.prot.impl.*;
@@ -77,13 +76,18 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
         excludedFolders = new StringList();
-        setLanguages(Constants.getAvailableLanguages());
-        setDisplayLanguages(Constants.getDisplayLanguages());
+//        setLanguages(Constants.getAvailableLanguages());
+//        setDisplayLanguages(Constants.getDisplayLanguages());
         locales(this);
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
 
     public static void locales(ProgramInfosBase _pr) {
+        _pr.setLanguages(new StringList(EN,FR));
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(EN,"English");
+        m_.addEntry(FR,"Français");
+        _pr.setDisplayLanguages(m_);
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsLg fr_ = _pr.lg(FR);
         en_.getMaxiCards().addAllEntries(CardsInit.en());
