@@ -49,12 +49,12 @@ public final class SongRenderer {
 
     public void paintComponent(AbstractImage _g) {
         _g.setColor(GuiConstants.WHITE);
-        _g.fillRect(0, 0, paintableLabel.getWidth(), paintableLabel.getHeight());
+        _g.fillRect(0, 0, _g.getWidth(), _g.getHeight());
         int hstring_ = compo.heightFont(paintableLabel.getMetaFont());
         for (int i = IndexConstants.FIRST_INDEX; i < songs.size(); i++) {
             if (i == noSong) {
                 _g.setColor(GuiConstants.YELLOW);
-                _g.fillRect(0, hstring_ * i, paintableLabel.getWidth(), hstring_);
+                _g.fillRect(0, hstring_ * i, _g.getWidth(), hstring_);
             }
             _g.setColor(GuiConstants.BLACK);
             _g.drawString(songs.get(i).getName(), 0, hstring_ + hstring_ * i);

@@ -1,6 +1,5 @@
 package code.vi.prot.impl.gui;
 import code.gui.AbsPaintableLabel;
-import code.gui.FrameUtil;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.vi.prot.impl.DefImage;
@@ -27,19 +26,19 @@ public class PaintableLabelAbs extends CustComponent implements AbsPaintableLabe
         label.setHorizontalAlignment(_alignment);
     }
 
-    @Override
-    public int getHeight() {
-        int h_ = super.getHeight();
-        int prHeight_ = getPreferredSize().height;
-        return FrameUtil.pref(h_, prHeight_);
-    }
-
-    @Override
-    public int getWidth() {
-        int w_ = super.getWidth();
-        int prWidth_ = getPreferredSize().width;
-        return FrameUtil.pref(w_, prWidth_);
-    }
+//    @Override
+//    public int getHeight() {
+//        int h_ = super.getHeight();
+//        int prHeight_ = getPreferredSize().height;
+//        return FrameUtil.pref(h_, prHeight_);
+//    }
+//
+//    @Override
+//    public int getWidth() {
+//        int w_ = super.getWidth();
+//        int prWidth_ = getPreferredSize().width;
+//        return FrameUtil.pref(w_, prWidth_);
+//    }
 
     @Override
     public JComponent getNatComponent() {

@@ -41,12 +41,12 @@ public final class FrameUtil {
 //        img_.setFont(_paintableLabel);
 //        _paintableLabel.setIcon(_fact,img_);
 //    }
-    public static int pref(int _dim, int _pr) {
-        if (_dim > 0) {
-            return _dim;
-        }
-        return _pr;
-    }
+//    public static int pref(int _dim, int _pr) {
+//        if (_dim > 0) {
+//            return _dim;
+//        }
+//        return _pr;
+//    }
 
 //    public static void repaintLists(AbstractImageFactory _fact, AbsPanel _panel) {
 //        for (AbsCustComponent c: _panel.getChildren()) {

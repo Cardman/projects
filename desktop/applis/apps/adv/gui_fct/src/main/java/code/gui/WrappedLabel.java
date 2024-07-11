@@ -56,7 +56,7 @@ public final class WrappedLabel {
 
     public void paintComponent(AbstractImage _g) {
         _g.setColorBg(getPaintableLabel());
-        _g.fillRect(0, 0, paintableLabel.getWidth(), paintableLabel.getHeight());
+        _g.fillRect(0, 0, _g.getWidth(), _g.getHeight());
         _g.setColorFg(getPaintableLabel());
         int hLine_ = compo.heightFont(paintableLabel.getMetaFont());
         int i_ = IndexConstants.FIRST_INDEX;
