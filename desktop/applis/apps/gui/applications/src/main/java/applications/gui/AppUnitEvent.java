@@ -3,18 +3,11 @@ package applications.gui;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.gui.unit.WindowUnit;
 import code.gui.AbsButton;
-import code.gui.GuiBaseUtil;
-import code.gui.initialize.AbstractProgramInfos;
 
 public final class AppUnitEvent extends AbstractEvent {
 
     AppUnitEvent(WindowApps _window, AbsButton _but) {
-        super(_window, _but);
-    }
-
-    @Override
-    protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(WindowUnit.APPS_UNIT, _list);
+        super(_window, _but, WindowUnit.APPS_UNIT);
     }
 
     @Override

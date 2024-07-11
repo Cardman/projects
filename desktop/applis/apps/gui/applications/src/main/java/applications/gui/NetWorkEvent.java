@@ -1,8 +1,6 @@
 package applications.gui;
 
 import code.gui.AbsButton;
-import code.gui.GuiBaseUtil;
-import code.gui.initialize.AbstractProgramInfos;
 import code.network.LaunchingNetwork;
 import code.network.WindowNetWork;
 import code.threads.AbstractBaseExecutorService;
@@ -12,13 +10,8 @@ public final class NetWorkEvent extends AbstractEvent {
     private final AbstractBaseExecutorService launcher;
 
     NetWorkEvent(WindowApps _window, AbsButton _b) {
-        super(_window, _b);
+        super(_window, _b, WindowNetWork.APPS_NETWORK);
         launcher = _window.getFrames().getThreadFactory().newExecutorService();
-    }
-
-    @Override
-    protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(WindowNetWork.APPS_NETWORK, _list);
     }
 
     @Override

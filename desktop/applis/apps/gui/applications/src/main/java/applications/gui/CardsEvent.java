@@ -3,18 +3,11 @@ package applications.gui;
 import cards.gui.WindowCards;
 import cards.main.LaunchingCards;
 import code.gui.AbsButton;
-import code.gui.GuiBaseUtil;
-import code.gui.initialize.AbstractProgramInfos;
 
 public final class CardsEvent extends AbstractEvent {
 
     CardsEvent(WindowApps _window, AbsButton _but) {
-        super(_window, _but);
-    }
-
-    @Override
-    protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(WindowCards.APP_CARDS, _list);
+        super(_window, _but, WindowCards.APP_CARDS);
     }
 
     @Override

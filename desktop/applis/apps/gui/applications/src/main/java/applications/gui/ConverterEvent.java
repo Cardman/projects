@@ -3,18 +3,11 @@ package applications.gui;
 import code.converterimages.gui.WindowConverter;
 import code.converterimages.main.LaunchingConverter;
 import code.gui.AbsButton;
-import code.gui.GuiBaseUtil;
-import code.gui.initialize.AbstractProgramInfos;
 
 public final class ConverterEvent extends AbstractEvent {
 
     ConverterEvent(WindowApps _window, AbsButton _but) {
-        super(_window, _but);
-    }
-
-    @Override
-    protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GuiBaseUtil.tryToReopen(WindowConverter.APPS_CONVERTER, _list);
+        super(_window, _but, WindowConverter.APPS_CONVERTER);
     }
 
     @Override
