@@ -5662,6 +5662,10 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (_object instanceof AreaApparition) {
+            if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_FIGHT)) {
+                ((AreaApparition)_object).setMultFight(DocumentReaderCoreUtil.getByte(_element));
+                return;
+            }
             if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_WILD_POKEMON)) {
                 ((AreaApparition)_object).setWildPokemon(getListWildPk(_element));
                 return;
