@@ -48,6 +48,7 @@ public final class LanguageFrame implements SetterLanguage,AbsQuit,AbsChangeLang
 //        commonFrame.setContentPane(content.getPanel());
 //        commonFrame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         content.getCommonFrame().setLocationRelativeToNull();
+        content.getCommonFrame().removeWindowListener(content.getCommonFrame().getWindowListenersDef().get(0));
         content.getCommonFrame().addWindowListener(new QuittingEvent(this));
 //        commonFrame.setVisible(true);
 //        commonFrame.pack();
@@ -87,7 +88,7 @@ public final class LanguageFrame implements SetterLanguage,AbsQuit,AbsChangeLang
     @Override
     public void quit() {
         getCommonFrame().setVisible(false);
-        GuiBaseUtil.trEx(getCommonFrame());
+        GuiBaseUtil.removeAllListeners(getCommonFrame());
     }
 }
 
