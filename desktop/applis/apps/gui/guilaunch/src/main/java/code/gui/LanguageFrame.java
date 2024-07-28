@@ -7,13 +7,11 @@ import code.gui.events.QuittingEvent;
 import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.gui.MessGuiGr;
 import code.stream.StreamLanguageUtil;
 
-public final class LanguageFrame extends GroupFrame implements SetterLanguage,AbsOpenQuit {
+public final class LanguageFrame implements SetterLanguage,AbsQuit,AbsChangeLanguage {
 
     private static final String TITLE = " ";
-
     private String langue;
 
     private final String[] args;
@@ -25,8 +23,7 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
     private final LanguageDialogButtons content;
 
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, AbstractImage _icon) {
-        super(_soft.getFrames());
-        GuiBaseUtil.choose("", this, MessGuiGr.ms());
+//        GuiBaseUtil.choose("", this, MessGuiGr.ms());
 //        commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame(_soft.getFrames(), null);
         content = new LanguageDialogButtons(_soft.getFrames(),null,new AlwaysActionListenerAct());
 //        _soft.getFrames().getFrames().add(this);
@@ -38,6 +35,10 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
         soft = _soft;
         args = _args;
         init(null,_soft.getFrames(), TITLE);
+    }
+
+    public AbsCommonFrame getCommonFrame() {
+        return content.getCommonFrame();
     }
 
     @Override
@@ -57,8 +58,9 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
         langue = _language;
 //        commonFrame.dispose();
         StreamLanguageUtil.saveLanguage(dir, _language,soft.getFrames().getStreams());
+        getCommonFrame().setVisible(false);
 //        commonFrame.getPane().removeAll();
-        getFrames().getFrames().clear();
+//        getFrames().getFrames().clear();
         soft.launchFile(args,langue);
     }
 
@@ -74,18 +76,18 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage,Ab
 
     @Override
     public void changeLanguage(String _language) {
-        quit();
+        setLanguage(_language);
     }
 
-    @Override
-    public String getApplicationName() {
-        return "";
-    }
+//    @Override
+//    public String getApplicationName() {
+//        return "";
+//    }
 
     @Override
     public void quit() {
         getCommonFrame().setVisible(false);
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(getCommonFrame());
     }
 }
 

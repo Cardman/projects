@@ -513,7 +513,12 @@ public final class GuiBaseUtil {
     }
 
     public static void trEx(AbsOpenQuit _t) {
-        tryExit(_t.getCommonFrame());
+        trEx(_t.getCommonFrame());
+//        _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
+    }
+
+    public static void trEx(AbsCommonFrame _t) {
+        tryExit(_t);
 //        _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
     }
 

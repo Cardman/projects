@@ -37,7 +37,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGroupFrame,AbsOpenQuit,SetupableFolder,AbsChangeLanguage {
+public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGroupFrame,AbsOpenQuit,SetupableFolder {
     public static final String TEMP_FOLDER = "10";
     public static final String NODE_FILES = "0";
     public static final String NODE_EXP_FILES = "1";

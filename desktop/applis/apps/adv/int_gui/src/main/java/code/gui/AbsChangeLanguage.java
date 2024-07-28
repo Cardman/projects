@@ -1,5 +1,5 @@
 package code.gui;
 
-public interface AbsChangeLanguage extends AbsGroupFrame {
+public interface AbsChangeLanguage {
     void changeLanguage(String _language);
 }

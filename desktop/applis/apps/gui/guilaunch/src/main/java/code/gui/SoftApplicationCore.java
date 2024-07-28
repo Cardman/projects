@@ -23,6 +23,7 @@ public abstract class SoftApplicationCore {
 
     private final WithAppFactories factories;
     private final EnabledMenu languageMenu;
+    private LanguageFrame languageFrame;
 
     protected SoftApplicationCore(WithAppFactories _frames) {
         factories = _frames;
@@ -109,13 +110,13 @@ public abstract class SoftApplicationCore {
 
     protected void launchFile(String[] _args, String _lg) {
         getFrames().setLanguage(_lg);
-        launch(_lg, new InterpretedFile(getFrames(),_args), languageMenu, null);
+        launch(_lg, new InterpretedFile(getFrames(),_args), getLanguageMenu(), null);
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
         String language_ = FileDialog.loadLanguage(_dir,getFrames().getFileCoreStream(), getFrames().getStreams(), getFrames().getLanguages());
         if (language_.isEmpty()) {
-            proponeLanguage(_dir, _args, _icon);
+            languageFrame = proponeLanguage(_dir, _args, _icon);
         }
         return language_;
     }
@@ -135,6 +136,10 @@ public abstract class SoftApplicationCore {
 //    }
 
     protected abstract void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main);
+
+    public LanguageFrame getLanguageFrame() {
+        return languageFrame;
+    }
 
     public EnabledMenu getLanguageMenu() {
         return languageMenu;
