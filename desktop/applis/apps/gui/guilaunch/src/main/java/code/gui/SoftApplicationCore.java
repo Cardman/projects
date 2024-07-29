@@ -22,12 +22,12 @@ import code.util.*;
 public abstract class SoftApplicationCore {
 
     private final WithAppFactories factories;
-    private final EnabledMenu languageMenu;
+//    private final EnabledMenu languageMenu;
     private LanguageFrame languageFrame;
 
     protected SoftApplicationCore(WithAppFactories _frames) {
         factories = _frames;
-        languageMenu = getFrames().getCompoFactory().newMenuItem();
+//        languageMenu = getFrames().getCompoFactory().newMenuItem();
     }
 
     public AppFactories getAppFactories() {
@@ -110,7 +110,7 @@ public abstract class SoftApplicationCore {
 
     protected void launchFile(String[] _args, String _lg) {
         getFrames().setLanguage(_lg);
-        launch(_lg, new InterpretedFile(getFrames(),_args), getLanguageMenu(), null);
+        launch(_lg, new InterpretedFile(getFrames(),_args), null, null);
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
@@ -141,9 +141,9 @@ public abstract class SoftApplicationCore {
         return languageFrame;
     }
 
-    public EnabledMenu getLanguageMenu() {
-        return languageMenu;
-    }
+//    public EnabledMenu getLanguageMenu() {
+//        return languageMenu;
+//    }
 
     public AbstractProgramInfos getFrames() {
         return getFactories().getProgramInfos();
