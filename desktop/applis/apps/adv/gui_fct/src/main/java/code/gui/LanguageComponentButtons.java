@@ -23,6 +23,13 @@ public final class LanguageComponentButtons {
             panel.add(radio_);
         }
     }
+    public static boolean enableButtons(LanguageComponentButtons _lg,boolean _value) {
+        if (_lg != null) {
+            _lg.enableButtons(_value);
+            return true;
+        }
+        return false;
+    }
     public void enableButtons(boolean _value) {
         for (AbsButton b: getGroupe()) {
             b.setEnabled(_value);

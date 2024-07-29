@@ -78,6 +78,37 @@ public final class LgsTest extends EquallableGuiFctUtil {
         assertTrue(l_.getContent().getGroupe().get(1).isEnabled());
     }
     @Test
+    public void enableButtons3() {
+        MockProgramInfosSecSample pr_ = init();
+        pr_.setLanguages(new StringList("_", "__"));
+        StringMap<String> ds_ = new StringMap<String>();
+        ds_.addEntry("_", "_");
+        ds_.addEntry("__", "__");
+        pr_.setDisplayLanguages(ds_);
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_, pr_.getCompoFactory().newMenuItem(), new AlwaysActionListenerAct());
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame(pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        l_.init(fr_, pr_, "", new MockSampleFrame(pr_));
+        assertTrue(LanguageComponentButtons.enableButtons(l_.getContent(), false));
+    }
+    @Test
+    public void enableButtons4(){
+        MockProgramInfosSecSample pr_ = init();
+        pr_.setLanguages(new StringList("_","__"));
+        StringMap<String> ds_ = new StringMap<String>();
+        ds_.addEntry("_","_");
+        ds_.addEntry("__","__");
+        pr_.setDisplayLanguages(ds_);
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,pr_.getCompoFactory().newMenuItem(), new AlwaysActionListenerAct());
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame(pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        l_.init(fr_,pr_,"",new MockSampleFrame(pr_));
+        assertTrue(LanguageComponentButtons.enableButtons(l_.getContent(),true));
+    }
+    @Test
+    public void enableButtons5(){
+        assertFalse(LanguageComponentButtons.enableButtons(null,false));
+        assertFalse(LanguageComponentButtons.enableButtons(null,true));
+    }
+    @Test
     public void trs1() {
         MockProgramInfosSecSample pr_ = init();
         AbsPlainLabel lab_ = pr_.getCompoFactory().newPlainLabel("");
