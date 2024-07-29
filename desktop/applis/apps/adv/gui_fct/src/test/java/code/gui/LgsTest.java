@@ -111,8 +111,8 @@ public final class LgsTest extends EquallableGuiFctUtil {
     @Test
     public void pair() {
         MockProgramInfosSecSample pr_ = init();
-        LanguagesButtonsPair l_ = new LanguagesButtonsPair(pr_.getCompoFactory().newMenuItem("0"),pr_.getCompoFactory().newMenuItem("1"),new LanguageDialogButtons(pr_,null,null));
-        l_.getButtons().init(pr_,"",null);
+        LanguagesButtonsPair l_ = new LanguagesButtonsPair(pr_.getCompoFactory().newMenuItem("0"),pr_.getCompoFactory().newMenuItem("1"),new LanguageComponentButtons(pr_,null));
+        l_.getButtons().init(pr_,null,null);
         assertEq("0",l_.getLgMenu().getText());
         assertEq("1",l_.getMainButton().getText());
     }

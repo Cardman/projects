@@ -3,9 +3,9 @@ package code.gui;
 public final class LanguagesButtonsPair {
     private final EnabledMenu lgMenu;
     private final AbsButton mainButton;
-    private final LanguageDialogButtons buttons;
+    private final LanguageComponentButtons buttons;
 
-    public LanguagesButtonsPair(EnabledMenu _l, AbsButton _m, LanguageDialogButtons _b) {
+    public LanguagesButtonsPair(EnabledMenu _l, AbsButton _m, LanguageComponentButtons _b) {
         this.lgMenu = _l;
         this.mainButton = _m;
         this.buttons = _b;
@@ -19,7 +19,7 @@ public final class LanguagesButtonsPair {
         return lgMenu;
     }
 
-    public LanguageDialogButtons getButtons() {
+    public LanguageComponentButtons getButtons() {
         return buttons;
     }
 }
