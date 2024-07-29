@@ -230,11 +230,11 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
     }
     @Test
     public void intro8() {
-        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
         introServer(server_);
-        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         clientPk(server_,client_);
         retrievedSocket(server_, client_, 1);
         introClient(server_, client_);
@@ -251,11 +251,11 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
 
     @Test
     public void quit1() {
-        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
         introServer(server_);
-        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         clientPk(server_,client_);
         retrievedSocket(server_, client_, 1);
         introClient(server_, client_);
@@ -269,18 +269,42 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
 //        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
         assertFalse(BasicClient.iterate(socketServ_,server_,NetCommon.exportExiting(forcedBye_)));
 //        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
-        client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
+//        client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
         tryClick(client_.getExit());
         GuiBaseUtil.tryToReopen(client_.getApplicationName(),client_.getFrames());
     }
 
     @Test
+    public void quit_1() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        introServer(server_);
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), server_.getCompoFactory().newPlainButton(""));
+        clientPk(server_,client_);
+        retrievedSocket(server_, client_, 1);
+        introClient(server_, client_);
+
+        exitTradeServer(server_, socketServ_);
+
+        assertEq(0,server_.getSockets().getSockets().size());
+        Exiting forcedBye_ = new Exiting();
+        forcedBye_.setForced(false);
+        forcedBye_.setClosing(true);
+//        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
+        assertFalse(BasicClient.iterate(socketServ_,server_,NetCommon.exportExiting(forcedBye_)));
+//        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
+//        client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
+        tryClick(client_.getExit());
+        GuiBaseUtil.tryToReopen(client_.getApplicationName(),client_.getFrames());
+    }
+    @Test
     public void quit2() {
-        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
         introServer(server_);
-        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
         introClient(server_, client_);
@@ -296,11 +320,11 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
 
     @Test
     public void quit3() {
-        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
         introServer(server_);
-        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
         introClient(server_, client_);
@@ -316,11 +340,11 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
 
     @Test
     public void quit4() {
-        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
         introServer(server_);
-        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
         introClient(server_, client_);
@@ -337,14 +361,14 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
 
     @Test
     public void quit5() {
-        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         serverPk(server_);
         retrievedSocket(server_, server_, 0);
         introServer(server_);
-        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         clientPk(server_,client_);
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
-        WindowNetWork clientKo_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork clientKo_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         clientPk(server_,clientKo_);
         MockSocket socket_ = (MockSocket) clientKo_.getSocket();
         introClient(server_, client_);
@@ -362,11 +386,11 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
 
     @Test
     public void quit6() {
-        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         serverPk(server_);
         MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
         introServer(server_);
-        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         clientPk(server_,client_);
         retrievedSocket(server_, client_, 1);
         introClient(server_, client_);
@@ -382,12 +406,38 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertFalse(BasicClient.iterate(socketServ_,server_,NetCommon.exportExiting(forcedBye_)));
 
 //        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
-        client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
+//        client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
+        tryClick(client_.getExit());
+    }
+
+    @Test
+    public void quit_6() {
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
+        serverPk(server_);
+        MockSocket socketServ_ = retrievedSocket(server_, server_, 0);
+        introServer(server_);
+        WindowNetWork client_ = frameSingleMenu(new MockDataBaseStreamNet(), server_.getCompoFactory().newPlainButton(""));
+        clientPk(server_,client_);
+        retrievedSocket(server_, client_, 1);
+        introClient(server_, client_);
+
+        exitTradeServer(server_, socketServ_);
+
+        assertEq(0,server_.getSockets().getSockets().size());
+        Exiting forcedBye_ = new Exiting();
+        forcedBye_.setForced(false);
+        forcedBye_.setClosing(true);
+        forcedBye_.setServer(true);
+//        server_.getFrames().getCounts().put(server_.getApplicationName(),server_.getFrames().getThreadFactory().newAtomicInteger());
+        assertFalse(BasicClient.iterate(socketServ_,server_,NetCommon.exportExiting(forcedBye_)));
+
+//        client_.getFrames().getCounts().put(client_.getApplicationName(),client_.getFrames().getThreadFactory().newAtomicInteger());
+//        client_.setButtonClick(client_.getCompoFactory().newPlainButton(""));
         tryClick(client_.getExit());
     }
     @Test
     public void cancelConnect() {
-        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet());
+        WindowNetWork server_ = frameSingleMenu(new MockDataBaseStreamNet(), null);
         cancelConnect(server_);
         assertEq(0,((MockThreadFactory)server_.getFrames().getThreadFactory()).getAllThreads().size());
         new BasicClient(server_.getSocket(),server_).iterate(server_.getSocket(), NetCommon.exportExiting(new Exiting()));

@@ -1,7 +1,7 @@
 package code.vi.sys;
 
 import aiki.gui.WindowAiki;
-import aiki.main.LaunchingPokemon;
+import applications.main.LaunchingPokemon;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingPokemonSys extends LaunchingPokemon {

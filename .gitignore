@@ -316,11 +316,6 @@
 !/desktop/applis/apps/gui/guicommon/src/
 !/desktop/applis/apps/gui/guicommon/src/**/
 !/desktop/applis/apps/gui/guicommon/src/**/*.java
-!/desktop/applis/apps/gui/guilaunch/
-!/desktop/applis/apps/gui/guilaunch/pom.xml
-!/desktop/applis/apps/gui/guilaunch/src/
-!/desktop/applis/apps/gui/guilaunch/src/**/
-!/desktop/applis/apps/gui/guilaunch/src/**/*.java
 !/desktop/applis/apps/gui/guicust/
 !/desktop/applis/apps/gui/guicust/pom.xml
 !/desktop/applis/apps/gui/guicust/src/

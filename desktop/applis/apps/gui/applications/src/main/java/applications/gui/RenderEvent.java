@@ -1,13 +1,14 @@
 package applications.gui;
 
 import code.gui.AbsButton;
-import code.renders.LaunchingRenders;
+import code.gui.LanguagesButtonsPair;
+import applications.code.renders.LaunchingRenders;
 import code.renders.WindowRenders;
 
 public final class RenderEvent extends AbstractEvent {
 
-    RenderEvent(WindowApps _window, AbsButton _but) {
-        super(_window, _but, WindowRenders.APPS_RENDERS_SITES);
+    RenderEvent(WindowApps _window, AbsButton _but, LanguagesButtonsPair _p) {
+        super(_window, _but, WindowRenders.APPS_RENDERS_SITES, _p);
     }
 
     @Override
@@ -15,6 +16,6 @@ public final class RenderEvent extends AbstractEvent {
         String lg_ = _window.getFrames().getLanguage();
         LaunchingRenders l_;
         l_ = new LaunchingRenders(_window.getWithAppFactories());
-        l_.launch(lg_, getMainButton());
+        l_.launch(lg_, getMainButton(), getPair());
     }
 }

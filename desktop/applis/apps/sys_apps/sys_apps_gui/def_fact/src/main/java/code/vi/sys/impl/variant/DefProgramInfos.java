@@ -1,6 +1,6 @@
 package code.vi.sys.impl.variant;
 
-import code.gui.WithAppFactories;
+import applications.code.gui.WithAppFactories;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.vi.prot.impl.variant.LigDefProgramInfos;
 import code.vi.sys.impl.deps.ProgramInfosDeps;

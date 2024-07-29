@@ -1,7 +1,7 @@
 package code.converterimages.gui;
 
-import code.gui.AbsButton;
-import code.gui.initialize.*;
+import code.gui.LanguagesButtonsPair;
+import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
@@ -10,18 +10,18 @@ public final class CreateMainWindowConverter implements Runnable {
     private final AbstractProgramInfos list;
     private final String lg;
     private final StringList ls;
-    private final AbsButton mainButton;
+    private final LanguagesButtonsPair pair;
     private WindowConverter window;
 
-    public CreateMainWindowConverter(String _lg, StringList _ls, AbstractProgramInfos _list, AbsButton _main) {
+    public CreateMainWindowConverter(String _lg, StringList _ls, AbstractProgramInfos _list, LanguagesButtonsPair _p) {
         lg = _lg;
         ls = _ls;
         list = _list;
-        mainButton = _main;
+        pair = _p;
     }
     @Override
     public void run() {
-        window = new WindowConverter(lg, list, mainButton);
+        window = new WindowConverter(lg, list, pair);
         CustList<String> infos_;
         if (!ls.isEmpty()) {
             infos_ = DocumentImagesUtil.parse(StreamTextFile.contentsOfFile(ls.first(), list.getFileCoreStream(), list.getStreams()));

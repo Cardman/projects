@@ -1,6 +1,6 @@
 package code.vi.sys;
 
-import code.converterimages.main.LaunchingConverter;
+import applications.code.converterimages.main.LaunchingConverter;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingConverterSys extends LaunchingConverter {

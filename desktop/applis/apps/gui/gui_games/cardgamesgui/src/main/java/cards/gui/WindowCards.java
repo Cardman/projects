@@ -218,19 +218,19 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final ReportingFrame errorsFile = ReportingFrame.newInstance(getFrames());
     private String lastFile = "";
     private final AbsActionListenerAct guardRender;
-    private final AbsButton mainButton;
+    private final LanguagesButtonsPair mainButton;
 
     public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list) {
         this(_nicknames, _list,new IntArtCardGames());
     }
     public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia) {
-        this(_nicknames, _list,_list.getCompoFactory().newMenuItem(), null,_ia, null);
+        this(_nicknames, _list,_list.getCompoFactory().newMenuItem(), _ia, new LanguagesButtonsPair(null,null,new LanguageComponentButtons(_list,new AlwaysActionListenerAct())));
     }
-    public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, EnabledMenu _geneHelp, EnabledMenu _lgMenu, IntArtCardGames _ia, AbsButton _ma) {
+    public WindowCards(CardGamesStream _nicknames, AbstractProgramInfos _list, EnabledMenu _geneHelp, IntArtCardGames _ia, LanguagesButtonsPair _pair) {
         super(_list);
-        mainButton = _ma;
+        mainButton = _pair;
         guardRender = new AlwaysActionListenerAct();
-        languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu, new AlwaysActionListenerAct());
+        languageDialogButtons = new LanguageDialogButtons(_list,_pair.getLgMenu(), new AlwaysActionListenerAct());
         setPausingCardsAnims(new DefPausingCardsAnims());
         modal = _list.getThreadFactory().newAtomicBoolean();
         GuiBaseUtil.choose(_list.getLanguage(), this, _list.getCommon());
@@ -296,7 +296,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
 //        }
         /*Parametre de lancement*/
-        core = new WindowCardsCore(this,_nicknames, _list,_ia,modal,_lgMenu);
+        core = new WindowCardsCore(this,_nicknames, _list,_ia,modal,_pair.getLgMenu());
         initMenus();
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
@@ -447,7 +447,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     @Override
     public void quit() {
         beforeClose();
-        LanguageDialogButtons.enable(mainButton,true);
+        LanguageDialogButtons.enable(mainButton.getMainButton(),true);
+//        LanguageComponentButtons.enableButtons(mainButton.getButtons(),true);
         GuiBaseUtil.trEx(this);
 //        closeOpened();
         /*if (containerGame instanceof ContainerMulti) {

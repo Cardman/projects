@@ -39,7 +39,7 @@ public abstract class EquallableRendersGuiUtil {
     public static CreateMainWindowRenders create(MockProgramInfos _pr,String..._args) {
         update(_pr);
         CdmFactory cdm_ = new CdmFactory(_pr,new MockInterceptor());
-        return new CreateMainWindowRenders("",new StringList(_args),cdm_,_pr, null);
+        return new CreateMainWindowRenders("",new StringList(_args),cdm_,_pr, new LanguagesButtonsPair(null,null,null));
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

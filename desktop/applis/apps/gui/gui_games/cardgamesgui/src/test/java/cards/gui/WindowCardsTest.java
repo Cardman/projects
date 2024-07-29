@@ -8,6 +8,7 @@ import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import cards.main.LaunchingGame;
 import code.gui.GuiBaseUtil;
+import code.gui.LanguagesButtonsPair;
 import code.mock.MockBaseExecutorServiceParam;
 import code.util.StringList;
 import code.util.StringMap;
@@ -57,7 +58,7 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
         Games.appendNickNames(Games.getAppliTr(wc_.getFrames().currentLg()),Nicknames.en());
         WindowCards.getIcon(wc_.getImageFactory());
 //        FacadeCards.install(WindowCards.getTempFolderSl(wc_.getFrames()),wc_.getFrames());
-        LaunchingGame lg_ = new LaunchingGame(new StringList(), wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>()), null, null);
+        LaunchingGame lg_ = new LaunchingGame(new StringList(), wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>()), new LanguagesButtonsPair(null,null,null));
         lg_.run();
         AbsMetaLabelCard.sels();
         AbsMetaLabelCard.defs();

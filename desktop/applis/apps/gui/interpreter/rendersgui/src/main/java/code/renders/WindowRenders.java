@@ -47,9 +47,9 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     private final FileOpenFrame fileOpenFrame;
     private final AbsButton mainButton;
 
-    public WindowRenders(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos, AbsButton _ma) {
+    public WindowRenders(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos, LanguagesButtonsPair _pair) {
         super(_programInfos);
-        mainButton = _ma;
+        mainButton = _pair.getMainButton();
         guardRender = new AlwaysActionListenerAct();
         atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
         fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);

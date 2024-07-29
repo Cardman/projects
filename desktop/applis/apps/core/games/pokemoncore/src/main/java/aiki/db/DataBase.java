@@ -113,8 +113,6 @@ public class DataBase {
 
     public static final String SEP_BETWEEN_KEYS = "__";
     public static final String IMG_FILES_RES_EXT = ".png";
-    public static final String IMG_FILES_RES_EXT_TXT = ".txt";
-    public static final String FILES_RES_EXT = ".xml";
     public static final String TRANSLATION_CATEGORIES = "categories.txt";
     public static final String TRANSLATION_GENDERS = "genders.txt";
     public static final String TRANSLATION_ENVIRONMENTS = "environments.txt";
@@ -140,33 +138,13 @@ public class DataBase {
      */
 
     public static final int MAX_MULT_FIGHT = 4;
-    public static final String IMAGES_FOLDER = "images";
-    public static final String LINKS_FOLDER = "links";
-    public static final String PEOPLE_FOLDER = "people";
-    public static final String TRAINERS_FOLDER = "trainers";
     public static final String HERO_FOLDER = "heros";
-    public static final String MINI_MAP_FOLDER = "mini_map";
     public static final String HERO_FRONT = "heros_front.txt";
     public static final String HERO_BACK = "heros_back.txt";
     public static final String HERO_MINI = "heros_mini.txt";
-    public static final String FRONT_IMAGES_FOLDER = "front";
-    public static final String BACK_IMAGES_FOLDER = "back";
-    public static final String MINI_IMAGES_FOLDER = "mini";
 
-    public static final String OBJECTS_IMAGES_FOLDER = "items_images";
-    public static final String TYPES_IMAGES_FOLDER = "types_images";
-    public static final String IMAGE_TM_HM_FILES = "hm_tm";
-    public static final String IMAGE_STORAGE_FILES = "storage";
-    public static final String TYPES_COLOR_CODE = "types_color";
     public static final String SEPARATOR_FILES = "/";
-    public static final String END_GAME_IMAGE = "end_game";
     public static final int ONE_POSSIBLE_CHOICE = 1;
-
-    public static final String ANIM_STATIS = "anim_statis";
-
-    public static final String ANIM_STATUS = "anim_status";
-
-    public static final String ANIM_ABSORB = "anim_absorb/absorb.txt";
 
     private static final int DEFAULT_POWER_INT = 80;
 

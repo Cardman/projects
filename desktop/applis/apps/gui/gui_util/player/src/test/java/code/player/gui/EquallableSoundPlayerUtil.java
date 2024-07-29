@@ -2,6 +2,7 @@ package code.player.gui;
 
 import code.gui.AbsButton;
 import code.gui.AbsCustCheckBox;
+import code.gui.LanguagesButtonsPair;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.stream.AbsClipStream;
@@ -13,11 +14,11 @@ public abstract class EquallableSoundPlayerUtil {
 
     public static WindowPlayer windowPlayer() {
         MockProgramInfos pr_ = build();
-        return new WindowPlayer("",pr_, null);
+        return new WindowPlayer("",pr_, new LanguagesButtonsPair(null,null,null));
     }
     public static WindowRecorder windowRecorder() {
         MockProgramInfos pr_ = build();
-        return new WindowRecorder("",pr_, null);
+        return new WindowRecorder("",pr_, new LanguagesButtonsPair(null,null,null));
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

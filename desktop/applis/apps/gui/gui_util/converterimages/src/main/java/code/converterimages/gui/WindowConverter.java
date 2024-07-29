@@ -46,9 +46,9 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
     private final AbsButton okButton;
     private final AbsButton mainButton;
 
-    public WindowConverter(String _lg, AbstractProgramInfos _list, AbsButton _ma) {
+    public WindowConverter(String _lg, AbstractProgramInfos _list, LanguagesButtonsPair _pair) {
         super(_list);
-        mainButton = _ma;
+        mainButton = _pair.getMainButton();
 //        atomicBoolean = _list.getThreadFactory().newAtomicBoolean();
         folderOpenFrame = new FolderOpenFrame(_list,_list.getThreadFactory().newAtomicBoolean());
         GuiBaseUtil.choose(_lg, this, _list.getCommon());

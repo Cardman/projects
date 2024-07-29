@@ -1,13 +1,14 @@
 package applications.gui;
 
 import cards.gui.WindowCards;
-import cards.main.LaunchingCards;
+import applications.main.LaunchingCards;
 import code.gui.AbsButton;
+import code.gui.LanguagesButtonsPair;
 
 public final class CardsEvent extends AbstractEvent {
 
-    CardsEvent(WindowApps _window, AbsButton _but) {
-        super(_window, _but, WindowCards.APP_CARDS);
+    CardsEvent(WindowApps _window, AbsButton _but, LanguagesButtonsPair _p) {
+        super(_window, _but, WindowCards.APP_CARDS, _p);
     }
 
     @Override
@@ -15,7 +16,7 @@ public final class CardsEvent extends AbstractEvent {
         String lg_ = _window.getFrames().getLanguage();
         LaunchingCards l_;
         l_ = new LaunchingCards(_window.getWithAppFactories());
-        l_.launch(lg_, getMainButton());
+        l_.launch(lg_, getMainButton(), getPair());
     }
 
 }

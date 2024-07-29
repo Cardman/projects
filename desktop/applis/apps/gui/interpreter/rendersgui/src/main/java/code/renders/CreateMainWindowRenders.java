@@ -1,7 +1,7 @@
 package code.renders;
 
-import code.gui.AbsButton;
 import code.gui.CdmFactory;
+import code.gui.LanguagesButtonsPair;
 import code.gui.initialize.*;
 import code.util.*;
 
@@ -11,20 +11,20 @@ public final class CreateMainWindowRenders implements Runnable {
     private final String language;
 
     private final StringList args;
-    private final AbsButton mainButton;
+    private final LanguagesButtonsPair pair;
     private WindowRenders window;
 
-    public CreateMainWindowRenders(String _language, StringList _args, CdmFactory _list, AbstractProgramInfos _frames, AbsButton _main) {
+    public CreateMainWindowRenders(String _language, StringList _args, CdmFactory _list, AbstractProgramInfos _frames, LanguagesButtonsPair _p) {
         language = _language;
         args = _args;
         list = _list;
         programInfos = _frames;
-        mainButton = _main;
+        pair = _p;
     }
 
     @Override
     public void run() {
-        window = new WindowRenders(language, list, programInfos, mainButton);
+        window = new WindowRenders(language, list, programInfos, pair);
         WindowRenders mainWindow_ = window;
         if (!args.isEmpty()) {
             mainWindow_.loadRenderConf(args.first());

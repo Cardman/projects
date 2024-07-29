@@ -23,9 +23,9 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     private boolean built;
     private final AbsButton mainButton;
 
-    public WindowRecorder(String _lg, AbstractProgramInfos _list, AbsButton _ma) {
+    public WindowRecorder(String _lg, AbstractProgramInfos _list, LanguagesButtonsPair _pair) {
         super(_list);
-        mainButton = _ma;
+        mainButton = _pair.getMainButton();
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         setTitle("recorder");
         soundRecord = _list.newSoundPattern();

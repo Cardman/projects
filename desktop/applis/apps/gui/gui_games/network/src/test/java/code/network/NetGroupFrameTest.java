@@ -16,6 +16,7 @@ import cards.main.CardNatLgNamesNavigation;
 import cards.network.threads.*;
 import code.gui.AbsButton;
 import code.gui.AbsCustComponent;
+import code.gui.LanguagesButtonsPair;
 import code.gui.initialize.*;
 import code.mock.*;
 import code.network.enums.IpType;
@@ -65,7 +66,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         Games.appendNickNames(Games.getAppliTr(api_.currentLg()), Nicknames.en());
         AikiFactory ai_ = new AikiFactory(api_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
         CardFactories cf_ = new CardFactories(api_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
-        LaunchNetwork l_ = new LaunchNetwork(EN, api_,null,api_.getCompoFactory().newMenuItem(), ai_, cf_);
+        LaunchNetwork l_ = new LaunchNetwork(EN, api_, ai_, cf_, new LanguagesButtonsPair(api_.getCompoFactory().newMenuItem(),null,null));
         l_.run();
         assertTrue(l_.getWindow().getCommonFrame().isVisible());
         tryClick(l_.getWindow().getNetg().getLanguage());
@@ -197,7 +198,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
 //        ai_.setConfPkStream(new MockConfPkStream());
         ai_.setGamePkStream(new MockGamePkStream());
 //        ai_.submit(new MockCallable<DataBase>(_db));
-        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,null,null));
         updateBase(pr_.currentLg());
         ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);

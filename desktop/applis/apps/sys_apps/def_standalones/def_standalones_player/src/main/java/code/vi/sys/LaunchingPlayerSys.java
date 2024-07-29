@@ -1,6 +1,6 @@
 package code.vi.sys;
 
-import code.player.main.LaunchingPlayer;
+import applications.code.player.main.LaunchingPlayer;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingPlayerSys extends LaunchingPlayer {

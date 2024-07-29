@@ -92,9 +92,9 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private AbstractFuture abstractFuture;
     private final AbsButton mainButton;
 
-    public WindowPlayer(String _lg, AbstractProgramInfos _list, AbsButton _ma) {
+    public WindowPlayer(String _lg, AbstractProgramInfos _list, LanguagesButtonsPair _pair) {
         super(_list);
-        mainButton = _ma;
+        mainButton = _pair.getMainButton();
         GuiBaseUtil.choose(_lg, this, _list.getCommon());
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));

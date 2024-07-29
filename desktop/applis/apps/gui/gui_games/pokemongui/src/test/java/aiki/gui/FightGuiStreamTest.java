@@ -1669,7 +1669,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = GamesPk.initAppliTr(en_);
         windowPk(app_);
-        return new CreateMainWindowAiki(_conf, new StringList(), _pr.getCompoFactory().newMenuItem(), _pr, _fact, null);
+        return new CreateMainWindowAiki(_conf, new StringList(), _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
     }
 
     private static CreateMainWindowAiki launcher(MockProgramInfos _pr, AikiFactory _fact, String _file) {
@@ -1682,6 +1682,6 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = GamesPk.initAppliTr(en_);
         windowPk(app_);
-        return new CreateMainWindowAiki(_conf, path_, _pr.getCompoFactory().newMenuItem(), _pr, _fact, null);
+        return new CreateMainWindowAiki(_conf, path_, _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
     }
 }

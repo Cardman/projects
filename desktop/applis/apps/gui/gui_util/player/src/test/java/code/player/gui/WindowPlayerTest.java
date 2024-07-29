@@ -1,13 +1,13 @@
 package code.player.gui;
 
 import code.gui.GuiBaseUtil;
+import code.gui.LanguagesButtonsPair;
 import code.mock.MockClipStream;
 import code.mock.MockProgramInfos;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.FullDocument;
 import code.stream.*;
-import code.threads.ConcreteInteger;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     @Test
     public void noLaunchArg() {
         MockProgramInfos pr_ = build();
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList(), pr_, null);
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList(), pr_, new LanguagesButtonsPair(null,null,null));
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());
@@ -301,7 +301,7 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     public void badList() {
         MockProgramInfos pr_ = build();
         StreamBinaryFile.writeFile("file",wrapInts('<'),pr_.getStreams());
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList("file"), pr_, null);
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList("file"), pr_, new LanguagesButtonsPair(null,null,null));
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());
@@ -310,7 +310,7 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     public void badListNoFile() {
         MockProgramInfos pr_ = build();
         StreamBinaryFile.writeFile("file",wrapInts(),pr_.getStreams());
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList("file"), pr_, null);
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer("", new StringList("file"), pr_, new LanguagesButtonsPair(null,null,null));
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());

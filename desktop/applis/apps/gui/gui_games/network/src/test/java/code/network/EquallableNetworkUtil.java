@@ -208,7 +208,7 @@ public abstract class EquallableNetworkUtil {
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
         pr_.getSocketFactory().setOkServer(true);
-        WindowNetWork w_ = new WindowNetWork(streamPseudoBelote(pr_), EN, pr_, null, null, ia_);
+        WindowNetWork w_ = new WindowNetWork(streamPseudoBelote(pr_), EN, pr_, null, ia_, new LanguagesButtonsPair(null,null,null));
         CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         belote(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
@@ -225,7 +225,7 @@ public abstract class EquallableNetworkUtil {
         ia_.setPresident(_m);
         MockProgramInfos pr_ = updateSinglePresident(build());
         pr_.getSocketFactory().setOkServer(true);
-        WindowNetWork w_ = new WindowNetWork(streamPseudoPresident(pr_), EN, pr_, null, null, ia_);
+        WindowNetWork w_ = new WindowNetWork(streamPseudoPresident(pr_), EN, pr_, null, ia_, new LanguagesButtonsPair(null,null,null));
         CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         president(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
@@ -242,7 +242,7 @@ public abstract class EquallableNetworkUtil {
         ia_.setTarot(_m);
         MockProgramInfos pr_ = updateSingleTarot(build());
         pr_.getSocketFactory().setOkServer(true);
-        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, null, null, ia_);
+        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, null, ia_, new LanguagesButtonsPair(null,null,null));
         CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         tarot(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
@@ -258,7 +258,7 @@ public abstract class EquallableNetworkUtil {
         IntArtCardGames ia_ = new IntArtCardGames();
         MockProgramInfos pr_ = updateDialogDisplay(build());
         pr_.getSocketFactory().setOkServer(true);
-        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, null, null, ia_);
+        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, null, ia_, new LanguagesButtonsPair(null,null,null));
         CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
         w_.setPrepare(cf_.getTaskNav());
         w_.pack();
@@ -272,7 +272,7 @@ public abstract class EquallableNetworkUtil {
 //        ai_.setConfPkStream(new MockConfPkStream());
         ai_.setGamePkStream(new MockGamePkStream());
 //        ai_.submit(new MockCallable<DataBase>(_db));
-        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,null,null));
         updateBase(pr_.currentLg());
         ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
@@ -298,14 +298,14 @@ public abstract class EquallableNetworkUtil {
         tryClick((AbsButton) tr_.get(0));
         return w_;
     }
-    protected static WindowNetWork frameSingleMenu(IntDataBaseStream _i) {
+    protected static WindowNetWork frameSingleMenu(IntDataBaseStream _i, AbsButton _mai) {
         MockProgramInfos pr_ = updateSingle(build());
         pr_.getSocketFactory().setOkServer(true);
         AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
 //        ai_.setConfPkStream(new MockConfPkStream());
         ai_.setGamePkStream(new MockGamePkStream());
 //        ai_.submit(new MockCallable<DataBase>(_db));
-        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        WindowNetWork w_ = new WindowNetWork(stream(pr_), EN, pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,_mai,null));
         updateBase(pr_.currentLg());
         ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
@@ -340,7 +340,7 @@ public abstract class EquallableNetworkUtil {
 //        ai_.setConfPkStream(new MockConfPkStream());
         ai_.setGamePkStream(new MockGamePkStream());
 //        ai_.submit(new MockCallable<DataBase>(_db));
-        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, ai_, null, new IntArtCardGames());
+        WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), EN, pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,null,null));
         updateBase(pr_.currentLg());
         ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);

@@ -46,6 +46,23 @@ public final class LgsTest extends EquallableGuiFctUtil {
         assertFalse(l_.getCommonFrame().isVisible());
     }
     @Test
+    public void lgChButtons3() {
+        MockProgramInfosSecSample pr_ = init();
+        pr_.setLanguages(new StringList("_","__"));
+        StringMap<String> ds_ = new StringMap<String>();
+        ds_.addEntry("_","_");
+        ds_.addEntry("__","__");
+        pr_.setDisplayLanguages(ds_);
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,pr_.getCompoFactory().newMenuItem(), new AlwaysActionListenerAct());
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame(pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        l_.initNull(fr_,pr_,"",new MockSampleFrame(pr_));
+        l_.translate("");
+        l_.commonParametersMenu(pr_.getCompoFactory().newMenuItem(),new MockAbstractAction(null),0,0);
+        l_.getContent().getGroupe().get(1).getActionListeners().get(0).action();
+        l_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+        assertFalse(l_.getCommonFrame().isVisible());
+    }
+    @Test
     public void enableButtons1(){
         MockProgramInfosSecSample pr_ = init();
         pr_.setLanguages(new StringList("_","__"));

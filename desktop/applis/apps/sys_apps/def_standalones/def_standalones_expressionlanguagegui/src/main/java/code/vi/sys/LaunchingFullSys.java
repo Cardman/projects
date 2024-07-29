@@ -1,7 +1,7 @@
 package code.vi.sys;
 
-import code.expressionlanguage.guicompos.LaunchingFull;
-import code.gui.WithAppFactories;
+import applications.code.expressionlanguage.guicompos.LaunchingFull;
+import applications.code.gui.WithAppFactories;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingFullSys extends LaunchingFull {

@@ -1,7 +1,7 @@
 package code.vi.sys;
 
 import cards.gui.WindowCards;
-import cards.main.LaunchingCards;
+import applications.main.LaunchingCards;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingCardsSys extends LaunchingCards {

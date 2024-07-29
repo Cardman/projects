@@ -1,6 +1,6 @@
 package code.vi.sys;
 
-import code.renders.LaunchingRenders;
+import applications.code.renders.LaunchingRenders;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingRendersSys extends LaunchingRenders {

@@ -18,7 +18,9 @@ public class LanguageChoiceButton implements AbsActionListener {
 
     @Override
     public void action() {
-        window.setLanguage(locale);
+        if (window != null){
+            window.setLanguage(locale);
+        }
         language.changeLanguage(locale);
     }
 }

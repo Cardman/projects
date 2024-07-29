@@ -212,7 +212,7 @@ public abstract class EquallableAikiGuiUtil {
     }
 
     public static WindowAiki window(MockProgramInfos _pr, AikiFactory _fact) {
-        WindowAiki wa_ = new WindowAiki(_pr.getCompoFactory().newMenuItem(),_pr, _fact, null);
+        WindowAiki wa_ = new WindowAiki(_pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
         wa_.setTaskEnabled(new MockTaskEnabled());
         wa_.pack();
         wa_.setVisible(true);

@@ -4,6 +4,7 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.AbsButton;
 import code.gui.AbsCustCheckBox;
 import code.gui.CdmFactory;
+import code.gui.LanguagesButtonsPair;
 import code.gui.files.*;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
@@ -42,7 +43,7 @@ public abstract class EquallableUnitInterpreterUtil {
     public static CreateMainWindowUnit create(MockProgramInfos _pr,String..._args) {
         update(_pr);
         CdmFactory cdm_ = new CdmFactory(_pr,new MockInterceptor());
-        return new CreateMainWindowUnit("",new StringList(_args),cdm_,_pr, null);
+        return new CreateMainWindowUnit("",new StringList(_args),cdm_,_pr, new LanguagesButtonsPair(null,null,null));
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

@@ -74,9 +74,9 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
     private final FileOpenFrame fileOpenFrame;
     private final AbsButton mainButton;
 
-    public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos, AbsButton _ma) {
+    public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos, LanguagesButtonsPair _pair) {
         super(_programInfos);
-        mainButton = _ma;
+        mainButton = _pair.getMainButton();
         atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
         fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
         GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());

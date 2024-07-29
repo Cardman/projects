@@ -767,14 +767,14 @@ public abstract class EquallableElAdvUtil {
         update((MockProgramInfos) _pr);
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
 //        _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
-        CreateWindowCdm c_ = new CreateWindowCdm("en",new StringList(), fact_, _pr, null);
+        CreateWindowCdm c_ = new CreateWindowCdm("en",new StringList(), fact_, _pr, new LanguagesButtonsPair(null,null,null));
         c_.run();
         return c_.getWindow();
     }
     public static WindowCdmEditor window(AbstractProgramInfos _pr) {
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
 //        _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
-        WindowCdmEditor w_ = new WindowCdmEditor("en", _pr,fact_, null);
+        WindowCdmEditor w_ = new WindowCdmEditor("en", _pr,fact_, new LanguagesButtonsPair(null,null,null));
         SampleMockResultContextNext res_ = new SampleMockResultContextNext(w_, _pr, fact_);
         w_.setMainResultNext(res_);
         w_.setResultContextNext(res_);

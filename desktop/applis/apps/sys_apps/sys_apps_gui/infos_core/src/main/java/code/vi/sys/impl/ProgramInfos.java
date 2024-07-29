@@ -4,6 +4,8 @@ import aiki.db.DataBase;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.GamesPk;
+import applications.code.gui.AppFactories;
+import applications.code.gui.WithAppFactories;
 import cards.facade.Games;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.AbsMetaLabelCard;

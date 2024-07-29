@@ -2,6 +2,7 @@ package code.converterimages.gui;
 
 import code.gui.AbsButton;
 import code.gui.GuiBaseUtil;
+import code.gui.LanguagesButtonsPair;
 import code.gui.files.*;
 import code.gui.images.*;
 import code.images.*;
@@ -12,7 +13,6 @@ import code.sml.FullDocument;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
-import code.threads.ConcreteInteger;
 import code.util.Bytes;
 import code.util.StringList;
 import code.util.StringMap;
@@ -157,7 +157,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         updateBase(pr_.currentLg());
         pr_.getFileCoreStream().newFile("/from").mkdirs();
         StreamBinaryFile.writeFile("/from/_",new byte[0],pr_.getStreams());
-        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList(), pr_, null);
+        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList(), pr_, new LanguagesButtonsPair(null,null,null));
         cr_.run();
         tryClick(cr_.getWindow().getReadButton());
         assertTrue(cr_.getWindow().getFolderOpenFrame().getFrame().isVisible());
@@ -178,7 +178,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         updateBase(pr_.currentLg());
         pr_.getFileCoreStream().newFile("/from").mkdirs();
         StreamBinaryFile.writeFile("/from/_",new byte[0],pr_.getStreams());
-        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList("/from/_"), pr_, null);
+        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList("/from/_"), pr_, new LanguagesButtonsPair(null,null,null));
         cr_.run();
         assertEq("",cr_.getWindow().getPathExport().getText());
         assertEq("",cr_.getWindow().getPath().getText());
@@ -194,7 +194,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
         d_.appendChild(d_.createElement(DocumentImagesUtil.INFO));
         StreamTextFile.saveTextFile("/from/_",d_.export(),pr_.getStreams());
-        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList("/from/_"), pr_, null);
+        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList("/from/_"), pr_, new LanguagesButtonsPair(null,null,null));
         cr_.run();
         assertEq("",cr_.getWindow().getPathExport().getText());
         assertEq("",cr_.getWindow().getPath().getText());
@@ -226,7 +226,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         elt_.setAttribute(DocumentImagesUtil.INFO_EXP,"/to");
         d_.appendChild(elt_);
         StreamTextFile.saveTextFile("/_",d_.export(),pr_.getStreams());
-        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList("/_"), pr_, null);
+        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList("/_"), pr_, new LanguagesButtonsPair(null,null,null));
         cr_.run();
         assertEq("/from",cr_.getWindow().getPathExport().getText());
         assertEq("/to",cr_.getWindow().getPath().getText());
@@ -301,7 +301,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         elt_.setAttribute(DocumentImagesUtil.INFO_EXP,"/to");
         d_.appendChild(elt_);
         StreamTextFile.saveTextFile("/_",d_.export(),pr_.getStreams());
-        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList("/_"), pr_, null);
+        CreateMainWindowConverter cr_ = new CreateMainWindowConverter("", new StringList("/_"), pr_, new LanguagesButtonsPair(null,null,null));
         cr_.run();
         assertEq("/from",cr_.getWindow().getPathExport().getText());
         assertEq("/to",cr_.getWindow().getPath().getText());

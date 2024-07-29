@@ -2,6 +2,7 @@ package code.converterimages.gui;
 
 import code.gui.AbsButton;
 import code.gui.AbsCustCheckBox;
+import code.gui.LanguagesButtonsPair;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.threads.AbstractThread;
@@ -11,7 +12,7 @@ import org.junit.Assert;
 public abstract class EquallableConverterGuiUtil {
     public static WindowConverter window() {
         MockProgramInfos pr_ = build();
-        return new WindowConverter("",pr_, null);
+        return new WindowConverter("",pr_, new LanguagesButtonsPair(null,null,null));
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

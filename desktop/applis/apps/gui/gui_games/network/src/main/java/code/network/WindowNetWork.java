@@ -453,7 +453,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedPkNetTask;
     private boolean cards;
-    private AbsButton buttonClick;
+    private final LanguagesButtonsPair buttonClick;
     private final AbstractAtomicBoolean modal;
     private final ProgressingDialog dialog;
     private final LanguageDialogButtons languageDialogButtons;
@@ -466,11 +466,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private final FolderOpenSaveFrame folderOpenSaveFrame;
     private final ReportingFrame errorsFile = ReportingFrame.newInstance(getFrames());
     public WindowNetWork(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list,
-                         AikiFactory _aikiFactory, EnabledMenu _lgMenu, IntArtCardGames _ia) {
+                         AikiFactory _aikiFactory, IntArtCardGames _ia, LanguagesButtonsPair _pair) {
         super(_lg, _list);
+        buttonClick = _pair;
         dialogServerContent = new DialogServerContent(this, _list);
         guardRender = new AlwaysActionListenerAct();
-        languageDialogButtons = new LanguageDialogButtons(_list,_lgMenu, new AlwaysActionListenerAct());
+        languageDialogButtons = new LanguageDialogButtons(_list,_pair.getLgMenu(), new AlwaysActionListenerAct());
         modal = _list.getThreadFactory().newAtomicBoolean();
         dialog = new ProgressingDialog(getFrames(),modal);
         fileSaveFrame = new FileSaveFrame(_list, modal);
@@ -480,7 +481,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         net = new Net(_ia);
         aiki = new WindowAikiCore(_aikiFactory, _list, errorsFile);
-        netg = new WindowCardsCore(this,_nicknames, _list, _ia,modal,_lgMenu);
+        netg = new WindowCardsCore(this,_nicknames, _list, _ia,modal,_pair.getLgMenu());
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
 //        facade = new FacadeGame();
 //        facade.setLanguages(_list.getLanguages());
@@ -696,7 +697,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     @Override
     public void quit() {
         GuiBaseUtil.trEx(this);
-        LanguageDialogButtons.enable(getButtonClick(),true);
+        LanguageDialogButtons.enable(getButtonClick().getMainButton(),true);
+//        LanguageComponentButtons.enableButtons(getButtonClick().getButtons(),true);
         netg.changerNombreDePartiesEnQuittant(this);
         ecrireCoordonnees();
         netg.closeWindows();
@@ -2696,13 +2698,13 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         this.cards = _c;
     }
 
-    public AbsButton getButtonClick() {
+    public LanguagesButtonsPair getButtonClick() {
         return buttonClick;
     }
 
-    public void setButtonClick(AbsButton _b) {
-        this.buttonClick = _b;
-    }
+//    public void setButtonClick(AbsButton _b) {
+//        this.buttonClick = _b;
+//    }
 
     public static StringMap<String> readCoreResourceMix(ContainerSingleImpl _cs) {
         return Games.getCommonMixTr(_cs.readResourceAppli()).getMapping();

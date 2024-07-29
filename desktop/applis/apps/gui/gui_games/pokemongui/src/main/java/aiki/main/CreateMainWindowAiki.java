@@ -2,8 +2,7 @@ package aiki.main;
 
 import aiki.gui.WindowAiki;
 import aiki.sml.LoadingGame;
-import code.gui.AbsButton;
-import code.gui.EnabledMenu;
+import code.gui.LanguagesButtonsPair;
 import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamFolderFile;
@@ -18,19 +17,17 @@ public final class CreateMainWindowAiki implements Runnable {
 
     private final StringList withParam;
 
-    private final EnabledMenu lg;
     private final AikiFactory aikiFactory;
-    private final AbsButton main;
+    private final LanguagesButtonsPair pair;
     private WindowAiki window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, EnabledMenu _lg, AbstractProgramInfos _list, AikiFactory _fact, AbsButton _ma) {
+    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _p) {
         load = _load;
         withParam = _withParam;
-        lg = _lg;
         list = _list;
         aikiFactory = _fact;
-        main = _ma;
+        pair = _p;
     }
 
     @Override
@@ -44,7 +41,7 @@ public final class CreateMainWindowAiki implements Runnable {
 //        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd(), list.getLanguages());
 //        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), builtMessages_, builtOther_, new PkDiff(), list.getLanguages());
 //        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), builtMessages_, builtOther_, new PkProg(), list.getLanguages());
-        WindowAiki window_ = new WindowAiki(lg, list,aikiFactory, main);
+        WindowAiki window_ = new WindowAiki(list,aikiFactory, pair);
 //        window_.getDataWeb().setEnabled(false);
         FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), LoadingGame.COORDS, list.getFileCoreStream(), list.getStreams()));
 //        fight_.run();

@@ -1,9 +1,9 @@
 package code.player.gui;
 
 import code.gui.GuiBaseUtil;
+import code.gui.LanguagesButtonsPair;
 import code.mock.MockSoundRecord;
 import code.mock.MockThreadFactory;
-import code.threads.ConcreteInteger;
 import org.junit.Test;
 
 public final class WindowRecorderTest extends EquallableSoundPlayerUtil {
@@ -29,7 +29,7 @@ public final class WindowRecorderTest extends EquallableSoundPlayerUtil {
     }
     @Test
     public void playWithRecord1() {
-        CreateMainWindowRecorder cr_ = new CreateMainWindowRecorder(build(),"", null);
+        CreateMainWindowRecorder cr_ = new CreateMainWindowRecorder(build(),"", new LanguagesButtonsPair(null,null,null));
         cr_.run();
         WindowRecorder w_ = cr_.getWindowRecorder();
         assertTrue(w_.getRecordSong().isEnabled());
