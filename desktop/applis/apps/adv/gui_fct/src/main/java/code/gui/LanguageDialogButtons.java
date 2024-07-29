@@ -38,6 +38,9 @@ public final class LanguageDialogButtons implements AbsChildFrame {
         commonFrame.setVisible(true);
         enable(lgMenu, false);
     }
+    public void enableButtons(boolean _value) {
+        content.enableButtons(_value);
+    }
 
     @Override
     public void setDialogIcon(AbsCommonFrame _group) {

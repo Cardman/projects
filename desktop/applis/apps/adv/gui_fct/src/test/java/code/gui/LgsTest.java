@@ -46,6 +46,38 @@ public final class LgsTest extends EquallableGuiFctUtil {
         assertFalse(l_.getCommonFrame().isVisible());
     }
     @Test
+    public void enableButtons1(){
+        MockProgramInfosSecSample pr_ = init();
+        pr_.setLanguages(new StringList("_","__"));
+        StringMap<String> ds_ = new StringMap<String>();
+        ds_.addEntry("_","_");
+        ds_.addEntry("__","__");
+        pr_.setDisplayLanguages(ds_);
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,pr_.getCompoFactory().newMenuItem(), new AlwaysActionListenerAct());
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame(pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        l_.init(fr_,pr_,"",new MockSampleFrame(pr_));
+        l_.enableButtons(false);
+        assertEq(2,l_.getContent().getGroupe().size());
+        assertFalse(l_.getContent().getGroupe().get(0).isEnabled());
+        assertFalse(l_.getContent().getGroupe().get(1).isEnabled());
+    }
+    @Test
+    public void enableButtons2(){
+        MockProgramInfosSecSample pr_ = init();
+        pr_.setLanguages(new StringList("_","__"));
+        StringMap<String> ds_ = new StringMap<String>();
+        ds_.addEntry("_","_");
+        ds_.addEntry("__","__");
+        pr_.setDisplayLanguages(ds_);
+        LanguageDialogButtons l_ = new LanguageDialogButtons(pr_,pr_.getCompoFactory().newMenuItem(), new AlwaysActionListenerAct());
+        AbsCommonFrame fr_ = pr_.getFrameFactory().newCommonFrame(pr_, pr_.getImageFactory().newImageArgb(1, 1));
+        l_.init(fr_,pr_,"",new MockSampleFrame(pr_));
+        l_.enableButtons(true);
+        assertEq(2,l_.getContent().getGroupe().size());
+        assertTrue(l_.getContent().getGroupe().get(0).isEnabled());
+        assertTrue(l_.getContent().getGroupe().get(1).isEnabled());
+    }
+    @Test
     public void trs1() {
         MockProgramInfosSecSample pr_ = init();
         AbsPlainLabel lab_ = pr_.getCompoFactory().newPlainLabel("");
