@@ -24,6 +24,7 @@ public final class FormEvent implements AbsMouseListenerIntRel {
         if (form_ == null) {
             return;
         }
+        page.enableLgButtons(false);
         for (DualAnimatedImage d: page.getAnims()) {
             d.stop();
         }

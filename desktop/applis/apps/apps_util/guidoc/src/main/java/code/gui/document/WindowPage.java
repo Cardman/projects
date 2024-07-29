@@ -62,6 +62,7 @@ public final class WindowPage implements Runnable {
         frame.validate();
         page.directScroll(meta);
         startAnims();
+        page.enableLgButtons(true);
     }
 
     private void adjustHeight(DualComponent _cur) {

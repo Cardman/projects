@@ -22,6 +22,7 @@ public final class AnchorEvent implements AbsMouseListenerIntRel {
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+        page.enableLgButtons(false);
         for (DualAnimatedImage d: page.getAnims()) {
             d.stop();
         }

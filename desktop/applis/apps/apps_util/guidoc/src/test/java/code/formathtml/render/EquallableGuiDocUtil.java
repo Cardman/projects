@@ -135,6 +135,11 @@ public abstract class EquallableGuiDocUtil {
     public static RenderedPage newRenderedPage(MockProgramInfos _pr) {
         return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter(), new AlwaysActionListenerAct());
     }
+    public static RenderedPage newRenderedPageLg(MockProgramInfos _pr) {
+        LanguageComponentButtons buttons_ = new LanguageComponentButtons(_pr, new AlwaysActionListenerAct());
+        buttons_.init(_pr,null,null);
+        return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter(), new AlwaysActionListenerAct(), buttons_);
+    }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         return new MockProgramInfos("", "", _s, _set);
     }

@@ -52,14 +52,19 @@ public final class RenderedPage implements ProcessingSession {
     private String keyWordDigit = "ABCDEF";
     private final CharacterCaseConverter converter;
     private final AbsActionListenerAct aa;
+    private final LanguageComponentButtons languageComponentButtons;
 
     public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene, CharacterCaseConverter _ccc, AbsActionListenerAct _guard) {
+        this(_frame,_gene,_ccc,_guard,null);
+    }
+    public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene, CharacterCaseConverter _ccc, AbsActionListenerAct _guard, LanguageComponentButtons _buttons) {
         scroll = _frame;
         gene = _gene;
         compoFactory = _gene.getCompoFactory();
         processing = _gene.getThreadFactory().newAtomicBoolean();
         converter = _ccc;
         aa = _guard;
+        languageComponentButtons = _buttons;
     }
 
     public void initNav(NavigationCore _core, RendKeyWordsGroup _k) {
@@ -80,6 +85,11 @@ public final class RenderedPage implements ProcessingSession {
         process = _process;
     }
 
+    public void enableLgButtons(boolean _en) {
+        if (languageComponentButtons != null) {
+            languageComponentButtons.enableButtons(_en);
+        }
+    }
     public boolean initializeOnlyConf(AbstractRenderAction _action, WithPageInfos _stds, Runnable _inst) {
         if (processing.get()) {
             return false;
@@ -338,6 +348,10 @@ public final class RenderedPage implements ProcessingSession {
 
     public AbsActionListenerAct getAa() {
         return aa;
+    }
+
+    public LanguageComponentButtons getLanguageComponentButtons() {
+        return languageComponentButtons;
     }
 
     public CharacterCaseConverter getConverter() {

@@ -9,10 +9,31 @@ import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
 import code.sml.*;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class EventThreadActionsTest extends EquallableGuiDocUtil {
+    @Test
+    public void lgButton1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
+        pr_.setLanguages(new StringList("0","1"));
+        RenderedPage ren_ = newRenderedPageLg(pr_);
+        ren_.enableLgButtons(false);
+        assertEq(2,ren_.getLanguageComponentButtons().getGroupe().size());
+        assertFalse(ren_.getLanguageComponentButtons().getGroupe().get(0).isEnabled());
+        assertFalse(ren_.getLanguageComponentButtons().getGroupe().get(1).isEnabled());
+    }
+    @Test
+    public void lgButton2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
+        pr_.setLanguages(new StringList("0","1"));
+        RenderedPage ren_ = newRenderedPageLg(pr_);
+        ren_.enableLgButtons(true);
+        assertEq(2,ren_.getLanguageComponentButtons().getGroupe().size());
+        assertTrue(ren_.getLanguageComponentButtons().getGroupe().get(0).isEnabled());
+        assertTrue(ren_.getLanguageComponentButtons().getGroupe().get(1).isEnabled());
+    }
     @Test
     public void withAction() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
