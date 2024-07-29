@@ -150,6 +150,7 @@ public final class Team {
             i_ = incrIfPossible(i_, place_);
             Fighter creatureCbt_= new Fighter(posPk_,_import,place_);
             creatureCbt_.initIvUt(_diff);
+            creatureCbt_.initHp();
             max_ = i;
             members.put(i,creatureCbt_);
             playerFightersAgainstFoe.put(i,new Bytes());
@@ -210,6 +211,7 @@ public final class Team {
             }else{
                 creatureCbt_.initIvAdv(_diff,DataBase.EMPTY_STRING);
             }
+            creatureCbt_.setRemainingHp(creatureCbt_.pvMax());
             members.put((byte)s_,creatureCbt_);
         }
         initHealAfterMovesAnticipation(_import, (short) _pokemon.size());
@@ -234,6 +236,7 @@ public final class Team {
             }else{
                 creatureCbt_.initIvAdv(_diff,DataBase.EMPTY_STRING);
             }
+            creatureCbt_.setRemainingHp(creatureCbt_.pvMax());
             members.put(i,creatureCbt_);
         }
         initHealAfterMovesAnticipation(_import, _multiplicite);

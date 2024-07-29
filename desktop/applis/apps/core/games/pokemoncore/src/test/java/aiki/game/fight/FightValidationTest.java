@@ -6496,6 +6496,7 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = _game.getFight();
         Fighter fighter_ = new Fighter(_pk, _data, Fighter.BACK);
         fighter_.initIvAdv(_game.getDifficulty(),NULL_REF);
+        fighter_.setRemainingHp(fighter_.pvMax());
         ByteMap<Fighter> team_ = fight_.getFoeTeam().getMembers();
         TeamPosition key_ = Fight.toFoeFighter((byte) team_.size());
         fight_.getFirstPositFoeFighters().put((byte) team_.size(), Fighter.BACK);

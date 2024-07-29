@@ -1950,6 +1950,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         fi_.fullHealMessage(_d,_f.getTemp());
     }
     public void calculateNewLevel(Fighter _f, Difficulty _dif, DataBase _d, StringList _ls) {
+        _f.initIvUt(_dif);
         _f.calculateNewLevel(_dif, _d, _ls,new TransientFight());
     }
 }

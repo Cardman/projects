@@ -302,7 +302,7 @@ public final class Fighter {
     public Fighter(PkTrainer _pokemon,DataBase _import,byte _placeTerrain){
         initCreatureNonUser(_pokemon,_import);
         initPokemonTrainerMoves(_pokemon,_import);
-        initEvIvOther(_import);
+        initEvIvOther();
         initCreatureGeneral(_import);
         groundPlace=_placeTerrain;
         groundPlaceSubst=_placeTerrain;
@@ -311,7 +311,7 @@ public final class Fighter {
     public Fighter(WildPk _pokemon,DataBase _import,byte _placeTerrain){
         initCreatureNonUser(_pokemon,_import);
         initWildPokemonMoves(_import);
-        initEvIvOther(_import);
+        initEvIvOther();
         initCreatureGeneral(_import);
         groundPlace=_placeTerrain;
         groundPlaceSubst=_placeTerrain;
@@ -418,13 +418,13 @@ public final class Fighter {
         }
     }
 
-    void initEvIvOther(DataBase _import) {
+    void initEvIvOther() {
         ev = new IdMap<Statistic,Short>();
         for(Statistic c:Statistic.getStatisticsWithBase()){
             ev.put(c, (short)0);
             iv.put(c, (short)0);
         }
-        remainingHp = fichePokemon(_import).statHp(level, ev, iv);
+        remainingHp = Rate.zero();
     }
 
     void initCreatureGeneral(DataBase _import){

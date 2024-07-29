@@ -464,7 +464,8 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setLevel((short) 3);
         fighter_.initCreatureNonUser(pokemon_, data_);
         fighter_.initWildPokemonMoves(data_);
-        fighter_.initEvIvOther(data_);
+        fighter_.initEvIvOther();
+        fighter_.setRemainingHp(fighter_.fichePokemon(data_).statHp(fighter_.getLevel(),fighter_.getEv(),fighter_.getIv()));
         assertEq(6, fighter_.getEv().size());
         assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
@@ -1082,6 +1083,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
+        fighter_.setRemainingHp(fighter_.pvMax());
         Difficulty diff_ = new Difficulty();
         diff_.setIvFoe((short) 3);
         fighter_.initIvAdv(diff_,HYPER_BALL);
@@ -1183,6 +1185,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
+        fighter_.setRemainingHp(fighter_.pvMax());
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((short) 3);
         fighter_.initIvUt(diff_);

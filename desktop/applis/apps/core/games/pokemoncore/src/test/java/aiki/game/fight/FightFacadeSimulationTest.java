@@ -234,7 +234,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 20);
-        diff_.setIvFoe((short) 15);
+        diff_.setIvFoe((short) 0);
         diff_.setAllowCatchingKo(false);
         Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
@@ -496,7 +496,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 20);
-        diff_.setIvFoe((short) 15);
+        diff_.setIvFoe((short) 0);
         diff_.setAllowCatchingKo(false);
         Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
@@ -594,7 +594,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 20);
-        diff_.setIvFoe((short) 15);
+        diff_.setIvFoe((short) 0);
         diff_.setAllowCatchingKo(false);
         Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
@@ -718,7 +718,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 20);
-        diff_.setIvFoe((short) 15);
+        diff_.setIvFoe((short) 0);
         diff_.setAllowCatchingKo(false);
 //        diff_.setAllowedSwitchPlacesEndRound(false);
         diff_.setAllowedSwitchPlacesEndRound(true);
@@ -1627,7 +1627,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 20);
-        diff_.setIvFoe((short) 15);
+        diff_.setIvFoe((short) 0);
         diff_.setAllowCatchingKo(false);
         diff_.setAllowedSwitchPlacesEndRound(false);
         Player player_ = Player.build(NICKNAME,diff_,false,data_);
