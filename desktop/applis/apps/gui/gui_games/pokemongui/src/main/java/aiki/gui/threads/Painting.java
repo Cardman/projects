@@ -4,7 +4,9 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.walk.Scene;
+import aiki.gui.listeners.Task;
 import aiki.map.enums.Direction;
+import code.threads.AbstractAtomicInteger;
 import code.threads.ThreadUtil;
 import code.util.core.IndexConstants;
 
@@ -23,14 +25,16 @@ public final class Painting implements Runnable {
     private final int side;
 
     private final int pause;
+    private final AbstractAtomicInteger aa;
 
     /**This class thread is independant from EDT*/
-    public Painting(Scene _scene, FacadeGame _facade, Direction _dir, WindowAiki _window) {
+    public Painting(Scene _scene, FacadeGame _facade, Direction _dir, WindowAiki _window, AbstractAtomicInteger _a) {
         scene = _scene;
         facade = _facade;
         dir = _dir;
         window = _window;
         side = facade.getMap().getSideLength();
+        aa = _a;
         if (window.isAnimateMovingHero()) {
             pause = 20;
         } else {
@@ -59,7 +63,7 @@ public final class Painting implements Runnable {
             scene.load(window.getImageFactory(),facade, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
-            if (facade.isChangeToFightScene()) {
+            if (isChangeToFightScene()) {
                 window.getFrames().getCompoFactory().invokeNow(new SetFightPanel(window));
                 return;
             }
@@ -67,7 +71,7 @@ public final class Painting implements Runnable {
             return;
         }
         scene.setAnimated(true);
-        if (facade.isChangeToFightScene()) {
+        if (isChangeToFightScene()) {
             moveAnim();
             window.getFrames().getCompoFactory().invokeNow(new SetFightPanel(window));
             return;
@@ -83,6 +87,14 @@ public final class Painting implements Runnable {
         }
         moveAnim();
         window.getFrames().getCompoFactory().invokeNow(new SetInteractionScene(window));
+    }
+
+    private boolean isChangeToFightScene() {
+        boolean ch_ = facade.isChangeToFightScene();
+        if (ch_ && aa != null) {
+            aa.set(Task.STOPPED_TASK);
+        }
+        return ch_;
     }
 
     public void moveAnim() {

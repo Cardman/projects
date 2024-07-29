@@ -345,7 +345,7 @@ public final class MoveHerosTest extends InitDbGuiAiki {
         WindowAiki window_ = newProg();
         loadRomGameStore(window_);
         window_.getScenePanel().getPaintingScene().set(true);
-        new Painting(window_.getScenePanel().getScene(), window_.getFacade(), Direction.UP, window_).run();
+        new Painting(window_.getScenePanel().getScene(), window_.getFacade(), Direction.UP, window_, null).run();
         assertTrue(window_.getScenePanel().getPaintingScene().get());
     }
     private static void loadRomGameStore(WindowAiki _window) {

@@ -57,7 +57,7 @@ public class KeyPadListener implements AbsActionListener {
 //        if (window.isPaintingScene()) {
 //            return;
 //        }
-        window.getThreadFactory().newStartedThread(new Painting(scene, facade, direction, window));
+        window.getThreadFactory().newStartedThread(new Painting(scene, facade, direction, window, null));
     }
 
 //    @Override
