@@ -157,12 +157,19 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //    }
     @Override
     public void changeLanguage(String _language) {
+        int count_ = 0;
         for (AbsOpenQuit g: getFrames().getFrames().mid(1)) {
-            if (!g.getCommonFrame().isVisible()) {
-                setLanguageKey(_language);
-                StreamLanguageUtil.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
-                g.changeLanguage(_language);
+            if (g.getCommonFrame().isVisible()) {
+                count_++;
             }
+        }
+        if (count_ > 0) {
+            return;
+        }
+        setLanguageKey(_language);
+        StreamLanguageUtil.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
+        for (AbsOpenQuit g: getFrames().getFrames().mid(1)) {
+            g.changeLanguage(_language);
         }
         pack();
 //        selectLangagueButton(_language);
