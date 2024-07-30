@@ -7,69 +7,69 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public abstract class MbOperationNode {
-    public static final String TRUE_STRING = "V";
-    public static final String FALSE_STRING = "F";
-    public static final String PUIS = "puis";
+    public static final String TRUE_STRING = "(&)";
+    public static final String FALSE_STRING = "(|)";
+    public static final String PUIS = "8";
 
-    public static final String QUOT = "quot";
+    public static final String QUOT = "4";
 
-    public static final String MOD = "mod";
+    public static final String MOD = "5";
 
-    public static final String MODTAUX = "modtaux";
+    public static final String MODTAUX = "6";
 
-    public static final String ABS = "abs";
+    public static final String ABS = "0";
 
-    public static final String ENT = "ent";
+    public static final String ENT = "9";
 
-    public static final String TRONC = "troncature";
+    public static final String TRONC = "10";
 
-    public static final String NUM = "num";
+    public static final String NUM = "2";
 
-    public static final String DEN = "den";
+    public static final String DEN = "3";
 
-    public static final String MIN = "min";
+    public static final String MIN = "19";
 
-    public static final String MAX = "max";
+    public static final String MAX = "20";
 
-    public static final String MOY = "moy";
+    public static final String MOY = "21";
 
-    public static final String VAR = "var";
+    public static final String VAR = "22";
 
-    public static final String CARAC_FERME = "caracferme";
+    public static final String CARAC_FERME = "11";
 
-    public static final String CARAC_OUVERT = "caracouvert";
+    public static final String CARAC_OUVERT = "12";
 
-    public static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
+    public static final String CARAC_SEMI_OUVERT_G = "13";
 
-    public static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
+    public static final String CARAC_SEMI_OUVERT_D = "14";
 
-    public static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
+    public static final String CARAC_DROITE_OUVERT = "15";
 
-    public static final String CARAC_DROITE_FERME = "caracdroiteferme";
+    public static final String CARAC_DROITE_FERME = "16";
 
-    public static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
+    public static final String CARAC_GAUCHE_OUVERT = "17";
 
-    public static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
+    public static final String CARAC_GAUCHE_FERME = "18";
 
-    public static final String SGN = "sgn";
+    public static final String SGN = "1";
 
-    public static final String CARD = "cardinal";
+    public static final String CARD = "23";
 
-    public static final String INTER = "inter";
+    public static final String INTER = "24";
 
-    public static final String UNION = "union";
+    public static final String UNION = "25";
 
-    public static final String COMPL = "complementaire";
+    public static final String COMPL = "26";
 
-    public static final String INCL = "inclusnum";
+    public static final String INCL = "27";
 
-    public static final String NON_INCL = "noninclusnum";
+    public static final String NON_INCL = "28";
 
-    public static final String EQ_NUM = "egalnum";
+    public static final String EQ_NUM = "29";
 
-    public static final String NON_EQ_NUM = "differentnum";
+    public static final String NON_EQ_NUM = "30";
 
-    public static final String DIV_FCT = "div";
+    public static final String DIV_FCT = "7";
     protected static final char DELIMITER_STRING_BEGIN = '{';
     protected static final char DELIMITER_STRING_SEP = ';';
     protected static final char DELIMITER_STRING_END = '}';

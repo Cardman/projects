@@ -2386,9 +2386,9 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         litt_.addEntry("MYVAR","status\tmv{0}\ta move");
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
-        math_.addEntry(MbOperationNode.TRUE_STRING,"T");
-        math_.addEntry(MbOperationNode.FALSE_STRING,"F");
-        assertEq("T", data_.getFormula(MbOperationNode.TRUE_STRING,LANGUAGE));
+        math_.addEntry(MbOperationNode.TRUE_STRING,"1");
+        math_.addEntry(MbOperationNode.FALSE_STRING,"0");
+        assertEq("1", data_.getFormula(MbOperationNode.TRUE_STRING,LANGUAGE));
     }
     @Test
     public void getFormula18Test() {
@@ -2400,9 +2400,9 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         litt_.addEntry("MYVAR","status\tmv{0}\ta move");
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
-        math_.addEntry(MbOperationNode.TRUE_STRING,"T");
-        math_.addEntry(MbOperationNode.FALSE_STRING,"F");
-        assertEq("F", data_.getFormula(MbOperationNode.FALSE_STRING,LANGUAGE));
+        math_.addEntry(MbOperationNode.TRUE_STRING,"1");
+        math_.addEntry(MbOperationNode.FALSE_STRING,"0");
+        assertEq("0", data_.getFormula(MbOperationNode.FALSE_STRING,LANGUAGE));
     }
     @Test
     public void getFormula19Test() {

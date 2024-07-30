@@ -2639,7 +2639,7 @@ public class DataBase {
                 if (_litt.charAt(i_) != '}') {
                     br_ = true;
                 }
-            } else if (MathExpUtil.isWordChar(cur_)) {
+            } else if (MathExpUtil.isWordChar(cur_)|| _litt.startsWith(getTrueString(), i_)|| _litt.startsWith(getFalseString(), i_)) {
                 boolean dig_ = MathExpUtil.isDigit(cur_);
 //                int j_ = i_;
 //                while (MathExpUtil.isWordChar(cur_)) {
@@ -2699,6 +2699,12 @@ public class DataBase {
     }
 
     private int incrAfterWord(String _litt, int _i) {
+        if (_litt.startsWith(getTrueString(), _i))  {
+            return _i+getTrueString().length();
+        }
+        if (_litt.startsWith(getFalseString(), _i))  {
+            return _i+getFalseString().length();
+        }
         char cur_ = _litt.charAt(_i);
         int j_ = _i;
         while (MathExpUtil.isWordChar(cur_)) {
