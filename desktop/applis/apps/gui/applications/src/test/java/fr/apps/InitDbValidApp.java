@@ -41,6 +41,7 @@ import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
+import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
@@ -263,8 +264,8 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         initDefaultConsts(POKE_BALL,
                 "1",
                 "1",
-                "div(2*caracgaucheouvert(VAR__BOOST,0),max(2-VAR__BOOST,1))+div((2+VAR__BOOST)*caracdroiteferme(VAR__BOOST,0),2)",
-                "puis(2,VAR__BOOST-4)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"(VAR__BOOST,0),"+MbOperationNode.MAX+"(2-VAR__BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+VAR__BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"(VAR__BOOST,0),2)",
+                MbOperationNode.PUIS+"(2,VAR__BOOST-4)",
                 "1",
                 ECLAIR_3,
                 "METAMORPH", _data);

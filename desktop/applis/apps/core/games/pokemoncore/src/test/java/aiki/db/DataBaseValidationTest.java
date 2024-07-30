@@ -1704,7 +1704,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         StatusMoveData move_ = Instances.newStatusMoveData();
         EffectStatus effectDamage_ = Instances.newEffectStatus();
         effectDamage_.setKoUserHealSubst(true);
-        effectDamage_.setFail("F");
+        effectDamage_.setFail(MbOperationNode.FALSE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
@@ -1731,7 +1731,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         StatusMoveData move_ = Instances.newStatusMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("70");
-        effectDamage_.setFail("F");
+        effectDamage_.setFail(MbOperationNode.FALSE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
         move_.getEffects().add(effectDamage_);
         move_.getEffects().add(Instances.newEffectEndRoundPositionTargetRelation());
@@ -2387,7 +2387,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
         math_.addEntry(MbOperationNode.TRUE_STRING,"T");
-        math_.addEntry("F","F");
+        math_.addEntry(MbOperationNode.FALSE_STRING,"F");
         assertEq("T", data_.getFormula(MbOperationNode.TRUE_STRING,LANGUAGE));
     }
     @Test
@@ -2401,8 +2401,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
         math_.addEntry(MbOperationNode.TRUE_STRING,"T");
-        math_.addEntry("F","F");
-        assertEq("F", data_.getFormula("F",LANGUAGE));
+        math_.addEntry(MbOperationNode.FALSE_STRING,"F");
+        assertEq("F", data_.getFormula(MbOperationNode.FALSE_STRING,LANGUAGE));
     }
     @Test
     public void getFormula19Test() {
