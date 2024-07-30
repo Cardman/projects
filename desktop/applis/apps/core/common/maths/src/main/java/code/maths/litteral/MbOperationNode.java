@@ -6,15 +6,75 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-abstract class MbOperationNode {
+public abstract class MbOperationNode {
+    public static final String TRUE_STRING = "V";
+    public static final String FALSE_STRING = "F";
+    public static final String PUIS = "puis";
 
+    public static final String QUOT = "quot";
+
+    public static final String MOD = "mod";
+
+    public static final String MODTAUX = "modtaux";
+
+    public static final String ABS = "abs";
+
+    public static final String ENT = "ent";
+
+    public static final String TRONC = "troncature";
+
+    public static final String NUM = "num";
+
+    public static final String DEN = "den";
+
+    public static final String MIN = "min";
+
+    public static final String MAX = "max";
+
+    public static final String MOY = "moy";
+
+    public static final String VAR = "var";
+
+    public static final String CARAC_FERME = "caracferme";
+
+    public static final String CARAC_OUVERT = "caracouvert";
+
+    public static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
+
+    public static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
+
+    public static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
+
+    public static final String CARAC_DROITE_FERME = "caracdroiteferme";
+
+    public static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
+
+    public static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
+
+    public static final String SGN = "sgn";
+
+    public static final String CARD = "cardinal";
+
+    public static final String INTER = "inter";
+
+    public static final String UNION = "union";
+
+    public static final String COMPL = "complementaire";
+
+    public static final String INCL = "inclusnum";
+
+    public static final String NON_INCL = "noninclusnum";
+
+    public static final String EQ_NUM = "egalnum";
+
+    public static final String NON_EQ_NUM = "differentnum";
+
+    public static final String DIV_FCT = "div";
     protected static final char DELIMITER_STRING_BEGIN = '{';
     protected static final char DELIMITER_STRING_SEP = ';';
     protected static final char DELIMITER_STRING_END = '}';
     protected static final char PAR_LEFT = '(';
     protected static final char PAR_RIGHT = ')';
-    protected static final String TRUE_STRING = "V";
-    protected static final String FALSE_STRING = "F";
 
     protected static final String NEG_BOOL = "!";
 
@@ -39,67 +99,6 @@ abstract class MbOperationNode {
     protected static final String DIFF = "!=";
 
     protected static final String OR = "|";
-    protected static final String PUIS = "puis";
-
-    protected static final String QUOT = "quot";
-
-    protected static final String MOD = "mod";
-
-    protected static final String MODTAUX = "modtaux";
-
-    protected static final String ABS = "abs";
-
-    protected static final String ENT = "ent";
-
-    protected static final String TRONC = "troncature";
-
-    protected static final String NUM = "num";
-
-    protected static final String DEN = "den";
-
-    protected static final String MIN = "min";
-
-    protected static final String MAX = "max";
-
-    protected static final String MOY = "moy";
-
-    protected static final String VAR = "var";
-
-    protected static final String CARAC_FERME = "caracferme";
-
-    protected static final String CARAC_OUVERT = "caracouvert";
-
-    protected static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
-
-    protected static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
-
-    protected static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
-
-    protected static final String CARAC_DROITE_FERME = "caracdroiteferme";
-
-    protected static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
-
-    protected static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
-
-    protected static final String SGN = "sgn";
-
-    protected static final String CARD = "cardinal";
-
-    protected static final String INTER = "inter";
-
-    protected static final String UNION = "union";
-
-    protected static final String COMPL = "complementaire";
-
-    protected static final String INCL = "inclusnum";
-
-    protected static final String NON_INCL = "noninclusnum";
-
-    protected static final String EQ_NUM = "egalnum";
-
-    protected static final String NON_EQ_NUM = "differentnum";
-
-    protected static final String DIV_FCT = "div";
 
     private final MethodMbOperation parent;
 
