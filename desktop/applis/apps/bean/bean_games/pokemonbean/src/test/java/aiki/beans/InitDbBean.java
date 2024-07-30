@@ -744,8 +744,8 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     private static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().put(ExpType.E,"2*NIVEAU");
         _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.M,""+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.P,""+MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
         _data.getExpGrowth().put(ExpType.F,"VAR__NIVEAU");
         _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
