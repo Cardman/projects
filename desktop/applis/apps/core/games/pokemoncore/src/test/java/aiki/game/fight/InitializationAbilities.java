@@ -13,6 +13,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
@@ -298,7 +299,7 @@ final class InitializationAbilities extends EquallablePkUtil {
     private static final String POISON_GRAVE = InitializationStatus.POISON_GRAVE;
     private static final String PEUR = InitializationStatus.PEUR;
     private static final String POISON_ST = InitializationStatus.POISON_ST;
-    private static final String F = "F";
+    private static final String F = MbOperationNode.FALSE_STRING;
 
     private static final String NULL_REF = InitializationDataBase.NULL_REF;
 
@@ -464,7 +465,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,PARALYSIE));
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,BRULURE));
-        ficheCapacite_.getMultStat().addEntry(Statistic.SPEED,"3/2*cardinal(inter({VAR__FIGHTER_STATUTS},{BRULURE;POISON_GRAVE;SOMMEIL_REPOS;POISON_ST;PARALYSIE;SOMMEIL;GEL}))+caracferme(cardinal(complementaire({BRULURE;POISON_GRAVE;SOMMEIL_REPOS;POISON_ST;PARALYSIE;SOMMEIL;GEL},{VAR__FIGHTER_STATUTS})),0,0)");
+        ficheCapacite_.getMultStat().addEntry(Statistic.SPEED,"3/2*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__FIGHTER_STATUTS},{BRULURE;POISON_GRAVE;SOMMEIL_REPOS;POISON_ST;PARALYSIE;SOMMEIL;GEL}))+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({BRULURE;POISON_GRAVE;SOMMEIL_REPOS;POISON_ST;PARALYSIE;SOMMEIL;GEL},{VAR__FIGHTER_STATUTS})),0,0)");
         _data.completeQuickMembers(PIED_VELOCE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,PARALYSIE));
@@ -529,7 +530,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getForwardStatus().addEntry(POISON_ST,POISON_ST);
         ficheCapacite_.getForwardStatus().addEntry(SOMMEIL,SOMMEIL);
         ficheCapacite_.getForwardStatus().addEntry(PARALYSIE,PARALYSIE);
-        ficheCapacite_.getFailStatus().addEntry(BRULURE,"F");
+        ficheCapacite_.getFailStatus().addEntry(BRULURE,MbOperationNode.FALSE_STRING);
         _data.completeQuickMembers(ASYNCHRO,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setSlowing(true);
@@ -593,7 +594,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setCancelSecEffectOther(true);
         _data.completeQuickMembers(ECRAN_POUDRE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.setMultDamage("caracgaucheouvert(VAR__COEFF_EFF,1)+1");
+        ficheCapacite_.setMultDamage(MbOperationNode.CARAC_GAUCHE_OUVERT+"(VAR__COEFF_EFF,1)+1");
         _data.completeQuickMembers(LENTITEINTEE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         _data.completeQuickMembers(BOOM_FINAL,ficheCapacite_);
@@ -743,7 +744,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getEffectSending().add(effectWhileSendingWithStatistic_);
         _data.completeQuickMembers(ALEA_STAT,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.setMultPower("3/2*caracdroiteferme(VAR__PUISSANCE_BASE,60)+caracgaucheouvert(VAR__PUISSANCE_BASE,60)");
+        ficheCapacite_.setMultPower("3/2*"+MbOperationNode.CARAC_DROITE_FERME+"(VAR__PUISSANCE_BASE,60)+"+MbOperationNode.CARAC_GAUCHE_OUVERT+"(VAR__PUISSANCE_BASE,60)");
         _data.completeQuickMembers(TECHNICIEN,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         effectEndRoundIndividual_ = defaultEffectEndRoundIndividual();

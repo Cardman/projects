@@ -2,6 +2,7 @@ package aiki.game.fight;
 
 import aiki.fight.moves.effects.*;
 import aiki.game.fight.animations.*;
+import code.maths.litteral.MbOperationNode;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -41,7 +42,7 @@ import aiki.util.*;
 
 public class FightEffectsTest extends InitializationDataBase {
 
-    private static final String SOMMEIL_FAILURE = "cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0";
+    private static final String SOMMEIL_FAILURE = MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0";
     private static final String VAR_FAIL_SYNCHRONIZING_STATUS = "VAR__EXISTE_GENRE_ASSEXUE|VAR__GENRES_EGAUX|VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR";
 
     private static Fight disableStatus(Difficulty _diff, DataBase _data) {

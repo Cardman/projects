@@ -16,6 +16,7 @@ import aiki.fight.util.*;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
@@ -448,7 +449,7 @@ final class InitializationMoves extends EquallablePkUtil {
     private static final String PRISE_DE_TETE = InitializationStatus.PRISE_DE_TETE;
     private static final String CONFUSION = InitializationStatus.CONFUSION;
     private static final String POISON_ST = InitializationStatus.POISON_ST;
-    private static final String F = "F";
+    private static final String F = MbOperationNode.FALSE_STRING;
     private static final String NULL_REF = InitializationDataBase.NULL_REF;
 
     private InitializationMoves() {
@@ -529,7 +530,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("div(VAR__CIBLE_NIVEAU,VAR__LANCEUR_NIVEAU)");
+        effetDegats_.setPower(MbOperationNode.DIV_FCT+"(VAR__CIBLE_NIVEAU,VAR__LANCEUR_NIVEAU)");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
         effetDegats_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
@@ -898,7 +899,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_ = defaultEffetStatut();
         effetStatut_.setFail(F);
         effetStatut_.getLawStatus().addQuickEvent(SOMMEIL,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(SOMMEIL,"cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().addEntry(SOMMEIL,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         effectSwitchMoveTypes_ = defaultEffectSwitchMoveTypes();
@@ -1031,7 +1032,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("30*(min(1,VAR__LANCEUR_NB_UTILISATION__BOUL_ARMURE)+1)*puis(2,VAR__NB_TOUR__ROULADE)");
+        effetDegats_.setPower("30*("+MbOperationNode.MIN+"(1,VAR__LANCEUR_NB_UTILISATION__BOUL_ARMURE)+1)*"+MbOperationNode.PUIS+"(2,VAR__NB_TOUR__ROULADE)");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
@@ -1259,7 +1260,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("100*(2*caracferme(inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL})*VAR__CIBLE_DISPARAIT,1,1)+caracferme(VAR__CIBLE_DISPARAIT,0,0))");
+        effetDegats_.setPower("100*(2*"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL})*VAR__CIBLE_DISPARAIT,1,1)+"+MbOperationNode.CARAC_FERME+"(VAR__CIBLE_DISPARAIT,0,0))");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
@@ -1326,7 +1327,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_ = defaultEffetStatut();
         effetStatut_.setFail(F);
         effetStatut_.getLawStatus().addQuickEvent(SOMMEIL,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(SOMMEIL,"cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().addEntry(SOMMEIL,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.ANY_FOE);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         _data.completeQuickMembers(BERCEUSE,ficheAttaqueNonOff_);
@@ -1376,7 +1377,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_ = defaultEffetStatut();
         effetStatut_.setFail(F);
         effetStatut_.getLawStatus().addQuickEvent(SOMMEIL,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(SOMMEIL,"cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().addEntry(SOMMEIL,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.ANY_FOE);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         _data.completeQuickMembers(HYPNOSE,ficheAttaqueNonOff_);
@@ -1393,7 +1394,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_ = defaultEffetStatut();
         effetStatut_.setFail(F);
         effetStatut_.getLawStatus().addQuickEvent(PARALYSIE,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(PARALYSIE,"cardinal(inter({VAR__CIBLE_STATUTS},{PARALYSIE}))>0|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().addEntry(PARALYSIE,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{PARALYSIE}))>0|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.ANY_FOE);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         _data.completeQuickMembers(CAGE_ECLAIR,ficheAttaqueNonOff_);
@@ -1410,7 +1411,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_ = defaultEffetStatut();
         effetStatut_.setFail(F);
         effetStatut_.getLawStatus().addQuickEvent(CONFUSION,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(CONFUSION,"cardinal(inter({VAR__CIBLE_STATUTS},{CONFUSION}))>0|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().addEntry(CONFUSION,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{CONFUSION}))>0|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.ANY_FOE);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         _data.completeQuickMembers(ONDE_FOLIE,ficheAttaqueNonOff_);
@@ -1427,7 +1428,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_ = defaultEffetStatut();
         effetStatut_.setFail(F);
         effetStatut_.getLawStatus().addQuickEvent(CONFUSION,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(CONFUSION,"cardinal(inter({VAR__CIBLE_STATUTS},{CONFUSION}))>0|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().addEntry(CONFUSION,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{CONFUSION}))>0|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.ANY_FOE);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         _data.completeQuickMembers(ULTRASON,ficheAttaqueNonOff_);
@@ -1689,7 +1690,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effectEndRoundSingleRelation_.setEndRoundRank(33);
         effectEndRoundSingleRelation_.setTargetChoice(TargetChoice.ADJ_UNIQ);
         effectEndRoundSingleRelation_.setFail("VAR__CIBLE_CLONE>0");
-        effectEndRoundSingleRelation_.setFailEndRound("VAR__CIBLE_CLONE>0&div(VAR__CIBLE_PV_RESTANTS,VAR__CIBLE_PV_MAX)>1/2");
+        effectEndRoundSingleRelation_.setFailEndRound("VAR__CIBLE_CLONE>0&"+MbOperationNode.DIV_FCT+"(VAR__CIBLE_PV_RESTANTS,VAR__CIBLE_PV_MAX)>1/2");
         effectEndRoundSingleRelation_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effectEndRoundSingleRelation_);
         _data.completeQuickMembers(SIPHON,ficheAttaqueOff_);
@@ -1776,7 +1777,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.getTypes().add(COMBAT);
         ficheAttaqueNonOff_.getBoostedTypes().add(COMBAT);
         ficheAttaqueNonOff_.setPriority((byte)3);
-        ficheAttaqueNonOff_.setAccuracy("puis(2,-VAR__LANCEUR_NB_UTILISATION__GARDE_LARGE-VAR__LANCEUR_NB_UTILISATION__PREVENTION)");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.PUIS+"(2,-VAR__LANCEUR_NB_UTILISATION__GARDE_LARGE-VAR__LANCEUR_NB_UTILISATION__PREVENTION)");
         ficheAttaqueNonOff_.setStoppableMoveMulti(true);
         ficheAttaqueNonOff_.setStoppableMovePrio(true);
         ficheAttaqueNonOff_.setIgnVarEvasTargetPos(true);
@@ -1840,7 +1841,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetChgtType_.setConstValuesType(ConstValuesType.TYPES_ATTAQUES_RES);
         effetChgtType_.setExchangeTypes(ExchangeType.NOTHING);
         effetChgtType_.setTargetChoice(TargetChoice.LANCEUR);
-        effetChgtType_.setFail("VAR__TYPES_ATTAQUES_RES_VIDE|caracdroiteouvert(VAR__LANCEUR_DEGATS_RECUS_TOTAL_TOUR,0)=0");
+        effetChgtType_.setFail("VAR__TYPES_ATTAQUES_RES_VIDE|"+MbOperationNode.CARAC_DROITE_OUVERT+"(VAR__LANCEUR_DEGATS_RECUS_TOTAL_TOUR,0)=0");
         ficheAttaqueNonOff_.getEffects().add(effetChgtType_);
         _data.completeQuickMembers(CONVERSION_2,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -1887,7 +1888,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BAIE_ABRIKO;BAIE_ALGA;BAIE_BABIRI;BAIE_CERIZ;BAIE_CHARTI;BAIE_CHERIM;BAIE_CHOCCO;BAIE_COBABA;BAIE_DURIN;BAIE_ENIGMA;BAIE_FIGUY;BAIE_FRAIGO;BAIE_FRAIVE;BAIE_FRAMBY;BAIE_FRISTA;BAIE_GOWAV;BAIE_GRENA;BAIE_JABOCA;BAIE_JOUCA;BAIE_KEBIA;BAIE_KIKA;BAIE_KIWAN;BAIE_LAMPOU;BAIE_LANSAT;BAIE_LICHII;BAIE_LINGAN;BAIE_LONME;BAIE_MAGO;BAIE_MANGOU;BAIE_MARON;BAIE_MEPO;BAIE_MICLE;BAIE_MYRTE;BAIE_NANAB;BAIE_NANANA;BAIE_NANONE;BAIE_ORAN;BAIE_PALMA;BAIE_PANGA;BAIE_PAPAYA;BAIE_PARMA;BAIE_PECHA;BAIE_PITAYE;BAIE_POCPOC;BAIE_POMMO;BAIE_POMROZ;BAIE_PRINE;BAIE_QUALOT;BAIE_RABUTA;BAIE_RATAM;BAIE_REMU;BAIE_REPOI;BAIE_RESIN;BAIE_SAILAK;BAIE_SEDRA;BAIE_SIAM;BAIE_SITRUS;BAIE_STEKPA;BAIE_TAMATO;BAIE_TRONCI;BAIE_WIKI;BAIE_WILLIA;BAIE_YAPAP;BAIE_ZALIS;BANDEAU;BIZAR_ENCENS;CARAPACE_MUE;CEINTURE_PRO;ENCENS_DOUX;ENCENS_FLEUR;ENCENS_MER;ENCENS_PLEIN;ENCENS_PUR;ENCENS_ROC;ENCENS_VAGUE;ENCENS_VEINE;GRELOT_ZEN;HERBE_MENTAL;HERBE_POUV;LUNET_SAGES;MOUCH_SOIE;POUDRECLAIRE;POUDRE_METAL;POUDRE_VITE;RALENTIQUEUE;RESTES;ROCHE_LISSE;SABLE_DOUX;TISSU_FAUCHE})),1,1)*10+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{FOSSILE_ARMURE;FOSSILE_CRANE;FOSSILE_DOME;FOSSILE_GRIFFE;FOSSILE_PLAQUE;FOSSILE_PLUME;FOSSILE_RACINE;NAUTILE;OS_RARE;PIERRE_DURE;VIEIL_AMBRE})),1,1)*100+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BALLE_FER})),1,1)*130+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{AIMANT;AMELIORATOR;ANTIDOTE;ANTIGEL;ANTI_BRULE;ANTI_PARA;BOUE_NOIRE;BOULE_FUMEE;CALCIUM;CARBONE;CENDRESACREE;CHARBON;CROC_RASOIR;CUILLERTORDU;EAU_FRAICHE;EAU_MYSTIQUE;ECAILLE_DRACO;ELIXIR;FER;GLACETERNEL;GRANDE_PERLE;GRELOT_COQUE;GROS_CHAMPI;GUERISON;HUILE;HUILE_MAX;HYPER_POTION;JUS_DE_BAIE;LAIT_MEUMEU;LENTILSCOPE;LIMONADE;LUMARGILE;MAX_ELIXIR;METRONOME_OBJ;MORC_ETOILE;MULTI_EXP;OEUF_CHANCE;ORBE_FLAMME;ORBE_VIE;PEAU_METAL;PEPITE;PERLE;PETIT_CHAMPI;PIECE_RUNE;PIERRE_EAU;PIERRE_FEU;PIERRE_FOUDRE;PIERRE_LUNE;PIERRE_PLANTE;PIERRE_STASE;POTION;POTION_MAX;POUSS_ETOILE;PP_MAX;PP_PLUS;PROTEINE;PV_PLUS;RAPPEL;RAPPEL_MAX;REVEIL;ROCHE_ROYALE;RUNE_PURIF;RUNE_SORT;SODA_COOL;SUPER_POTION;TOTAL_SOIN;ZINC})),1,1)*30+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{POING_CHANCE;ROCHE_GLACE})),1,1)*40+inclusnum({VAR__LANCEUR_OBJET},{})*5+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{APPAT_BALL;BALLON;BANDEAU_ETREINTE;BAND_CHOIX;BAND_MUSCLE;BAND_POUV;BIS_BALL;BOUTON_FUITE;BULBE;CARTE_ROUGE;CASQUE_BRUT;CEINT_FORCE;CEINT_NOIRE;CEINT_POUV;CHAINE_POUV;CHRONO_BALL;COMPET_BALL;COPAIN_BALL;ECAILLE_OCEAN;EVOLUROC;FAIBLO_BALL;FERRAILLE;FILET_BALL;GRAIN_MIRACL;GRIFFE_RASOIR;GROSSERACINE;HERBEBLANCHE;HONOR_BALL;HYPER_BALL;LENTIL_ZOOM;LENT_POUV;LOUPE;LOVE_BALL;LUNET_CHOIX;LUNET_NOIRES;LUNE_BALL;LUXE_BALL;MASSE_BALL;MASTER_BALL;MAX_REPOUSSE;MODULE_AQUA;MODULE_CHOC;MODULE_CRYO;MODULE_PYRO;MOUCH_CHOIX;NIVEAU_BALL;NOEUD_DESTIN;ORBE_PLATINE;ORBE_TOXIQUE;PIERRALLEGEE;PIERRE_GLACE;PIERRE_MOUSSE;PIERRE_SOLAIRE;PILE;PIQUANTS;POIDS_POUV;POIGN_POUV;POKE_BALL;POUDRE_ARG;PT_DE_MIRE;RAPIDE_BALL;REPOUSSE;ROCHE_ELECTRIQUE;SCUBA_BALL;SOIN_BALL;SOMBRE_BALL;SPEED_BALL;SUPER_BALL;SUPER_REPOUSSE})),1,1)*5+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BEC_POINTU;CD_DOUTEUX})),1,1)*50+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BATON;BRAC_MACHO;ORBE_ADAMANT;ORBE_PERLE;ROCHE_CHAUDE;ROCHE_HUMIDE})),1,1)*60+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{CROC_DRAGON;PIC_VENIN})),1,1)*70+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{ELECTRISEUR;MAGMARISEUR;PIERRE_AUBE;PIERRE_ECLAT;PIERRE_NUIT;PIERRE_OVALE;PROTECTEUR;VIVE_GRIFFE})),1,1)*80+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{ACCRO_GRIFFE;DENT_OCEAN;MASSE_OS;PLAQUESPRIT;PLAQUE_CIEL;PLAQUE_DRACO;PLAQUE_FANTO;PLAQUE_FER;PLAQUE_FLAM;PLAQUE_GLACE;PLAQUE_HERBE;PLAQUE_HYDRO;PLAQUE_OMBRE;PLAQUE_POING;PLAQUE_ROC;PLAQUE_TERRE;PLAQUE_TOXIC;PLAQUE_VOLT;PLAQUINSECT})),1,1)*90");
+        effetDegats_.setPower(MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{BAIE_ABRIKO;BAIE_ALGA;BAIE_BABIRI;BAIE_CERIZ;BAIE_CHARTI;BAIE_CHERIM;BAIE_CHOCCO;BAIE_COBABA;BAIE_DURIN;BAIE_ENIGMA;BAIE_FIGUY;BAIE_FRAIGO;BAIE_FRAIVE;BAIE_FRAMBY;BAIE_FRISTA;BAIE_GOWAV;BAIE_GRENA;BAIE_JABOCA;BAIE_JOUCA;BAIE_KEBIA;BAIE_KIKA;BAIE_KIWAN;BAIE_LAMPOU;BAIE_LANSAT;BAIE_LICHII;BAIE_LINGAN;BAIE_LONME;BAIE_MAGO;BAIE_MANGOU;BAIE_MARON;BAIE_MEPO;BAIE_MICLE;BAIE_MYRTE;BAIE_NANAB;BAIE_NANANA;BAIE_NANONE;BAIE_ORAN;BAIE_PALMA;BAIE_PANGA;BAIE_PAPAYA;BAIE_PARMA;BAIE_PECHA;BAIE_PITAYE;BAIE_POCPOC;BAIE_POMMO;BAIE_POMROZ;BAIE_PRINE;BAIE_QUALOT;BAIE_RABUTA;BAIE_RATAM;BAIE_REMU;BAIE_REPOI;BAIE_RESIN;BAIE_SAILAK;BAIE_SEDRA;BAIE_SIAM;BAIE_SITRUS;BAIE_STEKPA;BAIE_TAMATO;BAIE_TRONCI;BAIE_WIKI;BAIE_WILLIA;BAIE_YAPAP;BAIE_ZALIS;BANDEAU;BIZAR_ENCENS;CARAPACE_MUE;CEINTURE_PRO;ENCENS_DOUX;ENCENS_FLEUR;ENCENS_MER;ENCENS_PLEIN;ENCENS_PUR;ENCENS_ROC;ENCENS_VAGUE;ENCENS_VEINE;GRELOT_ZEN;HERBE_MENTAL;HERBE_POUV;LUNET_SAGES;MOUCH_SOIE;POUDRECLAIRE;POUDRE_METAL;POUDRE_VITE;RALENTIQUEUE;RESTES;ROCHE_LISSE;SABLE_DOUX;TISSU_FAUCHE})),1,1)*10+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{FOSSILE_ARMURE;FOSSILE_CRANE;FOSSILE_DOME;FOSSILE_GRIFFE;FOSSILE_PLAQUE;FOSSILE_PLUME;FOSSILE_RACINE;NAUTILE;OS_RARE;PIERRE_DURE;VIEIL_AMBRE})),1,1)*100+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{BALLE_FER})),1,1)*130+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{AIMANT;AMELIORATOR;ANTIDOTE;ANTIGEL;ANTI_BRULE;ANTI_PARA;BOUE_NOIRE;BOULE_FUMEE;CALCIUM;CARBONE;CENDRESACREE;CHARBON;CROC_RASOIR;CUILLERTORDU;EAU_FRAICHE;EAU_MYSTIQUE;ECAILLE_DRACO;ELIXIR;FER;GLACETERNEL;GRANDE_PERLE;GRELOT_COQUE;GROS_CHAMPI;GUERISON;HUILE;HUILE_MAX;HYPER_POTION;JUS_DE_BAIE;LAIT_MEUMEU;LENTILSCOPE;LIMONADE;LUMARGILE;MAX_ELIXIR;METRONOME_OBJ;MORC_ETOILE;MULTI_EXP;OEUF_CHANCE;ORBE_FLAMME;ORBE_VIE;PEAU_METAL;PEPITE;PERLE;PETIT_CHAMPI;PIECE_RUNE;PIERRE_EAU;PIERRE_FEU;PIERRE_FOUDRE;PIERRE_LUNE;PIERRE_PLANTE;PIERRE_STASE;POTION;POTION_MAX;POUSS_ETOILE;PP_MAX;PP_PLUS;PROTEINE;PV_PLUS;RAPPEL;RAPPEL_MAX;REVEIL;ROCHE_ROYALE;RUNE_PURIF;RUNE_SORT;SODA_COOL;SUPER_POTION;TOTAL_SOIN;ZINC})),1,1)*30+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{POING_CHANCE;ROCHE_GLACE})),1,1)*40+"+MbOperationNode.INCL+"({VAR__LANCEUR_OBJET},{})*5+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{APPAT_BALL;BALLON;BANDEAU_ETREINTE;BAND_CHOIX;BAND_MUSCLE;BAND_POUV;BIS_BALL;BOUTON_FUITE;BULBE;CARTE_ROUGE;CASQUE_BRUT;CEINT_FORCE;CEINT_NOIRE;CEINT_POUV;CHAINE_POUV;CHRONO_BALL;COMPET_BALL;COPAIN_BALL;ECAILLE_OCEAN;EVOLUROC;FAIBLO_BALL;FERRAILLE;FILET_BALL;GRAIN_MIRACL;GRIFFE_RASOIR;GROSSERACINE;HERBEBLANCHE;HONOR_BALL;HYPER_BALL;LENTIL_ZOOM;LENT_POUV;LOUPE;LOVE_BALL;LUNET_CHOIX;LUNET_NOIRES;LUNE_BALL;LUXE_BALL;MASSE_BALL;MASTER_BALL;MAX_REPOUSSE;MODULE_AQUA;MODULE_CHOC;MODULE_CRYO;MODULE_PYRO;MOUCH_CHOIX;NIVEAU_BALL;NOEUD_DESTIN;ORBE_PLATINE;ORBE_TOXIQUE;PIERRALLEGEE;PIERRE_GLACE;PIERRE_MOUSSE;PIERRE_SOLAIRE;PILE;PIQUANTS;POIDS_POUV;POIGN_POUV;POKE_BALL;POUDRE_ARG;PT_DE_MIRE;RAPIDE_BALL;REPOUSSE;ROCHE_ELECTRIQUE;SCUBA_BALL;SOIN_BALL;SOMBRE_BALL;SPEED_BALL;SUPER_BALL;SUPER_REPOUSSE})),1,1)*5+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{BEC_POINTU;CD_DOUTEUX})),1,1)*50+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{BATON;BRAC_MACHO;ORBE_ADAMANT;ORBE_PERLE;ROCHE_CHAUDE;ROCHE_HUMIDE})),1,1)*60+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{CROC_DRAGON;PIC_VENIN})),1,1)*70+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{ELECTRISEUR;MAGMARISEUR;PIERRE_AUBE;PIERRE_ECLAT;PIERRE_NUIT;PIERRE_OVALE;PROTECTEUR;VIVE_GRIFFE})),1,1)*80+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_OBJET},{ACCRO_GRIFFE;DENT_OCEAN;MASSE_OS;PLAQUESPRIT;PLAQUE_CIEL;PLAQUE_DRACO;PLAQUE_FANTO;PLAQUE_FER;PLAQUE_FLAM;PLAQUE_GLACE;PLAQUE_HERBE;PLAQUE_HYDRO;PLAQUE_OMBRE;PLAQUE_POING;PLAQUE_ROC;PLAQUE_TERRE;PLAQUE_TOXIC;PLAQUE_VOLT;PLAQUINSECT})),1,1)*90");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
@@ -1896,25 +1897,25 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         effetStatut_ = defaultEffetStatut();
         effetStatut_.getLawStatus().addQuickEvent(BRULURE,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(BRULURE,"cardinal(inter({VAR__CIBLE_STATUTS},{BRULURE}))>0|VAR__CIBLE_CLONE>0|cardinal(inter({VAR__CIBLE_TYPES},{FEU}))>0");
+        effetStatut_.getLocalFailStatus().addEntry(BRULURE,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{BRULURE}))>0|VAR__CIBLE_CLONE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_TYPES},{FEU}))>0");
         effetStatut_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatut_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effetStatut_);
         effetStatut_ = defaultEffetStatut();
         effetStatut_.getLawStatus().addQuickEvent(POISON_GRAVE,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(POISON_GRAVE,"cardinal(inter({VAR__CIBLE_STATUTS},{POISON_GRAVE;POISON_ST}))>0|VAR__CIBLE_CLONE>0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))>0");
+        effetStatut_.getLocalFailStatus().addEntry(POISON_GRAVE,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{POISON_GRAVE;POISON_ST}))>0|VAR__CIBLE_CLONE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_TYPES},{POISON;ACIER}))>0");
         effetStatut_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatut_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effetStatut_);
         effetStatut_ = defaultEffetStatut();
         effetStatut_.getLawStatus().addQuickEvent(PARALYSIE,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(PARALYSIE,"cardinal(inter({VAR__CIBLE_STATUTS},{PARALYSIE}))>0|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().addEntry(PARALYSIE,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{PARALYSIE}))>0|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatut_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effetStatut_);
         effetStatut_ = defaultEffetStatut();
         effetStatut_.getLawStatus().addQuickEvent(POISON_ST,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(POISON_ST,"cardinal(inter({VAR__CIBLE_STATUTS},{POISON_GRAVE;POISON_ST}))>0|VAR__CIBLE_CLONE>0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))>0");
+        effetStatut_.getLocalFailStatus().addEntry(POISON_ST,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{POISON_GRAVE;POISON_ST}))>0|VAR__CIBLE_CLONE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_TYPES},{POISON;ACIER}))>0");
         effetStatut_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatut_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effetStatut_);
@@ -2493,7 +2494,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_ = defaultEffetStatut();
         effetStatut_.setStatusFromUser(true);
         effetStatut_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-        effetStatut_.setFail("cardinal({VAR__CIBLE_STATUTS})>0|cardinal({VAR__LANCEUR_STATUTS})=0");
+        effetStatut_.setFail(MbOperationNode.CARD+"({VAR__CIBLE_STATUTS})>0|"+MbOperationNode.CARD+"({VAR__LANCEUR_STATUTS})=0");
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         _data.completeQuickMembers(ECHANGE_PSY,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -2645,7 +2646,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatut_ = defaultEffetStatut();
         effetStatut_.getLawStatus().addQuickEvent(CONFUSION,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(CONFUSION,"cardinal(inter({VAR__CIBLE_STATUTS},{CONFUSION}))>0|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().addEntry(CONFUSION,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{CONFUSION}))>0|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         effetStatistique_ = defaultEffetStatistique();
@@ -2695,7 +2696,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.setStatisDef(Statistic.SPECIAL_DEFENSE);
         effetDegats_.setTargetDefense(true);
         effetDegats_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
-        effetDegats_.setFail("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effetDegats_.setFail(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         effetTauxDegats_ = defaultEffectDamageRate();
         effetTauxDegats_.setRateDamage(new Rate("1/2"));
@@ -2955,7 +2956,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetChgtType_.setConstValuesType(ConstValuesType.LANCEUR_ATTAQUES_TYPES);
         effetChgtType_.setExchangeTypes(ExchangeType.NOTHING);
         effetChgtType_.setTargetChoice(TargetChoice.LANCEUR);
-        effetChgtType_.setFail("inclusnum({VAR__LANCEUR_ATTAQUES_TYPES},{VAR__LANCEUR_TYPES})=1");
+        effetChgtType_.setFail(MbOperationNode.INCL+"({VAR__LANCEUR_ATTAQUES_TYPES},{VAR__LANCEUR_TYPES})=1");
         ficheAttaqueNonOff_.getEffects().add(effetChgtType_);
         _data.completeQuickMembers(ADAPTATION,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -3040,7 +3041,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("40*(2*caracferme(inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{VOL;REBOND;CHUTE_LIBRE})*VAR__CIBLE_DISPARAIT,1,1)+caracferme(VAR__CIBLE_DISPARAIT,0,0))");
+        effetDegats_.setPower("40*(2*"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{VOL;REBOND;CHUTE_LIBRE})*VAR__CIBLE_DISPARAIT,1,1)+"+MbOperationNode.CARAC_FERME+"(VAR__CIBLE_DISPARAIT,0,0))");
         effetDegats_.setStatisAtt(Statistic.SPECIAL_ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.SPECIAL_DEFENSE);
@@ -3198,7 +3199,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.setStatisDef(Statistic.DEFENSE);
         effetDegats_.setTargetDefense(true);
         effetDegats_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-        effetDegats_.setFail("caracdroiteouvert(VAR__LANCEUR_DEGATS_RECUS_TOTAL_TOUR,0)=0");
+        effetDegats_.setFail(MbOperationNode.CARAC_DROITE_OUVERT+"(VAR__LANCEUR_DEGATS_RECUS_TOTAL_TOUR,0)=0");
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         _data.completeQuickMembers(FULMIFER,ficheAttaqueOff_);
         ficheAttaqueOff_ = defaultFicheAttaqueOff();
@@ -3220,7 +3221,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.setStatisDef(Statistic.DEFENSE);
         effetDegats_.setTargetDefense(true);
         effetDegats_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-        effetDegats_.setFail("caracdroiteouvert(VAR__LANCEUR_DEGATS_RECUS_TOTAL_TOUR,0)=0");
+        effetDegats_.setFail(MbOperationNode.CARAC_DROITE_OUVERT+"(VAR__LANCEUR_DEGATS_RECUS_TOTAL_TOUR,0)=0");
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         _data.completeQuickMembers(RIPOSTE,ficheAttaqueOff_);
         ficheAttaqueOff_ = defaultFicheAttaqueOff();
@@ -3267,7 +3268,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("100*(cardinal({VAR__CLIMATS})+1)");
+        effetDegats_.setPower("100*("+MbOperationNode.CARD+"({VAR__CLIMATS})+1)");
         effetDegats_.setStatisAtt(Statistic.SPECIAL_ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.SPECIAL_DEFENSE);
@@ -3292,7 +3293,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("100*(cardinal({VAR__CLIMATS})+1)");
+        effetDegats_.setPower("100*("+MbOperationNode.CARD+"({VAR__CLIMATS})+1)");
         effetDegats_.setStatisAtt(Statistic.SPECIAL_ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.SPECIAL_DEFENSE);
@@ -3433,7 +3434,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetImmu_ = defaultEffetImmu();
         effetImmu_.getImmuAgainstTypes().add(SOL);
         effetImmu_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
-        effetImmu_.setFail("VAR__CIBLE_EFFET__RACINES|VAR__IMMU_TYPE_ATT_CIBLE__SOL|VAR__NB_TOUR_GLOBAL__GRAVITE>0|cardinal(inter({VAR__CIBLE_OBJET},{BALLE_FER}))=1");
+        effetImmu_.setFail("VAR__CIBLE_EFFET__RACINES|VAR__IMMU_TYPE_ATT_CIBLE__SOL|VAR__NB_TOUR_GLOBAL__GRAVITE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_OBJET},{BALLE_FER}))=1");
         ficheAttaqueNonOff_.getEffects().add(effetImmu_);
         effetPrecision_ = defaultEffetPrecision();
         effetPrecision_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
@@ -3537,7 +3538,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetAntiChoix_ = defaultEffetAntiChoix();
         effetAntiChoix_.setChoiceRestriction(MoveChoiceRestrictionType.FORCE);
         effetAntiChoix_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-        effetAntiChoix_.setFail("VAR__PAS_PP_ATTAQUE_CIBLE|VAR__PAS_UTILIS_ATTAQUE_CIBLE|VAR__CIBLE_EFFET__ENCORE|inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{COPIE;ENCORE;GRIBOUILLE;LUTTE;MIMIQUE;MORPHING})=1");
+        effetAntiChoix_.setFail("VAR__PAS_PP_ATTAQUE_CIBLE|VAR__PAS_UTILIS_ATTAQUE_CIBLE|VAR__CIBLE_EFFET__ENCORE|"+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{COPIE;ENCORE;GRIBOUILLE;LUTTE;MIMIQUE;MORPHING})=1");
         ficheAttaqueNonOff_.getEffects().add(effetAntiChoix_);
         _data.completeQuickMembers(ENCORE,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -3562,7 +3563,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetAntiChoix_ = defaultEffetAntiChoix();
         effetAntiChoix_.setChoiceRestriction(MoveChoiceRestrictionType.FORCE);
         effetAntiChoix_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-        effetAntiChoix_.setFail("VAR__PAS_PP_ATTAQUE_CIBLE|VAR__PAS_UTILIS_ATTAQUE_CIBLE|VAR__CIBLE_EFFET__ENCORE|inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{COPIE;ENCORE;GRIBOUILLE;LUTTE;MIMIQUE;MORPHING})=1");
+        effetAntiChoix_.setFail("VAR__PAS_PP_ATTAQUE_CIBLE|VAR__PAS_UTILIS_ATTAQUE_CIBLE|VAR__CIBLE_EFFET__ENCORE|"+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{COPIE;ENCORE;GRIBOUILLE;LUTTE;MIMIQUE;MORPHING})=1");
         ficheAttaqueNonOff_.getEffects().add(effetAntiChoix_);
         _data.completeQuickMembers(CHANT,ficheAttaqueNonOff_);
         ficheAttaqueOff_ = defaultFicheAttaqueOff();
@@ -3632,8 +3633,8 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        //bis effetDegats_.setPower("50*(caracferme(inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{VOL;REBOND;CHUTE_LIBRE})*VAR__CIBLE_DISPARAIT,1,1)+caracferme(VAR__CIBLE_DISPARAIT,0,0))+VAR__FIGHTER_PP__ANTI_AIR*VAR__FIGHTER_PP__SEISME");
-        effetDegats_.setPower("50*(caracferme(inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{VOL;REBOND;CHUTE_LIBRE})*VAR__CIBLE_DISPARAIT,1,1)+caracferme(VAR__CIBLE_DISPARAIT,0,0))+VAR__LANCEUR_PP__ANTI_AIR*VAR__LANCEUR_PP__SEISME");
+        //bis effetDegats_.setPower("50*("+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{VOL;REBOND;CHUTE_LIBRE})*VAR__CIBLE_DISPARAIT,1,1)+"+MbOperationNode.CARAC_FERME+"(VAR__CIBLE_DISPARAIT,0,0))+VAR__FIGHTER_PP__ANTI_AIR*VAR__FIGHTER_PP__SEISME");
+        effetDegats_.setPower("50*("+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{VOL;REBOND;CHUTE_LIBRE})*VAR__CIBLE_DISPARAIT,1,1)+"+MbOperationNode.CARAC_FERME+"(VAR__CIBLE_DISPARAIT,0,0))+VAR__LANCEUR_PP__ANTI_AIR*VAR__LANCEUR_PP__SEISME");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
@@ -3648,7 +3649,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetAntiImmu_.getDisableImmuFromMoves().add(VOL_MAGNETIK);
         effetAntiImmu_.getAttackTargetWithTypes().add(SOL);
         effetAntiImmu_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
-        effetAntiImmu_.setFail("VAR__CIBLE_DISPARAIT=1&cardinal(inter({VAR__CIBLE_ATTAQUE_CHOISIE},{VOL;REBOND;CHUTE_LIBRE}))>0");
+        effetAntiImmu_.setFail("VAR__CIBLE_DISPARAIT=1&"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_ATTAQUE_CHOISIE},{VOL;REBOND;CHUTE_LIBRE}))>0");
         effetAntiImmu_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effetAntiImmu_);
         _data.completeQuickMembers(ANTI_AIR,ficheAttaqueOff_);
@@ -3667,7 +3668,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("50*(caracferme(inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL})*VAR__CIBLE_DISPARAIT,1,1)+caracferme(VAR__CIBLE_DISPARAIT,0,0))");
+        effetDegats_.setPower("50*("+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL})*VAR__CIBLE_DISPARAIT,1,1)+"+MbOperationNode.CARAC_FERME+"(VAR__CIBLE_DISPARAIT,0,0))");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
@@ -3678,7 +3679,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetAntiImmu_ = defaultEffetAntiImmu();
         effetAntiImmu_.getDisableImmuAgainstTypes().add(VOL);
         effetAntiImmu_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
-        effetAntiImmu_.setFail("VAR__CIBLE_DISPARAIT=1&cardinal(inter({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL}))>0");
+        effetAntiImmu_.setFail("VAR__CIBLE_DISPARAIT=1&"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL}))>0");
         effetAntiImmu_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effetAntiImmu_);
         _data.completeQuickMembers(ANTI_SOL,ficheAttaqueOff_);
@@ -3701,7 +3702,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("50*(caracferme(inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL})*VAR__CIBLE_DISPARAIT,1,1)+caracferme(VAR__CIBLE_DISPARAIT,0,0))");
+        effetDegats_.setPower("50*("+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL})*VAR__CIBLE_DISPARAIT,1,1)+"+MbOperationNode.CARAC_FERME+"(VAR__CIBLE_DISPARAIT,0,0))");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
@@ -3711,7 +3712,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         effetAntiImmu_ = defaultEffetAntiImmu();
         effetAntiImmu_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
-        effetAntiImmu_.setFail("VAR__CIBLE_DISPARAIT=1&cardinal(inter({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL}))>0");
+        effetAntiImmu_.setFail("VAR__CIBLE_DISPARAIT=1&"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_ATTAQUE_CHOISIE},{TUNNEL}))>0");
         effetAntiImmu_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effetAntiImmu_);
         effectEndRoundIndividual_ = defaultEffectEndRoundIndividual();
@@ -3840,7 +3841,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetEquipeEntreeAdv_.getStatusByNbUses().addEntry((short)2,POISON_GRAVE);
         effetEquipeEntreeAdv_.getDeletedByFoeTypes().add(POISON);
         effetEquipeEntreeAdv_.setTargetChoice(TargetChoice.LANCEUR);
-        effetEquipeEntreeAdv_.setFailSending("VAR__IMMU_TYPE_ATT_COMBATTANT_ENTRANT__SOL|cardinal(inter({VAR__COMBATTANT_ENTRANT_TYPES},{VOL;POISON;ACIER}))>0|VAR__COMBATTANT_ENTRANT_CLONE>0");
+        effetEquipeEntreeAdv_.setFailSending("VAR__IMMU_TYPE_ATT_COMBATTANT_ENTRANT__SOL|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__COMBATTANT_ENTRANT_TYPES},{VOL;POISON;ACIER}))>0|VAR__COMBATTANT_ENTRANT_CLONE>0");
         ficheAttaqueNonOff_.getEffects().add(effetEquipeEntreeAdv_);
         _data.completeQuickMembers(PICS_TOXIK,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -3860,7 +3861,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetEquipeEntreeAdv_.getStatusByNbUses().addEntry((short)2,POISON_GRAVE);
         effetEquipeEntreeAdv_.getDeletedByFoeTypes().add(POISON);
         effetEquipeEntreeAdv_.setTargetChoice(TargetChoice.LANCEUR);
-        effetEquipeEntreeAdv_.setFailSending("VAR__IMMU_TYPE_ATT_COMBATTANT_ENTRANT__SOL|cardinal(inter({VAR__COMBATTANT_ENTRANT_TYPES},{VOL;POISON;ACIER}))>0|VAR__COMBATTANT_ENTRANT_CLONE>0");
+        effetEquipeEntreeAdv_.setFailSending("VAR__IMMU_TYPE_ATT_COMBATTANT_ENTRANT__SOL|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__COMBATTANT_ENTRANT_TYPES},{VOL;POISON;ACIER}))>0|VAR__COMBATTANT_ENTRANT_CLONE>0");
         ficheAttaqueNonOff_.getEffects().add(effetEquipeEntreeAdv_);
         _data.completeQuickMembers(TOILE_GLUANTE,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -4046,7 +4047,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetInvoque_.getMovesNotToBeInvoked().add(TUNNEL);
         effetInvoque_.getMovesNotToBeInvoked().add(ENVOL);
         effetInvoque_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-        effetInvoque_.setFail("VAR__PAS_ATTAQUE_INVOC|cardinal(inter({VAR__LANCEUR_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effetInvoque_.setFail("VAR__PAS_ATTAQUE_INVOC|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
         ficheAttaqueNonOff_.getEffects().add(effetInvoque_);
         _data.completeQuickMembers(BLABLA_DODO,ficheAttaqueNonOff_);
         ficheAttaqueOff_ = defaultFicheAttaqueOff();
@@ -4190,7 +4191,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setPp((short)5);
         ficheAttaqueNonOff_.getTypes().add(SOL);
         ficheAttaqueNonOff_.getBoostedTypes().add(SOL);
-        ficheAttaqueNonOff_.setAccuracy("max(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU+VAR__EQUIPE_NB_UTILISATION__CASSE,0):100");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.MAX+"(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU+VAR__EQUIPE_NB_UTILISATION__CASSE,0):100");
         ficheAttaqueNonOff_.setStoppableMoveSolo(true);
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4207,7 +4208,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setPp((short)5);
         ficheAttaqueNonOff_.getTypes().add(SOL);
         ficheAttaqueNonOff_.getBoostedTypes().add(SOL);
-        ficheAttaqueNonOff_.setAccuracy("max(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.MAX+"(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
         ficheAttaqueNonOff_.setStoppableMoveSolo(true);
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4221,7 +4222,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setPp((short)5);
         ficheAttaqueOff_.getTypes().add(NORMAL);
         ficheAttaqueOff_.getBoostedTypes().add(NORMAL);
-        ficheAttaqueOff_.setAccuracy("max(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
+        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4244,7 +4245,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setPp((short)5);
         ficheAttaqueOff_.getTypes().add(NORMAL);
         ficheAttaqueOff_.getBoostedTypes().add(NORMAL);
-        ficheAttaqueOff_.setAccuracy("max(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
+        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4266,7 +4267,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setPp((short)5);
         ficheAttaqueOff_.getTypes().add(NORMAL);
         ficheAttaqueOff_.getBoostedTypes().add(NORMAL);
-        ficheAttaqueOff_.setAccuracy("max(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
+        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4291,7 +4292,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setPp((short)5);
         ficheAttaqueOff_.getTypes().add(NORMAL);
         ficheAttaqueOff_.getBoostedTypes().add(NORMAL);
-        ficheAttaqueOff_.setAccuracy("max(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
+        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"(VAR__LANCEUR_NIVEAU-VAR__CIBLE_NIVEAU,0):100");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4656,7 +4657,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.getTypes().add(ROCHE);
         ficheAttaqueNonOff_.getBoostedTypes().add(ROCHE);
         ficheAttaqueNonOff_.setPriority((byte)3);
-        ficheAttaqueNonOff_.setAccuracy("puis(2,-VAR__LANCEUR_NB_UTILISATION__GARDE_LARGE-VAR__LANCEUR_NB_UTILISATION__PREVENTION)");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.PUIS+"(2,-VAR__LANCEUR_NB_UTILISATION__GARDE_LARGE-VAR__LANCEUR_NB_UTILISATION__PREVENTION)");
         ficheAttaqueNonOff_.setStoppableMoveMulti(true);
         ficheAttaqueNonOff_.setStoppableMovePrio(true);
         ficheAttaqueNonOff_.setIgnVarEvasTargetPos(true);
@@ -4680,7 +4681,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetAntiChoix_ = defaultEffetAntiChoix();
         effetAntiChoix_.setChoiceRestriction(MoveChoiceRestrictionType.LANCEUR_ATTAQUES);
         effetAntiChoix_.setTargetChoice(TargetChoice.TOUS_ADV);
-        effetAntiChoix_.setFail("cardinal(inter({VAR__LANCEUR_ATTAQUES},{VAR__CIBLE_ATTAQUES}))=0");
+        effetAntiChoix_.setFail(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_ATTAQUES},{VAR__CIBLE_ATTAQUES}))=0");
         ficheAttaqueNonOff_.getEffects().add(effetAntiChoix_);
         _data.completeQuickMembers(POSSESSIF,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -4775,7 +4776,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetChgtObj_ = defaultEffetChgtObj();
         effetChgtObj_.setMoveObject(MoveItemType.REUSE_LAST_OBJECT);
         effetChgtObj_.setTargetChoice(TargetChoice.LANCEUR);
-        effetChgtObj_.setFail("cardinal({VAR__LANCEUR_OBJET})>0");
+        effetChgtObj_.setFail(MbOperationNode.CARD+"({VAR__LANCEUR_OBJET})>0");
         ficheAttaqueNonOff_.getEffects().add(effetChgtObj_);
         _data.completeQuickMembers(RECYCLAGE,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -4783,7 +4784,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.getTypes().add(NORMAL);
         ficheAttaqueNonOff_.getBoostedTypes().add(NORMAL);
         ficheAttaqueNonOff_.setPriority((byte)3);
-        ficheAttaqueNonOff_.setAccuracy("puis(2,-VAR__LANCEUR_NB_UTILISATION__TENACITE)");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.PUIS+"(2,-VAR__LANCEUR_NB_UTILISATION__TENACITE)");
         ficheAttaqueNonOff_.setStoppableMoveMulti(true);
         ficheAttaqueNonOff_.setStoppableMovePrio(true);
         ficheAttaqueNonOff_.setIgnVarEvasTargetPos(true);
@@ -4908,7 +4909,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("60*(inclusnum({VAR__CIBLE_OBJET},{})+1)");
+        effetDegats_.setPower("60*("+MbOperationNode.INCL+"({VAR__CIBLE_OBJET},{})+1)");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
@@ -4926,7 +4927,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.getTypes().add(COMBAT);
         ficheAttaqueNonOff_.getBoostedTypes().add(COMBAT);
         ficheAttaqueNonOff_.setPriority((byte)3);
-        ficheAttaqueNonOff_.setAccuracy("puis(2,-VAR__LANCEUR_NB_UTILISATION__ABRI-VAR__LANCEUR_NB_UTILISATION__DETECTION)");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.PUIS+"(2,-VAR__LANCEUR_NB_UTILISATION__ABRI-VAR__LANCEUR_NB_UTILISATION__DETECTION)");
         ficheAttaqueNonOff_.setStoppableMoveMulti(true);
         ficheAttaqueNonOff_.setStoppableMovePrio(true);
         ficheAttaqueNonOff_.setIgnVarEvasTargetPos(true);
@@ -4942,7 +4943,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.getTypes().add(COMBAT);
         ficheAttaqueNonOff_.getBoostedTypes().add(COMBAT);
         ficheAttaqueNonOff_.setPriority((byte)3);
-        ficheAttaqueNonOff_.setAccuracy("puis(2,-VAR__LANCEUR_NB_UTILISATION__ABRI-VAR__LANCEUR_NB_UTILISATION__DETECTION)");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.PUIS+"(2,-VAR__LANCEUR_NB_UTILISATION__ABRI-VAR__LANCEUR_NB_UTILISATION__DETECTION)");
         ficheAttaqueNonOff_.setStoppableMoveMulti(true);
         ficheAttaqueNonOff_.setStoppableMovePrio(true);
         ficheAttaqueNonOff_.setIgnVarEvasTargetPos(true);
@@ -4958,7 +4959,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.getTypes().add(COMBAT);
         ficheAttaqueNonOff_.getBoostedTypes().add(COMBAT);
         ficheAttaqueNonOff_.setPriority((byte)3);
-        ficheAttaqueNonOff_.setAccuracy("puis(2,-VAR__LANCEUR_NB_UTILISATION__ABRI-VAR__LANCEUR_NB_UTILISATION__DETECTION)");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.PUIS+"(2,-VAR__LANCEUR_NB_UTILISATION__ABRI-VAR__LANCEUR_NB_UTILISATION__DETECTION)");
         ficheAttaqueNonOff_.setStoppableMoveMulti(true);
         ficheAttaqueNonOff_.setStoppableMovePrio(true);
         ficheAttaqueNonOff_.setIgnVarEvasTargetPos(true);
@@ -4974,7 +4975,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.getTypes().add(NORMAL);
         ficheAttaqueNonOff_.getBoostedTypes().add(NORMAL);
         ficheAttaqueNonOff_.setPriority((byte)3);
-        ficheAttaqueNonOff_.setAccuracy("puis(2,-VAR__LANCEUR_NB_UTILISATION__ABRI-VAR__LANCEUR_NB_UTILISATION__DETECTION)");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.PUIS+"(2,-VAR__LANCEUR_NB_UTILISATION__ABRI-VAR__LANCEUR_NB_UTILISATION__DETECTION)");
         ficheAttaqueNonOff_.setStoppableMoveMulti(true);
         ficheAttaqueNonOff_.setStoppableMovePrio(true);
         ficheAttaqueNonOff_.setIgnVarEvasTargetPos(true);
@@ -5019,10 +5020,10 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetEquipeEntreeAdv_ = defaultEffetEquipeEntreeAdv();
-        effetEquipeEntreeAdv_.setDamageRateAgainstFoe("(min(VAR__EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION__PICOTS,3)+1):16");
+        effetEquipeEntreeAdv_.setDamageRateAgainstFoe("("+MbOperationNode.MIN+"(VAR__EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION__PICOTS,3)+1):16");
         effetEquipeEntreeAdv_.setTargetChoice(TargetChoice.LANCEUR);
         effetEquipeEntreeAdv_.setFail(NULL_REF);
-        effetEquipeEntreeAdv_.setFailSending("VAR__IMMU_TYPE_ATT_COMBATTANT_ENTRANT__SOL|cardinal(inter({VAR__COMBATTANT_ENTRANT_TYPES},{VOL}))>0");
+        effetEquipeEntreeAdv_.setFailSending("VAR__IMMU_TYPE_ATT_COMBATTANT_ENTRANT__SOL|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__COMBATTANT_ENTRANT_TYPES},{VOL}))>0");
         ficheAttaqueNonOff_.getEffects().add(effetEquipeEntreeAdv_);
         _data.completeQuickMembers(PICOTS,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -5042,10 +5043,10 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatistique_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
         effetEquipeEntreeAdv_ = defaultEffetEquipeEntreeAdv();
-        effetEquipeEntreeAdv_.setDamageRateAgainstFoe("(min(VAR__EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION__PICOTS,3)+1):16");
+        effetEquipeEntreeAdv_.setDamageRateAgainstFoe("("+MbOperationNode.MIN+"(VAR__EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION__PICOTS,3)+1):16");
         effetEquipeEntreeAdv_.setTargetChoice(TargetChoice.LANCEUR);
         effetEquipeEntreeAdv_.setFail(NULL_REF);
-        effetEquipeEntreeAdv_.setFailSending("VAR__IMMU_TYPE_ATT_COMBATTANT_ENTRANT__SOL|cardinal(inter({VAR__COMBATTANT_ENTRANT_TYPES},{VOL}))>0");
+        effetEquipeEntreeAdv_.setFailSending("VAR__IMMU_TYPE_ATT_COMBATTANT_ENTRANT__SOL|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__COMBATTANT_ENTRANT_TYPES},{VOL}))>0");
         ficheAttaqueNonOff_.getEffects().add(effetEquipeEntreeAdv_);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         _data.completeQuickMembers(PICOTS_BIS,ficheAttaqueNonOff_);
@@ -5081,7 +5082,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("min(VAR__LANCEUR_NB_UTILISATION__STOCKAGE,3)*100");
+        effetDegats_.setPower(MbOperationNode.MIN+"(VAR__LANCEUR_NB_UTILISATION__STOCKAGE,3)*100");
         effetDegats_.setRandMax(true);
         effetDegats_.setStatisAtt(Statistic.SPECIAL_ATTACK);
         effetDegats_.setUserAttack(true);
@@ -5193,7 +5194,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_ = defaultEffetStatut();
         effetStatut_.getLawStatus().addQuickEvent(NULL_REF,new LgInt("7"));
         effetStatut_.getLawStatus().addQuickEvent(BRULURE,new LgInt("3"));
-        effetStatut_.getLocalFailStatus().addEntry(BRULURE,"cardinal(inter({VAR__CIBLE_STATUTS},{BRULURE}))>0|VAR__CIBLE_CLONE>0|cardinal(inter({VAR__CIBLE_TYPES},{FEU}))>0");
+        effetStatut_.getLocalFailStatus().addEntry(BRULURE,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{BRULURE}))>0|VAR__CIBLE_CLONE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_TYPES},{FEU}))>0");
         effetStatut_.setTargetChoice(TargetChoice.ADJ_UNIQ);
         effetStatut_.getRequiredSuccessfulEffects().add(1);
         ficheAttaqueOff_.getEffects().add(effetStatut_);
@@ -5208,7 +5209,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ANY_FOE);
         effetStatut_ = defaultEffetStatut();
         effetStatut_.getLawStatus().addQuickEvent(POISON_ST,new LgInt("1"));
-        effetStatut_.getLocalFailStatus().addEntry(POISON_ST,"cardinal(inter({VAR__CIBLE_STATUTS},{POISON_ST;POISON_GRAVE}))>0|VAR__CIBLE_CLONE>0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))>0");
+        effetStatut_.getLocalFailStatus().addEntry(POISON_ST,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{POISON_ST;POISON_GRAVE}))>0|VAR__CIBLE_CLONE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_TYPES},{POISON;ACIER}))>0");
         effetStatut_.setTargetChoice(TargetChoice.ANY_FOE);
         //validate effetStatut_.getRequiredSuccessfulEffects().add(1);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
@@ -5229,7 +5230,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("95*(2*caracferme(inclusnum({VAR__CIBLE_ATTAQUE_CHOISIE},{PLONGEE})*VAR__CIBLE_DISPARAIT,1,1)+caracferme(VAR__CIBLE_DISPARAIT,0,0))");
+        effetDegats_.setPower("95*(2*"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({VAR__CIBLE_ATTAQUE_CHOISIE},{PLONGEE})*VAR__CIBLE_DISPARAIT,1,1)+"+MbOperationNode.CARAC_FERME+"(VAR__CIBLE_DISPARAIT,0,0))");
         effetDegats_.setStatisAtt(Statistic.SPECIAL_ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.SPECIAL_DEFENSE);
@@ -5322,7 +5323,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetTauxPVMax_ = defaultEffectFullHpRate();
-        effetTauxPVMax_.setRestoredHp("1/2*caracferme(cardinal({VAR__CLIMATS}),0,0)+caracdroiteferme(cardinal({VAR__CLIMATS}),1)*(2/3*cardinal(inter({VAR__CLIMATS},{ZENITH}))+1/5*cardinal(inter({VAR__CLIMATS},{ORAGE}))+1/4*cardinal(inter({VAR__CLIMATS},{GRELE;DANSE_PLUIE;TEMPETESABLE})))");
+        effetTauxPVMax_.setRestoredHp("1/2*"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"({VAR__CLIMATS}),0,0)+"+MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.CARD+"({VAR__CLIMATS}),1)*(2/3*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CLIMATS},{ZENITH}))+1/5*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CLIMATS},{ORAGE}))+1/4*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CLIMATS},{GRELE;DANSE_PLUIE;TEMPETESABLE})))");
         effetTauxPVMax_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetTauxPVMax_);
         _data.completeQuickMembers(RAYON_LUNE,ficheAttaqueNonOff_);
@@ -5437,8 +5438,8 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetCommun_ = defaultEffetCommun();
-        effetCommun_.getCommonValue().addEntry(Statistic.SPECIAL_DEFENSE,"moy(VAR__LANCEUR_STATIS__SPECIAL_DEFENSE,VAR__CIBLE_STATIS__SPECIAL_DEFENSE)");
-        effetCommun_.getCommonValue().addEntry(Statistic.DEFENSE,"moy(VAR__LANCEUR_STATIS__DEFENSE,VAR__CIBLE_STATIS__DEFENSE)");
+        effetCommun_.getCommonValue().addEntry(Statistic.SPECIAL_DEFENSE,MbOperationNode.MOY+"(VAR__LANCEUR_STATIS__SPECIAL_DEFENSE,VAR__CIBLE_STATIS__SPECIAL_DEFENSE)");
+        effetCommun_.getCommonValue().addEntry(Statistic.DEFENSE,MbOperationNode.MOY+"(VAR__LANCEUR_STATIS__DEFENSE,VAR__CIBLE_STATIS__DEFENSE)");
         effetCommun_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetCommun_);
         _data.completeQuickMembers(PARTAGE_GARDE,ficheAttaqueNonOff_);
@@ -5453,7 +5454,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetCommun_ = defaultEffetCommun();
-        effetCommun_.getCommonValue().addEntry(Statistic.PV_RESTANTS,"moy(VAR__LANCEUR_PV_RESTANTS,VAR__CIBLE_PV_RESTANTS)");
+        effetCommun_.getCommonValue().addEntry(Statistic.PV_RESTANTS,MbOperationNode.MOY+"(VAR__LANCEUR_PV_RESTANTS,VAR__CIBLE_PV_RESTANTS)");
         effetCommun_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetCommun_);
         _data.completeQuickMembers(BALANCE,ficheAttaqueNonOff_);
@@ -5468,7 +5469,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetCommun_ = defaultEffetCommun();
-        effetCommun_.getCommonValue().addEntry(Statistic.PV_RESTANTS,"min(VAR__LANCEUR_PV_RESTANTS,VAR__CIBLE_PV_RESTANTS)");
+        effetCommun_.getCommonValue().addEntry(Statistic.PV_RESTANTS,MbOperationNode.MIN+"(VAR__LANCEUR_PV_RESTANTS,VAR__CIBLE_PV_RESTANTS)");
         effetCommun_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetCommun_);
         _data.completeQuickMembers(EFFORT,ficheAttaqueNonOff_);
@@ -5486,7 +5487,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetClone_ = defaultEffetClone();
         effetClone_.setHpRateClone(new Rate("1/4"));
         effetClone_.setTargetChoice(TargetChoice.LANCEUR);
-        effetClone_.setFail("VAR__LANCEUR_CLONE>0|div(VAR__LANCEUR_PV_RESTANTS,VAR__LANCEUR_PV_MAX)<1/4");
+        effetClone_.setFail("VAR__LANCEUR_CLONE>0|"+MbOperationNode.DIV_FCT+"(VAR__LANCEUR_PV_RESTANTS,VAR__LANCEUR_PV_MAX)<1/4");
         ficheAttaqueNonOff_.getEffects().add(effetClone_);
         _data.completeQuickMembers(CLONAGE,ficheAttaqueNonOff_);
         ficheAttaqueOff_ = defaultFicheAttaqueOff();
@@ -5539,7 +5540,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_.getDeletedStatus().add(POISON_GRAVE);
         effetStatut_.getDeletedStatus().add(POISON_ST);
         effetStatut_.getDeletedStatus().add(VAMPIGRAINE);
-        effetStatut_.getLocalFailStatus().addEntry(SOMMEIL_REPOS,"cardinal(inter({VAR__LANCEUR_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0");
+        effetStatut_.getLocalFailStatus().addEntry(SOMMEIL_REPOS,MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__LANCEUR_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0");
         effetStatut_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatut_.setFail("VAR__LANCEUR_PV_RESTANTS=VAR__LANCEUR_PV_MAX");
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
@@ -5620,7 +5621,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetChgtObj_ = defaultEffetChgtObj();
         effetChgtObj_.setMoveObject(MoveItemType.GIVE_OBJECT_TARGET);
         effetChgtObj_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-        effetChgtObj_.setFail("VAR__CIBLE_CLONE>0|cardinal({VAR__LANCEUR_OBJET})=0|cardinal({VAR__CIBLE_OBJET})>0|VAR__CIBLE_EFFET__REFLET_MAGIK");
+        effetChgtObj_.setFail("VAR__CIBLE_CLONE>0|"+MbOperationNode.CARD+"({VAR__LANCEUR_OBJET})=0|"+MbOperationNode.CARD+"({VAR__CIBLE_OBJET})>0|VAR__CIBLE_EFFET__REFLET_MAGIK");
         ficheAttaqueNonOff_.getEffects().add(effetChgtObj_);
         _data.completeQuickMembers(PASSE_CADEAU,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -5682,8 +5683,8 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ADJ_UNIQ);
         effetDegats_ = defaultEffetDegats();
-        effetDegats_.getDamageLaw().addQuickEvent("div(VAR__CIBLE_PV_RESTANTS,2)",new LgInt("1"));
-        effetDegats_.getDamageLaw().addQuickEvent("div(VAR__CIBLE_PV_RESTANTS*4,8)",new LgInt("1"));
+        effetDegats_.getDamageLaw().addQuickEvent(MbOperationNode.DIV_FCT+"(VAR__CIBLE_PV_RESTANTS,2)",new LgInt("1"));
+        effetDegats_.getDamageLaw().addQuickEvent(MbOperationNode.DIV_FCT+"(VAR__CIBLE_PV_RESTANTS*4,8)",new LgInt("1"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
         effetDegats_.setStatisAtt(Statistic.ATTACK);
@@ -5706,7 +5707,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ADJ_UNIQ);
         effetDegats_ = defaultEffetDegats();
         effetDegats_.getDamageLaw().addQuickEvent(NULL_REF,new LgInt("1"));
-        effetDegats_.getDamageLaw().addQuickEvent("div(VAR__CIBLE_PV_RESTANTS,2)",new LgInt("1"));
+        effetDegats_.getDamageLaw().addQuickEvent(MbOperationNode.DIV_FCT+"(VAR__CIBLE_PV_RESTANTS,2)",new LgInt("1"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
         effetDegats_.setStatisAtt(Statistic.ATTACK);

@@ -25,6 +25,7 @@ import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
+import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.threads.AbstractAtomicIntegerCoreAdd;
@@ -68,9 +69,9 @@ public class InitializationDataBase extends EquallablePkUtil {
     protected static final TargetCoords POKEMON_FOE_TARGET_TWO = TargetCoords.toFoeTarget((byte) 2);
     protected static final TargetCoords POKEMON_FOE_TARGET_THREE = TargetCoords.toFoeTarget((byte) 3);
 
-    protected static final String F = "F";
+    protected static final String F = MbOperationNode.FALSE_STRING;
 
-    protected static final String V = "V";
+    protected static final String V = MbOperationNode.TRUE_STRING;
 
     protected static final String TENEBRE = "TENEBRE";
 
@@ -1585,11 +1586,11 @@ public class InitializationDataBase extends EquallablePkUtil {
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
         _data.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("0"));
         initDefaultConsts(POKE_BALL,
-                "caracdroiteferme(div(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)",
-                "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
-                "div(2*caracgaucheouvert(VAR__BOOST,0),max(2-VAR__BOOST,1))+div((2+VAR__BOOST)*caracdroiteferme(VAR__BOOST,0),2)",
-                "puis(2,VAR__BOOST-4)",
-                "div((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"(VAR__BOOST,0),"+MbOperationNode.MAX+"(2-VAR__BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+VAR__BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"(VAR__BOOST,0),2)",
+                MbOperationNode.PUIS+"(2,VAR__BOOST-4)",
+                MbOperationNode.DIV_FCT+"((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))",
                 LUTTE,
                 "METAMORPH", _data);
 //        _data.addConstNotNumTest("BALL_DEF", "POKE_BALL");
@@ -1607,11 +1608,11 @@ public class InitializationDataBase extends EquallablePkUtil {
 
     protected static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().addEntry(ExpType.E,"2*VAR__NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.L,"5/4*puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.M,"puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.P,"puis(VAR__NIVEAU,2)");
+        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
         _data.getExpGrowth().addEntry(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.R,"4/5*puis(VAR__NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
         _data.getRates().addEntry(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().addEntry(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().addEntry(DifficultyWinPointsFight.DIFFICILE, "1");

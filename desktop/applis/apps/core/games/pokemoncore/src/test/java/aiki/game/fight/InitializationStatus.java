@@ -15,6 +15,7 @@ import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
@@ -206,8 +207,8 @@ final class InitializationStatus extends EquallablePkUtil {
         effectEndRoundStatusRelation_.setInflictedRateHpTarget(new Rate("1/4"));
         effectEndRoundStatusRelation_.setEndRoundRank(37);
         effectEndRoundStatusRelation_.setTargetChoice(TargetChoice.NOTHING);
-        effectEndRoundStatusRelation_.setFail("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
-        effectEndRoundStatusRelation_.setFailEndRound("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effectEndRoundStatusRelation_.setFail(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effectEndRoundStatusRelation_.setFailEndRound(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
         statut_.getEffectEndRound().add(effectEndRoundStatusRelation_);
         _data.completeQuickMembers(CAUCHEMAR,statut_);
         statusBeginRound_ = defaultStatusBeginRound();
@@ -220,8 +221,8 @@ final class InitializationStatus extends EquallablePkUtil {
 //        effectEndRoundStatusRelation_.setEndRoundRank(37);
         effectEndRoundStatusRelation_.setEndRoundRank(50);
         effectEndRoundStatusRelation_.setTargetChoice(TargetChoice.NOTHING);
-        effectEndRoundStatusRelation_.setFail("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
-        effectEndRoundStatusRelation_.setFailEndRound("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effectEndRoundStatusRelation_.setFail(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effectEndRoundStatusRelation_.setFailEndRound(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
         statusBeginRound_.getEffectEndRound().add(effectEndRoundStatusRelation_);
         statusBeginRound_.setIncrementEndRound(45);
         _data.completeQuickMembers(NUIT_BLANCHE,statusBeginRound_);
@@ -236,8 +237,8 @@ final class InitializationStatus extends EquallablePkUtil {
 //        effectEndRoundStatusRelation_.setEndRoundRank(37);
         effectEndRoundStatusRelation_.setEndRoundRank(49);
         effectEndRoundStatusRelation_.setTargetChoice(TargetChoice.NOTHING);
-        effectEndRoundStatusRelation_.setFail("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
-        effectEndRoundStatusRelation_.setFailEndRound("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effectEndRoundStatusRelation_.setFail(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effectEndRoundStatusRelation_.setFailEndRound(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
         statusBeginRound_.getEffectEndRound().add(effectEndRoundStatusRelation_);
         statusBeginRound_.setIncrementEndRound(46);
         _data.completeQuickMembers(NUIT_BLANCHE_BIS,statusBeginRound_);
@@ -256,8 +257,8 @@ final class InitializationStatus extends EquallablePkUtil {
 //        effectEndRoundStatusRelation_.setEndRoundRank(37);
         effectEndRoundStatusRelation_.setEndRoundRank(48);
         effectEndRoundStatusRelation_.setTargetChoice(TargetChoice.NOTHING);
-        effectEndRoundStatusRelation_.setFail("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
-        effectEndRoundStatusRelation_.setFailEndRound("cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effectEndRoundStatusRelation_.setFail(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
+        effectEndRoundStatusRelation_.setFailEndRound(MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))=0");
         statusBeginRound_.getEffectEndRound().add(effectEndRoundStatusRelation_);
         _data.completeQuickMembers(NUIT_NOIRE,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
@@ -284,7 +285,7 @@ final class InitializationStatus extends EquallablePkUtil {
         statut_.setCatchingRate(new Rate("3/2"));
         statut_.getMultStat().addEntry(Statistic.ATTACK,new Rate("1/2"));
         statut_.getMultStat().addEntry(Statistic.SPEED,new Rate("2"));
-        statut_.setFail("VAR__FIGHTER_CLONE>0|cardinal(inter({VAR__FIGHTER_TYPES},{FEU}))>0");
+        statut_.setFail("VAR__FIGHTER_CLONE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__FIGHTER_TYPES},{FEU}))>0");
         effectEndRoundSingleStatus_ = defaultEffectEndRoundSingleStatus();
         effectEndRoundSingleStatus_.setInflictedRateHpTarget(new Rate("1/8"));
         effectEndRoundSingleStatus_.setEndRoundRank(35);
@@ -299,7 +300,7 @@ final class InitializationStatus extends EquallablePkUtil {
         statusBeginRound_.getMultStat().addEntry(Statistic.SPEED,new Rate("2"));
         statusBeginRound_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("2"),new LgInt("1"));
         statusBeginRound_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("3"),new LgInt("1"));
-        statusBeginRound_.setFail("VAR__FIGHTER_CLONE>0|cardinal(inter({VAR__FIGHTER_TYPES},{FEU}))>0");
+        statusBeginRound_.setFail("VAR__FIGHTER_CLONE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__FIGHTER_TYPES},{FEU}))>0");
         effectEndRoundSingleStatus_ = defaultEffectEndRoundSingleStatus();
         effectEndRoundSingleStatus_.setInflictedRateHpTarget(new Rate("1/8"));
 //        effectEndRoundSingleStatus_.setEndRoundRank(35);
@@ -314,7 +315,7 @@ final class InitializationStatus extends EquallablePkUtil {
         statusBeginRound_.getMultStat().addEntry(Statistic.ATTACK,new Rate("1/2"));
         statusBeginRound_.getMultStat().addEntry(Statistic.SPEED,new Rate("2"));
         statusBeginRound_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("2"),new LgInt("1"));
-        statusBeginRound_.setFail("VAR__FIGHTER_CLONE>0|cardinal(inter({VAR__FIGHTER_TYPES},{FEU}))>0");
+        statusBeginRound_.setFail("VAR__FIGHTER_CLONE>0|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({VAR__FIGHTER_TYPES},{FEU}))>0");
         effectEndRoundSingleStatus_ = defaultEffectEndRoundSingleStatus();
         effectEndRoundSingleStatus_.setInflictedRateHpTarget(new Rate("1/8"));
 //        effectEndRoundSingleStatus_.setEndRoundRank(35);
