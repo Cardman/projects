@@ -8,10 +8,10 @@ import code.util.core.StringUtil;
 
 public final class MathResolver {
 
-    static final String TRUE = "V";
+    static final String TRUE = MbOperationNode.TRUE_STRING;
 
 
-    static final String FALSE = "F";
+    static final String FALSE = MbOperationNode.FALSE_STRING;
     static final char DELIMITER_STRING_BEGIN = '{';
 
     private MathResolver(){

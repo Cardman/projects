@@ -54,26 +54,26 @@ public class EvolvedMathFactoryTest extends EquallableMathUtil {
     @Test
     public void evaluateDirectlyBooleanTest() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
-        assertEq(false, EvolvedMathFactory.evaluateDirectlyBoolean("F"));
+        assertEq(false, EvolvedMathFactory.evaluateDirectlyBoolean(MbOperationNode.FALSE_STRING));
     }
     @Test
     public void evaluateExpBoolean1Test() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
-        EvolvedBooleanString n_ = EvolvedMathFactory.createBooleanString("F", new StringMap<String>());
+        EvolvedBooleanString n_ = EvolvedMathFactory.createBooleanString(MbOperationNode.FALSE_STRING, new StringMap<String>());
         n_.evaluateExp(false);
         assertEq(false,n_.isResult());
-        assertEq("F",n_.beforeEvaluated());
+        assertEq(MbOperationNode.FALSE_STRING,n_.beforeEvaluated());
         assertEq(true,n_.isValid());
     }
     @Test
     public void evaluateExpBoolean2Test() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put("VARIABLE","F");
+        vars_.put("VARIABLE",MbOperationNode.FALSE_STRING);
         EvolvedBooleanString n_ = EvolvedMathFactory.createBooleanString("VARIABLE", vars_);
         n_.evaluateExp(false);
         assertEq(false,n_.isResult());
-        assertEq("F",n_.beforeEvaluated());
+        assertEq(MbOperationNode.FALSE_STRING,n_.beforeEvaluated());
         assertEq(true,n_.isValid());
     }
     @Test
@@ -142,13 +142,13 @@ public class EvolvedMathFactoryTest extends EquallableMathUtil {
     public void evaluateBoolean1Test() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         StringMap<String> vars_ = new StringMap<String>();
-        assertEq(false, EvolvedMathFactory.evaluateBoolean("F",vars_,true));
+        assertEq(false, EvolvedMathFactory.evaluateBoolean(MbOperationNode.FALSE_STRING,vars_,true));
     }
     @Test
     public void evaluateBoolean2Test() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         StringMap<String> vars_ = new StringMap<String>();
-        assertEq(true, EvolvedMathFactory.evaluateBoolean("V",vars_,false));
+        assertEq(true, EvolvedMathFactory.evaluateBoolean(MbOperationNode.TRUE_STRING,vars_,false));
     }
     @Test
     public void evaluateBoolean3Test() {
