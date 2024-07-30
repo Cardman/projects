@@ -6,6 +6,7 @@ import aiki.game.params.enums.*;
 import aiki.fight.util.*;
 import aiki.fight.pokemon.enums.*;
 public final class Cst{
+public static final String NIV="VAR__NIVEAU";
 private Cst(){}
 public static StringMap<Rate> cn(){
 return Cst0.cn();

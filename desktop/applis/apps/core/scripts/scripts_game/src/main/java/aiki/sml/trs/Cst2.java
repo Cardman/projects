@@ -1,16 +1,17 @@
 package aiki.sml.trs;
+import code.maths.litteral.*;
 import code.util.*;
 import aiki.fight.pokemon.enums.*;
 public final class Cst2{
 private Cst2(){}
 static IdMap<ExpType,String> ex(){
 IdMap<ExpType,String> e=new IdMap<ExpType,String>(new CollCapacity(6));
-e.addEntry(ExpType.P,"caracferme(VAR__NIVEAU,1,1)+caracdroiteferme(VAR__NIVEAU,2)*(6/5*puis(VAR__NIVEAU,3)-15*puis(VAR__NIVEAU,2)+100*VAR__NIVEAU-140)");
-e.addEntry(ExpType.L,"5/4*puis(VAR__NIVEAU,3)");
-e.addEntry(ExpType.E,"caracferme(VAR__NIVEAU,1,50)*puis(VAR__NIVEAU,3)*div(100-VAR__NIVEAU,50)+caracferme(VAR__NIVEAU,51,68)*puis(VAR__NIVEAU,3)*div((150-VAR__NIVEAU),100)+caracferme(VAR__NIVEAU,69,98)*puis(VAR__NIVEAU,3)*div(ent(div((1911-10*VAR__NIVEAU),3)),500)+caracferme(VAR__NIVEAU,99,110)*puis(VAR__NIVEAU,3)*div((160-VAR__NIVEAU),100)+(363*puis(VAR__NIVEAU,2)-75027*VAR__NIVEAU+4526170)*caracdroiteferme(VAR__NIVEAU,111)");
-e.addEntry(ExpType.F,"caracferme(VAR__NIVEAU,1,15)*puis(VAR__NIVEAU,3)*div(24+ent(div(VAR__NIVEAU+1,3)),50)+caracferme(VAR__NIVEAU,16,35)*puis(VAR__NIVEAU,3)*div(14+VAR__NIVEAU,50)+caracdroiteferme(VAR__NIVEAU,36)*puis(VAR__NIVEAU,3)*div(32+ent(div(VAR__NIVEAU,2)),50)");
-e.addEntry(ExpType.M,"puis(VAR__NIVEAU,3)");
-e.addEntry(ExpType.R,"4/5*puis(VAR__NIVEAU,3)");
+e.addEntry(ExpType.P,MbOperationNode.CARAC_FERME+"("+Cst.NIV+",1,1)+"+MbOperationNode.CARAC_DROITE_FERME+"("+Cst.NIV+",2)*(6/5*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)-15*"+MbOperationNode.PUIS+"("+Cst.NIV+",2)+100*"+Cst.NIV+"-140)");
+e.addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)");
+e.addEntry(ExpType.E,MbOperationNode.CARAC_FERME+"("+Cst.NIV+",1,50)*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)*"+MbOperationNode.DIV_FCT+"(100-"+Cst.NIV+",50)+"+MbOperationNode.CARAC_FERME+"("+Cst.NIV+",51,68)*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)*"+MbOperationNode.DIV_FCT+"((150-"+Cst.NIV+"),100)+"+MbOperationNode.CARAC_FERME+"("+Cst.NIV+",69,98)*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)*"+MbOperationNode.DIV_FCT+"("+MbOperationNode.ENT+"("+MbOperationNode.DIV_FCT+"((1911-10*"+Cst.NIV+"),3)),500)+"+MbOperationNode.CARAC_FERME+"("+Cst.NIV+",99,110)*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)*"+MbOperationNode.DIV_FCT+"((160-"+Cst.NIV+"),100)+(363*"+MbOperationNode.PUIS+"("+Cst.NIV+",2)-75027*"+Cst.NIV+"+4526170)*"+MbOperationNode.CARAC_DROITE_FERME+"("+Cst.NIV+",111)");
+e.addEntry(ExpType.F,MbOperationNode.CARAC_FERME+"("+Cst.NIV+",1,15)*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)*"+MbOperationNode.DIV_FCT+"(24+"+MbOperationNode.ENT+"("+MbOperationNode.DIV_FCT+"("+Cst.NIV+"+1,3)),50)+"+MbOperationNode.CARAC_FERME+"("+Cst.NIV+",16,35)*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)*"+MbOperationNode.DIV_FCT+"(14+"+Cst.NIV+",50)+"+MbOperationNode.CARAC_DROITE_FERME+"("+Cst.NIV+",36)*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)*"+MbOperationNode.DIV_FCT+"(32+"+MbOperationNode.ENT+"("+MbOperationNode.DIV_FCT+"("+Cst.NIV+",2)),50)");
+e.addEntry(ExpType.M,MbOperationNode.PUIS+"("+Cst.NIV+",3)");
+e.addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+Cst.NIV+",3)");
 return e;
 }
 }
