@@ -48,6 +48,7 @@ import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.scripts.confs.PkScriptPagesInit;
 import code.util.CustList;
@@ -1532,11 +1533,11 @@ public abstract class InitDbFight extends InitDbBean {
 
     private static void pts(DataBase _data) {
         _data.getExpGrowth().put(ExpType.E,"2*NIVEAU");
-        _data.getExpGrowth().put(ExpType.L,"5/4*puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.M,"puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.P,"puis(VAR__NIVEAU,2)");
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
         _data.getExpGrowth().put(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().put(ExpType.R,"4/5*puis(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");

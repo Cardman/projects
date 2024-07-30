@@ -29,6 +29,7 @@ import aiki.map.util.*;
 import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.*;
+import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.*;
 import code.util.*;
 
@@ -686,11 +687,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     }
     static void initExpPointsSec(DataBase _data) {
         _data.getExpGrowth().put(ExpType.E,"2*VAR__NIVEAU");
-        _data.getExpGrowth().put(ExpType.L,"5/4*puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.M,"puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.P,"puis(VAR__NIVEAU,2)");
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
         _data.getExpGrowth().put(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().put(ExpType.R,"4/5*puis(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -721,7 +722,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
                 "caracdroiteferme(div(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)",
                 "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
                 "div(2*caracgaucheouvert(VAR__BOOST,0),max(2-VAR__BOOST,1))+div((2+VAR__BOOST)*caracdroiteferme(VAR__BOOST,0),2)",
-                "puis(2,VAR__BOOST-4)",
+                ""+MbOperationNode.PUIS+"(2,VAR__BOOST-4)",
                 "div((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))",
                 LUTTE,
                 "METAMORPH", _data);
@@ -742,11 +743,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     }
     private static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().put(ExpType.E,"2*NIVEAU");
-        _data.getExpGrowth().put(ExpType.L,"5/4*puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.M,"puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.P,"puis(VAR__NIVEAU,2)");
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.M,""+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.P,""+MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
         _data.getExpGrowth().put(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().put(ExpType.R,"4/5*puis(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
