@@ -271,11 +271,11 @@ public abstract class InitDbValid {
     }
     public static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().addEntry(ExpType.E,"2*VAR__NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.L,"5/4*puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.M,"puis(VAR__NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.P,"puis(VAR__NIVEAU,2)");
+        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
         _data.getExpGrowth().addEntry(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.R,"4/5*puis(VAR__NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
         _data.getRates().addEntry(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().addEntry(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().addEntry(DifficultyWinPointsFight.DIFFICILE, "1");
