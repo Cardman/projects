@@ -27,6 +27,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoordsList;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.DefaultGenerator;
 import code.threads.AbstractAtomicBooleanCore;
 import code.threads.AbstractAtomicIntegerCoreAdd;
@@ -1378,7 +1379,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         move_.getEffects().add(Instances.newEffectStatistic());
@@ -1405,7 +1406,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         move_.getEffects().add(Instances.newEffectStatistic());
@@ -1432,7 +1433,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         move_.getEffects().add(Instances.newEffectStatistic());
@@ -1459,7 +1460,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
@@ -1489,7 +1490,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
@@ -1515,7 +1516,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
@@ -1541,7 +1542,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
@@ -1568,7 +1569,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
@@ -1595,7 +1596,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
@@ -1622,7 +1623,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
@@ -1649,7 +1650,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
@@ -1676,7 +1677,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         StatusMoveData move_ = Instances.newStatusMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
         effectDamage_.setPower("VAR");
-        effectDamage_.setFail("V");
+        effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
@@ -2385,9 +2386,9 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         litt_.addEntry("MYVAR","status\tmv{0}\ta move");
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
-        math_.addEntry("V","T");
+        math_.addEntry(MbOperationNode.TRUE_STRING,"T");
         math_.addEntry("F","F");
-        assertEq("T", data_.getFormula("V",LANGUAGE));
+        assertEq("T", data_.getFormula(MbOperationNode.TRUE_STRING,LANGUAGE));
     }
     @Test
     public void getFormula18Test() {
@@ -2399,7 +2400,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         litt_.addEntry("MYVAR","status\tmv{0}\ta move");
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
-        math_.addEntry("V","T");
+        math_.addEntry(MbOperationNode.TRUE_STRING,"T");
         math_.addEntry("F","F");
         assertEq("F", data_.getFormula("F",LANGUAGE));
     }
