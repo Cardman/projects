@@ -2798,6 +2798,10 @@ public class MathUtilTest extends EquallableMathUtil {
         assertTrue(MathUtil.processEl("1/0", false, new StringMap<String>()).getErr() instanceof ErrorStatus);
     }
     @Test
+    public void evaluateExp_no_op_74_Fail(){
+        assertTrue(MathUtil.processEl("1_0", false, new StringMap<String>()).getErr() instanceof ErrorStatus);
+    }
+    @Test
     public void evaluateExp_empty_Fail(){
         assertTrue(MathUtil.processEl("", false, new StringMap<String>()).getErr() instanceof ErrorStatus);
     }
