@@ -67,6 +67,7 @@ public abstract class InitDbValid {
     public static final String BUILDING = "building";
     public static final String NULL_REF = DataBase.EMPTY_STRING;
     public static final String TAB = "\t";
+    public static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     public static DataBase initDb() {
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
@@ -248,8 +249,8 @@ public abstract class InitDbValid {
         initDefaultConsts(POKE_BALL,
                 "1",
                 "1",
-                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"(VAR__BOOST,0),"+MbOperationNode.MAX+"(2-VAR__BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+VAR__BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"(VAR__BOOST,0),2)",
-                MbOperationNode.PUIS+"(2,VAR__BOOST-4)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"BOOST,0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+"BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+"BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"BOOST,0),2)",
+                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+"BOOST-4)",
                 "1",
                 ECLAIR_3,
                 "METAMORPH", _data);
@@ -268,14 +269,15 @@ public abstract class InitDbValid {
         _db.setDefMove(_defMove);
         _db.setDefaultEggGroup(_defaultEggGoup);
         _db.setDefCategory("_");
+        _db.setPrefixVar(DataBase.VAR_DEF);
     }
     public static void initExpPoints(DataBase _data) {
-        _data.getExpGrowth().addEntry(ExpType.E,"2*VAR__NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
-        _data.getExpGrowth().addEntry(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,2)");
+        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
         _data.getRates().addEntry(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().addEntry(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().addEntry(DifficultyWinPointsFight.DIFFICILE, "1");

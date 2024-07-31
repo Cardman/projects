@@ -42,7 +42,7 @@ import code.util.ints.*;
 import org.junit.Assert;
 
 public abstract class EquallablePkUtil {
-
+    protected static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     protected static final String AUTRE = "AUTRE";
     private static final String DIFF = " != ";
     public static void assertNotNull(Dims _value) {
@@ -464,5 +464,6 @@ public abstract class EquallablePkUtil {
         _db.setDefMove(_defMove);
         _db.setDefaultEggGroup(_defaultEggGoup);
         _db.setDefCategory(AUTRE);
+        _db.setPrefixVar(DataBase.VAR_DEF);
     }
 }

@@ -114,6 +114,13 @@ public class DataBaseTest extends EquallablePkUtil {
         assertEq("",data_.getDamageFormula());
         assertEq("",data_.getDefCategory());
     }
+
+    @Test
+    public void initBase11() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.PREFIX_KEY,"0");
+        assertEq("0",data_.getPrefixVar());
+    }
     @Test
     public void test() {
         DataBase data_ = InitializationDataBase.initDataBase();
@@ -183,10 +190,6 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.getEndGameImage();
         data_.getAnimAbsorb();
         assertTrue(!data_.isError());
-    }
-
-    private static DataBase newData() {
-        return new DataBase(DefaultGenerator.oneElt());
     }
 
     @Test
@@ -271,7 +274,35 @@ public class DataBaseTest extends EquallablePkUtil {
 
     @Test
     public void isVariableTest() {
-        assertTrue(!DataBase.isVariable(DataBase.VAR_PREFIX));
+        assertTrue(!DataBase.isVariable(VAR_PREFIX, VAR_PREFIX));
+    }
+    @Test
+    public void validateOtherConstants1(){
+        DataBase data_ = newData();
+        data_.setPrefixVar("MY_VAR_");
+        data_.validateOtherConstants();
+        assertEq(DataBase.VAR_DEF,data_.getPrefixVar());
+    }
+    @Test
+    public void validateOtherConstants2(){
+        DataBase data_ = newData();
+        data_.setPrefixVar("_MY_VAR");
+        data_.validateOtherConstants();
+        assertEq(DataBase.VAR_DEF,data_.getPrefixVar());
+    }
+    @Test
+    public void validateOtherConstants3(){
+        DataBase data_ = newData();
+        data_.setPrefixVar("");
+        data_.validateOtherConstants();
+        assertEq(DataBase.VAR_DEF,data_.getPrefixVar());
+    }
+    @Test
+    public void validateOtherConstants4(){
+        DataBase data_ = newData();
+        data_.setPrefixVar("MY_VAR");
+        data_.validateOtherConstants();
+        assertEq("MY_VAR",data_.getPrefixVar());
     }
     @Test
     public void completeMembers1Test() {
@@ -339,13 +370,13 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_ = new StatusMoveData();
         moveDamage_.setPp((short) 20);
 
-        moveDamage_.setAccuracy(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        moveDamage_.setAccuracy(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getCategories().size());
         assertEq(1, data_.getVariables().size());
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -397,13 +428,13 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.setEffects(new CustList<Effect>());
         EffectDamage damage_;
         damage_ = new EffectDamage();
-        damage_.setFail(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        damage_.setFail(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         damage_.setPower("50");
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -419,12 +450,12 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectDamage damage_;
         damage_ = new EffectDamage();
         damage_.setFail("");
-        damage_.setPower(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        damage_.setPower(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -442,11 +473,11 @@ public class DataBaseTest extends EquallablePkUtil {
         damage_.setFail("");
         damage_.setPower("50");
         damage_.setDamageLaw(new MonteCarloString());
-        damage_.getDamageLaw().addQuickEvent(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"), LgInt.one());
+        damage_.getDamageLaw().addQuickEvent(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"), LgInt.one());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -484,12 +515,12 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatis_ = new EffectStatistic();
         effStatis_.setFail("");
         effStatis_.setLocalFailStatis(new IdMap<Statistic,String>());
-        effStatis_.getLocalFailStatis().put(Statistic.ATTACK, StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        effStatis_.getLocalFailStatis().put(Statistic.ATTACK, StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         effStatis_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>());
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -507,11 +538,11 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatis_.setFail("");
         effStatis_.setLocalFailStatis(new IdMap<Statistic,String>());
         effStatis_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>());
-        effStatis_.getLocalFailSwapBoostStatis().put(Statistic.ATTACK, StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        effStatis_.getLocalFailSwapBoostStatis().put(Statistic.ATTACK, StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -548,11 +579,11 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_ = new EffectStatus();
         effStatus_.setFail("");
         effStatus_.setLocalFailStatus(new StringMap<String>());
-        effStatus_.getLocalFailStatus().put("PSN", StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        effStatus_.getLocalFailStatus().put("PSN", StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -589,11 +620,11 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_ = new EffectCommonStatistics();
         effStatus_.setFail("");
         effStatus_.setCommonValue(new IdMap<Statistic,String>());
-        effStatus_.getCommonValue().put(Statistic.ATTACK, StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        effStatus_.getCommonValue().put(Statistic.ATTACK, StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -629,11 +660,11 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectFullHpRate effStatus_;
         effStatus_ = new EffectFullHpRate();
         effStatus_.setFail("");
-        effStatus_.setRestoredHp(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        effStatus_.setRestoredHp(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -673,11 +704,11 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_ = new EffectTeamWhileSendFoe();
         effStatus_.setFail("");
         effStatus_.setFailSending("");
-        effStatus_.setDamageRateAgainstFoe(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"));
+        effStatus_.setDamageRateAgainstFoe(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
         assertTrue(StringUtil.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
         assertEq(0, data_.ppCopiedMove("QUEUE_DE_CHEVAL"));
@@ -1686,12 +1717,12 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectTeamWhileSendFoe effStatus_;
         effStatus_ = new EffectTeamWhileSendFoe();
         effStatus_.setFail("");
-        effStatus_.setFailSending(StringUtil.concat(DataBase.VAR_PREFIX,"NB_TURN>1"));
+        effStatus_.setFailSending(StringUtil.concat(VAR_PREFIX,"NB_TURN>1"));
         effStatus_.setDamageRateAgainstFoe("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
         assertTrue(StringUtil.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
     }
@@ -1709,13 +1740,13 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectCounterAttack effStatus_;
         effStatus_ = new EffectCounterAttack();
         effStatus_.setFail("");
-        effStatus_.setCounterFail(StringUtil.concat(DataBase.VAR_PREFIX,"NB_TURN>1"));
-        effStatus_.setProtectFail(StringUtil.concat(DataBase.VAR_PREFIX,"USED_MOVE=TACKLE"));
+        effStatus_.setCounterFail(StringUtil.concat(VAR_PREFIX,"NB_TURN>1"));
+        effStatus_.setProtectFail(StringUtil.concat(VAR_PREFIX,"USED_MOVE=TACKLE"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "NB_TURN")));
-        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(DataBase.VAR_PREFIX, "USED_MOVE")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "USED_MOVE")));
         assertEq(1, data_.getMovesCountering().size());
         assertTrue(StringUtil.contains(data_.getMovesCountering(), "QUEUE_DE_CHEVAL"));
     }
@@ -1825,7 +1856,7 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectDamage damage_;
         damage_ = new EffectDamage();
         damage_.setFail("");
-        damage_.setPower(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN__CHARGE*100+",DataBase.VAR_PREFIX,"NB_TURN__FLYING*100"));
+        damage_.setPower(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN__CHARGE*100+",VAR_PREFIX,"NB_TURN__FLYING*100"));
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
@@ -1854,4 +1885,11 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.calculateAvgPound();
         assertEq(Rate.newRate("1"),data_.getAvgWeight());
     }
+
+    private static DataBase newData() {
+        DataBase db_ = new DataBase(DefaultGenerator.oneElt());
+        db_.setPrefixVar(DataBase.VAR_DEF);
+        return db_;
+    }
+
 }

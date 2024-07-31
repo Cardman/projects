@@ -226,9 +226,10 @@ final class FightKo {
     }
 
     static Rate rateWonPoint(Difficulty _diff, DataBase _import, short _winner, short _looser) {
+        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_WINNER),Long.toString(_winner));
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LEVEL_LOOSER),Long.toString(_looser));
+        vars_.put(StringUtil.concat(varPref_,Fight.LEVEL_WINNER),Long.toString(_winner));
+        vars_.put(StringUtil.concat(varPref_,Fight.LEVEL_LOOSER),Long.toString(_looser));
         String exp_ = _import.getRates().getVal(_diff.getDiffWinningExpPtsFight());
         return _import.evaluatePositiveExp(exp_, vars_, Rate.one());
     }

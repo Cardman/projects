@@ -74,10 +74,6 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertTrue(data_.isError());
     }
 
-    private static DataBase newData() {
-        return new DataBase(DefaultGenerator.oneElt());
-    }
-
     @Test
     public void fail1Test() {
         PokemonData pkData_ = Instances.newPokemonData();
@@ -637,10 +633,10 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         data_.initValue(DataBase.DEF_CAT, AUTRE);
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE2));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE2));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
         data_.getCategories().add(AUTRE);
         StringMap<String> litt_ = new StringMap<String>();
         litt_.addEntry(TREMPETTE,"");
@@ -660,10 +656,10 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         data_.initValue(DataBase.DEF_CAT, AUTRE);
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE2));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE2));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
         StringMap<String> litt_ = new StringMap<String>();
         litt_.addEntry(TREMPETTE,"");
         litt_.addEntry(TREMPETTE2, StringUtil.concat(TAB,TAB));
@@ -683,10 +679,10 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         data_.initValue(DataBase.DEF_CAT, AUTRE);
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE,DataBase.SEP_BETWEEN_KEYS,CHARGE3,DataBase.SEP_BETWEEN_KEYS,CHARGE3));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE2,DataBase.SEP_BETWEEN_KEYS,CHARGE4));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE,DataBase.SEP_BETWEEN_KEYS,CHARGE3,DataBase.SEP_BETWEEN_KEYS,CHARGE3));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE2,DataBase.SEP_BETWEEN_KEYS,CHARGE4));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
+        data_.getVariables().add(StringUtil.concat(VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
         StringMap<String> litt_ = new StringMap<String>();
         litt_.addEntry(TREMPETTE, StringUtil.concat(TYPE_FORMULA,TAB,TAB));
         litt_.addEntry(TREMPETTE2, StringUtil.concat(TYPE_FORMULA,TAB,TAB));
@@ -1353,7 +1349,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
@@ -1378,7 +1374,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
@@ -1405,7 +1401,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
@@ -1432,14 +1428,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         move_.getEffects().add(Instances.newEffectStatistic());
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.TOUS_ADV);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1459,7 +1455,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
@@ -1469,7 +1465,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.getEffects().add(effectStatistic_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.TOUS_ADV);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1489,13 +1485,13 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.ADJ_MULT);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1515,13 +1511,13 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1541,14 +1537,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setConstUserChoice(true);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1568,14 +1564,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setConstUserChoice(true);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1595,14 +1591,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setRechargeRound(true);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1622,14 +1618,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setNbPrepaRound((short) 1);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1649,14 +1645,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setPriority((byte) -1);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1676,14 +1672,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         StatusMoveData move_ = Instances.newStatusMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower("VAR");
+        effectDamage_.setPower(DataBase.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setPriority((byte) -1);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1710,7 +1706,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setPriority((byte) -1);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1738,7 +1734,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.ANY_FOE);
         move_.setPriority((byte) -1);
-        move_.setAccuracy("VAR");
+        move_.setAccuracy(DataBase.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -2461,33 +2457,6 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("mvTREMPETTE2", desc_.getKey(0));
         assertEq("a move TREMPETTE2", desc_.getValue(0));
     }
-    private DataBase init() {
-        DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
-        data_.initializeMembers();
-        StringMap<String> tr_ = new StringMap<String>();
-        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getLitterals().addEntry(LANGUAGE,tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedFctMath().addEntry(LANGUAGE,tr_);
-        return data_;
-    }
     @Test
     public void failTableType1Test() {
         DataBase data_ =init();
@@ -3144,6 +3113,40 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.completeVariables();
         validate(data_, new ConcreteInteger(), new ConcreteBoolean(true));
         assertTrue(data_.isError());
+    }
+
+    private DataBase init() {
+        DataBase data_ = newData();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getLitterals().addEntry(LANGUAGE,tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedFctMath().addEntry(LANGUAGE,tr_);
+        return data_;
+    }
+
+    private static DataBase newData() {
+        DataBase db_ = new DataBase(DefaultGenerator.oneElt());
+        db_.setPrefixVar(DataBase.VAR_DEF);
+        return db_;
     }
 
     private void validate(DataBase _data, AbstractAtomicIntegerCoreAdd _per, AbstractAtomicBooleanCore _l) {

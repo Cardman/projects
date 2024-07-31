@@ -74,7 +74,7 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
         t_.setPower(Rate.one());
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, simple(StatusType.RELATION_UNIQUE));
-        f_.getData().setDamageFormula(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"+"+DataBase.VAR_PREFIX+Fight.POWER);
+        f_.getData().setDamageFormula(VAR_PREFIX+Fight.TEMPS_TOUR+"+"+VAR_PREFIX+Fight.POWER);
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);

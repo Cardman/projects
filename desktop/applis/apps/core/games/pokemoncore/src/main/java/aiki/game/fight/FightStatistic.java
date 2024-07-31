@@ -195,9 +195,10 @@ final class FightStatistic {
 
     static Rate rateBoost(byte _boost, DataBase _import) {
         //RATE_BOOST
+        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
         String numericExp_ = _import.getRateBoost();
         StringMap<String> variables_ = new StringMap<String>();
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(_boost));
+        variables_.put(StringUtil.concat(varPref_,Fight.BOOST), Long.toString(_boost));
         return _import.evaluatePositiveExp(numericExp_, variables_, Rate.one());
     }
 

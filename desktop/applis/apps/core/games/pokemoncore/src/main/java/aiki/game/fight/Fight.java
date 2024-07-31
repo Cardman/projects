@@ -183,10 +183,10 @@ public final class Fight {
     public static final String ZERO = "0";
     public static final String ONE = "1";
 
-    public static final String BASE_CAPT_PK = "VAR__BASE_CAPT_PK";
-    public static final String RATE_BALL_STATUS = "VAR__RATE_BALL_STATUS";
-    public static final String FOE_PK_MAX_HP = "VAR__FOE_PK_MAX_HP";
-    public static final String FOE_PK_REMOTE_HP = "VAR__FOE_PK_REMOTE_HP";
+    public static final String BASE_CAPT_PK = "BASE_CAPT_PK";
+    public static final String RATE_BALL_STATUS = "RATE_BALL_STATUS";
+    public static final String FOE_PK_MAX_HP = "FOE_PK_MAX_HP";
+    public static final String FOE_PK_REMOTE_HP = "FOE_PK_REMOTE_HP";
 
     public static final String ABILITY_END_ROUND = "0";
     public static final String AFF_STATUS = "1";

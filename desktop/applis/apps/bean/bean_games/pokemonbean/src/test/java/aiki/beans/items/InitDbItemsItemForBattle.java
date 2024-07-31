@@ -611,16 +611,16 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         e_.getCopyBoost().add(Statistic.SPEED);
         e_.getSwapBoostStatis().add(Statistic.SPEED);
         e_.getStatisVarRank().addEntry(Statistic.SPEED,(byte)1);
-        e_.getLocalFailStatis().addEntry(Statistic.SPEED, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
-        e_.getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED, DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.getLocalFailStatis().addEntry(Statistic.SPEED, VAR_PREFIX+ Fight.TEMPS_TOUR);
+        e_.getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED, VAR_PREFIX+Fight.TEMPS_TOUR);
         e_.getLawBoost().addQuickEvent(Statistic.SPEED,LgInt.one());
-        e_.setFail(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        e_.setFail(VAR_PREFIX+ Fight.TEMPS_TOUR);
         return e_;
     }
 
     protected static EffectEndRound effEndRound() {
         EffectEndRound e_ = lawEndRound();
-        e_.setFailEndRound(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+Fight.TEMPS_TOUR);
         e_.setEndRoundRank(1);
         return e_;
     }

@@ -1156,7 +1156,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
 
     protected static EffectEndRound effEndRound() {
         EffectEndRound e_ = lawEndRound();
-        e_.setFailEndRound(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+ Fight.TEMPS_TOUR);
         e_.setEndRoundRank(1);
         return e_;
     }

@@ -111,7 +111,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void cstAcc1() {
-        assertFalse(callMoveBeanIsConstAccuracy(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+        assertFalse(callMoveBeanIsConstAccuracy(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE, VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
     @Test
     public void cstAcc2() {
@@ -439,15 +439,15 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void accVar1() {
-        assertSizeEq(1,callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+        assertSizeEq(1,callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
     @Test
     public void accVar2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(Fight.TEMPS_TOUR,first(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
     @Test
     public void accVar3() {
-        assertEq(TIME,second(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(TIME,second(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
     @Test
     public void switchAfterUsingMove1() {

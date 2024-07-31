@@ -22,7 +22,7 @@ import code.util.StringMap;
 
 public class FightStatisticTest extends InitializationDataBase {
 
-    private static final String VAR_EXAMPLE = "VAR__EXAMPLE";
+    private static final String VAR_EXAMPLE = VAR_PREFIX+"EXAMPLE";
     private static final String PIKA = "PIKA";
 
     private static Fight bonusBoost(DataBase _data) {
@@ -160,7 +160,7 @@ public class FightStatisticTest extends InitializationDataBase {
         DataBase data_ = initDb();
         StringMap<String> map_ = new StringMap<String>();
         map_.put(VAR_EXAMPLE, "2");
-        assertEq(new Rate("3"), FightStatistic.multiplyStringFighterVariables("1+VAR__EXAMPLE", map_, data_));
+        assertEq(new Rate("3"), FightStatistic.multiplyStringFighterVariables("1+"+VAR_PREFIX+"EXAMPLE", map_, data_));
         assertEq(new Rate("1"), FightStatistic.multiplyStringFighterVariables(NULL_REF, map_, data_));
         //assertEq(new Rate("1"), FightStatistic.multiplyStringFighterVariables("-1", map_));
         //assertEq(new Rate("1"), FightStatistic.multiplyStringFighterVariables("0", map_));

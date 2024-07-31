@@ -80,7 +80,7 @@ public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
     }
     protected static EffectEndRoundIndividual eff() {
         EffectEndRoundIndividual e_ = Instances.newEffectEndRoundIndividual();
-        e_.setFailEndRound(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+Fight.TEMPS_TOUR);
         e_.setEndRoundRank(1);
         return e_;
     }

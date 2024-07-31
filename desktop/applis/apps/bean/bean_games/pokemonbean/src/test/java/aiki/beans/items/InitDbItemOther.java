@@ -71,7 +71,7 @@ public abstract class InitDbItemOther extends InitDbItem {
     }
 
     protected static FacadeGame feedDbBall() {
-        return feedDbItem(ball(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR));
+        return feedDbItem(ball(VAR_PREFIX+Fight.TEMPS_TOUR));
     }
     protected static FacadeGame feedDbItem(Item _item) {
         FacadeGame facade_ = facade();

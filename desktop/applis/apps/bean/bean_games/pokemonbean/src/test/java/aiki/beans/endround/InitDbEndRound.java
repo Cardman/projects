@@ -599,7 +599,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
     private static EffectEndRoundIndividual individual(int _rk) {
         EffectEndRoundIndividual e_ = Instances.newEffectEndRoundIndividual();
-        e_.setFailEndRound(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+ Fight.TEMPS_TOUR);
         e_.setEndRoundRank(_rk);
         e_.setDeleteAllStatus(Rate.one());
         e_.setRecoilDamage(Rate.one());

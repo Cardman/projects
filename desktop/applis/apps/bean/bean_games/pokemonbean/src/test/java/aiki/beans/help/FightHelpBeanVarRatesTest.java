@@ -22,7 +22,7 @@ public final class FightHelpBeanVarRatesTest extends InitDbFightHelp {
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
-        f_.getData().getRates().addEntry(DifficultyWinPointsFight.FACILE,DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        f_.getData().getRates().addEntry(DifficultyWinPointsFight.FACILE,VAR_PREFIX+ Fight.TEMPS_TOUR);
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         return f_;

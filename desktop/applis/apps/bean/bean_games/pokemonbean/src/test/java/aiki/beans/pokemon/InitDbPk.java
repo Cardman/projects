@@ -369,7 +369,7 @@ public abstract class InitDbPk extends InitDbConstr {
         facade_.getData().getMaxiPkFront().addEntry(P_POK_13,BaseSixtyFourUtil.getImageByString("AAACAAANEAAA////////"));
         facade_.getData().getMaxiPkFront().addEntry(P_POK_14,BaseSixtyFourUtil.getImageByString("AAACAAAOEAAA////////"));
         facade_.getData().getMaxiPkFront().addEntry(P_POK_15,BaseSixtyFourUtil.getImageByString("AAACAAAPEAAA////////"));
-        facade_.getData().getExpGrowth().addEntry(ExpType.E, DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E, VAR_PREFIX+Fight.TEMPS_TOUR);
         facade_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         facade_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());

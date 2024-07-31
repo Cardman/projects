@@ -115,9 +115,9 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
-        f_.getData().setDamageFormula(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
-        f_.getData().setRateFleeing(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
-        f_.getData().setRateCatching(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        f_.getData().setDamageFormula(VAR_PREFIX+Fight.TEMPS_TOUR);
+        f_.getData().setRateFleeing(VAR_PREFIX+Fight.TEMPS_TOUR);
+        f_.getData().setRateCatching(VAR_PREFIX+Fight.TEMPS_TOUR);
         f_.getData().addConstNumTest(DataBase.BONUS_BOOST, Rate.one());
         f_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS, Rate.one());
         f_.getData().addConstNumTest(DataBase.MIN_HP, Rate.one());

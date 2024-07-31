@@ -35,6 +35,7 @@ import code.util.*;
 
 public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String LANGUAGE = EN;
+    protected static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     protected static final String RAI = "RAI";
     protected static final String RAI2 = "RAI2";
     protected static final String RAI_TR = "RE";
@@ -686,12 +687,12 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         return t_;
     }
     static void initExpPointsSec(DataBase _data) {
-        _data.getExpGrowth().put(ExpType.E,"2*VAR__NIVEAU");
-        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
-        _data.getExpGrowth().put(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.E,"2*"+VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,2)");
+        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -719,11 +720,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         _data.addConstNumTest(DataBase.MAX_STEPS, new Rate("1024"));
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
         initDefaultConsts(POKE_BALL,
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)",
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
-                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"(VAR__BOOST,0),"+MbOperationNode.MAX+"(2-VAR__BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+VAR__BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"(VAR__BOOST,0),2)",
-                MbOperationNode.PUIS+"(2,VAR__BOOST-4)",
-                MbOperationNode.DIV_FCT+"((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"BOOST,0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+"BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+"BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"BOOST,0),2)",
+                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+"BOOST-4)",
+                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+"LANCEUR_NIVEAU)*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
                 LUTTE,
                 "METAMORPH", _data);
     }
@@ -743,11 +744,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     }
     private static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().put(ExpType.E,"2*NIVEAU");
-        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
-        _data.getExpGrowth().put(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,2)");
+        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -842,7 +843,9 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     }
 
     protected static DataBase newData() {
-        return new DataBase(DefaultGenerator.oneElt());
+        DataBase db_ = new DataBase(DefaultGenerator.oneElt());
+        db_.setPrefixVar(DataBase.VAR_DEF);
+        return db_;
     }
 
     private static void initPlaces(DataBase _data) {

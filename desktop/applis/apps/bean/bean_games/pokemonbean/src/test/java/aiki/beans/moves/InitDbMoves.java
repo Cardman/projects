@@ -305,9 +305,9 @@ public abstract class InitDbMoves extends InitDbConstr {
         facade_.getData().completeMembers(M_DAM, dam_);
         DamagingMoveData dam2_ = moveDam(TargetChoice.ANY_FOE);
         dam2_.setDirect(false);
-        dam2_.setAccuracy(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        dam2_.setAccuracy(VAR_PREFIX+Fight.TEMPS_TOUR);
         EffectDamage ef2_ = Instances.newEffectDamage();
-        ef2_.setPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        ef2_.setPower(VAR_PREFIX+Fight.TEMPS_TOUR);
         target(dam2_, ef2_);
         facade_.getData().completeMembers(M_DAM_VAR, dam2_);
         MoveData damBad_ = moveDam(TargetChoice.ADJ_ADV);

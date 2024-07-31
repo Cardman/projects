@@ -179,8 +179,8 @@ public abstract class InitDbAbilities extends InitDbConstr {
         a_.setMaxHpForUsingBerry(Rate.one());
         a_.setHealedHpRateBySwitch(Rate.one());
         a_.setHealHpWhileUsingBerry(Rate.one());
-        a_.setMultDamage(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
-        a_.setMultPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        a_.setMultDamage(VAR_PREFIX+Fight.TEMPS_TOUR);
+        a_.setMultPower(VAR_PREFIX+Fight.TEMPS_TOUR);
         a_.getBonusStatRank().addEntry(Statistic.SPEED,(byte)1);
         a_.getBoostStatRankEndRound().addEntry(Statistic.SPEED,(byte)1);
         a_.getBoostStatRankProtected().addEntry(Statistic.SPEED,(byte)1);
@@ -188,7 +188,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         a_.getMultStatIfLowStat().addEntry(Statistic.SPEED,(byte)1);
         a_.getLowStatFoeHit().addEntry(Statistic.SPEED,(byte)1);
         a_.getMultStatAlly().addEntry(Statistic.SPEED,Rate.one());
-        a_.getMultStat().addEntry(Statistic.SPEED,DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        a_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+Fight.TEMPS_TOUR);
         a_.getImmuMoveTypesByWeather().addEntry(NULL_REF,new StringList());
         a_.getImmuMoveTypesByWeather().addEntry(M_DAM,new StringList(T_TYPE1));
         a_.getChgtTypeByWeather().addEntry(NULL_REF,T_TYPE1);
@@ -211,7 +211,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         a_.getImmuLowStat().add(Statistic.SPEED);
         a_.getSingleStatus().addQuickEvent(NULL_REF, LgInt.newLgInt("1"));
         a_.getSingleStatus().addQuickEvent(S_STA_SIM,LgInt.newLgInt("3"));
-        a_.getFailStatus().addEntry(S_STA_SIM,DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        a_.getFailStatus().addEntry(S_STA_SIM,VAR_PREFIX+Fight.TEMPS_TOUR);
         a_.getForwardStatus().addEntry(S_STA_SIM,S_STA_REL);
         a_.getDivideStatusRound().addEntry(S_STA_SIM,Rate.one());
         a_.getBreakFoeImmune().add(new TypesDuo(T_TYPE1,T_TYPE2));

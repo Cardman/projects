@@ -72,7 +72,8 @@ import aiki.facade.enums.SelectedBoolean;
 
 public class DataBase {
 
-    public static final String VAR_PREFIX = "VAR__";
+    public static final String PREFIX_KEY = "0";
+    public static final String VAR_DEF = "VAR";
 
     public static final String EMPTY_STRING = "";
     public static final String MIN_BOOST = "MIN_BOOST";
@@ -226,6 +227,8 @@ public class DataBase {
 
     private StringMap<Rate> constNum = new StringMap<Rate>();
 
+    private String prefixVar;
+
     private String rateBoostCriticalHit;
 
     private String rateFleeing;
@@ -356,6 +359,7 @@ public class DataBase {
         this.generator = _generator;
         defMove="";
         rateBoost="";
+        prefixVar="";
         rateBoostCriticalHit="";
         rateCatching="";
         rateFleeing="";
@@ -1052,6 +1056,13 @@ public class DataBase {
         } else if (StringUtil.quickEq(_key, DEF_CAT)) {
             setDefCategory(_value);
         }
+        initValueOther(_key, _value);
+    }
+
+    public void initValueOther(String _key, String _value) {
+        if (StringUtil.quickEq(_key, PREFIX_KEY)) {
+            setPrefixVar(_value);
+        }
     }
     public void validateConstants() {
         if (getDefaultMoney().isZero()) {
@@ -1089,6 +1100,12 @@ public class DataBase {
         }
         if (!moves.contains(getDefMove())) {
             setError(true);
+        }
+        validateOtherConstants();
+    }
+    public void validateOtherConstants() {
+        if (getPrefixVar().startsWith("_") || getPrefixVar().endsWith("_") || !isCorrectIdentifier(getPrefixVar())) {
+            setPrefixVar(VAR_DEF);
         }
     }
 
@@ -1379,8 +1396,9 @@ public class DataBase {
         String line_ = EMPTY_STRING;
         StringList varParts_ = StringUtil.splitStrings(_v, SEP_BETWEEN_KEYS);
         String var_ = StringUtil.join(varParts_.left( 2), SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
         for (EntryCust<String,String> e: _m.getValue().entryList()) {
-            if (StringUtil.quickEq(var_, StringUtil.concat(VAR_PREFIX ,e.getKey()))) {
+            if (StringUtil.quickEq(var_, StringUtil.concat(varPref_ ,e.getKey()))) {
                 f_ = true;
                 line_ = e.getValue();
                 break;
@@ -1850,6 +1868,18 @@ public class DataBase {
         constNum = _constNum;
     }
 
+    public String getPrefixVar() {
+        return prefixVar;
+    }
+
+    public void setPrefixVar(String _p) {
+        this.prefixVar = _p;
+    }
+
+    public String getRateBoostCriticalHit() {
+        return rateBoostCriticalHit;
+    }
+
     public void setRateBoostCriticalHit(String _rateBoostCriticalHit) {
         rateBoostCriticalHit = _rateBoostCriticalHit;
     }
@@ -1870,8 +1900,16 @@ public class DataBase {
         defMove = _defMove;
     }
 
+    public String getRateBoost() {
+        return rateBoost;
+    }
+
     public void setRateBoost(String _rateBoost) {
         rateBoost = _rateBoost;
+    }
+
+    public String getDamageFormula() {
+        return damageFormula;
     }
 
     public void setDamageFormula(String _damageFormula) {
@@ -2176,7 +2214,7 @@ public class DataBase {
         }
         allCategories.add(getCategory(_move));
 
-        variables.addAllElts(getVariableWords(_move.getAccuracy()));
+        variables.addAllElts(getVariableWords(_move.getAccuracy(), prefixedVar()));
 
         EndRoundMainElements endTurn_;
         if (_move.getRankIncrementNbRound() > 0) {
@@ -2198,7 +2236,7 @@ public class DataBase {
     }
 
     private void updateInfoEffect(String _moveName, MoveData _move, Effect _e) {
-        variables.addAllElts(getVariableWords(_e.getFail()));
+        variables.addAllElts(getVariableWords(_e.getFail(), prefixedVar()));
 
         if (_e instanceof EffectCopyMove && ((EffectCopyMove) _e).getCopyingMoveForUser() > 0) {
             movesCopyingTemp.add(_moveName);
@@ -2209,9 +2247,9 @@ public class DataBase {
             effectCounterAttack_ = (EffectCounterAttack) _e;
 
             variables.addAllElts(getVariableWords(effectCounterAttack_
-                    .getCounterFail()));
+                    .getCounterFail(), prefixedVar()));
             variables.addAllElts(getVariableWords(effectCounterAttack_
-                    .getProtectFail()));
+                    .getProtectFail(), prefixedVar()));
             movesCountering.add(_moveName);
             movesCountering.removeDuplicates();
         }
@@ -2269,17 +2307,17 @@ public class DataBase {
         if (_e instanceof EffectFullHpRate) {
 
             variables.addAllElts(getVariableWords(((EffectFullHpRate) _e)
-                    .getRestoredHp()));
+                    .getRestoredHp(), prefixedVar()));
         }
         if (_e instanceof EffectTeamWhileSendFoe) {
             movesEffectWhileSending.add(_moveName);
 
             variables
                     .addAllElts(getVariableWords(((EffectTeamWhileSendFoe) _e)
-                            .getDamageRateAgainstFoe()));
+                            .getDamageRateAgainstFoe(), prefixedVar()));
             variables
                     .addAllElts(getVariableWords(((EffectTeamWhileSendFoe) _e)
-                            .getFailSending()));
+                            .getFailSending(), prefixedVar()));
         }
         if (_e instanceof EffectInvoke) {
             movesInvoking.add(_moveName);
@@ -2290,7 +2328,7 @@ public class DataBase {
         for (String r : _e.getCommonValue()
                 .values()) {
 
-            variables.addAllElts(getVariableWords(r));
+            variables.addAllElts(getVariableWords(r, prefixedVar()));
         }
     }
 
@@ -2298,7 +2336,7 @@ public class DataBase {
         for (String r : _e.getLocalFailStatus()
                 .values()) {
 
-            variables.addAllElts(getVariableWords(r));
+            variables.addAllElts(getVariableWords(r, prefixedVar()));
         }
         if (_e.getKoUserHealSubst()) {
             movesFullHeal.add(_moveName);
@@ -2309,12 +2347,12 @@ public class DataBase {
         for (String r : _e.getLocalFailStatis()
                 .values()) {
 
-            variables.addAllElts(getVariableWords(r));
+            variables.addAllElts(getVariableWords(r, prefixedVar()));
         }
         for (String r : _e
                 .getLocalFailSwapBoostStatis().values()) {
 
-            variables.addAllElts(getVariableWords(r));
+            variables.addAllElts(getVariableWords(r, prefixedVar()));
         }
     }
 
@@ -2377,16 +2415,16 @@ public class DataBase {
             movesHealingAfter.add(_moveName);
         }
 
-        variables.addAllElts(getVariableWords(_e.getFailEndRound()));
+        variables.addAllElts(getVariableWords(_e.getFailEndRound(), prefixedVar()));
     }
 
     private void updateInfoEffectDamage(EffectDamage _e) {
         variables.addAllElts(getVariableWords(_e
-                .getPower()));
+                .getPower(), prefixedVar()));
 
         for (String event_ : _e.getDamageLaw().events()) {
 
-            variables.addAllElts(getVariableWords(event_));
+            variables.addAllElts(getVariableWords(event_, prefixedVar()));
 
         }
     }
@@ -2445,11 +2483,11 @@ public class DataBase {
             }
 
             variables.addAllElts(getVariableWords(StringUtil.join(new StringList(obj_
-                    .getMultStat().values()), EMPTY_STRING)));
-            variables.addAllElts(getVariableWords(obj_.getMultDamage()));
-            variables.addAllElts(getVariableWords(obj_.getMultPower()));
+                    .getMultStat().values()), EMPTY_STRING), prefixedVar()));
+            variables.addAllElts(getVariableWords(obj_.getMultDamage(), prefixedVar()));
+            variables.addAllElts(getVariableWords(obj_.getMultPower(), prefixedVar()));
             variables.addAllElts(getVariableWords(StringUtil.join(new StringList(obj_
-                    .getFailStatus().values()), EMPTY_STRING)));
+                    .getFailStatus().values()), EMPTY_STRING), prefixedVar()));
         }
     }
 
@@ -2478,11 +2516,11 @@ public class DataBase {
         }
 
         variables.addAllElts(getVariableWords(StringUtil.join(new StringList(_ability
-                .getMultStat().values()), EMPTY_STRING)));
-        variables.addAllElts(getVariableWords(_ability.getMultDamage()));
-        variables.addAllElts(getVariableWords(_ability.getMultPower()));
+                .getMultStat().values()), EMPTY_STRING), prefixedVar()));
+        variables.addAllElts(getVariableWords(_ability.getMultDamage(), prefixedVar()));
+        variables.addAllElts(getVariableWords(_ability.getMultPower(), prefixedVar()));
         variables.addAllElts(getVariableWords(StringUtil.join(new StringList(_ability
-                .getFailStatus().values()), EMPTY_STRING)));
+                .getFailStatus().values()), EMPTY_STRING), prefixedVar()));
     }
 
     public void completeMembers(String _statusName, Status _status) {
@@ -2566,6 +2604,11 @@ public class DataBase {
         endTurn_.setElement(StringUtil.join(_moves, SEPARATOR_MOVES));
         endTurn_.setRelation(_effect.getEffectEndRound().first().getRelation());
         evtEndRound.add(endTurn_);
+    }
+
+
+    public String prefixedVar() {
+        return StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
     }
 
     public void completeVariables() {
@@ -2726,9 +2769,10 @@ public class DataBase {
     }
 
     private void trWord(String _language, StringMap<String> _litt, StringBuilder _str, char _cur, String _word) {
+        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
         if (_cur == '(' || StringUtil.quickEq(getTrueString(), _word)|| StringUtil.quickEq(getFalseString(), _word)) {
             _str.append(StringUtil.nullToEmpty(translatedFctMath.getVal(_language).getVal(_word)));
-        } else if (!_word.startsWith(VAR_PREFIX)) {
+        } else if (!_word.startsWith(varPref_)) {
             _str.append(translateSafe(_word, _language));
         } else {
             String format_ = formatVar(_language, _litt, _word);
@@ -2737,9 +2781,10 @@ public class DataBase {
     }
 
     private void formulaWord(String _language, StringMap<String> _litt, StringList _list, boolean _dig, String _word) {
+        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
         if (_dig) {
             _list.add(_word);
-        } else if (!_word.startsWith(VAR_PREFIX)) {
+        } else if (!_word.startsWith(varPref_)) {
             _list.add(translateSafe(_word, _language));
         } else {
             String format_ = formatVar(_language, _litt, _word);
@@ -2748,7 +2793,8 @@ public class DataBase {
     }
 
     private String formatVar(String _language, StringMap<String> _litt, String _word) {
-        String tok_ = _word.substring(DataBase.VAR_PREFIX.length());
+        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
+        String tok_ = _word.substring(varPref_.length());
         StringList elts_ = StringUtil.splitStrings(tok_, DataBase.SEP_BETWEEN_KEYS);
         String line_ = StringUtil.nullToEmpty(_litt.getVal(elts_.first()));
         StringList infos_ = StringUtil.splitStrings(line_, DataBase.TAB);
@@ -2762,7 +2808,7 @@ public class DataBase {
                 objDisplay_);
     }
 
-    private static StringList getVariableWords(String _str) {
+    private static StringList getVariableWords(String _str, String _pref) {
         StringList list_ = MathExpUtil.getWordsSeparators(_str);
         StringList newList_ = new StringList();
         int i_ = IndexConstants.FIRST_INDEX;
@@ -2771,7 +2817,7 @@ public class DataBase {
                 i_++;
                 continue;
             }
-            if (isVariable(t)) {
+            if (isVariable(t, _pref)) {
                 newList_.add(t);
             }
             i_++;
@@ -2779,26 +2825,27 @@ public class DataBase {
         return newList_;
     }
 
-    static boolean isVariable(String _string) {
-        if (!_string.startsWith(VAR_PREFIX)) {
+    static boolean isVariable(String _string, String _pref) {
+        if (!_string.startsWith(_pref)) {
             return false;
         }
-        return _string.length() > VAR_PREFIX.length();
+        return _string.length() > _pref.length();
     }
 
     public NatStringTreeMap< String> getDescriptions(String _litt,
             String _language) {
+        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
         StringMap<String> litt_ = litterals.getVal(_language);
 
         StringList tokens_ = MathExpUtil.getWordsSeparatorsPrefix(_litt,
-                VAR_PREFIX);
+                varPref_);
         NatStringTreeMap< String> desc_ = new NatStringTreeMap< String>();
         int len_ = tokens_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (i % 2 == 0) {
                 continue;
             }
-            String tok_ = tokens_.get(i).substring(VAR_PREFIX.length());
+            String tok_ = tokens_.get(i).substring(varPref_.length());
             StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
             String line_ = StringUtil.nullToEmpty(litt_.getVal(elts_.first()));
             StringList infos_ = StringUtil.splitStrings(line_, TAB);
@@ -2819,8 +2866,9 @@ public class DataBase {
     }
 
     private StringList getVars(String _token, String _language) {
+        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
         StringMap<String> litt_ = litterals.getVal(_language);
-        String tok_ = _token.substring(VAR_PREFIX.length());
+        String tok_ = _token.substring(varPref_.length());
         StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
         String line_ = StringUtil.nullToEmpty(litt_.getVal(elts_.first()));
         StringList infos_ = StringUtil.splitStrings(line_, TAB);
@@ -3358,24 +3406,6 @@ public class DataBase {
     }
     public Rate getDefBaseMove() {
         return constNum(DataBase.DEF_BASE_MOVE);
-    }
-
-    /** USED */
-    public String getDamageFormula() {
-
-        return damageFormula;
-    }
-
-    /** USED */
-    public String getRateBoost() {
-
-        return rateBoost;
-    }
-
-    /** USED */
-    public String getRateBoostCriticalHit() {
-
-        return rateBoostCriticalHit;
     }
 
     /** General data - show all pokemon belonging to this group */

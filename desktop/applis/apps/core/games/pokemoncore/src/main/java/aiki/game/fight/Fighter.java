@@ -1082,14 +1082,15 @@ public final class Fighter {
     }
 
     static Rate numberNecessaryPointsForGrowingLevel(String _name, long _niveau, DataBase _import) {
+        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
         PokemonData fPk_= _import.getPokemon(_name);
         String expLitt_=_import.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,NIVEAU),Long.toString(_niveau));
+        vars_.put(StringUtil.concat(varPref_,NIVEAU),Long.toString(_niveau));
         Rate next_;
         next_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,NIVEAU),Long.toString(_niveau - 1L));
+        vars_.put(StringUtil.concat(varPref_,NIVEAU),Long.toString(_niveau - 1L));
         current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         return _import.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());

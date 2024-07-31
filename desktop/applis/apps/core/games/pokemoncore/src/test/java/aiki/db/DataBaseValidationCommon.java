@@ -54,21 +54,21 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
         _data.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
         initDefaultConsts(POKE_BALL,
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)",
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
-                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"(VAR__BOOST,0),"+MbOperationNode.MAX+"(2-VAR__BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+VAR__BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"(VAR__BOOST,0),2)",
-                MbOperationNode.PUIS+"(2,VAR__BOOST-4)",
-                MbOperationNode.DIV_FCT+"((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"BOOST,0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+"BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+"BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"BOOST,0),2)",
+                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+"BOOST-4)",
+                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+"LANCEUR_NIVEAU)*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
                 LUTTE,
                 "METAMORPH", _data);
     }
     protected static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().put(ExpType.E,"2*NIVEAU");
-        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
-        _data.getExpGrowth().put(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,2)");
+        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");

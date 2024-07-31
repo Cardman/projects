@@ -94,7 +94,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         EffectCombo co2_ = Instances.newEffectCombo();
         EffectEndRoundFoe ef_ = Instances.newEffectEndRoundFoe();
         ef_.setEndRoundRank(1);
-        ef_.setFailEndRound(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        ef_.setFailEndRound(VAR_PREFIX+ Fight.TEMPS_TOUR);
         co2_.getEffectEndRound().add(ef_);
         co2_.setMultEvtRateSecEff(Rate.newRate("2"));
         co2_.setRankIncrementNbRound((short)4);

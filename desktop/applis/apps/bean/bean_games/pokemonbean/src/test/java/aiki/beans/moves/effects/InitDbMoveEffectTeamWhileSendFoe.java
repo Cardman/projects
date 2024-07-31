@@ -106,8 +106,8 @@ public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect 
     }
     protected static EffectTeamWhileSendFoe eff() {
         EffectTeamWhileSendFoe e_ = Instances.newEffectTeamWhileSendFoe();
-        e_.setFailSending(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
-        e_.setDamageRateAgainstFoe(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setFailSending(VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setDamageRateAgainstFoe(VAR_PREFIX+Fight.TEMPS_TOUR);
         e_.getDeletedByFoeTypes().add(T_TYPE1);
         e_.getStatistics().addEntry(Statistic.SPEED,(byte)1);
         e_.getStatusByNbUses().addEntry((short)1,S_STA_SIM);

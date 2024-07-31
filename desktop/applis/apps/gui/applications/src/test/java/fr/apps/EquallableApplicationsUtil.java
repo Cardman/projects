@@ -1,11 +1,13 @@
 package fr.apps;
 
+import aiki.db.DataBase;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import org.junit.Assert;
 
 public abstract class EquallableApplicationsUtil {
+    public static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     public static final String EN = "en";
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

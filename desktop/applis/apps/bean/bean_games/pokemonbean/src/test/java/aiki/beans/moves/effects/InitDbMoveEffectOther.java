@@ -246,7 +246,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectFullHpRate effFullHpRate() {
         EffectFullHpRate e_ = Instances.newEffectFullHpRate();
-        e_.setRestoredHp(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setRestoredHp(VAR_PREFIX+Fight.TEMPS_TOUR);
         e_.setClosestFoeDamageRateHp(Rate.one());
         e_.setLeftUserHp(Rate.one());
         return e_;
@@ -303,8 +303,8 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectCounterAttack effCounterAttack() {
         EffectCounterAttack e_ = Instances.newEffectCounterAttack();
-        e_.setCounterFail(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
-        e_.setProtectFail(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setCounterFail(VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setProtectFail(VAR_PREFIX+Fight.TEMPS_TOUR);
         e_.setSufferingDamageDirectMove(Rate.one());
         e_.getSufferingDamageTypes().addEntry(T_TYPE1,Rate.one());
         e_.getDroppedStatDirectMove().addEntry(Statistic.SPEED,(byte)1);
@@ -439,7 +439,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         facade_.getData().completeMembers(M_STA, ba_);
         StatusMoveData minv_ = moveSta(TargetChoice.TOUS_ADV);
         EffectTeamWhileSendFoe mu_ = Instances.newEffectTeamWhileSendFoe();
-        mu_.setDamageRateAgainstFoe(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        mu_.setDamageRateAgainstFoe(VAR_PREFIX+Fight.TEMPS_TOUR);
         minv_.getEffects().add(mu_);
         facade_.getData().completeMembers(M_WEA, minv_);
         StatusMoveData ant_ = moveSta(TargetChoice.TOUS_ADV);
@@ -475,7 +475,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         facade_.getData().completeMembers(M_STA, si_);
         StatusMoveData minv_ = moveSta(TargetChoice.TOUS_ADV);
         EffectTeamWhileSendFoe mu_ = Instances.newEffectTeamWhileSendFoe();
-        mu_.setDamageRateAgainstFoe(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        mu_.setDamageRateAgainstFoe(VAR_PREFIX+Fight.TEMPS_TOUR);
         minv_.getEffects().add(mu_);
         facade_.getData().completeMembers(M_WEA, minv_);
         trs(facade_);
@@ -539,7 +539,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectCommonStatistics effCommonStatistics() {
         EffectCommonStatistics cl_ = Instances.newEffectCommonStatistics();
-        cl_.getCommonValue().addEntry(Statistic.SPEED,DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        cl_.getCommonValue().addEntry(Statistic.SPEED,VAR_PREFIX+Fight.TEMPS_TOUR);
         return cl_;
     }
     protected static NaSt dispMoveEffOrder(boolean _targetAttacksLast) {

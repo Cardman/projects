@@ -1586,33 +1586,33 @@ public class InitializationDataBase extends EquallablePkUtil {
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
         _data.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("0"));
         initDefaultConsts(POKE_BALL,
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)",
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
-                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"(VAR__BOOST,0),"+MbOperationNode.MAX+"(2-VAR__BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+VAR__BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"(VAR__BOOST,0),2)",
-                MbOperationNode.PUIS+"(2,VAR__BOOST-4)",
-                MbOperationNode.DIV_FCT+"((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"BOOST,0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+"BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+"BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"BOOST,0),2)",
+                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+"BOOST-4)",
+                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+"LANCEUR_NIVEAU)*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
                 LUTTE,
                 "METAMORPH", _data);
 //        _data.addConstNotNumTest("BALL_DEF", "POKE_BALL");
 //        _data.addConstNotNumTest(DataBase.RATE_CATCHING, "caracdroiteferme(div(FOE_PK_MAX_HP,FOE_PK_REMOTE_HP),2)");
-//        _data.addConstNotNumTest(DataBase.RATE_FLEEING, "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)");
-//        //_data.addConstNotNumTest(DataBase.RATE_BOOST, "2:max(2-VAR__BOOST,1)*caracgaucheouvert(VAR__BOOST,0)+(2+VAR__BOOST):2*caracdroiteferme(VAR__BOOST,0)");
-////        _data.addConstNotNumTest(DataBase.RATE_BOOST, "2*caracgaucheouvert(VAR__BOOST,0):max(2-VAR__BOOST,1)+(2+VAR__BOOST)*caracdroiteferme(VAR__BOOST,0):2");
-//        _data.addConstNotNumTest(DataBase.RATE_BOOST, "div(2*caracgaucheouvert(VAR__BOOST,0),max(2-VAR__BOOST,1))+div((2+VAR__BOOST)*caracdroiteferme(VAR__BOOST,0),2)");
-//        _data.addConstNotNumTest(DataBase.RATE_BOOST_CRITICAL_HIT, "puis(2,VAR__BOOST-4)");
-////        _data.addConstNotNumTest(DataBase.DAMAGE_FORMULA, "(5+VAR__LANCEUR_NIVEAU):125*VAR__ATTACK*VAR__POWER:VAR__DEFENSE");
-//        _data.addConstNotNumTest(DataBase.DAMAGE_FORMULA, "div((5+VAR__LANCEUR_NIVEAU)*VAR__ATTACK*VAR__POWER,(125*VAR__DEFENSE))");
+//        _data.addConstNotNumTest(DataBase.RATE_FLEEING, "caracdroiteferme(div("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+//        //_data.addConstNotNumTest(DataBase.RATE_BOOST, "2:max(2-"+VAR_PREFIX+"BOOST,1)*caracgaucheouvert("+VAR_PREFIX+"BOOST,0)+(2+"+VAR_PREFIX+"BOOST):2*caracdroiteferme("+VAR_PREFIX+"BOOST,0)");
+////        _data.addConstNotNumTest(DataBase.RATE_BOOST, "2*caracgaucheouvert("+VAR_PREFIX+"BOOST,0):max(2-"+VAR_PREFIX+"BOOST,1)+(2+"+VAR_PREFIX+"BOOST)*caracdroiteferme("+VAR_PREFIX+"BOOST,0):2");
+//        _data.addConstNotNumTest(DataBase.RATE_BOOST, "div(2*caracgaucheouvert("+VAR_PREFIX+"BOOST,0),max(2-"+VAR_PREFIX+"BOOST,1))+div((2+"+VAR_PREFIX+"BOOST)*caracdroiteferme("+VAR_PREFIX+"BOOST,0),2)");
+//        _data.addConstNotNumTest(DataBase.RATE_BOOST_CRITICAL_HIT, "puis(2,"+VAR_PREFIX+"BOOST-4)");
+////        _data.addConstNotNumTest(DataBase.DAMAGE_FORMULA, "(5+"+VAR_PREFIX+"LANCEUR_NIVEAU):125*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER:"+VAR_PREFIX+"DEFENSE");
+//        _data.addConstNotNumTest(DataBase.DAMAGE_FORMULA, "div((5+"+VAR_PREFIX+"LANCEUR_NIVEAU)*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))");
 //        _data.addConstNotNumTest(DataBase.DEF_MOVE, "LUTTE");
 //        _data.addConstNotNumTest(DataBase.DEFAULT_EGG_GROUP, "METAMORPH");
     }
 
     protected static void initExpPoints(DataBase _data) {
-        _data.getExpGrowth().addEntry(ExpType.E,"2*VAR__NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"(VAR__NIVEAU,2)");
-        _data.getExpGrowth().addEntry(ExpType.F,"VAR__NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"(VAR__NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,2)");
+        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
         _data.getRates().addEntry(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().addEntry(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().addEntry(DifficultyWinPointsFight.DIFFICILE, "1");

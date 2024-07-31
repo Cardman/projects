@@ -210,12 +210,13 @@ public class FightHelpBean extends CommonBean {
         strongMove = data_.getStrongMovePower();
         StringMap<String> replace_ = new StringMap<String>();
         rateFormula = data_.getRateBoost();
-        replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
+        String pref_ = data_.getPrefixVar();
+        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), VAR_BOOST);
 //        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
         rateFormula = MathExpUtil.replaceWordsJoin(rateFormula, replace_);
         replace_ = new StringMap<String>();
         rateFormulaCh = data_.getRateBoostCriticalHit();
-        replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
+        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), VAR_BOOST);
 //        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
         rateFormulaCh = MathExpUtil.replaceWordsJoin(rateFormulaCh, replace_);
         long minBoost_ = data_.getMinBoost();
@@ -2298,12 +2299,13 @@ public class FightHelpBean extends CommonBean {
         boostsCh.addAllEntries(boostsChInit(_minBoost,_maxBoost,getDataBase()));
     }
     static LongTreeMap<Rate> boostsInit(long _minBoost, long _maxBoost, DataBase _db) {
+        String pref_ = _db.getPrefixVar();
         LongTreeMap<Rate> boosts_ = new LongTreeMap<Rate>();
         for (long b = _minBoost; b <= _maxBoost; b++) {
             String rateBoost_ = _db.getRateBoost();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
+            variables_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -2313,12 +2315,13 @@ public class FightHelpBean extends CommonBean {
         return boosts_;
     }
     static LongTreeMap<Rate> boostsChInit(long _minBoost, long _maxBoost, DataBase _db) {
+        String pref_ = _db.getPrefixVar();
         LongTreeMap<Rate> boostsCh_ = new LongTreeMap<Rate>();
         for (long b = _minBoost; b <= _maxBoost; b++) {
             String rateBoost_ = _db.getRateBoostCriticalHit();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
+            variables_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -2407,9 +2410,10 @@ public class FightHelpBean extends CommonBean {
     }
 
     private static String numString(DataBase _data, StatusBeginRoundAutoDamage _st) {
+        String pref_ = _data.getPrefixVar();
         String str_ = _data.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
-        replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), _st.getPower().toNumberString());
+        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.POWER), _st.getPower().toNumberString());
         str_ = MathExpUtil.replaceWordsJoin(str_, replace_);
         return str_;
     }

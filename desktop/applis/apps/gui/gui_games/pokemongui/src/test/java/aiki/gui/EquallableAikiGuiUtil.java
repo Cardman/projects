@@ -22,6 +22,7 @@ import code.util.StringList;
 import org.junit.Assert;
 
 public abstract class EquallableAikiGuiUtil {
+    public static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     public static final String FR = "fr";
     public static final String EN = "en";
     public static final String LANGUAGE = EN;

@@ -25,7 +25,7 @@ public final class FightHelpBeanBoostsChTest extends InitDbFightHelp {
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
-        f_.getData().setRateBoostCriticalHit(DataBase.VAR_PREFIX+ Fight.BOOST+"+1");
+        f_.getData().setRateBoostCriticalHit(VAR_PREFIX+ Fight.BOOST+"+1");
         return f_;
     }
 }
