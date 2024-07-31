@@ -20,7 +20,7 @@ final class FightValues {
     }
 
     static StringMap<String> calculateValuesFighter(Fight _fight,TeamPosition _fighter,DataBase _import){
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         _fight.setEnabledMessages(false);
         Team equipeLanceur_=_fight.getTeams().getVal(_fighter.getTeam());
         Fighter creatureCbtLanceur_=equipeLanceur_.getMembers().getVal(_fighter.getPosition());
@@ -76,7 +76,7 @@ final class FightValues {
     }
 
     private static void damage(Fighter _creatureCbtLanceur, StringMap<String> _variables, String _degatsRecus, String _degatsRecusTotal, String _degatsRecusTour, String _degatsRecusTotalTour, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Rate sommeLanceurDegatsSubis_=Rate.zero();
         for(String c: _creatureCbtLanceur.getDamageSufferedCateg().getKeys()){
             Rate deg_= _creatureCbtLanceur.getDamageSufferedCateg().getVal(c);
@@ -94,7 +94,7 @@ final class FightValues {
     }
 
     private static void enabled(Fighter _creature, StringMap<String> _variables, String _nbUtilisation, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         for(String c: _creature.getEnabledMoves().getKeys()){
             _variables.put(StringUtil.concat(varPref_,Fight.NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMoves().getVal(c).getNbTurn()));
         }
@@ -116,7 +116,7 @@ final class FightValues {
     }
 
     private static void moves(Fighter _creatureCbtLanceur, StringMap<String> _variables, String _attaques, DataBase _import, Fight _fight, TeamPosition _fighter, String _attaquesTypes) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringList clesLanceurAttaquesActuelles_= _creatureCbtLanceur.attaquesUtilisables();
         clesLanceurAttaquesActuelles_.sort();
         _variables.put(StringUtil.concat(varPref_, _attaques), StringUtil.join(clesLanceurAttaquesActuelles_, _import.getSepartorSetChar()));
@@ -130,7 +130,7 @@ final class FightValues {
     }
 
     private static void sommeLanceurBoostsPositifs(Fighter _creatureCbtLanceur, StringMap<String> _variables, String _boost, String _sommeBoostPos, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Rate sommeLanceurBoostsPositifs_=Rate.zero();
         for(Statistic c: _creatureCbtLanceur.getStatisBoost().getKeys()){
             byte boost_= _creatureCbtLanceur.getStatisBoost().getVal(c);
@@ -143,7 +143,7 @@ final class FightValues {
     }
 
     private static void equipes(StringMap<String> _variables, Fight _fight, TeamPosition _fighter, String _nbKoEquipe, String _nbKoEquipeAdv, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Team equipeLanceur_=_fight.getTeams().getVal(_fighter.getTeam());
         for(String c: equipeLanceur_.getNbUsesMoves().getKeys()){
             _variables.put(StringUtil.concat(varPref_,Team.EQUIPE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMoves().getVal(c)));
@@ -157,13 +157,13 @@ final class FightValues {
     }
 
     static void completeValuesWithRemaining(StringMap<String> _variables, Rate _coeffEff, LgInt _nbRepeatingSuccessfulMoves, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         _variables.put(StringUtil.concat(varPref_,Fight.COEFF_EFF), _coeffEff.toNumberString());
         _variables.put(StringUtil.concat(varPref_,Fight.NB_UTILISATION_CONSECUTIF), _nbRepeatingSuccessfulMoves.toNumberString());
     }
 
     static void completeValuesWithMoveInfo(String _attaqueLanceur, StringMap<String> _variables, Rate _basePower, DataBase _import, StringList _typeAtt, String _category) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         _variables.put(StringUtil.concat(varPref_,Fight.ATTAQUE_CATEGORIE), _category);
         _variables.put(StringUtil.concat(varPref_,Fight.ATTAQUE_TYPES), StringUtil.join(_typeAtt, _import.getSepartorSetChar()));
         _variables.put(StringUtil.concat(varPref_,Fight.ATTAQUE_NOM), _attaqueLanceur);
@@ -171,7 +171,7 @@ final class FightValues {
     }
 
     static void completeValuesWithThrower(Fight _fight, TeamPosition _lanceur, StringMap<String> _variables, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Team equipeLanceur_= _fight.getTeams().getVal(_lanceur.getTeam());
         Fighter creatureLanceur_=equipeLanceur_.getMembers().getVal(_lanceur.getPosition());
         String nomActuelLanceur_=creatureLanceur_.getCurrentName();
@@ -179,7 +179,7 @@ final class FightValues {
     }
 
     static StringMap<String> calculateValuesWithStat(StringMap<String> _variables, Rate _att, Rate _def, Rate _finalPower, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> varLocs_ = new StringMap<String>();
         varLocs_.put(StringUtil.concat(varPref_,Fight.ATTACK), _att.toNumberString());
         varLocs_.put(StringUtil.concat(varPref_,Fight.DEFENSE), _def.toNumberString());
@@ -188,7 +188,7 @@ final class FightValues {
         return varLocs_;
     }
     static StringMap<String> calculateValues(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,DataBase _import){
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         _fight.setEnabledMessages(false);
         Team equipeCible_=_fight.getTeams().getVal(_cible.getTeam());
         Fighter creatureCbtCible_=equipeCible_.getMembers().getVal(_cible.getPosition());
@@ -273,7 +273,7 @@ final class FightValues {
     }
 
     private static void statuts(DataBase _import, Fighter _creature, StringMap<String> _variables, String _cibleStatuts) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringList statutsCible_ = new StringList();
         for(String c: _creature.getStatusSet()){
             if(!NumberUtil.eq(_creature.getStatusNbRoundShort(c), 0)){
@@ -292,7 +292,7 @@ final class FightValues {
     }
 
     private static void rateEff(DataBase _import, String _coeffEffBaseTypes, StringMap<String> _variables, Fighter _creature) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringList coeffTypes_ = _import.getVarParamsMove(_coeffEffBaseTypes);
         for(String e:coeffTypes_){
             Rate coeffCible_=DataBase.defRateProduct();
@@ -304,7 +304,7 @@ final class FightValues {
     }
 
     private static void varsPp(DataBase _import, Fighter _creatureCbtLanceur, String _key, StringMap<String> _variables) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringList attaquesPp_ = _import.getVarParamsMove(_key);
         for(String c:attaquesPp_){
             if(!StringUtil.contains(_creatureCbtLanceur.attaquesUtilisables(), c)){
@@ -336,7 +336,7 @@ final class FightValues {
             Fight _fight,
             TeamPosition _lanceur,TeamPosition _cible,
             String _move,int _noEffet,DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         _fight.setEnabledMessages(false);
         Effect effet_ = _import.getMove(_move).getEffet(_noEffet);
         StringMap<String> variables_ = new StringMap<String>();
@@ -369,7 +369,7 @@ final class FightValues {
             Fight _fight,
             TeamPosition _lanceur,TeamPosition _cible,
             DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         _fight.setEnabledMessages(false);
         Fighter creatureCbtCible_ = _fight.getFighter(_cible);
         Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
@@ -408,7 +408,7 @@ final class FightValues {
     }
 
     private static void statusCible(DataBase _import, Fighter _creatureCbtCible, StringMap<String> _variables) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<BoolVal> enabled_ = new StringMap<BoolVal>();
         StringList moves_ = new StringList();
         for (MoveTeamPosition s: _creatureCbtCible.getStatusRelatSet()) {
@@ -431,7 +431,7 @@ final class FightValues {
     }
 
     private static void enaCond(DataBase _import, Fighter _creature, StringMap<String> _variables, String _keyPart) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringList effetsIndiv_ = _import.getVarParamsMove(_keyPart);
         for(String c:effetsIndiv_){
             if (_creature.getEnabledMoves().contains(c)) {
@@ -481,7 +481,7 @@ final class FightValues {
     static StringMap<String> calculateSendingVariables(
             Fight _fight,
             TeamPosition _lanceur,DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         _fight.setEnabledMessages(false);
         StringMap<String> variables_ = new StringMap<String>();
         Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
@@ -499,7 +499,7 @@ final class FightValues {
     }
 
     private static void addPlayed(Fight _fight, DataBase _import, StringMap<String> _variables, String _fighterDerJoue) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         CustList<TeamPosition> cbts_ = FightOrder.fightersHavingToAct(_fight, true, _import);
         cbts_.addAllElts(FightOrder.fightersHavingToAct(_fight, false, _import));
         boolean onlyOne_;

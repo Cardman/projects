@@ -63,12 +63,12 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
                 "METAMORPH", _data);
     }
     protected static void initExpPoints(DataBase _data) {
-        _data.getExpGrowth().put(ExpType.E,"2*NIVEAU");
-        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
-        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,2)");
-        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().put(ExpType.E,"2*"+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",2)");
+        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");

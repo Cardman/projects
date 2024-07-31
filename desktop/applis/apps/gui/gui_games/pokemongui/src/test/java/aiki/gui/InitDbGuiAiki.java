@@ -591,7 +591,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
     public static DataBase init() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
-        data_.setPrefixVar(DataBase.VAR_DEF);
+        data_.prefixVar(DataBase.VAR_DEF);
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initTranslations();
@@ -786,12 +786,12 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         _data.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("0"));
     }
     public static void initExpPoints(DataBase _data) {
-        _data.getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.L,VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.M,VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.P,VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.R,VAR_PREFIX+"NIVEAU");
+        _data.getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.L,VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.M,VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.P,VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.R,VAR_PREFIX+DataBase.DEF_NIVEAU);
         _data.getRates().addEntry(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().addEntry(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().addEntry(DifficultyWinPointsFight.DIFFICILE, "1");

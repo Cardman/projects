@@ -855,7 +855,7 @@ final class FightRound {
     }
 
     static void autoDamage(Fight _fight,TeamPosition _combattant,Rate _puissance,Statistic _statAtt,Statistic _statDef,Difficulty _diff,DataBase _import){
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Fighter creature_ = _fight.getFighter(_combattant);
         Rate att_=creature_.statistiqueGlobaleEvIv(_statAtt);
         byte maxBoost_=(byte) _import.getMaxBoost();
@@ -1638,7 +1638,7 @@ final class FightRound {
             return DataBase.determinatedRate();
         }
         variables_.clear();
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         variables_.put(StringUtil.concat(varPref_,Fight.BASE_CAPT_PK), Long.toString(fPk_.getCatchingRate()));
         variables_.put(StringUtil.concat(varPref_,Fight.RATE_BALL_STATUS), taux_.toNumberString());
         variables_.put(StringUtil.concat(varPref_,Fight.FOE_PK_MAX_HP), _creatureSauvage.pvMax().toNumberString());
@@ -1650,7 +1650,7 @@ final class FightRound {
 
     static StringMap<String> calculateCatchingVariables(Fight _fight, FighterPosition _creatureUt, boolean _dejaCapture, DataBase _import, Fighter _creatureSauvage) {
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Fighter creatureUt_=_creatureUt.getFighter();
         StringMap<String> variables_=new StringMap<String>();
         if(_dejaCapture){
@@ -1715,7 +1715,7 @@ final class FightRound {
     static StringMap<String> calculateFleeingVariable(Fight _fight, DataBase _import, Fighter _creatureSauvage){
 
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         TeamPosition player_ = Fight.toUserFighter(_fight.getCurrentUserFlee());
         Fighter creatureUt_=_fight.getFighter(player_);
         StringMap<String> variables_=new StringMap<String>();
@@ -1724,7 +1724,7 @@ final class FightRound {
     }
 
     private static StringMap<String> varsCatchFlee(Fight _fight, DataBase _import, Fighter _creatureUt, Fighter _creatureSauvage, StringMap<String> _variables, TeamPosition _cbt) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         _variables.put(StringUtil.concat(varPref_,Fight.LIEU_COMBAT), _fight.getEnvType().getEnvName());
         _variables.put(StringUtil.concat(varPref_,Fight.TEMPS_TOUR), _fight.getNbRounds().toNumberString());
         _variables.put(StringUtil.concat(varPref_,Fight.MASSE_MOYENNE_PK), _import.getAvgWeight().toNumberString());

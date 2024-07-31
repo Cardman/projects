@@ -485,12 +485,12 @@ public final class CheckNumericStringsFight {
     }
 
     private static void checkRateGrowLevel(DataBase _data, DifficultyWinPointsFight _d) {
-        String varPref_ = StringUtil.concat(_data.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put(StringUtil.concat(varPref_,
-                Fight.LEVEL_WINNER), LgInt.one().toNumberString());
+                _data.levelWinner()), LgInt.one().toNumberString());
         vars_.put(StringUtil.concat(varPref_,
-                Fight.LEVEL_LOOSER), LgInt.one().toNumberString());
+                _data.levelLooser()), LgInt.one().toNumberString());
         EvolvedNumString chNum_ = _data.createNumericableString(
                 _data.getRates().getVal(_d), vars_);
         chNum_.evaluateExp(true);
@@ -514,7 +514,7 @@ public final class CheckNumericStringsFight {
     }
 
     private static void checkBoosts(DataBase _data) {
-        String varPref_ = StringUtil.concat(_data.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         long minBoost_ = _data.getMinBoost();
         long defBoost_ = _data.getDefaultBoost();
         long maxBoost_ = _data.getMaxBoost();
@@ -596,10 +596,10 @@ public final class CheckNumericStringsFight {
     }
 
     private static void checkLevels(DataBase _data, String _formula) {
-        String varPref_ = StringUtil.concat(_data.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_ = new StringMap<String>();
         String varName_ = StringUtil
-                .concat(varPref_, Fighter.NIVEAU);
+                .concat(varPref_, _data.niveau());
         long minLevel_ = _data.getMinLevel();
         long maxLevel_ = _data.getMaxLevel();
         Rate min_ = Rate.zero();
@@ -617,7 +617,7 @@ public final class CheckNumericStringsFight {
     }
 
     private void checkNumericStringsBalls() {
-        String varPref_ = StringUtil.concat(data.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_;
         vars_ = new StringMap<String>();
         vars_.put(StringUtil.concat(varPref_,Fight.BASE_CAPT_PK), LgInt.one().toNumberString());
@@ -660,7 +660,7 @@ public final class CheckNumericStringsFight {
     private static StringMap<String> calculateBooleanValuesForValidation(
             Fight _fight, TeamPosition _lanceur, TeamPosition _cible,
             boolean _sending, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> variables_ = new StringMap<String>();
         if (_sending) {
             StringList immuTypesIndiv_ = _import

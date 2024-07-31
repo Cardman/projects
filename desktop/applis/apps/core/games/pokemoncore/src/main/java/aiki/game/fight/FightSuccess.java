@@ -1224,7 +1224,7 @@ final class FightSuccess {
     }
 
     static Rate rateCriticalHit(Fight _fight, TeamPosition _thrower,byte _boost,DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Rate rate_;
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put(StringUtil.concat(varPref_,Fight.BOOST), Long.toString(_boost));

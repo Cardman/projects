@@ -210,7 +210,7 @@ public class FightHelpBean extends CommonBean {
         strongMove = data_.getStrongMovePower();
         StringMap<String> replace_ = new StringMap<String>();
         rateFormula = data_.getRateBoost();
-        String pref_ = data_.getPrefixVar();
+        String pref_ = data_.prefixVar();
         replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), VAR_BOOST);
 //        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
         rateFormula = MathExpUtil.replaceWordsJoin(rateFormula, replace_);
@@ -2299,7 +2299,7 @@ public class FightHelpBean extends CommonBean {
         boostsCh.addAllEntries(boostsChInit(_minBoost,_maxBoost,getDataBase()));
     }
     static LongTreeMap<Rate> boostsInit(long _minBoost, long _maxBoost, DataBase _db) {
-        String pref_ = _db.getPrefixVar();
+        String pref_ = _db.prefixVar();
         LongTreeMap<Rate> boosts_ = new LongTreeMap<Rate>();
         for (long b = _minBoost; b <= _maxBoost; b++) {
             String rateBoost_ = _db.getRateBoost();
@@ -2315,7 +2315,7 @@ public class FightHelpBean extends CommonBean {
         return boosts_;
     }
     static LongTreeMap<Rate> boostsChInit(long _minBoost, long _maxBoost, DataBase _db) {
-        String pref_ = _db.getPrefixVar();
+        String pref_ = _db.prefixVar();
         LongTreeMap<Rate> boostsCh_ = new LongTreeMap<Rate>();
         for (long b = _minBoost; b <= _maxBoost; b++) {
             String rateBoost_ = _db.getRateBoostCriticalHit();
@@ -2410,7 +2410,7 @@ public class FightHelpBean extends CommonBean {
     }
 
     private static String numString(DataBase _data, StatusBeginRoundAutoDamage _st) {
-        String pref_ = _data.getPrefixVar();
+        String pref_ = _data.prefixVar();
         String str_ = _data.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
         replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.POWER), _st.getPower().toNumberString());

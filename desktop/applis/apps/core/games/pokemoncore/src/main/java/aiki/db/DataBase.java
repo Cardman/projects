@@ -73,7 +73,14 @@ import aiki.facade.enums.SelectedBoolean;
 public class DataBase {
 
     public static final String PREFIX_KEY = "0";
+    public static final String KEY_NIVEAU = "1";
+    public static final String KEY_LEVEL_LOOSER = "2";
+    public static final String KEY_LEVEL_WINNER = "3";
+
     public static final String VAR_DEF = "VAR";
+    public static final String DEF_NIVEAU = "NIVEAU";
+    public static final String DEF_LEVEL_LOOSER = "LEVEL_LOOSER";
+    public static final String DEF_LEVEL_WINNER = "LEVEL_WINNER";
 
     public static final String EMPTY_STRING = "";
     public static final String MIN_BOOST = "MIN_BOOST";
@@ -227,7 +234,8 @@ public class DataBase {
 
     private StringMap<Rate> constNum = new StringMap<Rate>();
 
-    private String prefixVar;
+    private final DataBaseConstants constNonNum = new DataBaseConstants();
+//    private String prefixVar;
 
     private String rateBoostCriticalHit;
 
@@ -359,7 +367,6 @@ public class DataBase {
         this.generator = _generator;
         defMove="";
         rateBoost="";
-        prefixVar="";
         rateBoostCriticalHit="";
         rateCatching="";
         rateFleeing="";
@@ -1061,7 +1068,13 @@ public class DataBase {
 
     public void initValueOther(String _key, String _value) {
         if (StringUtil.quickEq(_key, PREFIX_KEY)) {
-            setPrefixVar(_value);
+            prefixVar(_value);
+        } else if (StringUtil.quickEq(_key, KEY_NIVEAU)) {
+            niveau(_value);
+        } else if (StringUtil.quickEq(_key, KEY_LEVEL_LOOSER)) {
+            levelLooser(_value);
+        } else if (StringUtil.quickEq(_key, KEY_LEVEL_WINNER)) {
+            levelWinner(_value);
         }
     }
     public void validateConstants() {
@@ -1104,9 +1117,31 @@ public class DataBase {
         validateOtherConstants();
     }
     public void validateOtherConstants() {
-        if (getPrefixVar().startsWith("_") || getPrefixVar().endsWith("_") || !isCorrectIdentifier(getPrefixVar())) {
-            setPrefixVar(VAR_DEF);
+        if (incorrectKey(prefixVar())) {
+            prefixVar(VAR_DEF);
         }
+        StringList str_ = new StringList();
+        str_.add(niveau());
+        str_.add(levelLooser());
+        str_.add(levelWinner());
+        if (str_.hasDuplicates()) {
+            niveau(EMPTY_STRING);
+            levelLooser(EMPTY_STRING);
+            levelWinner(EMPTY_STRING);
+        }
+        if (incorrectKey(niveau())) {
+            niveau(DEF_NIVEAU);
+        }
+        if (incorrectKey(levelLooser())) {
+            levelLooser(DEF_LEVEL_LOOSER);
+        }
+        if (incorrectKey(levelWinner())) {
+            levelWinner(DEF_LEVEL_WINNER);
+        }
+    }
+
+    private static boolean incorrectKey(String _pref) {
+        return _pref.startsWith("_") || _pref.endsWith("_") || !isCorrectIdentifier(_pref);
     }
 
     private void evIvHappinessBounds() {
@@ -1396,7 +1431,7 @@ public class DataBase {
         String line_ = EMPTY_STRING;
         StringList varParts_ = StringUtil.splitStrings(_v, SEP_BETWEEN_KEYS);
         String var_ = StringUtil.join(varParts_.left( 2), SEP_BETWEEN_KEYS);
-        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
         for (EntryCust<String,String> e: _m.getValue().entryList()) {
             if (StringUtil.quickEq(var_, StringUtil.concat(varPref_ ,e.getKey()))) {
                 f_ = true;
@@ -1868,12 +1903,36 @@ public class DataBase {
         constNum = _constNum;
     }
 
-    public String getPrefixVar() {
-        return prefixVar;
+    public String prefixVar() {
+        return getConstNonNum().getPrefixVar();
     }
 
-    public void setPrefixVar(String _p) {
-        this.prefixVar = _p;
+    public void prefixVar(String _p) {
+        this.getConstNonNum().setPrefixVar(_p);
+    }
+
+    public String niveau() {
+        return getConstNonNum().getNiveau();
+    }
+
+    public void niveau(String _p) {
+        this.getConstNonNum().setNiveau(_p);
+    }
+
+    public String levelLooser() {
+        return getConstNonNum().getLevelLooser();
+    }
+
+    public void levelLooser(String _p) {
+        this.getConstNonNum().setLevelLooser(_p);
+    }
+
+    public String levelWinner() {
+        return getConstNonNum().getLevelWinner();
+    }
+
+    public void levelWinner(String _p) {
+        this.getConstNonNum().setLevelWinner(_p);
     }
 
     public String getRateBoostCriticalHit() {
@@ -1966,6 +2025,10 @@ public class DataBase {
 
     public void setAnimAbsorb(int[][] _a) {
         animAbsorb = _a;
+    }
+
+    public DataBaseConstants getConstNonNum() {
+        return constNonNum;
     }
 
     public void initTranslations() {
@@ -2608,7 +2671,7 @@ public class DataBase {
 
 
     public String prefixedVar() {
-        return StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
     }
 
     public void completeVariables() {
@@ -2769,7 +2832,7 @@ public class DataBase {
     }
 
     private void trWord(String _language, StringMap<String> _litt, StringBuilder _str, char _cur, String _word) {
-        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
         if (_cur == '(' || StringUtil.quickEq(getTrueString(), _word)|| StringUtil.quickEq(getFalseString(), _word)) {
             _str.append(StringUtil.nullToEmpty(translatedFctMath.getVal(_language).getVal(_word)));
         } else if (!_word.startsWith(varPref_)) {
@@ -2781,7 +2844,7 @@ public class DataBase {
     }
 
     private void formulaWord(String _language, StringMap<String> _litt, StringList _list, boolean _dig, String _word) {
-        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
         if (_dig) {
             _list.add(_word);
         } else if (!_word.startsWith(varPref_)) {
@@ -2793,7 +2856,7 @@ public class DataBase {
     }
 
     private String formatVar(String _language, StringMap<String> _litt, String _word) {
-        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
         String tok_ = _word.substring(varPref_.length());
         StringList elts_ = StringUtil.splitStrings(tok_, DataBase.SEP_BETWEEN_KEYS);
         String line_ = StringUtil.nullToEmpty(_litt.getVal(elts_.first()));
@@ -2834,7 +2897,7 @@ public class DataBase {
 
     public NatStringTreeMap< String> getDescriptions(String _litt,
             String _language) {
-        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
         StringMap<String> litt_ = litterals.getVal(_language);
 
         StringList tokens_ = MathExpUtil.getWordsSeparatorsPrefix(_litt,
@@ -2866,7 +2929,7 @@ public class DataBase {
     }
 
     private StringList getVars(String _token, String _language) {
-        String varPref_ = StringUtil.concat(getPrefixVar(),SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
         StringMap<String> litt_ = litterals.getVal(_language);
         String tok_ = _token.substring(varPref_.length());
         StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);

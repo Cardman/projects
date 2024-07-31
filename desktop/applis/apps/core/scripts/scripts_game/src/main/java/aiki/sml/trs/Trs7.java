@@ -1,4 +1,7 @@
 package aiki.sml.trs;
+
+import aiki.db.DataBase;
+
 public final class Trs7{
 private static final String E_TR_CIBLE_EFFET="CIBLE_EFFET";
 private static final String E_TR_GENRES_EGAUX="GENRES_EGAUX";
@@ -49,7 +52,6 @@ private static final String E_TR_LANCEUR_DEGATS_RECUS_TOTAL="LANCEUR_DEGATS_RECU
 private static final String E_TR_LANCEUR_NB_UTILISATION="LANCEUR_NB_UTILISATION";
 private static final String E_TR_CIBLE_STATIS="CIBLE_STATIS";
 private static final String E_TR_NB_UTILI_ATT_EQ_TOUR="NB_UTILI_ATT_EQ_TOUR";
-private static final String E_TR_NIVEAU="NIVEAU";
 private static final String E_TR_BOOST="BOOST";
 private static final String E_TR_EV="EV";
 private static final String E_TR_IV="IV";
@@ -112,8 +114,6 @@ private static final String E_TR_FOE_PK_MAX_HP="FOE_PK_MAX_HP";
 private static final String E_TR_FOE_PK_REMOTE_HP="FOE_PK_REMOTE_HP";
 private static final String E_TR_PK_UT_VITESSE="PK_UT_VITESSE";
 private static final String E_TR_NB_FLEES="NB_FLEES";
-private static final String E_TR_LEVEL_WINNER="LEVEL_WINNER";
-private static final String E_TR_LEVEL_LOOSER="LEVEL_LOOSER";
 private Trs7(){}
 static String tr(){
 String e=E_TR_CIBLE_EFFET+"\tmove\ttarg_eff__{0}\tThe target is under the effect of the move {0}\n";
@@ -165,7 +165,7 @@ e+=E_TR_LANCEUR_DEGATS_RECUS_TOTAL+"\tmove\tusr_amt_suff_damg\tFull suffered dam
 e+=E_TR_LANCEUR_NB_UTILISATION+"\tmove\tusr_nb_uses__{0}\tNumber of uses of the move {0} of the user\n";
 e+=E_TR_CIBLE_STATIS+"\tstatis\ttarg_statis__{0}\t{0} in terms of base of statistic of the target\n";
 e+=E_TR_NB_UTILI_ATT_EQ_TOUR+"\tmove\tnb_uses_team_move_rd__{0}\tNumber of uses of the move {0} by the team\n";
-e+=E_TR_NIVEAU+"\tlevel\tl\tThe level of the Pokemon\n";
+e+=DataBase.DEF_NIVEAU+"\tlevel\tl\tThe level of the Pokemon\n";
 e+=E_TR_BOOST+"\tboost\tb\tThe boost of the Pokemon\n";
 e+=E_TR_EV+"\tev\tev\tThe ev of a statistic of the pokemon\n";
 e+=E_TR_IV+"\tiv\tiv\tThe iv of a statistic of the pokemon\n";
@@ -229,8 +229,8 @@ e+=E_TR_FOE_PK_REMOTE_HP+"\tmove\trem_hp\tRemaining health points of the wild po
 e+=E_TR_PK_UT_VITESSE+"\tmove\tpk_pl_speed\tSpeed of the first pokemon of the player.\n";
 e+=E_TR_PK_SAUVAGE_VITESSE+"\tmove\tpk_foe_speed\tSpeed of the wild pokemon.\n";
 e+=E_TR_NB_FLEES+"\tmove\tnb_flees\tNumber of attempts of flee.\n";
-e+=E_TR_LEVEL_WINNER+"\tmove\tlvl_l\tLevel of the KO fighter\n";
-e+=E_TR_LEVEL_LOOSER+"\tmove\tlvl_w\tLevel of the player fighter which wins points\n";
+e+=DataBase.DEF_LEVEL_WINNER+"\tmove\tlvl_l\tLevel of the KO fighter\n";
+e+=DataBase.DEF_LEVEL_LOOSER+"\tmove\tlvl_w\tLevel of the player fighter which wins points\n";
 return e;
 }
 }

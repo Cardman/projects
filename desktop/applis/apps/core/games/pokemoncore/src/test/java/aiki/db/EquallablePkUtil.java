@@ -464,6 +464,9 @@ public abstract class EquallablePkUtil {
         _db.setDefMove(_defMove);
         _db.setDefaultEggGroup(_defaultEggGoup);
         _db.setDefCategory(AUTRE);
-        _db.setPrefixVar(DataBase.VAR_DEF);
+        _db.prefixVar(DataBase.VAR_DEF);
+        _db.niveau(DataBase.DEF_NIVEAU);
+        _db.levelLooser(DataBase.DEF_LEVEL_LOOSER);
+        _db.levelWinner(DataBase.DEF_LEVEL_WINNER);
     }
 }

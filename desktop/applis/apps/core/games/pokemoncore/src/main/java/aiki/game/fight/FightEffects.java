@@ -1214,7 +1214,7 @@ final class FightEffects {
         Fighter fighter_ = _fight.getFighter(_fighter);
         Rate rate_ = DataBase.defRateProduct();
         AbilityData ab_=fighter_.ficheCapaciteActuelle(_import);
-        String varPref_ = StringUtil.concat(_import.getPrefixVar(),DataBase.SEP_BETWEEN_KEYS);
+        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         if(ab_ != null){
             StringMap<String> vars_ = new StringMap<String>(_variables);
             vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));

@@ -1,4 +1,7 @@
 package aiki.sml.trs;
+
+import aiki.db.DataBase;
+
 public final class Trs24{
 private static final String F_TR_CIBLE_EFFET="CIBLE_EFFET";
 private static final String F_TR_GENRES_EGAUX="GENRES_EGAUX";
@@ -49,7 +52,6 @@ private static final String F_TR_LANCEUR_DEGATS_RECUS_TOTAL="LANCEUR_DEGATS_RECU
 private static final String F_TR_LANCEUR_NB_UTILISATION="LANCEUR_NB_UTILISATION";
 private static final String F_TR_CIBLE_STATIS="CIBLE_STATIS";
 private static final String F_TR_NB_UTILI_ATT_EQ_TOUR="NB_UTILI_ATT_EQ_TOUR";
-private static final String F_TR_NIVEAU="NIVEAU";
 private static final String F_TR_BOOST="BOOST";
 private static final String F_TR_EV="EV";
 private static final String F_TR_IV="IV";
@@ -112,8 +114,6 @@ private static final String F_TR_FOE_PK_MAX_HP="FOE_PK_MAX_HP";
 private static final String F_TR_FOE_PK_REMOTE_HP="FOE_PK_REMOTE_HP";
 private static final String F_TR_PK_UT_VITESSE="PK_UT_VITESSE";
 private static final String F_TR_NB_FLEES="NB_FLEES";
-private static final String F_TR_LEVEL_WINNER="LEVEL_WINNER";
-private static final String F_TR_LEVEL_LOOSER="LEVEL_LOOSER";
 private Trs24(){}
 static String tr(){
 String f=F_TR_CIBLE_EFFET+"\tmove\tcib_eff__{0}\tLa cible est sous l''effet de l''attaque {0}\n";
@@ -165,7 +165,7 @@ f+=F_TR_LANCEUR_DEGATS_RECUS_TOTAL+"\tmove\tlanc_deg_recu_tot\tD&eacute;g&acirc;
 f+=F_TR_LANCEUR_NB_UTILISATION+"\tmove\tlanc_nb_ut__{0}\tNombre d''utilisation de l''attaque {0} du lanceur\n";
 f+=F_TR_CIBLE_STATIS+"\tstatis\tcib_statis__{0}\t{0} en terme de base de statistique de la cible\n";
 f+=F_TR_NB_UTILI_ATT_EQ_TOUR+"\tmove\tnb_ut_att_eq_tr__{0}\tNombre d''utilisation de l''attaque {0} par l''&eacute;quipe\n";
-f+=F_TR_NIVEAU+"\tlevel\tn\tNiveau du pokemon\n";
+f+=DataBase.DEF_NIVEAU+"\tlevel\tn\tNiveau du pokemon\n";
 f+=F_TR_BOOST+"\tboost\tb\tBoost du pokemon\n";
 f+=F_TR_EV+"\tev\tev\tLa valeur ev d''une statistique du pokemon\n";
 f+=F_TR_IV+"\tiv\tiv\tLa valeur iv d''une statistique du pokemon\n";
@@ -229,8 +229,8 @@ f+=F_TR_FOE_PK_REMOTE_HP+"\tmove\tpv_restants\tPoints de vie restants du pokemon
 f+=F_TR_PK_UT_VITESSE+"\tmove\tpk_joueur_vit\tVitesse du premier pokemon du joueur.\n";
 f+=F_TR_PK_SAUVAGE_VITESSE+"\tmove\tpk_sauvage_vit\tVitesse du pokemon sauvage.\n";
 f+=F_TR_NB_FLEES+"\tmove\tnb_fuites\tNombre de tentatives de fuite.\n";
-f+=F_TR_LEVEL_WINNER+"\tmove\tniv_p\tNiveau du combattant KO\n";
-f+=F_TR_LEVEL_LOOSER+"\tmove\tniv_g\tNiveau du pokemon du joueur qui gagne des points\n";
+f+=DataBase.DEF_LEVEL_WINNER+"\tmove\tniv_p\tNiveau du combattant KO\n";
+f+=DataBase.DEF_LEVEL_LOOSER+"\tmove\tniv_g\tNiveau du pokemon du joueur qui gagne des points\n";
 return f;
 }
 }

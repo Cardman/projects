@@ -3480,7 +3480,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().completeMembers(P_POK_08,specPk(P_POK_08, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
         facade_.getData().completeMembers(P_POK_09,specPk(P_POK_09, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
         facade_.getData().completeMembers(I_STONE,Instances.newEvolvingStone());
-        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+Fighter.NIVEAU);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+DataBase.DEF_NIVEAU);
         facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -3650,7 +3650,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().completeMembers(P_POK_02,specPk(P_POK_00,P_POK_03,22, withLearn(new CustList<LevelMove>(),1,M_POK_00)));
         facade_.getData().completeMembers(P_POK_03,specPk(P_POK_00,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
         facade_.getData().completeMembers(P_POK_04,specPk(P_POK_04,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
-        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+Fighter.NIVEAU);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+DataBase.DEF_NIVEAU);
         facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -3704,7 +3704,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().completeMembers(P_POK_01,specPk(P_POK_00, withLearn(new CustList<LevelMove>(),1,M_POK_00)));
         facade_.getData().completeMembers(P_POK_02,specPk(P_POK_00,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
         facade_.getData().completeMembers(P_POK_03,specPk(P_POK_03,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
-        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+Fighter.NIVEAU);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+DataBase.DEF_NIVEAU);
         facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -3790,7 +3790,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().completeMembers(P_POK_01,specPk(P_POK_00, withLearn(new CustList<LevelMove>(),1,M_POK_01)));
         facade_.getData().completeMembers(P_POK_02,specPk(P_POK_00,withLearn(new CustList<LevelMove>(),1,M_POK_01)));
         facade_.getData().completeMembers(P_POK_03,specPk(P_POK_03,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
-        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+Fighter.NIVEAU);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+DataBase.DEF_NIVEAU);
         facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");

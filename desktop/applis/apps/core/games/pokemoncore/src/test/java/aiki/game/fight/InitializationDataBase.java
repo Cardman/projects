@@ -1607,12 +1607,12 @@ public class InitializationDataBase extends EquallablePkUtil {
     }
 
     protected static void initExpPoints(DataBase _data) {
-        _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,2)");
-        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",2)");
+        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
         _data.getRates().addEntry(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().addEntry(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().addEntry(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -1767,7 +1767,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         litteral_.addEntry("LANCEUR_NB_UTILISATION", StringUtil.concat(MOVE_FORMULA,TAB,"usr_nb_uses__{0}",TAB,"Number of uses of the move {0} of the user"));
         litteral_.addEntry("CIBLE_STATIS", StringUtil.concat(STATIS_FORMULA,TAB,"targ_statis__{0}",TAB,"{0} in terms of base of statistic of the target"));
         litteral_.addEntry("NB_UTILI_ATT_EQ_TOUR", StringUtil.concat(MOVE_FORMULA,TAB,"nb_uses_team_move_rd__{0}",TAB,"Number of uses of the move {0} by the team"));
-        litteral_.addEntry("NIVEAU", StringUtil.concat("level",TAB,"l",TAB,"The level of the Pokemon"));
+        litteral_.addEntry(DataBase.DEF_NIVEAU, StringUtil.concat("level",TAB,"l",TAB,"The level of the Pokemon"));
         litteral_.addEntry("EV", StringUtil.concat("ev",TAB,"ev",TAB,"The ev of a statistic of the pokemon"));
         litteral_.addEntry("IV", StringUtil.concat("iv",TAB,"iv",TAB,"The iv of a statistic of the pokemon"));
         litteral_.addEntry("BASE", StringUtil.concat("base",TAB,"base",TAB,"The base value of a statistic of the pokemon"));
@@ -1836,8 +1836,8 @@ public class InitializationDataBase extends EquallablePkUtil {
         litteral_.addEntry("PK_UT_VITESSE", StringUtil.concat(MOVE_FORMULA,TAB,"pk_pl_speed",TAB,"Speed of the first pokemon of the player."));
         litteral_.addEntry("PK_SAUVAGE_VITESSE", StringUtil.concat(MOVE_FORMULA,TAB,"pk_foe_speed",TAB,"Speed of the wild pokemon."));
         litteral_.addEntry("NB_FLEES", StringUtil.concat(MOVE_FORMULA,TAB,"nb_flees",TAB,"Number of attempts of flee."));
-        litteral_.addEntry("LEVEL_WINNER", StringUtil.concat(MOVE_FORMULA,TAB,"lvl_l",TAB,"Level of the KO fighter"));
-        litteral_.addEntry("LEVEL_LOOSER", StringUtil.concat(MOVE_FORMULA,TAB,"lvl_w",TAB,"Level of the player fighter which wins points"));
+        litteral_.addEntry(DataBase.DEF_LEVEL_WINNER, StringUtil.concat(MOVE_FORMULA,TAB,"lvl_l",TAB,"Level of the KO fighter"));
+        litteral_.addEntry(DataBase.DEF_LEVEL_LOOSER, StringUtil.concat(MOVE_FORMULA,TAB,"lvl_w",TAB,"Level of the player fighter which wins points"));
         _data.getLitterals().addEntry(LANGUAGE,litteral_);
     }
 

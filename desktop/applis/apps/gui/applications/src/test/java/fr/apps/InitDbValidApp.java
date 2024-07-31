@@ -284,14 +284,18 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         _db.setDefMove(_defMove);
         _db.setDefaultEggGroup(_defaultEggGoup);
         _db.setDefCategory("_");
+        _db.prefixVar(DataBase.VAR_DEF);
+        _db.niveau(DataBase.DEF_NIVEAU);
+        _db.levelLooser(DataBase.DEF_LEVEL_LOOSER);
+        _db.levelWinner(DataBase.DEF_LEVEL_WINNER);
     }
     public static void initExpPoints(DataBase _data) {
-        _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
-        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,2)");
-        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+"NIVEAU");
-        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+"NIVEAU,3)");
+        _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",2)");
+        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+DataBase.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
         _data.getRates().addEntry(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().addEntry(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().addEntry(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -386,7 +390,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         words_ = DataBase.basicTranslation(EvolvedMathFactory.getFunctions());
         _data.getTranslatedFctMath().addEntry(LANGUAGE, words_);
         StringMap<String> litteral_ = new StringMap<String>();
-        litteral_.addEntry("NIVEAU", StringUtil.concat("level",TAB,"l",TAB,"The level of the Pokemon"));
+        litteral_.addEntry(DataBase.DEF_NIVEAU, StringUtil.concat("level",TAB,"l",TAB,"The level of the Pokemon"));
         litteral_.addEntry("BOOST", StringUtil.concat("boost",TAB,"b",TAB,"The boost of the Pokemon"));
         _data.getLitterals().addEntry(LANGUAGE,litteral_);
     }

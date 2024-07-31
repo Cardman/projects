@@ -119,7 +119,28 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase11() {
         DataBase data_ = newData();
         data_.initValue(DataBase.PREFIX_KEY,"0");
-        assertEq("0",data_.getPrefixVar());
+        assertEq("0",data_.prefixVar());
+    }
+
+    @Test
+    public void initBase12() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NIVEAU,"0");
+        assertEq("0",data_.niveau());
+    }
+
+    @Test
+    public void initBase13() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LEVEL_LOOSER,"0");
+        assertEq("0",data_.levelLooser());
+    }
+
+    @Test
+    public void initBase14() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LEVEL_WINNER,"0");
+        assertEq("0",data_.levelWinner());
     }
     @Test
     public void test() {
@@ -279,30 +300,51 @@ public class DataBaseTest extends EquallablePkUtil {
     @Test
     public void validateOtherConstants1(){
         DataBase data_ = newData();
-        data_.setPrefixVar("MY_VAR_");
+        data_.prefixVar("MY_VAR_");
         data_.validateOtherConstants();
-        assertEq(DataBase.VAR_DEF,data_.getPrefixVar());
+        assertEq(DataBase.VAR_DEF,data_.prefixVar());
     }
     @Test
     public void validateOtherConstants2(){
         DataBase data_ = newData();
-        data_.setPrefixVar("_MY_VAR");
+        data_.prefixVar("_MY_VAR");
         data_.validateOtherConstants();
-        assertEq(DataBase.VAR_DEF,data_.getPrefixVar());
+        assertEq(DataBase.VAR_DEF,data_.prefixVar());
     }
     @Test
     public void validateOtherConstants3(){
         DataBase data_ = newData();
-        data_.setPrefixVar("");
+        data_.prefixVar("");
         data_.validateOtherConstants();
-        assertEq(DataBase.VAR_DEF,data_.getPrefixVar());
+        assertEq(DataBase.VAR_DEF,data_.prefixVar());
     }
     @Test
     public void validateOtherConstants4(){
         DataBase data_ = newData();
-        data_.setPrefixVar("MY_VAR");
+        data_.prefixVar("MY_VAR");
         data_.validateOtherConstants();
-        assertEq("MY_VAR",data_.getPrefixVar());
+        assertEq("MY_VAR",data_.prefixVar());
+    }
+    @Test
+    public void validateOtherConstants5(){
+        DataBase data_ = newData();
+        data_.niveau("");
+        data_.validateOtherConstants();
+        assertEq(DataBase.DEF_NIVEAU,data_.niveau());
+    }
+    @Test
+    public void validateOtherConstants6(){
+        DataBase data_ = newData();
+        data_.levelLooser("");
+        data_.validateOtherConstants();
+        assertEq(DataBase.DEF_LEVEL_LOOSER,data_.levelLooser());
+    }
+    @Test
+    public void validateOtherConstants7(){
+        DataBase data_ = newData();
+        data_.levelWinner("");
+        data_.validateOtherConstants();
+        assertEq(DataBase.DEF_LEVEL_WINNER,data_.levelWinner());
     }
     @Test
     public void completeMembers1Test() {
@@ -1888,7 +1930,7 @@ public class DataBaseTest extends EquallablePkUtil {
 
     private static DataBase newData() {
         DataBase db_ = new DataBase(DefaultGenerator.oneElt());
-        db_.setPrefixVar(DataBase.VAR_DEF);
+        db_.prefixVar(DataBase.VAR_DEF);
         return db_;
     }
 
