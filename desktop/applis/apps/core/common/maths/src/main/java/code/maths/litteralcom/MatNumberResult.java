@@ -18,7 +18,7 @@ public final class MatNumberResult {
         boolean stop_ = false;
         while (i_ < len_) {
             char cur_ = _string.charAt(i_);
-            if (!MathExpUtil.isDigit(cur_)) {
+            if (!MathExpUtil.isWordChar(cur_)) {
                 if (cur_ == DOT || cur_ == SEP_RATE) {
                     nbInfo_.append(cur_);
                     i_++;

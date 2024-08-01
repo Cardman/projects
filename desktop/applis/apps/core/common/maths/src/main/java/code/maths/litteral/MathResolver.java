@@ -46,7 +46,7 @@ public final class MathResolver {
             return;
         }
         if (curChar_ == MatCommonCst.DOT) {
-            int j_ = addNumberInfo(_d, _m.getIndex(), MatNumberResult.build(_m.getIndex() + 1, _string));
+            int j_ = addNumberInfo(_d, _m.getIndex() + 1, _m.getIndex(), _string);
             _d.getNbInfos().last().insert(0, MatCommonCst.DOT);
             _m.setIndex(j_);
             return;
@@ -143,25 +143,25 @@ public final class MathResolver {
     }
 
     private static int processWordChar(String _string, MbDelimiters _d, int _len, int _from, char _curChar) {
-        MatVariableResult resVar_ = MatVariableResult.build(_string, _len, _from);
-        if (MathExpUtil.isDigit(_curChar) && !resVar_.getName().contains("_")) {
-            MatNumberResult b_ = MatNumberResult.build(_from, _string);
-            return addNumberInfo(_d, _from, b_);
+        if (MathExpUtil.isDigit(_curChar)) {
+            return addNumberInfo(_d, _from, _from, _string);
         }
         MatVariableInfo var_ = new MatVariableInfo();
         var_.setFirstChar(_from);
-        int i_ = resVar_.getIndex();
+        MatVariableResult res_ = MatVariableResult.build(_string, _len, _from);
+        int i_ = res_.getIndex();
         var_.setLastChar(i_);
-        var_.setName(resVar_.getName());
+        var_.setName(res_.getName());
         _d.getVariables().add(var_);
         return i_;
     }
 
-    private static int addNumberInfo(MbDelimiters _d, int _begin, MatNumberResult _res) {
-        int i_ = _res.getIndex();
+    private static int addNumberInfo(MbDelimiters _d, int _from, int _begin, String _string) {
+        MatNumberResult res_ = MatNumberResult.build(_from, _string);
+        int i_ = res_.getIndex();
         _d.getDelNumbers().add(_begin);
         _d.getDelNumbers().add(i_);
-        _d.getNbInfos().add(_res.getNbInfo());
+        _d.getNbInfos().add(res_.getNbInfo());
         return i_;
     }
     static MbOperationsSequence getOperationsSequence(int _offset, String _string,

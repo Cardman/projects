@@ -309,11 +309,13 @@ public class DataBaseTest extends EquallablePkUtil {
         DataBase data_ = newData();
         data_.prefixVar("_MY_VAR");
         data_.validateOtherConstants();
-        assertEq(DataBase.VAR_DEF,data_.prefixVar());
+        assertEq("_MY_VAR",data_.prefixVar());
     }
     @Test
     public void validateOtherConstants3(){
         DataBase data_ = newData();
+        data_.prefixVar("0");
+        data_.validateOtherConstants();
         data_.prefixVar("");
         data_.validateOtherConstants();
         assertEq(DataBase.VAR_DEF,data_.prefixVar());
@@ -328,6 +330,10 @@ public class DataBaseTest extends EquallablePkUtil {
     @Test
     public void validateOtherConstants5(){
         DataBase data_ = newData();
+        data_.niveau("_0");
+        data_.levelLooser("_1");
+        data_.levelWinner("_2");
+        data_.validateOtherConstants();
         data_.niveau("");
         data_.validateOtherConstants();
         assertEq(DataBase.DEF_NIVEAU,data_.niveau());

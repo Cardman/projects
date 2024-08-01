@@ -1117,7 +1117,7 @@ public class DataBase {
         validateOtherConstants();
     }
     public void validateOtherConstants() {
-        if (incorrectKey(prefixVar())) {
+        if (incorrectPrefix(prefixVar())) {
             prefixVar(VAR_DEF);
         }
         StringList str_ = new StringList();
@@ -1140,8 +1140,16 @@ public class DataBase {
         }
     }
 
+    private static boolean incorrectPrefix(String _pref) {
+        return !_pref.isEmpty() && MathExpUtil.isDigit(_pref.charAt(0)) || incorrectCommonPart(_pref);
+    }
+
     private static boolean incorrectKey(String _pref) {
-        return _pref.startsWith("_") || _pref.endsWith("_") || !isCorrectIdentifier(_pref);
+        return _pref.startsWith("_") || incorrectCommonPart(_pref);
+    }
+
+    private static boolean incorrectCommonPart(String _pref) {
+        return _pref.endsWith("_") || !isCorrectIdentifier(_pref);
     }
 
     private void evIvHappinessBounds() {
