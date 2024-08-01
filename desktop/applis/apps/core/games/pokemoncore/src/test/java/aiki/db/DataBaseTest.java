@@ -177,6 +177,14 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initValue(DataBase.KEY_PK_UT_NIVEAU,"0");
         assertEq("0",data_.pkUtNiveau());
     }
+
+    @Test
+    public void initBase20() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_BOOST,"0");
+        assertEq("0",data_.boost());
+    }
+
     @Test
     public void test() {
         DataBase data_ = InitializationDataBase.initDataBase();
@@ -448,6 +456,13 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.validateOtherConstants();
         assertEq(DataBase.DEF_PK_SAUVAGE_NIVEAU,data_.pkSauvageNiveau());
         assertEq(DataBase.DEF_PK_UT_NIVEAU,data_.pkUtNiveau());
+    }
+    @Test
+    public void validateOtherConstants16(){
+        DataBase data_ = newData();
+        data_.boost("");
+        data_.validateOtherConstants();
+        assertEq(DataBase.DEF_BOOST,data_.boost());
     }
     @Test
     public void completeMembers1Test() {

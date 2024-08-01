@@ -11,6 +11,7 @@ public final class DataBaseConstants {
     private String lanceurNiveau = "";
     private String pkSauvageNiveau = "";
     private String pkUtNiveau = "";
+    private String boost = "";
 
     public String getPrefixVar() {
         return prefixVar;
@@ -82,5 +83,13 @@ public final class DataBaseConstants {
 
     public void setPkUtNiveau(String _p) {
         this.pkUtNiveau = _p;
+    }
+
+    public String getBoost() {
+        return boost;
+    }
+
+    public void setBoost(String _b) {
+        this.boost = _b;
     }
 }

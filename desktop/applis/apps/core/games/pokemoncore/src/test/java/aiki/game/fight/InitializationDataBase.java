@@ -1588,18 +1588,18 @@ public class InitializationDataBase extends EquallablePkUtil {
         initDefaultConsts(POKE_BALL,
                 MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)",
                 MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)",
-                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"BOOST,0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+"BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+"BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"BOOST,0),2)",
-                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+"BOOST-4)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+DataBase.DEF_BOOST+",1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+DataBase.DEF_BOOST+")*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),2)",
+                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
                 MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
                 LUTTE,
                 "METAMORPH", _data);
 //        _data.addConstNotNumTest("BALL_DEF", "POKE_BALL");
 //        _data.addConstNotNumTest(DataBase.RATE_CATCHING, "caracdroiteferme(div(FOE_PK_MAX_HP,FOE_PK_REMOTE_HP),2)");
 //        _data.addConstNotNumTest(DataBase.RATE_FLEEING, "caracdroiteferme(div("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
-//        //_data.addConstNotNumTest(DataBase.RATE_BOOST, "2:max(2-"+VAR_PREFIX+"BOOST,1)*caracgaucheouvert("+VAR_PREFIX+"BOOST,0)+(2+"+VAR_PREFIX+"BOOST):2*caracdroiteferme("+VAR_PREFIX+"BOOST,0)");
-////        _data.addConstNotNumTest(DataBase.RATE_BOOST, "2*caracgaucheouvert("+VAR_PREFIX+"BOOST,0):max(2-"+VAR_PREFIX+"BOOST,1)+(2+"+VAR_PREFIX+"BOOST)*caracdroiteferme("+VAR_PREFIX+"BOOST,0):2");
-//        _data.addConstNotNumTest(DataBase.RATE_BOOST, "div(2*caracgaucheouvert("+VAR_PREFIX+"BOOST,0),max(2-"+VAR_PREFIX+"BOOST,1))+div((2+"+VAR_PREFIX+"BOOST)*caracdroiteferme("+VAR_PREFIX+"BOOST,0),2)");
-//        _data.addConstNotNumTest(DataBase.RATE_BOOST_CRITICAL_HIT, "puis(2,"+VAR_PREFIX+"BOOST-4)");
+//        //_data.addConstNotNumTest(DataBase.RATE_BOOST, "2:max(2-"+VAR_PREFIX+DataBase.DEF_BOOST+",1)*caracgaucheouvert("+VAR_PREFIX+DataBase.DEF_BOOST+",0)+(2+"+VAR_PREFIX+DataBase.DEF_BOOST+"):2*caracdroiteferme("+VAR_PREFIX+DataBase.DEF_BOOST+",0)");
+////        _data.addConstNotNumTest(DataBase.RATE_BOOST, "2*caracgaucheouvert("+VAR_PREFIX+DataBase.DEF_BOOST+",0):max(2-"+VAR_PREFIX+DataBase.DEF_BOOST+",1)+(2+"+VAR_PREFIX+DataBase.DEF_BOOST+")*caracdroiteferme("+VAR_PREFIX+DataBase.DEF_BOOST+",0):2");
+//        _data.addConstNotNumTest(DataBase.RATE_BOOST, "div(2*caracgaucheouvert("+VAR_PREFIX+DataBase.DEF_BOOST+",0),max(2-"+VAR_PREFIX+DataBase.DEF_BOOST+",1))+div((2+"+VAR_PREFIX+DataBase.DEF_BOOST+")*caracdroiteferme("+VAR_PREFIX+DataBase.DEF_BOOST+",0),2)");
+//        _data.addConstNotNumTest(DataBase.RATE_BOOST_CRITICAL_HIT, "puis(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)");
 ////        _data.addConstNotNumTest(DataBase.DAMAGE_FORMULA, "(5+"+VAR_PREFIX+"LANCEUR_NIVEAU):125*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER:"+VAR_PREFIX+"DEFENSE");
 //        _data.addConstNotNumTest(DataBase.DAMAGE_FORMULA, "div((5+"+VAR_PREFIX+"LANCEUR_NIVEAU)*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))");
 //        _data.addConstNotNumTest(DataBase.DEF_MOVE, "LUTTE");

@@ -168,7 +168,6 @@ public final class Fight {
     public static final String COMBATTANT_ENTRANT_TYPES="COMBATTANT_ENTRANT_TYPES";
     public static final String COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT="COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT";
     public static final String EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION="EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION";
-    public static final String BOOST="BOOST";
     public static final String ATTACK="ATTACK";
     public static final String DEFENSE="DEFENSE";
     public static final String POWER="POWER";

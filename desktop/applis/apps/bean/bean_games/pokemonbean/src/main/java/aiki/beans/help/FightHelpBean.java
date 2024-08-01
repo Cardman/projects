@@ -211,12 +211,12 @@ public class FightHelpBean extends CommonBean {
         StringMap<String> replace_ = new StringMap<String>();
         rateFormula = data_.getRateBoost();
         String pref_ = data_.prefixVar();
-        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), VAR_BOOST);
+        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,data_.boost()), VAR_BOOST);
 //        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
         rateFormula = MathExpUtil.replaceWordsJoin(rateFormula, replace_);
         replace_ = new StringMap<String>();
         rateFormulaCh = data_.getRateBoostCriticalHit();
-        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), VAR_BOOST);
+        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,data_.boost()), VAR_BOOST);
 //        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
         rateFormulaCh = MathExpUtil.replaceWordsJoin(rateFormulaCh, replace_);
         long minBoost_ = data_.getMinBoost();
@@ -2305,7 +2305,7 @@ public class FightHelpBean extends CommonBean {
             String rateBoost_ = _db.getRateBoost();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), Long.toString(b));
+            variables_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,_db.boost()), Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -2321,7 +2321,7 @@ public class FightHelpBean extends CommonBean {
             String rateBoost_ = _db.getRateBoostCriticalHit();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.BOOST), Long.toString(b));
+            variables_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,_db.boost()), Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();

@@ -250,8 +250,8 @@ public abstract class InitDbValid {
         initDefaultConsts(POKE_BALL,
                 "1",
                 "1",
-                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"BOOST,0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+"BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+"BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"BOOST,0),2)",
-                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+"BOOST-4)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+DataBase.DEF_BOOST+",1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+DataBase.DEF_BOOST+")*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),2)",
+                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
                 "1",
                 ECLAIR_3,
                 "METAMORPH", _data);
@@ -374,7 +374,7 @@ public abstract class InitDbValid {
         _data.getTranslatedFctMath().addEntry(LANGUAGE, words_);
         StringMap<String> litteral_ = new StringMap<String>();
         litteral_.addEntry(DataBase.DEF_NIVEAU, StringUtil.concat("level",TAB,"l",TAB,"The level of the Pokemon"));
-        litteral_.addEntry("BOOST", StringUtil.concat("boost",TAB,"b",TAB,"The boost of the Pokemon"));
+        litteral_.addEntry(DataBase.DEF_BOOST, StringUtil.concat("boost",TAB,"b",TAB,"The boost of the Pokemon"));
         _data.getLitterals().addEntry(LANGUAGE,litteral_);
     }
 

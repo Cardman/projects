@@ -522,7 +522,7 @@ public final class CheckNumericStringsFight {
         CustList<Rate> ratesBoost_ = new CustList<Rate>();
         for (long b = minBoost_; b <= maxBoost_; b++) {
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(varPref_, Fight.BOOST),
+            variables_.put(StringUtil.concat(varPref_, _data.boost()),
                     Long.toString(b));
             EvolvedNumString chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
@@ -538,7 +538,7 @@ public final class CheckNumericStringsFight {
         ratesBoost_ = new CustList<Rate>();
         for (long b = minBoost_; b <= maxBoost_; b++) {
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(varPref_, Fight.BOOST),
+            variables_.put(StringUtil.concat(varPref_, _data.boost()),
                     Long.toString(b));
             EvolvedNumString chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);

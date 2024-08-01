@@ -1227,7 +1227,7 @@ final class FightSuccess {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Rate rate_;
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(varPref_,Fight.BOOST), Long.toString(_boost));
+        vars_.put(StringUtil.concat(varPref_,_import.boost()), Long.toString(_boost));
         String rateBoos_ = _import.getRateBoostCriticalHit();
         rate_ = _import.evaluatePositiveExp(rateBoos_, vars_, Rate.one());
         Fighter fighter_ = _fight.getFighter(_thrower);

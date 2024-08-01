@@ -81,6 +81,7 @@ public class DataBase {
     public static final String KEY_LANCEUR_NIVEAU = "6";
     public static final String KEY_PK_SAUVAGE_NIVEAU = "7";
     public static final String KEY_PK_UT_NIVEAU = "8";
+    public static final String KEY_BOOST = "9";
 
     public static final String VAR_DEF = "VAR";
     public static final String DEF_NIVEAU = "NIVEAU";
@@ -91,6 +92,7 @@ public class DataBase {
     public static final String DEF_LANCEUR_NIVEAU = "LANCEUR_NIVEAU";
     public static final String DEF_PK_SAUVAGE_NIVEAU = "PK_SAUVAGE_NIVEAU";
     public static final String DEF_PK_UT_NIVEAU = "PK_UT_NIVEAU";
+    public static final String DEF_BOOST = "BOOST";
 
     public static final String EMPTY_STRING = "";
     public static final String MIN_BOOST = "MIN_BOOST";
@@ -1095,6 +1097,8 @@ public class DataBase {
             pkSauvageNiveau(_value);
         } else if (StringUtil.quickEq(_key, KEY_PK_UT_NIVEAU)) {
             pkUtNiveau(_value);
+        } else if (StringUtil.quickEq(_key, KEY_BOOST)) {
+            boost(_value);
         }
     }
     public void validateConstants() {
@@ -1175,6 +1179,9 @@ public class DataBase {
         }
         if (incorrectKey(pkUtNiveau())) {
             pkUtNiveau(DEF_PK_UT_NIVEAU);
+        }
+        if (incorrectKey(boost())) {
+            boost(DEF_BOOST);
         }
     }
 
@@ -1980,6 +1987,7 @@ public class DataBase {
         lanceurNiveau(DataBase.DEF_LANCEUR_NIVEAU);
         pkSauvageNiveau(DataBase.DEF_PK_SAUVAGE_NIVEAU);
         pkUtNiveau(DataBase.DEF_PK_UT_NIVEAU);
+        boost(DataBase.DEF_BOOST);
     }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();
@@ -2051,6 +2059,14 @@ public class DataBase {
 
     public void pkUtNiveau(String _p) {
         this.getConstNonNum().setPkUtNiveau(_p);
+    }
+
+    public String boost() {
+        return getConstNonNum().getBoost();
+    }
+
+    public void boost(String _p) {
+        this.getConstNonNum().setBoost(_p);
     }
 
     public String getRateBoostCriticalHit() {

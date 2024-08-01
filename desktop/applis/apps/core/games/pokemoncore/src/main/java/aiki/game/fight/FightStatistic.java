@@ -198,7 +198,7 @@ final class FightStatistic {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         String numericExp_ = _import.getRateBoost();
         StringMap<String> variables_ = new StringMap<String>();
-        variables_.put(StringUtil.concat(varPref_,Fight.BOOST), Long.toString(_boost));
+        variables_.put(StringUtil.concat(varPref_,_import.boost()), Long.toString(_boost));
         return _import.evaluatePositiveExp(numericExp_, variables_, Rate.one());
     }
 
