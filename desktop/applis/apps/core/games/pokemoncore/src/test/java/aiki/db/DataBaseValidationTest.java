@@ -3145,7 +3145,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     private static DataBase newData() {
         DataBase db_ = new DataBase(DefaultGenerator.oneElt());
-        db_.prefixVar(DataBase.VAR_DEF);
+        db_.defValues();
         return db_;
     }
 

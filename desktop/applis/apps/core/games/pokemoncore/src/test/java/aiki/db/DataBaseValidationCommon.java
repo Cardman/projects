@@ -58,7 +58,7 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
                 MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)",
                 MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"BOOST,0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+"BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+"BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"BOOST,0),2)",
                 MbOperationNode.PUIS+"(2,"+VAR_PREFIX+"BOOST-4)",
-                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+"LANCEUR_NIVEAU)*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
+                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
                 LUTTE,
                 "METAMORPH", _data);
     }

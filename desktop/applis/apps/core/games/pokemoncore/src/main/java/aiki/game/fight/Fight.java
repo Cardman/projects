@@ -65,7 +65,6 @@ public final class Fight {
     public static final String CIBLE_STATUTS="CIBLE_STATUTS";
     public static final String CIBLE_TYPES="CIBLE_TYPES";
     public static final String CIBLE_PP="CIBLE_PP";
-    public static final String CIBLE_NIVEAU="CIBLE_NIVEAU";
     public static final String NB_KO_EQUIPE_CIBLE="NB_KO_EQUIPE_CIBLE";
     public static final String NB_KO_EQUIPE_ADV_CIBLE="NB_KO_EQUIPE_ADV_CIBLE";
     public static final String COEFF_EFF_BASE_TYPES_CIBLE="COEFF_EFF_BASE_TYPES_CIBLE";
@@ -95,7 +94,6 @@ public final class Fight {
     public static final String CIBLE_GENRE = "CIBLE_GENRE";
     public static final String LANCEUR_GENRE = "LANCEUR_GENRE";
     public static final String COEFF_EFF_BASE_TYPES_FIGHTER="COEFF_EFF_BASE_TYPES_FIGHTER";
-    public static final String FIGHTER_NIVEAU="FIGHTER_NIVEAU";
     public static final String FIGHTER_BONHEUR="FIGHTER_BONHEUR";
     public static final String FIGHTER_PP="FIGHTER_PP";
     public static final String FIGHTER_GENRE = "FIGHTER_GENRE";
@@ -131,7 +129,6 @@ public final class Fight {
     //public static final String CLIMAT_DOMINANT="CLIMAT_DOMINANT";
     public static final String LIEU_COMBAT="LIEU_COMBAT";
     public static final String NB_FLEES="NB_FLEES";
-    public static final String LANCEUR_NIVEAU="LANCEUR_NIVEAU";
     public static final String LANCEUR_BONHEUR="LANCEUR_BONHEUR";
     public static final String TEMPS_TOUR="TEMPS_TOUR";
     public static final String RATE_EFF_MOVE_AGAINST_TARGET="RATE_EFF_MOVE_AGAINST_TARGET";
@@ -161,11 +158,9 @@ public final class Fight {
     public static final String MASSE_MOYENNE_PK="MASSE_MOYENNE_PK";
     public static final String PK_UT_GENRE="PK_UT_GENRE";
     public static final String PK_UT_MASSE="PK_UT_MASSE";
-    public static final String PK_UT_NIVEAU="PK_UT_NIVEAU";
     public static final String PK_UT_VITESSE="PK_UT_VITESSE";
     public static final String PK_SAUVAGE_GENRE="PK_SAUVAGE_GENRE";
     public static final String PK_SAUVAGE_MASSE="PK_SAUVAGE_MASSE";
-    public static final String PK_SAUVAGE_NIVEAU="PK_SAUVAGE_NIVEAU";
     public static final String PK_SAUVAGE_VITESSE="PK_SAUVAGE_VITESSE";
     public static final String PK_SAUVAGE_TYPES_BASE="PK_SAUVAGE_TYPES_BASE";
     public static final String PK_SAUVAGE_PIERRES_EVOS="PK_SAUVAGE_PIERRES_EVOS";

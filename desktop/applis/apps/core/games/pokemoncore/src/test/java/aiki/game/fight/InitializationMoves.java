@@ -530,7 +530,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower(MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"CIBLE_NIVEAU,"+VAR_PREFIX+"LANCEUR_NIVEAU)");
+        effetDegats_.setPower(MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_CIBLE_NIVEAU+","+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")");
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
         effetDegats_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
@@ -4191,7 +4191,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setPp((short)5);
         ficheAttaqueNonOff_.getTypes().add(SOL);
         ficheAttaqueNonOff_.getBoostedTypes().add(SOL);
-        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+"LANCEUR_NIVEAU-"+VAR_PREFIX+"CIBLE_NIVEAU+"+VAR_PREFIX+"EQUIPE_NB_UTILISATION__CASSE,0):100");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+"-"+VAR_PREFIX+DataBase.DEF_CIBLE_NIVEAU+"+"+VAR_PREFIX+"EQUIPE_NB_UTILISATION__CASSE,0):100");
         ficheAttaqueNonOff_.setStoppableMoveSolo(true);
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4208,7 +4208,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setPp((short)5);
         ficheAttaqueNonOff_.getTypes().add(SOL);
         ficheAttaqueNonOff_.getBoostedTypes().add(SOL);
-        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+"LANCEUR_NIVEAU-"+VAR_PREFIX+"CIBLE_NIVEAU,0):100");
+        ficheAttaqueNonOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+"-"+VAR_PREFIX+DataBase.DEF_CIBLE_NIVEAU+",0):100");
         ficheAttaqueNonOff_.setStoppableMoveSolo(true);
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4222,7 +4222,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setPp((short)5);
         ficheAttaqueOff_.getTypes().add(NORMAL);
         ficheAttaqueOff_.getBoostedTypes().add(NORMAL);
-        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+"LANCEUR_NIVEAU-"+VAR_PREFIX+"CIBLE_NIVEAU,0):100");
+        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+"-"+VAR_PREFIX+DataBase.DEF_CIBLE_NIVEAU+",0):100");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4245,7 +4245,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setPp((short)5);
         ficheAttaqueOff_.getTypes().add(NORMAL);
         ficheAttaqueOff_.getBoostedTypes().add(NORMAL);
-        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+"LANCEUR_NIVEAU-"+VAR_PREFIX+"CIBLE_NIVEAU,0):100");
+        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+"-"+VAR_PREFIX+DataBase.DEF_CIBLE_NIVEAU+",0):100");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4267,7 +4267,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setPp((short)5);
         ficheAttaqueOff_.getTypes().add(NORMAL);
         ficheAttaqueOff_.getBoostedTypes().add(NORMAL);
-        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+"LANCEUR_NIVEAU-"+VAR_PREFIX+"CIBLE_NIVEAU,0):100");
+        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+"-"+VAR_PREFIX+DataBase.DEF_CIBLE_NIVEAU+",0):100");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ANY_FOE);
@@ -4292,7 +4292,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.setPp((short)5);
         ficheAttaqueOff_.getTypes().add(NORMAL);
         ficheAttaqueOff_.getBoostedTypes().add(NORMAL);
-        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+"LANCEUR_NIVEAU-"+VAR_PREFIX+"CIBLE_NIVEAU,0):100");
+        ficheAttaqueOff_.setAccuracy(MbOperationNode.MAX+"("+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+"-"+VAR_PREFIX+DataBase.DEF_CIBLE_NIVEAU+",0):100");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.ANY_FOE);

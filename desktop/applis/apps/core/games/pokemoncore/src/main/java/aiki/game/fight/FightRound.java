@@ -887,7 +887,7 @@ final class FightRound {
         StringMap<String> varLocs_ = new StringMap<String>();
         varLocs_.put(StringUtil.concat(varPref_,Fight.ATTACK), att_.toNumberString());
         varLocs_.put(StringUtil.concat(varPref_,Fight.DEFENSE), def_.toNumberString());
-        varLocs_.put(StringUtil.concat(varPref_,Fight.LANCEUR_NIVEAU), Long.toString(creature_.getLevel()));
+        varLocs_.put(StringUtil.concat(varPref_,_import.lanceurNiveau()), Long.toString(creature_.getLevel()));
         varLocs_.put(StringUtil.concat(varPref_,Fight.POWER), _puissance.toNumberString());
         String damageFormula_ = _import.getDamageFormula();
         Rate degats_ = _import.evaluatePositiveExp(damageFormula_, varLocs_, _puissance);
@@ -1730,11 +1730,11 @@ final class FightRound {
         _variables.put(StringUtil.concat(varPref_,Fight.MASSE_MOYENNE_PK), _import.getAvgWeight().toNumberString());
         _variables.put(StringUtil.concat(varPref_,Fight.PK_UT_GENRE), _creatureUt.getGender().getGenderName());
         _variables.put(StringUtil.concat(varPref_,Fight.PK_UT_MASSE), _creatureUt.getWeight().toNumberString());
-        _variables.put(StringUtil.concat(varPref_,Fight.PK_UT_NIVEAU),Long.toString(_creatureUt.getLevel()));
+        _variables.put(StringUtil.concat(varPref_,_import.pkUtNiveau()),Long.toString(_creatureUt.getLevel()));
         _variables.put(StringUtil.concat(varPref_,Fight.PK_UT_VITESSE),FightOrder.speed(_fight, _cbt, _import).toNumberString());
         _variables.put(StringUtil.concat(varPref_,Fight.PK_SAUVAGE_GENRE), _creatureSauvage.getGender().getGenderName());
         _variables.put(StringUtil.concat(varPref_,Fight.PK_SAUVAGE_MASSE), _creatureSauvage.getWeight().toNumberString());
-        _variables.put(StringUtil.concat(varPref_,Fight.PK_SAUVAGE_NIVEAU),Long.toString(_creatureSauvage.getLevel()));
+        _variables.put(StringUtil.concat(varPref_,_import.pkSauvageNiveau()),Long.toString(_creatureSauvage.getLevel()));
         _variables.put(StringUtil.concat(varPref_,Fight.PK_SAUVAGE_VITESSE),FightOrder.speed(_fight,Fight.toFoeFighter(IndexConstants.FIRST_INDEX), _import).toNumberString());
         PokemonData fPk_= _creatureSauvage.fichePokemon(_import);
         _variables.put(StringUtil.concat(varPref_,Fight.PK_SAUVAGE_TYPES_BASE), StringUtil.join(fPk_.getTypes(), _import.getSepartorSetChar()));

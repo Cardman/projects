@@ -284,10 +284,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         _db.setDefMove(_defMove);
         _db.setDefaultEggGroup(_defaultEggGoup);
         _db.setDefCategory("_");
-        _db.prefixVar(DataBase.VAR_DEF);
-        _db.niveau(DataBase.DEF_NIVEAU);
-        _db.levelLooser(DataBase.DEF_LEVEL_LOOSER);
-        _db.levelWinner(DataBase.DEF_LEVEL_WINNER);
+        _db.defValues();
     }
     public static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+DataBase.DEF_NIVEAU);

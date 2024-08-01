@@ -591,7 +591,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
     public static DataBase init() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
-        data_.prefixVar(DataBase.VAR_DEF);
+        data_.defValues();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initTranslations();

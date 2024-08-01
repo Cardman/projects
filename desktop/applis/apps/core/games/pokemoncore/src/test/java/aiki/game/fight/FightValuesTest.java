@@ -1,6 +1,5 @@
 package aiki.game.fight;
 
-import aiki.game.player.enums.Sex;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -103,7 +102,7 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL_TOUR)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DER_JOUE)));
-        assertEq("32", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_NIVEAU)));
+        assertEq("32", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_FIGHTER_NIVEAU)));
         assertEq("140", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("140", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS,DataBase.SEP_BETWEEN_KEYS,PHYSIQUE)));
@@ -197,7 +196,7 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL_TOUR)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DER_JOUE)));
-        assertEq("32", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_NIVEAU)));
+        assertEq("32", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_FIGHTER_NIVEAU)));
         assertEq("140", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("140", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS,DataBase.SEP_BETWEEN_KEYS,PHYSIQUE)));
@@ -299,7 +298,7 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL_TOUR)));
         assertEq("1", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DER_JOUE)));
-        assertEq("32", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_NIVEAU)));
+        assertEq("32", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_FIGHTER_NIVEAU)));
         assertEq("140", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("140", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS,DataBase.SEP_BETWEEN_KEYS,PHYSIQUE)));
@@ -400,7 +399,7 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL_TOUR)));
         assertEq("1", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DER_JOUE)));
-        assertEq("32", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_NIVEAU)));
+        assertEq("32", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_FIGHTER_NIVEAU)));
         assertEq("140", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("140", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS,DataBase.SEP_BETWEEN_KEYS,PHYSIQUE)));
@@ -501,7 +500,7 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS_TOTAL_TOUR)));
         assertEq("1", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DER_JOUE)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_FIGHTER_NIVEAU)));
         assertEq("70", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_BONHEUR)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS,DataBase.SEP_BETWEEN_KEYS,PHYSIQUE)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.FIGHTER_DEGATS_RECUS,DataBase.SEP_BETWEEN_KEYS,SPECIALE)));
@@ -566,8 +565,8 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("92/5", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_PV_MAX)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_GENRE)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_GENRE)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_NIVEAU)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_LANCEUR_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_CIBLE_NIVEAU)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,STOCKAGE)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,ABRI)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,TENACITE)));
@@ -686,7 +685,7 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("1873/100", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_PV_RESTANTS)));
         assertEq("1873/100", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_PV_MAX)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_GENRE)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_LANCEUR_NIVEAU)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.LANCEUR_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,STOCKAGE)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.LANCEUR_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,ABRI)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.LANCEUR_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,TENACITE)));
@@ -766,8 +765,8 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("92/5", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_PV_MAX)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_GENRE)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_GENRE)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_NIVEAU)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_LANCEUR_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_CIBLE_NIVEAU)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,STOCKAGE)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,ABRI)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,TENACITE)));
@@ -903,8 +902,8 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("92/5", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_PV_MAX)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_GENRE)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_GENRE)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_NIVEAU)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_LANCEUR_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_CIBLE_NIVEAU)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,STOCKAGE)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,ABRI)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,TENACITE)));
@@ -1036,8 +1035,8 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("92/5", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_PV_MAX)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_GENRE)));
         assertEq(Gender.NO_GENDER.getGenderName(), map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_GENRE)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.LANCEUR_NIVEAU)));
-        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,Fight.CIBLE_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_LANCEUR_NIVEAU)));
+        assertEq("3", map_.getVal(StringUtil.concat(VAR_PREFIX,DataBase.DEF_CIBLE_NIVEAU)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,STOCKAGE)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,ABRI)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX,Fighter.CIBLE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,TENACITE)));

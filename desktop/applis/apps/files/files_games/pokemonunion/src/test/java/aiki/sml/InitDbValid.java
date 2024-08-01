@@ -153,10 +153,7 @@ public abstract class InitDbValid {
     }
     public static DataBase coreDataBase() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
-        data_.prefixVar(DataBase.VAR_DEF);
-        data_.niveau(DataBase.DEF_NIVEAU);
-        data_.levelLooser(DataBase.DEF_LEVEL_LOOSER);
-        data_.levelWinner(DataBase.DEF_LEVEL_WINNER);
+        data_.defValues();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -273,7 +270,7 @@ public abstract class InitDbValid {
         _db.setDefMove(_defMove);
         _db.setDefaultEggGroup(_defaultEggGoup);
         _db.setDefCategory("_");
-        _db.prefixVar(DataBase.VAR_DEF);
+        _db.defValues();
     }
     public static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+DataBase.DEF_NIVEAU);

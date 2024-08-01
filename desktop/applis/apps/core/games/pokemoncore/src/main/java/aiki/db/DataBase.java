@@ -76,11 +76,21 @@ public class DataBase {
     public static final String KEY_NIVEAU = "1";
     public static final String KEY_LEVEL_LOOSER = "2";
     public static final String KEY_LEVEL_WINNER = "3";
+    public static final String KEY_FIGHTER_NIVEAU = "4";
+    public static final String KEY_CIBLE_NIVEAU = "5";
+    public static final String KEY_LANCEUR_NIVEAU = "6";
+    public static final String KEY_PK_SAUVAGE_NIVEAU = "7";
+    public static final String KEY_PK_UT_NIVEAU = "8";
 
     public static final String VAR_DEF = "VAR";
     public static final String DEF_NIVEAU = "NIVEAU";
     public static final String DEF_LEVEL_LOOSER = "LEVEL_LOOSER";
     public static final String DEF_LEVEL_WINNER = "LEVEL_WINNER";
+    public static final String DEF_FIGHTER_NIVEAU = "FIGHTER_NIVEAU";
+    public static final String DEF_CIBLE_NIVEAU = "CIBLE_NIVEAU";
+    public static final String DEF_LANCEUR_NIVEAU = "LANCEUR_NIVEAU";
+    public static final String DEF_PK_SAUVAGE_NIVEAU = "PK_SAUVAGE_NIVEAU";
+    public static final String DEF_PK_UT_NIVEAU = "PK_UT_NIVEAU";
 
     public static final String EMPTY_STRING = "";
     public static final String MIN_BOOST = "MIN_BOOST";
@@ -1075,6 +1085,16 @@ public class DataBase {
             levelLooser(_value);
         } else if (StringUtil.quickEq(_key, KEY_LEVEL_WINNER)) {
             levelWinner(_value);
+        } else if (StringUtil.quickEq(_key, KEY_FIGHTER_NIVEAU)) {
+            fighterNiveau(_value);
+        } else if (StringUtil.quickEq(_key, KEY_CIBLE_NIVEAU)) {
+            cibleNiveau(_value);
+        } else if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)) {
+            lanceurNiveau(_value);
+        } else if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_NIVEAU)) {
+            pkSauvageNiveau(_value);
+        } else if (StringUtil.quickEq(_key, KEY_PK_UT_NIVEAU)) {
+            pkUtNiveau(_value);
         }
     }
     public void validateConstants() {
@@ -1120,14 +1140,17 @@ public class DataBase {
         if (incorrectPrefix(prefixVar())) {
             prefixVar(VAR_DEF);
         }
-        StringList str_ = new StringList();
-        str_.add(niveau());
-        str_.add(levelLooser());
-        str_.add(levelWinner());
-        if (str_.hasDuplicates()) {
-            niveau(EMPTY_STRING);
+        if (gr1().hasDuplicates()) {
             levelLooser(EMPTY_STRING);
             levelWinner(EMPTY_STRING);
+        }
+        if (gr2().hasDuplicates()) {
+            cibleNiveau(EMPTY_STRING);
+            lanceurNiveau(EMPTY_STRING);
+        }
+        if (gr3().hasDuplicates()) {
+            pkSauvageNiveau(EMPTY_STRING);
+            pkUtNiveau(EMPTY_STRING);
         }
         if (incorrectKey(niveau())) {
             niveau(DEF_NIVEAU);
@@ -1138,6 +1161,42 @@ public class DataBase {
         if (incorrectKey(levelWinner())) {
             levelWinner(DEF_LEVEL_WINNER);
         }
+        if (incorrectKey(fighterNiveau())) {
+            fighterNiveau(DEF_FIGHTER_NIVEAU);
+        }
+        if (incorrectKey(cibleNiveau())) {
+            cibleNiveau(DEF_CIBLE_NIVEAU);
+        }
+        if (incorrectKey(lanceurNiveau())) {
+            lanceurNiveau(DEF_LANCEUR_NIVEAU);
+        }
+        if (incorrectKey(pkSauvageNiveau())) {
+            pkSauvageNiveau(DEF_PK_SAUVAGE_NIVEAU);
+        }
+        if (incorrectKey(pkUtNiveau())) {
+            pkUtNiveau(DEF_PK_UT_NIVEAU);
+        }
+    }
+
+    private StringList gr1() {
+        StringList str_ = new StringList();
+        str_.add(levelLooser());
+        str_.add(levelWinner());
+        return str_;
+    }
+
+    private StringList gr2() {
+        StringList str_ = new StringList();
+        str_.add(cibleNiveau());
+        str_.add(lanceurNiveau());
+        return str_;
+    }
+
+    private StringList gr3() {
+        StringList str_ = new StringList();
+        str_.add(pkSauvageNiveau());
+        str_.add(pkUtNiveau());
+        return str_;
     }
 
     private static boolean incorrectPrefix(String _pref) {
@@ -1911,6 +1970,17 @@ public class DataBase {
         constNum = _constNum;
     }
 
+    public void defValues() {
+        prefixVar(DataBase.VAR_DEF);
+        niveau(DataBase.DEF_NIVEAU);
+        levelLooser(DataBase.DEF_LEVEL_LOOSER);
+        levelWinner(DataBase.DEF_LEVEL_WINNER);
+        fighterNiveau(DataBase.DEF_FIGHTER_NIVEAU);
+        cibleNiveau(DataBase.DEF_CIBLE_NIVEAU);
+        lanceurNiveau(DataBase.DEF_LANCEUR_NIVEAU);
+        pkSauvageNiveau(DataBase.DEF_PK_SAUVAGE_NIVEAU);
+        pkUtNiveau(DataBase.DEF_PK_UT_NIVEAU);
+    }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();
     }
@@ -1941,6 +2011,46 @@ public class DataBase {
 
     public void levelWinner(String _p) {
         this.getConstNonNum().setLevelWinner(_p);
+    }
+
+    public String fighterNiveau() {
+        return getConstNonNum().getFighterNiveau();
+    }
+
+    public void fighterNiveau(String _p) {
+        this.getConstNonNum().setFighterNiveau(_p);
+    }
+
+    public String cibleNiveau() {
+        return getConstNonNum().getCibleNiveau();
+    }
+
+    public void cibleNiveau(String _p) {
+        this.getConstNonNum().setCibleNiveau(_p);
+    }
+
+    public String lanceurNiveau() {
+        return getConstNonNum().getLanceurNiveau();
+    }
+
+    public void lanceurNiveau(String _p) {
+        this.getConstNonNum().setLanceurNiveau(_p);
+    }
+
+    public String pkSauvageNiveau() {
+        return getConstNonNum().getPkSauvageNiveau();
+    }
+
+    public void pkSauvageNiveau(String _p) {
+        this.getConstNonNum().setPkSauvageNiveau(_p);
+    }
+
+    public String pkUtNiveau() {
+        return getConstNonNum().getPkUtNiveau();
+    }
+
+    public void pkUtNiveau(String _p) {
+        this.getConstNonNum().setPkUtNiveau(_p);
     }
 
     public String getRateBoostCriticalHit() {

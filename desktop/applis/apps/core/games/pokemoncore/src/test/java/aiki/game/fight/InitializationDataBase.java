@@ -1590,7 +1590,7 @@ public class InitializationDataBase extends EquallablePkUtil {
                 MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)",
                 MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"BOOST,0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+"BOOST,1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+"BOOST)*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"BOOST,0),2)",
                 MbOperationNode.PUIS+"(2,"+VAR_PREFIX+"BOOST-4)",
-                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+"LANCEUR_NIVEAU)*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
+                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
                 LUTTE,
                 "METAMORPH", _data);
 //        _data.addConstNotNumTest("BALL_DEF", "POKE_BALL");
@@ -1748,7 +1748,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         litteral_.addEntry("PUISSANCE_BASE", StringUtil.concat("item",TAB,"power_base",TAB,"Power of base of the move of the owner"));
         litteral_.addEntry("MASSE_MOYENNE_PK", StringUtil.concat("item",TAB,"avg_pk_weight",TAB,"Average weight of the pokemon"));
         litteral_.addEntry("LANCEUR_ATTAQUES_TYPES", StringUtil.concat(MOVE_FORMULA,TAB,"usr_moves_types",TAB,"Types of the moves of the user"));
-        litteral_.addEntry("PK_UT_NIVEAU", StringUtil.concat("item",TAB,"pk_player_lev",TAB,"Level of the pokemon of the player"));
+        litteral_.addEntry(DataBase.DEF_PK_UT_NIVEAU, StringUtil.concat("item",TAB,"pk_player_lev",TAB,"Level of the pokemon of the player"));
         litteral_.addEntry("DEFENSE", StringUtil.concat(MOVE_FORMULA,TAB,"def",TAB,"Value of the defence of the user"));
         litteral_.addEntry("PK_SAUVAGE_TYPES_BASE", StringUtil.concat("item",TAB,"wild_pk_types",TAB,"Types de base of the wild pokemon"));
         litteral_.addEntry("LANCEUR_CAPACITE", StringUtil.concat(MOVE_FORMULA,TAB,"usr_ab",TAB,"Current ability of the user"));
@@ -1793,7 +1793,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         litteral_.addEntry("CIBLE_PP", StringUtil.concat(MOVE_FORMULA,TAB,"usr_pp__{0}",TAB,"Remaining power points of the move {0} of the user"));
         litteral_.addEntry("PAS_TOUR_TERRAIN", StringUtil.concat(MOVE_FORMULA,TAB,"no_rd",TAB,"Has just been sent on the ground."));
         litteral_.addEntry("FIGHTER_CLONE", StringUtil.concat(STATUS_FORMULA,TAB,"fighter_clone",TAB,"PV of the clone of the fighter"));
-        litteral_.addEntry("CIBLE_NIVEAU", StringUtil.concat(MOVE_FORMULA,TAB,"targ_lev",TAB,"Level of the target"));
+        litteral_.addEntry(DataBase.DEF_CIBLE_NIVEAU, StringUtil.concat(MOVE_FORMULA,TAB,"targ_lev",TAB,"Level of the target"));
         litteral_.addEntry("FIGHTER_STATUTS", StringUtil.concat("item",TAB,"fighter_st",TAB,"Status of the owner"));
         litteral_.addEntry("PK_SAUVAGE_MASSE", StringUtil.concat("item",TAB,"wild_pk_wt",TAB,"Weight of wild pokemon"));
         litteral_.addEntry("TYPES_ATTAQUES_RES_VIDE", StringUtil.concat(MOVE_FORMULA,TAB,"res_types_move_empty",TAB,"No resisting type against the last suffered move."));
@@ -1819,9 +1819,9 @@ public class InitializationDataBase extends EquallablePkUtil {
         litteral_.addEntry("PK_SAUVAGE_VITESSE", StringUtil.concat("item",TAB,"wild_pk_speed",TAB,"Base speed of the wild pokemon"));
         litteral_.addEntry("PAS_ATTAQUES_COPIABLES", StringUtil.concat(MOVE_FORMULA,TAB,"no_copy_moves",TAB,"No move can be copied"));
         litteral_.addEntry("NB_COMBATTANTS_TERRAIN", StringUtil.concat(MOVE_FORMULA,TAB,"nb_fighters",TAB,"Number of fighters on the ground"));
-        litteral_.addEntry("PK_SAUVAGE_NIVEAU", StringUtil.concat("item",TAB,"wild_pk_lev",TAB,"Level of the wild pokemon"));
+        litteral_.addEntry(DataBase.DEF_PK_SAUVAGE_NIVEAU, StringUtil.concat("item",TAB,"wild_pk_lev",TAB,"Level of the wild pokemon"));
         litteral_.addEntry("LANCEUR_PV_RESTANTS", StringUtil.concat(MOVE_FORMULA,TAB,"usr_left_hp",TAB,"Remaining points de vie of the user"));
-        litteral_.addEntry("LANCEUR_NIVEAU", StringUtil.concat(MOVE_FORMULA,TAB,"usr_lev",TAB,"Level of the user"));
+        litteral_.addEntry(DataBase.DEF_LANCEUR_NIVEAU, StringUtil.concat(MOVE_FORMULA,TAB,"usr_lev",TAB,"Level of the user"));
         litteral_.addEntry("COEFF_EFF", StringUtil.concat("item",TAB,"rate_eff",TAB,"Rate of efficiency of the move of the owner"));
         litteral_.addEntry("LANCEUR_POSSEDE_STATUT_RELATION", StringUtil.concat(STATUS_FORMULA,TAB,"target_pseudo_st__{0}",TAB,"The user suffers of the pseudo status {0}"));
         litteral_.addEntry("NB_TOUR_GLOBAL", StringUtil.concat(MOVE_FORMULA,TAB,"nb_gl_move__{0}",TAB,"Number of tour of the move {0}"));

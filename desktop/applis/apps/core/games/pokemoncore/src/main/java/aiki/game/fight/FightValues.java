@@ -65,7 +65,7 @@ final class FightValues {
         varsPp(_import, creatureCbtLanceur_, Fight.FIGHTER_PP, variables_);
         equipes(variables_, _fight, _fighter, Fight.NB_KO_EQUIPE_FIGHTER, Fight.NB_KO_EQUIPE_ADV_FIGHTER, _import);
         variables_.put(StringUtil.concat(varPref_,Fight.LIEU_COMBAT),_fight.getEnvType().getEnvName());
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_NIVEAU),Long.toString(creatureCbtLanceur_.getLevel()));
+        variables_.put(StringUtil.concat(varPref_,_import.fighterNiveau()),Long.toString(creatureCbtLanceur_.getLevel()));
         variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_BONHEUR),Long.toString(creatureCbtLanceur_.getHappiness()));
         variables_.put(StringUtil.concat(varPref_,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
         int nbCombattantsTerrain_ = nbCombattantsTerrain(_fight);
@@ -219,7 +219,7 @@ final class FightValues {
         variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_TYPES), StringUtil.join(types_, _import.getSepartorSetChar()));
         varsPp(_import, creatureCbtCible_, Fight.CIBLE_PP, variables_);
         Team equipeAdvCible_=_fight.getTeams().getVal(Fight.foe(_cible.getTeam()));
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_NIVEAU),Long.toString(creatureCbtCible_.getLevel()));
+        variables_.put(StringUtil.concat(varPref_,_import.cibleNiveau()),Long.toString(creatureCbtCible_.getLevel()));
         variables_.put(StringUtil.concat(varPref_,Fight.NB_KO_EQUIPE_CIBLE),Long.toString((long)equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
         variables_.put(StringUtil.concat(varPref_,Fight.NB_KO_EQUIPE_ADV_CIBLE),Long.toString((long)equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
         rateEff(_import, Fight.COEFF_EFF_BASE_TYPES_CIBLE, variables_, creatureCbtCible_);
@@ -261,7 +261,7 @@ final class FightValues {
         varsPp(_import, creatureCbtLanceur_, Fight.LANCEUR_PP, variables_);
         equipes(variables_, _fight, _lanceur, Fight.NB_KO_EQUIPE_LANCEUR, Fight.NB_KO_EQUIPE_ADV_LANCEUR, _import);
         variables_.put(StringUtil.concat(varPref_,Fight.LIEU_COMBAT),_fight.getEnvType().getEnvName());
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_NIVEAU),Long.toString(creatureCbtLanceur_.getLevel()));
+        variables_.put(StringUtil.concat(varPref_,_import.lanceurNiveau()),Long.toString(creatureCbtLanceur_.getLevel()));
         variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_BONHEUR),Long.toString(creatureCbtLanceur_.getHappiness()));
         variables_.put(StringUtil.concat(varPref_,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
         variables_.put(StringUtil.concat(varPref_,Fight.RATE_EFF_MOVE_AGAINST_TARGET),FightSuccess.rateEffAgainstTargetMove(_fight,_lanceur, _cible, _import).toNumberString());

@@ -9,10 +9,7 @@ public final class LoadRes{
 
     public static DataBase loadResource(AbstractGenerator _gene, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList) {
         DataBase data_ = new DataBase(_gene);
-        data_.prefixVar(DataBase.VAR_DEF);
-        data_.niveau(DataBase.DEF_NIVEAU);
-        data_.levelLooser(DataBase.DEF_LEVEL_LOOSER);
-        data_.levelWinner(DataBase.DEF_LEVEL_WINNER);
+        data_.defValues();
         data_.setLanguages(_languages);
         data_.setDisplayLanguages(_displayLanguages);
         loadResources(data_, _sexList);

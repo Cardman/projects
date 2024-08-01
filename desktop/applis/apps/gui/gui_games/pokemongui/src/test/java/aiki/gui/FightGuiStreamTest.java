@@ -1062,10 +1062,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
-        data_.prefixVar(DataBase.VAR_DEF);
-        data_.niveau(DataBase.DEF_NIVEAU);
-        data_.levelLooser(DataBase.DEF_LEVEL_LOOSER);
-        data_.levelWinner(DataBase.DEF_LEVEL_WINNER);
+        data_.defValues();
         data_.initializeMembers();
         initConstants(data_);
         PokemonData pkData_ = Instances.newPokemonData();
