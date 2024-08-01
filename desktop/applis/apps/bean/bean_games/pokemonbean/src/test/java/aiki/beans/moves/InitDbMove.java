@@ -19,7 +19,6 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.util.LevelMove;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
@@ -582,7 +581,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
     protected static FacadeGame feedDbMoveDamComp(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
         FacadeGame f_ = feedDbMoveDam(_targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, _s, _k, _dir, _power);
-        f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        f_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         return f_;
     }
     protected static FacadeGame feedDbMoveDam(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {

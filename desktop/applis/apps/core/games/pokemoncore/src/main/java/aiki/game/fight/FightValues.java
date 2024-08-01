@@ -25,52 +25,52 @@ final class FightValues {
         Team equipeLanceur_=_fight.getTeams().getVal(_fighter.getTeam());
         Fighter creatureCbtLanceur_=equipeLanceur_.getMembers().getVal(_fighter.getPosition());
         StringMap<String> variables_ = new StringMap<String>();
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_GENRE), creatureCbtLanceur_.getCurrentGender().getGenderName());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_GENRE), creatureCbtLanceur_.getCurrentGender().getGenderName());
         for(String c:equipeLanceur_.getNbUsesMovesRound().getKeys()){
-            variables_.put(StringUtil.concat(varPref_,Team.NB_UTILI_ATT_EQ_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMovesRound().getVal(c)));
+            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_UTILI_ATT_EQ_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMovesRound().getVal(c)));
         }
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_PV_RESTANTS),creatureCbtLanceur_.getRemainingHp().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_PV_MAX),creatureCbtLanceur_.pvMax().toNumberString());
-        enabled(creatureCbtLanceur_, variables_, Fighter.FIGHTER_NB_UTILISATION, _import);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_PV_RESTANTS),creatureCbtLanceur_.getRemainingHp().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_PV_MAX),creatureCbtLanceur_.pvMax().toNumberString());
+        enabled(creatureCbtLanceur_, variables_, DataBase.DEF_FIGHTER_NB_UTILISATION, _import);
         for(Statistic c:creatureCbtLanceur_.getStatisBase().getKeys()){
-            variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtLanceur_.getStatisBase().getVal(c).toNumberString());
+            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtLanceur_.getStatisBase().getVal(c).toNumberString());
         }
-        sommeLanceurBoostsPositifs(creatureCbtLanceur_, variables_, Fight.FIGHTER_BOOST, Fight.SOMME_BOOST_POS_FIGHTER, _import);
-        StringList attaquesGlobales_ = _import.getVarParamsMove(Fight.NB_TOUR_GLOBAL);
+        sommeLanceurBoostsPositifs(creatureCbtLanceur_, variables_, DataBase.DEF_FIGHTER_BOOST, DataBase.DEF_SOMME_BOOST_POS_FIGHTER, _import);
+        StringList attaquesGlobales_ = _import.getVarParamsMove(DataBase.DEF_NB_TOUR_GLOBAL);
         for(String c:attaquesGlobales_){
-            variables_.put(StringUtil.concat(varPref_,Fight.NB_TOUR_GLOBAL,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_fight.getEnabledMoves().getVal(c).getNbTurn()));
+            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_TOUR_GLOBAL,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_fight.getEnabledMoves().getVal(c).getNbTurn()));
         }
-        variables_.put(StringUtil.concat(varPref_, Fight.FIGHTER_ATTAQUE_CHOISIE), creatureCbtLanceur_.getFinalChosenMove());
-        moves(creatureCbtLanceur_, variables_, Fight.FIGHTER_ATTAQUES, _import, _fight, _fighter, Fight.FIGHTER_ATTAQUES_TYPES);
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_CLONE),creatureCbtLanceur_.getClone().toNumberString());
-        damage(creatureCbtLanceur_, variables_, Fight.FIGHTER_DEGATS_RECUS, Fight.FIGHTER_DEGATS_RECUS_TOTAL, Fight.FIGHTER_DEGATS_RECUS_TOUR, Fight.FIGHTER_DEGATS_RECUS_TOTAL_TOUR, _import);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_ATTAQUE_CHOISIE), creatureCbtLanceur_.getFinalChosenMove());
+        moves(creatureCbtLanceur_, variables_, DataBase.DEF_FIGHTER_ATTAQUES, _import, _fight, _fighter, DataBase.DEF_FIGHTER_ATTAQUES_TYPES);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_CLONE),creatureCbtLanceur_.getClone().toNumberString());
+        damage(creatureCbtLanceur_, variables_, DataBase.DEF_FIGHTER_DEGATS_RECUS, DataBase.DEF_FIGHTER_DEGATS_RECUS_TOTAL, DataBase.DEF_FIGHTER_DEGATS_RECUS_TOUR, DataBase.DEF_FIGHTER_DEGATS_RECUS_TOTAL_TOUR, _import);
 
-        stat(StringUtil.concat(varPref_, Fight.FIGHTER_DISPARAIT), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isDisappeared());
-        stat(StringUtil.concat(varPref_, Fight.FIGHTER_JOUE), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isActed());
-        addPlayed(_fight, _import, variables_, Fight.FIGHTER_DER_JOUE);
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_NOM),creatureCbtLanceur_.getCurrentName());
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_MASSE),creatureCbtLanceur_.getWeight().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_TAILLE),creatureCbtLanceur_.getHeight().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_OBJET),creatureCbtLanceur_.getItem());
+        stat(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_DISPARAIT), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isDisappeared());
+        stat(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_JOUE), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isActed());
+        addPlayed(_fight, _import, variables_, DataBase.DEF_FIGHTER_DER_JOUE);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_NOM),creatureCbtLanceur_.getCurrentName());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_MASSE),creatureCbtLanceur_.getWeight().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_TAILLE),creatureCbtLanceur_.getHeight().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_OBJET),creatureCbtLanceur_.getItem());
         StringList statutsLanceur_ = new StringList();
         for(String c:creatureCbtLanceur_.getStatusSet()){
             if(!NumberUtil.eq(creatureCbtLanceur_.getStatusNbRoundShort(c), 0)){
                 statutsLanceur_.add(c);
             }
         }
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_STATUTS), StringUtil.join(statutsLanceur_, _import.getSepartorSetChar()));
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_TYPES), StringUtil.join(creatureCbtLanceur_.getTypes(), _import.getSepartorSetChar()));
-        variables_.put(StringUtil.concat(varPref_,Fight.CLIMATS), StringUtil.join(FightMoves.climatsActifs(_fight,_import), _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_STATUTS), StringUtil.join(statutsLanceur_, _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_TYPES), StringUtil.join(creatureCbtLanceur_.getTypes(), _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CLIMATS), StringUtil.join(FightMoves.climatsActifs(_fight,_import), _import.getSepartorSetChar()));
         //variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMAT_DOMINANT),climatDominant(_import));
-        varsPp(_import, creatureCbtLanceur_, Fight.FIGHTER_PP, variables_);
-        equipes(variables_, _fight, _fighter, Fight.NB_KO_EQUIPE_FIGHTER, Fight.NB_KO_EQUIPE_ADV_FIGHTER, _import);
-        variables_.put(StringUtil.concat(varPref_,Fight.LIEU_COMBAT),_fight.getEnvType().getEnvName());
+        varsPp(_import, creatureCbtLanceur_, DataBase.DEF_FIGHTER_PP, variables_);
+        equipes(variables_, _fight, _fighter, DataBase.DEF_NB_KO_EQUIPE_FIGHTER, DataBase.DEF_NB_KO_EQUIPE_ADV_FIGHTER, _import);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LIEU_COMBAT),_fight.getEnvType().getEnvName());
         variables_.put(StringUtil.concat(varPref_,_import.fighterNiveau()),Long.toString(creatureCbtLanceur_.getLevel()));
-        variables_.put(StringUtil.concat(varPref_,Fight.FIGHTER_BONHEUR),Long.toString(creatureCbtLanceur_.getHappiness()));
-        variables_.put(StringUtil.concat(varPref_,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FIGHTER_BONHEUR),Long.toString(creatureCbtLanceur_.getHappiness()));
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_TEMPS_TOUR),_fight.getNbRounds().toNumberString());
         int nbCombattantsTerrain_ = nbCombattantsTerrain(_fight);
-        variables_.put(StringUtil.concat(varPref_,Fight.NB_COMBATTANTS_TERRAIN),Long.toString(nbCombattantsTerrain_));
-        rateEff(_import, Fight.COEFF_EFF_BASE_TYPES_FIGHTER, variables_, creatureCbtLanceur_);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_COMBATTANTS_TERRAIN),Long.toString(nbCombattantsTerrain_));
+        rateEff(_import, DataBase.DEF_COEFF_EFF_BASE_TYPES_FIGHTER, variables_, creatureCbtLanceur_);
         _fight.setEnabledMessages(true);
         return variables_;
     }
@@ -96,19 +96,19 @@ final class FightValues {
     private static void enabled(Fighter _creature, StringMap<String> _variables, String _nbUtilisation, DataBase _import) {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         for(String c: _creature.getEnabledMoves().getKeys()){
-            _variables.put(StringUtil.concat(varPref_,Fight.NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMoves().getVal(c).getNbTurn()));
+            _variables.put(StringUtil.concat(varPref_, DataBase.DEF_NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMoves().getVal(c).getNbTurn()));
         }
         for(String c: _creature.getEnabledMovesProt().getKeys()){
-            _variables.put(StringUtil.concat(varPref_,Fight.NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMovesProt().getVal(c).getNbTurn()));
+            _variables.put(StringUtil.concat(varPref_, DataBase.DEF_NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMovesProt().getVal(c).getNbTurn()));
         }
         for(String c: _creature.getEnabledMovesUnprot().getKeys()){
-            _variables.put(StringUtil.concat(varPref_,Fight.NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMovesUnprot().getVal(c).getNbTurn()));
+            _variables.put(StringUtil.concat(varPref_, DataBase.DEF_NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMovesUnprot().getVal(c).getNbTurn()));
         }
         for(String c: _creature.getEnabledMovesEndRound().getKeys()){
-            _variables.put(StringUtil.concat(varPref_,Fight.NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMovesEndRound().getVal(c).getNbTurn()));
+            _variables.put(StringUtil.concat(varPref_, DataBase.DEF_NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMovesEndRound().getVal(c).getNbTurn()));
         }
         for(String c: _creature.getEnabledMovesConstChoices().getKeys()){
-            _variables.put(StringUtil.concat(varPref_,Fight.NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMovesConstChoices().getVal(c).getNbTurn()));
+            _variables.put(StringUtil.concat(varPref_, DataBase.DEF_NB_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getEnabledMovesConstChoices().getVal(c).getNbTurn()));
         }
         for(String c: _creature.getNbUsesMoves().getKeys()){
             _variables.put(StringUtil.concat(varPref_, _nbUtilisation,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_creature.getNbUsesMoves().getVal(c)));
@@ -146,11 +146,11 @@ final class FightValues {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         Team equipeLanceur_=_fight.getTeams().getVal(_fighter.getTeam());
         for(String c: equipeLanceur_.getNbUsesMoves().getKeys()){
-            _variables.put(StringUtil.concat(varPref_,Team.EQUIPE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMoves().getVal(c)));
+            _variables.put(StringUtil.concat(varPref_, DataBase.DEF_EQUIPE_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMoves().getVal(c)));
         }
         Team equipeAdvLanceur_= _fight.getTeams().getVal(Fight.foe(_fighter.getTeam()));
         for(String c:equipeAdvLanceur_.getNbUsesMoves().getKeys()){
-            _variables.put(StringUtil.concat(varPref_,Team.EQUIPE_ADV_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeAdvLanceur_.getNbUsesMoves().getVal(c)));
+            _variables.put(StringUtil.concat(varPref_, DataBase.DEF_EQUIPE_ADV_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeAdvLanceur_.getNbUsesMoves().getVal(c)));
         }
         _variables.put(StringUtil.concat(varPref_, _nbKoEquipe),Long.toString((long) equipeLanceur_.getNbKoRound()+ equipeLanceur_.getNbKoPreviousRound()));
         _variables.put(StringUtil.concat(varPref_, _nbKoEquipeAdv),Long.toString((long)equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
@@ -158,16 +158,16 @@ final class FightValues {
 
     static void completeValuesWithRemaining(StringMap<String> _variables, Rate _coeffEff, LgInt _nbRepeatingSuccessfulMoves, DataBase _import) {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
-        _variables.put(StringUtil.concat(varPref_,Fight.COEFF_EFF), _coeffEff.toNumberString());
-        _variables.put(StringUtil.concat(varPref_,Fight.NB_UTILISATION_CONSECUTIF), _nbRepeatingSuccessfulMoves.toNumberString());
+        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_COEFF_EFF), _coeffEff.toNumberString());
+        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_NB_UTILISATION_CONSECUTIF), _nbRepeatingSuccessfulMoves.toNumberString());
     }
 
     static void completeValuesWithMoveInfo(String _attaqueLanceur, StringMap<String> _variables, Rate _basePower, DataBase _import, StringList _typeAtt, String _category) {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
-        _variables.put(StringUtil.concat(varPref_,Fight.ATTAQUE_CATEGORIE), _category);
-        _variables.put(StringUtil.concat(varPref_,Fight.ATTAQUE_TYPES), StringUtil.join(_typeAtt, _import.getSepartorSetChar()));
-        _variables.put(StringUtil.concat(varPref_,Fight.ATTAQUE_NOM), _attaqueLanceur);
-        _variables.put(StringUtil.concat(varPref_,Fight.PUISSANCE_BASE), _basePower.toNumberString());
+        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_ATTAQUE_CATEGORIE), _category);
+        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_ATTAQUE_TYPES), StringUtil.join(_typeAtt, _import.getSepartorSetChar()));
+        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_ATTAQUE_NOM), _attaqueLanceur);
+        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_PUISSANCE_BASE), _basePower.toNumberString());
     }
 
     static void completeValuesWithThrower(Fight _fight, TeamPosition _lanceur, StringMap<String> _variables, DataBase _import) {
@@ -175,15 +175,15 @@ final class FightValues {
         Team equipeLanceur_= _fight.getTeams().getVal(_lanceur.getTeam());
         Fighter creatureLanceur_=equipeLanceur_.getMembers().getVal(_lanceur.getPosition());
         String nomActuelLanceur_=creatureLanceur_.getCurrentName();
-        _variables.put(StringUtil.concat(varPref_,Fight.LANCEUR_NOM), nomActuelLanceur_);
+        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_NOM), nomActuelLanceur_);
     }
 
     static StringMap<String> calculateValuesWithStat(StringMap<String> _variables, Rate _att, Rate _def, Rate _finalPower, DataBase _import) {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(StringUtil.concat(varPref_,Fight.ATTACK), _att.toNumberString());
-        varLocs_.put(StringUtil.concat(varPref_,Fight.DEFENSE), _def.toNumberString());
-        varLocs_.put(StringUtil.concat(varPref_,Fight.POWER), _finalPower.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_ATTACK), _att.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_DEFENSE), _def.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_POWER), _finalPower.toNumberString());
         varLocs_.putAllMap(_variables);
         return varLocs_;
     }
@@ -195,79 +195,79 @@ final class FightValues {
         Team equipeLanceur_=_fight.getTeams().getVal(_lanceur.getTeam());
         Fighter creatureCbtLanceur_=equipeLanceur_.getMembers().getVal(_lanceur.getPosition());
         StringMap<String> variables_ = new StringMap<String>();
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_GENRE), creatureCbtCible_.getCurrentGender().getGenderName());
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_PV_RESTANTS),creatureCbtCible_.getRemainingHp().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_PV_MAX),creatureCbtCible_.pvMax().toNumberString());
-        enabled(creatureCbtCible_, variables_, Fighter.CIBLE_NB_UTILISATION, _import);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_GENRE), creatureCbtCible_.getCurrentGender().getGenderName());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_PV_RESTANTS),creatureCbtCible_.getRemainingHp().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_PV_MAX),creatureCbtCible_.pvMax().toNumberString());
+        enabled(creatureCbtCible_, variables_, DataBase.DEF_CIBLE_NB_UTILISATION, _import);
         for(Statistic c:creatureCbtCible_.getStatisBase().getKeys()){
-            variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtCible_.getStatisBase().getVal(c).toNumberString());
+            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtCible_.getStatisBase().getVal(c).toNumberString());
         }
-        sommeLanceurBoostsPositifs(creatureCbtCible_, variables_, Fight.CIBLE_BOOST, Fight.SOMME_BOOST_POS_CIBLE, _import);
-        variables_.put(StringUtil.concat(varPref_, Fight.CIBLE_ATTAQUE_CHOISIE), creatureCbtCible_.getFinalChosenMove());
-        moves(creatureCbtCible_, variables_, Fight.CIBLE_ATTAQUES, _import, _fight, _cible, Fight.CIBLE_ATTAQUES_TYPES);
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_CLONE),creatureCbtCible_.getClone().toNumberString());
-        damage(creatureCbtCible_, variables_, Fight.CIBLE_DEGATS_RECUS, Fight.CIBLE_DEGATS_RECUS_TOTAL, Fight.CIBLE_DEGATS_RECUS_TOUR, Fight.CIBLE_DEGATS_RECUS_TOTAL_TOUR, _import);
-        stat(StringUtil.concat(varPref_, Fight.CIBLE_DISPARAIT), variables_, Fight.ONE, Fight.ZERO, creatureCbtCible_.isDisappeared());
-        stat(StringUtil.concat(varPref_, Fight.CIBLE_JOUE), variables_, Fight.ONE, Fight.ZERO, creatureCbtCible_.isActed());
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_MASSE),creatureCbtCible_.getWeight().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_TAILLE),creatureCbtCible_.getHeight().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_CAPACITE),creatureCbtCible_.getCurrentAbility());
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_OBJET),creatureCbtCible_.getItem());
-        statuts(_import, creatureCbtCible_, variables_, Fight.CIBLE_STATUTS);
+        sommeLanceurBoostsPositifs(creatureCbtCible_, variables_, DataBase.DEF_CIBLE_BOOST, DataBase.DEF_SOMME_BOOST_POS_CIBLE, _import);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_ATTAQUE_CHOISIE), creatureCbtCible_.getFinalChosenMove());
+        moves(creatureCbtCible_, variables_, DataBase.DEF_CIBLE_ATTAQUES, _import, _fight, _cible, DataBase.DEF_CIBLE_ATTAQUES_TYPES);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_CLONE),creatureCbtCible_.getClone().toNumberString());
+        damage(creatureCbtCible_, variables_, DataBase.DEF_CIBLE_DEGATS_RECUS, DataBase.DEF_CIBLE_DEGATS_RECUS_TOTAL, DataBase.DEF_CIBLE_DEGATS_RECUS_TOUR, DataBase.DEF_CIBLE_DEGATS_RECUS_TOTAL_TOUR, _import);
+        stat(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_DISPARAIT), variables_, Fight.ONE, Fight.ZERO, creatureCbtCible_.isDisappeared());
+        stat(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_JOUE), variables_, Fight.ONE, Fight.ZERO, creatureCbtCible_.isActed());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_MASSE),creatureCbtCible_.getWeight().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_TAILLE),creatureCbtCible_.getHeight().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_CAPACITE),creatureCbtCible_.getCurrentAbility());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_OBJET),creatureCbtCible_.getItem());
+        statuts(_import, creatureCbtCible_, variables_, DataBase.DEF_CIBLE_STATUTS);
         StringList types_ = new StringList(creatureCbtCible_.getTypes());
         types_.sort();
-        variables_.put(StringUtil.concat(varPref_,Fight.CIBLE_TYPES), StringUtil.join(types_, _import.getSepartorSetChar()));
-        varsPp(_import, creatureCbtCible_, Fight.CIBLE_PP, variables_);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CIBLE_TYPES), StringUtil.join(types_, _import.getSepartorSetChar()));
+        varsPp(_import, creatureCbtCible_, DataBase.DEF_CIBLE_PP, variables_);
         Team equipeAdvCible_=_fight.getTeams().getVal(Fight.foe(_cible.getTeam()));
         variables_.put(StringUtil.concat(varPref_,_import.cibleNiveau()),Long.toString(creatureCbtCible_.getLevel()));
-        variables_.put(StringUtil.concat(varPref_,Fight.NB_KO_EQUIPE_CIBLE),Long.toString((long)equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
-        variables_.put(StringUtil.concat(varPref_,Fight.NB_KO_EQUIPE_ADV_CIBLE),Long.toString((long)equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
-        rateEff(_import, Fight.COEFF_EFF_BASE_TYPES_CIBLE, variables_, creatureCbtCible_);
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_GENRE), creatureCbtLanceur_.getCurrentGender().getGenderName());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_KO_EQUIPE_CIBLE),Long.toString((long)equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_KO_EQUIPE_ADV_CIBLE),Long.toString((long)equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
+        rateEff(_import, DataBase.DEF_COEFF_EFF_BASE_TYPES_CIBLE, variables_, creatureCbtCible_);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_GENRE), creatureCbtLanceur_.getCurrentGender().getGenderName());
         for(String c:equipeLanceur_.getNbUsesMovesRound().getKeys()){
-            variables_.put(StringUtil.concat(varPref_,Team.NB_UTILI_ATT_EQ_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMovesRound().getVal(c)));
+            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_UTILI_ATT_EQ_TOUR,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(equipeLanceur_.getNbUsesMovesRound().getVal(c)));
         }
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_PV_RESTANTS),creatureCbtLanceur_.getRemainingHp().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_PV_MAX),creatureCbtLanceur_.pvMax().toNumberString());
-        enabled(creatureCbtLanceur_, variables_, Fighter.LANCEUR_NB_UTILISATION, _import);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_PV_RESTANTS),creatureCbtLanceur_.getRemainingHp().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_PV_MAX),creatureCbtLanceur_.pvMax().toNumberString());
+        enabled(creatureCbtLanceur_, variables_, DataBase.DEF_LANCEUR_NB_UTILISATION, _import);
         for(Statistic c:creatureCbtLanceur_.getStatisBase().getKeys()){
-            variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtLanceur_.getStatisBase().getVal(c).toNumberString());
+            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_STATIS,DataBase.SEP_BETWEEN_KEYS,c.getStatName()),creatureCbtLanceur_.getStatisBase().getVal(c).toNumberString());
         }
-        sommeLanceurBoostsPositifs(creatureCbtLanceur_, variables_, Fight.LANCEUR_BOOST, Fight.SOMME_BOOST_POS_LANCEUR, _import);
-        StringList attaquesGlobales_ = _import.getVarParamsMove(Fight.NB_TOUR_GLOBAL);
+        sommeLanceurBoostsPositifs(creatureCbtLanceur_, variables_, DataBase.DEF_LANCEUR_BOOST, DataBase.DEF_SOMME_BOOST_POS_LANCEUR, _import);
+        StringList attaquesGlobales_ = _import.getVarParamsMove(DataBase.DEF_NB_TOUR_GLOBAL);
         for(String c:attaquesGlobales_){
-            variables_.put(StringUtil.concat(varPref_,Fight.NB_TOUR_GLOBAL,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_fight.getEnabledMoves().getVal(c).getNbTurn()));
+            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_TOUR_GLOBAL,DataBase.SEP_BETWEEN_KEYS,c),Long.toString(_fight.getEnabledMoves().getVal(c).getNbTurn()));
         }
-        variables_.put(StringUtil.concat(varPref_, Fight.LANCEUR_ATTAQUE_CHOISIE), creatureCbtLanceur_.getFinalChosenMove());
-        moves(creatureCbtLanceur_, variables_, Fight.LANCEUR_ATTAQUES, _import, _fight, _lanceur, Fight.LANCEUR_ATTAQUES_TYPES);
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_CLONE),creatureCbtLanceur_.getClone().toNumberString());
-        damage(creatureCbtLanceur_, variables_, Fight.LANCEUR_DEGATS_RECUS, Fight.LANCEUR_DEGATS_RECUS_TOTAL, Fight.LANCEUR_DEGATS_RECUS_TOUR, Fight.LANCEUR_DEGATS_RECUS_TOTAL_TOUR, _import);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_ATTAQUE_CHOISIE), creatureCbtLanceur_.getFinalChosenMove());
+        moves(creatureCbtLanceur_, variables_, DataBase.DEF_LANCEUR_ATTAQUES, _import, _fight, _lanceur, DataBase.DEF_LANCEUR_ATTAQUES_TYPES);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_CLONE),creatureCbtLanceur_.getClone().toNumberString());
+        damage(creatureCbtLanceur_, variables_, DataBase.DEF_LANCEUR_DEGATS_RECUS, DataBase.DEF_LANCEUR_DEGATS_RECUS_TOTAL, DataBase.DEF_LANCEUR_DEGATS_RECUS_TOUR, DataBase.DEF_LANCEUR_DEGATS_RECUS_TOTAL_TOUR, _import);
 
-        stat(StringUtil.concat(varPref_, Fight.LANCEUR_DISPARAIT), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isDisappeared());
-        stat(StringUtil.concat(varPref_, Fight.LANCEUR_JOUE), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isActed());
-        addPlayed(_fight, _import, variables_, Fight.LANCEUR_DER_JOUE);
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_MASSE),creatureCbtLanceur_.getWeight().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_TAILLE),creatureCbtLanceur_.getHeight().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_CAPACITE),creatureCbtLanceur_.getCurrentAbility());
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_OBJET),creatureCbtLanceur_.getItem());
-        statuts(_import, creatureCbtLanceur_, variables_, Fight.LANCEUR_STATUTS);
+        stat(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_DISPARAIT), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isDisappeared());
+        stat(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_JOUE), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isActed());
+        addPlayed(_fight, _import, variables_, DataBase.DEF_LANCEUR_DER_JOUE);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_MASSE),creatureCbtLanceur_.getWeight().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_TAILLE),creatureCbtLanceur_.getHeight().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_CAPACITE),creatureCbtLanceur_.getCurrentAbility());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_OBJET),creatureCbtLanceur_.getItem());
+        statuts(_import, creatureCbtLanceur_, variables_, DataBase.DEF_LANCEUR_STATUTS);
         types_ = new StringList(creatureCbtLanceur_.getTypes());
         types_.sort();
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_TYPES), StringUtil.join(types_, _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_TYPES), StringUtil.join(types_, _import.getSepartorSetChar()));
         StringList weathers_ = FightMoves.climatsActifs(_fight,_import);
         weathers_.sort();
-        variables_.put(StringUtil.concat(varPref_,Fight.CLIMATS), StringUtil.join(weathers_, _import.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_CLIMATS), StringUtil.join(weathers_, _import.getSepartorSetChar()));
         //variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMAT_DOMINANT),climatDominant(_import));
-        varsPp(_import, creatureCbtLanceur_, Fight.LANCEUR_PP, variables_);
-        equipes(variables_, _fight, _lanceur, Fight.NB_KO_EQUIPE_LANCEUR, Fight.NB_KO_EQUIPE_ADV_LANCEUR, _import);
-        variables_.put(StringUtil.concat(varPref_,Fight.LIEU_COMBAT),_fight.getEnvType().getEnvName());
+        varsPp(_import, creatureCbtLanceur_, DataBase.DEF_LANCEUR_PP, variables_);
+        equipes(variables_, _fight, _lanceur, DataBase.DEF_NB_KO_EQUIPE_LANCEUR, DataBase.DEF_NB_KO_EQUIPE_ADV_LANCEUR, _import);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LIEU_COMBAT),_fight.getEnvType().getEnvName());
         variables_.put(StringUtil.concat(varPref_,_import.lanceurNiveau()),Long.toString(creatureCbtLanceur_.getLevel()));
-        variables_.put(StringUtil.concat(varPref_,Fight.LANCEUR_BONHEUR),Long.toString(creatureCbtLanceur_.getHappiness()));
-        variables_.put(StringUtil.concat(varPref_,Fight.TEMPS_TOUR),_fight.getNbRounds().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.RATE_EFF_MOVE_AGAINST_TARGET),FightSuccess.rateEffAgainstTargetMove(_fight,_lanceur, _cible, _import).toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_LANCEUR_BONHEUR),Long.toString(creatureCbtLanceur_.getHappiness()));
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_TEMPS_TOUR),_fight.getNbRounds().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_RATE_EFF_MOVE_AGAINST_TARGET),FightSuccess.rateEffAgainstTargetMove(_fight,_lanceur, _cible, _import).toNumberString());
         int nbCombattantsTerrain_ = nbCombattantsTerrain(_fight);
-        variables_.put(StringUtil.concat(varPref_,Fight.NB_COMBATTANTS_TERRAIN),Long.toString(nbCombattantsTerrain_));
-        rateEff(_import, Fight.COEFF_EFF_BASE_TYPES_LANCEUR, variables_, creatureCbtLanceur_);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_COMBATTANTS_TERRAIN),Long.toString(nbCombattantsTerrain_));
+        rateEff(_import, DataBase.DEF_COEFF_EFF_BASE_TYPES_LANCEUR, variables_, creatureCbtLanceur_);
         _fight.setEnabledMessages(true);
         return variables_;
     }
@@ -340,14 +340,14 @@ final class FightValues {
         _fight.setEnabledMessages(false);
         Effect effet_ = _import.getMove(_move).getEffet(_noEffet);
         StringMap<String> variables_ = new StringMap<String>();
-        StringList immuTypesIndiv_ = _import.getVarParamsMove(Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
+        StringList immuTypesIndiv_ = _import.getVarParamsMove(DataBase.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
         if(effet_ instanceof EffectTeamWhileSendFoe){
             for(String e:immuTypesIndiv_){
-                statBool(_import, StringUtil.concat(varPref_, Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT,DataBase.SEP_BETWEEN_KEYS,e), variables_, FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import));
+                statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT,DataBase.SEP_BETWEEN_KEYS,e), variables_, FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import));
             }
         }
-        statBool(_import, StringUtil.concat(varPref_, Fight.PAS_ATTAQUE_INVOC), variables_, effet_ instanceof EffectInvoke && FightInvoke.invokableMoves(_fight, _lanceur, _cible, ((EffectInvoke) effet_), _import).isEmpty());
-        statBool(_import, StringUtil.concat(varPref_, Fight.PAS_ATTAQUES_COPIABLES), variables_, effet_ instanceof EffectCopyMove && FightInvoke.copiableMoves(_fight, _lanceur, _cible, ((EffectCopyMove) effet_), _import).isEmpty());
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_ATTAQUE_INVOC), variables_, effet_ instanceof EffectInvoke && FightInvoke.invokableMoves(_fight, _lanceur, _cible, ((EffectInvoke) effet_), _import).isEmpty());
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_ATTAQUES_COPIABLES), variables_, effet_ instanceof EffectCopyMove && FightInvoke.copiableMoves(_fight, _lanceur, _cible, ((EffectCopyMove) effet_), _import).isEmpty());
         variables_.putAllMap(calculateBasicBooleanValues(_fight,_lanceur,_cible,_import));
         _fight.setEnabledMessages(true);
         return variables_;
@@ -375,8 +375,8 @@ final class FightValues {
         Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
         StringMap<String> variables_ = new StringMap<String>();
         statusCible(_import, creatureCbtCible_, variables_);
-        enaCond(_import, creatureCbtCible_, variables_, Fight.CIBLE_EFFET);
-        statBool(_import, StringUtil.concat(varPref_, Fight.PAS_PP_ATTAQUE_CIBLE), variables_, creatureCbtCible_.noPowerPointForLastUsedMove());
+        enaCond(_import, creatureCbtCible_, variables_, DataBase.DEF_CIBLE_EFFET);
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_PP_ATTAQUE_CIBLE), variables_, creatureCbtCible_.noPowerPointForLastUsedMove());
         boolean pasUtiliseAttaqueCible_=true;
         for(String c:creatureCbtCible_.getCurrentMovesSet()){
             UsesOfMove pps_=creatureCbtCible_.getCurrentMove(c);
@@ -385,24 +385,24 @@ final class FightValues {
                 break;
             }
         }
-        statBool(_import, StringUtil.concat(varPref_, Fight.PAS_UTILIS_ATTAQUE_CIBLE), variables_, pasUtiliseAttaqueCible_);
-        StringList immuTypesIndiv_ = _import.getVarParamsMove(Fight.IMMU_TYPE_ATT_CIBLE);
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_UTILIS_ATTAQUE_CIBLE), variables_, pasUtiliseAttaqueCible_);
+        StringList immuTypesIndiv_ = _import.getVarParamsMove(DataBase.DEF_IMMU_TYPE_ATT_CIBLE);
         for(String e:immuTypesIndiv_){
-            statBool(_import, StringUtil.concat(varPref_, Fight.IMMU_TYPE_ATT_CIBLE,DataBase.SEP_BETWEEN_KEYS,e), variables_, FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import));
+            statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_IMMU_TYPE_ATT_CIBLE,DataBase.SEP_BETWEEN_KEYS,e), variables_, FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import));
         }
         boolean aucunBoostPossible_ = aucunBoostPossible(_import, creatureCbtCible_);
-        statBool(_import, StringUtil.concat(varPref_, Fight.AUCUN_BOOST_POSSIBLE), variables_, aucunBoostPossible_);
-        enaCond(_import, creatureCbtLanceur_, variables_, Fight.LANCEUR_EFFET);
-        statBool(_import, StringUtil.concat(varPref_, Fight.TYPES_ATTAQUES_RES_VIDE), variables_, creatureCbtLanceur_.resistingTypes(_import).isEmpty());
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_AUCUN_BOOST_POSSIBLE), variables_, aucunBoostPossible_);
+        enaCond(_import, creatureCbtLanceur_, variables_, DataBase.DEF_LANCEUR_EFFET);
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_TYPES_ATTAQUES_RES_VIDE), variables_, creatureCbtLanceur_.resistingTypes(_import).isEmpty());
         int nbPartenairesArriere_ = FightOrder.nbBackPartners(_fight, _lanceur);
         int nbPartenairesTerrain_ = FightOrder.nbFrontPartners(_fight, _lanceur);
         int nbPartenaires_ = nbPartenairesArriere_ + nbPartenairesTerrain_;
-        statBool(_import, StringUtil.concat(varPref_, Fight.PAS_PARTENAIRE), variables_, nbPartenaires_==0);
-        statBool(_import, StringUtil.concat(varPref_, Fight.PAS_PARTENAIRE_ARRIERE), variables_, nbPartenairesArriere_==0);
-        statBool(_import, StringUtil.concat(varPref_, Fight.PAS_PARTENAIRE_TERRAIN), variables_, nbPartenairesTerrain_==0);
-        statBool(_import, StringUtil.concat(varPref_, Fight.PAS_TOUR_TERRAIN), variables_, creatureCbtLanceur_.getNbRounds().isZero());
-        statBool(_import, StringUtil.concat(varPref_, Fight.EXISTE_GENRE_ASSEXUE), variables_, creatureCbtLanceur_.estAssexue()||creatureCbtCible_.estAssexue());
-        statBool(_import, StringUtil.concat(varPref_, Fight.GENRES_EGAUX), variables_, creatureCbtLanceur_.getCurrentGender()==creatureCbtCible_.getCurrentGender());
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_PARTENAIRE), variables_, nbPartenaires_==0);
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_PARTENAIRE_ARRIERE), variables_, nbPartenairesArriere_==0);
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_PARTENAIRE_TERRAIN), variables_, nbPartenairesTerrain_==0);
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_TOUR_TERRAIN), variables_, creatureCbtLanceur_.getNbRounds().isZero());
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_EXISTE_GENRE_ASSEXUE), variables_, creatureCbtLanceur_.estAssexue()||creatureCbtCible_.estAssexue());
+        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_GENRES_EGAUX), variables_, creatureCbtLanceur_.getCurrentGender()==creatureCbtCible_.getCurrentGender());
         _fight.setEnabledMessages(true);
         return variables_;
     }
@@ -426,7 +426,7 @@ final class FightValues {
             enabled_.put(m, enabledLoc_);
         }
         for (String m: enabled_.getKeys()) {
-            statBool(_import, StringUtil.concat(varPref_, Fight.CIBLE_POSSEDE_STATUT_RELATION,DataBase.SEP_BETWEEN_KEYS,m), _variables, enabled_.getVal(m) == BoolVal.TRUE);
+            statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_CIBLE_POSSEDE_STATUT_RELATION,DataBase.SEP_BETWEEN_KEYS,m), _variables, enabled_.getVal(m) == BoolVal.TRUE);
         }
     }
 
@@ -487,12 +487,12 @@ final class FightValues {
         Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
         Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_lanceur.getTeam()));
         StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
-        variables_.put(StringUtil.concat(varPref_,Fight.COMBATTANT_ENTRANT_CLONE),creatureCbtLanceur_.getClone().toNumberString());
-        variables_.put(StringUtil.concat(varPref_,Fight.COMBATTANT_ENTRANT_TYPES), StringUtil.join(creatureCbtLanceur_.getTypes(), _import.getSepartorSetChar()));
-        rateEff(_import, Fight.COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT, variables_, creatureCbtLanceur_);
-        StringList nbUtAdv_=_import.getVarParamsMove(Fight.EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION);
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_COMBATTANT_ENTRANT_CLONE),creatureCbtLanceur_.getClone().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_COMBATTANT_ENTRANT_TYPES), StringUtil.join(creatureCbtLanceur_.getTypes(), _import.getSepartorSetChar()));
+        rateEff(_import, DataBase.DEF_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT, variables_, creatureCbtLanceur_);
+        StringList nbUtAdv_=_import.getVarParamsMove(DataBase.DEF_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION);
         for(String e:nbUtAdv_){
-            variables_.put(StringUtil.concat(varPref_,Fight.EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,e),nbUtilisationsEntreeAdv_.getVal(e).toNumberString());
+            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,e),nbUtilisationsEntreeAdv_.getVal(e).toNumberString());
         }
         _fight.setEnabledMessages(true);
         return variables_;

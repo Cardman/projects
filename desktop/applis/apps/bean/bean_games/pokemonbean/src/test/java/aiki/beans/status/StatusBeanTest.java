@@ -1,6 +1,6 @@
 package aiki.beans.status;
 
-import aiki.game.fight.Fight;
+import aiki.db.DataBase;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -232,7 +232,7 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getMapVarsFail2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callStatusBeanMapVarsFailGet(0),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callStatusBeanMapVarsFailGet(0),0)));
     }
     @Test
     public void getMapVarsFail3() {
@@ -244,7 +244,7 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getReasons2() {
-        assertEq(Fight.TEMPS_TOUR,elt(callStatusBeanReasonsGet(0),0));
+        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callStatusBeanReasonsGet(0),0));
     }
     @Test
     public void getMapVarsFailEndRound1() {
@@ -252,7 +252,7 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callStatusBeanMapVarsFailEndRoundGet(3),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callStatusBeanMapVarsFailEndRoundGet(3),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
@@ -264,7 +264,7 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getReasonsEndRound2() {
-        assertEq(Fight.TEMPS_TOUR,elt(callStatusBeanReasonsEndRoundGet(3),0));
+        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callStatusBeanReasonsEndRoundGet(3),0));
     }
     @Test
     public void getMultStat1() {

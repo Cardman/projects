@@ -1140,7 +1140,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff41() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBall(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBall(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_FOE_PK_MAX_HP+","+VAR_PREFIX+DataBase.DEF_FOE_PK_REMOTE_HP+"),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
@@ -1165,7 +1165,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff42() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBall(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBall(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_FOE_PK_MAX_HP+","+VAR_PREFIX+DataBase.DEF_FOE_PK_REMOTE_HP+"),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getCatchBall());
@@ -1189,7 +1189,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff43() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getCatchBall());
@@ -1207,7 +1207,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff44() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_SAUVAGE_VITESSE,"+VAR_PREFIX+"PK_UT_VITESSE),1)");
+        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+"),1)");
         window_.getFacade().getGame().getDifficulty().setStillPossibleFlee(false);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
@@ -1243,7 +1243,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff46() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBall2(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBall2(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_FOE_PK_MAX_HP+","+VAR_PREFIX+DataBase.DEF_FOE_PK_REMOTE_HP+"),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
@@ -1262,7 +1262,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff47() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
         window_.getBattle().getBattle().getBallPanel().getListeBall().select(0);
@@ -1295,7 +1295,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff48() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
@@ -1357,7 +1357,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff49() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_SAUVAGE_VITESSE,"+VAR_PREFIX+"PK_UT_VITESSE),1)");
+        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+"),1)");
         window_.getFacade().getGame().getDifficulty().setStillPossibleFlee(false);
         window_.getBattle().getBattle().getFighterFleePanel().getListe().select(-1);
         window_.getBattle().getBattle().getFighterFleePanel().getListe().events();
@@ -1578,7 +1578,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff58() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
         window_.getBattle().getBattle().getBallPanel().getListeBall().select(0);
@@ -1617,7 +1617,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff59() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
@@ -1685,7 +1685,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff60() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterCaughtPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterCaughtPanel().getListe().events();
         window_.getBattle().getBattle().getBallPanel().getListeBall().select(0);
@@ -1726,7 +1726,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     @Test
     public void eff61() {
         WindowAiki window_ = newFight();
-        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBallTwo(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));
@@ -2109,7 +2109,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     public void effNo14() {
         WindowAiki window_ = newFight();
         window_.getLoadingConf().setEnableAnimation(false);
-        coreDataBaseAttStBall(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBall(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_FOE_PK_MAX_HP+","+VAR_PREFIX+DataBase.DEF_FOE_PK_REMOTE_HP+"),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getCatchBall());
@@ -2133,7 +2133,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     public void effNo15() {
         WindowAiki window_ = newFight();
         window_.getLoadingConf().setEnableAnimation(false);
-        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getCatchBall());
@@ -2151,7 +2151,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     public void effNo16() {
         WindowAiki window_ = newFight();
         window_.getLoadingConf().setEnableAnimation(false);
-        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_SAUVAGE_VITESSE,"+VAR_PREFIX+"PK_UT_VITESSE),1)");
+        coreDataBaseAttStBall(window_, "1", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+"),1)");
         window_.getFacade().getGame().getDifficulty().setStillPossibleFlee(false);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
@@ -2187,7 +2187,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
     public void effNo18() {
         WindowAiki window_ = newFight();
         window_.getLoadingConf().setEnableAnimation(false);
-        coreDataBaseAttStBall2(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");
+        coreDataBaseAttStBall2(window_, MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_FOE_PK_MAX_HP+","+VAR_PREFIX+DataBase.DEF_FOE_PK_REMOTE_HP+"),2)", MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)");
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().select(0);
         window_.getBattle().getBattle().getFighterFrontPanel().getListe().events();
         tryClick(window_.getBattle().getBattle().getMovesLabels().get(1));

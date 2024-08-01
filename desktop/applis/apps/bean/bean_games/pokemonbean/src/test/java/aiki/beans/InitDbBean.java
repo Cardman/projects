@@ -720,11 +720,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         _data.addConstNumTest(DataBase.MAX_STEPS, new Rate("1024"));
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
         initDefaultConsts(POKE_BALL,
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"FOE_PK_MAX_HP,"+VAR_PREFIX+"FOE_PK_REMOTE_HP),2)",
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_FOE_PK_MAX_HP+","+VAR_PREFIX+DataBase.DEF_FOE_PK_REMOTE_HP+"),2)",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)",
                 MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+DataBase.DEF_BOOST+",1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+DataBase.DEF_BOOST+")*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),2)",
                 MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
-                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+"ATTACK*"+VAR_PREFIX+"POWER,(125*"+VAR_PREFIX+"DEFENSE))",
+                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+DataBase.DEF_ATTACK+"*"+VAR_PREFIX+DataBase.DEF_POWER+",(125*"+VAR_PREFIX+DataBase.DEF_DEFENSE+"))",
                 LUTTE,
                 "METAMORPH", _data);
     }

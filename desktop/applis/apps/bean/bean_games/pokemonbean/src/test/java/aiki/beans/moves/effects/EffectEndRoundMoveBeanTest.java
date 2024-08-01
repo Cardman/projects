@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.game.fight.Fight;
+import aiki.db.DataBase;
 import org.junit.Test;
 
 public final class EffectEndRoundMoveBeanTest extends InitDbMoveEffectEndRound {
@@ -14,7 +14,7 @@ public final class EffectEndRoundMoveBeanTest extends InitDbMoveEffectEndRound {
     }
     @Test
     public void getReasonsEndRound2() {
-        assertEq(Fight.TEMPS_TOUR,elt(callEffectEndRoundMoveBeanReasonsEndRoundGet(dispMoveEffEndRound()),0));
+        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectEndRoundMoveBeanReasonsEndRoundGet(dispMoveEffEndRound()),0));
     }
     @Test
     public void getMapVarsFailEndRound1() {
@@ -22,7 +22,7 @@ public final class EffectEndRoundMoveBeanTest extends InitDbMoveEffectEndRound {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(dispMoveEffEndRound()),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(dispMoveEffEndRound()),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {

@@ -42,8 +42,8 @@ import aiki.util.*;
 
 public class FightEffectsTest extends InitializationDataBase {
 
-    private static final String SOMMEIL_FAILURE = MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+"CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|"+VAR_PREFIX+"CIBLE_CLONE>0";
-    private static final String VAR_FAIL_SYNCHRONIZING_STATUS = VAR_PREFIX+"EXISTE_GENRE_ASSEXUE|"+VAR_PREFIX+"GENRES_EGAUX|"+VAR_PREFIX+"CIBLE_POSSEDE_STATUT_RELATION__AMOUR";
+    private static final String SOMMEIL_FAILURE = MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_STATUTS+"},{SOMMEIL;SOMMEIL_REPOS}))>0|"+VAR_PREFIX+DataBase.DEF_CIBLE_CLONE+">0";
+    private static final String VAR_FAIL_SYNCHRONIZING_STATUS = VAR_PREFIX+DataBase.DEF_EXISTE_GENRE_ASSEXUE+"|"+VAR_PREFIX+DataBase.DEF_GENRES_EGAUX+"|"+VAR_PREFIX+DataBase.DEF_CIBLE_POSSEDE_STATUT_RELATION+DataBase.SEP_BETWEEN_KEYS+"AMOUR";
 
     private static Fight disableStatus(Difficulty _diff, DataBase _data) {
         Player player_ = Player.build(NICKNAME,_diff,false, _data);

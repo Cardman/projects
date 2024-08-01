@@ -9,7 +9,6 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
@@ -97,7 +96,7 @@ public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect 
         facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
         facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
         trs(facade_);
-        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        facade_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS, Rate.one());
@@ -106,8 +105,8 @@ public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect 
     }
     protected static EffectTeamWhileSendFoe eff() {
         EffectTeamWhileSendFoe e_ = Instances.newEffectTeamWhileSendFoe();
-        e_.setFailSending(VAR_PREFIX+Fight.TEMPS_TOUR);
-        e_.setDamageRateAgainstFoe(VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setFailSending(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
+        e_.setDamageRateAgainstFoe(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         e_.getDeletedByFoeTypes().add(T_TYPE1);
         e_.getStatistics().addEntry(Statistic.SPEED,(byte)1);
         e_.getStatusByNbUses().addEntry((short)1,S_STA_SIM);

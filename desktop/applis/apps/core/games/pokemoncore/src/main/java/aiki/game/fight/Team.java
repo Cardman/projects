@@ -23,10 +23,6 @@ import code.util.core.StringUtil;
 
 public final class Team {
 
-    public static final String EQUIPE_NB_UTILISATION = "EQUIPE_NB_UTILISATION";
-    public static final String EQUIPE_ADV_NB_UTILISATION = "EQUIPE_ADV_NB_UTILISATION";
-    public static final String NB_UTILI_ATT_EQ_TOUR = "NB_UTILI_ATT_EQ_TOUR";
-
     public static final String CANCEL_USE_ITEM = "0";
     public static final String USE_ITEM = "1";
 
@@ -96,15 +92,15 @@ public final class Team {
         nbKoRound=0;
         nbKoPreviousRound=0;
         StringList attaques_ = new StringList();
-        attaques_.addAllElts(_import.getVarParamsMove(EQUIPE_NB_UTILISATION));
-        attaques_.addAllElts(_import.getVarParamsMove(EQUIPE_ADV_NB_UTILISATION));
+        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_EQUIPE_NB_UTILISATION));
+        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_EQUIPE_ADV_NB_UTILISATION));
         attaques_.removeDuplicates();
         nbUsesMoves = new StringMap<Integer>();
         for(String e:attaques_){
             nbUsesMoves.put(e,0);
         }
         attaques_.clear();
-        attaques_.addAllElts(_import.getVarParamsMove(NB_UTILI_ATT_EQ_TOUR));
+        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_NB_UTILI_ATT_EQ_TOUR));
         nbUsesMovesRound = new StringMap<Integer>();
         for(String e:attaques_){
             nbUsesMovesRound.put(e,0);
@@ -387,8 +383,8 @@ public final class Team {
 
     private boolean koNbUsesMoves(DataBase _data) {
         StringList attaques_ = new StringList();
-        attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_NB_UTILISATION));
-        attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_ADV_NB_UTILISATION));
+        attaques_.addAllElts(_data.getVarParamsMove(DataBase.DEF_EQUIPE_NB_UTILISATION));
+        attaques_.addAllElts(_data.getVarParamsMove(DataBase.DEF_EQUIPE_ADV_NB_UTILISATION));
         if (!StringUtil.equalsSet(attaques_, nbUsesMoves.getKeys())) {
             return true;
         }
@@ -401,7 +397,7 @@ public final class Team {
     }
 
     private boolean koNbUsesMovesRound(DataBase _data) {
-        if (!StringUtil.equalsSet(_data.getVarParamsMove(NB_UTILI_ATT_EQ_TOUR), nbUsesMovesRound.getKeys())) {
+        if (!StringUtil.equalsSet(_data.getVarParamsMove(DataBase.DEF_NB_UTILI_ATT_EQ_TOUR), nbUsesMovesRound.getKeys())) {
             return true;
         }
         for (String m: nbUsesMovesRound.getKeys()) {

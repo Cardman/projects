@@ -1,13 +1,13 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.status.AikiBeansStatusStd;
-import aiki.game.fight.Fight;
+import aiki.db.DataBase;
 import org.junit.Test;
 
 public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWhileSendFoe {
     @Test
     public void getDamageRateAgainstFoe1() {
-        assertEq(Fight.TEMPS_TOUR,callEffectTeamWhileSendFoeBeanDamageRateAgainstFoeGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,callEffectTeamWhileSendFoeBeanDamageRateAgainstFoeGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)));
     }
     @Test
     public void getMapVarsDamageSentFoe1() {
@@ -15,7 +15,7 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void getMapVarsDamageSentFoe2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getMapVarsDamageSentFoe3() {
@@ -27,7 +27,7 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void getReasonsSending2() {
-        assertEq(Fight.TEMPS_TOUR,elt(callEffectTeamWhileSendFoeBeanReasonsSendingGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0));
+        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectTeamWhileSendFoeBeanReasonsSendingGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0));
     }
     @Test
     public void getMapVarsFailSending1() {
@@ -35,7 +35,7 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void getMapVarsFailSending2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getMapVarsFailSending3() {

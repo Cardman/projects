@@ -620,10 +620,10 @@ public final class CheckNumericStringsFight {
         String varPref_ = StringUtil.concat(data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_;
         vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(varPref_,Fight.BASE_CAPT_PK), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_,Fight.RATE_BALL_STATUS), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_,Fight.FOE_PK_MAX_HP), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_,Fight.FOE_PK_REMOTE_HP), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(varPref_, DataBase.DEF_BASE_CAPT_PK), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(varPref_, DataBase.DEF_RATE_BALL_STATUS), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(varPref_, DataBase.DEF_FOE_PK_MAX_HP), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(varPref_, DataBase.DEF_FOE_PK_REMOTE_HP), LgInt.one().toNumberString());
 
         String numericExp_ = data.getRateCatching();
         EvolvedNumString num_;
@@ -664,20 +664,20 @@ public final class CheckNumericStringsFight {
         StringMap<String> variables_ = new StringMap<String>();
         if (_sending) {
             StringList immuTypesIndiv_ = _import
-                    .getVarParamsMove(Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
+                    .getVarParamsMove(DataBase.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
             for (String e : immuTypesIndiv_) {
                 variables_
                         .put(StringUtil.concat(varPref_,
-                                Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT,
+                                DataBase.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT,
                                 DataBase.SEP_BETWEEN_KEYS, e), _import
                                 .getFalseString());
             }
         }
         variables_
                 .put(StringUtil.concat(varPref_,
-                        Fight.PAS_ATTAQUE_INVOC), _import.getFalseString());
+                        DataBase.DEF_PAS_ATTAQUE_INVOC), _import.getFalseString());
         variables_.put(StringUtil.concat(varPref_,
-                Fight.PAS_ATTAQUES_COPIABLES), _import.getFalseString());
+                DataBase.DEF_PAS_ATTAQUES_COPIABLES), _import.getFalseString());
         variables_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,
                 _lanceur, _cible, _import));
         return variables_;

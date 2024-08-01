@@ -9,7 +9,6 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
@@ -80,7 +79,7 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectStatistic _eff) {
         FacadeGame f_ = feedDbMoveEffDataDam(_eff);
-        f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        f_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         return f_;
     }
     protected static NaSt dispMoveEffStatis(FacadeGame _fac, int _index) {

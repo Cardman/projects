@@ -30,7 +30,6 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.*;
 import code.bean.nat.*;
-import code.bean.nat.*;
 import code.images.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
@@ -3964,7 +3963,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_STONE).getItemType(), CI_STONE);
         data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_BALL).getItemType(), CI_BALL);
         data_.getLitterals().addEntry(EN,new StringMap<String>());
-        data_.getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        data_.getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         data_.getMiniPk().addEntry(P_POK_00, BaseSixtyFourUtil.getImageByString("AAABAAAC"));
         data_.getMiniPk().addEntry(P_POK_01, BaseSixtyFourUtil.getImageByString("AAABAAAD"));
         data_.getMiniPk().addEntry(P_POK_02, BaseSixtyFourUtil.getImageByString("AAABAAAE"));
@@ -3998,13 +3997,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static DamagingMoveData powerBad() {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         move_.setPp((short)5);
-        move_.setAccuracy(VAR_PREFIX+Fight.TEMPS_TOUR);
+        move_.setAccuracy(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         move_.setTypes(new StringList(T_SIM_2));
         move_.setBoostedTypes(new StringList(T_SIM_2));
         move_.setCategory(C_SIM_2);
         move_.setTargetChoice(TargetChoice.ANY_FOE);
         EffectDamage eff_ = Instances.newEffectDamage();
-        eff_.setPower(VAR_PREFIX+ Fight.TEMPS_TOUR);
+        eff_.setPower(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         eff_.patch();
         target(move_,eff_);
         return move_;

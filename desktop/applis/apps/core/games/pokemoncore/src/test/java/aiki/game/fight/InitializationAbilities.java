@@ -267,6 +267,8 @@ final class InitializationAbilities extends EquallablePkUtil {
 
     private static final String VOL = InitializationDataBase.VOL;
 
+    private static final String ANTI_AIR = InitializationMoves.ANTI_AIR;
+    private static final String SEISME = InitializationMoves.SEISME;
     private static final String ZENITH = InitializationMoves.ZENITH;
     private static final String TEMPETESABLE = InitializationMoves.TEMPETESABLE;
     private static final String RUNE_PROTECT = InitializationMoves.RUNE_PROTECT;
@@ -317,7 +319,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setDecreaseNecStepsHatch(5);
         _data.completeQuickMembers(FOUR,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.setMultPower(VAR_PREFIX+"FIGHTER_PP__ANTI_AIR*"+VAR_PREFIX+"FIGHTER_PP__SEISME");
+        ficheCapacite_.setMultPower(VAR_PREFIX+DataBase.DEF_FIGHTER_PP+DataBase.SEP_BETWEEN_KEYS+""+ANTI_AIR+""+"*"+VAR_PREFIX+DataBase.DEF_FIGHTER_PP+DataBase.SEP_BETWEEN_KEYS+""+SEISME+"");
         _data.completeQuickMembers(GARDE,ficheCapacite_);
         _data.completeQuickMembers(CRACHIN,defaultFicheCapacite());
         _data.completeQuickMembers(CONTRE,defaultFicheCapacite());
@@ -465,12 +467,12 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,PARALYSIE));
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,BRULURE));
-        ficheCapacite_.getMultStat().addEntry(Statistic.SPEED,"3/2*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+"FIGHTER_STATUTS},{BRULURE;POISON_GRAVE;SOMMEIL_REPOS;POISON_ST;PARALYSIE;SOMMEIL;GEL}))+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({BRULURE;POISON_GRAVE;SOMMEIL_REPOS;POISON_ST;PARALYSIE;SOMMEIL;GEL},{"+VAR_PREFIX+"FIGHTER_STATUTS})),0,0)");
+        ficheCapacite_.getMultStat().addEntry(Statistic.SPEED,"3/2*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_FIGHTER_STATUTS+"},{"+BRULURE+";"+POISON_GRAVE+";"+SOMMEIL_REPOS+";"+POISON_ST+";"+PARALYSIE+";"+SOMMEIL+";"+GEL+"}))+"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({"+BRULURE+";"+POISON_GRAVE+";"+SOMMEIL_REPOS+";"+POISON_ST+";"+PARALYSIE+";"+SOMMEIL+";"+GEL+"},{"+VAR_PREFIX+DataBase.DEF_FIGHTER_STATUTS+"})),0,0)");
         _data.completeQuickMembers(PIED_VELOCE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,PARALYSIE));
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,BRULURE));
-        ficheCapacite_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+"COEFF_EFF_BASE_TYPES_FIGHTER__ROCHE");
+        ficheCapacite_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+DataBase.DEF_COEFF_EFF_BASE_TYPES_FIGHTER+DataBase.SEP_BETWEEN_KEYS+""+ROCHE+"");
         _data.completeQuickMembers(PIED_RAPIDE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.ATTACK,PARALYSIE));
@@ -594,7 +596,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setCancelSecEffectOther(true);
         _data.completeQuickMembers(ECRAN_POUDRE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.setMultDamage(MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"COEFF_EFF,1)+1");
+        ficheCapacite_.setMultDamage(MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+DataBase.DEF_COEFF_EFF+",1)+1");
         _data.completeQuickMembers(LENTITEINTEE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         _data.completeQuickMembers(BOOM_FINAL,ficheCapacite_);
@@ -744,7 +746,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getEffectSending().add(effectWhileSendingWithStatistic_);
         _data.completeQuickMembers(ALEA_STAT,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.setMultPower("3/2*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+"PUISSANCE_BASE,60)+"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+"PUISSANCE_BASE,60)");
+        ficheCapacite_.setMultPower("3/2*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+DataBase.DEF_PUISSANCE_BASE+",60)+"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+DataBase.DEF_PUISSANCE_BASE+",60)");
         _data.completeQuickMembers(TECHNICIEN,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         effectEndRoundIndividual_ = defaultEffectEndRoundIndividual();

@@ -14,7 +14,6 @@ import aiki.fight.moves.effects.EffectProtection;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
@@ -1156,7 +1155,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
 
     protected static EffectEndRound effEndRound() {
         EffectEndRound e_ = lawEndRound();
-        e_.setFailEndRound(VAR_PREFIX+ Fight.TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         e_.setEndRoundRank(1);
         return e_;
     }

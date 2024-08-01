@@ -58,10 +58,6 @@ import code.util.core.StringUtil;
 
 public final class Fighter {
 
-    public static final String CIBLE_NB_UTILISATION = "CIBLE_NB_UTILISATION";
-    public static final String LANCEUR_NB_UTILISATION = "LANCEUR_NB_UTILISATION";
-    public static final String FIGHTER_NB_UTILISATION = "FIGHTER_NB_UTILISATION";
-
 //    public static final byte RATE_CENT = 100;
 
     public static final byte BACK = -1;
@@ -462,8 +458,8 @@ public final class Fighter {
         lastSufferedMove=DataBase.EMPTY_STRING;
         lastSufferedMoveTypes=new StringList();
         StringList attaques_ = new StringList();
-        attaques_.addAllElts(_import.getVarParamsMove(CIBLE_NB_UTILISATION));
-        attaques_.addAllElts(_import.getVarParamsMove(LANCEUR_NB_UTILISATION));
+        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_CIBLE_NB_UTILISATION));
+        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_LANCEUR_NB_UTILISATION));
         attaques_.removeDuplicates();
         nbUsesMoves = new StringMap<Integer>();
         for(String e:attaques_){
@@ -855,8 +851,8 @@ public final class Fighter {
 
     private boolean koSpecMoves(DataBase _data) {
         StringList attaques_ = new StringList();
-        attaques_.addAllElts(_data.getVarParamsMove(CIBLE_NB_UTILISATION));
-        attaques_.addAllElts(_data.getVarParamsMove(LANCEUR_NB_UTILISATION));
+        attaques_.addAllElts(_data.getVarParamsMove(DataBase.DEF_CIBLE_NB_UTILISATION));
+        attaques_.addAllElts(_data.getVarParamsMove(DataBase.DEF_LANCEUR_NB_UTILISATION));
         if (!StringUtil.equalsSet(attaques_, nbUsesMoves.getKeys())) {
             return true;
         }

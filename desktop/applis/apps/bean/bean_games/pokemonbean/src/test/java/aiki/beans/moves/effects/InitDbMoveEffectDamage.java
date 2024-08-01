@@ -1,13 +1,13 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
@@ -126,7 +126,7 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectDamage _dam) {
         FacadeGame f_ = feedDbMoveEffDataDam(TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, true, true, true, _dam);
-        f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        f_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         return f_;
     }
     protected static FacadeGame feedDbMoveEffDataDam(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, EffectDamage _efDam) {

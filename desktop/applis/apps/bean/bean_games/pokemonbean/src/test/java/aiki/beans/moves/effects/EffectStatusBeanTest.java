@@ -2,7 +2,6 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
-import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -66,7 +65,7 @@ public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
     }
     @Test
     public void getFail2() {
-        assertEq(Fight.TEMPS_TOUR,callEffectStatusBeanGetFail(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ Fight.TEMPS_TOUR)),0),1));
+        assertEq(DataBase.DEF_TEMPS_TOUR,callEffectStatusBeanGetFail(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR)),0),1));
     }
     @Test
     public void clickLink1() {
@@ -122,14 +121,14 @@ public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
     }
     @Test
     public void getMapVarsStatus1() {
-        assertSizeEq(1,callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ Fight.TEMPS_TOUR)),0),1));
+        assertSizeEq(1,callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR)),0),1));
     }
     @Test
     public void getMapVarsStatus2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ Fight.TEMPS_TOUR)),0),1),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR)),0),1),0)));
     }
     @Test
     public void getMapVarsStatus3() {
-        assertEq(TIME,second(elt(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ Fight.TEMPS_TOUR)),0),1),0)));
+        assertEq(TIME,second(elt(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR)),0),1),0)));
     }
 }

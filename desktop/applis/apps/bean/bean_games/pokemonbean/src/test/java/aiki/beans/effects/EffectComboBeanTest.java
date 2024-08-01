@@ -1,7 +1,7 @@
 package aiki.beans.effects;
 
 import aiki.beans.moves.AikiBeansMovesStd;
-import aiki.game.fight.Fight;
+import aiki.db.DataBase;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -125,7 +125,7 @@ public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectComboBeanMapVarsFailEndRoundGet(1),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectComboBeanMapVarsFailEndRoundGet(1),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
@@ -137,7 +137,7 @@ public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
     }
     @Test
     public void getReasonsEndRound2() {
-        assertEq(Fight.TEMPS_TOUR,elt(callEffectComboBeanReasonsEndRoundGet(1),0));
+        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectComboBeanReasonsEndRoundGet(1),0));
     }
     @Test
     public void getMultStatisticFoe1() {

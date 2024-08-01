@@ -9,7 +9,6 @@ import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
@@ -65,7 +64,7 @@ public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
         facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
         facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
         trs(facade_);
-        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        facade_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
@@ -80,7 +79,7 @@ public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
     }
     protected static EffectEndRoundIndividual eff() {
         EffectEndRoundIndividual e_ = Instances.newEffectEndRoundIndividual();
-        e_.setFailEndRound(VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         e_.setEndRoundRank(1);
         return e_;
     }

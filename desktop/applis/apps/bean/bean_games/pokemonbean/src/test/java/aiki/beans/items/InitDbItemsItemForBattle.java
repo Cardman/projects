@@ -13,7 +13,6 @@ import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
@@ -568,7 +567,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         _facade.getData().getTranslatedClassesDescriptions().addEntry(LANGUAGE,new StringMap<String>());
         _facade.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(_facade.getData().getItem(I_BASE).getItemType(),CI_ITEMBATTLE_TR);
         _facade.getData().getLitterals().addEntry(EN,new StringMap<String>());
-        _facade.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        _facade.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         _facade.getData().getMiniItems().addEntry(I_BASE, BaseSixtyFourUtil.getImageByString(MAX_RAI));
         _facade.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS,Rate.one());
     }
@@ -611,16 +610,16 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         e_.getCopyBoost().add(Statistic.SPEED);
         e_.getSwapBoostStatis().add(Statistic.SPEED);
         e_.getStatisVarRank().addEntry(Statistic.SPEED,(byte)1);
-        e_.getLocalFailStatis().addEntry(Statistic.SPEED, VAR_PREFIX+ Fight.TEMPS_TOUR);
-        e_.getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED, VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.getLocalFailStatis().addEntry(Statistic.SPEED, VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
+        e_.getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED, VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         e_.getLawBoost().addQuickEvent(Statistic.SPEED,LgInt.one());
-        e_.setFail(VAR_PREFIX+ Fight.TEMPS_TOUR);
+        e_.setFail(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         return e_;
     }
 
     protected static EffectEndRound effEndRound() {
         EffectEndRound e_ = lawEndRound();
-        e_.setFailEndRound(VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         e_.setEndRoundRank(1);
         return e_;
     }

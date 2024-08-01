@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.game.fight.Fight;
+import aiki.db.DataBase;
 import code.maths.Rate;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public final class EffectCounterAttackBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getReasonsProtect2() {
-        assertEq(Fight.TEMPS_TOUR,elt(callEffectCounterAttackBeanReasonsProtectGet(dispMoveEffCounterAttack()),0));
+        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectCounterAttackBeanReasonsProtectGet(dispMoveEffCounterAttack()),0));
     }
     @Test
     public void getReasonsCounter1() {
@@ -23,7 +23,7 @@ public final class EffectCounterAttackBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getReasonsCounter2() {
-        assertEq(Fight.TEMPS_TOUR,elt(callEffectCounterAttackBeanReasonsCounterGet(dispMoveEffCounterAttack()),0));
+        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectCounterAttackBeanReasonsCounterGet(dispMoveEffCounterAttack()),0));
     }
     @Test
     public void getMapVarsFailCounter1() {
@@ -31,7 +31,7 @@ public final class EffectCounterAttackBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMapVarsFailCounter2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffCounterAttack()),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffCounterAttack()),0)));
     }
     @Test
     public void getMapVarsFailCounter3() {

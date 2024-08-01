@@ -24,7 +24,6 @@ import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusType;
 import aiki.fight.util.*;
-import aiki.game.fight.Fight;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.instances.Instances;
@@ -2413,7 +2412,7 @@ public class FightHelpBean extends CommonBean {
         String pref_ = _data.prefixVar();
         String str_ = _data.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
-        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,Fight.POWER), _st.getPower().toNumberString());
+        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS, DataBase.DEF_POWER), _st.getPower().toNumberString());
         str_ = MathExpUtil.replaceWordsJoin(str_, replace_);
         return str_;
     }

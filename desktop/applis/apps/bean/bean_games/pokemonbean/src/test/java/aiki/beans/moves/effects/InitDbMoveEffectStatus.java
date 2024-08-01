@@ -2,13 +2,12 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
-import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectStatus;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
@@ -71,7 +70,7 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectStatus _eff) {
         FacadeGame f_ = feedDbMoveEffDataDam(_eff);
-        f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        f_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         return f_;
     }
     protected static NaSt dispMoveEffStatus(FacadeGame _fac, int _index) {

@@ -1,12 +1,12 @@
 package aiki.beans.items;
 
-import aiki.game.fight.Fight;
+import aiki.db.DataBase;
 import org.junit.Test;
 
 public final class BallBeanTest extends InitDbItemOther {
     @Test
     public void getCatchingRate() {
-        assertEq(Fight.TEMPS_TOUR,callBallBeanCatchingRateGet());
+        assertEq(DataBase.DEF_TEMPS_TOUR,callBallBeanCatchingRateGet());
     }
     @Test
     public void getMapVars1() {
@@ -14,7 +14,7 @@ public final class BallBeanTest extends InitDbItemOther {
     }
     @Test
     public void getMapVars2() {
-        assertEq(Fight.TEMPS_TOUR,first(elt(callBallBeanMapVarsGet(),0)));
+        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callBallBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVars3() {

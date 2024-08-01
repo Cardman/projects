@@ -146,6 +146,7 @@ final class InitializationItems  extends EquallablePkUtil {
     private static final String SOL = InitializationDataBase.SOL;
 
     private static final String EAU = InitializationDataBase.EAU;
+    private static final String PLANTE = InitializationDataBase.PLANTE;
 
     private static final String DRAGON = InitializationDataBase.DRAGON;
 
@@ -262,7 +263,7 @@ final class InitializationItems  extends EquallablePkUtil {
         _data.completeQuickMembers(BAIE_MANGA,baie_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
         objetAttachableCombat_.getSynchroStatus().add(AMOUR);
-        objetAttachableCombat_.getFailStatus().addEntry(AMOUR, VAR_PREFIX+"EXISTE_GENRE_ASSEXUE|"+VAR_PREFIX+"GENRES_EGAUX|"+VAR_PREFIX+"CIBLE_POSSEDE_STATUT_RELATION__AMOUR");
+        objetAttachableCombat_.getFailStatus().addEntry(AMOUR, VAR_PREFIX+DataBase.DEF_EXISTE_GENRE_ASSEXUE+"|"+VAR_PREFIX+DataBase.DEF_GENRES_EGAUX+"|"+VAR_PREFIX+DataBase.DEF_CIBLE_POSSEDE_STATUT_RELATION+DataBase.SEP_BETWEEN_KEYS+AMOUR);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(NOEUD_DESTIN,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -295,7 +296,7 @@ final class InitializationItems  extends EquallablePkUtil {
         _data.completeQuickMembers(BOUTON_FUITE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
         objetAttachableCombat_.getTypesPk().add(DRAGON);
-        objetAttachableCombat_.setMultPower("6/5*"+ MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+"ATTAQUE_TYPES},{DRAGON}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({DRAGON},{"+VAR_PREFIX+"ATTAQUE_TYPES}))");
+        objetAttachableCombat_.setMultPower("6/5*"+ MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_ATTAQUE_TYPES+"},{"+DRAGON+"}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({"+DRAGON+"},{"+VAR_PREFIX+DataBase.DEF_ATTAQUE_TYPES+"}))");
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(PLAQUE_DRACO,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -368,7 +369,7 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(PIERRE_STASE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.setMultPower("6/5*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+"ATTAQUE_TYPES},{PLANTE}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({PLANTE},{"+VAR_PREFIX+"ATTAQUE_TYPES}))");
+        objetAttachableCombat_.setMultPower("6/5*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_ATTAQUE_TYPES+"},{"+PLANTE+"}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({"+PLANTE+"},{"+VAR_PREFIX+DataBase.DEF_ATTAQUE_TYPES+"}))");
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(GRAIN_MIRACL,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -390,7 +391,7 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(ENCENS_PLEIN,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.setMultDamage("1/5*"+MbOperationNode.CARAC_DROITE_OUVERT+"("+VAR_PREFIX+"COEFF_EFF,1)+1");
+        objetAttachableCombat_.setMultDamage("1/5*"+MbOperationNode.CARAC_DROITE_OUVERT+"("+VAR_PREFIX+DataBase.DEF_COEFF_EFF+",1)+1");
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(CEINTURE_PRO,objetAttachableCombat_);
         repousse_ = defaultRepousse();
@@ -532,7 +533,7 @@ final class InitializationItems  extends EquallablePkUtil {
         pierreEvo_.setPrice(6);
         _data.completeQuickMembers(PIERRE_GLACE,pierreEvo_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getMultStat().addEntry(Statistic.SPEED,"3/2*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+"FIGHTER_NOM},{METAMORPH}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({METAMORPH},{"+VAR_PREFIX+"FIGHTER_NOM}))");
+        objetAttachableCombat_.getMultStat().addEntry(Statistic.SPEED,"3/2*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_FIGHTER_NOM+"},{METAMORPH}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({METAMORPH},{"+VAR_PREFIX+DataBase.DEF_FIGHTER_NOM+"}))");
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(POUDRE_VITE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -562,7 +563,7 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(HERBE_MENTAL,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.setMultPower("11/10*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+"ATTAQUE_TYPES},{EAU}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({EAU},{"+VAR_PREFIX+"ATTAQUE_TYPES}))");
+        objetAttachableCombat_.setMultPower("11/10*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_ATTAQUE_TYPES+"},{"+EAU+"}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({"+EAU+"},{"+VAR_PREFIX+DataBase.DEF_ATTAQUE_TYPES+"}))");
         objetAttachableCombat_.getHatching().add(BABIMANTA);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(ENCENS_VAGUE,objetAttachableCombat_);

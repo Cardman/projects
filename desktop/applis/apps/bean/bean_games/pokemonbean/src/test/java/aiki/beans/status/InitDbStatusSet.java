@@ -9,7 +9,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.*;
 import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
-import aiki.game.fight.*;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.images.*;
@@ -123,21 +122,21 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     }
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();
-        facade_.getData().completeMembers(S_STA_00,staRel(VAR_PREFIX+ Fight.TEMPS_TOUR,0,false,false));
-        facade_.getData().completeMembers(S_STA_01,staRel(VAR_PREFIX+ Fight.TEMPS_TOUR,1,true,true));
-        Status rel1_ = staRel(VAR_PREFIX + Fight.TEMPS_TOUR, 1, true, true);
+        facade_.getData().completeMembers(S_STA_00,staRel(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR,0,false,false));
+        facade_.getData().completeMembers(S_STA_01,staRel(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR,1,true,true));
+        Status rel1_ = staRel(VAR_PREFIX + DataBase.DEF_TEMPS_TOUR, 1, true, true);
         rel1_.getEffectEndRound().add(Instances.newEffectEndRoundStatusRelation());
         facade_.getData().completeMembers(S_STA_02,rel1_);
-        Status si1_ = staSimple(VAR_PREFIX + Fight.TEMPS_TOUR, 1, true, true);
+        Status si1_ = staSimple(VAR_PREFIX + DataBase.DEF_TEMPS_TOUR, 1, true, true);
         EffectEndRoundSingleStatus e1_ = Instances.newEffectEndRoundSingleStatus();
-        e1_.setFailEndRound(VAR_PREFIX + Fight.TEMPS_TOUR);
+        e1_.setFailEndRound(VAR_PREFIX + DataBase.DEF_TEMPS_TOUR);
         e1_.setEndRoundRank(5);
         e1_.setIncrementingDamageByRounds(false);
         si1_.getEffectEndRound().add(e1_);
         facade_.getData().completeMembers(S_STA_03,si1_);
-        facade_.getData().completeMembers(S_STA_04,staSimple(VAR_PREFIX+ Fight.TEMPS_TOUR,0,false,false));
-        facade_.getData().completeMembers(S_STA_05,staSimple(VAR_PREFIX+ Fight.TEMPS_TOUR,1,true,true));
-        Status si2_ = staSimple(VAR_PREFIX + Fight.TEMPS_TOUR, 1, true, true);
+        facade_.getData().completeMembers(S_STA_04,staSimple(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR,0,false,false));
+        facade_.getData().completeMembers(S_STA_05,staSimple(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR,1,true,true));
+        Status si2_ = staSimple(VAR_PREFIX + DataBase.DEF_TEMPS_TOUR, 1, true, true);
         EffectEndRoundSingleStatus e2_ = Instances.newEffectEndRoundSingleStatus();
         e2_.setEndRoundRank(5);
         e2_.setIncrementingDamageByRounds(true);
@@ -172,7 +171,7 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         b5_.getEffectsPartner().add(part(false));
         facade_.getData().completeMembers(S_STA_12,b5_);
         facade_.getData().getLitterals().addEntry(EN,new StringMap<String>());
-        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        facade_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         facade_.getData().completeVariables();
         facade_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic, String>());
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,ST_ATT_TR);

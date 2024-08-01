@@ -43,7 +43,6 @@ import aiki.util.CoordsLists;
 import aiki.util.LawNumber;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.bean.nat.*;
 //import code.formathtml.Configuration;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
@@ -768,7 +767,7 @@ public abstract class InitDbFight extends InitDbBean {
         DamagingMoveData damage_ = Instances.newDamagingMoveData();
         damage_.setCategory(SPEC);
         EffectDamage effDam_ = Instances.newEffectDamage();
-        effDam_.setPower(VAR_PREFIX+Fighter.LANCEUR_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+ M_NB_FIGHTER);
+        effDam_.setPower(VAR_PREFIX+ DataBase.DEF_LANCEUR_NB_UTILISATION +DataBase.SEP_BETWEEN_KEYS+ M_NB_FIGHTER);
         damage_.getEffects().add(effDam_);
         data_.completeMembers(M_NB_FIGHTER, damage_);
         StatusMoveData mrestrdef_ = Instances.newStatusMoveData();
@@ -868,7 +867,7 @@ public abstract class InitDbFight extends InitDbBean {
         DamagingMoveData used_ = Instances.newDamagingMoveData();
         used_.setCategory(SPEC);
         EffectDamage dam_ = Instances.newEffectDamage();
-        dam_.setPower(VAR_PREFIX+Team.EQUIPE_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+M_USE);
+        dam_.setPower(VAR_PREFIX+ DataBase.DEF_EQUIPE_NB_UTILISATION +DataBase.SEP_BETWEEN_KEYS+M_USE);
         used_.getEffects().add(dam_);
         data_.completeMembers(M_USE, used_);
         StatusMoveData heal_ = Instances.newStatusMoveData();

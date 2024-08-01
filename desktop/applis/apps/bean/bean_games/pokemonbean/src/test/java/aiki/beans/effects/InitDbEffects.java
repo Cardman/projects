@@ -9,7 +9,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.*;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.*;
@@ -94,7 +93,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         EffectCombo co2_ = Instances.newEffectCombo();
         EffectEndRoundFoe ef_ = Instances.newEffectEndRoundFoe();
         ef_.setEndRoundRank(1);
-        ef_.setFailEndRound(VAR_PREFIX+ Fight.TEMPS_TOUR);
+        ef_.setFailEndRound(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         co2_.getEffectEndRound().add(ef_);
         co2_.setMultEvtRateSecEff(Rate.newRate("2"));
         co2_.setRankIncrementNbRound((short)4);
@@ -111,7 +110,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         c_.getEffects().add(new ListEffectCombo(new StringList(M_STA_02,M_STA_03), co6_));
         facade_.getData().setCombos(c_);
         facade_.getData().getLitterals().addEntry(EN,new StringMap<String>());
-        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        facade_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
         facade_.getData().completeVariables();
         facade_.getData().completeMembersCombos();
         facade_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());

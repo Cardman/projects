@@ -15,7 +15,6 @@ import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import aiki.fight.util.StatisticPokemon;
-import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
@@ -323,8 +322,8 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.setMultTrappingDamage(Rate.one());
         b_.setDrainedHpByDamageRate(Rate.one());
         b_.setMultWinningExp(Rate.one());
-        b_.setMultDamage(VAR_PREFIX+Fight.TEMPS_TOUR);
-        b_.setMultPower(VAR_PREFIX+Fight.TEMPS_TOUR);
+        b_.setMultDamage(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
+        b_.setMultPower(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         b_.setAgainstEvo(_againstEvo);
         b_.setAttackLast(_attackLast);
         b_.setAttacksSoon(_attacksSoon);
@@ -333,7 +332,7 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.setImmuLowStatis(_immuLowStatis);
         b_.getMultStatRank().addEntry(Statistic.SPEED,(byte)1);
         b_.getWinEvFight().addEntry(Statistic.SPEED,(short)1);
-        b_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+Fight.TEMPS_TOUR);
+        b_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         b_.getBoostStatisSuperEff().addEntry(Statistic.SPEED,(byte)1);
         b_.getIncreasingMaxNbRoundGlobalMove().addEntry(M_DAM,(short)1);
         b_.getIncreasingMaxNbRoundTeamMove().addEntry(M_DAM,(short)1);
@@ -350,7 +349,7 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.getSynchroStatus().add(S_STA_SIM);
         b_.getHatching().add(P_POKEMON);
         b_.getImmuWeather().add(M_DAM);
-        b_.getFailStatus().addEntry(S_STA_SIM,VAR_PREFIX+Fight.TEMPS_TOUR);
+        b_.getFailStatus().addEntry(S_STA_SIM,VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
         b_.setPrice(1);
         return b_;
     }
