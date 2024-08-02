@@ -620,10 +620,10 @@ public final class CheckNumericStringsFight {
         String varPref_ = StringUtil.concat(data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_;
         vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(varPref_, DataBase.DEF_BASE_CAPT_PK), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_, DataBase.DEF_RATE_BALL_STATUS), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_, DataBase.DEF_FOE_PK_MAX_HP), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_, DataBase.DEF_FOE_PK_REMOTE_HP), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(varPref_, data.baseCaptPk()), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(varPref_, data.rateBallStatus()), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(varPref_, data.foePkMaxHp()), LgInt.one().toNumberString());
+        vars_.put(StringUtil.concat(varPref_, data.foePkRemoteHp()), LgInt.one().toNumberString());
 
         String numericExp_ = data.getRateCatching();
         EvolvedNumString num_;

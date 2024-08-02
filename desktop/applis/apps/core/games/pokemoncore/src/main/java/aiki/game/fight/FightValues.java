@@ -181,9 +181,9 @@ final class FightValues {
     static StringMap<String> calculateValuesWithStat(StringMap<String> _variables, Rate _att, Rate _def, Rate _finalPower, DataBase _import) {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_ATTACK), _att.toNumberString());
-        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_DEFENSE), _def.toNumberString());
-        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_POWER), _finalPower.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, _import.attack()), _att.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, _import.defense()), _def.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, _import.power()), _finalPower.toNumberString());
         varLocs_.putAllMap(_variables);
         return varLocs_;
     }

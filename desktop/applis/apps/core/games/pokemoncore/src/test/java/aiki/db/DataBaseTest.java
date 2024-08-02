@@ -186,6 +186,55 @@ public class DataBaseTest extends EquallablePkUtil {
     }
 
     @Test
+    public void initBase21() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_POWER,"0");
+        assertEq("0",data_.power());
+    }
+
+    @Test
+    public void initBase22() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_ATTACK,"0");
+        assertEq("0",data_.attack());
+    }
+
+    @Test
+    public void initBase23() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_DEFENSE,"0");
+        assertEq("0",data_.defense());
+    }
+
+    @Test
+    public void initBase24() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_BASE_CAPT_PK,"0");
+        assertEq("0",data_.baseCaptPk());
+    }
+
+    @Test
+    public void initBase25() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_RATE_BALL_STATUS,"0");
+        assertEq("0",data_.rateBallStatus());
+    }
+
+    @Test
+    public void initBase26() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FOE_PK_MAX_HP,"0");
+        assertEq("0",data_.foePkMaxHp());
+    }
+
+    @Test
+    public void initBase27() {
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FOE_PK_REMOTE_HP,"0");
+        assertEq("0",data_.foePkRemoteHp());
+    }
+
+    @Test
     public void test() {
         DataBase data_ = InitializationDataBase.initDataBase();
         assertTrue(!data_.isError());
@@ -463,6 +512,30 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.boost("");
         data_.validateOtherConstants();
         assertEq(DataBase.DEF_BOOST,data_.boost());
+    }
+    @Test
+    public void validateOtherConstants17(){
+        DataBase data_ = newData();
+        data_.power("");
+        data_.attack("");
+        data_.defense("");
+        data_.validateOtherConstants();
+        assertEq(DataBase.DEF_ATTACK,data_.attack());
+        assertEq(DataBase.DEF_DEFENSE,data_.defense());
+        assertEq(DataBase.DEF_POWER,data_.power());
+    }
+    @Test
+    public void validateOtherConstants18(){
+        DataBase data_ = newData();
+        data_.baseCaptPk("");
+        data_.rateBallStatus("");
+        data_.foePkMaxHp("");
+        data_.foePkRemoteHp("");
+        data_.validateOtherConstants();
+        assertEq(DataBase.DEF_BASE_CAPT_PK,data_.baseCaptPk());
+        assertEq(DataBase.DEF_RATE_BALL_STATUS,data_.rateBallStatus());
+        assertEq(DataBase.DEF_FOE_PK_MAX_HP,data_.foePkMaxHp());
+        assertEq(DataBase.DEF_FOE_PK_REMOTE_HP,data_.foePkRemoteHp());
     }
     @Test
     public void completeMembers1Test() {

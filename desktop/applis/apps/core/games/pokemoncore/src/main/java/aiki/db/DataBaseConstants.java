@@ -12,6 +12,13 @@ public final class DataBaseConstants {
     private String pkSauvageNiveau = "";
     private String pkUtNiveau = "";
     private String boost = "";
+    private String power = "";
+    private String attack = "";
+    private String defense = "";
+    private String baseCaptPk = "";
+    private String rateBallStatus = "";
+    private String foePkMaxHp = "";
+    private String foePkRemoteHp = "";
 
     public String getPrefixVar() {
         return prefixVar;
@@ -91,5 +98,61 @@ public final class DataBaseConstants {
 
     public void setBoost(String _b) {
         this.boost = _b;
+    }
+
+    public String getPower() {
+        return power;
+    }
+
+    public void setPower(String _p) {
+        this.power = _p;
+    }
+
+    public String getAttack() {
+        return attack;
+    }
+
+    public void setAttack(String _p) {
+        this.attack = _p;
+    }
+
+    public String getDefense() {
+        return defense;
+    }
+
+    public void setDefense(String _p) {
+        this.defense = _p;
+    }
+
+    public String getBaseCaptPk() {
+        return baseCaptPk;
+    }
+
+    public void setBaseCaptPk(String _p) {
+        this.baseCaptPk = _p;
+    }
+
+    public String getRateBallStatus() {
+        return rateBallStatus;
+    }
+
+    public void setRateBallStatus(String _p) {
+        this.rateBallStatus = _p;
+    }
+
+    public String getFoePkMaxHp() {
+        return foePkMaxHp;
+    }
+
+    public void setFoePkMaxHp(String _p) {
+        this.foePkMaxHp = _p;
+    }
+
+    public String getFoePkRemoteHp() {
+        return foePkRemoteHp;
+    }
+
+    public void setFoePkRemoteHp(String _p) {
+        this.foePkRemoteHp = _p;
     }
 }

@@ -885,10 +885,10 @@ final class FightRound {
         boost_ = FightStatistic.rateBoost((byte) NumberUtil.min(cran_, maxBoost_), _import);
         def_.multiplyBy(boost_);
         StringMap<String> varLocs_ = new StringMap<String>();
-        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_ATTACK), att_.toNumberString());
-        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_DEFENSE), def_.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, _import.attack()), att_.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, _import.defense()), def_.toNumberString());
         varLocs_.put(StringUtil.concat(varPref_,_import.lanceurNiveau()), Long.toString(creature_.getLevel()));
-        varLocs_.put(StringUtil.concat(varPref_, DataBase.DEF_POWER), _puissance.toNumberString());
+        varLocs_.put(StringUtil.concat(varPref_, _import.power()), _puissance.toNumberString());
         String damageFormula_ = _import.getDamageFormula();
         Rate degats_ = _import.evaluatePositiveExp(damageFormula_, varLocs_, _puissance);
         if(Rate.greaterEq(degats_,creature_.getRemainingHp())){
@@ -1639,10 +1639,10 @@ final class FightRound {
         }
         variables_.clear();
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
-        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_BASE_CAPT_PK), Long.toString(fPk_.getCatchingRate()));
-        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_RATE_BALL_STATUS), taux_.toNumberString());
-        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FOE_PK_MAX_HP), _creatureSauvage.pvMax().toNumberString());
-        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_FOE_PK_REMOTE_HP), _creatureSauvage.getRemainingHp().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, _import.baseCaptPk()), Long.toString(fPk_.getCatchingRate()));
+        variables_.put(StringUtil.concat(varPref_, _import.rateBallStatus()), taux_.toNumberString());
+        variables_.put(StringUtil.concat(varPref_, _import.foePkMaxHp()), _creatureSauvage.pvMax().toNumberString());
+        variables_.put(StringUtil.concat(varPref_, _import.foePkRemoteHp()), _creatureSauvage.getRemainingHp().toNumberString());
 
         String numericExp_ = _import.getRateCatching();
         return _import.evaluateNumericable(numericExp_, variables_, Rate.one());

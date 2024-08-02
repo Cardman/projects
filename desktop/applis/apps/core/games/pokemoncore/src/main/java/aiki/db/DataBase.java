@@ -82,6 +82,13 @@ public class DataBase {
     public static final String KEY_PK_SAUVAGE_NIVEAU = "7";
     public static final String KEY_PK_UT_NIVEAU = "8";
     public static final String KEY_BOOST = "9";
+    public static final String KEY_POWER = "10";
+    public static final String KEY_ATTACK = "11";
+    public static final String KEY_DEFENSE = "12";
+    public static final String KEY_BASE_CAPT_PK = "13";
+    public static final String KEY_RATE_BALL_STATUS = "14";
+    public static final String KEY_FOE_PK_MAX_HP = "15";
+    public static final String KEY_FOE_PK_REMOTE_HP = "16";
 
     public static final String VAR_DEF = "VAR";
     public static final String DEF_NIVEAU = "NIVEAU";
@@ -93,6 +100,13 @@ public class DataBase {
     public static final String DEF_PK_SAUVAGE_NIVEAU = "PK_SAUVAGE_NIVEAU";
     public static final String DEF_PK_UT_NIVEAU = "PK_UT_NIVEAU";
     public static final String DEF_BOOST = "BOOST";
+    public static final String DEF_POWER ="POWER";
+    public static final String DEF_ATTACK ="ATTACK";
+    public static final String DEF_DEFENSE ="DEFENSE";
+    public static final String DEF_BASE_CAPT_PK = "BASE_CAPT_PK";
+    public static final String DEF_RATE_BALL_STATUS = "RATE_BALL_STATUS";
+    public static final String DEF_FOE_PK_MAX_HP = "FOE_PK_MAX_HP";
+    public static final String DEF_FOE_PK_REMOTE_HP = "FOE_PK_REMOTE_HP";
     public static final String DEF_CIBLE_NB_UTILISATION = "CIBLE_NB_UTILISATION";
     public static final String DEF_LANCEUR_NB_UTILISATION = "LANCEUR_NB_UTILISATION";
     public static final String DEF_FIGHTER_NB_UTILISATION = "FIGHTER_NB_UTILISATION";
@@ -228,13 +242,6 @@ public class DataBase {
     public static final String DEF_COMBATTANT_ENTRANT_TYPES ="COMBATTANT_ENTRANT_TYPES";
     public static final String DEF_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT ="COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT";
     public static final String DEF_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION ="EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION";
-    public static final String DEF_ATTACK ="ATTACK";
-    public static final String DEF_DEFENSE ="DEFENSE";
-    public static final String DEF_POWER ="POWER";
-    public static final String DEF_BASE_CAPT_PK = "BASE_CAPT_PK";
-    public static final String DEF_RATE_BALL_STATUS = "RATE_BALL_STATUS";
-    public static final String DEF_FOE_PK_MAX_HP = "FOE_PK_MAX_HP";
-    public static final String DEF_FOE_PK_REMOTE_HP = "FOE_PK_REMOTE_HP";
 
     public static final String EMPTY_STRING = "";
     public static final String MIN_BOOST = "MIN_BOOST";
@@ -1223,26 +1230,69 @@ public class DataBase {
     public void initValueOther(String _key, String _value) {
         if (StringUtil.quickEq(_key, PREFIX_KEY)) {
             prefixVar(_value);
-        } else if (StringUtil.quickEq(_key, KEY_NIVEAU)) {
+        }
+        initValueOther1(_key, _value);
+        initValueOther2(_key, _value);
+        initValueOther3(_key, _value);
+    }
+
+    private void initValueOther1(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_NIVEAU)) {
             niveau(_value);
-        } else if (StringUtil.quickEq(_key, KEY_LEVEL_LOOSER)) {
+        }
+        if (StringUtil.quickEq(_key, KEY_LEVEL_LOOSER)) {
             levelLooser(_value);
-        } else if (StringUtil.quickEq(_key, KEY_LEVEL_WINNER)) {
+        }
+        if (StringUtil.quickEq(_key, KEY_LEVEL_WINNER)) {
             levelWinner(_value);
-        } else if (StringUtil.quickEq(_key, KEY_FIGHTER_NIVEAU)) {
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NIVEAU)) {
             fighterNiveau(_value);
-        } else if (StringUtil.quickEq(_key, KEY_CIBLE_NIVEAU)) {
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NIVEAU)) {
             cibleNiveau(_value);
-        } else if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)) {
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)) {
             lanceurNiveau(_value);
-        } else if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_NIVEAU)) {
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_NIVEAU)) {
             pkSauvageNiveau(_value);
-        } else if (StringUtil.quickEq(_key, KEY_PK_UT_NIVEAU)) {
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_NIVEAU)) {
             pkUtNiveau(_value);
-        } else if (StringUtil.quickEq(_key, KEY_BOOST)) {
+        }
+        if (StringUtil.quickEq(_key, KEY_BOOST)) {
             boost(_value);
         }
     }
+
+    private void initValueOther2(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_POWER)) {
+            power(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTACK)) {
+            attack(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_DEFENSE)) {
+            defense(_value);
+        }
+    }
+
+    private void initValueOther3(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_BASE_CAPT_PK)) {
+            baseCaptPk(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_RATE_BALL_STATUS)) {
+            rateBallStatus(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FOE_PK_MAX_HP)) {
+            foePkMaxHp(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FOE_PK_REMOTE_HP)) {
+            foePkRemoteHp(_value);
+        }
+    }
+
     public void validateConstants() {
         if (getDefaultMoney().isZero()) {
             setError(true);
@@ -1286,6 +1336,11 @@ public class DataBase {
         if (incorrectPrefix(prefixVar())) {
             prefixVar(VAR_DEF);
         }
+        checkGroups();
+        checkKeys();
+    }
+
+    private void checkGroups() {
         if (gr1().hasDuplicates()) {
             levelLooser(EMPTY_STRING);
             levelWinner(EMPTY_STRING);
@@ -1298,6 +1353,21 @@ public class DataBase {
             pkSauvageNiveau(EMPTY_STRING);
             pkUtNiveau(EMPTY_STRING);
         }
+        if (gr4().hasDuplicates()) {
+            lanceurNiveau(EMPTY_STRING);
+            attack(EMPTY_STRING);
+            defense(EMPTY_STRING);
+            power(EMPTY_STRING);
+        }
+        if (gr5().hasDuplicates()) {
+            baseCaptPk(EMPTY_STRING);
+            rateBallStatus(EMPTY_STRING);
+            foePkMaxHp(EMPTY_STRING);
+            foePkRemoteHp(EMPTY_STRING);
+        }
+    }
+
+    private void checkKeys() {
         if (incorrectKey(niveau())) {
             niveau(DEF_NIVEAU);
         }
@@ -1325,6 +1395,31 @@ public class DataBase {
         if (incorrectKey(boost())) {
             boost(DEF_BOOST);
         }
+        if (incorrectKey(power())) {
+            power(DEF_POWER);
+        }
+        if (incorrectKey(attack())) {
+            attack(DEF_ATTACK);
+        }
+        if (incorrectKey(defense())) {
+            defense(DEF_DEFENSE);
+        }
+        capt();
+    }
+
+    private void capt() {
+        if (incorrectKey(baseCaptPk())) {
+            baseCaptPk(DEF_BASE_CAPT_PK);
+        }
+        if (incorrectKey(rateBallStatus())) {
+            rateBallStatus(DEF_RATE_BALL_STATUS);
+        }
+        if (incorrectKey(foePkMaxHp())) {
+            foePkMaxHp(DEF_FOE_PK_MAX_HP);
+        }
+        if (incorrectKey(foePkRemoteHp())) {
+            foePkRemoteHp(DEF_FOE_PK_REMOTE_HP);
+        }
     }
 
     private StringList gr1() {
@@ -1345,6 +1440,24 @@ public class DataBase {
         StringList str_ = new StringList();
         str_.add(pkSauvageNiveau());
         str_.add(pkUtNiveau());
+        return str_;
+    }
+
+    private StringList gr4() {
+        StringList str_ = new StringList();
+        str_.add(lanceurNiveau());
+        str_.add(attack());
+        str_.add(defense());
+        str_.add(power());
+        return str_;
+    }
+
+    private StringList gr5() {
+        StringList str_ = new StringList();
+        str_.add(baseCaptPk());
+        str_.add(rateBallStatus());
+        str_.add(foePkMaxHp());
+        str_.add(foePkRemoteHp());
         return str_;
     }
 
@@ -2120,16 +2233,23 @@ public class DataBase {
     }
 
     public void defValues() {
-        prefixVar(DataBase.VAR_DEF);
-        niveau(DataBase.DEF_NIVEAU);
-        levelLooser(DataBase.DEF_LEVEL_LOOSER);
-        levelWinner(DataBase.DEF_LEVEL_WINNER);
-        fighterNiveau(DataBase.DEF_FIGHTER_NIVEAU);
-        cibleNiveau(DataBase.DEF_CIBLE_NIVEAU);
-        lanceurNiveau(DataBase.DEF_LANCEUR_NIVEAU);
-        pkSauvageNiveau(DataBase.DEF_PK_SAUVAGE_NIVEAU);
-        pkUtNiveau(DataBase.DEF_PK_UT_NIVEAU);
-        boost(DataBase.DEF_BOOST);
+        prefixVar(VAR_DEF);
+        niveau(DEF_NIVEAU);
+        levelLooser(DEF_LEVEL_LOOSER);
+        levelWinner(DEF_LEVEL_WINNER);
+        fighterNiveau(DEF_FIGHTER_NIVEAU);
+        cibleNiveau(DEF_CIBLE_NIVEAU);
+        lanceurNiveau(DEF_LANCEUR_NIVEAU);
+        pkSauvageNiveau(DEF_PK_SAUVAGE_NIVEAU);
+        pkUtNiveau(DEF_PK_UT_NIVEAU);
+        boost(DEF_BOOST);
+        power(DEF_POWER);
+        attack(DEF_ATTACK);
+        defense(DEF_DEFENSE);
+        baseCaptPk(DEF_BASE_CAPT_PK);
+        rateBallStatus(DEF_RATE_BALL_STATUS);
+        foePkMaxHp(DEF_FOE_PK_MAX_HP);
+        foePkRemoteHp(DEF_FOE_PK_REMOTE_HP);
     }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();
@@ -2209,6 +2329,62 @@ public class DataBase {
 
     public void boost(String _p) {
         this.getConstNonNum().setBoost(_p);
+    }
+
+    public String power() {
+        return getConstNonNum().getPower();
+    }
+
+    public void power(String _p) {
+        this.getConstNonNum().setPower(_p);
+    }
+
+    public String attack() {
+        return getConstNonNum().getAttack();
+    }
+
+    public void attack(String _p) {
+        this.getConstNonNum().setAttack(_p);
+    }
+
+    public String defense() {
+        return getConstNonNum().getDefense();
+    }
+
+    public void defense(String _p) {
+        this.getConstNonNum().setDefense(_p);
+    }
+
+    public String baseCaptPk() {
+        return getConstNonNum().getBaseCaptPk();
+    }
+
+    public void baseCaptPk(String _p) {
+        this.getConstNonNum().setBaseCaptPk(_p);
+    }
+
+    public String rateBallStatus() {
+        return getConstNonNum().getRateBallStatus();
+    }
+
+    public void rateBallStatus(String _p) {
+        this.getConstNonNum().setRateBallStatus(_p);
+    }
+
+    public String foePkMaxHp() {
+        return getConstNonNum().getFoePkMaxHp();
+    }
+
+    public void foePkMaxHp(String _p) {
+        this.getConstNonNum().setFoePkMaxHp(_p);
+    }
+
+    public String foePkRemoteHp() {
+        return getConstNonNum().getFoePkRemoteHp();
+    }
+
+    public void foePkRemoteHp(String _p) {
+        this.getConstNonNum().setFoePkRemoteHp(_p);
     }
 
     public String getRateBoostCriticalHit() {

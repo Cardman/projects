@@ -2412,7 +2412,7 @@ public class FightHelpBean extends CommonBean {
         String pref_ = _data.prefixVar();
         String str_ = _data.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
-        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS, DataBase.DEF_POWER), _st.getPower().toNumberString());
+        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS, _data.power()), _st.getPower().toNumberString());
         str_ = MathExpUtil.replaceWordsJoin(str_, replace_);
         return str_;
     }
