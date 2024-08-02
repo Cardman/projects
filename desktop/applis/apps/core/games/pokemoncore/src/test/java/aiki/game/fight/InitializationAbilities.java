@@ -319,7 +319,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setDecreaseNecStepsHatch(5);
         _data.completeQuickMembers(FOUR,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.setMultPower(VAR_PREFIX+DataBase.DEF_FIGHTER_PP+DataBase.SEP_BETWEEN_KEYS+""+ANTI_AIR+""+"*"+VAR_PREFIX+DataBase.DEF_FIGHTER_PP+DataBase.SEP_BETWEEN_KEYS+""+SEISME+"");
+        ficheCapacite_.setMultPower(VAR_PREFIX+DataBase.DEF_FIGHTER_PP+DataBase.SEP_BETWEEN_KEYS+ANTI_AIR+"*"+VAR_PREFIX+DataBase.DEF_FIGHTER_PP+DataBase.SEP_BETWEEN_KEYS+SEISME);
         _data.completeQuickMembers(GARDE,ficheCapacite_);
         _data.completeQuickMembers(CRACHIN,defaultFicheCapacite());
         _data.completeQuickMembers(CONTRE,defaultFicheCapacite());
@@ -472,7 +472,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,PARALYSIE));
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,BRULURE));
-        ficheCapacite_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+DataBase.DEF_COEFF_EFF_BASE_TYPES_FIGHTER+DataBase.SEP_BETWEEN_KEYS+""+ROCHE+"");
+        ficheCapacite_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+DataBase.DEF_COEFF_EFF_BASE_TYPES_FIGHTER+DataBase.SEP_BETWEEN_KEYS+ROCHE);
         _data.completeQuickMembers(PIED_RAPIDE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.ATTACK,PARALYSIE));
