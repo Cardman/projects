@@ -664,11 +664,11 @@ public final class CheckNumericStringsFight {
         StringMap<String> variables_ = new StringMap<String>();
         if (_sending) {
             StringList immuTypesIndiv_ = _import
-                    .getVarParamsMove(DataBase.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
+                    .getVarParamsMove(_import.immuTypeAttCombattantEntrant());
             for (String e : immuTypesIndiv_) {
                 variables_
                         .put(StringUtil.concat(varPref_,
-                                DataBase.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT,
+                                _import.immuTypeAttCombattantEntrant(),
                                 DataBase.SEP_BETWEEN_KEYS, e), _import
                                 .getFalseString());
             }

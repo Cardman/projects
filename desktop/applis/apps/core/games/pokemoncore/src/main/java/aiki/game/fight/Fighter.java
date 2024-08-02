@@ -458,8 +458,8 @@ public final class Fighter {
         lastSufferedMove=DataBase.EMPTY_STRING;
         lastSufferedMoveTypes=new StringList();
         StringList attaques_ = new StringList();
-        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_CIBLE_NB_UTILISATION));
-        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_LANCEUR_NB_UTILISATION));
+        attaques_.addAllElts(_import.getVarParamsMove(_import.cibleNbUtilisation()));
+        attaques_.addAllElts(_import.getVarParamsMove(_import.lanceurNbUtilisation()));
         attaques_.removeDuplicates();
         nbUsesMoves = new StringMap<Integer>();
         for(String e:attaques_){
@@ -851,8 +851,8 @@ public final class Fighter {
 
     private boolean koSpecMoves(DataBase _data) {
         StringList attaques_ = new StringList();
-        attaques_.addAllElts(_data.getVarParamsMove(DataBase.DEF_CIBLE_NB_UTILISATION));
-        attaques_.addAllElts(_data.getVarParamsMove(DataBase.DEF_LANCEUR_NB_UTILISATION));
+        attaques_.addAllElts(_data.getVarParamsMove(_data.cibleNbUtilisation()));
+        attaques_.addAllElts(_data.getVarParamsMove(_data.lanceurNbUtilisation()));
         if (!StringUtil.equalsSet(attaques_, nbUsesMoves.getKeys())) {
             return true;
         }

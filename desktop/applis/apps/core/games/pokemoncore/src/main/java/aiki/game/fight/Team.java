@@ -92,15 +92,15 @@ public final class Team {
         nbKoRound=0;
         nbKoPreviousRound=0;
         StringList attaques_ = new StringList();
-        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_EQUIPE_NB_UTILISATION));
-        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_EQUIPE_ADV_NB_UTILISATION));
+        attaques_.addAllElts(_import.getVarParamsMove(_import.equipeNbUtilisation()));
+        attaques_.addAllElts(_import.getVarParamsMove(_import.equipeAdvNbUtilisation()));
         attaques_.removeDuplicates();
         nbUsesMoves = new StringMap<Integer>();
         for(String e:attaques_){
             nbUsesMoves.put(e,0);
         }
         attaques_.clear();
-        attaques_.addAllElts(_import.getVarParamsMove(DataBase.DEF_NB_UTILI_ATT_EQ_TOUR));
+        attaques_.addAllElts(_import.getVarParamsMove(_import.nbUtiliAttEqTour()));
         nbUsesMovesRound = new StringMap<Integer>();
         for(String e:attaques_){
             nbUsesMovesRound.put(e,0);
@@ -383,8 +383,8 @@ public final class Team {
 
     private boolean koNbUsesMoves(DataBase _data) {
         StringList attaques_ = new StringList();
-        attaques_.addAllElts(_data.getVarParamsMove(DataBase.DEF_EQUIPE_NB_UTILISATION));
-        attaques_.addAllElts(_data.getVarParamsMove(DataBase.DEF_EQUIPE_ADV_NB_UTILISATION));
+        attaques_.addAllElts(_data.getVarParamsMove(_data.equipeNbUtilisation()));
+        attaques_.addAllElts(_data.getVarParamsMove(_data.equipeAdvNbUtilisation()));
         if (!StringUtil.equalsSet(attaques_, nbUsesMoves.getKeys())) {
             return true;
         }
@@ -397,7 +397,7 @@ public final class Team {
     }
 
     private boolean koNbUsesMovesRound(DataBase _data) {
-        if (!StringUtil.equalsSet(_data.getVarParamsMove(DataBase.DEF_NB_UTILI_ATT_EQ_TOUR), nbUsesMovesRound.getKeys())) {
+        if (!StringUtil.equalsSet(_data.getVarParamsMove(_data.nbUtiliAttEqTour()), nbUsesMovesRound.getKeys())) {
             return true;
         }
         for (String m: nbUsesMovesRound.getKeys()) {

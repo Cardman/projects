@@ -19,6 +19,24 @@ public final class DataBaseConstants {
     private String rateBallStatus = "";
     private String foePkMaxHp = "";
     private String foePkRemoteHp = "";
+    private String cibleNbUtilisation = "";
+    private String lanceurNbUtilisation = "";
+    private String ciblePp = "";
+    private String fighterPp = "";
+    private String lanceurPp = "";
+    private String cibleEffet = "";
+    private String lanceurEffet = "";
+    private String equipeNbUtilisation = "";
+    private String equipeAdvNbUtilisation = "";
+    private String coeffEffBaseTypesCombattantEntrant = "";
+    private String coeffEffBaseTypesCible = "";
+    private String coeffEffBaseTypesLanceur = "";
+    private String coeffEffBaseTypesFighter = "";
+    private String immuTypeAttCombattantEntrant = "";
+    private String immuTypeAttCible = "";
+    private String equipeAdvCombattantEntrantNbUtilisation = "";
+    private String nbTourGlobal = "";
+    private String nbUtiliAttEqTour = "";
 
     public String getPrefixVar() {
         return prefixVar;
@@ -154,5 +172,149 @@ public final class DataBaseConstants {
 
     public void setFoePkRemoteHp(String _p) {
         this.foePkRemoteHp = _p;
+    }
+
+    public String getCibleNbUtilisation() {
+        return cibleNbUtilisation;
+    }
+
+    public void setCibleNbUtilisation(String _p) {
+        this.cibleNbUtilisation = _p;
+    }
+
+    public String getLanceurNbUtilisation() {
+        return lanceurNbUtilisation;
+    }
+
+    public void setLanceurNbUtilisation(String _p) {
+        this.lanceurNbUtilisation = _p;
+    }
+
+    public String getCiblePp() {
+        return ciblePp;
+    }
+
+    public void setCiblePp(String _p) {
+        this.ciblePp = _p;
+    }
+
+    public String getFighterPp() {
+        return fighterPp;
+    }
+
+    public void setFighterPp(String _p) {
+        this.fighterPp = _p;
+    }
+
+    public String getLanceurPp() {
+        return lanceurPp;
+    }
+
+    public void setLanceurPp(String _p) {
+        this.lanceurPp = _p;
+    }
+
+    public String getCibleEffet() {
+        return cibleEffet;
+    }
+
+    public void setCibleEffet(String _p) {
+        this.cibleEffet = _p;
+    }
+
+    public String getLanceurEffet() {
+        return lanceurEffet;
+    }
+
+    public void setLanceurEffet(String _p) {
+        this.lanceurEffet = _p;
+    }
+
+    public String getEquipeNbUtilisation() {
+        return equipeNbUtilisation;
+    }
+
+    public void setEquipeNbUtilisation(String _p) {
+        this.equipeNbUtilisation = _p;
+    }
+
+    public String getEquipeAdvNbUtilisation() {
+        return equipeAdvNbUtilisation;
+    }
+
+    public void setEquipeAdvNbUtilisation(String _p) {
+        this.equipeAdvNbUtilisation = _p;
+    }
+
+    public String getCoeffEffBaseTypesCombattantEntrant() {
+        return coeffEffBaseTypesCombattantEntrant;
+    }
+
+    public void setCoeffEffBaseTypesCombattantEntrant(String _p) {
+        this.coeffEffBaseTypesCombattantEntrant = _p;
+    }
+
+    public String getCoeffEffBaseTypesCible() {
+        return coeffEffBaseTypesCible;
+    }
+
+    public void setCoeffEffBaseTypesCible(String _p) {
+        this.coeffEffBaseTypesCible = _p;
+    }
+
+    public String getCoeffEffBaseTypesLanceur() {
+        return coeffEffBaseTypesLanceur;
+    }
+
+    public void setCoeffEffBaseTypesLanceur(String _p) {
+        this.coeffEffBaseTypesLanceur = _p;
+    }
+
+    public String getCoeffEffBaseTypesFighter() {
+        return coeffEffBaseTypesFighter;
+    }
+
+    public void setCoeffEffBaseTypesFighter(String _p) {
+        this.coeffEffBaseTypesFighter = _p;
+    }
+
+    public String getImmuTypeAttCombattantEntrant() {
+        return immuTypeAttCombattantEntrant;
+    }
+
+    public void setImmuTypeAttCombattantEntrant(String _p) {
+        this.immuTypeAttCombattantEntrant = _p;
+    }
+
+    public String getImmuTypeAttCible() {
+        return immuTypeAttCible;
+    }
+
+    public void setImmuTypeAttCible(String _p) {
+        this.immuTypeAttCible = _p;
+    }
+
+    public String getEquipeAdvCombattantEntrantNbUtilisation() {
+        return equipeAdvCombattantEntrantNbUtilisation;
+    }
+
+    public void setEquipeAdvCombattantEntrantNbUtilisation(String _p) {
+        this.equipeAdvCombattantEntrantNbUtilisation = _p;
+    }
+
+    public String getNbTourGlobal() {
+        return nbTourGlobal;
+    }
+
+    public void setNbTourGlobal(String _p) {
+        this.nbTourGlobal = _p;
+    }
+
+    public String getNbUtiliAttEqTour() {
+        return nbUtiliAttEqTour;
+    }
+
+    public void setNbUtiliAttEqTour(String _p) {
+        this.nbUtiliAttEqTour = _p;
     }
 }

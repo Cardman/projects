@@ -290,6 +290,8 @@ final class InitializationAbilities extends EquallablePkUtil {
     private static final String LARCIN = InitializationMoves.LARCIN;
     private static final String IMITATION = InitializationMoves.IMITATION;
     private static final String IMPLORE = InitializationMoves.IMPLORE;
+    private static final String SPECIALE = InitializationMoves.SPECIALE;
+    private static final String PHYSIQUE = InitializationMoves.PHYSIQUE;
     private static final String SOMMEIL_REPOS = InitializationStatus.SOMMEIL_REPOS;
     private static final String SOMMEIL = InitializationStatus.SOMMEIL;
     private static final String PARALYSIE_FORTE = InitializationStatus.PARALYSIE_FORTE;
@@ -824,7 +826,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setForbidUseBerryAgainstFoes(true);
         _data.completeQuickMembers(TENSION,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,"PHYSIQUE"),(byte)1);
+        ficheCapacite_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,PHYSIQUE),(byte)1);
         _data.completeQuickMembers(ARMUROUILLEE,ficheCapacite_);
     }
 
