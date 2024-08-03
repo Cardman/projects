@@ -131,6 +131,7 @@ public class DataBase {
     public static final String DEF_CIBLE_DEGATS_RECUS_TOUR ="CIBLE_DEGATS_RECUS_TOUR";
     public static final String DEF_CIBLE_DEGATS_RECUS_TOTAL_TOUR ="CIBLE_DEGATS_RECUS_TOTAL_TOUR";
     public static final String DEF_CIBLE_DISPARAIT ="CIBLE_DISPARAIT";
+    public static final String DEF_CIBLE_DER_JOUE ="CIBLE_DER_JOUE";
     public static final String DEF_CIBLE_JOUE ="CIBLE_JOUE";
     public static final String DEF_CIBLE_MASSE ="CIBLE_MASSE";
     public static final String DEF_CIBLE_TAILLE ="CIBLE_TAILLE";
@@ -138,6 +139,7 @@ public class DataBase {
     public static final String DEF_CIBLE_OBJET ="CIBLE_OBJET";
     public static final String DEF_CIBLE_STATUTS ="CIBLE_STATUTS";
     public static final String DEF_CIBLE_TYPES ="CIBLE_TYPES";
+    public static final String DEF_CIBLE_NOM ="CIBLE_NOM";
     public static final String DEF_CIBLE_PP ="CIBLE_PP";
     public static final String DEF_NB_KO_EQUIPE_CIBLE ="NB_KO_EQUIPE_CIBLE";
     public static final String DEF_NB_KO_EQUIPE_ADV_CIBLE ="NB_KO_EQUIPE_ADV_CIBLE";
@@ -189,6 +191,7 @@ public class DataBase {
     public static final String DEF_FIGHTER_JOUE ="FIGHTER_JOUE";
     public static final String DEF_FIGHTER_MASSE ="FIGHTER_MASSE";
     public static final String DEF_FIGHTER_TAILLE ="FIGHTER_TAILLE";
+    public static final String DEF_FIGHTER_CAPACITE ="FIGHTER_CAPACITE";
     public static final String DEF_FIGHTER_OBJET ="FIGHTER_OBJET";
     public static final String DEF_FIGHTER_STATUTS ="FIGHTER_STATUTS";
     public static final String DEF_FIGHTER_TYPES ="FIGHTER_TYPES";
@@ -203,6 +206,7 @@ public class DataBase {
     //public static final String CLIMAT_DOMINANT="CLIMAT_DOMINANT";
     public static final String DEF_LIEU_COMBAT ="LIEU_COMBAT";
     public static final String DEF_NB_FLEES ="NB_FLEES";
+    public static final String DEF_CIBLE_BONHEUR ="CIBLE_BONHEUR";
     public static final String DEF_LANCEUR_BONHEUR ="LANCEUR_BONHEUR";
     public static final String DEF_TEMPS_TOUR ="TEMPS_TOUR";
     public static final String DEF_RATE_EFF_MOVE_AGAINST_TARGET ="RATE_EFF_MOVE_AGAINST_TARGET";
@@ -2251,16 +2255,32 @@ public class DataBase {
         foePkMaxHp(DEF_FOE_PK_MAX_HP);
         foePkRemoteHp(DEF_FOE_PK_REMOTE_HP);
         cibleNbUtilisation(DEF_CIBLE_NB_UTILISATION);
+        fighterNbUtilisation(DEF_FIGHTER_NB_UTILISATION);
         lanceurNbUtilisation(DEF_LANCEUR_NB_UTILISATION);
         ciblePp(DEF_CIBLE_PP);
         fighterPp(DEF_FIGHTER_PP);
         lanceurPp(DEF_LANCEUR_PP);
+        ciblePvRestants(DEF_CIBLE_PV_RESTANTS);
+        fighterPvRestants(DEF_FIGHTER_PV_RESTANTS);
+        lanceurPvRestants(DEF_LANCEUR_PV_RESTANTS);
+        ciblePvMax(DEF_CIBLE_PV_MAX);
+        fighterPvMax(DEF_FIGHTER_PV_MAX);
+        lanceurPvMax(DEF_LANCEUR_PV_MAX);
+        cibleBoost(DEF_CIBLE_BOOST);
+        fighterBoost(DEF_FIGHTER_BOOST);
+        lanceurBoost(DEF_LANCEUR_BOOST);
+        cibleStatis(DEF_CIBLE_STATIS);
+        fighterStatis(DEF_FIGHTER_STATIS);
+        lanceurStatis(DEF_LANCEUR_STATIS);
         cibleEffet(DEF_CIBLE_EFFET);
         lanceurEffet(DEF_LANCEUR_EFFET);
         coeffEffBaseTypesCombattantEntrant(DEF_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT);
         coeffEffBaseTypesCible(DEF_COEFF_EFF_BASE_TYPES_CIBLE);
         coeffEffBaseTypesFighter(DEF_COEFF_EFF_BASE_TYPES_FIGHTER);
         coeffEffBaseTypesLanceur(DEF_COEFF_EFF_BASE_TYPES_LANCEUR);
+        sommeBoostPosCible(DEF_SOMME_BOOST_POS_CIBLE);
+        sommeBoostPosFighter(DEF_SOMME_BOOST_POS_FIGHTER);
+        sommeBoostPosLanceur(DEF_SOMME_BOOST_POS_LANCEUR);
         immuTypeAttCombattantEntrant(DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
         immuTypeAttCible(DEF_IMMU_TYPE_ATT_CIBLE);
         equipeNbUtilisation(DEF_EQUIPE_NB_UTILISATION);
@@ -2268,6 +2288,72 @@ public class DataBase {
         equipeAdvCombattantEntrantNbUtilisation(DEF_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION);
         nbTourGlobal(DEF_NB_TOUR_GLOBAL);
         nbUtiliAttEqTour(DEF_NB_UTILI_ATT_EQ_TOUR);
+        cibleAttaques(DEF_CIBLE_ATTAQUES);
+        cibleAttaqueChoisie(DEF_CIBLE_ATTAQUE_CHOISIE);
+        cibleAttaquesTypes(DEF_CIBLE_ATTAQUES_TYPES);
+        cibleClone(DEF_CIBLE_CLONE);
+        cibleDegatsRecus(DEF_CIBLE_DEGATS_RECUS);
+        cibleDegatsRecusTotal(DEF_CIBLE_DEGATS_RECUS_TOTAL);
+        cibleDegatsRecusTour(DEF_CIBLE_DEGATS_RECUS_TOUR);
+        cibleDegatsRecusTotalTour(DEF_CIBLE_DEGATS_RECUS_TOTAL_TOUR);
+        cibleDisparait(DEF_CIBLE_DISPARAIT);
+        cibleJoue(DEF_CIBLE_JOUE);
+        cibleMasse(DEF_CIBLE_MASSE);
+        cibleTaille(DEF_CIBLE_TAILLE);
+        cibleCapacite(DEF_CIBLE_CAPACITE);
+        cibleObjet(DEF_CIBLE_OBJET);
+        cibleStatuts(DEF_CIBLE_STATUTS);
+        cibleTypes(DEF_CIBLE_TYPES);
+        cibleGenre(DEF_CIBLE_GENRE);
+        cibleBonheur(DEF_CIBLE_BONHEUR);
+        cibleNom(DEF_CIBLE_NOM);
+        cibleDerJoue(DEF_CIBLE_DER_JOUE);
+        nbKoEquipeCible(DEF_NB_KO_EQUIPE_CIBLE);
+        nbKoEquipeAdvCible(DEF_NB_KO_EQUIPE_ADV_CIBLE);
+        lanceurAttaques(DEF_LANCEUR_ATTAQUES);
+        lanceurAttaqueChoisie(DEF_LANCEUR_ATTAQUE_CHOISIE);
+        lanceurAttaquesTypes(DEF_LANCEUR_ATTAQUES_TYPES);
+        lanceurClone(DEF_LANCEUR_CLONE);
+        lanceurDegatsRecus(DEF_LANCEUR_DEGATS_RECUS);
+        lanceurDegatsRecusTotal(DEF_LANCEUR_DEGATS_RECUS_TOTAL);
+        lanceurDegatsRecusTour(DEF_LANCEUR_DEGATS_RECUS_TOUR);
+        lanceurDegatsRecusTotalTour(DEF_LANCEUR_DEGATS_RECUS_TOTAL_TOUR);
+        lanceurDisparait(DEF_LANCEUR_DISPARAIT);
+        lanceurJoue(DEF_LANCEUR_JOUE);
+        lanceurMasse(DEF_LANCEUR_MASSE);
+        lanceurTaille(DEF_LANCEUR_TAILLE);
+        lanceurCapacite(DEF_LANCEUR_CAPACITE);
+        lanceurObjet(DEF_LANCEUR_OBJET);
+        lanceurStatuts(DEF_LANCEUR_STATUTS);
+        lanceurTypes(DEF_LANCEUR_TYPES);
+        lanceurGenre(DEF_LANCEUR_GENRE);
+        lanceurBonheur(DEF_LANCEUR_BONHEUR);
+        lanceurNom(DEF_LANCEUR_NOM);
+        lanceurDerJoue(DEF_LANCEUR_DER_JOUE);
+        nbKoEquipeLanceur(DEF_NB_KO_EQUIPE_LANCEUR);
+        nbKoEquipeAdvLanceur(DEF_NB_KO_EQUIPE_ADV_LANCEUR);
+        fighterAttaques(DEF_FIGHTER_ATTAQUES);
+        fighterAttaqueChoisie(DEF_FIGHTER_ATTAQUE_CHOISIE);
+        fighterAttaquesTypes(DEF_FIGHTER_ATTAQUES_TYPES);
+        fighterClone(DEF_FIGHTER_CLONE);
+        fighterDegatsRecus(DEF_FIGHTER_DEGATS_RECUS);
+        fighterDegatsRecusTotal(DEF_FIGHTER_DEGATS_RECUS_TOTAL);
+        fighterDegatsRecusTour(DEF_FIGHTER_DEGATS_RECUS_TOUR);
+        fighterDegatsRecusTotalTour(DEF_FIGHTER_DEGATS_RECUS_TOTAL_TOUR);
+        fighterDisparait(DEF_FIGHTER_DISPARAIT);
+        fighterJoue(DEF_FIGHTER_JOUE);
+        fighterMasse(DEF_FIGHTER_MASSE);
+        fighterTaille(DEF_FIGHTER_TAILLE);
+        fighterCapacite(DEF_FIGHTER_CAPACITE);
+        fighterObjet(DEF_FIGHTER_OBJET);
+        fighterStatuts(DEF_FIGHTER_STATUTS);
+        fighterTypes(DEF_FIGHTER_TYPES);
+        fighterGenre(DEF_FIGHTER_GENRE);
+        fighterBonheur(DEF_FIGHTER_BONHEUR);
+        fighterNom(DEF_FIGHTER_NOM);
+        fighterDerJoue(DEF_FIGHTER_DER_JOUE);
+        nbKoEquipeFighter(DEF_NB_KO_EQUIPE_FIGHTER);
+        nbKoEquipeAdvFighter(DEF_NB_KO_EQUIPE_ADV_FIGHTER);
     }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();
@@ -2413,6 +2499,14 @@ public class DataBase {
         this.getConstNonNum().setCibleNbUtilisation(_p);
     }
 
+    public String fighterNbUtilisation() {
+        return getConstNonNum().getFighterNbUtilisation();
+    }
+
+    public void fighterNbUtilisation(String _p) {
+        this.getConstNonNum().setFighterNbUtilisation(_p);
+    }
+
     public String lanceurNbUtilisation() {
         return getConstNonNum().getLanceurNbUtilisation();
     }
@@ -2443,6 +2537,102 @@ public class DataBase {
 
     public void lanceurPp(String _p) {
         this.getConstNonNum().setLanceurPp(_p);
+    }
+
+    public String ciblePvRestants() {
+        return getConstNonNum().getCiblePvRestants();
+    }
+
+    public void ciblePvRestants(String _p) {
+        this.getConstNonNum().setCiblePvRestants(_p);
+    }
+
+    public String fighterPvRestants() {
+        return getConstNonNum().getFighterPvRestants();
+    }
+
+    public void fighterPvRestants(String _p) {
+        this.getConstNonNum().setFighterPvRestants(_p);
+    }
+
+    public String lanceurPvRestants() {
+        return getConstNonNum().getLanceurPvRestants();
+    }
+
+    public void lanceurPvRestants(String _p) {
+        this.getConstNonNum().setLanceurPvRestants(_p);
+    }
+
+    public String ciblePvMax() {
+        return getConstNonNum().getCiblePvMax();
+    }
+
+    public void ciblePvMax(String _p) {
+        this.getConstNonNum().setCiblePvMax(_p);
+    }
+
+    public String fighterPvMax() {
+        return getConstNonNum().getFighterPvMax();
+    }
+
+    public void fighterPvMax(String _p) {
+        this.getConstNonNum().setFighterPvMax(_p);
+    }
+
+    public String lanceurPvMax() {
+        return getConstNonNum().getLanceurPvMax();
+    }
+
+    public void lanceurPvMax(String _p) {
+        this.getConstNonNum().setLanceurPvMax(_p);
+    }
+
+    public String cibleStatis() {
+        return getConstNonNum().getCibleStatis();
+    }
+
+    public void cibleStatis(String _p) {
+        this.getConstNonNum().setCibleStatis(_p);
+    }
+
+    public String fighterStatis() {
+        return getConstNonNum().getFighterStatis();
+    }
+
+    public void fighterStatis(String _p) {
+        this.getConstNonNum().setFighterStatis(_p);
+    }
+
+    public String lanceurStatis() {
+        return getConstNonNum().getLanceurStatis();
+    }
+
+    public void lanceurStatis(String _p) {
+        this.getConstNonNum().setLanceurStatis(_p);
+    }
+
+    public String cibleBoost() {
+        return getConstNonNum().getCibleBoost();
+    }
+
+    public void cibleBoost(String _p) {
+        this.getConstNonNum().setCibleBoost(_p);
+    }
+
+    public String fighterBoost() {
+        return getConstNonNum().getFighterBoost();
+    }
+
+    public void fighterBoost(String _p) {
+        this.getConstNonNum().setFighterBoost(_p);
+    }
+
+    public String lanceurBoost() {
+        return getConstNonNum().getLanceurBoost();
+    }
+
+    public void lanceurBoost(String _p) {
+        this.getConstNonNum().setLanceurBoost(_p);
     }
 
     public String cibleEffet() {
@@ -2509,6 +2699,30 @@ public class DataBase {
         this.getConstNonNum().setCoeffEffBaseTypesLanceur(_p);
     }
 
+    public String sommeBoostPosCible() {
+        return getConstNonNum().getSommeBoostPosCible();
+    }
+
+    public void sommeBoostPosCible(String _p) {
+        this.getConstNonNum().setSommeBoostPosCible(_p);
+    }
+
+    public String sommeBoostPosFighter() {
+        return getConstNonNum().getSommeBoostPosFighter();
+    }
+
+    public void sommeBoostPosFighter(String _p) {
+        this.getConstNonNum().setSommeBoostPosFighter(_p);
+    }
+
+    public String sommeBoostPosLanceur() {
+        return getConstNonNum().getSommeBoostPosLanceur();
+    }
+
+    public void sommeBoostPosLanceur(String _p) {
+        this.getConstNonNum().setSommeBoostPosLanceur(_p);
+    }
+
     public String immuTypeAttCombattantEntrant() {
         return getConstNonNum().getImmuTypeAttCombattantEntrant();
     }
@@ -2548,7 +2762,402 @@ public class DataBase {
     public void nbUtiliAttEqTour(String _p) {
         this.getConstNonNum().setNbUtiliAttEqTour(_p);
     }
-
+    public String cibleAttaques(){
+        return getConstNonNum().getCibleAttaques();
+    }
+    public void cibleAttaques(String _p){
+        getConstNonNum().setCibleAttaques(_p);
+    }
+    public String cibleAttaqueChoisie(){
+        return getConstNonNum().getCibleAttaqueChoisie();
+    }
+    public void cibleAttaqueChoisie(String _p){
+        getConstNonNum().setCibleAttaqueChoisie(_p);
+    }
+    public String cibleAttaquesTypes(){
+        return getConstNonNum().getCibleAttaquesTypes();
+    }
+    public void cibleAttaquesTypes(String _p){
+        getConstNonNum().setCibleAttaquesTypes(_p);
+    }
+    public String cibleClone(){
+        return getConstNonNum().getCibleClone();
+    }
+    public void cibleClone(String _p){
+        getConstNonNum().setCibleClone(_p);
+    }
+    public String cibleDegatsRecus(){
+        return getConstNonNum().getCibleDegatsRecus();
+    }
+    public void cibleDegatsRecus(String _p){
+        getConstNonNum().setCibleDegatsRecus(_p);
+    }
+    public String cibleDegatsRecusTotal(){
+        return getConstNonNum().getCibleDegatsRecusTotal();
+    }
+    public void cibleDegatsRecusTotal(String _p){
+        getConstNonNum().setCibleDegatsRecusTotal(_p);
+    }
+    public String cibleDegatsRecusTour(){
+        return getConstNonNum().getCibleDegatsRecusTour();
+    }
+    public void cibleDegatsRecusTour(String _p){
+        getConstNonNum().setCibleDegatsRecusTour(_p);
+    }
+    public String cibleDegatsRecusTotalTour(){
+        return getConstNonNum().getCibleDegatsRecusTotalTour();
+    }
+    public void cibleDegatsRecusTotalTour(String _p){
+        getConstNonNum().setCibleDegatsRecusTotalTour(_p);
+    }
+    public String cibleDisparait(){
+        return getConstNonNum().getCibleDisparait();
+    }
+    public void cibleDisparait(String _p){
+        getConstNonNum().setCibleDisparait(_p);
+    }
+    public String cibleJoue(){
+        return getConstNonNum().getCibleJoue();
+    }
+    public void cibleJoue(String _p){
+        getConstNonNum().setCibleJoue(_p);
+    }
+    public String cibleMasse(){
+        return getConstNonNum().getCibleMasse();
+    }
+    public void cibleMasse(String _p){
+        getConstNonNum().setCibleMasse(_p);
+    }
+    public String cibleTaille(){
+        return getConstNonNum().getCibleTaille();
+    }
+    public void cibleTaille(String _p){
+        getConstNonNum().setCibleTaille(_p);
+    }
+    public String cibleCapacite(){
+        return getConstNonNum().getCibleCapacite();
+    }
+    public void cibleCapacite(String _p){
+        getConstNonNum().setCibleCapacite(_p);
+    }
+    public String cibleObjet(){
+        return getConstNonNum().getCibleObjet();
+    }
+    public void cibleObjet(String _p){
+        getConstNonNum().setCibleObjet(_p);
+    }
+    public String cibleStatuts(){
+        return getConstNonNum().getCibleStatuts();
+    }
+    public void cibleStatuts(String _p){
+        getConstNonNum().setCibleStatuts(_p);
+    }
+    public String cibleTypes(){
+        return getConstNonNum().getCibleTypes();
+    }
+    public void cibleTypes(String _p){
+        getConstNonNum().setCibleTypes(_p);
+    }
+    public String cibleGenre(){
+        return getConstNonNum().getCibleGenre();
+    }
+    public void cibleGenre(String _p){
+        getConstNonNum().setCibleGenre(_p);
+    }
+    public String cibleBonheur(){
+        return getConstNonNum().getCibleBonheur();
+    }
+    public void cibleBonheur(String _p){
+        getConstNonNum().setCibleBonheur(_p);
+    }
+    public String cibleNom(){
+        return getConstNonNum().getCibleNom();
+    }
+    public void cibleNom(String _p){
+        getConstNonNum().setCibleNom(_p);
+    }
+    public String cibleDerJoue(){
+        return getConstNonNum().getCibleDerJoue();
+    }
+    public void cibleDerJoue(String _p){
+        getConstNonNum().setCibleDerJoue(_p);
+    }
+    public String nbKoEquipeCible(){
+        return getConstNonNum().getNbKoEquipeCible();
+    }
+    public void nbKoEquipeCible(String _p){
+        getConstNonNum().setNbKoEquipeCible(_p);
+    }
+    public String nbKoEquipeAdvCible(){
+        return getConstNonNum().getNbKoEquipeAdvCible();
+    }
+    public void nbKoEquipeAdvCible(String _p){
+        getConstNonNum().setNbKoEquipeAdvCible(_p);
+    }
+    public String lanceurAttaques(){
+        return getConstNonNum().getLanceurAttaques();
+    }
+    public void lanceurAttaques(String _p){
+        getConstNonNum().setLanceurAttaques(_p);
+    }
+    public String lanceurAttaqueChoisie(){
+        return getConstNonNum().getLanceurAttaqueChoisie();
+    }
+    public void lanceurAttaqueChoisie(String _p){
+        getConstNonNum().setLanceurAttaqueChoisie(_p);
+    }
+    public String lanceurAttaquesTypes(){
+        return getConstNonNum().getLanceurAttaquesTypes();
+    }
+    public void lanceurAttaquesTypes(String _p){
+        getConstNonNum().setLanceurAttaquesTypes(_p);
+    }
+    public String lanceurClone(){
+        return getConstNonNum().getLanceurClone();
+    }
+    public void lanceurClone(String _p){
+        getConstNonNum().setLanceurClone(_p);
+    }
+    public String lanceurDegatsRecus(){
+        return getConstNonNum().getLanceurDegatsRecus();
+    }
+    public void lanceurDegatsRecus(String _p){
+        getConstNonNum().setLanceurDegatsRecus(_p);
+    }
+    public String lanceurDegatsRecusTotal(){
+        return getConstNonNum().getLanceurDegatsRecusTotal();
+    }
+    public void lanceurDegatsRecusTotal(String _p){
+        getConstNonNum().setLanceurDegatsRecusTotal(_p);
+    }
+    public String lanceurDegatsRecusTour(){
+        return getConstNonNum().getLanceurDegatsRecusTour();
+    }
+    public void lanceurDegatsRecusTour(String _p){
+        getConstNonNum().setLanceurDegatsRecusTour(_p);
+    }
+    public String lanceurDegatsRecusTotalTour(){
+        return getConstNonNum().getLanceurDegatsRecusTotalTour();
+    }
+    public void lanceurDegatsRecusTotalTour(String _p){
+        getConstNonNum().setLanceurDegatsRecusTotalTour(_p);
+    }
+    public String lanceurDisparait(){
+        return getConstNonNum().getLanceurDisparait();
+    }
+    public void lanceurDisparait(String _p){
+        getConstNonNum().setLanceurDisparait(_p);
+    }
+    public String lanceurJoue(){
+        return getConstNonNum().getLanceurJoue();
+    }
+    public void lanceurJoue(String _p){
+        getConstNonNum().setLanceurJoue(_p);
+    }
+    public String lanceurMasse(){
+        return getConstNonNum().getLanceurMasse();
+    }
+    public void lanceurMasse(String _p){
+        getConstNonNum().setLanceurMasse(_p);
+    }
+    public String lanceurTaille(){
+        return getConstNonNum().getLanceurTaille();
+    }
+    public void lanceurTaille(String _p){
+        getConstNonNum().setLanceurTaille(_p);
+    }
+    public String lanceurCapacite(){
+        return getConstNonNum().getLanceurCapacite();
+    }
+    public void lanceurCapacite(String _p){
+        getConstNonNum().setLanceurCapacite(_p);
+    }
+    public String lanceurObjet(){
+        return getConstNonNum().getLanceurObjet();
+    }
+    public void lanceurObjet(String _p){
+        getConstNonNum().setLanceurObjet(_p);
+    }
+    public String lanceurStatuts(){
+        return getConstNonNum().getLanceurStatuts();
+    }
+    public void lanceurStatuts(String _p){
+        getConstNonNum().setLanceurStatuts(_p);
+    }
+    public String lanceurTypes(){
+        return getConstNonNum().getLanceurTypes();
+    }
+    public void lanceurTypes(String _p){
+        getConstNonNum().setLanceurTypes(_p);
+    }
+    public String lanceurGenre(){
+        return getConstNonNum().getLanceurGenre();
+    }
+    public void lanceurGenre(String _p){
+        getConstNonNum().setLanceurGenre(_p);
+    }
+    public String lanceurBonheur(){
+        return getConstNonNum().getLanceurBonheur();
+    }
+    public void lanceurBonheur(String _p){
+        getConstNonNum().setLanceurBonheur(_p);
+    }
+    public String lanceurNom(){
+        return getConstNonNum().getLanceurNom();
+    }
+    public void lanceurNom(String _p){
+        getConstNonNum().setLanceurNom(_p);
+    }
+    public String lanceurDerJoue(){
+        return getConstNonNum().getLanceurDerJoue();
+    }
+    public void lanceurDerJoue(String _p){
+        getConstNonNum().setLanceurDerJoue(_p);
+    }
+    public String nbKoEquipeLanceur(){
+        return getConstNonNum().getNbKoEquipeLanceur();
+    }
+    public void nbKoEquipeLanceur(String _p){
+        getConstNonNum().setNbKoEquipeLanceur(_p);
+    }
+    public String nbKoEquipeAdvLanceur(){
+        return getConstNonNum().getNbKoEquipeAdvLanceur();
+    }
+    public void nbKoEquipeAdvLanceur(String _p){
+        getConstNonNum().setNbKoEquipeAdvLanceur(_p);
+    }
+    public String fighterAttaques(){
+        return getConstNonNum().getFighterAttaques();
+    }
+    public void fighterAttaques(String _p){
+        getConstNonNum().setFighterAttaques(_p);
+    }
+    public String fighterAttaqueChoisie(){
+        return getConstNonNum().getFighterAttaqueChoisie();
+    }
+    public void fighterAttaqueChoisie(String _p){
+        getConstNonNum().setFighterAttaqueChoisie(_p);
+    }
+    public String fighterAttaquesTypes(){
+        return getConstNonNum().getFighterAttaquesTypes();
+    }
+    public void fighterAttaquesTypes(String _p){
+        getConstNonNum().setFighterAttaquesTypes(_p);
+    }
+    public String fighterClone(){
+        return getConstNonNum().getFighterClone();
+    }
+    public void fighterClone(String _p){
+        getConstNonNum().setFighterClone(_p);
+    }
+    public String fighterDegatsRecus(){
+        return getConstNonNum().getFighterDegatsRecus();
+    }
+    public void fighterDegatsRecus(String _p){
+        getConstNonNum().setFighterDegatsRecus(_p);
+    }
+    public String fighterDegatsRecusTotal(){
+        return getConstNonNum().getFighterDegatsRecusTotal();
+    }
+    public void fighterDegatsRecusTotal(String _p){
+        getConstNonNum().setFighterDegatsRecusTotal(_p);
+    }
+    public String fighterDegatsRecusTour(){
+        return getConstNonNum().getFighterDegatsRecusTour();
+    }
+    public void fighterDegatsRecusTour(String _p){
+        getConstNonNum().setFighterDegatsRecusTour(_p);
+    }
+    public String fighterDegatsRecusTotalTour(){
+        return getConstNonNum().getFighterDegatsRecusTotalTour();
+    }
+    public void fighterDegatsRecusTotalTour(String _p){
+        getConstNonNum().setFighterDegatsRecusTotalTour(_p);
+    }
+    public String fighterDisparait(){
+        return getConstNonNum().getFighterDisparait();
+    }
+    public void fighterDisparait(String _p){
+        getConstNonNum().setFighterDisparait(_p);
+    }
+    public String fighterJoue(){
+        return getConstNonNum().getFighterJoue();
+    }
+    public void fighterJoue(String _p){
+        getConstNonNum().setFighterJoue(_p);
+    }
+    public String fighterMasse(){
+        return getConstNonNum().getFighterMasse();
+    }
+    public void fighterMasse(String _p){
+        getConstNonNum().setFighterMasse(_p);
+    }
+    public String fighterTaille(){
+        return getConstNonNum().getFighterTaille();
+    }
+    public void fighterTaille(String _p){
+        getConstNonNum().setFighterTaille(_p);
+    }
+    public String fighterCapacite(){
+        return getConstNonNum().getFighterCapacite();
+    }
+    public void fighterCapacite(String _p){
+        getConstNonNum().setFighterCapacite(_p);
+    }
+    public String fighterObjet(){
+        return getConstNonNum().getFighterObjet();
+    }
+    public void fighterObjet(String _p){
+        getConstNonNum().setFighterObjet(_p);
+    }
+    public String fighterStatuts(){
+        return getConstNonNum().getFighterStatuts();
+    }
+    public void fighterStatuts(String _p){
+        getConstNonNum().setFighterStatuts(_p);
+    }
+    public String fighterTypes(){
+        return getConstNonNum().getFighterTypes();
+    }
+    public void fighterTypes(String _p){
+        getConstNonNum().setFighterTypes(_p);
+    }
+    public String fighterGenre(){
+        return getConstNonNum().getFighterGenre();
+    }
+    public void fighterGenre(String _p){
+        getConstNonNum().setFighterGenre(_p);
+    }
+    public String fighterBonheur(){
+        return getConstNonNum().getFighterBonheur();
+    }
+    public void fighterBonheur(String _p){
+        getConstNonNum().setFighterBonheur(_p);
+    }
+    public String fighterNom(){
+        return getConstNonNum().getFighterNom();
+    }
+    public void fighterNom(String _p){
+        getConstNonNum().setFighterNom(_p);
+    }
+    public String fighterDerJoue(){
+        return getConstNonNum().getFighterDerJoue();
+    }
+    public void fighterDerJoue(String _p){
+        getConstNonNum().setFighterDerJoue(_p);
+    }
+    public String nbKoEquipeFighter(){
+        return getConstNonNum().getNbKoEquipeFighter();
+    }
+    public void nbKoEquipeFighter(String _p){
+        getConstNonNum().setNbKoEquipeFighter(_p);
+    }
+    public String nbKoEquipeAdvFighter(){
+        return getConstNonNum().getNbKoEquipeAdvFighter();
+    }
+    public void nbKoEquipeAdvFighter(String _p){
+        getConstNonNum().setNbKoEquipeAdvFighter(_p);
+    }
     public String getRateBoostCriticalHit() {
         return rateBoostCriticalHit;
     }
