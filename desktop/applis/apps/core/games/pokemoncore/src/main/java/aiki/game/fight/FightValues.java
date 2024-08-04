@@ -47,7 +47,7 @@ final class FightValues {
 
         stat(StringUtil.concat(varPref_, _import.fighterDisparait()), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isDisappeared());
         stat(StringUtil.concat(varPref_, _import.fighterJoue()), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isActed());
-        addPlayed(_fight, _import, variables_, _import.fighterDerJoue());
+        addPlayed(_fight, _import, variables_, _import.fighterDerJoue(), null);
         variables_.put(StringUtil.concat(varPref_, _import.fighterNom()),creatureCbtLanceur_.getCurrentName());
         variables_.put(StringUtil.concat(varPref_, _import.fighterMasse()),creatureCbtLanceur_.getWeight().toNumberString());
         variables_.put(StringUtil.concat(varPref_, _import.fighterTaille()),creatureCbtLanceur_.getHeight().toNumberString());
@@ -210,7 +210,7 @@ final class FightValues {
         damage(creatureCbtCible_, variables_, _import.cibleDegatsRecus(), _import.cibleDegatsRecusTotal(), _import.cibleDegatsRecusTour(), _import.cibleDegatsRecusTotalTour(), _import);
         stat(StringUtil.concat(varPref_, _import.cibleDisparait()), variables_, Fight.ONE, Fight.ZERO, creatureCbtCible_.isDisappeared());
         stat(StringUtil.concat(varPref_, _import.cibleJoue()), variables_, Fight.ONE, Fight.ZERO, creatureCbtCible_.isActed());
-        addPlayed(_fight, _import, variables_, _import.cibleDerJoue());
+        addPlayed(_fight, _import, variables_, _import.cibleDerJoue(), _cible);
         variables_.put(StringUtil.concat(varPref_, _import.cibleNom()),creatureCbtCible_.getCurrentName());
         variables_.put(StringUtil.concat(varPref_, _import.cibleMasse()),creatureCbtCible_.getWeight().toNumberString());
         variables_.put(StringUtil.concat(varPref_, _import.cibleTaille()),creatureCbtCible_.getHeight().toNumberString());
@@ -249,7 +249,7 @@ final class FightValues {
 
         stat(StringUtil.concat(varPref_, _import.lanceurDisparait()), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isDisappeared());
         stat(StringUtil.concat(varPref_, _import.lanceurJoue()), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isActed());
-        addPlayed(_fight, _import, variables_, _import.lanceurDerJoue());
+        addPlayed(_fight, _import, variables_, _import.lanceurDerJoue(), _lanceur);
         variables_.put(StringUtil.concat(varPref_, _import.lanceurNom()),creatureCbtLanceur_.getCurrentName());
         variables_.put(StringUtil.concat(varPref_, _import.lanceurMasse()),creatureCbtLanceur_.getWeight().toNumberString());
         variables_.put(StringUtil.concat(varPref_, _import.lanceurTaille()),creatureCbtLanceur_.getHeight().toNumberString());
@@ -503,7 +503,7 @@ final class FightValues {
         return variables_;
     }
 
-    private static void addPlayed(Fight _fight, DataBase _import, StringMap<String> _variables, String _fighterDerJoue) {
+    private static void addPlayed(Fight _fight, DataBase _import, StringMap<String> _variables, String _fighterDerJoue, TeamPosition _tp) {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         CustList<TeamPosition> cbts_ = FightOrder.fightersHavingToAct(_fight, true, _import);
         cbts_.addAllElts(FightOrder.fightersHavingToAct(_fight, false, _import));
@@ -511,7 +511,7 @@ final class FightValues {
         if (cbts_.isEmpty()) {
             onlyOne_ = false;
         } else {
-            onlyOne_ = onlyOne(cbts_);
+            onlyOne_ = onlyOne(cbts_) && (_tp == null || cbts_.get(0).eq(_tp));
         }
         stat(StringUtil.concat(varPref_, _fighterDerJoue), _variables, Fight.ONE, Fight.ZERO, onlyOne_);
     }
