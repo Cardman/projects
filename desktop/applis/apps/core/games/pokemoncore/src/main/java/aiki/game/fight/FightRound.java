@@ -1736,18 +1736,25 @@ final class FightRound {
         _variables.put(StringUtil.concat(varPref_, _import.pkSauvageMasse()), _creatureSauvage.getWeight().toNumberString());
         _variables.put(StringUtil.concat(varPref_,_import.pkSauvageNiveau()),Long.toString(_creatureSauvage.getLevel()));
         _variables.put(StringUtil.concat(varPref_, _import.pkSauvageVitesse()),FightOrder.speed(_fight,Fight.toFoeFighter(IndexConstants.FIRST_INDEX), _import).toNumberString());
-        PokemonData fPk_= _creatureSauvage.fichePokemon(_import);
-        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_PK_SAUVAGE_TYPES_BASE), StringUtil.join(fPk_.getTypes(), _import.getSepartorSetChar()));
+        PokemonData fPkSauvage_= _creatureSauvage.fichePokemon(_import);
+        _variables.put(StringUtil.concat(varPref_, _import.pkSauvageTypesBase()), StringUtil.join(fPkSauvage_.getTypes(), _import.getSepartorSetChar()));
+        _variables.put(StringUtil.concat(varPref_, _import.pkSauvagePierresEvos()), StringUtil.join(pierresEvo(fPkSauvage_), _import.getSepartorSetChar()));
+        PokemonData fPkUt_= _creatureUt.fichePokemon(_import);
+        _variables.put(StringUtil.concat(varPref_, _import.pkUtTypesBase()), StringUtil.join(fPkUt_.getTypes(), _import.getSepartorSetChar()));
+        _variables.put(StringUtil.concat(varPref_, _import.pkUtPierresEvos()), StringUtil.join(pierresEvo(fPkUt_), _import.getSepartorSetChar()));
+        return _variables;
+    }
+
+    private static StringList pierresEvo(PokemonData _fPk) {
         StringList pierresEvo_ = new StringList();
-        for(String c:fPk_.getEvolutions().getKeys()){
-            Evolution evo_=fPk_.getEvolution(c);
+        for(String c: _fPk.getEvolutions().getKeys()){
+            Evolution evo_= _fPk.getEvolution(c);
             if(!(evo_ instanceof EvolutionStone)){
                 continue;
             }
             EvolutionStone pierreEvo_=(EvolutionStone)evo_;
             pierresEvo_.add(pierreEvo_.getStone());
         }
-        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_PK_SAUVAGE_PIERRES_EVOS), StringUtil.join(pierresEvo_, _import.getSepartorSetChar()));
-        return _variables;
+        return pierresEvo_;
     }
 }

@@ -237,6 +237,8 @@ public class DataBase {
     public static final String DEF_PK_UT_GENRE ="PK_UT_GENRE";
     public static final String DEF_PK_UT_MASSE ="PK_UT_MASSE";
     public static final String DEF_PK_UT_VITESSE ="PK_UT_VITESSE";
+    public static final String DEF_PK_UT_TYPES_BASE ="PK_UT_TYPES_BASE";
+    public static final String DEF_PK_UT_PIERRES_EVOS ="PK_UT_PIERRES_EVOS";
     public static final String DEF_PK_SAUVAGE_GENRE ="PK_SAUVAGE_GENRE";
     public static final String DEF_PK_SAUVAGE_MASSE ="PK_SAUVAGE_MASSE";
     public static final String DEF_PK_SAUVAGE_VITESSE ="PK_SAUVAGE_VITESSE";
@@ -2357,9 +2359,13 @@ public class DataBase {
         pkSauvageGenre(DEF_PK_SAUVAGE_GENRE);
         pkSauvageMasse(DEF_PK_SAUVAGE_MASSE);
         pkSauvageVitesse(DEF_PK_SAUVAGE_VITESSE);
+        pkSauvageTypesBase(DEF_PK_SAUVAGE_TYPES_BASE);
+        pkSauvagePierresEvos(DEF_PK_SAUVAGE_PIERRES_EVOS);
         pkUtGenre(DEF_PK_UT_GENRE);
         pkUtMasse(DEF_PK_UT_MASSE);
         pkUtVitesse(DEF_PK_UT_VITESSE);
+        pkUtTypesBase(DEF_PK_UT_TYPES_BASE);
+        pkUtPierresEvos(DEF_PK_UT_PIERRES_EVOS);
     }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();
@@ -3189,6 +3195,22 @@ public class DataBase {
         this.getConstNonNum().setPkSauvageVitesse(_p);
     }
 
+    public String pkSauvageTypesBase() {
+        return getConstNonNum().getPkSauvageTypesBase();
+    }
+
+    public void pkSauvageTypesBase(String _p) {
+        this.getConstNonNum().setPkSauvageTypesBase(_p);
+    }
+
+    public String pkSauvagePierresEvos() {
+        return getConstNonNum().getPkSauvagePierresEvos();
+    }
+
+    public void pkSauvagePierresEvos(String _p) {
+        this.getConstNonNum().setPkSauvagePierresEvos(_p);
+    }
+
     public String pkUtGenre() {
         return getConstNonNum().getPkUtGenre();
     }
@@ -3212,6 +3234,23 @@ public class DataBase {
     public void pkUtVitesse(String _p) {
         this.getConstNonNum().setPkUtVitesse(_p);
     }
+
+    public String pkUtTypesBase() {
+        return getConstNonNum().getPkUtTypesBase();
+    }
+
+    public void pkUtTypesBase(String _p) {
+        this.getConstNonNum().setPkUtTypesBase(_p);
+    }
+
+    public String pkUtPierresEvos() {
+        return getConstNonNum().getPkUtPierresEvos();
+    }
+
+    public void pkUtPierresEvos(String _p) {
+        this.getConstNonNum().setPkUtPierresEvos(_p);
+    }
+
     public String getRateBoostCriticalHit() {
         return rateBoostCriticalHit;
     }

@@ -122,9 +122,13 @@ public final class DataBaseConstants {
     private String pkSauvageGenre = "";
     private String pkSauvageMasse = "";
     private String pkSauvageVitesse = "";
+    private String pkSauvageTypesBase = "";
+    private String pkSauvagePierresEvos = "";
     private String pkUtGenre = "";
     private String pkUtMasse = "";
     private String pkUtVitesse = "";
+    private String pkUtTypesBase = "";
+    private String pkUtPierresEvos = "";
     public String getPrefixVar() {
         return prefixVar;
     }
@@ -1085,6 +1089,22 @@ public final class DataBaseConstants {
         this.pkSauvageVitesse = _p;
     }
 
+    public String getPkSauvageTypesBase() {
+        return pkSauvageTypesBase;
+    }
+
+    public void setPkSauvageTypesBase(String _p) {
+        this.pkSauvageTypesBase = _p;
+    }
+
+    public String getPkSauvagePierresEvos() {
+        return pkSauvagePierresEvos;
+    }
+
+    public void setPkSauvagePierresEvos(String _p) {
+        this.pkSauvagePierresEvos = _p;
+    }
+
     public String getPkUtGenre() {
         return pkUtGenre;
     }
@@ -1107,5 +1127,21 @@ public final class DataBaseConstants {
 
     public void setPkUtVitesse(String _p) {
         this.pkUtVitesse = _p;
+    }
+
+    public String getPkUtTypesBase() {
+        return pkUtTypesBase;
+    }
+
+    public void setPkUtTypesBase(String _p) {
+        this.pkUtTypesBase = _p;
+    }
+
+    public String getPkUtPierresEvos() {
+        return pkUtPierresEvos;
+    }
+
+    public void setPkUtPierresEvos(String _p) {
+        this.pkUtPierresEvos = _p;
     }
 }
