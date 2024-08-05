@@ -675,9 +675,9 @@ public final class CheckNumericStringsFight {
         }
         variables_
                 .put(StringUtil.concat(varPref_,
-                        DataBase.DEF_PAS_ATTAQUE_INVOC), _import.getFalseString());
+                        _import.pasAttaqueInvoc()), _import.getFalseString());
         variables_.put(StringUtil.concat(varPref_,
-                DataBase.DEF_PAS_ATTAQUES_COPIABLES), _import.getFalseString());
+                _import.pasAttaquesCopiables()), _import.getFalseString());
         variables_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,
                 _lanceur, _cible, _import));
         return variables_;

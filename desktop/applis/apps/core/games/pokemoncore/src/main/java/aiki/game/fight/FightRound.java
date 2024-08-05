@@ -1654,9 +1654,9 @@ final class FightRound {
         Fighter creatureUt_=_creatureUt.getFighter();
         StringMap<String> variables_=new StringMap<String>();
         if(_dejaCapture){
-            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_DEJA_CAPTURE),Fight.ONE);
+            variables_.put(StringUtil.concat(varPref_, _import.dejaCapture()),Fight.ONE);
         }else{
-            variables_.put(StringUtil.concat(varPref_, DataBase.DEF_DEJA_CAPTURE),Fight.ZERO);
+            variables_.put(StringUtil.concat(varPref_, _import.dejaCapture()),Fight.ZERO);
         }
         return varsCatchFlee(_fight, _import, creatureUt_, _creatureSauvage, variables_, Fight.toUserFighter(_creatureUt.getFirstPosit()));
     }
@@ -1719,15 +1719,15 @@ final class FightRound {
         TeamPosition player_ = Fight.toUserFighter(_fight.getCurrentUserFlee());
         Fighter creatureUt_=_fight.getFighter(player_);
         StringMap<String> variables_=new StringMap<String>();
-        variables_.put(StringUtil.concat(varPref_, DataBase.DEF_NB_FLEES),Long.toString(_fight.getNbFleeAttempt()));
+        variables_.put(StringUtil.concat(varPref_, _import.nbFlees()),Long.toString(_fight.getNbFleeAttempt()));
         return varsCatchFlee(_fight, _import, creatureUt_, _creatureSauvage, variables_, player_);
     }
 
     private static StringMap<String> varsCatchFlee(Fight _fight, DataBase _import, Fighter _creatureUt, Fighter _creatureSauvage, StringMap<String> _variables, TeamPosition _cbt) {
         String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
-        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_LIEU_COMBAT), _fight.getEnvType().getEnvName());
-        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_TEMPS_TOUR), _fight.getNbRounds().toNumberString());
-        _variables.put(StringUtil.concat(varPref_, DataBase.DEF_MASSE_MOYENNE_PK), _import.getAvgWeight().toNumberString());
+        _variables.put(StringUtil.concat(varPref_, _import.lieuCombat()), _fight.getEnvType().getEnvName());
+        _variables.put(StringUtil.concat(varPref_, _import.tempsTour()), _fight.getNbRounds().toNumberString());
+        _variables.put(StringUtil.concat(varPref_, _import.masseMoyennePk()), _import.getAvgWeight().toNumberString());
         _variables.put(StringUtil.concat(varPref_, _import.pkUtGenre()), _creatureUt.getGender().getGenderName());
         _variables.put(StringUtil.concat(varPref_, _import.pkUtMasse()), _creatureUt.getWeight().toNumberString());
         _variables.put(StringUtil.concat(varPref_,_import.pkUtNiveau()),Long.toString(_creatureUt.getLevel()));

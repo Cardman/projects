@@ -132,6 +132,8 @@ public final class DataBaseConstants {
     private String pkUtVitesse = "";
     private String pkUtTypesBase = "";
     private String pkUtPierresEvos = "";
+    private String combattantEntrantClone = "";
+    private String combattantEntrantTypes = "";
     private String aucunBoostPossible = "";
     private String typesAttaquesResVide = "";
     private String pasPartenaire = "";
@@ -140,6 +142,23 @@ public final class DataBaseConstants {
     private String pasTourTerrain = "";
     private String existeGenreAssexue = "";
     private String genresEgaux = "";
+    private String rateEffMoveAgainstTarget = "";
+    private String coeffEff = "";
+    private String nbUtilisationConsecutif = "";
+    private String attaqueCategorie = "";
+    private String attaqueTypes = "";
+    private String attaqueNom = "";
+    private String puissanceBase = "";
+    private String pasAttaqueInvoc = "";
+    private String pasAttaquesCopiables = "";
+    private String nbTour = "";
+    private String dejaCapture = "";
+    private String nbFlees = "";
+    private String masseMoyennePk = "";
+    private String climats = "";
+    private String nbCombattantsTerrain = "";
+    private String lieuCombat = "";
+    private String tempsTour = "";
     public String getPrefixVar() {
         return prefixVar;
     }
@@ -1180,6 +1199,22 @@ public final class DataBaseConstants {
         this.pkUtPierresEvos = _p;
     }
 
+    public String getCombattantEntrantClone() {
+        return combattantEntrantClone;
+    }
+
+    public void setCombattantEntrantClone(String _p) {
+        this.combattantEntrantClone = _p;
+    }
+
+    public String getCombattantEntrantTypes() {
+        return combattantEntrantTypes;
+    }
+
+    public void setCombattantEntrantTypes(String _p) {
+        this.combattantEntrantTypes = _p;
+    }
+
     public String getAucunBoostPossible() {
         return aucunBoostPossible;
     }
@@ -1242,5 +1277,141 @@ public final class DataBaseConstants {
 
     public void setGenresEgaux(String _p) {
         this.genresEgaux = _p;
+    }
+
+    public String getRateEffMoveAgainstTarget() {
+        return rateEffMoveAgainstTarget;
+    }
+
+    public void setRateEffMoveAgainstTarget(String _p) {
+        this.rateEffMoveAgainstTarget = _p;
+    }
+
+    public String getCoeffEff() {
+        return coeffEff;
+    }
+
+    public void setCoeffEff(String _p) {
+        this.coeffEff = _p;
+    }
+
+    public String getNbUtilisationConsecutif() {
+        return nbUtilisationConsecutif;
+    }
+
+    public void setNbUtilisationConsecutif(String _p) {
+        this.nbUtilisationConsecutif = _p;
+    }
+
+    public String getAttaqueCategorie() {
+        return attaqueCategorie;
+    }
+
+    public void setAttaqueCategorie(String _p) {
+        this.attaqueCategorie = _p;
+    }
+
+    public String getAttaqueTypes() {
+        return attaqueTypes;
+    }
+
+    public void setAttaqueTypes(String _p) {
+        this.attaqueTypes = _p;
+    }
+
+    public String getAttaqueNom() {
+        return attaqueNom;
+    }
+
+    public void setAttaqueNom(String _p) {
+        this.attaqueNom = _p;
+    }
+
+    public String getPuissanceBase() {
+        return puissanceBase;
+    }
+
+    public void setPuissanceBase(String _p) {
+        this.puissanceBase = _p;
+    }
+
+    public String getPasAttaqueInvoc() {
+        return pasAttaqueInvoc;
+    }
+
+    public void setPasAttaqueInvoc(String _p) {
+        this.pasAttaqueInvoc = _p;
+    }
+
+    public String getPasAttaquesCopiables() {
+        return pasAttaquesCopiables;
+    }
+
+    public void setPasAttaquesCopiables(String _p) {
+        this.pasAttaquesCopiables = _p;
+    }
+
+    public String getNbTour() {
+        return nbTour;
+    }
+
+    public void setNbTour(String _p) {
+        this.nbTour = _p;
+    }
+
+    public String getDejaCapture() {
+        return dejaCapture;
+    }
+
+    public void setDejaCapture(String _p) {
+        this.dejaCapture = _p;
+    }
+
+    public String getNbFlees() {
+        return nbFlees;
+    }
+
+    public void setNbFlees(String _p) {
+        this.nbFlees = _p;
+    }
+
+    public String getMasseMoyennePk() {
+        return masseMoyennePk;
+    }
+
+    public void setMasseMoyennePk(String _p) {
+        this.masseMoyennePk = _p;
+    }
+
+    public String getClimats() {
+        return climats;
+    }
+
+    public void setClimats(String _p) {
+        this.climats = _p;
+    }
+
+    public String getNbCombattantsTerrain() {
+        return nbCombattantsTerrain;
+    }
+
+    public void setNbCombattantsTerrain(String _p) {
+        this.nbCombattantsTerrain = _p;
+    }
+
+    public String getLieuCombat() {
+        return lieuCombat;
+    }
+
+    public void setLieuCombat(String _p) {
+        this.lieuCombat = _p;
+    }
+
+    public String getTempsTour() {
+        return tempsTour;
+    }
+
+    public void setTempsTour(String _p) {
+        this.tempsTour = _p;
     }
 }

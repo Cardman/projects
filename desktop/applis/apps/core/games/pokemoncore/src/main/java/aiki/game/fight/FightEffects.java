@@ -1219,7 +1219,7 @@ final class FightEffects {
             StringMap<String> vars_ = new StringMap<String>(_variables);
             vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));
             rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(ab_.getMultPower(), vars_, _import));
-            for (String t: StringUtil.splitChars(StringUtil.nullToEmpty(_variables.getVal(StringUtil.concat(varPref_, DataBase.DEF_ATTAQUE_TYPES))), _import.getSepartorSetChar())) {
+            for (String t: StringUtil.splitChars(StringUtil.nullToEmpty(_variables.getVal(StringUtil.concat(varPref_, _import.attaqueTypes()))), _import.getSepartorSetChar())) {
                 for (TypeDamageBoost tDamage_: ab_.getChangingBoostTypes().values()) {
                     if (!StringUtil.quickEq(tDamage_.getType(), t)) {
                         continue;

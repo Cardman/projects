@@ -2369,6 +2369,8 @@ public class DataBase {
         pkUtVitesse(DEF_PK_UT_VITESSE);
         pkUtTypesBase(DEF_PK_UT_TYPES_BASE);
         pkUtPierresEvos(DEF_PK_UT_PIERRES_EVOS);
+        combattantEntrantClone(DEF_COMBATTANT_ENTRANT_CLONE);
+        combattantEntrantTypes(DEF_COMBATTANT_ENTRANT_TYPES);
         aucunBoostPossible(DEF_AUCUN_BOOST_POSSIBLE);
         typesAttaquesResVide(DEF_TYPES_ATTAQUES_RES_VIDE);
         pasPartenaire(DEF_PAS_PARTENAIRE);
@@ -2377,6 +2379,23 @@ public class DataBase {
         pasTourTerrain(DEF_PAS_TOUR_TERRAIN);
         existeGenreAssexue(DEF_EXISTE_GENRE_ASSEXUE);
         genresEgaux(DEF_GENRES_EGAUX);
+        rateEffMoveAgainstTarget(DEF_RATE_EFF_MOVE_AGAINST_TARGET);
+        coeffEff(DEF_COEFF_EFF);
+        nbUtilisationConsecutif(DEF_NB_UTILISATION_CONSECUTIF);
+        attaqueCategorie(DEF_ATTAQUE_CATEGORIE);
+        attaqueTypes(DEF_ATTAQUE_TYPES);
+        attaqueNom(DEF_ATTAQUE_NOM);
+        puissanceBase(DEF_PUISSANCE_BASE);
+        pasAttaqueInvoc(DEF_PAS_ATTAQUE_INVOC);
+        pasAttaquesCopiables(DEF_PAS_ATTAQUES_COPIABLES);
+        nbTour(DEF_NB_TOUR);
+        dejaCapture(DEF_DEJA_CAPTURE);
+        nbFlees(DEF_NB_FLEES);
+        masseMoyennePk(DEF_MASSE_MOYENNE_PK);
+        climats(DEF_CLIMATS);
+        nbCombattantsTerrain(DEF_NB_COMBATTANTS_TERRAIN);
+        lieuCombat(DEF_LIEU_COMBAT);
+        tempsTour(DEF_TEMPS_TOUR);
     }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();
@@ -3280,6 +3299,22 @@ public class DataBase {
         this.getConstNonNum().setPkUtPierresEvos(_p);
     }
 
+    public String combattantEntrantClone() {
+        return getConstNonNum().getCombattantEntrantClone();
+    }
+
+    public void combattantEntrantClone(String _p) {
+        this.getConstNonNum().setCombattantEntrantClone(_p);
+    }
+
+    public String combattantEntrantTypes() {
+        return getConstNonNum().getCombattantEntrantTypes();
+    }
+
+    public void combattantEntrantTypes(String _p) {
+        this.getConstNonNum().setCombattantEntrantTypes(_p);
+    }
+
     public String aucunBoostPossible() {
         return getConstNonNum().getAucunBoostPossible();
     }
@@ -3342,6 +3377,142 @@ public class DataBase {
 
     public void genresEgaux(String _p) {
         this.getConstNonNum().setGenresEgaux(_p);
+    }
+
+    public String rateEffMoveAgainstTarget() {
+        return getConstNonNum().getRateEffMoveAgainstTarget();
+    }
+
+    public void rateEffMoveAgainstTarget(String _p) {
+        this.getConstNonNum().setRateEffMoveAgainstTarget(_p);
+    }
+
+    public String coeffEff() {
+        return getConstNonNum().getCoeffEff();
+    }
+
+    public void coeffEff(String _p) {
+        this.getConstNonNum().setCoeffEff(_p);
+    }
+
+    public String nbUtilisationConsecutif() {
+        return getConstNonNum().getNbUtilisationConsecutif();
+    }
+
+    public void nbUtilisationConsecutif(String _p) {
+        this.getConstNonNum().setNbUtilisationConsecutif(_p);
+    }
+
+    public String attaqueCategorie() {
+        return getConstNonNum().getAttaqueCategorie();
+    }
+
+    public void attaqueCategorie(String _p) {
+        this.getConstNonNum().setAttaqueCategorie(_p);
+    }
+
+    public String attaqueTypes() {
+        return getConstNonNum().getAttaqueTypes();
+    }
+
+    public void attaqueTypes(String _p) {
+        this.getConstNonNum().setAttaqueTypes(_p);
+    }
+
+    public String attaqueNom() {
+        return getConstNonNum().getAttaqueNom();
+    }
+
+    public void attaqueNom(String _p) {
+        this.getConstNonNum().setAttaqueNom(_p);
+    }
+
+    public String puissanceBase() {
+        return getConstNonNum().getPuissanceBase();
+    }
+
+    public void puissanceBase(String _p) {
+        this.getConstNonNum().setPuissanceBase(_p);
+    }
+
+    public String pasAttaqueInvoc() {
+        return getConstNonNum().getPasAttaqueInvoc();
+    }
+
+    public void pasAttaqueInvoc(String _p) {
+        this.getConstNonNum().setPasAttaqueInvoc(_p);
+    }
+
+    public String pasAttaquesCopiables() {
+        return getConstNonNum().getPasAttaquesCopiables();
+    }
+
+    public void pasAttaquesCopiables(String _p) {
+        this.getConstNonNum().setPasAttaquesCopiables(_p);
+    }
+
+    public String nbTour() {
+        return getConstNonNum().getNbTour();
+    }
+
+    public void nbTour(String _p) {
+        this.getConstNonNum().setNbTour(_p);
+    }
+
+    public String dejaCapture() {
+        return getConstNonNum().getDejaCapture();
+    }
+
+    public void dejaCapture(String _p) {
+        this.getConstNonNum().setDejaCapture(_p);
+    }
+
+    public String nbFlees() {
+        return getConstNonNum().getNbFlees();
+    }
+
+    public void nbFlees(String _p) {
+        this.getConstNonNum().setNbFlees(_p);
+    }
+
+    public String masseMoyennePk() {
+        return getConstNonNum().getMasseMoyennePk();
+    }
+
+    public void masseMoyennePk(String _p) {
+        this.getConstNonNum().setMasseMoyennePk(_p);
+    }
+
+    public String climats() {
+        return getConstNonNum().getClimats();
+    }
+
+    public void climats(String _p) {
+        this.getConstNonNum().setClimats(_p);
+    }
+
+    public String nbCombattantsTerrain() {
+        return getConstNonNum().getNbCombattantsTerrain();
+    }
+
+    public void nbCombattantsTerrain(String _p) {
+        this.getConstNonNum().setNbCombattantsTerrain(_p);
+    }
+
+    public String lieuCombat() {
+        return getConstNonNum().getLieuCombat();
+    }
+
+    public void lieuCombat(String _p) {
+        this.getConstNonNum().setLieuCombat(_p);
+    }
+
+    public String tempsTour() {
+        return getConstNonNum().getTempsTour();
+    }
+
+    public void tempsTour(String _p) {
+        this.getConstNonNum().setTempsTour(_p);
     }
 
     public String getRateBoostCriticalHit() {
