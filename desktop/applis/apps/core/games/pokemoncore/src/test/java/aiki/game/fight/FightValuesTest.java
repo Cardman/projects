@@ -486,6 +486,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(BRULURE);
+        fight_.getTemp().setComputingArtInt(true);
         StringMap<String> map_ = FightValues.calculateValuesFighter(fight_,POKEMON_FOE_FIGHTER_ZERO, data_);
         assertEq(TARTARD, map_.getVal(StringUtil.concat(VAR_PREFIX, DataBase.DEF_FIGHTER_NOM)));
         assertEq("54", map_.getVal(StringUtil.concat(VAR_PREFIX, DataBase.DEF_FIGHTER_MASSE)));

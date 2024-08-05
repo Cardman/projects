@@ -31,10 +31,12 @@ final class FightArtificialIntelligence {
     }
 
     static void choiceArtificialIntelligence(Fight _fight, Difficulty _diff,DataBase _import) {
+        _fight.getTemp().setComputingArtInt(true);
         choiceFoeArtificialIntelligence(_fight,_diff, _import);
         if (_fight.getFightType() == FightType.TMP_TRAINER) {
             choiceAllyArtificialIntelligence(_fight, _diff, _import);
         }
+        _fight.getTemp().setComputingArtInt(false);
     }
 
     static void choiceAllyArtificialIntelligence(Fight _fight, Difficulty _diff,DataBase _import) {

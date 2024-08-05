@@ -47,7 +47,11 @@ final class FightValues {
 
         stat(StringUtil.concat(varPref_, _import.fighterDisparait()), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isDisappeared());
         stat(StringUtil.concat(varPref_, _import.fighterJoue()), variables_, Fight.ONE, Fight.ZERO, creatureCbtLanceur_.isActed());
-        addPlayed(_fight, _import, variables_, _import.fighterDerJoue(), null);
+        if (_fight.getTemp().isComputingArtInt()) {
+            addPlayed(_fight, _import, variables_, _import.fighterDerJoue(), null);
+        } else {
+            addPlayed(_fight, _import, variables_, _import.fighterDerJoue(), _fighter);
+        }
         variables_.put(StringUtil.concat(varPref_, _import.fighterNom()),creatureCbtLanceur_.getCurrentName());
         variables_.put(StringUtil.concat(varPref_, _import.fighterMasse()),creatureCbtLanceur_.getWeight().toNumberString());
         variables_.put(StringUtil.concat(varPref_, _import.fighterTaille()),creatureCbtLanceur_.getHeight().toNumberString());
