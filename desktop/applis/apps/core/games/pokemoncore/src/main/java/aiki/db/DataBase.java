@@ -2354,6 +2354,12 @@ public class DataBase {
         fighterDerJoue(DEF_FIGHTER_DER_JOUE);
         nbKoEquipeFighter(DEF_NB_KO_EQUIPE_FIGHTER);
         nbKoEquipeAdvFighter(DEF_NB_KO_EQUIPE_ADV_FIGHTER);
+        pkSauvageGenre(DEF_PK_SAUVAGE_GENRE);
+        pkSauvageMasse(DEF_PK_SAUVAGE_MASSE);
+        pkSauvageVitesse(DEF_PK_SAUVAGE_VITESSE);
+        pkUtGenre(DEF_PK_UT_GENRE);
+        pkUtMasse(DEF_PK_UT_MASSE);
+        pkUtVitesse(DEF_PK_UT_VITESSE);
     }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();
@@ -3157,6 +3163,54 @@ public class DataBase {
     }
     public void nbKoEquipeAdvFighter(String _p){
         getConstNonNum().setNbKoEquipeAdvFighter(_p);
+    }
+
+    public String pkSauvageGenre() {
+        return getConstNonNum().getPkSauvageGenre();
+    }
+
+    public void pkSauvageGenre(String _p) {
+        this.getConstNonNum().setPkSauvageGenre(_p);
+    }
+
+    public String pkSauvageMasse() {
+        return getConstNonNum().getPkSauvageMasse();
+    }
+
+    public void pkSauvageMasse(String _p) {
+        this.getConstNonNum().setPkSauvageMasse(_p);
+    }
+
+    public String pkSauvageVitesse() {
+        return getConstNonNum().getPkSauvageVitesse();
+    }
+
+    public void pkSauvageVitesse(String _p) {
+        this.getConstNonNum().setPkSauvageVitesse(_p);
+    }
+
+    public String pkUtGenre() {
+        return getConstNonNum().getPkUtGenre();
+    }
+
+    public void pkUtGenre(String _p) {
+        this.getConstNonNum().setPkUtGenre(_p);
+    }
+
+    public String pkUtMasse() {
+        return getConstNonNum().getPkUtMasse();
+    }
+
+    public void pkUtMasse(String _p) {
+        this.getConstNonNum().setPkUtMasse(_p);
+    }
+
+    public String pkUtVitesse() {
+        return getConstNonNum().getPkUtVitesse();
+    }
+
+    public void pkUtVitesse(String _p) {
+        this.getConstNonNum().setPkUtVitesse(_p);
     }
     public String getRateBoostCriticalHit() {
         return rateBoostCriticalHit;

@@ -119,6 +119,12 @@ public final class DataBaseConstants {
     private String fighterDerJoue = "";
     private String nbKoEquipeFighter = "";
     private String nbKoEquipeAdvFighter = "";
+    private String pkSauvageGenre = "";
+    private String pkSauvageMasse = "";
+    private String pkSauvageVitesse = "";
+    private String pkUtGenre = "";
+    private String pkUtMasse = "";
+    private String pkUtVitesse = "";
     public String getPrefixVar() {
         return prefixVar;
     }
@@ -1053,5 +1059,53 @@ public final class DataBaseConstants {
 
     public void setNbKoEquipeAdvFighter(String _p) {
         this.nbKoEquipeAdvFighter = _p;
+    }
+
+    public String getPkSauvageGenre() {
+        return pkSauvageGenre;
+    }
+
+    public void setPkSauvageGenre(String _p) {
+        this.pkSauvageGenre = _p;
+    }
+
+    public String getPkSauvageMasse() {
+        return pkSauvageMasse;
+    }
+
+    public void setPkSauvageMasse(String _p) {
+        this.pkSauvageMasse = _p;
+    }
+
+    public String getPkSauvageVitesse() {
+        return pkSauvageVitesse;
+    }
+
+    public void setPkSauvageVitesse(String _p) {
+        this.pkSauvageVitesse = _p;
+    }
+
+    public String getPkUtGenre() {
+        return pkUtGenre;
+    }
+
+    public void setPkUtGenre(String _p) {
+        this.pkUtGenre = _p;
+    }
+
+    public String getPkUtMasse() {
+        return pkUtMasse;
+    }
+
+    public void setPkUtMasse(String _p) {
+        this.pkUtMasse = _p;
+    }
+
+    public String getPkUtVitesse() {
+        return pkUtVitesse;
+    }
+
+    public void setPkUtVitesse(String _p) {
+        this.pkUtVitesse = _p;
     }
 }
