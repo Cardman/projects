@@ -2310,8 +2310,11 @@ public class DataBase {
         cibleBonheur(DEF_CIBLE_BONHEUR);
         cibleNom(DEF_CIBLE_NOM);
         cibleDerJoue(DEF_CIBLE_DER_JOUE);
+        ciblePossedeStatutRelation(DEF_CIBLE_POSSEDE_STATUT_RELATION);
         nbKoEquipeCible(DEF_NB_KO_EQUIPE_CIBLE);
         nbKoEquipeAdvCible(DEF_NB_KO_EQUIPE_ADV_CIBLE);
+        pasPpAttaqueCible(DEF_PAS_PP_ATTAQUE_CIBLE);
+        pasUtilisAttaqueCible(DEF_PAS_UTILIS_ATTAQUE_CIBLE);
         lanceurAttaques(DEF_LANCEUR_ATTAQUES);
         lanceurAttaqueChoisie(DEF_LANCEUR_ATTAQUE_CHOISIE);
         lanceurAttaquesTypes(DEF_LANCEUR_ATTAQUES_TYPES);
@@ -2366,6 +2369,14 @@ public class DataBase {
         pkUtVitesse(DEF_PK_UT_VITESSE);
         pkUtTypesBase(DEF_PK_UT_TYPES_BASE);
         pkUtPierresEvos(DEF_PK_UT_PIERRES_EVOS);
+        aucunBoostPossible(DEF_AUCUN_BOOST_POSSIBLE);
+        typesAttaquesResVide(DEF_TYPES_ATTAQUES_RES_VIDE);
+        pasPartenaire(DEF_PAS_PARTENAIRE);
+        pasPartenaireArriere(DEF_PAS_PARTENAIRE_ARRIERE);
+        pasPartenaireTerrain(DEF_PAS_PARTENAIRE_TERRAIN);
+        pasTourTerrain(DEF_PAS_TOUR_TERRAIN);
+        existeGenreAssexue(DEF_EXISTE_GENRE_ASSEXUE);
+        genresEgaux(DEF_GENRES_EGAUX);
     }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();
@@ -2894,6 +2905,12 @@ public class DataBase {
     public void cibleDerJoue(String _p){
         getConstNonNum().setCibleDerJoue(_p);
     }
+    public String ciblePossedeStatutRelation(){
+        return getConstNonNum().getCiblePossedeStatutRelation();
+    }
+    public void ciblePossedeStatutRelation(String _p){
+        getConstNonNum().setCiblePossedeStatutRelation(_p);
+    }
     public String nbKoEquipeCible(){
         return getConstNonNum().getNbKoEquipeCible();
     }
@@ -2905,6 +2922,18 @@ public class DataBase {
     }
     public void nbKoEquipeAdvCible(String _p){
         getConstNonNum().setNbKoEquipeAdvCible(_p);
+    }
+    public String pasPpAttaqueCible(){
+        return getConstNonNum().getPasPpAttaqueCible();
+    }
+    public void pasPpAttaqueCible(String _p){
+        getConstNonNum().setPasPpAttaqueCible(_p);
+    }
+    public String pasUtilisAttaqueCible(){
+        return getConstNonNum().getPasUtilisAttaqueCible();
+    }
+    public void pasUtilisAttaqueCible(String _p){
+        getConstNonNum().setPasUtilisAttaqueCible(_p);
     }
     public String lanceurAttaques(){
         return getConstNonNum().getLanceurAttaques();
@@ -3249,6 +3278,70 @@ public class DataBase {
 
     public void pkUtPierresEvos(String _p) {
         this.getConstNonNum().setPkUtPierresEvos(_p);
+    }
+
+    public String aucunBoostPossible() {
+        return getConstNonNum().getAucunBoostPossible();
+    }
+
+    public void aucunBoostPossible(String _p) {
+        this.getConstNonNum().setAucunBoostPossible(_p);
+    }
+
+    public String typesAttaquesResVide() {
+        return getConstNonNum().getTypesAttaquesResVide();
+    }
+
+    public void typesAttaquesResVide(String _p) {
+        this.getConstNonNum().setTypesAttaquesResVide(_p);
+    }
+
+    public String pasPartenaire() {
+        return getConstNonNum().getPasPartenaire();
+    }
+
+    public void pasPartenaire(String _p) {
+        this.getConstNonNum().setPasPartenaire(_p);
+    }
+
+    public String pasPartenaireArriere() {
+        return getConstNonNum().getPasPartenaireArriere();
+    }
+
+    public void pasPartenaireArriere(String _p) {
+        this.getConstNonNum().setPasPartenaireArriere(_p);
+    }
+
+    public String pasPartenaireTerrain() {
+        return getConstNonNum().getPasPartenaireTerrain();
+    }
+
+    public void pasPartenaireTerrain(String _p) {
+        this.getConstNonNum().setPasPartenaireTerrain(_p);
+    }
+
+    public String pasTourTerrain() {
+        return getConstNonNum().getPasTourTerrain();
+    }
+
+    public void pasTourTerrain(String _p) {
+        this.getConstNonNum().setPasTourTerrain(_p);
+    }
+
+    public String existeGenreAssexue() {
+        return getConstNonNum().getExisteGenreAssexue();
+    }
+
+    public void existeGenreAssexue(String _p) {
+        this.getConstNonNum().setExisteGenreAssexue(_p);
+    }
+
+    public String genresEgaux() {
+        return getConstNonNum().getGenresEgaux();
+    }
+
+    public void genresEgaux(String _p) {
+        this.getConstNonNum().setGenresEgaux(_p);
     }
 
     public String getRateBoostCriticalHit() {

@@ -385,7 +385,7 @@ final class FightValues {
         StringMap<String> variables_ = new StringMap<String>();
         statusCible(_import, creatureCbtCible_, variables_);
         enaCond(_import, creatureCbtCible_, variables_, _import.cibleEffet());
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_PP_ATTAQUE_CIBLE), variables_, creatureCbtCible_.noPowerPointForLastUsedMove());
+        statBool(_import, StringUtil.concat(varPref_, _import.pasPpAttaqueCible()), variables_, creatureCbtCible_.noPowerPointForLastUsedMove());
         boolean pasUtiliseAttaqueCible_=true;
         for(String c:creatureCbtCible_.getCurrentMovesSet()){
             UsesOfMove pps_=creatureCbtCible_.getCurrentMove(c);
@@ -394,24 +394,24 @@ final class FightValues {
                 break;
             }
         }
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_UTILIS_ATTAQUE_CIBLE), variables_, pasUtiliseAttaqueCible_);
+        statBool(_import, StringUtil.concat(varPref_, _import.pasUtilisAttaqueCible()), variables_, pasUtiliseAttaqueCible_);
         StringList immuTypesIndiv_ = _import.getVarParamsMove(_import.immuTypeAttCible());
         for(String e:immuTypesIndiv_){
             statBool(_import, StringUtil.concat(varPref_, _import.immuTypeAttCible(),DataBase.SEP_BETWEEN_KEYS,e), variables_, FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import));
         }
         boolean aucunBoostPossible_ = aucunBoostPossible(_import, creatureCbtCible_);
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_AUCUN_BOOST_POSSIBLE), variables_, aucunBoostPossible_);
+        statBool(_import, StringUtil.concat(varPref_, _import.aucunBoostPossible()), variables_, aucunBoostPossible_);
         enaCond(_import, creatureCbtLanceur_, variables_, _import.lanceurEffet());
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_TYPES_ATTAQUES_RES_VIDE), variables_, creatureCbtLanceur_.resistingTypes(_import).isEmpty());
+        statBool(_import, StringUtil.concat(varPref_, _import.typesAttaquesResVide()), variables_, creatureCbtLanceur_.resistingTypes(_import).isEmpty());
         int nbPartenairesArriere_ = FightOrder.nbBackPartners(_fight, _lanceur);
         int nbPartenairesTerrain_ = FightOrder.nbFrontPartners(_fight, _lanceur);
         int nbPartenaires_ = nbPartenairesArriere_ + nbPartenairesTerrain_;
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_PARTENAIRE), variables_, nbPartenaires_==0);
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_PARTENAIRE_ARRIERE), variables_, nbPartenairesArriere_==0);
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_PARTENAIRE_TERRAIN), variables_, nbPartenairesTerrain_==0);
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_PAS_TOUR_TERRAIN), variables_, creatureCbtLanceur_.getNbRounds().isZero());
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_EXISTE_GENRE_ASSEXUE), variables_, creatureCbtLanceur_.estAssexue()||creatureCbtCible_.estAssexue());
-        statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_GENRES_EGAUX), variables_, creatureCbtLanceur_.getCurrentGender()==creatureCbtCible_.getCurrentGender());
+        statBool(_import, StringUtil.concat(varPref_, _import.pasPartenaire()), variables_, nbPartenaires_==0);
+        statBool(_import, StringUtil.concat(varPref_, _import.pasPartenaireArriere()), variables_, nbPartenairesArriere_==0);
+        statBool(_import, StringUtil.concat(varPref_, _import.pasPartenaireTerrain()), variables_, nbPartenairesTerrain_==0);
+        statBool(_import, StringUtil.concat(varPref_, _import.pasTourTerrain()), variables_, creatureCbtLanceur_.getNbRounds().isZero());
+        statBool(_import, StringUtil.concat(varPref_, _import.existeGenreAssexue()), variables_, creatureCbtLanceur_.estAssexue()||creatureCbtCible_.estAssexue());
+        statBool(_import, StringUtil.concat(varPref_, _import.genresEgaux()), variables_, creatureCbtLanceur_.getCurrentGender()==creatureCbtCible_.getCurrentGender());
         _fight.setEnabledMessages(true);
         return variables_;
     }
@@ -435,7 +435,7 @@ final class FightValues {
             enabled_.put(m, enabledLoc_);
         }
         for (String m: enabled_.getKeys()) {
-            statBool(_import, StringUtil.concat(varPref_, DataBase.DEF_CIBLE_POSSEDE_STATUT_RELATION,DataBase.SEP_BETWEEN_KEYS,m), _variables, enabled_.getVal(m) == BoolVal.TRUE);
+            statBool(_import, StringUtil.concat(varPref_, _import.ciblePossedeStatutRelation(),DataBase.SEP_BETWEEN_KEYS,m), _variables, enabled_.getVal(m) == BoolVal.TRUE);
         }
     }
 

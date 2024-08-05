@@ -73,8 +73,11 @@ public final class DataBaseConstants {
     private String cibleBonheur = "";
     private String cibleNom = "";
     private String cibleDerJoue = "";
+    private String ciblePossedeStatutRelation = "";
     private String nbKoEquipeCible = "";
     private String nbKoEquipeAdvCible = "";
+    private String pasPpAttaqueCible = "";
+    private String pasUtilisAttaqueCible = "";
     private String lanceurAttaques = "";
     private String lanceurAttaqueChoisie = "";
     private String lanceurAttaquesTypes = "";
@@ -129,6 +132,14 @@ public final class DataBaseConstants {
     private String pkUtVitesse = "";
     private String pkUtTypesBase = "";
     private String pkUtPierresEvos = "";
+    private String aucunBoostPossible = "";
+    private String typesAttaquesResVide = "";
+    private String pasPartenaire = "";
+    private String pasPartenaireArriere = "";
+    private String pasPartenaireTerrain = "";
+    private String pasTourTerrain = "";
+    private String existeGenreAssexue = "";
+    private String genresEgaux = "";
     public String getPrefixVar() {
         return prefixVar;
     }
@@ -697,6 +708,14 @@ public final class DataBaseConstants {
         this.cibleDerJoue = _p;
     }
 
+    public String getCiblePossedeStatutRelation() {
+        return ciblePossedeStatutRelation;
+    }
+
+    public void setCiblePossedeStatutRelation(String _p) {
+        this.ciblePossedeStatutRelation = _p;
+    }
+
     public String getNbKoEquipeCible() {
         return nbKoEquipeCible;
     }
@@ -711,6 +730,22 @@ public final class DataBaseConstants {
 
     public void setNbKoEquipeAdvCible(String _p) {
         this.nbKoEquipeAdvCible = _p;
+    }
+
+    public String getPasPpAttaqueCible() {
+        return pasPpAttaqueCible;
+    }
+
+    public void setPasPpAttaqueCible(String _p) {
+        this.pasPpAttaqueCible = _p;
+    }
+
+    public String getPasUtilisAttaqueCible() {
+        return pasUtilisAttaqueCible;
+    }
+
+    public void setPasUtilisAttaqueCible(String _p) {
+        this.pasUtilisAttaqueCible = _p;
     }
 
     public String getLanceurAttaques() {
@@ -1143,5 +1178,69 @@ public final class DataBaseConstants {
 
     public void setPkUtPierresEvos(String _p) {
         this.pkUtPierresEvos = _p;
+    }
+
+    public String getAucunBoostPossible() {
+        return aucunBoostPossible;
+    }
+
+    public void setAucunBoostPossible(String _p) {
+        this.aucunBoostPossible = _p;
+    }
+
+    public String getTypesAttaquesResVide() {
+        return typesAttaquesResVide;
+    }
+
+    public void setTypesAttaquesResVide(String _p) {
+        this.typesAttaquesResVide = _p;
+    }
+
+    public String getPasPartenaire() {
+        return pasPartenaire;
+    }
+
+    public void setPasPartenaire(String _p) {
+        this.pasPartenaire = _p;
+    }
+
+    public String getPasPartenaireArriere() {
+        return pasPartenaireArriere;
+    }
+
+    public void setPasPartenaireArriere(String _p) {
+        this.pasPartenaireArriere = _p;
+    }
+
+    public String getPasPartenaireTerrain() {
+        return pasPartenaireTerrain;
+    }
+
+    public void setPasPartenaireTerrain(String _p) {
+        this.pasPartenaireTerrain = _p;
+    }
+
+    public String getPasTourTerrain() {
+        return pasTourTerrain;
+    }
+
+    public void setPasTourTerrain(String _p) {
+        this.pasTourTerrain = _p;
+    }
+
+    public String getExisteGenreAssexue() {
+        return existeGenreAssexue;
+    }
+
+    public void setExisteGenreAssexue(String _p) {
+        this.existeGenreAssexue = _p;
+    }
+
+    public String getGenresEgaux() {
+        return genresEgaux;
+    }
+
+    public void setGenresEgaux(String _p) {
+        this.genresEgaux = _p;
     }
 }
