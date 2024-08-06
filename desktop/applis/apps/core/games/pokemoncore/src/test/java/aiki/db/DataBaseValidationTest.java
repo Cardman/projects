@@ -1863,17 +1863,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_ = new StringMap<String>();
         data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
         data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
         data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
         data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
-        StringMap<IdMap<EnvironmentType, String>> translatedEnvironment_ = data_.getTranslatedEnvironment();
-        IdMap<EnvironmentType, String> envType_ = new IdMap<EnvironmentType, String>();
-        envType_.addEntry(EnvironmentType.ROAD,TREMPETTE);
-        translatedEnvironment_.addEntry(LANGUAGE, envType_);
         data_.setCheckTranslation(true);
-        data_.checkTranslations("{ROAD}");
+        data_.checkTranslations("{TREMPETTE}");
         assertTrue(!data_.isError());
     }
     @Test
@@ -1893,9 +1890,9 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_ = new StringMap<String>();
         data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
-        tr_.addEntry(TREMPETTE,TREMPETTE);
         data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
         data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
         data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
@@ -1922,9 +1919,9 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_ = new StringMap<String>();
         data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
-        tr_.addEntry(TREMPETTE,TREMPETTE);
         data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
         data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
         data_.setCheckTranslation(true);
         data_.checkTranslations("{TREMPETTE}");
@@ -1951,11 +1948,10 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_ = new StringMap<String>();
         data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
         tr_ = new StringMap<String>();
-        tr_.addEntry(TREMPETTE,TREMPETTE);
         data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
         data_.setCheckTranslation(true);
         data_.checkTranslations("{TREMPETTE}");
-        assertTrue(!data_.isError());
+        assertTrue(data_.isError());
     }
     @Test
     public void checkTranslations9Test() {
@@ -1981,11 +1977,10 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
         StringMap<IdMap<Statistic, String>> translatedEnvironment_ = data_.getTranslatedStatistics();
         IdMap<Statistic, String> envType_ = new IdMap<Statistic, String>();
-        envType_.addEntry(Statistic.SPEED,TREMPETTE);
         translatedEnvironment_.addEntry(LANGUAGE, envType_);
         data_.setCheckTranslation(true);
         data_.checkTranslations("{"+DataBase.DEF_STAT_SPEED+"}");
-        assertTrue(!data_.isError());
+        assertTrue(data_.isError());
     }
     @Test
     public void checkTranslations10Test() {
@@ -2011,98 +2006,13 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
         StringMap<IdMap<Gender, String>> translatedEnvironment_ = data_.getTranslatedGenders();
         IdMap<Gender, String> envType_ = new IdMap<Gender, String>();
-        envType_.addEntry(Gender.NO_GENDER,TREMPETTE);
         translatedEnvironment_.addEntry(LANGUAGE, envType_);
         data_.setCheckTranslation(true);
         data_.checkTranslations("{"+DataBase.DEF_GENDER_NO_GENDER+"}");
-        assertTrue(!data_.isError());
+        assertTrue(data_.isError());
     }
     @Test
     public void checkTranslations11Test() {
-        DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
-        data_.initializeMembers();
-        StringMap<String> tr_ = new StringMap<String>();
-        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
-        data_.setCheckTranslation(true);
-        data_.checkTranslations("{TREMPETTE}");
-        assertTrue(data_.isError());
-    }
-    @Test
-    public void checkTranslations12Test() {
-        DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
-        data_.initializeMembers();
-        StringMap<String> tr_ = new StringMap<String>();
-        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
-        StringMap<IdMap<Statistic, String>> translatedEnvironment_ = data_.getTranslatedStatistics();
-        IdMap<Statistic, String> envType_ = new IdMap<Statistic, String>();
-        translatedEnvironment_.addEntry(LANGUAGE, envType_);
-        data_.setCheckTranslation(true);
-        data_.checkTranslations("{"+DataBase.DEF_STAT_SPEED+"}");
-        assertTrue(data_.isError());
-    }
-    @Test
-    public void checkTranslations13Test() {
-        DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
-        data_.initializeMembers();
-        StringMap<String> tr_ = new StringMap<String>();
-        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
-        tr_ = new StringMap<String>();
-        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
-        StringMap<IdMap<Gender, String>> translatedEnvironment_ = data_.getTranslatedGenders();
-        IdMap<Gender, String> envType_ = new IdMap<Gender, String>();
-        translatedEnvironment_.addEntry(LANGUAGE, envType_);
-        data_.setCheckTranslation(true);
-        data_.checkTranslations("{"+DataBase.DEF_GENDER_NO_GENDER+"}");
-        assertTrue(data_.isError());
-    }
-    @Test
-    public void checkTranslations14Test() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
@@ -2131,7 +2041,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertTrue(data_.isError());
     }
     @Test
-    public void checkTranslations15Test() {
+    public void checkTranslations12Test() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
@@ -2157,7 +2067,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertTrue(data_.isError());
     }
     @Test
-    public void checkTranslations16Test() {
+    public void checkTranslations13Test() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
@@ -2183,7 +2093,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertTrue(!data_.isError());
     }
     @Test
-    public void checkTranslations17Test() {
+    public void checkTranslations14Test() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
@@ -2303,16 +2213,6 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void getFormula10Test() {
         DataBase data_ =init();
-        data_.getTranslatedStatistics().addEntry(LANGUAGE,new IdMap<Statistic, String>());
-        IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
-        tr_.addEntry(Statistic.SPEED,TREMPETTE2);
-        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
-        assertEq("{TREMPETTE2}", data_.getFormula("{"+DataBase.DEF_STAT_SPEED+"}",LANGUAGE));
-    }
-    @Test
-    public void getFormula11Test() {
-        DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedMoves().getVal(LANGUAGE);
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(CHARGE,TREMPETTE);
@@ -2321,7 +2221,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("{TREMPETTE;TREMPETTE2}", data_.getFormula("{TREMPETTE;CHARGE}",LANGUAGE));
     }
     @Test
-    public void getFormula12Test() {
+    public void getFormula11Test() {
         DataBase data_ =init();
         data_.getTranslatedStatistics().addEntry(LANGUAGE,new IdMap<Statistic, String>());
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
@@ -2331,17 +2231,17 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("{mvTREMPETTE2}", data_.getFormula("{VAR__MYVAR__"+DataBase.DEF_STAT_SPEED+"}",LANGUAGE));
     }
     @Test
-    public void getFormula13Test() {
+    public void getFormula12Test() {
         DataBase data_ =init();
         data_.getTranslatedStatistics().addEntry(LANGUAGE,new IdMap<Statistic, String>());
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
         litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
-        assertEq("{0}", data_.getFormula("{0}",LANGUAGE));
+        assertEq(DataBase.DEF_STAT_SPEED, data_.getFormula(DataBase.DEF_STAT_SPEED,LANGUAGE));
     }
     @Test
-    public void getFormula14Test() {
+    public void getFormula13Test() {
         DataBase data_ =init();
         data_.getTranslatedStatistics().addEntry(LANGUAGE,new IdMap<Statistic, String>());
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
@@ -2351,7 +2251,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("{}", data_.getFormula("{}",LANGUAGE));
     }
     @Test
-    public void getFormula15Test() {
+    public void getFormula14Test() {
         DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
         tr_.addEntry(TREMPETTE,TREMPETTE2);
@@ -2361,7 +2261,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("mvTREMPETTE2+mvTREMPETTE", data_.getFormula("VAR__MYVAR__TREMPETTE+VAR__MYVAR__TREMPETTE2",LANGUAGE));
     }
     @Test
-    public void getFormula16Test() {
+    public void getFormula15Test() {
         DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
         tr_.addEntry(TREMPETTE,TREMPETTE2);
@@ -2373,7 +2273,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("8+myfct(5)", data_.getFormula("8+fct(5)",LANGUAGE));
     }
     @Test
-    public void getFormula17Test() {
+    public void getFormula16Test() {
         DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
         tr_.addEntry(TREMPETTE,TREMPETTE2);
@@ -2387,7 +2287,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("1", data_.getFormula(MbOperationNode.TRUE_STRING,LANGUAGE));
     }
     @Test
-    public void getFormula18Test() {
+    public void getFormula17Test() {
         DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
         tr_.addEntry(TREMPETTE,TREMPETTE2);
@@ -2401,7 +2301,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("0", data_.getFormula(MbOperationNode.FALSE_STRING,LANGUAGE));
     }
     @Test
-    public void getFormula19Test() {
+    public void getFormula18Test() {
         DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
         tr_.addEntry(TREMPETTE,TREMPETTE2);
@@ -2411,7 +2311,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("TREMPETTE2", data_.getFormula("TREMPETTE",LANGUAGE));
     }
     @Test
-    public void getFormula20Test() {
+    public void getFormula19Test() {
         DataBase data_ =init();
         data_.getTranslatedStatistics().addEntry(LANGUAGE,new IdMap<Statistic, String>());
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
@@ -2421,7 +2321,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__SPEE",LANGUAGE));
     }
     @Test
-    public void getFormula21Test() {
+    public void getFormula20Test() {
         DataBase data_ =init();
         data_.getTranslatedStatistics().addEntry(LANGUAGE,new IdMap<Statistic, String>());
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);

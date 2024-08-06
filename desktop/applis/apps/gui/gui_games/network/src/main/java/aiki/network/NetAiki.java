@@ -241,7 +241,7 @@ public final class NetAiki {
         out_.append(_sep);
         out_.append(_pk.getLevel());
         out_.append(_sep);
-        out_.append(_pk.getGender().getGenderName().substring(1));
+        out_.append(_pk.getGender().getGenderName());
         out_.append(_sep);
         out_.append(_pk.getAbility());
         out_.append(_sep);
@@ -256,7 +256,7 @@ public final class NetAiki {
         out_.append(StringUtil.join(moves_,_sec));
         CustList<String> stats_ = new CustList<String>();
         for (EntryCust<Statistic, Short> m: _pk.getEv().entryList()) {
-            stats_.add(m.getKey().getStatName().substring(1)+_th+m.getValue());
+            stats_.add(m.getKey().getStatName()+_th+m.getValue());
         }
         out_.append(_sep);
         out_.append(StringUtil.join(stats_,_sec));
@@ -279,7 +279,7 @@ public final class NetAiki {
         PokemonPlayer p_ = new PokemonPlayer();
         p_.setName(_infos.get(0));
         p_.setLevel((short) NumberUtil.parseInt(_infos.get(1)));
-        p_.setGender(Gender.getGenderByName("$"+_infos.get(2)));
+        p_.setGender(Gender.getGenderByName(_infos.get(2)));
         p_.setAbility(_infos.get(3));
         p_.setItem(_infos.get(4));
         p_.setNickname(unescapeId(_infos.get(5)));
@@ -288,7 +288,7 @@ public final class NetAiki {
         }
         for (String m: StringUtil.splitChar(_infos.get(7), _sec)) {
             StringList kv_ = StringUtil.splitChar(m, _th);
-            p_.getEv().addEntry(Statistic.getStatisticByName("$"+kv_.first()),(short)NumberUtil.parseInt(kv_.last()));
+            p_.getEv().addEntry(Statistic.getStatisticByName(kv_.first()),(short)NumberUtil.parseInt(kv_.last()));
         }
         p_.setWonExpSinceLastLevel(new Rate(_infos.get(8)));
         p_.setHappiness((short)NumberUtil.parseInt(_infos.get(9)));

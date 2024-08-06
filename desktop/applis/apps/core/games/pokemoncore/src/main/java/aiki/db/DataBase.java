@@ -306,20 +306,20 @@ public class DataBase {
     public static final String TRANSLATION_CLASSES = "classes.txt";
     public static final String TRANSLATION_LITTERAL = "litteral.txt";
 
-    public static final String DEF_STAT_HP= "$0";
-    public static final String DEF_STAT_ATTACK= "$1";
-    public static final String DEF_STAT_DEFENSE= "$2";
-    public static final String DEF_STAT_SPECIAL_ATTACK= "$3";
-    public static final String DEF_STAT_SPECIAL_DEFENSE= "$4";
-    public static final String DEF_STAT_SPEED= "$5";
-    public static final String DEF_STAT_ACCURACY= "$6";
-    public static final String DEF_STAT_EVASINESS= "$7";
-    public static final String DEF_STAT_CRITICAL_HIT= "$8";
-    public static final String DEF_STAT_PV_RESTANTS= "$9";
+    public static final String DEF_STAT_HP= "0";
+    public static final String DEF_STAT_ATTACK= "1";
+    public static final String DEF_STAT_DEFENSE= "2";
+    public static final String DEF_STAT_SPECIAL_ATTACK= "3";
+    public static final String DEF_STAT_SPECIAL_DEFENSE= "4";
+    public static final String DEF_STAT_SPEED= "5";
+    public static final String DEF_STAT_ACCURACY= "6";
+    public static final String DEF_STAT_EVASINESS= "7";
+    public static final String DEF_STAT_CRITICAL_HIT= "8";
+    public static final String DEF_STAT_PV_RESTANTS= "9";
 
-    public static final String DEF_GENDER_FEMALE= "$10";
-    public static final String DEF_GENDER_MALE= "$11";
-    public static final String DEF_GENDER_NO_GENDER= "$12";
+    public static final String DEF_GENDER_FEMALE= "0";
+    public static final String DEF_GENDER_MALE= "1";
+    public static final String DEF_GENDER_NO_GENDER= "2";
 
     /**
      * The custom beans can be modified but they must have a common base package
@@ -1735,15 +1735,14 @@ public class DataBase {
 
     public void validateTranslations() {
         StringList allCustKeys_ = new StringList();
-        StringList allStandardKeys_ = new StringList();
         StringList homonyms_ = new StringList();
         StringList distinct_ = new StringList();
-        standardKeysGenders(allStandardKeys_, homonyms_, distinct_);
-        standardKeysBooleans(allStandardKeys_);
-        standardKeysDiffWinPts(allStandardKeys_);
-        standardKeysDiffModelLaw(allStandardKeys_);
-        standardKeysEnvironment(allStandardKeys_, homonyms_, distinct_);
-        standardKeysStatistic(allStandardKeys_, homonyms_, distinct_);
+        standardKeysGenders();
+        standardKeysBooleans();
+        standardKeysDiffWinPts();
+        standardKeysDiffModelLaw();
+        standardKeysEnvironment();
+        standardKeysStatistic();
         custKeys(allCustKeys_, homonyms_, distinct_, translatedTypes, types);
         custKeys(allCustKeys_, homonyms_, distinct_, translatedCategories, allCategories);
         custKeys(allCustKeys_, homonyms_, distinct_, translatedPokemon, pokedex.getKeys());
@@ -1756,14 +1755,9 @@ public class DataBase {
         checkHomonym(homonyms_);
 
         checkClassesDescriptions();
-        standardKeysTargets(allStandardKeys_);
+        standardKeysTargets();
         if (allCustKeys_.hasDuplicates()) {
             setError(true);
-        }
-        for (String n : allStandardKeys_) {
-            if (StringUtil.contains(allCustKeys_, n)) {
-                setError(true);
-            }
         }
         if (!StringUtil.equalsSet(litterals.getKeys(),
                 languages)) {
@@ -1836,8 +1830,6 @@ public class DataBase {
                 valuesTr(l, s, tr_, translatedItems);
                 valuesTr(l, s, tr_, translatedStatus);
                 valuesTr(l, s, tr_, translatedCategories);
-                valuesTrStatistic(l, s, tr_);
-                valuesTrGenders(l, s, tr_);
                 if (!tr_.onlyOneElt()) {
                     setError(true);
                 }
@@ -1860,15 +1852,12 @@ public class DataBase {
         }
     }
 
-    private void standardKeysStatistic(StringList _allStandardKeys, StringList _homonyms, StringList _distinct) {
+    private void standardKeysStatistic() {
         if (!StringUtil.equalsSet(translatedStatistics.getKeys(),
                 languages)) {
             setError(true);
         }
         for (IdMap<Statistic, String> v : translatedStatistics.values()) {
-            for (Statistic g : v.getKeys()) {
-                _allStandardKeys.add(g.getStatName());
-            }
             if (!new IdList<Statistic>(v.getKeys()).containsAllObj(new IdList<Statistic>(Statistic.all()))) {
                 setError(true);
             }
@@ -1876,22 +1865,15 @@ public class DataBase {
                 setError(true);
             }
         }
-        for (Statistic g : Statistic.all()) {
-            String name_ = g.getStatName();
-            gearHomonyms(_homonyms, _distinct, name_);
-        }
     }
 
-    private void standardKeysEnvironment(StringList _allStandardKeys, StringList _homonyms, StringList _distinct) {
+    private void standardKeysEnvironment() {
         if (!StringUtil.equalsSet(translatedEnvironment.getKeys(),
                 languages)) {
             setError(true);
         }
         for (IdMap<EnvironmentType, String> v : translatedEnvironment
                 .values()) {
-            for (EnvironmentType g : v.getKeys()) {
-                _allStandardKeys.add(g.getEnvName());
-            }
             if (!new IdList<EnvironmentType>(v.getKeys()).containsAllObj(new IdList<EnvironmentType>(EnvironmentType.all()))) {
                 setError(true);
             }
@@ -1899,22 +1881,15 @@ public class DataBase {
                 setError(true);
             }
         }
-        for (EnvironmentType g : EnvironmentType.all()) {
-            String name_ = g.getEnvName();
-            gearHomonyms(_homonyms, _distinct, name_);
-        }
     }
 
-    private void standardKeysDiffModelLaw(StringList _allStandardKeys) {
+    private void standardKeysDiffModelLaw() {
         if (!StringUtil.equalsSet(translatedDiffModelLaw.getKeys(),
                 languages)) {
             setError(true);
         }
         for (IdMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
                 .values()) {
-            for (DifficultyModelLaw g : v.getKeys()) {
-                _allStandardKeys.add(g.getModelName());
-            }
             if (!new IdList<DifficultyModelLaw>(v.getKeys()).containsAllObj(new IdList<DifficultyModelLaw>(DifficultyModelLaw.all()))) {
                 setError(true);
             }
@@ -1924,16 +1899,13 @@ public class DataBase {
         }
     }
 
-    private void standardKeysDiffWinPts(StringList _allStandardKeys) {
+    private void standardKeysDiffWinPts() {
         if (!StringUtil.equalsSet(translatedDiffWinPts.getKeys(),
                 languages)) {
             setError(true);
         }
         for (IdMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
                 .values()) {
-            for (DifficultyWinPointsFight g : v.getKeys()) {
-                _allStandardKeys.add(g.getWinName());
-            }
             if (!new IdList<DifficultyWinPointsFight>(v.getKeys()).containsAllObj(new IdList<DifficultyWinPointsFight>(DifficultyWinPointsFight.all()))) {
                 setError(true);
             }
@@ -1943,15 +1915,12 @@ public class DataBase {
         }
     }
 
-    private void standardKeysBooleans(StringList _allStandardKeys) {
+    private void standardKeysBooleans() {
         if (!StringUtil.equalsSet(translatedBooleans.getKeys(),
                 languages)) {
             setError(true);
         }
         for (IdMap<SelectedBoolean, String> v : translatedBooleans.values()) {
-            for (SelectedBoolean g : v.getKeys()) {
-                _allStandardKeys.add(g.getBoolName());
-            }
             if (!new IdList<SelectedBoolean>(v.getKeys()).containsAllObj(new IdList<SelectedBoolean>(SelectedBoolean.all()))) {
                 setError(true);
             }
@@ -1961,15 +1930,12 @@ public class DataBase {
         }
     }
 
-    private void standardKeysGenders(StringList _allStandardKeys, StringList _homonyms, StringList _distinct) {
+    private void standardKeysGenders() {
         if (!StringUtil.equalsSet(translatedGenders.getKeys(),
                 languages)) {
             setError(true);
         }
         for (IdMap<Gender, String> v : translatedGenders.values()) {
-            for (Gender g : v.getKeys()) {
-                _allStandardKeys.add(g.getGenderName());
-            }
             if (!new IdList<Gender>(v.getKeys()).containsAllObj(new IdList<Gender>(Gender.all()))) {
                 setError(true);
             }
@@ -1977,21 +1943,14 @@ public class DataBase {
                 setError(true);
             }
         }
-        for (Gender g : Gender.all()) {
-            String name_ = g.getGenderName();
-            gearHomonyms(_homonyms, _distinct, name_);
-        }
     }
 
-    private void standardKeysTargets(StringList _allStandardKeys) {
+    private void standardKeysTargets() {
         if (!StringUtil.equalsSet(translatedTargets.getKeys(),
                 languages)) {
             setError(true);
         }
         for (IdMap<TargetChoice, String> v : translatedTargets.values()) {
-            for (TargetChoice g : v.getKeys()) {
-                _allStandardKeys.add(g.getTargetName());
-            }
             if (!new IdList<TargetChoice>(v.getKeys()).containsAllObj(new IdList<TargetChoice>(TargetChoice.all()))) {
                 setError(true);
             }
@@ -2040,44 +1999,6 @@ public class DataBase {
             }
         }
         return ok_;
-    }
-
-    private void valuesTrGenders(String _l, String _s, StringList _tr) {
-        for (Gender g : Gender.all()) {
-            if (!StringUtil.quickEq(_s, g.getGenderName())) {
-                continue;
-            }
-            for (EntryCust<String,IdMap<Gender,String>> e: translatedGenders.entryList()) {
-                if (!StringUtil.quickEq(e.getKey(), _l)) {
-                    continue;
-                }
-                for (EntryCust<Gender,String> f: e.getValue().entryList()) {
-                    if (f.getKey() != g) {
-                        continue;
-                    }
-                    _tr.add(f.getValue());
-                }
-            }
-        }
-    }
-
-    private void valuesTrStatistic(String _l, String _s, StringList _tr) {
-        for (Statistic s_ : Statistic.all()) {
-            if (!StringUtil.quickEq(_s, s_.getStatName())) {
-                continue;
-            }
-            for (EntryCust<String,IdMap<Statistic,String>> e: translatedStatistics.entryList()) {
-                if (!StringUtil.quickEq(e.getKey(), _l)) {
-                    continue;
-                }
-                for (EntryCust<Statistic,String> f: e.getValue().entryList()) {
-                    if (f.getKey() != s_) {
-                        continue;
-                    }
-                    _tr.add(f.getValue());
-                }
-            }
-        }
     }
 
     private void valuesTr(String _l, String _s, StringList _tr, StringMap<StringMap<String>> _translated) {
@@ -4316,7 +4237,6 @@ public class DataBase {
         while (i_ < len_) {
             char cur_ = _litt.charAt(i_);
             if (br_) {
-                boolean dig_ = MathExpUtil.isDigit(cur_);
                 int j_ = possibleIncr(i_, cur_);
                 int delta_ = delta(cur_);
                 j_ = incr(_litt,j_);
@@ -4326,7 +4246,7 @@ public class DataBase {
 //                    cur_ = _litt.charAt(j_);
 //                }
                 String word_ = _litt.substring(i_+delta_, j_);
-                formulaWord(_language, litt_, list_, dig_, word_);
+                formulaWord(_language, litt_, list_, word_);
                 if (cur_ == '}') {
                     list_.sort();
                     str_.append(StringUtil.join(list_, getSepartorSetChar()));
@@ -4438,11 +4358,9 @@ public class DataBase {
         }
     }
 
-    private void formulaWord(String _language, StringMap<String> _litt, StringList _list, boolean _dig, String _word) {
+    private void formulaWord(String _language, StringMap<String> _litt, StringList _list, String _word) {
         String varPref_ = StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
-        if (_dig) {
-            _list.add(_word);
-        } else if (!_word.startsWith(varPref_)) {
+        if (!_word.startsWith(varPref_)) {
             _list.add(translateSafe(_word, _language));
         } else {
             String format_ = formatVar(_language, _litt, _word);
@@ -4628,25 +4546,6 @@ public class DataBase {
         }
         if (translatedAbilities.getVal(_language).contains(_key)) {
             return translatedAbilities.getVal(_language).getVal(_key);
-        }
-        return translateEnum(_key, _language);
-    }
-
-    private String translateEnum(String _key, String _language) {
-        for (EnvironmentType s : EnvironmentType.all()) {
-            if (StringUtil.quickEq(_key, s.getEnvName()) && translatedEnvironment.getVal(_language).contains(s)) {
-                return translatedEnvironment.getVal(_language).getVal(s);
-            }
-        }
-        for (Statistic s : Statistic.all()) {
-            if (StringUtil.quickEq(_key, s.getStatName()) && translatedStatistics.getVal(_language).contains(s)) {
-                return translatedStatistics.getVal(_language).getVal(s);
-            }
-        }
-        for (Gender g : Gender.all()) {
-            if (StringUtil.quickEq(_key, g.getGenderName()) && translatedGenders.getVal(_language).contains(g)) {
-                return translatedGenders.getVal(_language).getVal(g);
-            }
         }
         return EMPTY_STRING;
     }
