@@ -1,23 +1,24 @@
 package aiki.fight.moves.enums;
 
 
+import aiki.db.DataBase;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public enum TargetChoice {
-    ADJ_ADV(false, "ADJ_ADV"),
-    ADJ_MULT(false, "ADJ_MULT"),
-    ADJ_UNIQ(true, "ADJ_UNIQ"),
-    ALLIE(true, "ALLIE"),
-    ALLIES(false, "ALLIES"),
-    ANY_FOE(true, "ANY_FOE"),
-    AUTRE_UNIQ(true, "AUTRE_UNIQ"),
-    GLOBALE(false, "GLOBALE"),
-    LANCEUR(false, "LANCEUR"),
-    PSEUDO_GLOBALE(false, "PSEUDO_GLOBALE"),
-    TOUS_ADV(false, "TOUS_ADV"),
-    UNIQUE_IMPORTE(true, "UNIQUE_IMPORTE"),
-    NOTHING(false, "NOTHING"),
+    ADJ_ADV(false, DataBase.DEF_TARGET_ADJ_ADV),
+    ADJ_MULT(false, DataBase.DEF_TARGET_ADJ_MULT),
+    ADJ_UNIQ(true, DataBase.DEF_TARGET_ADJ_UNIQ),
+    ALLIE(true, DataBase.DEF_TARGET_ALLIE),
+    ALLIES(false, DataBase.DEF_TARGET_ALLIES),
+    ANY_FOE(true, DataBase.DEF_TARGET_ANY_FOE),
+    AUTRE_UNIQ(true, DataBase.DEF_TARGET_AUTRE_UNIQ),
+    GLOBALE(false, DataBase.DEF_TARGET_GLOBALE),
+    LANCEUR(false, DataBase.DEF_TARGET_LANCEUR),
+    PSEUDO_GLOBALE(false, DataBase.DEF_TARGET_PSEUDO_GLOBALE),
+    TOUS_ADV(false, DataBase.DEF_TARGET_TOUS_ADV),
+    UNIQUE_IMPORTE(true, DataBase.DEF_TARGET_UNIQUE_IMPORTE),
+    NOTHING(false, DataBase.DEF_TARGET_NOTHING),
     NONE(false, "");
 
     private final boolean withChoice;

@@ -293,11 +293,11 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test45() {
-        assertSame(Sex.GIRL,Sex.getSexByName("GIRL",new SexListImpl()));
+        assertSame(Sex.GIRL,Sex.getSexByName(DataBase.DEF_SEX_GIRL,new SexListImpl()));
     }
     @Test
     public void test46() {
-        assertSame(Sex.BOY,Sex.getSexByName("BOY",new SexListImpl()));
+        assertSame(Sex.BOY,Sex.getSexByName(DataBase.DEF_SEX_BOY,new SexListImpl()));
     }
     @Test
     public void test47() {
@@ -313,7 +313,7 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test50() {
-        assertSame(TargetChoice.NOTHING, TargetChoice.getTargetChoiceByName("NOTHING"));
+        assertSame(TargetChoice.NOTHING, TargetChoice.getTargetChoiceByName(DataBase.DEF_TARGET_NOTHING));
     }
     @Test
     public void test51() {
@@ -321,7 +321,7 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test52() {
-        assertSame(EnvironmentType.NOTHING, EnvironmentType.getEnvByName("NOTHING"));
+        assertSame(EnvironmentType.NOTHING, EnvironmentType.getEnvByName(DataBase.DEF_ENV_NOTHING));
     }
     @Test
     public void test53() {
@@ -329,7 +329,7 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test54() {
-        assertSame(SelectedBoolean.YES_AND_NO, SelectedBoolean.getBoolByName("YES_AND_NO"));
+        assertSame(SelectedBoolean.YES_AND_NO, SelectedBoolean.getBoolByName(DataBase.DEF_SEL_BOOL_YES_AND_NO));
     }
     @Test
     public void test55() {
@@ -337,7 +337,7 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test56() {
-        assertSame(DifficultyModelLaw.UNIFORME, DifficultyModelLaw.getModelByName("UNIFORME"));
+        assertSame(DifficultyModelLaw.UNIFORME, DifficultyModelLaw.getModelByName(DataBase.DEF_UNIFORME));
     }
     @Test
     public void test57() {
@@ -345,7 +345,7 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test58() {
-        assertSame(DifficultyWinPointsFight.TRES_FACILE, DifficultyWinPointsFight.getDiffWonPtsByName("TRES_FACILE"));
+        assertSame(DifficultyWinPointsFight.TRES_FACILE, DifficultyWinPointsFight.getDiffWonPtsByName(DataBase.DEF_TRES_FACILE));
     }
     @Test
     public void test59() {
@@ -353,27 +353,27 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test60() {
-        assertSame(ExpType.E, ExpType.getExpTypeByName("E"));
+        assertSame(ExpType.E, ExpType.getExpTypeByName(DataBase.DEF_EXP_E));
     }
     @Test
     public void test61() {
-        assertSame(ExpType.F, ExpType.getExpTypeByName("F"));
+        assertSame(ExpType.F, ExpType.getExpTypeByName(DataBase.DEF_EXP_F));
     }
     @Test
     public void test62() {
-        assertSame(ExpType.L, ExpType.getExpTypeByName("L"));
+        assertSame(ExpType.L, ExpType.getExpTypeByName(DataBase.DEF_EXP_L));
     }
     @Test
     public void test63() {
-        assertSame(ExpType.M, ExpType.getExpTypeByName("M"));
+        assertSame(ExpType.M, ExpType.getExpTypeByName(DataBase.DEF_EXP_M));
     }
     @Test
     public void test64() {
-        assertSame(ExpType.P, ExpType.getExpTypeByName("P"));
+        assertSame(ExpType.P, ExpType.getExpTypeByName(DataBase.DEF_EXP_P));
     }
     @Test
     public void test65() {
-        assertSame(ExpType.R, ExpType.getExpTypeByName("R"));
+        assertSame(ExpType.R, ExpType.getExpTypeByName(DataBase.DEF_EXP_R));
     }
     @Test
     public void test66() {
@@ -387,7 +387,7 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test68() {
-        assertSame(GenderRepartition.NO_GENDER, GenderRepartition.getGenderRepartitionByName("NO_GENDER"));
+        assertSame(GenderRepartition.NO_GENDER, GenderRepartition.getGenderRepartitionByName(DataBase.DEF_GENDER_REP_NO_GENDER));
     }
     @Test
     public void test69() {

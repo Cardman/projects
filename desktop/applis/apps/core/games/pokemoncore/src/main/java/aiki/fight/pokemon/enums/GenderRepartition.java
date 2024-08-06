@@ -1,15 +1,16 @@
 package aiki.fight.pokemon.enums;
+import aiki.db.*;
 import aiki.map.pokemon.enums.Gender;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.core.StringUtil;
 
 public enum GenderRepartition {
-    FEMALE("FEMALE"),
-    MALE("MALE"),
-    MIXED("MIXED"),
-    LEGENDARY("LEGENDARY"),
-    NO_GENDER("NO_GENDER");
+    FEMALE(DataBase.DEF_GENDER_REP_FEMALE),
+    MALE(DataBase.DEF_GENDER_REP_MALE),
+    MIXED(DataBase.DEF_GENDER_REP_MIXED),
+    LEGENDARY(DataBase.DEF_GENDER_REP_LEGENDARY),
+    NO_GENDER(DataBase.DEF_GENDER_REP_NO_GENDER);
     private final String genderRep;
     GenderRepartition(String _g) {
         genderRep = _g;

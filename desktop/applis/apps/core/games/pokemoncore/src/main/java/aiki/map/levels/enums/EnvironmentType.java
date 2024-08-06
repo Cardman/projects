@@ -1,11 +1,12 @@
 package aiki.map.levels.enums;
 
 
+import aiki.db.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public enum EnvironmentType {
-    BUILDING("BUILDING"), DESERT("DESERT"), WATER("WATER"), ICE("ICE"), GRASS("GRASS"), SNOW("SNOW"), ROCK("ROCK"), ROAD("ROAD"), NOTHING("NOTHING");
+    BUILDING(DataBase.DEF_ENV_BUILDING),DESERT(DataBase.DEF_ENV_DESERT),WATER(DataBase.DEF_ENV_WATER),ICE(DataBase.DEF_ENV_ICE),GRASS(DataBase.DEF_ENV_GRASS),SNOW(DataBase.DEF_ENV_SNOW),ROCK(DataBase.DEF_ENV_ROCK),ROAD(DataBase.DEF_ENV_ROAD),NOTHING(DataBase.DEF_ENV_NOTHING);
     private final String envName;
     EnvironmentType(String _k){
         envName = _k;

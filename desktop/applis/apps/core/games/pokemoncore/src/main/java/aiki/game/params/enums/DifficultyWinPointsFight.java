@@ -1,11 +1,12 @@
 package aiki.game.params.enums;
 
 
+import aiki.db.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public enum DifficultyWinPointsFight {
-    TRES_FACILE("TRES_FACILE"),FACILE("FACILE"),DIFFICILE("DIFFICILE"),TRES_DIFFICILE("TRES_DIFFICILE");
+    TRES_FACILE(DataBase.DEF_TRES_FACILE),FACILE(DataBase.DEF_FACILE),DIFFICILE(DataBase.DEF_DIFFICILE),TRES_DIFFICILE(DataBase.DEF_TRES_DIFFICILE);
     private final String winName;
     DifficultyWinPointsFight(String _w){
         winName= _w;

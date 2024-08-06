@@ -1,4 +1,5 @@
 package aiki.sml.trs;
+import aiki.db.*;
 import aiki.util.*;
 import code.util.*;
 import code.maths.*;
@@ -6,11 +7,11 @@ import code.maths.montecarlo.*;
 import aiki.game.params.enums.*;
 import aiki.sml.init.CstIgame;
 public final class Cst4 extends CstIgame{
-static final String CS_DECROISSANT="DECROISSANT";
-static final String CS_CROISSANT="CROISSANT";
-static final String CS_UNIFORME="UNIFORME";
-static final String CS_CONSTANT_MAX="CONSTANT_MAX";
-static final String CS_CONSTANT_MIN="CONSTANT_MIN";
+static final String CS_DECROISSANT=DataBase.DEF_DECROISSANT;
+static final String CS_CROISSANT=DataBase.DEF_CROISSANT;
+static final String CS_UNIFORME=DataBase.DEF_UNIFORME;
+static final String CS_CONSTANT_MAX=DataBase.DEF_CONSTANT_MAX;
+static final String CS_CONSTANT_MIN=DataBase.DEF_CONSTANT_MIN;
 private static final String R_22_25="22/25";
 private static final String R_23_25="23/25";
 private static final String R_24_25="24/25";

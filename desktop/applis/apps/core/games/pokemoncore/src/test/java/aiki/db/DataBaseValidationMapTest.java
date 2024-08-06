@@ -39,14 +39,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
 
     @Test
     public void link1Test() {
-        Link l_ = Link.newLink("l'UP'5;10_8,4");
-        assertEq("l'UP'5;10_8,4",l_.display());
+        Link l_ = Link.newLink("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4");
+        assertEq("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4",l_.display());
     }
 
     @Test
     public void link2Test() {
         Link l_ = Link.newLink("l'U'5;10_8,4");
-        assertEq("l'UP'5;10_8,4",l_.display());
+        assertEq("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4",l_.display());
         new PokemonCenter().validate(newData(),null);
     }
 

@@ -321,6 +321,67 @@ public class DataBase {
     public static final String DEF_GENDER_MALE= "1";
     public static final String DEF_GENDER_NO_GENDER= "2";
 
+    public static final String DEF_GENDER_REP_FEMALE= "0";
+    public static final String DEF_GENDER_REP_MALE= "1";
+    public static final String DEF_GENDER_REP_MIXED= "2";
+    public static final String DEF_GENDER_REP_NO_GENDER= "3";
+    public static final String DEF_GENDER_REP_LEGENDARY= "4";
+
+    public static final String DEF_SEL_BOOL_NO= "0";
+    public static final String DEF_SEL_BOOL_YES= "1";
+    public static final String DEF_SEL_BOOL_YES_AND_NO= "2";
+
+    public static final String DEF_TARGET_ADJ_ADV="0";
+    public static final String DEF_TARGET_ADJ_MULT="1";
+    public static final String DEF_TARGET_ADJ_UNIQ="2";
+    public static final String DEF_TARGET_ALLIE="3";
+    public static final String DEF_TARGET_ALLIES="4";
+    public static final String DEF_TARGET_ANY_FOE="5";
+    public static final String DEF_TARGET_AUTRE_UNIQ="6";
+    public static final String DEF_TARGET_GLOBALE="7";
+    public static final String DEF_TARGET_LANCEUR="8";
+    public static final String DEF_TARGET_PSEUDO_GLOBALE="9";
+    public static final String DEF_TARGET_TOUS_ADV="10";
+    public static final String DEF_TARGET_UNIQUE_IMPORTE="11";
+    public static final String DEF_TARGET_NOTHING="12";
+
+    public static final String DEF_SEX_GIRL= "0";
+    public static final String DEF_SEX_BOY= "1";
+    public static final String DEF_SEX_NO= "2";
+
+    public static final String DEF_ENV_BUILDING="0";
+    public static final String DEF_ENV_DESERT="1";
+    public static final String DEF_ENV_WATER="2";
+    public static final String DEF_ENV_ICE="3";
+    public static final String DEF_ENV_GRASS="4";
+    public static final String DEF_ENV_SNOW="5";
+    public static final String DEF_ENV_ROCK="6";
+    public static final String DEF_ENV_ROAD="7";
+    public static final String DEF_ENV_NOTHING="8";
+
+    public static final String DEF_EXP_E="0";
+    public static final String DEF_EXP_F="1";
+    public static final String DEF_EXP_L="2";
+    public static final String DEF_EXP_M="3";
+    public static final String DEF_EXP_P="4";
+    public static final String DEF_EXP_R="5";
+
+    public static final String DEF_DIR_UP="0";
+    public static final String DEF_DIR_DOWN="1";
+    public static final String DEF_DIR_LEFT="2";
+    public static final String DEF_DIR_RIGHT="3";
+
+    public static final String DEF_CONSTANT_MIN="0";
+    public static final String DEF_CROISSANT="1";
+    public static final String DEF_UNIFORME="2";
+    public static final String DEF_DECROISSANT="3";
+    public static final String DEF_CONSTANT_MAX="4";
+
+    public static final String DEF_TRES_FACILE="0";
+    public static final String DEF_FACILE="1";
+    public static final String DEF_DIFFICILE="2";
+    public static final String DEF_TRES_DIFFICILE="3";
+
     /**
      * The custom beans can be modified but they must have a common base package
      * Avoid to recompile classes in standard packages like java, javax, and

@@ -1,25 +1,17 @@
 package aiki.sml.trs;
+import aiki.db.*;
 public final class Trs21{
-private static final String TR_GRASS="GRASS";
-private static final String TR_ROCK="ROCK";
-private static final String TR_ROAD="ROAD";
-private static final String TR_WATER="WATER";
-private static final String TR_NOTHING="NOTHING";
-private static final String TR_SNOW="SNOW";
-private static final String TR_ICE="ICE";
-private static final String TR_DESERT="DESERT";
-private static final String TR_BUILDING="BUILDING";
 private Trs21(){}
 static String tr(){
-String f=TR_GRASS+"\tHERBE\n";
-f+=TR_ROCK+"\tROCHE\n";
-f+=TR_ROAD+"\tROUTE\n";
-f+=TR_WATER+"\tEAU\n";
-f+=TR_NOTHING+"\tRIEN\n";
-f+=TR_SNOW+"\tNEIGE\n";
-f+=TR_ICE+"\tGLACE\n";
-f+=TR_DESERT+"\tDESERT\n";
-f+=TR_BUILDING+"\tBATIMENT\n";
+String f=DataBase.DEF_ENV_GRASS+"\tHERBE\n";
+f+=DataBase.DEF_ENV_ROCK+"\tROCHE\n";
+f+=DataBase.DEF_ENV_ROAD+"\tROUTE\n";
+f+=DataBase.DEF_ENV_WATER+"\tEAU\n";
+f+=DataBase.DEF_ENV_NOTHING+"\tRIEN\n";
+f+=DataBase.DEF_ENV_SNOW+"\tNEIGE\n";
+f+=DataBase.DEF_ENV_ICE+"\tGLACE\n";
+f+=DataBase.DEF_ENV_DESERT+"\tDESERT\n";
+f+=DataBase.DEF_ENV_BUILDING+"\tBATIMENT\n";
 return f;
 }
 }

@@ -1,10 +1,11 @@
 package aiki.map.enums;
+import aiki.db.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 
 public enum Direction {
-    UP((byte)0,(byte)-1, "UP"),DOWN((byte)0,(byte)1, "DOWN"),LEFT((byte)-1,(byte)0, "LEFT"),RIGHT((byte)1,(byte)0, "RIGHT");
+    UP((byte)0,(byte)-1, DataBase.DEF_DIR_UP),DOWN((byte)0,(byte)1, DataBase.DEF_DIR_DOWN),LEFT((byte)-1,(byte)0, DataBase.DEF_DIR_LEFT),RIGHT((byte)1,(byte)0, DataBase.DEF_DIR_RIGHT);
     private final byte xCoords;
     private final byte yCoords;
     private final String dirName;

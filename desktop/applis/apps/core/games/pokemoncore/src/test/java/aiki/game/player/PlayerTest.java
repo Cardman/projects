@@ -29,8 +29,8 @@ import code.util.StringMap;
 public class PlayerTest extends InitializationDataBase {
 
     private static final String SAMPLE_NICKNAME = "TOTO";
-    private static final String CARD_BOY = Player.DEFAULT_NICKNAME_PREFIX+"BOY";
-    private static final String CARD_GIRL = Player.DEFAULT_NICKNAME_PREFIX+"GIRL";
+    private static final String CARD_BOY = Player.DEFAULT_NICKNAME_PREFIX+DataBase.DEF_SEX_BOY;
+    private static final String CARD_GIRL = Player.DEFAULT_NICKNAME_PREFIX+DataBase.DEF_SEX_GIRL;
 
     @Test
     public void initTeam1Test() {

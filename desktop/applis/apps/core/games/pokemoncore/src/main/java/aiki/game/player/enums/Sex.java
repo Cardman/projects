@@ -1,11 +1,12 @@
 package aiki.game.player.enums;
+import aiki.db.*;
 import aiki.facade.SexListInt;
 import aiki.map.pokemon.enums.Gender;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public enum Sex {
-    GIRL(Gender.FEMALE, "GIRL"),BOY(Gender.MALE, "BOY"),NO(Gender.NO_GENDER,"NO");
+    GIRL(Gender.FEMALE, DataBase.DEF_SEX_GIRL),BOY(Gender.MALE, DataBase.DEF_SEX_BOY),NO(Gender.NO_GENDER,DataBase.DEF_SEX_NO);
     private final Gender gender;
     private final String sexName;
 
