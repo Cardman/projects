@@ -451,7 +451,7 @@ public final class StringExpUtil {
         return true;
     }
     public static boolean isTypeLeafChar(char _ch) {
-        if (isDollarWordChar(_ch)) {
+        if (MathExpUtil.isDollarWordChar(_ch)) {
             return true;
         }
         return _ch == PREFIX_VAR_TYPE_CHAR;
@@ -771,28 +771,6 @@ public final class StringExpUtil {
             return Long.toString(_i);
         }
         return Character.toString((char)(_i+'a'-10));
-    }
-
-    public static StringList getDollarWordSeparators(String _str) {
-        return new AdvWordSplit().loop(_str);
-    }
-
-    public static boolean isDollarWord(String _string) {
-        if (_string.isEmpty()) {
-            return false;
-        }
-        for (char c : _string.toCharArray()) {
-            if (!isDollarWordChar(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    public static boolean isDollarWordChar(char _char) {
-        if (_char == '$') {
-            return true;
-        }
-        return MathExpUtil.isWordChar(_char);
     }
 
     public static boolean matchChars(String _info, int _index, char... _chars) {

@@ -31,6 +31,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -1319,7 +1320,7 @@ public final class ResultExpressionOperationNode {
     private static CustList<SrcFileLocation> young(int _caret, ResultExpressionOperationNode _res, AbstractInstancingOperation _op) {
         int offsetNew_ = _op.getOffsetFct();
         int beginInst_ = offsetNew_ + _res.begin(_op);
-        int lengthInst_ = StringExpUtil.getDollarWordSeparators(_op.getMethodName()).get(1).length();
+        int lengthInst_ = MathExpUtil.getDollarWordSeparators(_op.getMethodName()).get(1).length();
         if (_op instanceof StandardInstancingOperation&&((StandardInstancingOperation) _op).getInnerElt() != null||inRange(beginInst_, _caret,beginInst_+lengthInst_)) {
             return now(beginInst_,_op);
         }

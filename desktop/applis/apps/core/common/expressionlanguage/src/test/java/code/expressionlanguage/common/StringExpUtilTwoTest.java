@@ -2,6 +2,7 @@ package code.expressionlanguage.common;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.tsts.TstsCharacters;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -20549,14 +20550,14 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators1Test(){
         String string_ = ";./:";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(1, parts_.size());
         assertEq(";./:", parts_.first());
     }
     @Test
     public void getDollarWordSeparators2Test(){
         String string_ = "hello";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(2, parts_.size());
         assertEq("", parts_.get(0));
         assertEq("hello", parts_.get(1));
@@ -20564,7 +20565,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators3Test(){
         String string_ = ";hello";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(2, parts_.size());
         assertEq(";", parts_.get(0));
         assertEq("hello", parts_.get(1));
@@ -20572,7 +20573,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators4Test(){
         String string_ = "hello;";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(3, parts_.size());
         assertEq("", parts_.get(0));
         assertEq("hello", parts_.get(1));
@@ -20581,7 +20582,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators5Test(){
         String string_ = ":hello;";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(3, parts_.size());
         assertEq(":", parts_.get(0));
         assertEq("hello", parts_.get(1));
@@ -20590,7 +20591,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators6Test(){
         String string_ = ":hello;world!";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(5, parts_.size());
         assertEq(":", parts_.get(0));
         assertEq("hello", parts_.get(1));
@@ -20601,7 +20602,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators7Test(){
         String string_ = ":hello;world";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(4, parts_.size());
         assertEq(":", parts_.get(0));
         assertEq("hello", parts_.get(1));
@@ -20611,7 +20612,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators8Test(){
         String string_ = ":hello;,world";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(4, parts_.size());
         assertEq(":", parts_.get(0));
         assertEq("hello", parts_.get(1));
@@ -20621,13 +20622,13 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators9Test(){
         String string_ = "";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(0, parts_.size());
     }
     @Test
     public void getDollarWordSeparators10Test(){
         String string_ = ":hello_one;,world_one";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(4, parts_.size());
         assertEq(":", parts_.get(0));
         assertEq("hello_one", parts_.get(1));
@@ -20637,7 +20638,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void getDollarWordSeparators11Test(){
         String string_ = ":hello$one;,world$one";
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(string_);
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
         assertEq(4, parts_.size());
         assertEq(":", parts_.get(0));
         assertEq("hello$one", parts_.get(1));
@@ -20646,31 +20647,31 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     }
     @Test
     public void isDollarWord1Test(){
-        assertTrue(StringExpUtil.isDollarWord("1"));
+        assertTrue(MathExpUtil.isDollarWord("1"));
     }
     @Test
     public void isDollarWord2Test(){
-        assertTrue(StringExpUtil.isDollarWord("a"));
+        assertTrue(MathExpUtil.isDollarWord("a"));
     }
     @Test
     public void isDollarWord3Test(){
-        assertTrue(!StringExpUtil.isDollarWord("-1"));
+        assertTrue(!MathExpUtil.isDollarWord("-1"));
     }
     @Test
     public void isDollarWord4Test(){
-        assertTrue(!StringExpUtil.isDollarWord("-a"));
+        assertTrue(!MathExpUtil.isDollarWord("-a"));
     }
     @Test
     public void isDollarWord5Test(){
-        assertTrue(!StringExpUtil.isDollarWord("-"));
+        assertTrue(!MathExpUtil.isDollarWord("-"));
     }
     @Test
     public void isDollarWord6Test(){
-        assertTrue(!StringExpUtil.isDollarWord(""));
+        assertTrue(!MathExpUtil.isDollarWord(""));
     }
     @Test
     public void isDollarWord7Test(){
-        assertTrue(StringExpUtil.isDollarWord("$"));
+        assertTrue(MathExpUtil.isDollarWord("$"));
     }
 
 }

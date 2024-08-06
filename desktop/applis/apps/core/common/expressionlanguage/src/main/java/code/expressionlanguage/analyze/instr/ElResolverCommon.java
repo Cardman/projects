@@ -8,6 +8,7 @@ import code.expressionlanguage.common.StringDataLetterUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.SuffixedNumber;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.CharList;
 import code.util.Ints;
 import code.util.core.StringUtil;
@@ -602,14 +603,14 @@ public final class ElResolverCommon {
     }
 
     private static boolean unexpectedWordChars(KeyWords _key, String _string, int _j, char _cur) {
-        return hasSpaceByWordChar(_key, _string, _j, _cur)|| StringExpUtil.isDollarWordChar(_cur);
+        return hasSpaceByWordChar(_key, _string, _j, _cur)|| MathExpUtil.isDollarWordChar(_cur);
     }
 
     private static boolean hasSpaceByWordChar(KeyWords _key, String _string, int _j, char _ch) {
         if (StringUtil.isWhitespace(_ch) ) {
             int len_ = _string.length();
             int n_ = StringExpUtil.nextPrintChar(_j, len_, _string);
-            return n_ > -1 && StringExpUtil.isDollarWordChar(_string.charAt(n_)) && !StringExpUtil.startsWithKeyWord(_string, n_, _key.getKeyWordInstanceof());
+            return n_ > -1 && MathExpUtil.isDollarWordChar(_string.charAt(n_)) && !StringExpUtil.startsWithKeyWord(_string, n_, _key.getKeyWordInstanceof());
         }
         return false;
     }

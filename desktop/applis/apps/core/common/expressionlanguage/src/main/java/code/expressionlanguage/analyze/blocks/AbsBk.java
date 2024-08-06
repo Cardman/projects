@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.common.StringExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -84,7 +84,7 @@ public abstract class AbsBk {
             String label_ = ((BreakableBlock)this).getRealLabelInfo().getInfo();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
+                if (!MathExpUtil.isDollarWordChar(c)) {
                     wc_ = false;
                     break;
                 }

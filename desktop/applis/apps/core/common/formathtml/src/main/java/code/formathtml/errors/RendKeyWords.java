@@ -5,6 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.stds.LgNamesContent;
+import code.maths.litteralcom.MathExpUtil;
 import code.sml.*;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -534,7 +535,7 @@ public final class RendKeyWords {
                 _page.addStdError(err_);
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)&&c!='-') {
+                if (!MathExpUtil.isDollarWordChar(c)&&c!='-') {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     _page.addStdError(err_);
@@ -584,7 +585,7 @@ public final class RendKeyWords {
             return "";
         }
         for (char c: keyWordValue_.toCharArray()) {
-            if (!StringExpUtil.isDollarWordChar(c)) {
+            if (!MathExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                 _page.addStdError(err_);

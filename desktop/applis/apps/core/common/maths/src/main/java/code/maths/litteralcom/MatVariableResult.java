@@ -9,12 +9,12 @@ public final class MatVariableResult {
         this.index = _index;
     }
 
-    public static MatVariableResult build(String _string, int _len, int _from) {
+    public static MatVariableResult build(String _string, int _len, int _from, AbstractWordSplit _split) {
         StringBuilder name_ = new StringBuilder();
         int i_ = _from;
         while (i_ < _len) {
             char last_ = _string.charAt(i_);
-            if (!MathExpUtil.isWordChar(last_)) {
+            if (!_split.isWordChar(last_)) {
                 break;
             }
             name_.append(last_);

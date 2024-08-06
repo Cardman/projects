@@ -8,10 +8,10 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.ResultInput;
+import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.sml.NavigationCore;
 import code.util.StringList;
@@ -40,7 +40,7 @@ public abstract class AnaRendInput extends AnaRendElement implements AnaRendInpu
         idName = resultInput.getIdName();
         className = resultInput.getClassName();
         String converterValue_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
-        if (StringExpUtil.isDollarWord(converterValue_.trim())) {
+        if (MathExpUtil.isDollarWord(converterValue_.trim())) {
             Mapping m_ = new Mapping();
             m_.setArg(resultInput.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
@@ -78,7 +78,7 @@ public abstract class AnaRendInput extends AnaRendElement implements AnaRendInpu
             }
         }
         String converterField_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
-        if (StringExpUtil.isDollarWord(converterField_.trim())) {
+        if (MathExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
             _page.setSumOffset(attr_);

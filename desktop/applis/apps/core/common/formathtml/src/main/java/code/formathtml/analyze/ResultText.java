@@ -6,9 +6,9 @@ import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.blocks.AnaRendBlock;
+import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -131,7 +131,7 @@ public final class ResultText {
                 _page.setSumOffset(e.getValue().getSumOffset());
                 RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, e.getValue());
             }
-            if (StringExpUtil.isDollarWord(lk_)) {
+            if (MathExpUtil.isDollarWord(lk_)) {
                 StringList argCla_ = feedArgs(_res,_page);
                 _page.zeroOffset();
                 _page.setSumOffset(colsGrId_);

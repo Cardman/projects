@@ -6,11 +6,11 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
+import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -40,7 +40,7 @@ public final class AnaRendForm extends AnaRendElement implements AnaRendElementA
                 _page.setSumOffset(e.getValue().getSumOffset());
                 RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, e.getValue());
             }
-            if (StringExpUtil.isDollarWord(lk_)) {
+            if (MathExpUtil.isDollarWord(lk_)) {
                 StringList argCla_ = ResultText.feedArgs(res,_page);
                 _page.zeroOffset();
                 _page.setSumOffset(rowsGrId_);

@@ -5,10 +5,10 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
+import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -33,7 +33,7 @@ public final class AnaRendRadio extends AnaRendInput implements AnaRendElementAt
         }
         processAnaInput(getRead(), _anaDoc, _page);
         String converterFieldValue_ = getRead().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
-        if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
+        if (MathExpUtil.isDollarWord(converterFieldValue_.trim())) {
             String object_ = _page.getAliasObject();
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
             _page.setSumOffset(attr_);

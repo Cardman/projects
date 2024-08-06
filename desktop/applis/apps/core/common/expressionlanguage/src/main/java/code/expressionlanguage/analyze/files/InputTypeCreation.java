@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.files;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.FileResolverContext;
 import code.expressionlanguage.common.StringExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -73,7 +74,7 @@ public final class InputTypeCreation {
     }
 
     public void generatedId(String _generated,String _defaultId) {
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(StringExpUtil.getIdFromAllTypes(_generated.trim()));
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(StringExpUtil.getIdFromAllTypes(_generated.trim()));
         if (parts_.isEmpty()) {
             generatedId = _defaultId;
         } else {

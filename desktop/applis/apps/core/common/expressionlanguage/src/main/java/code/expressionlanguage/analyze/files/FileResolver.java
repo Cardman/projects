@@ -14,6 +14,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.AnaClassContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -587,12 +588,12 @@ public final class FileResolver {
         String keyWordNormal_ = _keyWords.getKeyWordNormal();
         String keyWordStaticCall_ = _keyWords.getKeyWordStaticCall();
         String keyWordThat_ = _keyWords.getKeyWordThat();
-        StringList wordsSep_ = StringExpUtil.getDollarWordSeparators(trimmedAfterAccess_);
+        StringList wordsSep_ = MathExpUtil.getDollarWordSeparators(trimmedAfterAccess_);
         int i_ = 0;
         int len_ = wordsSep_.size();
         while (i_ < len_) {
             String ws_ = wordsSep_.get(i_);
-            if (StringExpUtil.isDollarWord(ws_) && !StringUtil.quickEq(ws_, keyWordNormal_) && !StringUtil.quickEq(ws_, keyWordAbstract_) && !StringUtil.quickEq(ws_, keyWordStatic_) && !StringUtil.quickEq(ws_, keyWordStaticCall_) && !StringUtil.quickEq(ws_, keyWordThat_) && !StringUtil.quickEq(ws_, keyWordFinal_)) {
+            if (MathExpUtil.isDollarWord(ws_) && !StringUtil.quickEq(ws_, keyWordNormal_) && !StringUtil.quickEq(ws_, keyWordAbstract_) && !StringUtil.quickEq(ws_, keyWordStatic_) && !StringUtil.quickEq(ws_, keyWordStaticCall_) && !StringUtil.quickEq(ws_, keyWordThat_) && !StringUtil.quickEq(ws_, keyWordFinal_)) {
                 break;
             }
             i_++;

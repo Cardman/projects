@@ -7,6 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.stds.LgNamesContent;
+import code.maths.litteralcom.MathExpUtil;
 import code.sml.util.TranslationsFile;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -425,7 +426,7 @@ public static TranslationsFile fr(){
     private void checkKeyWordChars(AnalyzedPageEl _page, String _keyWordValue) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
         for (char c: _keyWordValue.toCharArray()) {
-            if (!StringExpUtil.isDollarWordChar(c)) {
+            if (!MathExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(), _keyWordValue,Character.toString(c)));
                 _page.addStdError(err_);
@@ -458,7 +459,7 @@ public static TranslationsFile fr(){
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
+                if (!MathExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_, Character.toString(c)));
                     _page.addStdError(err_);
@@ -537,7 +538,7 @@ public static TranslationsFile fr(){
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     _page.addStdError(err_);
                 }
-                if (!StringExpUtil.isDollarWordChar(c)) {
+                if (!MathExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     _page.addStdError(err_);
@@ -656,7 +657,7 @@ public static TranslationsFile fr(){
             return;
         }
         for (char c: keyWordNbHexEnd.toCharArray()) {
-            if (!StringExpUtil.isDollarWordChar(c)) {
+            if (!MathExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
                 _page.addStdError(err_);
@@ -690,7 +691,7 @@ public static TranslationsFile fr(){
             return;
         }
         for (char c: _sep.toCharArray()) {
-            if (!StringExpUtil.isDollarWordChar(c)) {
+            if (!MathExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalChar(),_sep,Character.toString(c)));
                 _page.addStdError(err_);
@@ -726,7 +727,7 @@ public static TranslationsFile fr(){
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalChar(),keyWordNbExpBin,Character.toString(c)));
                 _page.addStdError(err_);
             }
-            if (!StringExpUtil.isDollarWordChar(c)) {
+            if (!MathExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalChar(),keyWordNbExpBin,Character.toString(c)));
                 _page.addStdError(err_);

@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.core.StringUtil;
 
 public final class ManageTokens {
@@ -92,7 +93,7 @@ public final class ManageTokens {
     }
 
     public TokenErrorMessage checkToken(String _id, TokenCheckerContext _analyzing) {
-        if (!StringExpUtil.isDollarWord(_id)) {
+        if (!MathExpUtil.isDollarWord(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
         }
         if (AnaTypeUtil.isPrimitive(_id, _analyzing.getPrims())) {

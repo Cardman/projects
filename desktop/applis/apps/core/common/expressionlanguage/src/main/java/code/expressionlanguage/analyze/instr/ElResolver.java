@@ -15,6 +15,7 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.CharList;
 import code.util.Ints;
@@ -1352,7 +1353,7 @@ public final class ElResolver {
         String subTrim_ = sub_.trim();
         int off_ = StringUtil.getFirstPrintableCharIndex(sub_);
         int beginWord_ = afterLeftPar_ + off_;
-        if (StringExpUtil.isDollarWordChar(_string.charAt(beginWord_))&&AnaPartTypeUtil.isCorrectType(subTrim_, new StringList())) {
+        if (MathExpUtil.isDollarWordChar(_string.charAt(beginWord_))&&AnaPartTypeUtil.isCorrectType(subTrim_, new StringList())) {
             if (!isAlwaysType(_string, subTrim_, next_)) {
                 int inc_ = incrAfterWord(beginWord_, _string);
                 String word_ = _string.substring(beginWord_, inc_);
@@ -2130,7 +2131,7 @@ public final class ElResolver {
     }
 
     private static boolean isAlwaysType(String _string, int _next) {
-        if (StringExpUtil.isDollarWordChar(_string.charAt(_next))) {
+        if (MathExpUtil.isDollarWordChar(_string.charAt(_next))) {
             return true;
         }
         for (char s: CharList.wrapCharArray('~','!',
@@ -2150,7 +2151,7 @@ public final class ElResolver {
             return false;
         }
         int nextAfter_ = StringExpUtil.nextPrintChar(_next +2, _string.length(), _string);
-        if (nextAfter_ > -1 && StringExpUtil.isDollarWordChar(_string.charAt(nextAfter_))) {
+        if (nextAfter_ > -1 && MathExpUtil.isDollarWordChar(_string.charAt(nextAfter_))) {
             return true;
         }
         if (_string.startsWith("!=",nextAfter_)) {

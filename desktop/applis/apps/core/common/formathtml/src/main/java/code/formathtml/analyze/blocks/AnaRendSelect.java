@@ -19,6 +19,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
+import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.sml.NavigationCore;
 import code.util.CustList;
@@ -61,7 +62,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
         rootMap = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionMap);
         String converterValue_ = getElt().getAttribute(_anaDoc.getRendKeyWords().getAttrConvertValue());
         if (multiple) {
-            if (!StringExpUtil.isDollarWord(converterValue_.trim())) {
+            if (!MathExpUtil.isDollarWord(converterValue_.trim())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(getOffset());
@@ -82,7 +83,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
             m_.setArg(resultInput.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                if (!StringExpUtil.isDollarWord(converterValue_.trim())) {
+                if (!MathExpUtil.isDollarWord(converterValue_.trim())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(getOffset());
@@ -91,12 +92,12 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
                     AnalyzingDoc.addError(badEl_, _page);
                 }
                 checkConverter(_anaDoc, _page, converterValue_, m_);
-            } else if (StringExpUtil.isDollarWord(converterValue_.trim())) {
+            } else if (MathExpUtil.isDollarWord(converterValue_.trim())) {
                 checkConverter(_anaDoc, _page, converterValue_, m_);
             }
         }
         String converterField_ = getElt().getAttribute(_anaDoc.getRendKeyWords().getAttrConvertField());
-        if (StringExpUtil.isDollarWord(converterField_.trim())) {
+        if (MathExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertField());
             _page.setSumOffset(offConvValue_);
@@ -106,7 +107,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
             checkCharSeq(_anaDoc,_page,offConvValue_,classMethodIdReturn_);
         }
         String converterFieldValue_ = getElt().getAttribute(_anaDoc.getRendKeyWords().getAttrConvertFieldValue());
-        if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
+        if (MathExpUtil.isDollarWord(converterFieldValue_.trim())) {
             String object_ = _page.getAliasObject();
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvertFieldValue());
             _page.setSumOffset(offConvValue_);
@@ -152,7 +153,7 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
         String default_ = getElt().getAttribute(_anaDoc.getRendKeyWords().getAttrDefault());
         if (!default_.isEmpty()) {
             String mName_ = getElt().getAttribute(_anaDoc.getRendKeyWords().getAttrConvert());
-            if (!StringExpUtil.isDollarWord(mName_.trim())) {
+            if (!MathExpUtil.isDollarWord(mName_.trim())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(getOffset());

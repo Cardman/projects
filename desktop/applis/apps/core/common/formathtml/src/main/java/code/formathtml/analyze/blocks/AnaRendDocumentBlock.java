@@ -8,11 +8,11 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AbstractFileEscapedCalc;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.structs.BeanInfo;
+import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -208,7 +208,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             String label_ = ((AnaRendLocBreakableBlock)_block).getRealLabel();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
+                if (!MathExpUtil.isDollarWordChar(c)) {
                     wc_ = false;
                     break;
                 }

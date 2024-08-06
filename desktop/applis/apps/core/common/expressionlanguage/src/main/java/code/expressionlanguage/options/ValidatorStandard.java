@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.stds.AliasNumberType;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -39,7 +40,7 @@ public final class ValidatorStandard {
                 _page.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
+                if (!MathExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharPrimitive(),key_,value_));
                     _page.addStdError(err_);
@@ -122,7 +123,7 @@ public final class ValidatorStandard {
                 _page.addStdError(err_);
             }
             for (char c: p.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
+                if (!MathExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharRefType(),key_,value_));
                     _page.addStdError(err_);
@@ -200,7 +201,7 @@ public final class ValidatorStandard {
                 _page.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
-                if (!StringExpUtil.isDollarWordChar(c)) {
+                if (!MathExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharMethod(),value_, _key,Character.toString(c)));
                     _page.addStdError(err_);
@@ -286,7 +287,7 @@ public final class ValidatorStandard {
             _page.addStdError(err_);
         }
         for (char c: value_.toCharArray()) {
-            if (!StringExpUtil.isDollarWordChar(c)) {
+            if (!MathExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharField(),value_, _list.getKey(),key_));
                 _page.addStdError(err_);
@@ -347,7 +348,7 @@ public final class ValidatorStandard {
             _page.addStdError(err_);
         }
         for (char c: value_.toCharArray()) {
-            if (!StringExpUtil.isDollarWordChar(c)) {
+            if (!MathExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharVarType(),value_, _list.getKey(),key_));
                 _page.addStdError(err_);

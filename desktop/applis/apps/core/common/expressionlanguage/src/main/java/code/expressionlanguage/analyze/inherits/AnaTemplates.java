@@ -13,6 +13,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 
+import code.maths.litteralcom.MathExpUtil;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -90,7 +91,7 @@ public final class AnaTemplates {
         }
         tr_ = tr_.substring(0, tr_.length() - 1).trim();
         for (String p: StringUtil.splitChars(tr_,'.')) {
-            if (p.isEmpty() || StringExpUtil.isDollarWord(p.trim())) {
+            if (p.isEmpty() || MathExpUtil.isDollarWord(p.trim())) {
                 continue;
             }
             return null;

@@ -148,7 +148,7 @@ public final class MathResolver {
         }
         MatVariableInfo var_ = new MatVariableInfo();
         var_.setFirstChar(_from);
-        MatVariableResult res_ = MatVariableResult.build(_string, _len, _from);
+        MatVariableResult res_ = MatVariableResult.build(_string, _len, _from, new AdvWordSplit());
         int i_ = res_.getIndex();
         var_.setLastChar(i_);
         var_.setName(res_.getName());

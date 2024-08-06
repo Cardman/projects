@@ -24,6 +24,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -1489,7 +1490,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (skip_) {
                 continue;
             }
-            if (!StringExpUtil.isDollarWord(cst_.getClassMethodId().getName())) {
+            if (!MathExpUtil.isDollarWord(cst_.getClassMethodId().getName())) {
                 StringList retClasses_ = new StringList();
                 for (MethodInfo s: e.getMethodInfos()) {
                     retClasses_.add(s.getReturnType());
@@ -1525,7 +1526,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private static void lookForFinal(StringMap<StringList> _vars, AnalyzedPageEl _page, CustList<MethodIdAncestors> _output, MethodIdAncestors _e) {
         MethodIdAncestor cst_ = _e.getClassMethodId();
         CustList<MethodInfo> fClasses_ = finalMethods(_e);
-        if (StringExpUtil.isDollarWord(cst_.getClassMethodId().getName()) && fClasses_.size() == 1) {
+        if (MathExpUtil.isDollarWord(cst_.getClassMethodId().getName()) && fClasses_.size() == 1) {
             MethodInfo subInt_ = fClasses_.first();
             String subType_ = subInt_.getReturnType();
             boolean err_ = false;
@@ -1580,7 +1581,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
             retClasses_.add(s.getReturnType());
         }
-        if (StringExpUtil.isDollarWord(cst_.getClassMethodId().getName()) && fClasses_.size() != 1) {
+        if (MathExpUtil.isDollarWord(cst_.getClassMethodId().getName()) && fClasses_.size() != 1) {
             StringList subs_ = subs(_vars, _page, retClasses_);
             if (!subs_.onlyOneElt()) {
                 for (MethodInfo c : classes_) {

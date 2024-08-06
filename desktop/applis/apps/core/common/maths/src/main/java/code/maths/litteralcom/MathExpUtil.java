@@ -93,6 +93,18 @@ public final class MathExpUtil {
         return true;
     }
 
+    public static boolean isDollarWord(String _string) {
+        if (_string.isEmpty()) {
+            return false;
+        }
+        for (char c : _string.toCharArray()) {
+            if (!isDollarWordChar(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean isDigit(char _ch) {
         return NumberUtil.isDigit(_ch);
     }
@@ -141,6 +153,16 @@ public final class MathExpUtil {
         return new DefaultWordSplit().loop(_str);
     }
 
+    public static StringList getDollarWordSeparators(String _str) {
+        return new AdvWordSplit().loop(_str);
+    }
+
+    public static boolean isDollarWordChar(char _char) {
+        if (_char == '$') {
+            return true;
+        }
+        return isWordChar(_char);
+    }
     public static boolean isWordChar(char _char) {
         if (_char == CHAR_WORD_OTHER) {
             return true;

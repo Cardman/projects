@@ -1,5 +1,6 @@
 package code.expressionlanguage.common;
 
+import code.maths.litteralcom.MathExpUtil;
 import code.util.StringMap;
 
 public abstract class AbstractReplacingType {
@@ -59,7 +60,7 @@ public abstract class AbstractReplacingType {
             _str.append(_ch);
             return true;
         }
-        return StringExpUtil.isDollarWordChar(_ch);
+        return MathExpUtil.isDollarWordChar(_ch);
     }
 
     protected boolean isVariable() {

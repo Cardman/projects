@@ -96,6 +96,104 @@ public class MathExpUtilTest extends EquallableMathUtil {
         assertEq("world_one", parts_.get(3));
     }
     @Test
+    public void getDollarWordsSeparators1Test(){
+        String string_ = ";./:";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(1, parts_.size());
+        assertEq(";./:", parts_.first());
+    }
+    @Test
+    public void getDollarWordsSeparators2Test(){
+        String string_ = "hello";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(2, parts_.size());
+        assertEq("", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+    }
+    @Test
+    public void getDollarWordsSeparators3Test(){
+        String string_ = ";hello";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(2, parts_.size());
+        assertEq(";", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+    }
+    @Test
+    public void getDollarWordsSeparators4Test(){
+        String string_ = "hello;";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(3, parts_.size());
+        assertEq("", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";", parts_.get(2));
+    }
+    @Test
+    public void getDollarWordsSeparators5Test(){
+        String string_ = ":hello;";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(3, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";", parts_.get(2));
+    }
+    @Test
+    public void getDollarWordsSeparators6Test(){
+        String string_ = ":hello;world!";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(5, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";", parts_.get(2));
+        assertEq("world", parts_.get(3));
+        assertEq("!", parts_.get(4));
+    }
+    @Test
+    public void getDollarWordsSeparators7Test(){
+        String string_ = ":hello;world";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(4, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";", parts_.get(2));
+        assertEq("world", parts_.get(3));
+    }
+    @Test
+    public void getDollarWordsSeparators8Test(){
+        String string_ = ":hello;,world";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(4, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";,", parts_.get(2));
+        assertEq("world", parts_.get(3));
+    }
+    @Test
+    public void getDollarWordsSeparators9Test(){
+        String string_ = "";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(0, parts_.size());
+    }
+    @Test
+    public void getDollarWordsSeparators10Test(){
+        String string_ = ":hello_one;,world_one";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(4, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello_one", parts_.get(1));
+        assertEq(";,", parts_.get(2));
+        assertEq("world_one", parts_.get(3));
+    }
+    @Test
+    public void getDollarWordsSeparators11Test(){
+        String string_ = ":hello$one;,world$one";
+        StringList parts_ = MathExpUtil.getDollarWordSeparators(string_);
+        assertEq(4, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello$one", parts_.get(1));
+        assertEq(";,", parts_.get(2));
+        assertEq("world$one", parts_.get(3));
+    }
+    @Test
     public void getWordsSeparatorsPrefix1Test(){
         String string_ = "";
         StringList parts_ = MathExpUtil.getWordsSeparatorsPrefix(string_,"word_");
@@ -264,6 +362,34 @@ public class MathExpUtilTest extends EquallableMathUtil {
     @Test
     public void isWord7Test(){
         assertTrue(!MathExpUtil.isWord("$"));
+    }
+    @Test
+    public void isDollarWord1Test(){
+        assertTrue(MathExpUtil.isDollarWord("1"));
+    }
+    @Test
+    public void isDollarWord2Test(){
+        assertTrue(MathExpUtil.isDollarWord("a"));
+    }
+    @Test
+    public void isDollarWord3Test(){
+        assertTrue(!MathExpUtil.isDollarWord("-1"));
+    }
+    @Test
+    public void isDollarWord4Test(){
+        assertTrue(!MathExpUtil.isDollarWord("-a"));
+    }
+    @Test
+    public void isDollarWord5Test(){
+        assertTrue(!MathExpUtil.isDollarWord("-"));
+    }
+    @Test
+    public void isDollarWord6Test(){
+        assertTrue(!MathExpUtil.isDollarWord(""));
+    }
+    @Test
+    public void isDollarWord7Test(){
+        assertTrue(MathExpUtil.isDollarWord("$"));
     }
     @Test
     public void isPositiveNumber1Test(){
