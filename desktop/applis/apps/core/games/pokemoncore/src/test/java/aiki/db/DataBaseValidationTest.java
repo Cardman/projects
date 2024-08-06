@@ -2014,7 +2014,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         envType_.addEntry(Gender.NO_GENDER,TREMPETTE);
         translatedEnvironment_.addEntry(LANGUAGE, envType_);
         data_.setCheckTranslation(true);
-        data_.checkTranslations("{NO_GENDER}");
+        data_.checkTranslations("{"+DataBase.DEF_GENDER_NO_GENDER+"}");
         assertTrue(!data_.isError());
     }
     @Test
@@ -2098,7 +2098,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         IdMap<Gender, String> envType_ = new IdMap<Gender, String>();
         translatedEnvironment_.addEntry(LANGUAGE, envType_);
         data_.setCheckTranslation(true);
-        data_.checkTranslations("{NO_GENDER}");
+        data_.checkTranslations("{"+DataBase.DEF_GENDER_NO_GENDER+"}");
         assertTrue(data_.isError());
     }
     @Test

@@ -1,13 +1,13 @@
 package aiki.sml.trs;
+
+import aiki.db.*;
+
 public final class Trs22{
-private static final String TR_NO_GENDER="NO_GENDER";
-private static final String TR_FEMALE="FEMALE";
-private static final String TR_MALE="MALE";
 private Trs22(){}
 static String tr(){
-String f=TR_NO_GENDER+"\tASSEXUE\n";
-f+=TR_FEMALE+"\tFEMELLE\n";
-f+=TR_MALE+"\tMALE\n";
+String f= DataBase.DEF_GENDER_NO_GENDER+"\tASSEXUE\n";
+f+=DataBase.DEF_GENDER_FEMALE+"\tFEMELLE\n";
+f+=DataBase.DEF_GENDER_MALE+"\tMALE\n";
 return f;
 }
 }

@@ -1,11 +1,12 @@
 package aiki.map.pokemon.enums;
 
+import aiki.db.*;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.core.StringUtil;
 
 public enum Gender {
-    FEMALE("FEMALE"),MALE("MALE"),NO_GENDER("NO_GENDER"),NONE("");
+    FEMALE(DataBase.DEF_GENDER_FEMALE),MALE(DataBase.DEF_GENDER_MALE),NO_GENDER(DataBase.DEF_GENDER_NO_GENDER),NONE("");
     private final String genderName;
     Gender(String _g) {
         genderName = _g;

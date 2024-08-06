@@ -241,7 +241,7 @@ public final class NetAiki {
         out_.append(_sep);
         out_.append(_pk.getLevel());
         out_.append(_sep);
-        out_.append(_pk.getGender().getGenderName());
+        out_.append(_pk.getGender().getGenderName().substring(1));
         out_.append(_sep);
         out_.append(_pk.getAbility());
         out_.append(_sep);
@@ -279,7 +279,7 @@ public final class NetAiki {
         PokemonPlayer p_ = new PokemonPlayer();
         p_.setName(_infos.get(0));
         p_.setLevel((short) NumberUtil.parseInt(_infos.get(1)));
-        p_.setGender(Gender.getGenderByName(_infos.get(2)));
+        p_.setGender(Gender.getGenderByName("$"+_infos.get(2)));
         p_.setAbility(_infos.get(3));
         p_.setItem(_infos.get(4));
         p_.setNickname(unescapeId(_infos.get(5)));

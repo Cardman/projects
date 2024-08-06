@@ -305,7 +305,7 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test48() {
-        assertSame(Gender.NO_GENDER,Gender.getGenderByName("NO_GENDER"));
+        assertSame(Gender.NO_GENDER,Gender.getGenderByName(DataBase.DEF_GENDER_NO_GENDER));
     }
     @Test
     public void test49() {

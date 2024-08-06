@@ -306,18 +306,6 @@ public class DataBase {
     public static final String TRANSLATION_CLASSES = "classes.txt";
     public static final String TRANSLATION_LITTERAL = "litteral.txt";
 
-//    public static final String DEF_STAT_HP= "HP";
-//    public static final String DEF_STAT_ATTACK= "ATTACK";
-//    public static final String DEF_STAT_DEFENSE= "DEFENSE";
-//    public static final String DEF_STAT_SPECIAL_ATTACK= "SPECIAL_ATTACK";
-//    public static final String DEF_STAT_SPECIAL_DEFENSE= "SPECIAL_DEFENSE";
-//    public static final String DEF_STAT_SPEED= "SPEED";
-//    public static final String DEF_STAT_ACCURACY= "ACCURACY";
-//    public static final String DEF_STAT_EVASINESS= "EVASINESS";
-//    public static final String DEF_STAT_CRITICAL_HIT= "CRITICAL_HIT";
-//    public static final String DEF_STAT_PV_RESTANTS= "PV_RESTANTS";
-
-
     public static final String DEF_STAT_HP= "$0";
     public static final String DEF_STAT_ATTACK= "$1";
     public static final String DEF_STAT_DEFENSE= "$2";
@@ -328,6 +316,10 @@ public class DataBase {
     public static final String DEF_STAT_EVASINESS= "$7";
     public static final String DEF_STAT_CRITICAL_HIT= "$8";
     public static final String DEF_STAT_PV_RESTANTS= "$9";
+
+    public static final String DEF_GENDER_FEMALE= "$10";
+    public static final String DEF_GENDER_MALE= "$11";
+    public static final String DEF_GENDER_NO_GENDER= "$12";
 
     /**
      * The custom beans can be modified but they must have a common base package
