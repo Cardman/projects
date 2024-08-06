@@ -102,7 +102,7 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test8() {
-        StatisticPokemon c_ = StatisticPokemon.newStatisticPokemon("SPEED;");
+        StatisticPokemon c_ = StatisticPokemon.newStatisticPokemon(DataBase.DEF_STAT_SPEED+";");
         c_.display();
         assertEq(Statistic.SPEED,c_.getStatistic());
     }

@@ -41,7 +41,7 @@ public final class MathResolver {
             procStr(_string, _error, _d, _len, _m, _elt, curChar_);
             return;
         }
-        if (MathExpUtil.isWordChar(curChar_)) {
+        if (MathExpUtil.isDollarWordChar(curChar_)) {
             _m.setIndex(processWordChar(_string, _d, _len, _m.getIndex(), curChar_));
             return;
         }

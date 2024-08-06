@@ -1984,7 +1984,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         envType_.addEntry(Statistic.SPEED,TREMPETTE);
         translatedEnvironment_.addEntry(LANGUAGE, envType_);
         data_.setCheckTranslation(true);
-        data_.checkTranslations("{SPEED}");
+        data_.checkTranslations("{"+DataBase.DEF_STAT_SPEED+"}");
         assertTrue(!data_.isError());
     }
     @Test
@@ -2069,7 +2069,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         IdMap<Statistic, String> envType_ = new IdMap<Statistic, String>();
         translatedEnvironment_.addEntry(LANGUAGE, envType_);
         data_.setCheckTranslation(true);
-        data_.checkTranslations("{SPEED}");
+        data_.checkTranslations("{"+DataBase.DEF_STAT_SPEED+"}");
         assertTrue(data_.isError());
     }
     @Test
@@ -2258,7 +2258,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
         litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
-        assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__SPEED",LANGUAGE));
+        assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__"+DataBase.DEF_STAT_SPEED,LANGUAGE));
     }
     @Test
     public void getFormula6Test() {
@@ -2308,7 +2308,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
         litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
-        assertEq("{TREMPETTE2}", data_.getFormula("{SPEED}",LANGUAGE));
+        assertEq("{TREMPETTE2}", data_.getFormula("{"+DataBase.DEF_STAT_SPEED+"}",LANGUAGE));
     }
     @Test
     public void getFormula11Test() {
@@ -2328,7 +2328,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
         litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
-        assertEq("{mvTREMPETTE2}", data_.getFormula("{VAR__MYVAR__SPEED}",LANGUAGE));
+        assertEq("{mvTREMPETTE2}", data_.getFormula("{VAR__MYVAR__"+DataBase.DEF_STAT_SPEED+"}",LANGUAGE));
     }
     @Test
     public void getFormula13Test() {

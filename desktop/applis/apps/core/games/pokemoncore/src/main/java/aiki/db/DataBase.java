@@ -306,6 +306,29 @@ public class DataBase {
     public static final String TRANSLATION_CLASSES = "classes.txt";
     public static final String TRANSLATION_LITTERAL = "litteral.txt";
 
+//    public static final String DEF_STAT_HP= "HP";
+//    public static final String DEF_STAT_ATTACK= "ATTACK";
+//    public static final String DEF_STAT_DEFENSE= "DEFENSE";
+//    public static final String DEF_STAT_SPECIAL_ATTACK= "SPECIAL_ATTACK";
+//    public static final String DEF_STAT_SPECIAL_DEFENSE= "SPECIAL_DEFENSE";
+//    public static final String DEF_STAT_SPEED= "SPEED";
+//    public static final String DEF_STAT_ACCURACY= "ACCURACY";
+//    public static final String DEF_STAT_EVASINESS= "EVASINESS";
+//    public static final String DEF_STAT_CRITICAL_HIT= "CRITICAL_HIT";
+//    public static final String DEF_STAT_PV_RESTANTS= "PV_RESTANTS";
+
+
+    public static final String DEF_STAT_HP= "$0";
+    public static final String DEF_STAT_ATTACK= "$1";
+    public static final String DEF_STAT_DEFENSE= "$2";
+    public static final String DEF_STAT_SPECIAL_ATTACK= "$3";
+    public static final String DEF_STAT_SPECIAL_DEFENSE= "$4";
+    public static final String DEF_STAT_SPEED= "$5";
+    public static final String DEF_STAT_ACCURACY= "$6";
+    public static final String DEF_STAT_EVASINESS= "$7";
+    public static final String DEF_STAT_CRITICAL_HIT= "$8";
+    public static final String DEF_STAT_PV_RESTANTS= "$9";
+
     /**
      * The custom beans can be modified but they must have a common base package
      * Avoid to recompile classes in standard packages like java, javax, and
@@ -4325,7 +4348,7 @@ public class DataBase {
                 if (_litt.charAt(i_) != '}') {
                     br_ = true;
                 }
-            } else if (MathExpUtil.isWordChar(cur_)|| _litt.startsWith(getTrueString(), i_)|| _litt.startsWith(getFalseString(), i_)) {
+            } else if (MathExpUtil.isDollarWordChar(cur_)|| _litt.startsWith(getTrueString(), i_)|| _litt.startsWith(getFalseString(), i_)) {
                 boolean dig_ = MathExpUtil.isDigit(cur_);
 //                int j_ = i_;
 //                while (MathExpUtil.isWordChar(cur_)) {
@@ -4350,7 +4373,7 @@ public class DataBase {
 
     private int delta(char _cur) {
         int delta_ = 0;
-        if (!MathExpUtil.isWordChar(_cur)) {
+        if (!MathExpUtil.isDollarWordChar(_cur)) {
 //                    cur_ = _litt.charAt(j_);
             delta_++;
         }
@@ -4359,7 +4382,7 @@ public class DataBase {
 
     private int possibleIncr(int _i, char _cur) {
         int j_ = _i;
-        if (!MathExpUtil.isWordChar(_cur)) {
+        if (!MathExpUtil.isDollarWordChar(_cur)) {
             j_++;
         }
         return j_;
@@ -4368,7 +4391,7 @@ public class DataBase {
     private int incr(String _litt, int _j) {
         int j_ = _j;
         char cur_ = _litt.charAt(j_);
-        while (MathExpUtil.isWordChar(cur_)) {
+        while (MathExpUtil.isDollarWordChar(cur_)) {
             j_++;
             cur_ = _litt.charAt(j_);
         }
@@ -4393,7 +4416,7 @@ public class DataBase {
         }
         char cur_ = _litt.charAt(_i);
         int j_ = _i;
-        while (MathExpUtil.isWordChar(cur_)) {
+        while (MathExpUtil.isDollarWordChar(cur_)) {
             j_++;
             if (j_ >= _litt.length()) {
                 break;
@@ -4452,7 +4475,7 @@ public class DataBase {
     }
 
     private static StringList getVariableWords(String _str, String _pref) {
-        StringList list_ = MathExpUtil.getWordsSeparators(_str);
+        StringList list_ = MathExpUtil.getDollarWordSeparators(_str);
         StringList newList_ = new StringList();
         int i_ = IndexConstants.FIRST_INDEX;
         for (String t : list_) {
@@ -4565,9 +4588,9 @@ public class DataBase {
     private void checkTranslationsInsideSet(String _s) {
         String insideSet_ = _s.substring(IndexConstants.SECOND_INDEX,
                 _s.length() - 1);
-        StringList words_ = MathExpUtil.getWordsSeparators(insideSet_);
+        StringList words_ = MathExpUtil.getDollarWordSeparators(insideSet_);
         for (String w : words_) {
-            if (!MathExpUtil.isWord(w)) {
+            if (!MathExpUtil.isDollarWord(w)) {
                 if (!w.isEmpty() && !StringUtil.quickEq(w,
                         Character.toString(getSepartorSetChar()))) {
                             setError(true);

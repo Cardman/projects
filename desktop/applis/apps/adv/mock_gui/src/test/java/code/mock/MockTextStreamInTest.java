@@ -31,4 +31,8 @@ public final class MockTextStreamInTest extends EquallableMockGuiUtil {
     public void t5() {
         assertTrue(new MockNameValidating().ok("a.b"));
     }
+    @Test
+    public void t6() {
+        assertTrue(new MockNameValidating().ok("a.b$"));
+    }
 }

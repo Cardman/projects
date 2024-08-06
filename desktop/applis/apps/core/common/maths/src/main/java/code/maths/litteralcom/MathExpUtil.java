@@ -110,7 +110,7 @@ public final class MathExpUtil {
     }
 
     public static StringList getWordsSeparatorsPrefix(String _str, String _prefixWord) {
-        StringList list_ = getWordsSeparators(_str);
+        StringList list_ = getDollarWordSeparators(_str);
         StringList newList_ = new StringList();
         int i_ = IndexConstants.FIRST_INDEX;
         for (String t : list_) {
@@ -137,7 +137,7 @@ public final class MathExpUtil {
     }
 
     private static StringList replaceWords(String _str, ListableEntries<String, String> _map) {
-        StringList list_ = getWordsSeparators(_str);
+        StringList list_ = getDollarWordSeparators(_str);
         StringList newList_ = new StringList();
         for (String t : list_) {
             if (_map.contains(t)) {

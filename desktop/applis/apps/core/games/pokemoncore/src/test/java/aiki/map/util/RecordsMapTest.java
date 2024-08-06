@@ -1,5 +1,6 @@
 package aiki.map.util;
 
+import aiki.db.DataBase;
 import aiki.db.EquallablePkUtil;
 import aiki.fight.util.*;
 import aiki.map.Condition;
@@ -49,23 +50,23 @@ public final class RecordsMapTest extends EquallablePkUtil {
         StatisticPokemons c_ = new StatisticPokemons();
         c_.getVal(new StatisticPokemon(";"));
         assertTrue(c_.isEmpty());
-        c_.addEntry(new StatisticPokemon("SPEED;"), (byte) 0);
+        c_.addEntry(new StatisticPokemon(DataBase.DEF_STAT_SPEED+";"), (byte) 0);
         assertNotNull(c_.getKeys());
         assertTrue(!c_.isEmpty());
     }
     @Test
     public void test7() {
         WeatherTypes c_ = new WeatherTypes();
-        c_.addEntry(new WeatherType("SPEED;"), Rate.zero());
+        c_.addEntry(new WeatherType(DataBase.DEF_STAT_SPEED+";"), Rate.zero());
         assertNotNull(c_.getVal(new WeatherType("")));
-        assertNotNull(c_.getVal(new WeatherType("SPEED;")));
-        assertNotNull(c_.getVal(new WeatherType("SPEED;_")));
+        assertNotNull(c_.getVal(new WeatherType(DataBase.DEF_STAT_SPEED+";")));
+        assertNotNull(c_.getVal(new WeatherType(DataBase.DEF_STAT_SPEED+";_")));
         assertTrue(!c_.isEmpty());
     }
     @Test
     public void test8() {
         CustList<TypesDuo> typesDuos_ = new CustList<TypesDuo>();
-        typesDuos_.add(new TypesDuo("SPEED;"));
+        typesDuos_.add(new TypesDuo(DataBase.DEF_STAT_SPEED+";"));
         assertFalse(TypesDuos.contains(typesDuos_,new TypesDuo(";")));
         TypesDuos c_ = new TypesDuos();
         assertNotNull(c_.getVal(new TypesDuo(";")));

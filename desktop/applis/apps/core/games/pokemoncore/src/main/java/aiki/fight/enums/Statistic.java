@@ -1,20 +1,21 @@
 package aiki.fight.enums;
+import aiki.db.DataBase;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
 public enum Statistic {
-    HP(true, "HP"),
-    ATTACK(false, "ATTACK"),
-    DEFENSE(false, "DEFENSE"),
-    SPECIAL_ATTACK(false, "SPECIAL_ATTACK"),
-    SPECIAL_DEFENSE(false, "SPECIAL_DEFENSE"),
-    SPEED(true, "SPEED"),
-    ACCURACY(true, "ACCURACY"),
-    EVASINESS(true, "EVASINESS"),
-    CRITICAL_HIT(false, "CRITICAL_HIT"),
-    PV_RESTANTS(true, "PV_RESTANTS"),
+    HP(true, DataBase.DEF_STAT_HP),
+    ATTACK(false, DataBase.DEF_STAT_ATTACK),
+    DEFENSE(false, DataBase.DEF_STAT_DEFENSE),
+    SPECIAL_ATTACK(false, DataBase.DEF_STAT_SPECIAL_ATTACK),
+    SPECIAL_DEFENSE(false, DataBase.DEF_STAT_SPECIAL_DEFENSE),
+    SPEED(true, DataBase.DEF_STAT_SPEED),
+    ACCURACY(true, DataBase.DEF_STAT_ACCURACY),
+    EVASINESS(true, DataBase.DEF_STAT_EVASINESS),
+    CRITICAL_HIT(false, DataBase.DEF_STAT_CRITICAL_HIT),
+    PV_RESTANTS(true, DataBase.DEF_STAT_PV_RESTANTS),
     NOTHING(true, "");
     private final boolean special;
     private final String statName;
