@@ -1,15 +1,11 @@
 package aiki.facade;
 
 import aiki.db.DataBase;
+import aiki.fight.items.*;
 import code.util.CustList;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
-import aiki.fight.items.Berry;
-import aiki.fight.items.HealingHp;
-import aiki.fight.items.HealingHpStatus;
-import aiki.fight.items.HealingPp;
-import aiki.fight.items.HealingStatus;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.player.Inventory;
 import aiki.util.SortingHealingItem;
@@ -929,7 +925,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.one(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -946,7 +942,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP, elt_.getItemClass());
         assertEq(3, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -963,7 +959,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(2500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -980,7 +976,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(1500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(elt_.isKo());
@@ -993,7 +989,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(BAIE_MEPO, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
         assertEq(-1, pagination_.currentIndex());
@@ -1044,7 +1040,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1061,7 +1057,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.one(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1078,7 +1074,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingPp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_PP, elt_.getItemClass());
         assertEq(500, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1095,7 +1091,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingPp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_PP, elt_.getItemClass());
         assertEq(1100, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1112,7 +1108,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingPp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_PP, elt_.getItemClass());
         assertEq(1000, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1129,7 +1125,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(1, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1142,7 +1138,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(BAIE_ORAN, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -1171,7 +1167,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_ = new PaginationHealingItem();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(data_, LANGUAGE);
-        pagination_.getCriteria().setSelectedClass(Berry.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.BERRY);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
         assertEq(4, pagination_.getHealingItems().size());
@@ -1187,7 +1183,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1204,7 +1200,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.one(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1221,7 +1217,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(1, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1238,7 +1234,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1251,7 +1247,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(BAIE_ORAN, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -1281,7 +1277,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_ = new PaginationHealingItem();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(data_, LANGUAGE);
-        pagination_.getCriteria().setSelectedClass(HealingPp.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.HEALING_PP);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
         assertEq(4, pagination_.getHealingItems().size());
@@ -1297,7 +1293,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingPp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_PP, elt_.getItemClass());
         assertEq(500, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1314,7 +1310,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingPp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_PP, elt_.getItemClass());
         assertEq(1100, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1331,7 +1327,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingPp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_PP, elt_.getItemClass());
         assertEq(1000, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1348,7 +1344,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingPp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_PP, elt_.getItemClass());
         assertEq(3000, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1361,7 +1357,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(HUILE, sorted_.get(0).getName());
         assertEq(500, sorted_.get(0).getPrice());
-        assertEq(HealingPp.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.HEALING_PP, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -1391,7 +1387,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_ = new PaginationHealingItem();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(data_, LANGUAGE);
-        pagination_.getCriteria().setSelectedClass(HealingStatus.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.HEALING_STATUS);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
         assertEq(3, pagination_.getHealingItems().size());
@@ -1407,7 +1403,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(2, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_STATUS, elt_.getItemClass());
         assertEq(100, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1424,7 +1420,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(2500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1441,7 +1437,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(1500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(elt_.isKo());
@@ -1454,7 +1450,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(REVEIL, sorted_.get(0).getName());
         assertEq(100, sorted_.get(0).getPrice());
-        assertEq(HealingStatus.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.HEALING_STATUS, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -1484,7 +1480,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_ = new PaginationHealingItem();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(data_, LANGUAGE);
-        pagination_.getCriteria().setSelectedClass(HealingStatus.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.HEALING_STATUS);
         pagination_.getCriteria().setMinPp((long) 1);
         pagination_.getCriteria().setMaxPp((long) 1);
 //        pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1524,7 +1520,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_ = new PaginationHealingItem();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(data_, LANGUAGE);
-        pagination_.getCriteria().setSelectedClass(HealingStatus.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.HEALING_STATUS);
         pagination_.getCriteria().setMinHp(Rate.one());
         pagination_.getCriteria().setMaxHp(Rate.one());
 //        pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1576,7 +1572,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(REVEIL, sorted_.get(0).getName());
         assertEq(100, sorted_.get(0).getPrice());
-        assertEq(HealingStatus.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.HEALING_STATUS, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -1617,7 +1613,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(BAIE_LANSAT, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -1693,7 +1689,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(RAPPEL, sorted_.get(0).getName());
         assertEq(1500, sorted_.get(0).getPrice());
-        assertEq(HealingHpStatus.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -1779,7 +1775,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.one(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1796,7 +1792,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP, elt_.getItemClass());
         assertEq(3, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1813,7 +1809,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(2500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1830,7 +1826,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(1500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(elt_.isKo());
@@ -1843,7 +1839,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(BAIE_MEPO, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -1925,7 +1921,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(2500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1942,7 +1938,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(1500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(elt_.isKo());
@@ -1959,7 +1955,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -1976,7 +1972,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(3, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -2023,7 +2019,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(POTION_MAX, sorted_.get(0).getName());
         assertEq(2500, sorted_.get(0).getPrice());
-        assertEq(HealingHpStatus.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -2069,7 +2065,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -2086,7 +2082,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.one(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -2100,7 +2096,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(BAIE_ORAN, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -2147,7 +2143,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.one(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(Item.BERRY, elt_.getItemClass());
         assertEq(200, elt_.getPrice());
         assertTrue(elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -2164,7 +2160,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHp.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP, elt_.getItemClass());
         assertEq(3, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -2181,7 +2177,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(LgInt.zero(), elt_.getNumber());
         assertEq(0, elt_.getNbHealedStatus());
         assertEq(0, elt_.getNbStatistics());
-        assertEq(HealingHpStatus.ITEM, elt_.getItemClass());
+        assertEq(Item.HEALING_HP_STATUS, elt_.getItemClass());
         assertEq(2500, elt_.getPrice());
         assertTrue(!elt_.isHealOneMove());
         assertTrue(!elt_.isKo());
@@ -2194,7 +2190,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(BAIE_MEPO, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }

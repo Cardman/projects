@@ -39,11 +39,11 @@ import org.junit.Test;
 
 public final class DataBaseValidationTest extends DataBaseValidationCommon {
     private static final String TAB = "\t";
-    private static final String MOVE_FORMULA = "move";
-    private static final String CAT_FORMULA = "cat";
-    private static final String STATIS_FORMULA = "statis";
-    private static final String STATUS_FORMULA = "status";
-    private static final String TYPE_FORMULA = "type";
+    private static final String MOVE_FORMULA = DataBase.MOVE_FORMULA;
+    private static final String CAT_FORMULA = DataBase.CAT_FORMULA;
+    private static final String STATIS_FORMULA = DataBase.STATIS_FORMULA;
+    private static final String STATUS_FORMULA = DataBase.STATUS_FORMULA;
+    private static final String TYPE_FORMULA = DataBase.TYPE_FORMULA;
     @Test
     public void failEvoTest() {
         DataBase data_ = newData();
@@ -2127,7 +2127,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","move\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.MOVE_FORMULA+"\tmv{0}\ta move");
         assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__TREMPETTE",LANGUAGE));
     }
     @Test
@@ -2137,7 +2137,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","type\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.TYPE_FORMULA+"\tmv{0}\ta move");
         assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__TREMPETTE",LANGUAGE));
     }
     @Test
@@ -2147,7 +2147,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","cat\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.CAT_FORMULA+"\tmv{0}\ta move");
         assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__TREMPETTE",LANGUAGE));
     }
     @Test
@@ -2157,7 +2157,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move");
         assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__TREMPETTE",LANGUAGE));
     }
     @Test
@@ -2167,7 +2167,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATIS_FORMULA+"\tmv{0}\ta move");
         assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__"+DataBase.DEF_STAT_SPEED,LANGUAGE));
     }
     @Test
@@ -2177,7 +2177,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","move\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.MOVE_FORMULA+"\tmv{0}\ta move");
         assertEq("{TREMPETTE2}", data_.getFormula("{TREMPETTE}",LANGUAGE));
     }
     @Test
@@ -2187,7 +2187,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","type\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.TYPE_FORMULA+"\tmv{0}\ta move");
         assertEq("{TREMPETTE2}", data_.getFormula("{TREMPETTE}",LANGUAGE));
     }
     @Test
@@ -2197,7 +2197,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","cat\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.CAT_FORMULA+"\tmv{0}\ta move");
         assertEq("{TREMPETTE2}", data_.getFormula("{TREMPETTE}",LANGUAGE));
     }
     @Test
@@ -2207,7 +2207,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move");
         assertEq("{TREMPETTE2}", data_.getFormula("{TREMPETTE}",LANGUAGE));
     }
     @Test
@@ -2217,7 +2217,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(CHARGE,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","move\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.MOVE_FORMULA+"\tmv{0}\ta move");
         assertEq("{TREMPETTE;TREMPETTE2}", data_.getFormula("{TREMPETTE;CHARGE}",LANGUAGE));
     }
     @Test
@@ -2227,7 +2227,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATIS_FORMULA+"\tmv{0}\ta move");
         assertEq("{mvTREMPETTE2}", data_.getFormula("{VAR__MYVAR__"+DataBase.DEF_STAT_SPEED+"}",LANGUAGE));
     }
     @Test
@@ -2237,7 +2237,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATIS_FORMULA+"\tmv{0}\ta move");
         assertEq(DataBase.DEF_STAT_SPEED, data_.getFormula(DataBase.DEF_STAT_SPEED,LANGUAGE));
     }
     @Test
@@ -2247,7 +2247,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATIS_FORMULA+"\tmv{0}\ta move");
         assertEq("{}", data_.getFormula("{}",LANGUAGE));
     }
     @Test
@@ -2257,7 +2257,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move");
         assertEq("mvTREMPETTE2+mvTREMPETTE", data_.getFormula("VAR__MYVAR__TREMPETTE+VAR__MYVAR__TREMPETTE2",LANGUAGE));
     }
     @Test
@@ -2267,7 +2267,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move");
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
         assertEq("8+myfct(5)", data_.getFormula("8+fct(5)",LANGUAGE));
@@ -2279,7 +2279,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move");
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
         math_.addEntry(MbOperationNode.TRUE_STRING,"1");
@@ -2293,7 +2293,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move");
         StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
         math_.addEntry("fct","myfct");
         math_.addEntry(MbOperationNode.TRUE_STRING,"1");
@@ -2307,7 +2307,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move");
         assertEq("TREMPETTE2", data_.getFormula("TREMPETTE",LANGUAGE));
     }
     @Test
@@ -2317,7 +2317,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
         tr_.addEntry(Statistic.SPEED,TREMPETTE2);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        litt_.addEntry("MYVAR",DataBase.STATIS_FORMULA+"\tmv{0}\ta move");
         assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__SPEE",LANGUAGE));
     }
     @Test
@@ -2335,8 +2335,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move {0}");
-        litt_.addEntry("MYVAR2","status\tsec mv{0}\ta sec move {0}");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move {0}");
+        litt_.addEntry("MYVAR2",DataBase.STATUS_FORMULA+"\tsec mv{0}\ta sec move {0}");
         NatStringTreeMap<String> desc_ = data_.getDescriptions("VAR__MYVAR__TREMPETTE+VAR__MYVAR2__TREMPETTE2", LANGUAGE);
         assertEq(2,desc_.size());
         assertEq("mvTREMPETTE2", desc_.getKey(0));
@@ -2351,7 +2351,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         tr_.addEntry(TREMPETTE,TREMPETTE2);
         tr_.addEntry(TREMPETTE2,TREMPETTE);
         StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
-        litt_.addEntry("MYVAR","status\tmv{0}\ta move {0}");
+        litt_.addEntry("MYVAR",DataBase.STATUS_FORMULA+"\tmv{0}\ta move {0}");
         NatStringTreeMap<String> desc_ = data_.getDescriptions("VAR__MYVAR__TREMPETTE+VAR__MYVAR2__TREMPETTE2", LANGUAGE);
         assertEq(1,desc_.size());
         assertEq("mvTREMPETTE2", desc_.getKey(0));

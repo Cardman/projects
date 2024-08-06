@@ -3042,7 +3042,8 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("1"),new LgInt("15"));
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
-        effetDegats_.setPower("40*(2*"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+";CHUTE_LIBRE})*"+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",1,1)+"+MbOperationNode.CARAC_FERME+"("+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",0,0))");
+        effetDegats_.setPower("40*(2*"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+"})*"+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",1,1)+"+MbOperationNode.CARAC_FERME+"("+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",0,0))");
+//        effetDegats_.setPower("40*(2*"+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+";CHUTE_LIBRE})*"+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",1,1)+"+MbOperationNode.CARAC_FERME+"("+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",0,0))");
         effetDegats_.setStatisAtt(Statistic.SPECIAL_ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.SPECIAL_DEFENSE);
@@ -3635,7 +3636,8 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.getChLaw().addQuickEvent(new Rate("2"),new LgInt("1"));
         effetDegats_.getHitsLaw().addQuickEvent(new Rate("1"),new LgInt("1"));
         //bis effetDegats_.setPower("50*("+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{VOL;REBOND;CHUTE_LIBRE})*"+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",1,1)+"+MbOperationNode.CARAC_FERME+"("+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",0,0))+"+VAR_PREFIX+DataBase.DEF_FIGHTER_PP__ANTI_AIR+"*"+VAR_PREFIX+DataBase.DEF_FIGHTER_PP__SEISME);
-        effetDegats_.setPower("50*("+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+";CHUTE_LIBRE})*"+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",1,1)+"+MbOperationNode.CARAC_FERME+"("+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",0,0))+"+VAR_PREFIX+DataBase.DEF_LANCEUR_PP+DataBase.SEP_BETWEEN_KEYS+ANTI_AIR+"*"+VAR_PREFIX+DataBase.DEF_LANCEUR_PP+DataBase.SEP_BETWEEN_KEYS+SEISME);
+        effetDegats_.setPower("50*("+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+"})*"+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",1,1)+"+MbOperationNode.CARAC_FERME+"("+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",0,0))+"+VAR_PREFIX+DataBase.DEF_LANCEUR_PP+DataBase.SEP_BETWEEN_KEYS+ANTI_AIR+"*"+VAR_PREFIX+DataBase.DEF_LANCEUR_PP+DataBase.SEP_BETWEEN_KEYS+SEISME);
+//        effetDegats_.setPower("50*("+MbOperationNode.CARAC_FERME+"("+MbOperationNode.INCL+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+";CHUTE_LIBRE})*"+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",1,1)+"+MbOperationNode.CARAC_FERME+"("+VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+",0,0))+"+VAR_PREFIX+DataBase.DEF_LANCEUR_PP+DataBase.SEP_BETWEEN_KEYS+ANTI_AIR+"*"+VAR_PREFIX+DataBase.DEF_LANCEUR_PP+DataBase.SEP_BETWEEN_KEYS+SEISME);
         effetDegats_.setStatisAtt(Statistic.ATTACK);
         effetDegats_.setUserAttack(true);
         effetDegats_.setStatisDef(Statistic.DEFENSE);
@@ -3650,7 +3652,8 @@ final class InitializationMoves extends EquallablePkUtil {
         effetAntiImmu_.getDisableImmuFromMoves().add(VOL_MAGNETIK);
         effetAntiImmu_.getAttackTargetWithTypes().add(SOL);
         effetAntiImmu_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
-        effetAntiImmu_.setFail(VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+"=1&"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+";CHUTE_LIBRE}))>0");
+        effetAntiImmu_.setFail(VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+"=1&"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+"}))>0");
+//        effetAntiImmu_.setFail(VAR_PREFIX+DataBase.DEF_CIBLE_DISPARAIT+"=1&"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_CIBLE_ATTAQUE_CHOISIE+"},{"+VOL+";"+REBOND+";CHUTE_LIBRE}))>0");
         effetAntiImmu_.getRequiredSuccessfulEffects().add(0);
         ficheAttaqueOff_.getEffects().add(effetAntiImmu_);
         _data.completeQuickMembers(ANTI_AIR,ficheAttaqueOff_);

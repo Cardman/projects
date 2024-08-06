@@ -6,15 +6,13 @@ import aiki.util.DataInfoChecker;
 
 public final class Fossil extends Item {
 
-    private static final String ITEM = "aiki.fight.items.Fossil";
-
     private String pokemon;
 
     private short level;
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return FOSSIL;
     }
 
     @Override

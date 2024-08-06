@@ -25,8 +25,6 @@ import aiki.util.*;
 
 public class FighterTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     @Test
     public void initCreature1Test() {
         Fighter fighter_ = new Fighter();

@@ -44,8 +44,6 @@ import code.util.StringMap;
 
 public class FightRoundTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     @Test
     public void initRound1Test() {
         DataBase data_ = initDb();

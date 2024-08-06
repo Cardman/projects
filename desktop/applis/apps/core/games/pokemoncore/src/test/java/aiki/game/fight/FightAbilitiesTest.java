@@ -24,8 +24,6 @@ import code.util.StringMap;
 
 public class FightAbilitiesTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     @Test
     public void disableAllStatusByEnabledWeather1Test() {
         DataBase data_ = initDb();

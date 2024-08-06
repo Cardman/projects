@@ -8,14 +8,12 @@ import code.util.StringMap;
 
 public abstract class HealingItem extends Item {
 
-    public static final String ITEM = "aiki.fight.items.HealingItem";
-
     private StringMap<Short> happiness;
     private boolean healingTeam;
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return HEALING_ITEM;
     }
 
     protected final void validateHealingItem(DataBase _data) {

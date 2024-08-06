@@ -336,6 +336,13 @@ public class DataBase {
     public static final String SEPARATOR_FILES = "/";
     public static final int ONE_POSSIBLE_CHOICE = 1;
 
+    public static final String MOVE_FORMULA = "0";
+    public static final String CAT_FORMULA = "1";
+    public static final String STATIS_FORMULA = "2";
+    public static final String STATUS_FORMULA = "3";
+    public static final String TYPE_FORMULA = "4";
+    public static final String ITEM_FORMULA = "5";
+
     private static final int DEFAULT_POWER_INT = 80;
 
     private static final int DEFAULT_HEAL_RATE_NUM = 1;
@@ -345,12 +352,6 @@ public class DataBase {
     private static final int DEFAULT_INFLICTED_RATE_DEN = 8;
 
     private static final String TAB = "\t";
-
-    private static final String MOVE_FORMULA = "move";
-    private static final String CAT_FORMULA = "cat";
-    private static final String STATIS_FORMULA = "statis";
-    private static final String STATUS_FORMULA = "status";
-    private static final String TYPE_FORMULA = "type";
 
     private static final char UNDERSCORE = '_';
 

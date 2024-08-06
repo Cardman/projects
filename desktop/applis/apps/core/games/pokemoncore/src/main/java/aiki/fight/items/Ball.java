@@ -4,13 +4,11 @@ package aiki.fight.items;
 
 public final class Ball extends Item {
 
-    public static final String ITEM = "aiki.fight.items.Ball";
-
     private String catchingRate;
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return BALL;
     }
 
     public String getCatchingRate() {

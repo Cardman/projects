@@ -14,8 +14,6 @@ import code.util.StringMap;
 
 public final class Berry extends Item {
 
-    public static final String ITEM = "aiki.fight.items.Berry";
-
     private Rate healHpBySuperEffMove;
     private boolean lawForAttackFirst;
 
@@ -44,7 +42,7 @@ public final class Berry extends Item {
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return BERRY;
     }
 
     @Override

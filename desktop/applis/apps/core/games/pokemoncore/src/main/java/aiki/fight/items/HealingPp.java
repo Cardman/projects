@@ -6,8 +6,6 @@ import aiki.util.DataInfoChecker;
 
 public final class HealingPp extends HealingItem {
 
-    public static final String ITEM = "aiki.fight.items.HealingPp";
-
     private long healedMovePp;
     private long healingAllMovesFullpp;
     private boolean healingAllMovesPp;
@@ -15,7 +13,7 @@ public final class HealingPp extends HealingItem {
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return HEALING_PP;
     }
 
     @Override

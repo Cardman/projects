@@ -1,11 +1,6 @@
 package aiki.map.pokemon;
 import aiki.db.DataBase;
 import aiki.facade.CriteriaForSearching;
-import aiki.fight.items.HealingHp;
-import aiki.fight.items.HealingHpStatus;
-import aiki.fight.items.HealingItem;
-import aiki.fight.items.HealingPp;
-import aiki.fight.items.HealingStatus;
 import aiki.fight.items.Item;
 import code.maths.LgInt;
 import aiki.facade.enums.SearchingMode;
@@ -56,17 +51,17 @@ public class CriteriaForSearchingItem extends CriteriaForSearching {
         if (StringUtil.quickEq(selectedClass, DataBase.EMPTY_STRING)) {
             return true;
         }
-        if (StringUtil.quickEq(selectedClass, HealingItem.ITEM)) {
-            if (StringUtil.quickEq(HealingPp.ITEM, _item.getItemType())) {
+        if (StringUtil.quickEq(selectedClass, Item.HEALING_ITEM)) {
+            if (StringUtil.quickEq(Item.HEALING_PP, _item.getItemType())) {
                 return true;
             }
-            if (StringUtil.quickEq(HealingHp.ITEM, _item.getItemType())) {
+            if (StringUtil.quickEq(Item.HEALING_HP, _item.getItemType())) {
                 return true;
             }
-            if (StringUtil.quickEq(HealingStatus.ITEM, _item.getItemType())) {
+            if (StringUtil.quickEq(Item.HEALING_STATUS, _item.getItemType())) {
                 return true;
             }
-            if (StringUtil.quickEq(HealingHpStatus.ITEM, _item.getItemType())) {
+            if (StringUtil.quickEq(Item.HEALING_HP_STATUS, _item.getItemType())) {
                 return true;
             }
         }

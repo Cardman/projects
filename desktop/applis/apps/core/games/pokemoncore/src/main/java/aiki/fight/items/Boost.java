@@ -11,15 +11,13 @@ import code.util.StringMap;
 
 public final class Boost extends Item {
 
-    private static final String ITEM = "aiki.fight.items.Boost";
-
     private Rate winPp;
     private StringMap<Short> happiness;
     private IdMap<Statistic, Short> evs;
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return BOOST;
     }
 
     @Override

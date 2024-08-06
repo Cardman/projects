@@ -24,7 +24,6 @@ import code.util.StringMap;
 
 public class FightValuesTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
     private static final String SEPARATOR_SET = ";";
     private static final String EXPECTED_STATUS = SOMMEIL+SEPARATOR_SET+VAMPIGRAINE;
 

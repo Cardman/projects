@@ -325,7 +325,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
 
     @Override
     public boolean matchClass(Item _item) {
-        if (StringUtil.quickEq(getSelectedClass(), HealingStatus.ITEM) && StringUtil.quickEq(HealingHpStatus.ITEM, _item.getItemType())) {
+        if (StringUtil.quickEq(getSelectedClass(), Item.HEALING_STATUS) && StringUtil.quickEq(Item.HEALING_HP_STATUS, _item.getItemType())) {
             return true;
         }
         return super.matchClass(_item);

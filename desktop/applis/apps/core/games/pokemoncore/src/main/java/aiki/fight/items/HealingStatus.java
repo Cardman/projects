@@ -7,14 +7,13 @@ import code.util.core.StringUtil;
 
 
 public abstract class HealingStatus extends HealingItem {
-    public static final String ITEM = "aiki.fight.items.HealingStatus";
 
     private StringList status;
     private boolean healingKo;
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return HEALING_STATUS;
     }
 
     protected final void validateHealingStatus(DataBase _data) {
@@ -26,7 +25,7 @@ public abstract class HealingStatus extends HealingItem {
         if (!status.isEmpty()) {
             return;
         }
-        if (StringUtil.quickEq(getItemType(), ITEM)) {
+        if (StringUtil.quickEq(getItemType(), HEALING_STATUS)) {
             _data.setError(true);
 
         }

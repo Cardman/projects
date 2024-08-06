@@ -6,13 +6,11 @@ import aiki.util.DataInfoChecker;
 
 public final class Repel extends Item {
 
-    private static final String ITEM = "aiki.fight.items.Repel";
-
     private long steps;
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return REPEL;
     }
 
     @Override

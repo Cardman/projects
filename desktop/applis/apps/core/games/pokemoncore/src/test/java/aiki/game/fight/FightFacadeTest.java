@@ -43,8 +43,6 @@ import code.util.StringMap;
 
 public class FightFacadeTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     @Test
     public void newFight1Test() {
         Fight fight_ = FightFacade.newFight();

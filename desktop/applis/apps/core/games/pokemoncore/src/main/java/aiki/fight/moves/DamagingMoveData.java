@@ -16,7 +16,7 @@ import code.util.core.IndexConstants;
 
 
 public final class DamagingMoveData extends MoveData {
-    public static final String MOVE = "aiki.fight.moves.DamagingMoveData";
+    public static final String MOVE = "0";
 
     private String category;
 

@@ -677,7 +677,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
 //            trFct_.addEntry(f,f);
 //        }
 //        data_.getTranslatedFctMath().addEntry(LANGUAGE,trFct_);
-        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE,tr("aiki.fight.items.Ball","BALLON"));
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE,tr(Item.BALL,"BALLON"));
         data_.getLitterals().addEntry(LANGUAGE,new StringMap<String>());
         return data_;
     }

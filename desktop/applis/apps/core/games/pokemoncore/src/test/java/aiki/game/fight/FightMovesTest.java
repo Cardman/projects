@@ -22,8 +22,6 @@ import code.util.StringMap;
 
 public class FightMovesTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     @Test
     public void existenceAntiClimatActif1Test() {
         DataBase data_ = initDb();

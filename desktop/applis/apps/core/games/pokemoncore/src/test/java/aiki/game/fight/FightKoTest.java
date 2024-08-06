@@ -29,8 +29,6 @@ import code.util.StringMap;
 
 public class FightKoTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     private static Fight rateWonPoint(Difficulty _diff, DataBase _data) {
         Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();

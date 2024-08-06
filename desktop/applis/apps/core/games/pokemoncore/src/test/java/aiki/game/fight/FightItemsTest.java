@@ -25,8 +25,6 @@ import code.util.StringMap;
 
 public class FightItemsTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     private static Fight canUseObjectIfPossible(DataBase _data) {
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(NICKNAME,diff_,false, _data);

@@ -1,14 +1,10 @@
 package aiki.facade;
 
 import aiki.db.DataBase;
+import aiki.fight.items.*;
 import code.util.CustList;
 import org.junit.Test;
 
-import aiki.fight.items.Berry;
-import aiki.fight.items.HealingHp;
-import aiki.fight.items.HealingItem;
-import aiki.fight.items.HealingPp;
-import aiki.fight.items.ItemForBattle;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.player.Inventory;
 import aiki.util.SortingItem;
@@ -352,7 +348,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("*P*");
-        pagination_.getCriteria().setSelectedClass(Berry.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.BERRY);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
         assertTrue(!pagination_.hasNoRendered());
@@ -368,7 +364,7 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(BAIE_MEPO, sorted_.get(0).getKeyName());
         assertEq(200, sorted_.get(0).getPrice());
         assertEq(LgInt.one(), sorted_.get(0).getNumber());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
         assertEq(-1, pagination_.currentIndex());
@@ -395,7 +391,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("*P*");
-        pagination_.getCriteria().setSelectedClass(Berry.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.BERRY);
         pagination_.getCriteria().setMinPrice(300L);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
@@ -426,7 +422,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCmpDescription().setPriority(1);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("*P*");
-        pagination_.getCriteria().setSelectedClass(Berry.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.BERRY);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
         assertEq(1, pagination_.getItems().size());
@@ -439,7 +435,7 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(BAIE_MEPO, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(LgInt.one(), sorted_.get(0).getNumber());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
@@ -463,7 +459,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(data_, LANGUAGE);
-        pagination_.getCriteria().setSelectedClass(HealingItem.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.HEALING_ITEM);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
         assertEq(3, pagination_.getItems().size());
@@ -480,7 +476,7 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(1, sorted_.size());
         assertEq(HUILE, sorted_.get(0).getName());
         assertEq(500, sorted_.get(0).getPrice());
-        assertEq(HealingPp.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.HEALING_PP, sorted_.get(0).getItemClass());
         assertEq(LgInt.zero(), sorted_.get(0).getNumber());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
@@ -504,7 +500,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(3);
         pagination_.setTranslation(data_, LANGUAGE);
-        pagination_.getCriteria().setSelectedClass(HealingItem.ITEM);
+        pagination_.getCriteria().setSelectedClass(Item.HEALING_ITEM);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data_);
         assertEq(3, pagination_.getItems().size());
@@ -521,15 +517,15 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(3, sorted_.size());
         assertEq(HUILE, sorted_.get(0).getName());
         assertEq(500, sorted_.get(0).getPrice());
-        assertEq(HealingPp.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.HEALING_PP, sorted_.get(0).getItemClass());
         assertEq(LgInt.zero(), sorted_.get(0).getNumber());
         assertEq(CENDRESACREE, sorted_.get(1).getName());
         assertEq(20000, sorted_.get(1).getPrice());
-        assertEq(HealingItem.ITEM, sorted_.get(1).getItemClass());
+        assertEq(Item.HEALING_ITEM, sorted_.get(1).getItemClass());
         assertEq(LgInt.zero(), sorted_.get(1).getNumber());
         assertEq(EAU_FRAICHE, sorted_.get(2).getName());
         assertEq(200, sorted_.get(2).getPrice());
-        assertEq(HealingHp.ITEM, sorted_.get(2).getItemClass());
+        assertEq(Item.HEALING_HP, sorted_.get(2).getItemClass());
         assertEq(LgInt.one(), sorted_.get(2).getNumber());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
@@ -575,15 +571,15 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(3, sorted_.size());
         assertEq(BAIE_ORAN, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(LgInt.zero(), sorted_.get(0).getNumber());
         assertEq(BAIE_MEPO, sorted_.get(1).getName());
         assertEq(200, sorted_.get(1).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(1).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(1).getItemClass());
         assertEq(LgInt.one(), sorted_.get(1).getNumber());
         assertEq(MULTI_EXP, sorted_.get(2).getName());
         assertEq(1000, sorted_.get(2).getPrice());
-        assertEq(ItemForBattle.ITEM, sorted_.get(2).getItemClass());
+        assertEq(Item.ITEM_FOR_BATTLE, sorted_.get(2).getItemClass());
         assertEq(LgInt.zero(), sorted_.get(2).getNumber());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
@@ -592,6 +588,8 @@ public class PaginationItemTest extends InitializationDataBase {
     @Test
     public void search7Test() {
         DataBase data_ = initDb();
+        String it_ = "ItemForBattle";
+        data_.getTranslatedClassesDescriptions().getVal(LANGUAGE).put(Item.ITEM_FOR_BATTLE, it_);
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
@@ -619,7 +617,7 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(MULTI_EXP, sorted_.get(0).getName());
         assertEq(1000, sorted_.get(0).getPrice());
         assertEq(LgInt.zero(), sorted_.get(0).getNumber());
-        assertEq(ItemForBattle.ITEM, sorted_.get(0).getItemClass());
+        assertEq(it_, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
@@ -663,11 +661,11 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(3, sorted_.size());
         assertEq(BAIE_ORAN, sorted_.get(0).getName());
         assertEq(200, sorted_.get(0).getPrice());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(LgInt.zero(), sorted_.get(0).getNumber());
         assertEq(MULTI_EXP, sorted_.get(1).getName());
         assertEq(1000, sorted_.get(1).getPrice());
-        assertEq(ItemForBattle.ITEM, sorted_.get(1).getItemClass());
+        assertEq(Item.ITEM_FOR_BATTLE, sorted_.get(1).getItemClass());
         assertEq(LgInt.zero(), sorted_.get(1).getNumber());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
@@ -705,7 +703,7 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(BAIE_ORAN, sorted_.get(0).getKeyName());
         assertEq(200, sorted_.get(0).getPrice());
         assertEq(LgInt.zero(), sorted_.get(0).getNumber());
-        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(Item.BERRY, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }

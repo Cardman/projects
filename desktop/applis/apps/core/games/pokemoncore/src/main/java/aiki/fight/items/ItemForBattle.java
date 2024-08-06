@@ -19,8 +19,6 @@ import code.util.core.StringUtil;
 
 public final class ItemForBattle extends Item {
 
-    public static final String ITEM = "aiki.fight.items.ItemForBattle";
-
     private StringList typesPk;
     private boolean cancelImmuType;
     private boolean againstEvo;
@@ -64,7 +62,7 @@ public final class ItemForBattle extends Item {
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return ITEM_FOR_BATTLE;
     }
 
     @Override

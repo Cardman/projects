@@ -7,13 +7,11 @@ import code.maths.Rate;
 
 public final class HealingHp extends HealingItem {
 
-    public static final String ITEM = "aiki.fight.items.HealingHp";
-
     private Rate hp;
 
     @Override
     public String getItemType() {
-        return ITEM;
+        return HEALING_HP;
     }
 
     @Override

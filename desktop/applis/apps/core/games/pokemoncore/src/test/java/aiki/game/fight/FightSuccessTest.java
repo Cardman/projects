@@ -34,8 +34,6 @@ import code.util.StringMap;
 
 public class FightSuccessTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     private static Fight random(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);

@@ -33,8 +33,6 @@ import code.util.StringMap;
 
 public class FightOrderTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     @Test
     public void fighters1Test() {
         DataBase data_ = initDb();

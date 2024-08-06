@@ -1,12 +1,9 @@
 package aiki.map.pokemon;
 
 import aiki.db.DataBase;
-import aiki.fight.items.HealingItem;
+import aiki.fight.items.*;
 import org.junit.Test;
 
-import aiki.fight.items.Ball;
-import aiki.fight.items.Berry;
-import aiki.fight.items.HealingPp;
 import aiki.game.fight.InitializationDataBase;
 import code.maths.LgInt;
 import aiki.facade.enums.SearchingMode;
@@ -109,7 +106,7 @@ public class CriteriaForSearchingItemTest extends InitializationDataBase {
     public void matchClass2Test() {
         DataBase data_ = initDb();
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
-        criteria_.setSelectedClass(Berry.ITEM);
+        criteria_.setSelectedClass(Item.BERRY);
         assertTrue(criteria_.matchClass(data_.getItem(BAIE_ORAN)));
     }
 
@@ -117,7 +114,7 @@ public class CriteriaForSearchingItemTest extends InitializationDataBase {
     public void matchClass3Test() {
         DataBase data_ = initDb();
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
-        criteria_.setSelectedClass(Ball.ITEM);
+        criteria_.setSelectedClass(Item.BALL);
         assertTrue(!criteria_.matchClass(data_.getItem(BAIE_ORAN)));
     }
 
@@ -125,7 +122,7 @@ public class CriteriaForSearchingItemTest extends InitializationDataBase {
     public void matchClass4Test() {
         DataBase data_ = initDb();
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
-        criteria_.setSelectedClass(HealingPp.ITEM);
+        criteria_.setSelectedClass(Item.HEALING_PP);
         assertTrue(criteria_.matchClass(data_.getItem(HUILE)));
     }
 
@@ -133,7 +130,7 @@ public class CriteriaForSearchingItemTest extends InitializationDataBase {
     public void matchClass5Test() {
         DataBase data_ = initDb();
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
-        criteria_.setSelectedClass(HealingItem.ITEM);
+        criteria_.setSelectedClass(Item.HEALING_ITEM);
         assertTrue(criteria_.matchClass(data_.getItem(REVEIL)));
     }
 
@@ -141,7 +138,7 @@ public class CriteriaForSearchingItemTest extends InitializationDataBase {
     public void matchClass6Test() {
         DataBase data_ = initDb();
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
-        criteria_.setSelectedClass(HealingItem.ITEM);
+        criteria_.setSelectedClass(Item.HEALING_ITEM);
         assertTrue(criteria_.matchClass(data_.getItem(PETIT_RAPPEL)));
     }
 
@@ -149,7 +146,7 @@ public class CriteriaForSearchingItemTest extends InitializationDataBase {
     public void matchClass7Test() {
         DataBase data_ = initDb();
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
-        criteria_.setSelectedClass(HealingItem.ITEM);
+        criteria_.setSelectedClass(Item.HEALING_ITEM);
         assertTrue(!criteria_.matchClass(data_.getItem(POKE_BALL)));
     }
 }

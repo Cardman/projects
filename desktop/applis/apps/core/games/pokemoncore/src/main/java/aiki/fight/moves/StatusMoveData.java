@@ -22,7 +22,7 @@ import code.util.core.NumberUtil;
 
 
 public final class StatusMoveData extends MoveData {
-    public static final String MOVE = "aiki.fight.moves.StatusMoveData";
+    public static final String MOVE = "1";
 
     private boolean thievableMove;
     private boolean counterableMove;

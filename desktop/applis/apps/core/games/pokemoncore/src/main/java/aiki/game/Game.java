@@ -50,8 +50,6 @@ import code.util.core.StringUtil;
 
 public final class Game {
 
-    public static final String GAME_ACCESS = "aiki.game.game";
-
     public static final int NB_HOSTED_POKEMON = 2;
 
     public static final String BEATEN_TRAINER = "0";

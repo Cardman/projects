@@ -38,6 +38,7 @@ import code.util.core.StringUtil;
 
 public class InitializationDataBase extends EquallablePkUtil {
 
+    protected static final String PIKA = "PIKA";
 
     protected static final String LANGUAGE = "en";
     //or LANGUAGE == fr?
@@ -806,12 +807,12 @@ public class InitializationDataBase extends EquallablePkUtil {
 
     protected static final String NULL_REF = DataBase.EMPTY_STRING;
     protected static final String TAB = "\t";
-    protected static final String MOVE_FORMULA = "move";
-    protected static final String CAT_FORMULA = "cat";
-    protected static final String STATIS_FORMULA = "statis";
-    protected static final String STATUS_FORMULA = "status";
-    protected static final String TYPE_FORMULA = "type";
-    protected static final String ITEM_FORMULA = "item";
+    protected static final String MOVE_FORMULA = DataBase.MOVE_FORMULA;
+    protected static final String CAT_FORMULA = DataBase.CAT_FORMULA;
+    protected static final String STATIS_FORMULA = DataBase.STATIS_FORMULA;
+    protected static final String STATUS_FORMULA = DataBase.STATUS_FORMULA;
+    protected static final String TYPE_FORMULA = DataBase.TYPE_FORMULA;
+    protected static final String ITEM_FORMULA = DataBase.ITEM_FORMULA;
 
     protected InitializationDataBase() {
     }

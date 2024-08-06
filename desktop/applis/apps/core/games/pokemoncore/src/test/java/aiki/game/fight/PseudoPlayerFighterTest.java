@@ -20,8 +20,6 @@ import code.util.StringMap;
 
 public class PseudoPlayerFighterTest extends InitializationDataBase {
 
-    private static final String PIKA = "PIKA";
-
     @Test
     public void new_PseudoPlayerFighter_PokemonPlayer_1Test() {
         DataBase data_ = initDb();

@@ -23,7 +23,6 @@ import code.util.StringMap;
 public class FightStatisticTest extends InitializationDataBase {
 
     private static final String VAR_EXAMPLE = VAR_PREFIX+"EXAMPLE";
-    private static final String PIKA = "PIKA";
 
     private static Fight bonusBoost(DataBase _data) {
         Difficulty diff_= new Difficulty();
