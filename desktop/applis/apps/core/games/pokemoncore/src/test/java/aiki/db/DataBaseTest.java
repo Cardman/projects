@@ -233,6 +233,985 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initValue(DataBase.KEY_FOE_PK_REMOTE_HP,"0");
         assertEq("0",data_.foePkRemoteHp());
     }
+    @Test
+    public void initBase28(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_NB_UTILISATION,"0");
+        assertEq("0",data_.cibleNbUtilisation());
+    }
+
+    @Test
+    public void initBase29(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_NB_UTILISATION,"0");
+        assertEq("0",data_.lanceurNbUtilisation());
+    }
+
+    @Test
+    public void initBase30(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_NB_UTILISATION,"0");
+        assertEq("0",data_.fighterNbUtilisation());
+    }
+
+    @Test
+    public void initBase31(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_EQUIPE_NB_UTILISATION,"0");
+        assertEq("0",data_.equipeNbUtilisation());
+    }
+
+    @Test
+    public void initBase32(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_EQUIPE_ADV_NB_UTILISATION,"0");
+        assertEq("0",data_.equipeAdvNbUtilisation());
+    }
+
+    @Test
+    public void initBase33(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_UTILI_ATT_EQ_TOUR,"0");
+        assertEq("0",data_.nbUtiliAttEqTour());
+    }
+
+    @Test
+    public void initBase34(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_PV_RESTANTS,"0");
+        assertEq("0",data_.lanceurPvRestants());
+    }
+
+    @Test
+    public void initBase35(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_PV_RESTANTS,"0");
+        assertEq("0",data_.ciblePvRestants());
+    }
+
+    @Test
+    public void initBase36(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_PV_MAX,"0");
+        assertEq("0",data_.lanceurPvMax());
+    }
+
+    @Test
+    public void initBase37(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_PV_MAX,"0");
+        assertEq("0",data_.ciblePvMax());
+    }
+
+    @Test
+    public void initBase38(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_STATIS,"0");
+        assertEq("0",data_.lanceurStatis());
+    }
+
+    @Test
+    public void initBase39(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_STATIS,"0");
+        assertEq("0",data_.cibleStatis());
+    }
+
+    @Test
+    public void initBase40(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_BOOST,"0");
+        assertEq("0",data_.lanceurBoost());
+    }
+
+    @Test
+    public void initBase41(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_BOOST,"0");
+        assertEq("0",data_.cibleBoost());
+    }
+
+    @Test
+    public void initBase42(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_SOMME_BOOST_POS_CIBLE,"0");
+        assertEq("0",data_.sommeBoostPosCible());
+    }
+
+    @Test
+    public void initBase43(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_ATTAQUES,"0");
+        assertEq("0",data_.cibleAttaques());
+    }
+
+    @Test
+    public void initBase44(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_ATTAQUE_CHOISIE,"0");
+        assertEq("0",data_.cibleAttaqueChoisie());
+    }
+
+    @Test
+    public void initBase45(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_ATTAQUES_TYPES,"0");
+        assertEq("0",data_.cibleAttaquesTypes());
+    }
+
+    @Test
+    public void initBase46(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_CLONE,"0");
+        assertEq("0",data_.cibleClone());
+    }
+
+    @Test
+    public void initBase47(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_DEGATS_RECUS,"0");
+        assertEq("0",data_.cibleDegatsRecus());
+    }
+
+    @Test
+    public void initBase48(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_DEGATS_RECUS_TOTAL,"0");
+        assertEq("0",data_.cibleDegatsRecusTotal());
+    }
+
+    @Test
+    public void initBase49(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_DEGATS_RECUS_TOUR,"0");
+        assertEq("0",data_.cibleDegatsRecusTour());
+    }
+
+    @Test
+    public void initBase50(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_DEGATS_RECUS_TOTAL_TOUR,"0");
+        assertEq("0",data_.cibleDegatsRecusTotalTour());
+    }
+
+    @Test
+    public void initBase51(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_DISPARAIT,"0");
+        assertEq("0",data_.cibleDisparait());
+    }
+
+    @Test
+    public void initBase52(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_DER_JOUE,"0");
+        assertEq("0",data_.cibleDerJoue());
+    }
+
+    @Test
+    public void initBase53(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_JOUE,"0");
+        assertEq("0",data_.cibleJoue());
+    }
+
+    @Test
+    public void initBase54(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_MASSE,"0");
+        assertEq("0",data_.cibleMasse());
+    }
+
+    @Test
+    public void initBase55(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_TAILLE,"0");
+        assertEq("0",data_.cibleTaille());
+    }
+
+    @Test
+    public void initBase56(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_CAPACITE,"0");
+        assertEq("0",data_.cibleCapacite());
+    }
+
+    @Test
+    public void initBase57(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_OBJET,"0");
+        assertEq("0",data_.cibleObjet());
+    }
+
+    @Test
+    public void initBase58(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_STATUTS,"0");
+        assertEq("0",data_.cibleStatuts());
+    }
+
+    @Test
+    public void initBase59(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_TYPES,"0");
+        assertEq("0",data_.cibleTypes());
+    }
+
+    @Test
+    public void initBase60(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_NOM,"0");
+        assertEq("0",data_.cibleNom());
+    }
+
+    @Test
+    public void initBase61(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_PP,"0");
+        assertEq("0",data_.ciblePp());
+    }
+
+    @Test
+    public void initBase62(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_KO_EQUIPE_CIBLE,"0");
+        assertEq("0",data_.nbKoEquipeCible());
+    }
+
+    @Test
+    public void initBase63(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_KO_EQUIPE_ADV_CIBLE,"0");
+        assertEq("0",data_.nbKoEquipeAdvCible());
+    }
+
+    @Test
+    public void initBase64(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_COEFF_EFF_BASE_TYPES_CIBLE,"0");
+        assertEq("0",data_.coeffEffBaseTypesCible());
+    }
+
+    @Test
+    public void initBase65(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_TOUR,"0");
+        assertEq("0",data_.nbTour());
+    }
+
+    @Test
+    public void initBase66(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_SOMME_BOOST_POS_LANCEUR,"0");
+        assertEq("0",data_.sommeBoostPosLanceur());
+    }
+
+    @Test
+    public void initBase67(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_TOUR_GLOBAL,"0");
+        assertEq("0",data_.nbTourGlobal());
+    }
+
+    @Test
+    public void initBase68(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_ATTAQUES,"0");
+        assertEq("0",data_.lanceurAttaques());
+    }
+
+    @Test
+    public void initBase69(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_ATTAQUE_CHOISIE,"0");
+        assertEq("0",data_.lanceurAttaqueChoisie());
+    }
+
+    @Test
+    public void initBase70(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_ATTAQUES_TYPES,"0");
+        assertEq("0",data_.lanceurAttaquesTypes());
+    }
+
+    @Test
+    public void initBase71(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_CLONE,"0");
+        assertEq("0",data_.lanceurClone());
+    }
+
+    @Test
+    public void initBase72(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_DEGATS_RECUS,"0");
+        assertEq("0",data_.lanceurDegatsRecus());
+    }
+
+    @Test
+    public void initBase73(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_DEGATS_RECUS_TOTAL,"0");
+        assertEq("0",data_.lanceurDegatsRecusTotal());
+    }
+
+    @Test
+    public void initBase74(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_DEGATS_RECUS_TOUR,"0");
+        assertEq("0",data_.lanceurDegatsRecusTour());
+    }
+
+    @Test
+    public void initBase75(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_DEGATS_RECUS_TOTAL_TOUR,"0");
+        assertEq("0",data_.lanceurDegatsRecusTotalTour());
+    }
+
+    @Test
+    public void initBase76(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_DISPARAIT,"0");
+        assertEq("0",data_.lanceurDisparait());
+    }
+
+    @Test
+    public void initBase77(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_DER_JOUE,"0");
+        assertEq("0",data_.lanceurDerJoue());
+    }
+
+    @Test
+    public void initBase78(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_JOUE,"0");
+        assertEq("0",data_.lanceurJoue());
+    }
+
+    @Test
+    public void initBase79(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_MASSE,"0");
+        assertEq("0",data_.lanceurMasse());
+    }
+
+    @Test
+    public void initBase80(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_TAILLE,"0");
+        assertEq("0",data_.lanceurTaille());
+    }
+
+    @Test
+    public void initBase81(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_CAPACITE,"0");
+        assertEq("0",data_.lanceurCapacite());
+    }
+
+    @Test
+    public void initBase82(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_OBJET,"0");
+        assertEq("0",data_.lanceurObjet());
+    }
+
+    @Test
+    public void initBase83(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_STATUTS,"0");
+        assertEq("0",data_.lanceurStatuts());
+    }
+
+    @Test
+    public void initBase84(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_TYPES,"0");
+        assertEq("0",data_.lanceurTypes());
+    }
+
+    @Test
+    public void initBase85(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_NOM,"0");
+        assertEq("0",data_.lanceurNom());
+    }
+
+    @Test
+    public void initBase86(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_COEFF_EFF_BASE_TYPES_LANCEUR,"0");
+        assertEq("0",data_.coeffEffBaseTypesLanceur());
+    }
+
+    @Test
+    public void initBase87(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_PP,"0");
+        assertEq("0",data_.lanceurPp());
+    }
+
+    @Test
+    public void initBase88(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_GENRE,"0");
+        assertEq("0",data_.cibleGenre());
+    }
+
+    @Test
+    public void initBase89(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_GENRE,"0");
+        assertEq("0",data_.lanceurGenre());
+    }
+
+    @Test
+    public void initBase90(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_COEFF_EFF_BASE_TYPES_FIGHTER,"0");
+        assertEq("0",data_.coeffEffBaseTypesFighter());
+    }
+
+    @Test
+    public void initBase91(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_BONHEUR,"0");
+        assertEq("0",data_.fighterBonheur());
+    }
+
+    @Test
+    public void initBase92(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_PP,"0");
+        assertEq("0",data_.fighterPp());
+    }
+
+    @Test
+    public void initBase93(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_GENRE,"0");
+        assertEq("0",data_.fighterGenre());
+    }
+
+    @Test
+    public void initBase94(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_PV_RESTANTS,"0");
+        assertEq("0",data_.fighterPvRestants());
+    }
+
+    @Test
+    public void initBase95(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_PV_MAX,"0");
+        assertEq("0",data_.fighterPvMax());
+    }
+
+    @Test
+    public void initBase96(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_STATIS,"0");
+        assertEq("0",data_.fighterStatis());
+    }
+
+    @Test
+    public void initBase97(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_BOOST,"0");
+        assertEq("0",data_.fighterBoost());
+    }
+
+    @Test
+    public void initBase98(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_SOMME_BOOST_POS_FIGHTER,"0");
+        assertEq("0",data_.sommeBoostPosFighter());
+    }
+
+    @Test
+    public void initBase99(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_ATTAQUES,"0");
+        assertEq("0",data_.fighterAttaques());
+    }
+
+    @Test
+    public void initBase100(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_ATTAQUE_CHOISIE,"0");
+        assertEq("0",data_.fighterAttaqueChoisie());
+    }
+
+    @Test
+    public void initBase101(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_ATTAQUES_TYPES,"0");
+        assertEq("0",data_.fighterAttaquesTypes());
+    }
+
+    @Test
+    public void initBase102(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_CLONE,"0");
+        assertEq("0",data_.fighterClone());
+    }
+
+    @Test
+    public void initBase103(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_DEGATS_RECUS,"0");
+        assertEq("0",data_.fighterDegatsRecus());
+    }
+
+    @Test
+    public void initBase104(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_DEGATS_RECUS_TOTAL,"0");
+        assertEq("0",data_.fighterDegatsRecusTotal());
+    }
+
+    @Test
+    public void initBase105(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_DEGATS_RECUS_TOUR,"0");
+        assertEq("0",data_.fighterDegatsRecusTour());
+    }
+
+    @Test
+    public void initBase106(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_DEGATS_RECUS_TOTAL_TOUR,"0");
+        assertEq("0",data_.fighterDegatsRecusTotalTour());
+    }
+
+    @Test
+    public void initBase107(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_DISPARAIT,"0");
+        assertEq("0",data_.fighterDisparait());
+    }
+
+    @Test
+    public void initBase108(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_DER_JOUE,"0");
+        assertEq("0",data_.fighterDerJoue());
+    }
+
+    @Test
+    public void initBase109(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_JOUE,"0");
+        assertEq("0",data_.fighterJoue());
+    }
+
+    @Test
+    public void initBase110(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_MASSE,"0");
+        assertEq("0",data_.fighterMasse());
+    }
+
+    @Test
+    public void initBase111(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_TAILLE,"0");
+        assertEq("0",data_.fighterTaille());
+    }
+
+    @Test
+    public void initBase112(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_CAPACITE,"0");
+        assertEq("0",data_.fighterCapacite());
+    }
+
+    @Test
+    public void initBase113(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_OBJET,"0");
+        assertEq("0",data_.fighterObjet());
+    }
+
+    @Test
+    public void initBase114(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_STATUTS,"0");
+        assertEq("0",data_.fighterStatuts());
+    }
+
+    @Test
+    public void initBase115(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_TYPES,"0");
+        assertEq("0",data_.fighterTypes());
+    }
+
+    @Test
+    public void initBase116(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_FIGHTER_NOM,"0");
+        assertEq("0",data_.fighterNom());
+    }
+
+    @Test
+    public void initBase117(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_ATTAQUE_CATEGORIE,"0");
+        assertEq("0",data_.attaqueCategorie());
+    }
+
+    @Test
+    public void initBase118(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_ATTAQUE_TYPES,"0");
+        assertEq("0",data_.attaqueTypes());
+    }
+
+    @Test
+    public void initBase119(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_ATTAQUE_NOM,"0");
+        assertEq("0",data_.attaqueNom());
+    }
+
+    @Test
+    public void initBase120(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PUISSANCE_BASE,"0");
+        assertEq("0",data_.puissanceBase());
+    }
+
+    @Test
+    public void initBase121(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_COEFF_EFF,"0");
+        assertEq("0",data_.coeffEff());
+    }
+
+    @Test
+    public void initBase122(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_UTILISATION_CONSECUTIF,"0");
+        assertEq("0",data_.nbUtilisationConsecutif());
+    }
+
+    @Test
+    public void initBase123(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CLIMATS,"0");
+        assertEq("0",data_.climats());
+    }
+
+    @Test
+    public void initBase124(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LIEU_COMBAT,"0");
+        assertEq("0",data_.lieuCombat());
+    }
+
+    @Test
+    public void initBase125(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_FLEES,"0");
+        assertEq("0",data_.nbFlees());
+    }
+
+    @Test
+    public void initBase126(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_BONHEUR,"0");
+        assertEq("0",data_.cibleBonheur());
+    }
+
+    @Test
+    public void initBase127(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_BONHEUR,"0");
+        assertEq("0",data_.lanceurBonheur());
+    }
+
+    @Test
+    public void initBase128(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_TEMPS_TOUR,"0");
+        assertEq("0",data_.tempsTour());
+    }
+
+    @Test
+    public void initBase129(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_RATE_EFF_MOVE_AGAINST_TARGET,"0");
+        assertEq("0",data_.rateEffMoveAgainstTarget());
+    }
+
+    @Test
+    public void initBase130(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_COMBATTANTS_TERRAIN,"0");
+        assertEq("0",data_.nbCombattantsTerrain());
+    }
+
+    @Test
+    public void initBase131(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_KO_EQUIPE_LANCEUR,"0");
+        assertEq("0",data_.nbKoEquipeLanceur());
+    }
+
+    @Test
+    public void initBase132(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_KO_EQUIPE_ADV_LANCEUR,"0");
+        assertEq("0",data_.nbKoEquipeAdvLanceur());
+    }
+
+    @Test
+    public void initBase133(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_KO_EQUIPE_FIGHTER,"0");
+        assertEq("0",data_.nbKoEquipeFighter());
+    }
+
+    @Test
+    public void initBase134(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_NB_KO_EQUIPE_ADV_FIGHTER,"0");
+        assertEq("0",data_.nbKoEquipeAdvFighter());
+    }
+
+    @Test
+    public void initBase135(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_POSSEDE_STATUT_RELATION,"0");
+        assertEq("0",data_.ciblePossedeStatutRelation());
+    }
+
+    @Test
+    public void initBase136(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_IMMU_TYPE_ATT_COMBATTANT_ENTRANT,"0");
+        assertEq("0",data_.immuTypeAttCombattantEntrant());
+    }
+
+    @Test
+    public void initBase137(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_CIBLE_EFFET,"0");
+        assertEq("0",data_.cibleEffet());
+    }
+
+    @Test
+    public void initBase138(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PAS_PP_ATTAQUE_CIBLE,"0");
+        assertEq("0",data_.pasPpAttaqueCible());
+    }
+
+    @Test
+    public void initBase139(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PAS_UTILIS_ATTAQUE_CIBLE,"0");
+        assertEq("0",data_.pasUtilisAttaqueCible());
+    }
+
+    @Test
+    public void initBase140(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_IMMU_TYPE_ATT_CIBLE,"0");
+        assertEq("0",data_.immuTypeAttCible());
+    }
+
+    @Test
+    public void initBase141(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_AUCUN_BOOST_POSSIBLE,"0");
+        assertEq("0",data_.aucunBoostPossible());
+    }
+
+    @Test
+    public void initBase142(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_LANCEUR_EFFET,"0");
+        assertEq("0",data_.lanceurEffet());
+    }
+
+    @Test
+    public void initBase143(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_TYPES_ATTAQUES_RES_VIDE,"0");
+        assertEq("0",data_.typesAttaquesResVide());
+    }
+
+    @Test
+    public void initBase144(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PAS_ATTAQUE_INVOC,"0");
+        assertEq("0",data_.pasAttaqueInvoc());
+    }
+
+    @Test
+    public void initBase145(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PAS_ATTAQUES_COPIABLES,"0");
+        assertEq("0",data_.pasAttaquesCopiables());
+    }
+
+    @Test
+    public void initBase146(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PAS_PARTENAIRE,"0");
+        assertEq("0",data_.pasPartenaire());
+    }
+
+    @Test
+    public void initBase147(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PAS_PARTENAIRE_ARRIERE,"0");
+        assertEq("0",data_.pasPartenaireArriere());
+    }
+
+    @Test
+    public void initBase148(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PAS_PARTENAIRE_TERRAIN,"0");
+        assertEq("0",data_.pasPartenaireTerrain());
+    }
+
+    @Test
+    public void initBase149(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PAS_TOUR_TERRAIN,"0");
+        assertEq("0",data_.pasTourTerrain());
+    }
+
+    @Test
+    public void initBase150(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_EXISTE_GENRE_ASSEXUE,"0");
+        assertEq("0",data_.existeGenreAssexue());
+    }
+
+    @Test
+    public void initBase151(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_GENRES_EGAUX,"0");
+        assertEq("0",data_.genresEgaux());
+    }
+
+    @Test
+    public void initBase152(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_DEJA_CAPTURE,"0");
+        assertEq("0",data_.dejaCapture());
+    }
+
+    @Test
+    public void initBase153(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_MASSE_MOYENNE_PK,"0");
+        assertEq("0",data_.masseMoyennePk());
+    }
+
+    @Test
+    public void initBase154(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_UT_GENRE,"0");
+        assertEq("0",data_.pkUtGenre());
+    }
+
+    @Test
+    public void initBase155(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_UT_MASSE,"0");
+        assertEq("0",data_.pkUtMasse());
+    }
+
+    @Test
+    public void initBase156(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_UT_VITESSE,"0");
+        assertEq("0",data_.pkUtVitesse());
+    }
+
+    @Test
+    public void initBase157(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_UT_TYPES_BASE,"0");
+        assertEq("0",data_.pkUtTypesBase());
+    }
+
+    @Test
+    public void initBase158(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_UT_PIERRES_EVOS,"0");
+        assertEq("0",data_.pkUtPierresEvos());
+    }
+
+    @Test
+    public void initBase159(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_SAUVAGE_GENRE,"0");
+        assertEq("0",data_.pkSauvageGenre());
+    }
+
+    @Test
+    public void initBase160(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_SAUVAGE_MASSE,"0");
+        assertEq("0",data_.pkSauvageMasse());
+    }
+
+    @Test
+    public void initBase161(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_SAUVAGE_VITESSE,"0");
+        assertEq("0",data_.pkSauvageVitesse());
+    }
+
+    @Test
+    public void initBase162(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_SAUVAGE_TYPES_BASE,"0");
+        assertEq("0",data_.pkSauvageTypesBase());
+    }
+
+    @Test
+    public void initBase163(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_PK_SAUVAGE_PIERRES_EVOS,"0");
+        assertEq("0",data_.pkSauvagePierresEvos());
+    }
+
+    @Test
+    public void initBase164(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_COMBATTANT_ENTRANT_CLONE,"0");
+        assertEq("0",data_.combattantEntrantClone());
+    }
+
+    @Test
+    public void initBase165(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_COMBATTANT_ENTRANT_TYPES,"0");
+        assertEq("0",data_.combattantEntrantTypes());
+    }
+
+    @Test
+    public void initBase166(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT,"0");
+        assertEq("0",data_.coeffEffBaseTypesCombattantEntrant());
+    }
+
+    @Test
+    public void initBase167(){
+        DataBase data_ = newData();
+        data_.initValue(DataBase.KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION,"0");
+        assertEq("0",data_.equipeAdvCombattantEntrantNbUtilisation());
+    }
 
     @Test
     public void test() {

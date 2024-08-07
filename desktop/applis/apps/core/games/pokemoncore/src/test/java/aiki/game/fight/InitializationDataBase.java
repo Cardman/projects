@@ -1594,7 +1594,7 @@ public class InitializationDataBase extends EquallablePkUtil {
                 MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
                 MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+DataBase.DEF_ATTACK+"*"+VAR_PREFIX+DataBase.DEF_POWER+",(125*"+VAR_PREFIX+DataBase.DEF_DEFENSE+"))",
                 LUTTE,
-                "METAMORPH", _data);
+                DataBase.DEFAULT_EGG_GROUP_VALUE, _data);
 //        _data.addConstNotNumTest("BALL_DEF", "POKE_BALL");
 //        _data.addConstNotNumTest(DataBase.RATE_CATCHING, "caracdroiteferme(div(FOE_PK_MAX_HP,FOE_PK_REMOTE_HP),2)");
 //        _data.addConstNotNumTest(DataBase.RATE_FLEEING, "caracdroiteferme(div("+VAR_PREFIX+"PK_UT_VITESSE,"+VAR_PREFIX+"PK_SAUVAGE_VITESSE),1)");

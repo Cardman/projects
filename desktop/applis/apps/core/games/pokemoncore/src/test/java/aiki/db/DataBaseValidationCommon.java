@@ -60,7 +60,7 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
                 MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
                 MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+DataBase.DEF_ATTACK+"*"+VAR_PREFIX+DataBase.DEF_POWER+",(125*"+VAR_PREFIX+DataBase.DEF_DEFENSE+"))",
                 LUTTE,
-                "METAMORPH", _data);
+                DataBase.DEFAULT_EGG_GROUP_VALUE, _data);
     }
     protected static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().put(ExpType.E,"2*"+DataBase.DEF_NIVEAU);

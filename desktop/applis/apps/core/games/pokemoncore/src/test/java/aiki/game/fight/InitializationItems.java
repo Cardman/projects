@@ -155,6 +155,7 @@ final class InitializationItems  extends EquallablePkUtil {
     private static final String CARAPUCE = InitializationPokedex.CARAPUCE;
     private static final String LIMAGMA = InitializationPokedex.LIMAGMA;
     private static final String BABIMANTA = InitializationPokedex.BABIMANTA;
+    private static final String METAMORPH = InitializationPokedex.METAMORPH;
     private static final String ORAGE_BIS = InitializationMoves.ORAGE_BIS;
     private static final String TEMPETESABLE = InitializationMoves.TEMPETESABLE;
     private static final String PROTECTION = InitializationMoves.PROTECTION;
@@ -533,7 +534,7 @@ final class InitializationItems  extends EquallablePkUtil {
         pierreEvo_.setPrice(6);
         _data.completeQuickMembers(PIERRE_GLACE,pierreEvo_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getMultStat().addEntry(Statistic.SPEED,"3/2*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_FIGHTER_NOM+"},{METAMORPH}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({METAMORPH},{"+VAR_PREFIX+DataBase.DEF_FIGHTER_NOM+"}))");
+        objetAttachableCombat_.getMultStat().addEntry(Statistic.SPEED,"3/2*"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+DataBase.DEF_FIGHTER_NOM+"},{"+METAMORPH+"}))+"+MbOperationNode.CARD+"("+MbOperationNode.COMPL+"({"+METAMORPH+"},{"+VAR_PREFIX+DataBase.DEF_FIGHTER_NOM+"}))");
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(POUDRE_VITE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();

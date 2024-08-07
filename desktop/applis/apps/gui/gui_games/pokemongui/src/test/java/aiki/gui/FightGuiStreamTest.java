@@ -1144,7 +1144,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
                 MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
                 "1",
                 ECLAIR_3,
-                "METAMORPH", _data);
+                DataBase.DEFAULT_EGG_GROUP_VALUE, _data);
     }
 
     public static void initDefaultConsts(String _ballDef, String _rateCatching,

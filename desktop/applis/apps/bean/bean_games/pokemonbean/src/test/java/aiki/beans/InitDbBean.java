@@ -726,7 +726,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
                 MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
                 MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+DataBase.DEF_ATTACK+"*"+VAR_PREFIX+DataBase.DEF_POWER+",(125*"+VAR_PREFIX+DataBase.DEF_DEFENSE+"))",
                 LUTTE,
-                "METAMORPH", _data);
+                DataBase.DEFAULT_EGG_GROUP_VALUE, _data);
     }
     static void initDefaultConsts(String _ballDef, String _rateCatching,
                                   String _rateFleeing, String _rateBoost,

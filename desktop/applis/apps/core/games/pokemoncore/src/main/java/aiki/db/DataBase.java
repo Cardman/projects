@@ -89,6 +89,146 @@ public class DataBase {
     public static final String KEY_RATE_BALL_STATUS = "14";
     public static final String KEY_FOE_PK_MAX_HP = "15";
     public static final String KEY_FOE_PK_REMOTE_HP = "16";
+    public static final String KEY_CIBLE_NB_UTILISATION = "17";
+    public static final String KEY_LANCEUR_NB_UTILISATION = "18";
+    public static final String KEY_FIGHTER_NB_UTILISATION = "19";
+    public static final String KEY_EQUIPE_NB_UTILISATION = "20";
+    public static final String KEY_EQUIPE_ADV_NB_UTILISATION = "21";
+    public static final String KEY_NB_UTILI_ATT_EQ_TOUR = "22";
+    public static final String KEY_LANCEUR_PV_RESTANTS = "23";
+    public static final String KEY_CIBLE_PV_RESTANTS = "24";
+    public static final String KEY_LANCEUR_PV_MAX = "25";
+    public static final String KEY_CIBLE_PV_MAX = "26";
+    public static final String KEY_LANCEUR_STATIS = "27";
+    public static final String KEY_CIBLE_STATIS = "28";
+    public static final String KEY_LANCEUR_BOOST = "29";
+    public static final String KEY_CIBLE_BOOST = "30";
+    public static final String KEY_SOMME_BOOST_POS_CIBLE ="31";
+    public static final String KEY_CIBLE_ATTAQUES ="32";
+    public static final String KEY_CIBLE_ATTAQUE_CHOISIE ="33";
+    public static final String KEY_CIBLE_ATTAQUES_TYPES ="34";
+    public static final String KEY_CIBLE_CLONE ="35";
+    public static final String KEY_CIBLE_DEGATS_RECUS ="36";
+    public static final String KEY_CIBLE_DEGATS_RECUS_TOTAL ="37";
+    public static final String KEY_CIBLE_DEGATS_RECUS_TOUR ="38";
+    public static final String KEY_CIBLE_DEGATS_RECUS_TOTAL_TOUR ="39";
+    public static final String KEY_CIBLE_DISPARAIT ="40";
+    public static final String KEY_CIBLE_DER_JOUE ="41";
+    public static final String KEY_CIBLE_JOUE ="42";
+    public static final String KEY_CIBLE_MASSE ="43";
+    public static final String KEY_CIBLE_TAILLE ="44";
+    public static final String KEY_CIBLE_CAPACITE ="45";
+    public static final String KEY_CIBLE_OBJET ="46";
+    public static final String KEY_CIBLE_STATUTS ="47";
+    public static final String KEY_CIBLE_TYPES ="48";
+    public static final String KEY_CIBLE_NOM ="49";
+    public static final String KEY_CIBLE_PP ="50";
+    public static final String KEY_NB_KO_EQUIPE_CIBLE ="51";
+    public static final String KEY_NB_KO_EQUIPE_ADV_CIBLE ="52";
+    public static final String KEY_COEFF_EFF_BASE_TYPES_CIBLE ="53";
+    public static final String KEY_NB_TOUR ="54";
+    public static final String KEY_SOMME_BOOST_POS_LANCEUR ="55";
+    public static final String KEY_NB_TOUR_GLOBAL ="56";
+    public static final String KEY_LANCEUR_ATTAQUES ="57";
+    public static final String KEY_LANCEUR_ATTAQUE_CHOISIE ="58";
+    public static final String KEY_LANCEUR_ATTAQUES_TYPES ="59";
+    public static final String KEY_LANCEUR_CLONE ="60";
+    public static final String KEY_LANCEUR_DEGATS_RECUS ="61";
+    public static final String KEY_LANCEUR_DEGATS_RECUS_TOTAL ="62";
+    public static final String KEY_LANCEUR_DEGATS_RECUS_TOUR ="63";
+    public static final String KEY_LANCEUR_DEGATS_RECUS_TOTAL_TOUR ="64";
+    public static final String KEY_LANCEUR_DISPARAIT ="65";
+    public static final String KEY_LANCEUR_DER_JOUE ="66";
+    public static final String KEY_LANCEUR_JOUE ="67";
+    public static final String KEY_LANCEUR_MASSE ="68";
+    public static final String KEY_LANCEUR_TAILLE ="69";
+    public static final String KEY_LANCEUR_CAPACITE ="70";
+    public static final String KEY_LANCEUR_OBJET ="71";
+    public static final String KEY_LANCEUR_STATUTS ="72";
+    public static final String KEY_LANCEUR_TYPES ="73";
+    public static final String KEY_LANCEUR_NOM ="74";
+    public static final String KEY_COEFF_EFF_BASE_TYPES_LANCEUR ="75";
+    public static final String KEY_LANCEUR_PP ="76";
+    public static final String KEY_CIBLE_GENRE = "77";
+    public static final String KEY_LANCEUR_GENRE = "78";
+    public static final String KEY_COEFF_EFF_BASE_TYPES_FIGHTER ="79";
+    public static final String KEY_FIGHTER_BONHEUR ="80";
+    public static final String KEY_FIGHTER_PP ="81";
+    public static final String KEY_FIGHTER_GENRE = "82";
+    public static final String KEY_FIGHTER_PV_RESTANTS = "83";
+    public static final String KEY_FIGHTER_PV_MAX = "84";
+    public static final String KEY_FIGHTER_STATIS = "85";
+    public static final String KEY_FIGHTER_BOOST = "86";
+    public static final String KEY_SOMME_BOOST_POS_FIGHTER ="87";
+    public static final String KEY_FIGHTER_ATTAQUES ="88";
+    public static final String KEY_FIGHTER_ATTAQUE_CHOISIE ="89";
+    public static final String KEY_FIGHTER_ATTAQUES_TYPES ="90";
+    public static final String KEY_FIGHTER_CLONE ="91";
+    public static final String KEY_FIGHTER_DEGATS_RECUS ="92";
+    public static final String KEY_FIGHTER_DEGATS_RECUS_TOTAL ="93";
+    public static final String KEY_FIGHTER_DEGATS_RECUS_TOUR ="94";
+    public static final String KEY_FIGHTER_DEGATS_RECUS_TOTAL_TOUR ="95";
+    public static final String KEY_FIGHTER_DISPARAIT ="96";
+    public static final String KEY_FIGHTER_DER_JOUE ="97";
+    public static final String KEY_FIGHTER_JOUE ="98";
+    public static final String KEY_FIGHTER_MASSE ="99";
+    public static final String KEY_FIGHTER_TAILLE ="100";
+    public static final String KEY_FIGHTER_CAPACITE ="101";
+    public static final String KEY_FIGHTER_OBJET ="102";
+    public static final String KEY_FIGHTER_STATUTS ="103";
+    public static final String KEY_FIGHTER_TYPES ="104";
+    public static final String KEY_FIGHTER_NOM ="105";
+    public static final String KEY_ATTAQUE_CATEGORIE ="106";
+    public static final String KEY_ATTAQUE_TYPES ="107";
+    public static final String KEY_ATTAQUE_NOM ="108";
+    public static final String KEY_PUISSANCE_BASE ="109";
+    public static final String KEY_COEFF_EFF ="110";
+    public static final String KEY_NB_UTILISATION_CONSECUTIF ="111";
+    public static final String KEY_CLIMATS ="112";
+    public static final String KEY_LIEU_COMBAT ="113";
+    public static final String KEY_NB_FLEES ="114";
+    public static final String KEY_CIBLE_BONHEUR ="115";
+    public static final String KEY_LANCEUR_BONHEUR ="116";
+    public static final String KEY_TEMPS_TOUR ="117";
+    public static final String KEY_RATE_EFF_MOVE_AGAINST_TARGET ="118";
+    public static final String KEY_NB_COMBATTANTS_TERRAIN ="119";
+    public static final String KEY_NB_KO_EQUIPE_LANCEUR ="120";
+    public static final String KEY_NB_KO_EQUIPE_ADV_LANCEUR ="121";
+    public static final String KEY_NB_KO_EQUIPE_FIGHTER ="122";
+    public static final String KEY_NB_KO_EQUIPE_ADV_FIGHTER ="123";
+    public static final String KEY_CIBLE_POSSEDE_STATUT_RELATION ="124";
+    public static final String KEY_IMMU_TYPE_ATT_COMBATTANT_ENTRANT ="125";
+    public static final String KEY_CIBLE_EFFET ="126";
+    public static final String KEY_PAS_PP_ATTAQUE_CIBLE ="127";
+    public static final String KEY_PAS_UTILIS_ATTAQUE_CIBLE ="128";
+    public static final String KEY_IMMU_TYPE_ATT_CIBLE ="129";
+    public static final String KEY_AUCUN_BOOST_POSSIBLE ="130";
+    public static final String KEY_LANCEUR_EFFET ="131";
+    public static final String KEY_TYPES_ATTAQUES_RES_VIDE ="132";
+    public static final String KEY_PAS_ATTAQUE_INVOC ="133";
+    public static final String KEY_PAS_ATTAQUES_COPIABLES ="134";
+    public static final String KEY_PAS_PARTENAIRE ="135";
+    public static final String KEY_PAS_PARTENAIRE_ARRIERE ="136";
+    public static final String KEY_PAS_PARTENAIRE_TERRAIN ="137";
+    public static final String KEY_PAS_TOUR_TERRAIN ="138";
+    public static final String KEY_EXISTE_GENRE_ASSEXUE ="139";
+    public static final String KEY_GENRES_EGAUX ="140";
+    public static final String KEY_DEJA_CAPTURE ="141";
+    public static final String KEY_MASSE_MOYENNE_PK ="142";
+    public static final String KEY_PK_UT_GENRE ="143";
+    public static final String KEY_PK_UT_MASSE ="144";
+    public static final String KEY_PK_UT_VITESSE ="145";
+    public static final String KEY_PK_UT_TYPES_BASE ="146";
+    public static final String KEY_PK_UT_PIERRES_EVOS ="147";
+    public static final String KEY_PK_SAUVAGE_GENRE ="148";
+    public static final String KEY_PK_SAUVAGE_MASSE ="149";
+    public static final String KEY_PK_SAUVAGE_VITESSE ="150";
+    public static final String KEY_PK_SAUVAGE_TYPES_BASE ="151";
+    public static final String KEY_PK_SAUVAGE_PIERRES_EVOS ="152";
+    public static final String KEY_COMBATTANT_ENTRANT_CLONE ="153";
+    public static final String KEY_COMBATTANT_ENTRANT_TYPES ="154";
+    public static final String KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT ="155";
+    public static final String KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION ="156";
 
     public static final String VAR_DEF = "VAR";
     public static final String DEF_NIVEAU = "NIVEAU";
@@ -278,6 +418,7 @@ public class DataBase {
     public static final String RATE_BOOST_CRITICAL_HIT = "RATE_BOOST_CRITICAL_HIT";
     public static final String DAMAGE_FORMULA = "DAMAGE_FORMULA";
     public static final String DEFAULT_EGG_GROUP = "DEFAULT_EGG_GROUP";
+    public static final String DEFAULT_EGG_GROUP_VALUE = "METAMORPH";
     public static final String MAX_STEPS_SAME_EVO_BASE = "MAX_STEPS_SAME_EVO_BASE";
     public static final String MAX_STEPS = "MAX_STEPS";
     public static final String MIN_HP = "MIN_HP";
@@ -1317,6 +1458,10 @@ public class DataBase {
         initValueOther1(_key, _value);
         initValueOther2(_key, _value);
         initValueOther3(_key, _value);
+        initValueOtherCible(_key, _value);
+        initValueOtherLanceur(_key, _value);
+        initValueOtherFighter(_key, _value);
+        initValueOther4(_key, _value);
     }
 
     private void initValueOther1(String _key, String _value) {
@@ -1338,14 +1483,48 @@ public class DataBase {
         if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)) {
             lanceurNiveau(_value);
         }
+        initValueUtSauvage(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_BOOST)) {
+            boost(_value);
+        }
+    }
+
+    private void initValueUtSauvage(String _key, String _value) {
         if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_NIVEAU)) {
             pkSauvageNiveau(_value);
         }
         if (StringUtil.quickEq(_key, KEY_PK_UT_NIVEAU)) {
             pkUtNiveau(_value);
         }
-        if (StringUtil.quickEq(_key, KEY_BOOST)) {
-            boost(_value);
+        if (StringUtil.quickEq(_key, KEY_PK_UT_GENRE)){
+            pkUtGenre(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_MASSE)){
+            pkUtMasse(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_VITESSE)){
+            pkUtVitesse(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_TYPES_BASE)){
+            pkUtTypesBase(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_PIERRES_EVOS)){
+            pkUtPierresEvos(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_GENRE)){
+            pkSauvageGenre(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_MASSE)){
+            pkSauvageMasse(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_VITESSE)){
+            pkSauvageVitesse(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_TYPES_BASE)){
+            pkSauvageTypesBase(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_PIERRES_EVOS)){
+            pkSauvagePierresEvos(_value);
         }
     }
 
@@ -1373,6 +1552,448 @@ public class DataBase {
         }
         if (StringUtil.quickEq(_key, KEY_FOE_PK_REMOTE_HP)) {
             foePkRemoteHp(_value);
+        }
+    }
+    private void initValueOtherCible(String _key, String _value) {
+        initValueOtherCible1(_key, _value);
+        initValueOtherCible2(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_CIBLE_TAILLE)){
+            cibleTaille(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_CAPACITE)){
+            cibleCapacite(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_OBJET)){
+            cibleObjet(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_STATUTS)){
+            cibleStatuts(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_TYPES)){
+            cibleTypes(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PP)){
+            ciblePp(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NIVEAU)){
+            cibleNiveau(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_BONHEUR)){
+            cibleBonheur(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_CIBLE)){
+            nbKoEquipeCible(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_CIBLE)){
+            nbKoEquipeAdvCible(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_CIBLE)){
+            coeffEffBaseTypesCible(_value);
+        }
+    }
+
+    private void initValueOtherCible2(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_CIBLE_CLONE)){
+            cibleClone(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS)){
+            cibleDegatsRecus(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOTAL)){
+            cibleDegatsRecusTotal(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOUR)){
+            cibleDegatsRecusTour(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOTAL_TOUR)){
+            cibleDegatsRecusTotalTour(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DISPARAIT)){
+            cibleDisparait(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_JOUE)){
+            cibleJoue(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DER_JOUE)){
+            cibleDerJoue(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NOM)){
+            cibleNom(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_MASSE)){
+            cibleMasse(_value);
+        }
+    }
+
+    private void initValueOtherCible1(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_CIBLE_POSSEDE_STATUT_RELATION)){
+            ciblePossedeStatutRelation(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_EFFET)){
+            cibleEffet(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PP_ATTAQUE_CIBLE)){
+            pasPpAttaqueCible(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_UTILIS_ATTAQUE_CIBLE)){
+            pasUtilisAttaqueCible(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_CIBLE)){
+            immuTypeAttCible(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_GENRE)){
+            cibleGenre(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PV_RESTANTS)){
+            ciblePvRestants(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PV_MAX)){
+            ciblePvMax(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NB_UTILISATION)){
+            cibleNbUtilisation(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_STATIS)){
+            cibleStatis(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_BOOST)){
+            cibleBoost(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_CIBLE)){
+            sommeBoostPosCible(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUE_CHOISIE)){
+            cibleAttaqueChoisie(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUES)){
+            cibleAttaques(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUES_TYPES)){
+            cibleAttaquesTypes(_value);
+        }
+    }
+
+    private void initValueOtherLanceur(String _key, String _value) {
+        initValueOtherLanceur1(_key, _value);
+        initValueOtherLanceur2(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_STATUTS)){
+            lanceurStatuts(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_TYPES)){
+            lanceurTypes(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PP)){
+            lanceurPp(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)){
+            lanceurNiveau(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_BONHEUR)){
+            lanceurBonheur(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_LANCEUR)){
+            nbKoEquipeLanceur(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_LANCEUR)){
+            nbKoEquipeAdvLanceur(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_LANCEUR)){
+            coeffEffBaseTypesLanceur(_value);
+        }
+    }
+
+    private void initValueOtherLanceur2(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOTAL_TOUR)){
+            lanceurDegatsRecusTotalTour(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DISPARAIT)){
+            lanceurDisparait(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_JOUE)){
+            lanceurJoue(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DER_JOUE)){
+            lanceurDerJoue(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NOM)){
+            lanceurNom(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_MASSE)){
+            lanceurMasse(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_TAILLE)){
+            lanceurTaille(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_CAPACITE)){
+            lanceurCapacite(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_OBJET)){
+            lanceurObjet(_value);
+        }
+    }
+
+    private void initValueOtherLanceur1(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_EFFET)){
+            lanceurEffet(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_GENRE)){
+            lanceurGenre(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PV_RESTANTS)){
+            lanceurPvRestants(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PV_MAX)){
+            lanceurPvMax(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NB_UTILISATION)){
+            lanceurNbUtilisation(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_STATIS)){
+            lanceurStatis(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_BOOST)){
+            lanceurBoost(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_LANCEUR)){
+            sommeBoostPosLanceur(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUE_CHOISIE)){
+            lanceurAttaqueChoisie(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUES)){
+            lanceurAttaques(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUES_TYPES)){
+            lanceurAttaquesTypes(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_CLONE)){
+            lanceurClone(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS)){
+            lanceurDegatsRecus(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOTAL)){
+            lanceurDegatsRecusTotal(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOUR)){
+            lanceurDegatsRecusTour(_value);
+        }
+    }
+
+    private void initValueOtherFighter(String _key, String _value) {
+        initValueOtherFighter1(_key, _value);
+        initValueOtherFighter2(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PP)){
+            fighterPp(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NIVEAU)){
+            fighterNiveau(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_BONHEUR)){
+            fighterBonheur(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_FIGHTER)){
+            nbKoEquipeFighter(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_FIGHTER)){
+            nbKoEquipeAdvFighter(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_FIGHTER)){
+            coeffEffBaseTypesFighter(_value);
+        }
+    }
+
+    private void initValueOtherFighter2(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DISPARAIT)){
+            fighterDisparait(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_JOUE)){
+            fighterJoue(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DER_JOUE)){
+            fighterDerJoue(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NOM)){
+            fighterNom(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_MASSE)){
+            fighterMasse(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_TAILLE)){
+            fighterTaille(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_CAPACITE)){
+            fighterCapacite(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_OBJET)){
+            fighterObjet(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_STATUTS)){
+            fighterStatuts(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_TYPES)){
+            fighterTypes(_value);
+        }
+    }
+
+    private void initValueOtherFighter1(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_GENRE)){
+            fighterGenre(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PV_RESTANTS)){
+            fighterPvRestants(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PV_MAX)){
+            fighterPvMax(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NB_UTILISATION)){
+            fighterNbUtilisation(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_STATIS)){
+            fighterStatis(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_BOOST)){
+            fighterBoost(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_FIGHTER)){
+            sommeBoostPosFighter(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUE_CHOISIE)){
+            fighterAttaqueChoisie(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUES)){
+            fighterAttaques(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUES_TYPES)){
+            fighterAttaquesTypes(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_CLONE)){
+            fighterClone(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS)){
+            fighterDegatsRecus(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOTAL)){
+            fighterDegatsRecusTotal(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOUR)){
+            fighterDegatsRecusTour(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOTAL_TOUR)){
+            fighterDegatsRecusTotalTour(_value);
+        }
+    }
+
+    private void initValueOther4(String _key, String _value) {
+        initValueOther5(_key, _value);
+        initValueOther6(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT)){
+            coeffEffBaseTypesCombattantEntrant(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION)){
+            equipeAdvCombattantEntrantNbUtilisation(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_CATEGORIE)){
+            attaqueCategorie(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_TYPES)){
+            attaqueTypes(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_NOM)){
+            attaqueNom(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PUISSANCE_BASE)){
+            puissanceBase(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF)){
+            coeffEff(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_UTILISATION_CONSECUTIF)){
+            nbUtilisationConsecutif(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_NB_UTILISATION)){
+            equipeNbUtilisation(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_ADV_NB_UTILISATION)){
+            equipeAdvNbUtilisation(_value);
+        }
+    }
+
+    private void initValueOther6(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_TEMPS_TOUR)){
+            tempsTour(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_TOUR)){
+            nbTour(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_RATE_EFF_MOVE_AGAINST_TARGET)){
+            rateEffMoveAgainstTarget(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_COMBATTANTS_TERRAIN)){
+            nbCombattantsTerrain(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_LIEU_COMBAT)){
+            lieuCombat(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_CLIMATS)){
+            climats(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_TOUR_GLOBAL)){
+            nbTourGlobal(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_COMBATTANT_ENTRANT_CLONE)){
+            combattantEntrantClone(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_COMBATTANT_ENTRANT_TYPES)){
+            combattantEntrantTypes(_value);
+        }
+    }
+
+    private void initValueOther5(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_DEJA_CAPTURE)){
+            dejaCapture(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_FLEES)){
+            nbFlees(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_MASSE_MOYENNE_PK)){
+            masseMoyennePk(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_COMBATTANT_ENTRANT)){
+            immuTypeAttCombattantEntrant(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_ATTAQUE_INVOC)){
+            pasAttaqueInvoc(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_ATTAQUES_COPIABLES)){
+            pasAttaquesCopiables(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_AUCUN_BOOST_POSSIBLE)){
+            aucunBoostPossible(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_TYPES_ATTAQUES_RES_VIDE)){
+            typesAttaquesResVide(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE)){
+            pasPartenaire(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE_ARRIERE)){
+            pasPartenaireArriere(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE_TERRAIN)){
+            pasPartenaireTerrain(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_TOUR_TERRAIN)){
+            pasTourTerrain(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_EXISTE_GENRE_ASSEXUE)){
+            existeGenreAssexue(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_GENRES_EGAUX)){
+            genresEgaux(_value);
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_UTILI_ATT_EQ_TOUR)){
+            nbUtiliAttEqTour(_value);
         }
     }
 
@@ -1435,6 +2056,21 @@ public class DataBase {
         if (gr3().hasDuplicates()) {
             pkSauvageNiveau(EMPTY_STRING);
             pkUtNiveau(EMPTY_STRING);
+            dejaCapture(EMPTY_STRING);
+            nbFlees(EMPTY_STRING);
+            lieuCombat(EMPTY_STRING);
+            tempsTour(EMPTY_STRING);
+            masseMoyennePk(EMPTY_STRING);
+            pkUtGenre(EMPTY_STRING);
+            pkUtMasse(EMPTY_STRING);
+            pkUtVitesse(EMPTY_STRING);
+            pkSauvageGenre(EMPTY_STRING);
+            pkSauvageMasse(EMPTY_STRING);
+            pkSauvageVitesse(EMPTY_STRING);
+            pkSauvageTypesBase(EMPTY_STRING);
+            pkSauvagePierresEvos(EMPTY_STRING);
+            pkUtTypesBase(EMPTY_STRING);
+            pkUtPierresEvos(EMPTY_STRING);
         }
         if (gr4().hasDuplicates()) {
             lanceurNiveau(EMPTY_STRING);
@@ -1447,6 +2083,138 @@ public class DataBase {
             rateBallStatus(EMPTY_STRING);
             foePkMaxHp(EMPTY_STRING);
             foePkRemoteHp(EMPTY_STRING);
+        }
+        if (gr6().hasDuplicates()) {
+            immuTypeAttCombattantEntrant(EMPTY_STRING);
+            pasAttaqueInvoc(EMPTY_STRING);
+            pasAttaquesCopiables(EMPTY_STRING);
+            ciblePossedeStatutRelation(EMPTY_STRING);
+            cibleEffet(EMPTY_STRING);
+            pasPpAttaqueCible(EMPTY_STRING);
+            pasUtilisAttaqueCible(EMPTY_STRING);
+            immuTypeAttCible(EMPTY_STRING);
+            aucunBoostPossible(EMPTY_STRING);
+            lanceurEffet(EMPTY_STRING);
+            typesAttaquesResVide(EMPTY_STRING);
+            pasPartenaire(EMPTY_STRING);
+            pasPartenaireArriere(EMPTY_STRING);
+            pasPartenaireTerrain(EMPTY_STRING);
+            pasTourTerrain(EMPTY_STRING);
+            existeGenreAssexue(EMPTY_STRING);
+            genresEgaux(EMPTY_STRING);
+            cibleGenre(EMPTY_STRING);
+            ciblePvRestants(EMPTY_STRING);
+            ciblePvMax(EMPTY_STRING);
+            cibleNbUtilisation(EMPTY_STRING);
+            cibleStatis(EMPTY_STRING);
+            cibleBoost(EMPTY_STRING);
+            sommeBoostPosCible(EMPTY_STRING);
+            cibleAttaqueChoisie(EMPTY_STRING);
+            cibleAttaques(EMPTY_STRING);
+            cibleAttaquesTypes(EMPTY_STRING);
+            cibleClone(EMPTY_STRING);
+            cibleDegatsRecus(EMPTY_STRING);
+            cibleDegatsRecusTotal(EMPTY_STRING);
+            cibleDegatsRecusTour(EMPTY_STRING);
+            cibleDegatsRecusTotalTour(EMPTY_STRING);
+            cibleDisparait(EMPTY_STRING);
+            cibleJoue(EMPTY_STRING);
+            cibleDerJoue(EMPTY_STRING);
+            cibleNom(EMPTY_STRING);
+            cibleMasse(EMPTY_STRING);
+            cibleTaille(EMPTY_STRING);
+            cibleCapacite(EMPTY_STRING);
+            cibleObjet(EMPTY_STRING);
+            cibleStatuts(EMPTY_STRING);
+            cibleTypes(EMPTY_STRING);
+            ciblePp(EMPTY_STRING);
+            cibleNiveau(EMPTY_STRING);
+            cibleBonheur(EMPTY_STRING);
+            nbKoEquipeCible(EMPTY_STRING);
+            nbKoEquipeAdvCible(EMPTY_STRING);
+            coeffEffBaseTypesCible(EMPTY_STRING);
+            lanceurGenre(EMPTY_STRING);
+            nbUtiliAttEqTour(EMPTY_STRING);
+            lanceurPvRestants(EMPTY_STRING);
+            lanceurPvMax(EMPTY_STRING);
+            lanceurNbUtilisation(EMPTY_STRING);
+            lanceurStatis(EMPTY_STRING);
+            lanceurBoost(EMPTY_STRING);
+            sommeBoostPosLanceur(EMPTY_STRING);
+            lanceurAttaqueChoisie(EMPTY_STRING);
+            lanceurAttaques(EMPTY_STRING);
+            lanceurAttaquesTypes(EMPTY_STRING);
+            lanceurClone(EMPTY_STRING);
+            lanceurDegatsRecus(EMPTY_STRING);
+            lanceurDegatsRecusTotal(EMPTY_STRING);
+            lanceurDegatsRecusTour(EMPTY_STRING);
+            lanceurDegatsRecusTotalTour(EMPTY_STRING);
+            lanceurDisparait(EMPTY_STRING);
+            lanceurJoue(EMPTY_STRING);
+            lanceurDerJoue(EMPTY_STRING);
+            lanceurNom(EMPTY_STRING);
+            lanceurMasse(EMPTY_STRING);
+            lanceurTaille(EMPTY_STRING);
+            lanceurCapacite(EMPTY_STRING);
+            lanceurObjet(EMPTY_STRING);
+            lanceurStatuts(EMPTY_STRING);
+            lanceurTypes(EMPTY_STRING);
+            lanceurPp(EMPTY_STRING);
+            lanceurNiveau(EMPTY_STRING);
+            lanceurBonheur(EMPTY_STRING);
+            nbKoEquipeLanceur(EMPTY_STRING);
+            nbKoEquipeAdvLanceur(EMPTY_STRING);
+            coeffEffBaseTypesLanceur(EMPTY_STRING);
+            tempsTour(EMPTY_STRING);
+            nbTour(EMPTY_STRING);
+            rateEffMoveAgainstTarget(EMPTY_STRING);
+            nbCombattantsTerrain(EMPTY_STRING);
+            lieuCombat(EMPTY_STRING);
+            climats(EMPTY_STRING);
+            nbTourGlobal(EMPTY_STRING);
+            combattantEntrantClone(EMPTY_STRING);
+            combattantEntrantTypes(EMPTY_STRING);
+            coeffEffBaseTypesCombattantEntrant(EMPTY_STRING);
+            equipeAdvCombattantEntrantNbUtilisation(EMPTY_STRING);
+            attaqueCategorie(EMPTY_STRING);
+            attaqueTypes(EMPTY_STRING);
+            attaqueNom(EMPTY_STRING);
+            puissanceBase(EMPTY_STRING);
+            fighterGenre(EMPTY_STRING);
+            fighterPvRestants(EMPTY_STRING);
+            fighterPvMax(EMPTY_STRING);
+            fighterNbUtilisation(EMPTY_STRING);
+            fighterStatis(EMPTY_STRING);
+            fighterBoost(EMPTY_STRING);
+            sommeBoostPosFighter(EMPTY_STRING);
+            fighterAttaqueChoisie(EMPTY_STRING);
+            fighterAttaques(EMPTY_STRING);
+            fighterAttaquesTypes(EMPTY_STRING);
+            fighterClone(EMPTY_STRING);
+            fighterDegatsRecus(EMPTY_STRING);
+            fighterDegatsRecusTotal(EMPTY_STRING);
+            fighterDegatsRecusTour(EMPTY_STRING);
+            fighterDegatsRecusTotalTour(EMPTY_STRING);
+            fighterDisparait(EMPTY_STRING);
+            fighterJoue(EMPTY_STRING);
+            fighterDerJoue(EMPTY_STRING);
+            fighterNom(EMPTY_STRING);
+            fighterMasse(EMPTY_STRING);
+            fighterTaille(EMPTY_STRING);
+            fighterCapacite(EMPTY_STRING);
+            fighterObjet(EMPTY_STRING);
+            fighterStatuts(EMPTY_STRING);
+            fighterTypes(EMPTY_STRING);
+            fighterPp(EMPTY_STRING);
+            fighterNiveau(EMPTY_STRING);
+            fighterBonheur(EMPTY_STRING);
+            nbKoEquipeFighter(EMPTY_STRING);
+            nbKoEquipeAdvFighter(EMPTY_STRING);
+            coeffEffBaseTypesFighter(EMPTY_STRING);
+            coeffEff(EMPTY_STRING);
+            nbUtilisationConsecutif(EMPTY_STRING);
+            equipeNbUtilisation(EMPTY_STRING);
+            equipeAdvNbUtilisation(EMPTY_STRING);
         }
     }
 
@@ -1469,12 +2237,7 @@ public class DataBase {
         if (incorrectKey(lanceurNiveau())) {
             lanceurNiveau(DEF_LANCEUR_NIVEAU);
         }
-        if (incorrectKey(pkSauvageNiveau())) {
-            pkSauvageNiveau(DEF_PK_SAUVAGE_NIVEAU);
-        }
-        if (incorrectKey(pkUtNiveau())) {
-            pkUtNiveau(DEF_PK_UT_NIVEAU);
-        }
+        catching();
         if (incorrectKey(boost())) {
             boost(DEF_BOOST);
         }
@@ -1488,6 +2251,58 @@ public class DataBase {
             defense(DEF_DEFENSE);
         }
         capt();
+        cible();
+        lanceur();
+        fighter();
+        other();
+    }
+
+    private void catching() {
+        if (incorrectKey(dejaCapture())) {
+            dejaCapture(DEF_DEJA_CAPTURE);
+        }
+        if (incorrectKey(nbFlees())) {
+            nbFlees(DEF_NB_FLEES);
+        }
+        if (incorrectKey(pkSauvageNiveau())) {
+            pkSauvageNiveau(DEF_PK_SAUVAGE_NIVEAU);
+        }
+        if (incorrectKey(pkUtNiveau())) {
+            pkUtNiveau(DEF_PK_UT_NIVEAU);
+        }
+        if (incorrectKey(masseMoyennePk())) {
+            masseMoyennePk(DEF_MASSE_MOYENNE_PK);
+        }
+        if (incorrectKey(pkUtGenre())) {
+            pkUtGenre(DEF_PK_UT_GENRE);
+        }
+        if (incorrectKey(pkUtMasse())) {
+            pkUtMasse(DEF_PK_UT_MASSE);
+        }
+        if (incorrectKey(pkUtVitesse())) {
+            pkUtVitesse(DEF_PK_UT_VITESSE);
+        }
+        if (incorrectKey(pkUtTypesBase())) {
+            pkUtTypesBase(DEF_PK_UT_TYPES_BASE);
+        }
+        if (incorrectKey(pkUtPierresEvos())) {
+            pkUtPierresEvos(DEF_PK_UT_PIERRES_EVOS);
+        }
+        if (incorrectKey(pkSauvageGenre())) {
+            pkSauvageGenre(DEF_PK_SAUVAGE_GENRE);
+        }
+        if (incorrectKey(pkSauvageMasse())) {
+            pkSauvageMasse(DEF_PK_SAUVAGE_MASSE);
+        }
+        if (incorrectKey(pkSauvageVitesse())) {
+            pkSauvageVitesse(DEF_PK_SAUVAGE_VITESSE);
+        }
+        if (incorrectKey(pkSauvageTypesBase())) {
+            pkSauvageTypesBase(DEF_PK_SAUVAGE_TYPES_BASE);
+        }
+        if (incorrectKey(pkSauvagePierresEvos())) {
+            pkSauvagePierresEvos(DEF_PK_SAUVAGE_PIERRES_EVOS);
+        }
     }
 
     private void capt() {
@@ -1502,6 +2317,430 @@ public class DataBase {
         }
         if (incorrectKey(foePkRemoteHp())) {
             foePkRemoteHp(DEF_FOE_PK_REMOTE_HP);
+        }
+    }
+    private void cible() {
+        cible1();
+        cible2();
+        if (incorrectKey(cibleMasse())) {
+            cibleMasse(DEF_CIBLE_MASSE);
+        }
+        if (incorrectKey(cibleTaille())) {
+            cibleTaille(DEF_CIBLE_TAILLE);
+        }
+        if (incorrectKey(cibleCapacite())) {
+            cibleCapacite(DEF_CIBLE_CAPACITE);
+        }
+        if (incorrectKey(cibleObjet())) {
+            cibleObjet(DEF_CIBLE_OBJET);
+        }
+        if (incorrectKey(cibleStatuts())) {
+            cibleStatuts(DEF_CIBLE_STATUTS);
+        }
+        if (incorrectKey(cibleTypes())) {
+            cibleTypes(DEF_CIBLE_TYPES);
+        }
+        if (incorrectKey(ciblePp())) {
+            ciblePp(DEF_CIBLE_PP);
+        }
+        if (incorrectKey(cibleBonheur())) {
+            cibleBonheur(DEF_CIBLE_BONHEUR);
+        }
+        if (incorrectKey(nbKoEquipeCible())) {
+            nbKoEquipeCible(DEF_NB_KO_EQUIPE_CIBLE);
+        }
+        if (incorrectKey(nbKoEquipeAdvCible())) {
+            nbKoEquipeAdvCible(DEF_NB_KO_EQUIPE_ADV_CIBLE);
+        }
+        if (incorrectKey(coeffEffBaseTypesCible())) {
+            coeffEffBaseTypesCible(DEF_COEFF_EFF_BASE_TYPES_CIBLE);
+        }
+    }
+
+    private void cible2() {
+        if (incorrectKey(cibleClone())) {
+            cibleClone(DEF_CIBLE_CLONE);
+        }
+        if (incorrectKey(cibleDegatsRecus())) {
+            cibleDegatsRecus(DEF_CIBLE_DEGATS_RECUS);
+        }
+        if (incorrectKey(cibleDegatsRecusTotal())) {
+            cibleDegatsRecusTotal(DEF_CIBLE_DEGATS_RECUS_TOTAL);
+        }
+        if (incorrectKey(cibleDegatsRecusTour())) {
+            cibleDegatsRecusTour(DEF_CIBLE_DEGATS_RECUS_TOUR);
+        }
+        if (incorrectKey(cibleDegatsRecusTotalTour())) {
+            cibleDegatsRecusTotalTour(DEF_CIBLE_DEGATS_RECUS_TOTAL_TOUR);
+        }
+        if (incorrectKey(cibleDisparait())) {
+            cibleDisparait(DEF_CIBLE_DISPARAIT);
+        }
+        if (incorrectKey(cibleJoue())) {
+            cibleJoue(DEF_CIBLE_JOUE);
+        }
+        if (incorrectKey(cibleDerJoue())) {
+            cibleDerJoue(DEF_CIBLE_DER_JOUE);
+        }
+        if (incorrectKey(cibleNom())) {
+            cibleNom(DEF_CIBLE_NOM);
+        }
+    }
+
+    private void cible1() {
+        if (incorrectKey(ciblePossedeStatutRelation())) {
+            ciblePossedeStatutRelation(DEF_CIBLE_POSSEDE_STATUT_RELATION);
+        }
+        if (incorrectKey(cibleEffet())) {
+            cibleEffet(DEF_CIBLE_EFFET);
+        }
+        if (incorrectKey(pasPpAttaqueCible())) {
+            pasPpAttaqueCible(DEF_PAS_PP_ATTAQUE_CIBLE);
+        }
+        if (incorrectKey(pasUtilisAttaqueCible())) {
+            pasUtilisAttaqueCible(DEF_PAS_UTILIS_ATTAQUE_CIBLE);
+        }
+        if (incorrectKey(immuTypeAttCible())) {
+            immuTypeAttCible(DEF_IMMU_TYPE_ATT_CIBLE);
+        }
+        if (incorrectKey(cibleGenre())) {
+            cibleGenre(DEF_CIBLE_GENRE);
+        }
+        if (incorrectKey(ciblePvRestants())) {
+            ciblePvRestants(DEF_CIBLE_PV_RESTANTS);
+        }
+        if (incorrectKey(ciblePvMax())) {
+            ciblePvMax(DEF_CIBLE_PV_MAX);
+        }
+        if (incorrectKey(cibleNbUtilisation())) {
+            cibleNbUtilisation(DEF_CIBLE_NB_UTILISATION);
+        }
+        if (incorrectKey(cibleStatis())) {
+            cibleStatis(DEF_CIBLE_STATIS);
+        }
+        if (incorrectKey(cibleBoost())) {
+            cibleBoost(DEF_CIBLE_BOOST);
+        }
+        if (incorrectKey(sommeBoostPosCible())) {
+            sommeBoostPosCible(DEF_SOMME_BOOST_POS_CIBLE);
+        }
+        if (incorrectKey(cibleAttaqueChoisie())) {
+            cibleAttaqueChoisie(DEF_CIBLE_ATTAQUE_CHOISIE);
+        }
+        if (incorrectKey(cibleAttaques())) {
+            cibleAttaques(DEF_CIBLE_ATTAQUES);
+        }
+        if (incorrectKey(cibleAttaquesTypes())) {
+            cibleAttaquesTypes(DEF_CIBLE_ATTAQUES_TYPES);
+        }
+    }
+
+    private void lanceur() {
+        lanceur1();
+        lanceur2();
+        if (incorrectKey(lanceurPp())) {
+            lanceurPp(DEF_LANCEUR_PP);
+        }
+        if (incorrectKey(lanceurBonheur())) {
+            lanceurBonheur(DEF_LANCEUR_BONHEUR);
+        }
+        if (incorrectKey(nbKoEquipeLanceur())) {
+            nbKoEquipeLanceur(DEF_NB_KO_EQUIPE_LANCEUR);
+        }
+        if (incorrectKey(nbKoEquipeAdvLanceur())) {
+            nbKoEquipeAdvLanceur(DEF_NB_KO_EQUIPE_ADV_LANCEUR);
+        }
+        if (incorrectKey(coeffEffBaseTypesLanceur())) {
+            coeffEffBaseTypesLanceur(DEF_COEFF_EFF_BASE_TYPES_LANCEUR);
+        }
+    }
+
+    private void lanceur2() {
+        if (incorrectKey(lanceurDegatsRecusTotalTour())) {
+            lanceurDegatsRecusTotalTour(DEF_LANCEUR_DEGATS_RECUS_TOTAL_TOUR);
+        }
+        if (incorrectKey(lanceurDisparait())) {
+            lanceurDisparait(DEF_LANCEUR_DISPARAIT);
+        }
+        if (incorrectKey(lanceurJoue())) {
+            lanceurJoue(DEF_LANCEUR_JOUE);
+        }
+        if (incorrectKey(lanceurDerJoue())) {
+            lanceurDerJoue(DEF_LANCEUR_DER_JOUE);
+        }
+        if (incorrectKey(lanceurNom())) {
+            lanceurNom(DEF_LANCEUR_NOM);
+        }
+        if (incorrectKey(lanceurMasse())) {
+            lanceurMasse(DEF_LANCEUR_MASSE);
+        }
+        if (incorrectKey(lanceurTaille())) {
+            lanceurTaille(DEF_LANCEUR_TAILLE);
+        }
+        if (incorrectKey(lanceurCapacite())) {
+            lanceurCapacite(DEF_LANCEUR_CAPACITE);
+        }
+        if (incorrectKey(lanceurObjet())) {
+            lanceurObjet(DEF_LANCEUR_OBJET);
+        }
+        if (incorrectKey(lanceurStatuts())) {
+            lanceurStatuts(DEF_LANCEUR_STATUTS);
+        }
+        if (incorrectKey(lanceurTypes())) {
+            lanceurTypes(DEF_LANCEUR_TYPES);
+        }
+    }
+
+    private void lanceur1() {
+        if (incorrectKey(lanceurEffet())) {
+            lanceurEffet(DEF_LANCEUR_EFFET);
+        }
+        if (incorrectKey(lanceurGenre())) {
+            lanceurGenre(DEF_LANCEUR_GENRE);
+        }
+        if (incorrectKey(lanceurPvRestants())) {
+            lanceurPvRestants(DEF_LANCEUR_PV_RESTANTS);
+        }
+        if (incorrectKey(lanceurPvMax())) {
+            lanceurPvMax(DEF_LANCEUR_PV_MAX);
+        }
+        if (incorrectKey(lanceurNbUtilisation())) {
+            lanceurNbUtilisation(DEF_LANCEUR_NB_UTILISATION);
+        }
+        if (incorrectKey(lanceurStatis())) {
+            lanceurStatis(DEF_LANCEUR_STATIS);
+        }
+        if (incorrectKey(lanceurBoost())) {
+            lanceurBoost(DEF_LANCEUR_BOOST);
+        }
+        if (incorrectKey(sommeBoostPosLanceur())) {
+            sommeBoostPosLanceur(DEF_SOMME_BOOST_POS_LANCEUR);
+        }
+        if (incorrectKey(lanceurAttaqueChoisie())) {
+            lanceurAttaqueChoisie(DEF_LANCEUR_ATTAQUE_CHOISIE);
+        }
+        if (incorrectKey(lanceurAttaques())) {
+            lanceurAttaques(DEF_LANCEUR_ATTAQUES);
+        }
+        if (incorrectKey(lanceurAttaquesTypes())) {
+            lanceurAttaquesTypes(DEF_LANCEUR_ATTAQUES_TYPES);
+        }
+        if (incorrectKey(lanceurClone())) {
+            lanceurClone(DEF_LANCEUR_CLONE);
+        }
+        if (incorrectKey(lanceurDegatsRecus())) {
+            lanceurDegatsRecus(DEF_LANCEUR_DEGATS_RECUS);
+        }
+        if (incorrectKey(lanceurDegatsRecusTotal())) {
+            lanceurDegatsRecusTotal(DEF_LANCEUR_DEGATS_RECUS_TOTAL);
+        }
+        if (incorrectKey(lanceurDegatsRecusTour())) {
+            lanceurDegatsRecusTour(DEF_LANCEUR_DEGATS_RECUS_TOUR);
+        }
+    }
+
+    private void fighter() {
+        fighter1();
+        fighter2();
+        if (incorrectKey(fighterTypes())) {
+            fighterTypes(DEF_FIGHTER_TYPES);
+        }
+        if (incorrectKey(fighterPp())) {
+            fighterPp(DEF_FIGHTER_PP);
+        }
+        if (incorrectKey(fighterBonheur())) {
+            fighterBonheur(DEF_FIGHTER_BONHEUR);
+        }
+        if (incorrectKey(nbKoEquipeFighter())) {
+            nbKoEquipeFighter(DEF_NB_KO_EQUIPE_FIGHTER);
+        }
+        if (incorrectKey(nbKoEquipeAdvFighter())) {
+            nbKoEquipeAdvFighter(DEF_NB_KO_EQUIPE_ADV_FIGHTER);
+        }
+        if (incorrectKey(coeffEffBaseTypesFighter())) {
+            coeffEffBaseTypesFighter(DEF_COEFF_EFF_BASE_TYPES_FIGHTER);
+        }
+    }
+
+    private void fighter2() {
+        if (incorrectKey(fighterDisparait())) {
+            fighterDisparait(DEF_FIGHTER_DISPARAIT);
+        }
+        if (incorrectKey(fighterJoue())) {
+            fighterJoue(DEF_FIGHTER_JOUE);
+        }
+        if (incorrectKey(fighterDerJoue())) {
+            fighterDerJoue(DEF_FIGHTER_DER_JOUE);
+        }
+        if (incorrectKey(fighterNom())) {
+            fighterNom(DEF_FIGHTER_NOM);
+        }
+        if (incorrectKey(fighterMasse())) {
+            fighterMasse(DEF_FIGHTER_MASSE);
+        }
+        if (incorrectKey(fighterTaille())) {
+            fighterTaille(DEF_FIGHTER_TAILLE);
+        }
+        if (incorrectKey(fighterCapacite())) {
+            fighterCapacite(DEF_FIGHTER_CAPACITE);
+        }
+        if (incorrectKey(fighterObjet())) {
+            fighterObjet(DEF_FIGHTER_OBJET);
+        }
+        if (incorrectKey(fighterStatuts())) {
+            fighterStatuts(DEF_FIGHTER_STATUTS);
+        }
+    }
+
+    private void fighter1() {
+        if (incorrectKey(fighterGenre())) {
+            fighterGenre(DEF_FIGHTER_GENRE);
+        }
+        if (incorrectKey(fighterPvRestants())) {
+            fighterPvRestants(DEF_FIGHTER_PV_RESTANTS);
+        }
+        if (incorrectKey(fighterPvMax())) {
+            fighterPvMax(DEF_FIGHTER_PV_MAX);
+        }
+        if (incorrectKey(fighterNbUtilisation())) {
+            fighterNbUtilisation(DEF_FIGHTER_NB_UTILISATION);
+        }
+        if (incorrectKey(fighterStatis())) {
+            fighterStatis(DEF_FIGHTER_STATIS);
+        }
+        if (incorrectKey(fighterBoost())) {
+            fighterBoost(DEF_FIGHTER_BOOST);
+        }
+        if (incorrectKey(sommeBoostPosFighter())) {
+            sommeBoostPosFighter(DEF_SOMME_BOOST_POS_FIGHTER);
+        }
+        if (incorrectKey(fighterAttaqueChoisie())) {
+            fighterAttaqueChoisie(DEF_FIGHTER_ATTAQUE_CHOISIE);
+        }
+        if (incorrectKey(fighterAttaques())) {
+            fighterAttaques(DEF_FIGHTER_ATTAQUES);
+        }
+        if (incorrectKey(fighterAttaquesTypes())) {
+            fighterAttaquesTypes(DEF_FIGHTER_ATTAQUES_TYPES);
+        }
+        if (incorrectKey(fighterClone())) {
+            fighterClone(DEF_FIGHTER_CLONE);
+        }
+        if (incorrectKey(fighterDegatsRecus())) {
+            fighterDegatsRecus(DEF_FIGHTER_DEGATS_RECUS);
+        }
+        if (incorrectKey(fighterDegatsRecusTotal())) {
+            fighterDegatsRecusTotal(DEF_FIGHTER_DEGATS_RECUS_TOTAL);
+        }
+        if (incorrectKey(fighterDegatsRecusTour())) {
+            fighterDegatsRecusTour(DEF_FIGHTER_DEGATS_RECUS_TOUR);
+        }
+        if (incorrectKey(fighterDegatsRecusTotalTour())) {
+            fighterDegatsRecusTotalTour(DEF_FIGHTER_DEGATS_RECUS_TOTAL_TOUR);
+        }
+    }
+
+    private void other() {
+        other1();
+        other2();
+        if (incorrectKey(puissanceBase())) {
+            puissanceBase(DEF_PUISSANCE_BASE);
+        }
+        if (incorrectKey(coeffEff())) {
+            coeffEff(DEF_COEFF_EFF);
+        }
+        if (incorrectKey(nbUtilisationConsecutif())) {
+            nbUtilisationConsecutif(DEF_NB_UTILISATION_CONSECUTIF);
+        }
+        if (incorrectKey(equipeNbUtilisation())) {
+            equipeNbUtilisation(DEF_EQUIPE_NB_UTILISATION);
+        }
+        if (incorrectKey(equipeAdvNbUtilisation())) {
+            equipeAdvNbUtilisation(DEF_EQUIPE_ADV_NB_UTILISATION);
+        }
+    }
+
+    private void other2() {
+        if (incorrectKey(nbCombattantsTerrain())) {
+            nbCombattantsTerrain(DEF_NB_COMBATTANTS_TERRAIN);
+        }
+        if (incorrectKey(lieuCombat())) {
+            lieuCombat(DEF_LIEU_COMBAT);
+        }
+        if (incorrectKey(climats())) {
+            climats(DEF_CLIMATS);
+        }
+        if (incorrectKey(nbTourGlobal())) {
+            nbTourGlobal(DEF_NB_TOUR_GLOBAL);
+        }
+        if (incorrectKey(combattantEntrantClone())) {
+            combattantEntrantClone(DEF_COMBATTANT_ENTRANT_CLONE);
+        }
+        if (incorrectKey(combattantEntrantTypes())) {
+            combattantEntrantTypes(DEF_COMBATTANT_ENTRANT_TYPES);
+        }
+        if (incorrectKey(coeffEffBaseTypesCombattantEntrant())) {
+            coeffEffBaseTypesCombattantEntrant(DEF_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT);
+        }
+        if (incorrectKey(equipeAdvCombattantEntrantNbUtilisation())) {
+            equipeAdvCombattantEntrantNbUtilisation(DEF_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION);
+        }
+        if (incorrectKey(attaqueCategorie())) {
+            attaqueCategorie(DEF_ATTAQUE_CATEGORIE);
+        }
+        if (incorrectKey(attaqueTypes())) {
+            attaqueTypes(DEF_ATTAQUE_TYPES);
+        }
+        if (incorrectKey(attaqueNom())) {
+            attaqueNom(DEF_ATTAQUE_NOM);
+        }
+    }
+
+    private void other1() {
+        if (incorrectKey(immuTypeAttCombattantEntrant())) {
+            immuTypeAttCombattantEntrant(DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
+        }
+        if (incorrectKey(pasAttaqueInvoc())) {
+            pasAttaqueInvoc(DEF_PAS_ATTAQUE_INVOC);
+        }
+        if (incorrectKey(pasAttaquesCopiables())) {
+            pasAttaquesCopiables(DEF_PAS_ATTAQUES_COPIABLES);
+        }
+        if (incorrectKey(aucunBoostPossible())) {
+            aucunBoostPossible(DEF_AUCUN_BOOST_POSSIBLE);
+        }
+        if (incorrectKey(typesAttaquesResVide())) {
+            typesAttaquesResVide(DEF_TYPES_ATTAQUES_RES_VIDE);
+        }
+        if (incorrectKey(pasPartenaire())) {
+            pasPartenaire(DEF_PAS_PARTENAIRE);
+        }
+        if (incorrectKey(pasPartenaireArriere())) {
+            pasPartenaireArriere(DEF_PAS_PARTENAIRE_ARRIERE);
+        }
+        if (incorrectKey(pasPartenaireTerrain())) {
+            pasPartenaireTerrain(DEF_PAS_PARTENAIRE_TERRAIN);
+        }
+        if (incorrectKey(pasTourTerrain())) {
+            pasTourTerrain(DEF_PAS_TOUR_TERRAIN);
+        }
+        if (incorrectKey(existeGenreAssexue())) {
+            existeGenreAssexue(DEF_EXISTE_GENRE_ASSEXUE);
+        }
+        if (incorrectKey(genresEgaux())) {
+            genresEgaux(DEF_GENRES_EGAUX);
+        }
+        if (incorrectKey(nbUtiliAttEqTour())) {
+            nbUtiliAttEqTour(DEF_NB_UTILI_ATT_EQ_TOUR);
+        }
+        if (incorrectKey(tempsTour())) {
+            tempsTour(DEF_TEMPS_TOUR);
+        }
+        if (incorrectKey(nbTour())) {
+            nbTour(DEF_NB_TOUR);
+        }
+        if (incorrectKey(rateEffMoveAgainstTarget())) {
+            rateEffMoveAgainstTarget(DEF_RATE_EFF_MOVE_AGAINST_TARGET);
         }
     }
 
@@ -1523,15 +2762,28 @@ public class DataBase {
         StringList str_ = new StringList();
         str_.add(pkSauvageNiveau());
         str_.add(pkUtNiveau());
+        str_.add(dejaCapture());
+        str_.add(nbFlees());
+        str_.add(lieuCombat());
+        str_.add(tempsTour());
+        str_.add(masseMoyennePk());
+        str_.add(pkUtGenre());
+        str_.add(pkUtMasse());
+        str_.add(pkUtVitesse());
+        str_.add(pkSauvageGenre());
+        str_.add(pkSauvageMasse());
+        str_.add(pkSauvageVitesse());
+        str_.add(pkSauvageTypesBase());
+        str_.add(pkSauvagePierresEvos());
+        str_.add(pkUtTypesBase());
+        str_.add(pkUtPierresEvos());
         return str_;
     }
 
     private StringList gr4() {
         StringList str_ = new StringList();
         str_.add(lanceurNiveau());
-        str_.add(attack());
-        str_.add(defense());
-        str_.add(power());
+        stat(str_);
         return str_;
     }
 
@@ -1544,6 +2796,151 @@ public class DataBase {
         return str_;
     }
 
+    private StringList gr6() {
+        StringList str_ = new StringList();
+        str_.add(immuTypeAttCombattantEntrant());
+        str_.add(pasAttaqueInvoc());
+        str_.add(pasAttaquesCopiables());
+        feedExpBool(str_);
+        str_.add(cibleGenre());
+        str_.add(ciblePvRestants());
+        str_.add(ciblePvMax());
+        str_.add(cibleNbUtilisation());
+        str_.add(cibleStatis());
+        str_.add(cibleBoost());
+        str_.add(sommeBoostPosCible());
+        str_.add(cibleAttaqueChoisie());
+        str_.add(cibleAttaques());
+        str_.add(cibleAttaquesTypes());
+        str_.add(cibleClone());
+        str_.add(cibleDegatsRecus());
+        str_.add(cibleDegatsRecusTotal());
+        str_.add(cibleDegatsRecusTour());
+        str_.add(cibleDegatsRecusTotalTour());
+        str_.add(cibleDisparait());
+        str_.add(cibleJoue());
+        str_.add(cibleDerJoue());
+        str_.add(cibleNom());
+        str_.add(cibleMasse());
+        str_.add(cibleTaille());
+        str_.add(cibleCapacite());
+        str_.add(cibleObjet());
+        str_.add(cibleStatuts());
+        str_.add(cibleTypes());
+        str_.add(ciblePp());
+        str_.add(cibleNiveau());
+        str_.add(cibleBonheur());
+        str_.add(nbKoEquipeCible());
+        str_.add(nbKoEquipeAdvCible());
+        str_.add(coeffEffBaseTypesCible());
+        str_.add(lanceurGenre());
+        str_.add(nbUtiliAttEqTour());
+        str_.add(lanceurPvRestants());
+        str_.add(lanceurPvMax());
+        str_.add(lanceurNbUtilisation());
+        str_.add(lanceurStatis());
+        str_.add(lanceurBoost());
+        str_.add(sommeBoostPosLanceur());
+        str_.add(lanceurAttaqueChoisie());
+        str_.add(lanceurAttaques());
+        str_.add(lanceurAttaquesTypes());
+        str_.add(lanceurClone());
+        str_.add(lanceurDegatsRecus());
+        str_.add(lanceurDegatsRecusTotal());
+        str_.add(lanceurDegatsRecusTour());
+        str_.add(lanceurDegatsRecusTotalTour());
+        str_.add(lanceurDisparait());
+        str_.add(lanceurJoue());
+        str_.add(lanceurDerJoue());
+        str_.add(lanceurNom());
+        str_.add(lanceurMasse());
+        str_.add(lanceurTaille());
+        str_.add(lanceurCapacite());
+        str_.add(lanceurObjet());
+        str_.add(lanceurStatuts());
+        str_.add(lanceurTypes());
+        str_.add(lanceurPp());
+        str_.add(lanceurNiveau());
+        str_.add(lanceurBonheur());
+        str_.add(nbKoEquipeLanceur());
+        str_.add(nbKoEquipeAdvLanceur());
+        str_.add(coeffEffBaseTypesLanceur());
+        str_.add(tempsTour());
+        str_.add(nbTour());
+        str_.add(rateEffMoveAgainstTarget());
+        str_.add(nbCombattantsTerrain());
+        str_.add(lieuCombat());
+        str_.add(climats());
+        str_.add(nbTourGlobal());
+        str_.add(combattantEntrantClone());
+        str_.add(combattantEntrantTypes());
+        str_.add(coeffEffBaseTypesCombattantEntrant());
+        str_.add(equipeAdvCombattantEntrantNbUtilisation());
+        str_.add(attaqueCategorie());
+        str_.add(attaqueTypes());
+        str_.add(attaqueNom());
+        str_.add(puissanceBase());
+        str_.add(fighterGenre());
+        str_.add(fighterPvRestants());
+        str_.add(fighterPvMax());
+        str_.add(fighterNbUtilisation());
+        str_.add(fighterStatis());
+        str_.add(fighterBoost());
+        str_.add(sommeBoostPosFighter());
+        str_.add(fighterAttaqueChoisie());
+        str_.add(fighterAttaques());
+        str_.add(fighterAttaquesTypes());
+        str_.add(fighterClone());
+        str_.add(fighterDegatsRecus());
+        str_.add(fighterDegatsRecusTotal());
+        str_.add(fighterDegatsRecusTour());
+        str_.add(fighterDegatsRecusTotalTour());
+        str_.add(fighterDisparait());
+        str_.add(fighterJoue());
+        str_.add(fighterDerJoue());
+        str_.add(fighterNom());
+        str_.add(fighterMasse());
+        str_.add(fighterTaille());
+        str_.add(fighterCapacite());
+        str_.add(fighterObjet());
+        str_.add(fighterStatuts());
+        str_.add(fighterTypes());
+        str_.add(fighterPp());
+        str_.add(fighterNiveau());
+        str_.add(fighterBonheur());
+        str_.add(nbKoEquipeFighter());
+        str_.add(nbKoEquipeAdvFighter());
+        str_.add(coeffEffBaseTypesFighter());
+        str_.add(coeffEff());
+        str_.add(nbUtilisationConsecutif());
+        str_.add(equipeNbUtilisation());
+        str_.add(equipeAdvNbUtilisation());
+        stat(str_);
+        return str_;
+    }
+
+    private void stat(StringList _str) {
+        _str.add(attack());
+        _str.add(defense());
+        _str.add(power());
+    }
+
+    private void feedExpBool(StringList _str) {
+        _str.add(ciblePossedeStatutRelation());
+        _str.add(cibleEffet());
+        _str.add(pasPpAttaqueCible());
+        _str.add(pasUtilisAttaqueCible());
+        _str.add(immuTypeAttCible());
+        _str.add(aucunBoostPossible());
+        _str.add(lanceurEffet());
+        _str.add(typesAttaquesResVide());
+        _str.add(pasPartenaire());
+        _str.add(pasPartenaireArriere());
+        _str.add(pasPartenaireTerrain());
+        _str.add(pasTourTerrain());
+        _str.add(existeGenreAssexue());
+        _str.add(genresEgaux());
+    }
     private static boolean incorrectPrefix(String _pref) {
         return !_pref.isEmpty() && MathExpUtil.isDigit(_pref.charAt(0)) || incorrectCommonPart(_pref);
     }

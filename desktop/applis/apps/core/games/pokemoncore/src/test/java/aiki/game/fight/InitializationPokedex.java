@@ -61,6 +61,7 @@ final class InitializationPokedex extends EquallablePkUtil {
     static final String SYMBIOS = "SYMBIOS";
     static final String MEIOS = "MEIOS";
     static final String NUCLEOS = "NUCLEOS";
+    static final String METAMORPH = "METAMORPH";
 
 
     private static final String SPECTRE = InitializationDataBase.SPECTRE;
@@ -271,7 +272,6 @@ final class InitializationPokedex extends EquallablePkUtil {
     private static final String ROCHE_ROYALE = InitializationItems.ROCHE_ROYALE;
     private static final String NULL_REF = InitializationDataBase.NULL_REF;
     private static final String TORTUE = "TORTUE";
-    private static final String METAMORPH = "METAMORPH";
     private static final String SOURIS = "SOURIS";
     private static final String SANS_OEUF = "SANS_OEUF";
     private static final String MINERAL = "MINERAL";
