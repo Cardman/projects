@@ -82,7 +82,7 @@ public final class LoadResTrs {
             StringMap<String> litteral_ = trLitt(trs_.getVal(l + DataBase.SEPARATOR_FILES + DataBase.TRANSLATION_LITTERAL));
             _d.getLitterals().addEntry(l, litteral_);
         }
-        _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
+//        _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
     }
 
     private static StringMap<String> trLitt(String _str) {
