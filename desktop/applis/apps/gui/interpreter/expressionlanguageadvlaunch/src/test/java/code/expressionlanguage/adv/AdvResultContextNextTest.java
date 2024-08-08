@@ -166,7 +166,7 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
     public static WindowCdmEditor windowAdv(AbstractProgramInfos _pr) {
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
 //        _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
-        WindowCdmEditor w_ = new WindowCdmEditor("en", _pr,fact_, new LanguagesButtonsPair(null,null,null));
+        WindowCdmEditor w_ = new WindowCdmEditor(_pr,fact_, new LanguagesButtonsPair(null,null,null));
         AdvResultContextNext res_ = new AdvResultContextNext(w_, _pr, fact_);
         w_.setMainResultNext(res_);
         w_.setResultContextNext(res_);

@@ -18,7 +18,7 @@ public abstract class EquallableSoundPlayerUtil {
     }
     public static WindowRecorder windowRecorder() {
         MockProgramInfos pr_ = build();
-        return new WindowRecorder("",pr_, new LanguagesButtonsPair(null,null,null));
+        return new WindowRecorder(pr_, new LanguagesButtonsPair(null,null,null));
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

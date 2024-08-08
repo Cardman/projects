@@ -29,7 +29,7 @@ public final class WindowRecorderTest extends EquallableSoundPlayerUtil {
     }
     @Test
     public void playWithRecord1() {
-        CreateMainWindowRecorder cr_ = new CreateMainWindowRecorder(build(),"", new LanguagesButtonsPair(null,null,null));
+        CreateMainWindowRecorder cr_ = new CreateMainWindowRecorder(build(), new LanguagesButtonsPair(null,null,null));
         cr_.run();
         WindowRecorder w_ = cr_.getWindowRecorder();
         assertTrue(w_.getRecordSong().isEnabled());

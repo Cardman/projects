@@ -33,7 +33,6 @@ import code.gui.images.*;
 import code.gui.initialize.*;
 import code.netw.*;
 import code.scripts.messages.cards.*;
-import code.scripts.messages.gui.*;
 import code.sml.util.*;
 import code.stream.*;
 import code.threads.*;
@@ -465,9 +464,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private final FileOpenSaveFrame fileOpenSaveFrame;
 //    private final FolderOpenSaveFrame folderOpenSaveFrame;
     private final ReportingFrame errorsFile = ReportingFrame.newInstance(getFrames());
-    public WindowNetWork(CardGamesStream _nicknames, String _lg, AbstractProgramInfos _list,
+    public WindowNetWork(CardGamesStream _nicknames, AbstractProgramInfos _list,
                          AikiFactory _aikiFactory, IntArtCardGames _ia, LanguagesButtonsPair _pair) {
-        super(_lg, _list);
+        super(_list);
         buttonClick = _pair;
         dialogServerContent = new DialogServerContent(this, _list);
         guardRender = new AlwaysActionListenerAct();
@@ -542,7 +541,6 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getFileCoreStream(),getStreams()));
 //        parametres.setDelays();
 //        parametres.setLocale(_locale);
-        initMessageName();
         aiki.getLastSavedGameDate().setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), aiki.getDateLastSaved()));
 
 //        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
@@ -579,11 +577,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
-    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        String loadedResourcesMessages_ = MessGuiCardsGr.ms().getVal(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-    }
+//    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
+//        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
+//        String loadedResourcesMessages_ = MessGuiCardsGr.ms().getVal(fileName_);
+//        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//    }
     public String getTooManyString() {
         StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping();
         return mapping_.getVal(MessagesNetWork.TOO_MANY);
@@ -1134,11 +1132,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        MenuItemUtils.setEnabledMenu(getSave(),false);
 //        MenuItemUtils.setEnabledMenu(getChange(),false);
     }
-    private void initMessageName() {
+//    private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        setMessages(WindowNetWork.getMessagesFromLocaleClass(FrameGeneralHelp.FOLDER_MESSAGES_GUI, getFrames().getLanguage(), getAccessFile()));
+//        setMessages(WindowNetWork.getMessagesFromLocaleClass(FrameGeneralHelp.FOLDER_MESSAGES_GUI, getFrames().getLanguage(), getAccessFile()));
 //        messagesAiki = WindowAiki.getMessagesFromLocaleClass(getLanguageKey());
-    }
+//    }
 //    public void loadGameBegin(String _file) {
 //        containerGame = new ContainerNoGame(this);
 //        tryToLoadDeal(_file);
@@ -2001,14 +1999,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public void changeLanguage(String _language) {
         AbstractProgramInfos infos_ = getFrames();
         String value_ = StringUtil.nullToEmpty(_language);
-        getFrames().getFrames().first().setMessages(GuiBaseUtil.group(_language, infos_.getCommon()));
         StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(getFrames()), value_,infos_.getStreams());
         setLanguageKey(_language);
         translate();
     }
 
     private void translate() {
-        initMessageName();
         TranslationsLg lg_ = getFrames().currentLg();
         StringMap<String> fileMenu_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
         aiki.getZipLoad().setText(fileMenu_.getVal(MessagesRenderWindowPk.ZIP_LOAD));

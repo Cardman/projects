@@ -142,13 +142,9 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     public void t8() {
         MockSampleFrame fr_ = new MockSampleFrame(init());
         fr_.init(init());
-        fr_.setMessages(new StringMap<String>());
-        assertEq(0,fr_.getMessages().size());
-        fr_.setByFirst(fr_);
         fr_.changeLanguage("");
         assertEq("",fr_.getApplicationName());
         assertEq("",fr_.getCommonFrame().getTitle());
-        assertEq(0,fr_.getMessages().size());
     }
     @Test
     public void t9() {

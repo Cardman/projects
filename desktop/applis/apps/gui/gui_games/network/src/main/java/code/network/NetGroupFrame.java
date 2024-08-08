@@ -25,10 +25,10 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
 //    private AbstractFuture task;
     private final NetCommon sockets;
 
-    protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
+    protected NetGroupFrame(AbstractProgramInfos _list) {
         super(_list);
         sockets = new NetCommon();
-        GuiBaseUtil.choose(_lg, this, _list.getCommon());
+        GuiBaseUtil.choose(this);
         lock = _list.getThreadFactory().newExecutorService();
     }
 //    /**

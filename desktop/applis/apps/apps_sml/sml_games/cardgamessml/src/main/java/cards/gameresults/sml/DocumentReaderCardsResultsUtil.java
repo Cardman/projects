@@ -20,10 +20,10 @@ public final class DocumentReaderCardsResultsUtil {
             _res.setUser(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsResultsUtil.FIELD_LOC)) {
-            _res.setLoc(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
+//        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsResultsUtil.FIELD_LOC)) {
+//            _res.setLoc(DocumentReaderCoreUtil.getString(_element));
+//            return;
+//        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsResultsUtil.FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
             _res.setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
             return;

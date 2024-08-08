@@ -8,7 +8,7 @@ import code.util.core.BoolVal;
 
 public final class NetGroupFrameSampleFalse extends NetGroupFrame {
     public NetGroupFrameSampleFalse(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+        super(_list);
     }
 
     @Override

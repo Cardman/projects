@@ -23,7 +23,7 @@ public final class ResultsGame {
 
     private byte user;
 
-    private String loc;
+//    private String loc;
     public void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
         scores(_scores);
         if(hasToCalculateScores(_type, _number, _nbDeals)) {
@@ -83,17 +83,17 @@ public final class ResultsGame {
     public void setUser(byte _user) {
         user = _user;
     }
-    public String getLoc() {
-        return loc;
-    }
+//    public String getLoc() {
+//        return loc;
+//    }
 
     public void setNicknames(StringList _nicknames) {
         nicknames = _nicknames;
     }
 
-    public void setLoc(String _loc) {
-        loc = _loc;
-    }
+//    public void setLoc(String _loc) {
+//        loc = _loc;
+//    }
     public String getGlobalResultsPageTitle() {
         return globalResultsPageTitle;
     }

@@ -18,7 +18,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         res_.getRes().setSums(new Longs());
         res_.getRes().setNicknames(new StringList());
         res_.getRes().setRenderedPages(new StringMap<String>());
-        res_.getRes().setLoc("");
+//        res_.getRes().setLoc("");
         res_.calculateScores(new CustList<Longs>(),new Shorts(),GameType.RANDOM,1,0);
         assertEq(0, res_.getRes().getScores().size());
         assertEq(0, res_.getRes().getSums().size());
@@ -26,7 +26,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         assertEq(0, res_.getRes().getNicknames().size());
         assertEq(0, res_.getRes().getRenderedPages().size());
         assertEq(0, res_.getRes().getUser());
-        assertEq("", res_.getRes().getLoc());
+//        assertEq("", res_.getRes().getLoc());
         assertEq("", res_.getRes().getGlobalResultsPageTitle());
         assertEq("", res_.getRes().getDetailResultsTitle());
     }

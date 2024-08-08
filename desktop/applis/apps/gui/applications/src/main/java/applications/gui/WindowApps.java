@@ -37,10 +37,10 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
     private final WithAppFactories withAppFactories;
     private final LanguageComponentButtons buttons;
 
-    public WindowApps(String _lg, WithAppFactories _list) {
+    public WindowApps(WithAppFactories _list) {
         super(_list.getProgramInfos());
         withAppFactories = _list;
-        GuiBaseUtil.choose(_lg, this, _list.getProgramInfos().getCommon());
+        GuiBaseUtil.choose(this);
         setFocusableWindowState(true);
         setTitle(APPLICATIONS);
         AbsPanel panel_ = getCompoFactory().newPageBox();

@@ -42,6 +42,25 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         assertEq(0,lg_.getMiniCardsSel().size());
     }
     @Test
+    public void byAppl() {
+        Translations tr_ = new Translations();
+        TranslationsLg lg_ = new TranslationsLg();
+        TranslationsAppli a1_ = new TranslationsAppli();
+        TranslationsAppli a2_ = new TranslationsAppli();
+        TranslationsFile f1_ = new TranslationsFile();
+        TranslationsFile f2_ = new TranslationsFile();
+        f1_.add("","");
+        f2_.add("","");
+        a1_.getMapping().addEntry("", f1_);
+        a2_.getMapping().addEntry("", f2_);
+        lg_.getMapping().addEntry("0", a1_);
+        lg_.getMapping().addEntry("1", a2_);
+        tr_.getMapping().addEntry("", lg_);
+        assertEq(1,tr_.byAppl("0").size());
+        assertEq(1,tr_.byAppl("1").size());
+        assertEq(0,tr_.byAppl("").size());
+    }
+    @Test
     public void extKey() {
         TranslationsFile f_ = new TranslationsFile(1);
         f_.add("0","1=2");

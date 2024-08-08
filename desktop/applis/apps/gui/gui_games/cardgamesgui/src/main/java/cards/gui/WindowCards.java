@@ -233,7 +233,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         languageDialogButtons = new LanguageDialogButtons(_list,_pair.getLgMenu(), new AlwaysActionListenerAct());
         setPausingCardsAnims(new DefPausingCardsAnims());
         modal = _list.getThreadFactory().newAtomicBoolean();
-        GuiBaseUtil.choose(_list.getLanguage(), this, _list.getCommon());
+        GuiBaseUtil.choose(this);
         generalHelp = _geneHelp;
         fileSaveFrame = new FileSaveFrame(_list, modal);
         fileOpenFrame = new FileOpenFrame(_list, modal);
@@ -1862,7 +1862,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     public void changeLanguage(String _language) {
         AbstractProgramInfos infos_ = getFrames();
         String value_ = StringUtil.nullToEmpty(_language);
-        getFrames().getFrames().first().setMessages(GuiBaseUtil.group(_language, infos_.getCommon()));
         StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(getFrames()), value_,infos_.getStreams());
         setLanguageKey(_language);
         translate();

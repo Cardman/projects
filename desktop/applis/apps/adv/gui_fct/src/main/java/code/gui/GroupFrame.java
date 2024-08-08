@@ -11,14 +11,12 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
-import code.util.StringMap;
 
 
 
 public abstract class GroupFrame implements AbsGroupFrame {
 
     private final AbsCommonFrame commonFrame;
-    private StringMap<String> messages;
 
 //    private final SetterLanguage languageDialog;
 
@@ -178,14 +176,6 @@ public abstract class GroupFrame implements AbsGroupFrame {
     //@Override
     public void setVisible(boolean _b) {
         commonFrame.setVisible(_b);
-    }
-
-    public StringMap<String> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(StringMap<String> _messages) {
-        this.messages = _messages;
     }
 
 //    public boolean canChangeLanguageAll() {

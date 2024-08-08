@@ -53,7 +53,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         guardRender = new AlwaysActionListenerAct();
         atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
         fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
-        GuiBaseUtil.choose(_lg, this, _programInfos.getCommon());
+        GuiBaseUtil.choose(this);
         interceptor = _list;
         setJMenuBar(getCompoFactory().newMenuBar());
         menu = getCompoFactory().newMenu("file");

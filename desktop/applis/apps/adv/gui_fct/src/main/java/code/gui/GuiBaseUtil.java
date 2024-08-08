@@ -8,7 +8,6 @@ import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.*;
-import code.sml.util.ResourcesMessagesUtil;
 import code.stream.*;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
@@ -281,21 +280,11 @@ public final class GuiBaseUtil {
         }
     }
 
-    public static StringMap<String> group(String _language, StringMap<String> _res) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, ACCESS);
-        String loadedResourcesMessages_ = _res.getVal(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    public static void choose(AbsOpenQuit _this) {
+        choose(_this.getCommonFrame().getFrames(),_this);
     }
-
-    public static void choose(String _lg, AbsOpenQuit _this, StringMap<String> _res) {
-        choose(_lg, _this.getCommonFrame().getFrames(),_this,_res);
-    }
-    public static void choose(String _lg, AbstractProgramInfos _list, AbsOpenQuit _this, StringMap<String> _res) {
+    public static void choose(AbstractProgramInfos _list, AbsOpenQuit _this) {
         _list.getFrames().add(_this);
-        AbsGroupFrame first_ = _list.getFrames().first();
-        if (_list.getFrames().size() == 1) {
-            first_.setMessages(group(_lg, _res));
-        }
     }
 
     public static boolean tryToReopen(String _applicationName, AbstractProgramInfos _list) {
@@ -318,11 +307,10 @@ public final class GuiBaseUtil {
 //        return true;
 //    }
 
-    public static boolean changeStaticLanguage(String _language, AbstractProgramInfos _list, StringMap<String> _res) {
+    public static boolean changeStaticLanguage(String _language, AbstractProgramInfos _list) {
         if (_language.isEmpty()) {
             return false;
         }
-        _list.getFrames().first().setMessages(group(_language, _res));
         _list.getFrames().first().changeLanguage(_language);
         return true;
     }

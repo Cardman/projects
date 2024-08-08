@@ -4,11 +4,10 @@ import code.gui.AbsCommonFrame;
 import code.gui.AbsGroupFrame;
 import code.gui.AbsOpenQuit;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.StringMap;
 
 public final class MockSampleFrame implements AbsGroupFrame, AbsOpenQuit {
     private final AbsCommonFrame frame;
-    private StringMap<String> messages = new StringMap<String>();
+//    private StringMap<String> messages = new StringMap<String>();
 //    private boolean changeable;
 
     public MockSampleFrame(AbstractProgramInfos _fr) {
@@ -30,16 +29,6 @@ public final class MockSampleFrame implements AbsGroupFrame, AbsOpenQuit {
     }
 
     @Override
-    public StringMap<String> getMessages() {
-        return messages;
-    }
-
-    @Override
-    public void setMessages(StringMap<String> _m) {
-        messages = _m;
-    }
-
-    @Override
     public void changeLanguage(String _language) {
         frame.setTitle(_language);
     }
@@ -51,10 +40,6 @@ public final class MockSampleFrame implements AbsGroupFrame, AbsOpenQuit {
 
     public void init(AbstractProgramInfos _list) {
         _list.getCompoFactory();
-    }
-
-    public void setByFirst(AbsGroupFrame _first) {
-        messages = _first.getMessages();
     }
 
 //    @Override

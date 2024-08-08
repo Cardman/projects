@@ -243,7 +243,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         core = new WindowAikiCore(_fact,_list, resultFile);
         renderDataWeb = new FrameHtmlData(this, dataWeb);
-        GuiBaseUtil.choose(_list.getLanguage(), this, _list.getCommon());
+        GuiBaseUtil.choose(this);
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list, this);
         selectPokemon = new SelectPokemon(_list, this);
@@ -1075,7 +1075,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void changeLanguage(String _language) {
         AbstractProgramInfos infos_ = getFrames();
         String value_ = StringUtil.nullToEmpty(_language);
-        getFrames().getFrames().first().setMessages(GuiBaseUtil.group(_language, infos_.getCommon()));
         StreamLanguageUtil.saveLanguage(WindowAiki.getTempFolder(getFrames()), value_,infos_.getStreams());
         setLanguageKey(_language);
         core.getFacade().setLanguage(_language);

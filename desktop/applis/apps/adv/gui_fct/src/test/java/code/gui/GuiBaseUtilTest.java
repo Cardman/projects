@@ -4,10 +4,8 @@ import code.gui.events.*;
 import code.gui.files.ClosingFileFrameEvent;
 import code.gui.initialize.*;
 import code.mock.*;
-import code.sml.DocumentBuilder;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.ConcreteBoolean;
-import code.threads.ConcreteInteger;
 import code.util.*;
 import code.util.comparators.NaturalComparator;
 import code.util.core.NumberUtil;
@@ -188,8 +186,8 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         fr_.getCommonFrame().setVisible(true);
         StringMap<String> m_ = new StringMap<String>();
         m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
-        GuiBaseUtil.choose("",pr_,fr_, m_);
-        GuiBaseUtil.choose("",pr_,fr2_, m_);
+        GuiBaseUtil.choose(pr_,fr_);
+        GuiBaseUtil.choose(pr_,fr2_);
         GuiBaseUtil.tryExit(fr_.getCommonFrame());
         assertEq(1,fr_.getCommonFrame().getWindowListenersDef().size());
     }
@@ -201,7 +199,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         fr_.getCommonFrame().setVisible(false);
         StringMap<String> m_ = new StringMap<String>();
         m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
-        GuiBaseUtil.choose("",pr_,fr_,m_);
+        GuiBaseUtil.choose(pr_,fr_);
         GuiBaseUtil.tryExit(fr_.getCommonFrame());
         assertEq(0,fr_.getCommonFrame().getWindowListenersDef().size());
     }
@@ -213,10 +211,10 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         fr_.getCommonFrame().setVisible(true);
         StringMap<String> m_ = new StringMap<String>();
         m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
-        GuiBaseUtil.choose("",pr_,fr_,m_);
-        GuiBaseUtil.choose("",fr_,m_);
-        assertFalse(GuiBaseUtil.changeStaticLanguage("",pr_,m_));
-        assertTrue(GuiBaseUtil.changeStaticLanguage("_",pr_,m_));
+        GuiBaseUtil.choose(pr_,fr_);
+        GuiBaseUtil.choose(fr_);
+        assertFalse(GuiBaseUtil.changeStaticLanguage("",pr_));
+        assertTrue(GuiBaseUtil.changeStaticLanguage("_",pr_));
 //        GuiBaseUtil.showDialogError(0,fr_.getCommonFrame());
         assertTrue(GuiBaseUtil.tryToReopen("",pr_));
         GuiBaseUtil.getStaticLanguage(new MockSetterLanguage());
@@ -230,7 +228,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         fr_.getCommonFrame().setVisible(true);
         StringMap<String> m_ = new StringMap<String>();
         m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
-        GuiBaseUtil.choose("",pr_,fr_,m_);
+        GuiBaseUtil.choose(pr_,fr_);
 //        GuiBaseUtil.showDialogError(0, fr_.getCommonFrame());
         assertFalse(GuiBaseUtil.tryToReopen("_",pr_));
     }
@@ -325,7 +323,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     public void gr() {
         MockProgramInfosSecSample pr_ = init();
 //        pr_.getCounts().addEntry("",new ConcreteInteger());
-        GroupFrame s_ = new SampleGroupFrame("",pr_,new StringMap<String>());
+        GroupFrame s_ = new SampleGroupFrame(pr_);
         s_.setImageIconFrame(null);
 //        s_.getLanguageDialog();
         s_.getValidator();
@@ -357,7 +355,6 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.trEx((AbsOpenQuit)s_);
         s_.getLocation();
         assertEq("",s_.getAccessFile());
-        assertEq(0,s_.getMessages().size());
         s_.setTitle("frime");
         assertEq("frime",s_.getTitle());
     }
@@ -527,7 +524,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
     @Test
     public void quit() {
-        SampleGroupFrame fr_ = new SampleGroupFrame("", init(), new StringMap<String>());
+        SampleGroupFrame fr_ = new SampleGroupFrame(init());
         new QuitEvent(fr_).action();
         assertEq(0,fr_.getCommonFrame().getWindowListenersDef().size());
         new ClosingChildFrameEvent(fr_).windowClosing();

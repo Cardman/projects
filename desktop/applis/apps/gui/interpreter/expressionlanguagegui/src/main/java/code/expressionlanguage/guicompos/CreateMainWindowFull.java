@@ -7,14 +7,12 @@ import code.util.StringList;
 
 public final class CreateMainWindowFull implements Runnable {
     private final CdmFactory list;
-    private final String language;
     private final StringList args;
     private final AbstractProgramInfos programInfos;
     private final LanguagesButtonsPair pair;
     private WindowFull window;
 
-    public CreateMainWindowFull(String _language, StringList _args, CdmFactory _list, AbstractProgramInfos _infos, LanguagesButtonsPair _p) {
-        language = _language;
+    public CreateMainWindowFull(StringList _args, CdmFactory _list, AbstractProgramInfos _infos, LanguagesButtonsPair _p) {
         args = _args;
         list = _list;
         programInfos = _infos;
@@ -23,7 +21,7 @@ public final class CreateMainWindowFull implements Runnable {
 
     @Override
     public void run() {
-        window = new WindowFull(language, list, programInfos, pair);
+        window = new WindowFull(list, programInfos, pair);
         WindowFull window_ = window;
         if (!args.isEmpty()) {
             window_.launchFileConf(args.first(),false);

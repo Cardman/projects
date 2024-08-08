@@ -15,7 +15,7 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main, LanguagesButtonsPair _pair) {
-        getFrames().getCompoFactory().invokeNow(new CreateMainWindowUnit(_language,_args.getFileNames(), getAppFactories().getCdmFactory(), getFrames(), _pair));
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowUnit(_args.getFileNames(), getAppFactories().getCdmFactory(), getFrames(), _pair));
     }
 
 

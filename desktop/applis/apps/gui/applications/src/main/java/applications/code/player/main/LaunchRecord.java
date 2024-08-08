@@ -12,7 +12,7 @@ public class LaunchRecord extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main, LanguagesButtonsPair _pair) {
-        getFrames().getCompoFactory().invokeNow(new CreateMainWindowRecorder(getFrames(), _language, _pair));
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowRecorder(getFrames(), _pair));
 
     }
 }

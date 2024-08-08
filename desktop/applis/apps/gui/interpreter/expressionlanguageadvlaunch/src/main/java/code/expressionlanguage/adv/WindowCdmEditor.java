@@ -84,7 +84,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final FolderOpenFrame folderOpenFrame;
     private final AbsButton mainButton;
 
-    public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact, LanguagesButtonsPair _pair) {
+    public WindowCdmEditor(AbstractProgramInfos _list, CdmFactory _fact, LanguagesButtonsPair _pair) {
         super(null, _list, _fact);
         mainButton = _pair.getMainButton();
         languageDialogButtons = new LanguageDialogButtons(_list,null, new AlwaysActionListenerAct());
@@ -103,7 +103,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         dialogSoft = _list.getFrameFactory().newCommonFrame(_list,null);
         dialogFolderExpression = _list.getFrameFactory().newCommonFrame(_list,null);
 //        coreMessages = _list.getCommon();
-        GuiBaseUtil.choose(_lg, this, _list.getCommon());
+        GuiBaseUtil.choose(this);
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         EnabledMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
@@ -528,7 +528,6 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     @Override
     public void changeLanguage(String _language) {
         getFrames().setLanguage(_language);
-        setMessages(getMessages());
     }
 
     @Override

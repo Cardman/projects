@@ -95,7 +95,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     public WindowPlayer(String _lg, AbstractProgramInfos _list, LanguagesButtonsPair _pair) {
         super(_list);
         mainButton = _pair.getMainButton();
-        GuiBaseUtil.choose(_lg, this, _list.getCommon());
+        GuiBaseUtil.choose(this);
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));
         setIconImage(getIcon(_list.getImageFactory()));

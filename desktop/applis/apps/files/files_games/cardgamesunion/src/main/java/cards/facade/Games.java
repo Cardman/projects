@@ -249,7 +249,7 @@ public final class Games {
     }
 
     public static void setMessages(ResultsGame _r, TranslationsLg _loc) {
-        _r.setLoc(_loc.getKey());
+//        _r.setLoc(_loc.getKey());
         StringMap<String> mapping_ = getCommonFileTr(getAppliTr(_loc)).getMapping();
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
         _r.setGlobalResultsPageTitle(mapping_.getVal(MessagesCommonFile.RESULT_PAGE));

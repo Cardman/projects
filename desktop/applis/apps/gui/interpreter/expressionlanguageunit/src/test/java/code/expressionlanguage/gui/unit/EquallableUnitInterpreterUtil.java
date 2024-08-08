@@ -43,7 +43,7 @@ public abstract class EquallableUnitInterpreterUtil {
     public static CreateMainWindowUnit create(MockProgramInfos _pr,String..._args) {
         update(_pr);
         CdmFactory cdm_ = new CdmFactory(_pr,new MockInterceptor());
-        return new CreateMainWindowUnit("",new StringList(_args),cdm_,_pr, new LanguagesButtonsPair(null,null,null));
+        return new CreateMainWindowUnit(new StringList(_args),cdm_,_pr, new LanguagesButtonsPair(null,null,null));
     }
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

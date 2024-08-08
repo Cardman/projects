@@ -7,14 +7,12 @@ import code.util.StringList;
 
 public final class CreateWindowCdm implements Runnable {
     private final CdmFactory list;
-    private final String language;
     private final StringList args;
     private final AbstractProgramInfos programInfos;
     private final LanguagesButtonsPair pair;
     private WindowCdmEditor window;
 
-    public CreateWindowCdm(String _language, StringList _args, CdmFactory _list, AbstractProgramInfos _infos, LanguagesButtonsPair _p) {
-        language = _language;
+    public CreateWindowCdm(StringList _args, CdmFactory _list, AbstractProgramInfos _infos, LanguagesButtonsPair _p) {
         args = _args;
         list = _list;
         programInfos = _infos;
@@ -23,7 +21,7 @@ public final class CreateWindowCdm implements Runnable {
 
     @Override
     public void run() {
-        window = new WindowCdmEditor(language, programInfos, list, pair);
+        window = new WindowCdmEditor(programInfos, list, pair);
         WindowCdmEditor window_ = window;
         window_.setMainResultNext(new AdvResultContextNext(window_,programInfos,list));
         window_.setResultContextNext(window_.getMainResultNext());

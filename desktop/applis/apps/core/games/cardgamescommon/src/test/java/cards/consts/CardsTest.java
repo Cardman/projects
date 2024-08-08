@@ -22,8 +22,8 @@ public final class CardsTest extends EquallableCardsUtil {
         assertNotNull(r_.getGeneralCards());
         r_.setSpecific(new StringMap<String>());
         assertNotNull(r_.getSpecific());
-        r_.setLoc("");
-        assertNotNull(r_.getLoc());
+//        r_.setLoc("");
+//        assertNotNull(r_.getLoc());
         r_.setUser((byte) 0);
         assertEq(0, r_.getUser());
         r_.setNicknames(new StringList());

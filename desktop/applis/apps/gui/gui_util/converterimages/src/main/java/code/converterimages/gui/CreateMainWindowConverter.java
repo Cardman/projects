@@ -8,20 +8,18 @@ import code.util.StringList;
 
 public final class CreateMainWindowConverter implements Runnable {
     private final AbstractProgramInfos list;
-    private final String lg;
     private final StringList ls;
     private final LanguagesButtonsPair pair;
     private WindowConverter window;
 
-    public CreateMainWindowConverter(String _lg, StringList _ls, AbstractProgramInfos _list, LanguagesButtonsPair _p) {
-        lg = _lg;
+    public CreateMainWindowConverter(StringList _ls, AbstractProgramInfos _list, LanguagesButtonsPair _p) {
         ls = _ls;
         list = _list;
         pair = _p;
     }
     @Override
     public void run() {
-        window = new WindowConverter(lg, list, pair);
+        window = new WindowConverter(list, pair);
         CustList<String> infos_;
         if (!ls.isEmpty()) {
             infos_ = DocumentImagesUtil.parse(StreamTextFile.contentsOfFile(ls.first(), list.getFileCoreStream(), list.getStreams()));
