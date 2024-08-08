@@ -180,6 +180,14 @@ public final class Fight {
     public static final String WIN_HP = "135";
     public static final String WIN_ITEM = "136";
     public static final String WITHDRAW = "137";
+    public static final String ISSUE_AFTER_FIGHT = "138";
+    public static final String ISSUE_RANDOM = "139";
+    public static final String ISSUE_RULES_LEARN = "140";
+    public static final String ISSUE_RULES_MOVES = "141";
+    public static final String ISSUE_RULES_SWITCH = "142";
+    public static final String ISSUE_SENDING = "143";
+    public static final String ISSUE_TOO_HARD = "144";
+    public static final String ISSUE_USING = "145";
 
     private static final String SEPARATOR_COMMENTS = ", ";
 //    private boolean utilisationBaieLanceur;

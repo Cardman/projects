@@ -53,7 +53,7 @@ import code.util.core.StringUtil;
 
 public final class Player {
 
-    public static final String DEFAULT_NICKNAME_PREFIX = "CARD_";
+    public static final String DEFAULT_NICKNAME_PREFIX = "0_";
 
     public static final String BAD_NUMBER_MOVES = "0";
     public static final String BETWEEN_NUMBER_MOVES = "1";

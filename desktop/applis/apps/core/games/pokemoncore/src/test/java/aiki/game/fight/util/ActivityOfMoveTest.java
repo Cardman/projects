@@ -27,7 +27,7 @@ public class ActivityOfMoveTest extends EquallablePkUtil {
     }
     @Test
     public void new_ActivityOfMove_5_test() {
-        ActivityOfMove a_ = new ActivityOfMove(";T;");
+        ActivityOfMove a_ = new ActivityOfMove(";1;");
         assertEq(0, a_.getNbTurn());
     }
     @Test

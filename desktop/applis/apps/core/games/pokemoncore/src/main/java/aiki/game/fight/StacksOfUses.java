@@ -10,9 +10,9 @@ public final class StacksOfUses implements Displayable {
 
     private static final char SEPARATOR=',';
 
-    private static final String FALSE="F";
+    private static final String FALSE="0";
 
-    private static final String TRUE="T";
+    private static final String TRUE="1";
 
     private byte nbRounds;
 

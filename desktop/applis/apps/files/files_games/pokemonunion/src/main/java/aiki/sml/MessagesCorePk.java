@@ -201,6 +201,14 @@ public final class MessagesCorePk {
         e_.add(Fight.WIN_HP,"{0} has {1} health points restored.");
         e_.add(Fight.WIN_ITEM,"{0} take the item {1}.");
         e_.add(Fight.WITHDRAW,"{0} is withdrawen.");
+        e_.add(Fight.ISSUE_AFTER_FIGHT,"Bad choice of evolutions after the fight");
+        e_.add(Fight.ISSUE_RANDOM,"Issue of random editing");
+        e_.add(Fight.ISSUE_RULES_LEARN,"Issue of learning moves choice or evolving");
+        e_.add(Fight.ISSUE_RULES_MOVES,"Issue of moves choice");
+        e_.add(Fight.ISSUE_RULES_SWITCH,"Issue of switching");
+        e_.add(Fight.ISSUE_SENDING,"Issue of sending");
+        e_.add(Fight.ISSUE_TOO_HARD,"Issue of hard simulation");
+        e_.add(Fight.ISSUE_USING,"Issue of using a move for a pokemon player");
         return e_;
     }
     public static TranslationsFile frFight(){
@@ -343,6 +351,14 @@ public final class MessagesCorePk {
         f_.add(Fight.WIN_HP,"{0} a {1} points de vie restorés.");
         f_.add(Fight.WIN_ITEM,"{0} prend l''objet {1}.");
         f_.add(Fight.WITHDRAW,"{0} est retiré.");
+        f_.add(Fight.ISSUE_AFTER_FIGHT,"Mauvais choix d''évolutions après le combat");
+        f_.add(Fight.ISSUE_RANDOM,"Problème de tirage aléatoire");
+        f_.add(Fight.ISSUE_RULES_LEARN,"Problème de choix d''apprentissage d''attaques ou d''évolutions");
+        f_.add(Fight.ISSUE_RULES_MOVES,"Problème de choix d''attaques");
+        f_.add(Fight.ISSUE_RULES_SWITCH,"Problème de remplacement");
+        f_.add(Fight.ISSUE_SENDING,"Problème d''envoi");
+        f_.add(Fight.ISSUE_TOO_HARD,"Problème de simulation compliquée");
+        f_.add(Fight.ISSUE_USING,"Problème d''utilisation d''une attaque pour un pokemon de joueur");
         return f_;
     }
     public static TranslationsFile enTeam(){
