@@ -530,10 +530,6 @@ public class DataBase {
      */
 
     public static final int MAX_MULT_FIGHT = 4;
-    public static final String HERO_FOLDER = "heros";
-    public static final String HERO_FRONT = "heros_front.txt";
-    public static final String HERO_BACK = "heros_back.txt";
-    public static final String HERO_MINI = "heros_mini.txt";
 
     public static final String SEPARATOR_FILES = "/";
     public static final int ONE_POSSIBLE_CHOICE = 1;

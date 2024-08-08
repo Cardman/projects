@@ -648,7 +648,6 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         la_.loadLanguage(TEMP_FOLDER,new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonPokemon().getActionListeners().get(0).action();
         ((WindowAiki)p_.getFrames().get(1)).getFacade().setSexList(f_.getSexList());
-        ((MockThreadFactory)p_.getThreadFactory()).getAllThreads().get(0).join();
         assertEq(2,p_.getFrames().size());
     }
     @Test

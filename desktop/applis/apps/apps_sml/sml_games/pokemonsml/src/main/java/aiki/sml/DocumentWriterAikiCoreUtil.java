@@ -713,7 +713,6 @@ public final class DocumentWriterAikiCoreUtil {
     public static final String TYPE_LEAGUE = "2";
     public static final String TYPE_ROAD = "3";
     public static final String TYPE_EGG = "1";
-    public static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
     public static final String TYPE_POKEMON_PLAYER_INNER = "0";
     public static final String KIND_AB = "0";
     public static final String KIND_IT = "1";
@@ -950,7 +949,7 @@ public final class DocumentWriterAikiCoreUtil {
                     .getVal(k));
         }
         _files.put(
-                StringUtil.concat(DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_FRONT),
+                StringUtil.concat(ATTR_IMG, DataBase.SEPARATOR_FILES, KIND_IMG_INDIV, DataBase.SEPARATOR_FILES, KIND_IMG_HEROS_FR),
                 imgsDoc(frs_,KIND_IMG_HEROS_FR));
         StringMap<int[][]> bks_ = new StringMap<int[][]>();
         for (ImageHeroKey k : _d.getBackHeros().getKeys()) {
@@ -962,7 +961,7 @@ public final class DocumentWriterAikiCoreUtil {
                     .getVal(k));
         }
         _files.put(
-                StringUtil.concat(DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_BACK),
+                StringUtil.concat(ATTR_IMG, DataBase.SEPARATOR_FILES, KIND_IMG_INDIV, DataBase.SEPARATOR_FILES, KIND_IMG_HEROS_BK),
                 imgsDoc(bks_,KIND_IMG_HEROS_BK));
         StringMap<int[][]> minis_ = new StringMap<int[][]>();
         for (ImageHeroKey k : _d.getOverWorldHeros().getKeys()) {
@@ -976,7 +975,7 @@ public final class DocumentWriterAikiCoreUtil {
                     .getVal(k));
         }
         _files.put(
-                StringUtil.concat(DataBase.HERO_FOLDER, DataBase.SEPARATOR_FILES, DataBase.HERO_MINI),
+                StringUtil.concat(ATTR_IMG, DataBase.SEPARATOR_FILES, KIND_IMG_INDIV, DataBase.SEPARATOR_FILES, KIND_IMG_HEROS_MIN),
                 imgsDoc(minis_,KIND_IMG_HEROS_MIN));
     }
 
