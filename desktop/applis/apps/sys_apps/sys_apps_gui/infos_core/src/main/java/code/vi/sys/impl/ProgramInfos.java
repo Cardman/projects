@@ -17,7 +17,6 @@ import code.gui.*;
 import code.gui.files.*;
 import code.gui.initialize.*;
 import code.netw.NetWork;
-import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.gui.MessGuiGr;
 import code.scripts.pages.aiki.MessagesInit;
@@ -103,8 +102,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMiniCardsDef().addAllEntries(AbsMetaLabelCard.frDef());
         en_.getMiniCardsSel().addAllEntries(AbsMetaLabelCard.enSel());
         fr_.getMiniCardsSel().addAllEntries(AbsMetaLabelCard.frSel());
-        en_.setTreeCards(HelpScriptConfPages.info(HelpScriptConfPages.en()));
-        fr_.setTreeCards(HelpScriptConfPages.info(HelpScriptConfPages.fr()));
+//        en_.setTreeCards(HelpScriptConfPages.info());
+//        fr_.setTreeCards(HelpScriptConfPages.info());
         FileInfos.enTr(FileInfos.initComments(en_));
         FileInfos.frTr(FileInfos.initComments(fr_));
         Games.enTr(Games.initAppliTr(en_));
@@ -130,7 +129,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
 
     public static WithAppFactories build(AbstractProgramInfos _p) {
         return new WithAppFactories(_p,new AppFactories(new AikiFactory(_p,new DefaultExecutorServiceParam<AikiNatLgNamesNavigation>(), new DefaultExecutorServiceParam<DataBase>()),
-                new CardFactories(_p,new DefaultExecutorServiceParam<CardNatLgNamesNavigation>(),new DefaultExecutorServiceParam<StringMap<HelpIndexesTree>>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
+                new CardFactories(_p,new DefaultExecutorServiceParam<CardNatLgNamesNavigation>(),new DefaultExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
     }
 
     public StringList getExcludedFolders() {

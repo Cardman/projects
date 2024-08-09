@@ -7,48 +7,45 @@ import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.EnabledMenu;
 import code.gui.MenuItemUtils;
-import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
 import code.scripts.confs.HelpScriptPagesImgs;
 import code.scripts.pages.cards.HelpCards;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
-import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.threads.IntCallable;
-import code.util.CustList;
-import code.util.EntryCust;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class HelpInitializer implements IntCallable<StringMap<HelpIndexesTree>> {
+public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
 
     private static final String POSITION = "position";
 
     private static final String TEXTE = "texte";
 
     private final EnabledMenu generalHelp;
-    private final AbstractProgramInfos programInfos;
 
-    public HelpInitializer(EnabledMenu _generalHelp, AbstractProgramInfos _pr) {
+    public HelpInitializer(EnabledMenu _generalHelp) {
         generalHelp = _generalHelp;
-        programInfos = _pr;
     }
     @Override
-    public StringMap<HelpIndexesTree> call() {
-        StringMap<HelpIndexesTree> trees_ = new StringMap<HelpIndexesTree>();
+    public HelpIndexesTree call() {
+//        HelpIndexesTree trees_ = new HelpIndexesTree();
         StringMap<NatConfigurationCore> cf_ = HelpScriptPages.cf();
         StringMap<NatDualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
 //        StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
 //        NavigationCore.adjustMap(builtMs_);
-        for (EntryCust<String, TranslationsLg> l: programInfos.getTranslations().getMapping().entryList()) {
-            HelpIndexesTree tree_ = new HelpIndexesTree();
-            Document doc_ = l.getValue().getTreeCards();
+        HelpIndexesTree tree_ = new HelpIndexesTree();
+//        for (EntryCust<String, TranslationsLg> l: programInfos.getTranslations().getMapping().entryList()) {
+//            HelpIndexesTree tree_ = new HelpIndexesTree();
+            Document doc_ = HelpScriptConfPages.info();
             Element element_ = doc_.getDocumentElement();
             CustList<Node> noeudsActuels_ = new CustList<Node>();
             noeudsActuels_.add(element_);
@@ -108,10 +105,10 @@ public final class HelpInitializer implements IntCallable<StringMap<HelpIndexesT
                 cheminsActuels_ = nouveauxChemins_;
                 cheminsNumeriquesActuels_ = nouveauxCheminsNum_;
             }
-            trees_.addEntry(l.getKey(),tree_);
-        }
+//            trees_.addEntry(l.getKey(),tree_);
+//        }
         MenuItemUtils.setEnabledMenu(generalHelp,true);
-        return trees_;
+        return tree_;
     }
 
 }

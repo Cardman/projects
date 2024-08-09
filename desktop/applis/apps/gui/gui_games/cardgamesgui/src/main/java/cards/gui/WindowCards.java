@@ -179,7 +179,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    private final StringMap<StringMap<PreparedPagesCards>> preparedPresident;
 //    private final StringMap<StringMap<PreparedPagesCards>> preparedTarot;
     //private final boolean standalone;
-    private AbstractFutureParam<StringMap<HelpIndexesTree>> helpInitializerTask;
+    private AbstractFutureParam<HelpIndexesTree> helpInitializerTask;
 //    private final DialogDisplayingBelote dialogDisplayingBelote;
 //    private final DialogDisplayingTarot dialogDisplayingTarot;
 //    private final DialogDisplayingPresident dialogDisplayingPresident;
@@ -2071,11 +2071,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         this.core.setPrepare(_i);
     }
 
-    public AbstractFutureParam<StringMap<HelpIndexesTree>> getHelpInitializerTask() {
+    public AbstractFutureParam<HelpIndexesTree> getHelpInitializerTask() {
         return helpInitializerTask;
     }
 
-    public void setHelpInitializerTask(AbstractFutureParam<StringMap<HelpIndexesTree>> _helpInitializerTask) {
+    public void setHelpInitializerTask(AbstractFutureParam<HelpIndexesTree> _helpInitializerTask) {
         this.helpInitializerTask = _helpInitializerTask;
     }
 

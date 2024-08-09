@@ -83,7 +83,8 @@ m.addEntry(HelpScriptConfPages.AIDE_GENERALE,HelpCards70.build());
 return m;
 }
 public static TranslationsAppli en(){
-TranslationsAppli e=new TranslationsAppli(71);
+TranslationsAppli e=new TranslationsAppli(72);
+e.getMapping().addEntry(HelpScriptConfPages.TREE_FILE,HelpScriptConfPages.en());
 e.getMapping().addEntry(HelpScriptConfPages.AIDE_GENERALE_JEUX_BELOTE_ANNONCES,AnaRendBlockHelp.file(HelpCards71.en()));
 e.getMapping().addEntry(HelpScriptConfPages.AIDE_GENERALE_JEUX_BELOTE_CARTES_UTILISEES,AnaRendBlockHelp.file(HelpCards72.en()));
 e.getMapping().addEntry(HelpScriptConfPages.AIDE_GENERALE_JEUX_BELOTE_CONTRAT,AnaRendBlockHelp.file(HelpCards73.en()));
@@ -158,7 +159,8 @@ e.getMapping().addEntry(HelpScriptConfPages.AIDE_GENERALE,AnaRendBlockHelp.file(
 return e;
 }
 public static TranslationsAppli fr(){
-TranslationsAppli f=new TranslationsAppli(71);
+TranslationsAppli f=new TranslationsAppli(72);
+f.getMapping().addEntry(HelpScriptConfPages.TREE_FILE,HelpScriptConfPages.fr());
 f.getMapping().addEntry(HelpScriptConfPages.AIDE_GENERALE_JEUX_BELOTE_ANNONCES,AnaRendBlockHelp.file(HelpCards71.fr()));
 f.getMapping().addEntry(HelpScriptConfPages.AIDE_GENERALE_JEUX_BELOTE_CARTES_UTILISEES,AnaRendBlockHelp.file(HelpCards72.fr()));
 f.getMapping().addEntry(HelpScriptConfPages.AIDE_GENERALE_JEUX_BELOTE_CONTRAT,AnaRendBlockHelp.file(HelpCards73.fr()));

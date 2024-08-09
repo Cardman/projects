@@ -19,6 +19,7 @@ import code.gui.events.AbsActionListenerAct;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.scripts.pages.cards.HelpCards;
 import code.sml.util.*;
@@ -147,7 +148,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 
     public void initialize(WindowCards _w) {
         TranslationsLg lg_ = _w.getFrames().currentLg();
-        elementsBis = _w.getHelpInitializerTask().attendreResultat().getVal(lg_.getKey());
+        elementsBis = _w.getHelpInitializerTask().attendreResultat();
         setFocusable(true);
         setFocusableWindowState(true);
         CustList<HelpIndexes> cles_ = new CustList<HelpIndexes>(
@@ -156,7 +157,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         cles_.sortElts(new ComparatorListSizeElement());
         racineBis = new NodeHelp(elementsBis.getVal(cles_.first()));
         AbstractMutableTreeNodeCore<String> root_ = _w.getCompoFactory().newMutableTreeNode(
-                racineBis.nom());
+                lg_.getMapping().getVal(HelpCards.APP_BEAN).getMapping().getVal(HelpScriptConfPages.TREE_FILE).getMapping().getVal(racineBis.nom()));
 //        boolean wasNull_ = editor == null;
 //        AbsPanel container_;
 //        if (wasNull_) {
@@ -186,7 +187,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
             NodeHelp nouveauNoeud_ = new NodeHelp(elementLoc_);
             noeudLoc_.ajouterInfo(nouveauNoeud_);
             noeudLocGraphique_.add(getCompoFactory().newMutableTreeNode(
-                    elementLoc_.nom()));
+                    lg_.getMapping().getVal(HelpCards.APP_BEAN).getMapping().getVal(HelpScriptConfPages.TREE_FILE).getMapping().getVal(elementLoc_.nom())));
         }
 //        if (wasNull_) {
 //            editor = new RenderedPage(_w.getCompoFactory().newAbsScrollPane(), _w.getFrames(),new FixCharacterCaseConverter());

@@ -19,7 +19,7 @@ public abstract class EquallableScriptsBeanUtil {
         Assert.assertNotNull(_value);
     }
 
-    public static void assertNotNullFullDoc(StringMap<FullDocument> _value) {
+    public static void assertNotNullFullDoc(FullDocument _value) {
         Assert.assertNotNull(_value);
     }
 

@@ -60,7 +60,7 @@ public abstract class SoftApplicationCore {
         belote(cf_, lgs_, frs_.getTranslations().byAppl(MessBelotePage.APP_BEAN));
         president(cf_, lgs_, frs_.getTranslations().byAppl(MessPresidentPage.APP_BEAN));
         tarot(cf_, lgs_, frs_.getTranslations().byAppl(MessTarotPage.APP_BEAN));
-        cf_.submitHelp(frs_);
+        cf_.submitHelp();
     }
     private static void aiki(AikiFactory _af, StringList _lgs, StringMap<TranslationsAppli> _msg, StringMap<String> _dis, AbstractGenerator _gene) {
         _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl()));

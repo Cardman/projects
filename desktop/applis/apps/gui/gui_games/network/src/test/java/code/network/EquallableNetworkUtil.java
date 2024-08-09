@@ -209,7 +209,7 @@ public abstract class EquallableNetworkUtil {
         MockProgramInfos pr_ = updateSingleBelote(build());
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoBelote(pr_), pr_, null, ia_, new LanguagesButtonsPair(null,null,null));
-        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
         belote(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
         w_.pack();
@@ -226,7 +226,7 @@ public abstract class EquallableNetworkUtil {
         MockProgramInfos pr_ = updateSinglePresident(build());
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoPresident(pr_), pr_, null, ia_, new LanguagesButtonsPair(null,null,null));
-        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
         president(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
         w_.pack();
@@ -243,7 +243,7 @@ public abstract class EquallableNetworkUtil {
         MockProgramInfos pr_ = updateSingleTarot(build());
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), pr_, null, ia_, new LanguagesButtonsPair(null,null,null));
-        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
         tarot(cf_, w_);
         w_.setPrepare(cf_.getTaskNav());
         w_.pack();
@@ -259,7 +259,7 @@ public abstract class EquallableNetworkUtil {
         MockProgramInfos pr_ = updateDialogDisplay(build());
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(stream(pr_), pr_, null, ia_, new LanguagesButtonsPair(null,null,null));
-        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<StringMap<HelpIndexesTree>>());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
         w_.setPrepare(cf_.getTaskNav());
         w_.pack();
         w_.setVisible(true);
