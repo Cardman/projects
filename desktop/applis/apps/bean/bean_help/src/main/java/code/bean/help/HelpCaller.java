@@ -5,6 +5,8 @@ import code.formathtml.render.MetaDocument;
 import code.sml.*;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.sml.Document;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -15,9 +17,9 @@ public final class HelpCaller {
         properties = _props;
     }
 
-    public static MetaDocument text(Document _uniq, StringMap<String> _ms, StringMap<int[][]> _imgs, StringMap<String> _props, String _pref) {
+    public static MetaDocument text(Document _uniq, TranslationsAppli _ms, StringMap<int[][]> _imgs, StringMap<String> _props, String _pref) {
         HelpCaller ins_ = new HelpCaller(_props);
-        StringMap<String> files_ = files(_ms, _props);
+        StringMap<TranslationsFile> files_ = files(_ms, _props);
 //        for (String a : _contextConf.getAddedFiles()) {
 //            files_.put(a, _ms.getVal(a));
 //        }
@@ -58,7 +60,7 @@ public final class HelpCaller {
         }
         return MetaDocument.newInstance(dest_, rend_,"ABCDEF",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(_imgs));
     }
-    private Node proc(Node _current, String _prefix, Document _doc, StringMap<String> _files, RendKeyWordsGroup _rend) {
+    private Node proc(Node _current, String _prefix, Document _doc, StringMap<TranslationsFile> _files, RendKeyWordsGroup _rend) {
         if (_current instanceof Element) {
             String tagName_ = ((Element)_current).getTagName();
             if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rend.getKeyWordsTags().getKeyWordMessage()))) {
@@ -75,23 +77,23 @@ public final class HelpCaller {
         }
         return _doc.createTextNode(StringUtil.simpleStringsFormat(_current.getTextContent(),new StringList()));
     }
-    public static StringMap<String> files(StringMap<String> _otherMessage, StringMap<String> _props){
-        StringMap<String> files_ = new StringMap<String>();
+    public static StringMap<TranslationsFile> files(TranslationsAppli _otherMessage, StringMap<String> _props){
+        StringMap<TranslationsFile> files_ = new StringMap<TranslationsFile>();
         for (String a : _props.values()) {
-            tryPut(files_,a,_otherMessage.getVal(a));
+            tryPut(files_,a,_otherMessage.getMapping().getVal(a));
         }
         return files_;
     }
 
-    private static void tryPut(StringMap<String> _files, String _key, String _val) {
-        _files.put(_key, StringUtil.nullToEmpty(_val));
+    private static void tryPut(StringMap<TranslationsFile> _files, String _key, TranslationsFile _val) {
+        _files.put(_key, _val);
     }
-    public static String getPre(String _value, StringMap<String> _props, StringMap<String> _files) {
+    public static String getPre(String _value, StringMap<String> _props, StringMap<TranslationsFile> _files) {
         StringList elts_ = StringUtil.splitStrings(_value, AnaRendBlockHelp.COMMA);
         String var_ = elts_.first();
         String fileName_ = _props.getVal(var_);
-        String content_ = _files.getVal(fileName_);
-        StringMap<String> messages_ = NavigationCore.getMessages(content_);
+        TranslationsFile content_ = _files.getVal(fileName_);
+        StringMap<String> messages_ = content_.getMapping();
         String key_ = elts_.last();
         return StringUtil.nullToEmpty(messages_.getVal(key_));
     }

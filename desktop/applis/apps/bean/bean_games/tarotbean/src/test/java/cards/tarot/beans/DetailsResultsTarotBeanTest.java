@@ -272,7 +272,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     @Test
     public void init1() {
         StringMap<String> other_ = MessTarotPage.ms();
-        NavigationCore.adjust(other_);
+//        NavigationCore.adjust(other_);
         StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
@@ -292,7 +292,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     @Test
     public void init2() {
         StringMap<String> other_ = MessTarotPage.ms();
-        NavigationCore.adjust(other_);
+//        NavigationCore.adjust(other_);
         StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
@@ -312,7 +312,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     @Test
     public void init3() {
         StringMap<String> other_ = MessTarotPage.ms();
-        NavigationCore.adjust(other_);
+//        NavigationCore.adjust(other_);
         StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());

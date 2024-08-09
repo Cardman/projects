@@ -127,15 +127,15 @@ public final class NavigationCoreTest extends EquallableSmlAdvUtil {
         procLink(d_,new RendKeyWordsGroup());
         assertEq("<head><style>content</style></head>",d_.export());
     }
-    @Test
-    public void adjustMap() {
-        StringMap<StringMap<String>> messages_ = new StringMap<StringMap<String>>();
-        StringMap<String> g_ = new StringMap<String>();
-        g_.addEntry("","<_/>");
-        messages_.addEntry("", g_);
-        NavigationCore.adjustMap(messages_);
-        assertEq("<_/>",g_.getVal(""));
-    }
+//    @Test
+//    public void adjustMap() {
+//        StringMap<StringMap<String>> messages_ = new StringMap<StringMap<String>>();
+//        StringMap<String> g_ = new StringMap<String>();
+//        g_.addEntry("","<_/>");
+//        messages_.addEntry("", g_);
+//        NavigationCore.adjustMap(messages_);
+//        assertEq("<_/>",g_.getVal(""));
+//    }
     @Test
     public void oneElt1() {
         assertEq("",NavigationCore.oneElt(new StringList()));

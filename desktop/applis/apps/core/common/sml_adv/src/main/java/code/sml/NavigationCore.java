@@ -1,9 +1,6 @@
 package code.sml;
 
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -134,17 +131,17 @@ public final class NavigationCore {
         }
     }
 
-    public static void adjustMap(StringMap<StringMap<String>> _mes) {
-        for (StringMap<String> m: _mes.values()) {
-            adjust(m);
-        }
-    }
+//    public static void adjustMap(StringMap<StringMap<String>> _mes) {
+//        for (StringMap<String> m: _mes.values()) {
+//            adjust(m);
+//        }
+//    }
 
-    public static void adjust(StringMap<String> _mes) {
-        for (EntryCust<String,String> e: _mes.entryList()) {
-            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(),true,true));
-        }
-    }
+//    public static void adjust(StringMap<String> _mes) {
+//        for (EntryCust<String,String> e: _mes.entryList()) {
+//            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(),true,true));
+//        }
+//    }
 
     public static String oneElt(StringList _element) {
         String v_;

@@ -7,9 +7,7 @@ import cards.gui.dialogs.help.NodeHelp;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.scripts.pages.cards.HelpCards;
-import code.sml.NavigationCore;
-import code.util.Ints;
-import code.util.StringMap;
+import code.util.*;
 
 public class ListenerClickTree implements AbsShortListTree {
 
@@ -35,9 +33,9 @@ public class ListenerClickTree implements AbsShortListTree {
         Ints indices_ = sel_.getIndexes();
         ElementHelp element_ = node.element(indices_).getElementLocal();
         String concat_ = element_.chemin();
-        StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
-        NavigationCore.adjustMap(builtMs_);
-        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(builtMs_.getVal(editor.getGene().currentLg().getKey()), element_.cf().getVal(concat_), element_.ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), element_.built().getVal(concat_));
+//        StringMap<TranslationsAppli> builtMs_ = HelpCards.ms();
+//        NavigationCore.adjustMap(builtMs_);
+        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(editor.getGene().currentLg().getMapping().getVal(HelpCards.APP_BEAN), element_.cf().getVal(concat_), element_.ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), element_.built().getVal(concat_));
         prep_.run();
         FrameGeneralHelp.initialize(prep_.getNavigation(),prep_.getMetaDocument(), editor);
     }

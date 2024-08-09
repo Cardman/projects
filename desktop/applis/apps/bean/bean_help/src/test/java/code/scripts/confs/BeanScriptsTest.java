@@ -7,7 +7,8 @@ public final class BeanScriptsTest extends EquallableScriptsBeanUtil {
     @Test
     public void cards(){
         assertNotNullDoc(HelpCards.build());
-        assertNotNull(HelpCards.ms());
+        assertNotNull(HelpCards.en());
+        assertNotNull(HelpCards.fr());
     }
     @Test
     public void help() {

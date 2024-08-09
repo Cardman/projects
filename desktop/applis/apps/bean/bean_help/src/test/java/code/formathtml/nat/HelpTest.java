@@ -5,12 +5,14 @@ import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
 //import code.formathtml.Configuration;
+import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.formathtml.EquallableBeanHelpUtil;
 //import code.formathtml.Navigation;
 //import code.formathtml.util.DualConfigurationContext;
 import code.formathtml.render.*;
 import code.images.BaseSixtyFourUtil;
 import code.sml.DocumentBuilder;
+import code.sml.util.TranslationsAppli;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -226,7 +228,9 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         contextConf_.setMessagesFolder(_messagesFolder);
         contextConf_.setProperties(_properties);
         contextConf_.setAddedFiles(_add);
-        return HelpCaller.text(DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), _ms, _imgs, contextConf_.getProperties(), navigation_.getSession().getNat().getPrefix());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry(_ms.getKey(0), AnaRendBlockHelp.file(_ms.getValue(0)));
+        return HelpCaller.text(DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), ta_, _imgs, contextConf_.getProperties(), navigation_.getSession().getNat().getPrefix());
 //        return text_.export();
     }
 

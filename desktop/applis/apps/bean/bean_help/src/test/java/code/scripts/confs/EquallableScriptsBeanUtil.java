@@ -5,12 +5,13 @@ import code.bean.nat.analyze.NatConfigurationCore;
 //import code.formathtml.Configuration;
 import code.sml.Document;
 import code.sml.FullDocument;
+import code.sml.util.TranslationsAppli;
 import code.util.StringMap;
 import org.junit.Assert;
 
 public abstract class EquallableScriptsBeanUtil {
 
-    public static void assertNotNull(StringMap<StringMap<String>> _value) {
+    public static void assertNotNull(TranslationsAppli _value) {
         Assert.assertNotNull(_value);
     }
 

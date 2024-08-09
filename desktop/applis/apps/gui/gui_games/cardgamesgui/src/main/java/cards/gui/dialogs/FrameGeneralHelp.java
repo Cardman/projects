@@ -21,10 +21,8 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.scripts.pages.cards.HelpCards;
-import code.sml.NavigationCore;
-import code.sml.util.TranslationsLg;
-import code.util.CustList;
-import code.util.StringMap;
+import code.sml.util.*;
+import code.util.*;
 import code.util.core.IndexConstants;
 
 public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame {
@@ -198,9 +196,9 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
         arbre = arbre_;
         String concat_ = getRacineBis().getElementLocal().chemin();
-        StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
-        NavigationCore.adjustMap(builtMs_);
-        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(builtMs_.getVal(lg_.getKey()), racineBis.getElementLocal().cf().getVal(concat_), racineBis.getElementLocal().ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), racineBis.getElementLocal().built().getVal(concat_));
+//        StringMap<TranslationsAppli> builtMs_ = HelpCards.ms();
+//        NavigationCore.adjustMap(builtMs_);
+        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(editor.getGene().currentLg().getMapping().getVal(HelpCards.APP_BEAN), racineBis.getElementLocal().cf().getVal(concat_), racineBis.getElementLocal().ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), racineBis.getElementLocal().built().getVal(concat_));
         prep_.run();
         initialize(prep_.getNavigation(),prep_.getMetaDocument(), editor);
 //        if (field == null) {

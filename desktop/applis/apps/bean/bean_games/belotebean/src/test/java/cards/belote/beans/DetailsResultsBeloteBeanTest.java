@@ -72,7 +72,7 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
     @Test
     public void init() {
         StringMap<String> other_ = MessBelotePage.ms();
-        NavigationCore.adjust(other_);
+//        NavigationCore.adjust(other_);
         StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
         mes_.addEntry(EN,MessBelotePage.enBelote());
         mes_.addEntry(FR,MessBelotePage.frBelote());

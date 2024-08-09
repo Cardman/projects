@@ -21,6 +21,7 @@ import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.gui.MessGuiGr;
 import code.scripts.pages.aiki.MessagesInit;
+import code.scripts.pages.cards.HelpCards;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.MessTarotPage;
@@ -120,6 +121,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessPresidentPage.APP_BEAN,MessPresidentPage.frPresident());
         en_.getMapping().addEntry(MessTarotPage.APP_BEAN,MessTarotPage.enTarot());
         fr_.getMapping().addEntry(MessTarotPage.APP_BEAN,MessTarotPage.frTarot());
+        en_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.en());
+        fr_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.fr());
         en_.getMapping().addEntry(MessagesInit.APP_BEAN,MessagesInit.en());
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN,MessagesInit.fr());
         _pr.setCommon(MessGuiGr.ms());

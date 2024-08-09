@@ -46,7 +46,7 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         Translations tr_ = new Translations();
         TranslationsLg lg_ = new TranslationsLg();
         TranslationsAppli a1_ = new TranslationsAppli();
-        TranslationsAppli a2_ = new TranslationsAppli();
+        TranslationsAppli a2_ = new TranslationsAppli(1);
         TranslationsFile f1_ = new TranslationsFile();
         TranslationsFile f2_ = new TranslationsFile();
         f1_.add("","");

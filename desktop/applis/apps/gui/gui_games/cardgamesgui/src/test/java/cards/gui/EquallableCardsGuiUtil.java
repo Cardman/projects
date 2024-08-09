@@ -26,6 +26,7 @@ import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.messages.cards.*;
+import code.scripts.pages.cards.HelpCards;
 import code.sml.*;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
@@ -586,6 +587,8 @@ public abstract class EquallableCardsGuiUtil {
         appendDialogHelp(baseFr(_pr),MessagesGuiCards.frHelp());
         _pr.getTranslations().getMapping().getVal(EN).setTreeCards(HelpScriptConfPages.info(HelpScriptConfPages.en()));
         _pr.getTranslations().getMapping().getVal(FR).setTreeCards(HelpScriptConfPages.info(HelpScriptConfPages.fr()));
+        _pr.getTranslations().getMapping().getVal(EN).getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.en());
+        _pr.getTranslations().getMapping().getVal(FR).getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.fr());
         return _pr;
     }
     private static TranslationsAppli baseFr(MockProgramInfos _pr) {
