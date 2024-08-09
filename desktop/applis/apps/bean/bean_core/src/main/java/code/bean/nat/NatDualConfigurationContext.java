@@ -2,7 +2,6 @@ package code.bean.nat;
 
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.sml.Document;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -34,18 +33,11 @@ public class NatDualConfigurationContext {
         getRenderFiles().removeAllString(firstUrl_);
         getRenderFiles().add(firstUrl_);
     }
-    public static StringMap<String> files(NatNavigation _nav, NatDualConfigurationContext _d, StringMap<String> _other, StringMap<String> _otherMessage,  String _rel){
+    public static StringMap<String> files(NatDualConfigurationContext _d, StringMap<String> _other, String _rel){
         StringMap<String> files_ = new StringMap<String>();
         for (String a : _d.getAddedFiles()) {
             String val_ = _other.getVal(_rel + a);
             tryPut(files_, a, val_);
-        }
-        for (String l : _nav.getLanguages()) {
-            for (String a : _d.getProperties().values()) {
-                String folder_ = _d.getMessagesFolder();
-                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
-                tryPut(files_,fileName_,_otherMessage.getVal(_rel+fileName_));
-            }
         }
         return files_;
     }

@@ -21,7 +21,7 @@ import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.scripts.pages.aiki.*;
 import code.scripts.pages.cards.*;
-import code.sml.*;
+import code.sml.util.*;
 import code.util.*;
 
 public abstract class SoftApplicationCore {
@@ -55,14 +55,14 @@ public abstract class SoftApplicationCore {
         AikiFactory a_ = factories_.getAikiFactory();
         AbstractProgramInfos frs_ = getFrames();
         StringList lgs_ = new StringList(frs_.getTranslations().getMapping().getKeys());
-        aiki(a_,lgs_,aikiMsg(),frs_.getDisplayLanguages(),frs_.getGenerator());
+        aiki(a_,lgs_,frs_.getTranslations().byAppl(MessagesInit.APP_BEAN),frs_.getDisplayLanguages(),frs_.getGenerator());
         CardFactories cf_ = factories_.getCardFactories();
-        belote(cf_, lgs_, beloteMsg());
-        president(cf_, lgs_, presidentMsg());
-        tarot(cf_, lgs_, tarotMsg());
+        belote(cf_, lgs_, frs_.getTranslations().byAppl(MessBelotePage.APP_BEAN));
+        president(cf_, lgs_, frs_.getTranslations().byAppl(MessPresidentPage.APP_BEAN));
+        tarot(cf_, lgs_, frs_.getTranslations().byAppl(MessTarotPage.APP_BEAN));
         cf_.submitHelp(frs_);
     }
-    private static void aiki(AikiFactory _af, StringList _lgs, StringMap<String> _msg, StringMap<String> _dis, AbstractGenerator _gene) {
+    private static void aiki(AikiFactory _af, StringList _lgs, StringMap<TranslationsAppli> _msg, StringMap<String> _dis, AbstractGenerator _gene) {
         _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl()));
         StringMap<String> builtOther_ = CssInit.ms();
         _af.submitNavData(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), PagesInit.build(), _msg, builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
@@ -72,45 +72,25 @@ public abstract class SoftApplicationCore {
         _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), _msg, builtOther_, new PkDiff(), _lgs),null));
         _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), _msg, builtOther_, new PkProg(), _lgs),null));
     }
-    private static StringMap<String> aikiMsg() {
-        StringMap<String> builtMessages_ = MessagesInit.ms();
-        NavigationCore.adjust(builtMessages_);
-        return builtMessages_;
-    }
 
-    private static void belote(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), _msg, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), _msg, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), _msg, _lgs));
-    }
-
-    private static StringMap<String> beloteMsg() {
+    private static void belote(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
         StringMap<String> other_ = MessBelotePage.ms();
-        NavigationCore.adjust(other_);
-        return other_;
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), _msg, other_, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), _msg, other_, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), _msg, other_, _lgs));
     }
 
-    private static void president(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), _msg, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), _msg, _lgs));
-    }
-
-    private static StringMap<String> presidentMsg() {
+    private static void president(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
         StringMap<String> other_ = MessPresidentPage.ms();
-        NavigationCore.adjust(other_);
-        return other_;
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), _msg, other_, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), _msg, other_, _lgs));
     }
 
-    private static void tarot(CardFactories _cf, StringList _lgs, StringMap<String> _msg) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), _msg, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), _msg, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), _msg, _lgs));
-    }
-
-    private static StringMap<String> tarotMsg() {
+    private static void tarot(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
         StringMap<String> other_ = MessTarotPage.ms();
-        NavigationCore.adjust(other_);
-        return other_;
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), _msg, other_, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), _msg, other_, _lgs));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), _msg, other_, _lgs));
     }
 
     protected void launchFile(String[] _args, String _lg) {

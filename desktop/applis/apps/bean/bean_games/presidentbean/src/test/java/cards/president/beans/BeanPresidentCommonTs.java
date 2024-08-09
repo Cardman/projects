@@ -10,6 +10,7 @@ import code.util.Longs;
 
 public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil {
     public static final String EN = "en";
+    public static final String FR = "fr";
     public static NaSt beanResults(String _language, ResultsPresident _dataBase) {
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
         stds_.setDataBase(_dataBase);

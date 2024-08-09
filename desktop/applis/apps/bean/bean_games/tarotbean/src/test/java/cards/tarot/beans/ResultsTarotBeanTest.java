@@ -9,6 +9,7 @@ import code.bean.nat.*;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
 import code.sml.NavigationCore;
+import code.sml.util.TranslationsAppli;
 import code.util.*;
 import org.junit.Test;
 
@@ -266,8 +267,11 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     public void init1() {
         StringMap<String> other_ = MessTarotPage.ms();
         NavigationCore.adjust(other_);
+        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+        mes_.addEntry(EN,MessTarotPage.enTarot());
+        mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,mes_,"");
         stds_.setDataBase(resultsFive(game4(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -283,8 +287,11 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     public void init2() {
         StringMap<String> other_ = MessTarotPage.ms();
         NavigationCore.adjust(other_);
+        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+        mes_.addEntry(EN,MessTarotPage.enTarot());
+        mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,mes_,"");
         stds_.setDataBase(resultsFive(game7(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -300,8 +307,11 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     public void init3() {
         StringMap<String> other_ = MessTarotPage.ms();
         NavigationCore.adjust(other_);
+        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+        mes_.addEntry(EN,MessTarotPage.enTarot());
+        mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsTarotLoader(), PagesTarots.build(),other_,mes_,"");
         stds_.setDataBase(resultsFive(game8(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

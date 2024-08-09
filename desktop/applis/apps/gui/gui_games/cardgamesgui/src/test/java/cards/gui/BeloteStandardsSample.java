@@ -5,6 +5,7 @@ import code.bean.nat.*;
 import code.bean.nat.analyze.*;
 import code.bean.nat.exec.*;
 import code.sml.*;
+import code.sml.util.*;
 import code.util.*;
 
 public final class BeloteStandardsSample extends BeloteStandards {
@@ -32,7 +33,7 @@ public final class BeloteStandardsSample extends BeloteStandards {
     }
 
     @Override
-    public NatNavigation nav(StringList _languages, String _lg, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<String> _otherMessage, String _rel) {
+    public NatNavigation nav(StringList _languages, String _lg, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<TranslationsAppli> _otherMessage, String _rel) {
         return EquallableCardsGuiUtil.nav();
     }
 }

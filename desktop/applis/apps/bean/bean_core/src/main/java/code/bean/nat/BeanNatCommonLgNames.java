@@ -7,6 +7,7 @@ import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.*;
 import code.sml.*;
+import code.sml.util.TranslationsAppli;
 import code.util.*;
 import code.util.core.*;
 
@@ -83,7 +84,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         return beansStruct.getVal(_beanName);
     }
 
-    public NatNavigation nav(StringList _languages, String _lg,AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<String> _otherMessage,  String _rel) {
+    public NatNavigation nav(StringList _languages, String _lg, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<TranslationsAppli> _otherMessage, String _rel) {
         NatConfigurationCore session_ = new NatConfigurationCore();
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(session_);
@@ -94,11 +95,12 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         nat_.getForwards();
         d_.init(session_);
         nav_.setSession(session_);
-        StringMap<String> files_ = NatDualConfigurationContext.files(nav_,d_,_other,_otherMessage,_rel);
+        StringMap<String> files_ = NatDualConfigurationContext.files(d_,_other, _rel);
         String realFilePath_ = session_.getFirstUrl();
         StringMap<Document> docs_ = NatDualConfigurationContext.docs(_built,_rel);
         session_.setFirstUrl(realFilePath_);
         nav_.setFiles(files_);
+        nav_.getApplis().addAllEntries(_otherMessage);
         setupAll(docs_,nav_, nav_.getSession(), blockBuilder(), d_);
         return nav_;
     }
@@ -314,6 +316,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
 
         getRenders().clear();
         _nav.getSession().setFiles(_nav.getFiles());
+        analyzingDoc_.getApplis().addAllEntries(_nav.getApplis());
         NatConfigurationCore conf_ = _nav.getSession();
         analyzingDoc_.setRendKeyWords(conf_.getRendKeyWords());
         analyzingDoc_.setupCommon(conf_.getNat(), _context.getProperties(), _context.getMessagesFolder());

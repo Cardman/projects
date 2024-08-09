@@ -1,6 +1,9 @@
 package code.scripts.pages.cards;
+import code.bean.nat.analyze.blocks.*;
+import code.sml.util.*;
 import code.util.*;
 public final class MessTarotPage{
+public static final String APP_BEAN = "tarot_bean";
 private static final String C_0_2_0="You win.\n";
 private static final String C_0_2_100="La d&eacute;fense a r&eacute;ussi le grand chelem.\n";
 private static final String C_0_2_101="L''attaque n''a pas r&eacute;ussi le grand chelem en l''annon&ccedil;ant.\n";
@@ -276,11 +279,21 @@ private static final String M_WIN="win";
 private static final String M_YES="yes";
 private static final char SEP='=';
 private MessTarotPage(){}
+public static TranslationsAppli enTarot(){
+TranslationsAppli b = new TranslationsAppli();
+b.getMapping().addEntry("resources_cards/messages/messages_tarot.properties",AnaRendBlockHelp.file(en()));
+return b;
+}
+public static TranslationsAppli frTarot(){
+TranslationsAppli b = new TranslationsAppli();
+b.getMapping().addEntry("resources_cards/messages/messages_tarot.properties",AnaRendBlockHelp.file(fr()));
+return b;
+}
 public static StringMap<String> ms(){
 StringMap<String> t = new StringMap<String>();
 t.addEntry("resources_cards/css/tarot.css",css());
-t.addEntry("resources_cards/messages/en/messages_tarot.properties",en());
-t.addEntry("resources_cards/messages/fr/messages_tarot.properties",fr());
+//t.addEntry("resources_cards/messages/en/messages_tarot.properties",en());
+//t.addEntry("resources_cards/messages/fr/messages_tarot.properties",fr());
 return t;
 }
 static String css(){

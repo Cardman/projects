@@ -9,6 +9,7 @@ import code.bean.nat.*;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
 import code.sml.NavigationCore;
+import code.sml.util.TranslationsAppli;
 import code.util.IdList;
 import code.util.*;
 import org.junit.Test;
@@ -96,11 +97,14 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
     }
 
     @Test
-    public void init() {
+    public void init1() {
         StringMap<String> other_ = MessTarotPage.ms();
         NavigationCore.adjust(other_);
+        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+        mes_.addEntry(EN,MessTarotPage.enTarot());
+        mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsRules stds_ = new TarotStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new RulesTarotLoader(), PagesTarots.buildRules(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_,"");
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -110,6 +114,26 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
                 "\tborder:1px solid black;\n" +
                 "}\n" +
                 "</style></head><body><h1>Mix Cards</h1>at each launching<br/><h1>Players' repartition</h1>1 vs 4<br/><h1>Mode</h1>normal<br/><h1>Discarding after call</h1>yes<h1>Allow playing the called suit at the first round</h1>yes<br/><h1>Allowed Bids at the beginning of the deal</h1><ul><li>fold</li><li>guard</li><li>slam</li></ul><h1>Allowed declaring</h1><table><caption>Handfuls</caption><thead><tr><td>Handful</td><td>Number</td></tr></thead><tbody><tr><td>one</td><td>8</td></tr><tr><td>two</td><td>10</td></tr><tr><td>three</td><td>13</td></tr><tr><td>four</td><td>14</td></tr></tbody></table><br/>Allowed miseres:<br/><ul><li>low cards</li></ul><br/><h1>End of game</h1>attack wins</body></html>",nav_.getHtmlText());
+    }
+
+    @Test
+    public void init2() {
+        StringMap<String> other_ = MessTarotPage.ms();
+        NavigationCore.adjust(other_);
+        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+        mes_.addEntry(EN,MessTarotPage.enTarot());
+        mes_.addEntry(FR,MessTarotPage.frTarot());
+        TarotStandardsRules stds_ = new TarotStandardsRules();
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),FR,new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_,"");
+        stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
+        stds_.initializeRendSessionDoc(nav_);
+        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "td,caption{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "</style></head><body><h1>Battre les cartes</h1>at each launching<br/><h1>Répartition des joueurs</h1>1 vs 4<br/><h1>Mode</h1>normal<br/><h1>Ecart après appel</h1>oui<h1>Autoriser le jeu de la couleur appelée au premier tour</h1>oui<br/><h1>Enchères au début de la partie</h1><ul><li>fold</li><li>guard</li><li>slam</li></ul><h1>Annonces autorisées</h1><table><caption>Poignées</caption><thead><tr><td>Poignée</td><td>Nombre</td></tr></thead><tbody><tr><td>one</td><td>8</td></tr><tr><td>two</td><td>10</td></tr><tr><td>three</td><td>13</td></tr><tr><td>four</td><td>14</td></tr></tbody></table><br/>Misères autorisées:<br/><ul><li>low cards</li></ul><br/><h1>Fin de partie</h1>attack wins</body></html>",nav_.getHtmlText());
     }
 
     private RulesTarot rules() {

@@ -15,7 +15,7 @@ import code.maths.Rate;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
-import code.sml.NavigationCore;
+import code.sml.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -576,8 +576,9 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     @Test
     public void nav1() {
-        StringMap<String> builtMessages_ = MessagesInit.ms();
-        NavigationCore.adjust(builtMessages_);
+        StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
+        builtMessages_.addEntry(EN,MessagesInit.en());
+        builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkProg pk_ = new PkProg();
         NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
@@ -700,8 +701,9 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     @Test
     public void nav2() {
-        StringMap<String> builtMessages_ = MessagesInit.ms();
-        NavigationCore.adjust(builtMessages_);
+        StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
+        builtMessages_.addEntry(EN,MessagesInit.en());
+        builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkProg pk_ = new PkProg();
         NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);

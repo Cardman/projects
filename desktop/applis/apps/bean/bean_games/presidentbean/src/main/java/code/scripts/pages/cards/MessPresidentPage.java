@@ -1,6 +1,9 @@
 package code.scripts.pages.cards;
+import code.bean.nat.analyze.blocks.*;
+import code.sml.util.*;
 import code.util.*;
 public final class MessPresidentPage{
+public static final String APP_BEAN = "president_bean";
 private static final String C_0_1_0="You win.\n";
 private static final String C_0_1_10="Mix Cards\n";
 private static final String C_0_1_11="Number of players\n";
@@ -72,11 +75,21 @@ private static final String M_WIN="win";
 private static final String M_YES="yes";
 private static final char SEP='=';
 private MessPresidentPage(){}
+public static TranslationsAppli enPresident(){
+TranslationsAppli b = new TranslationsAppli();
+b.getMapping().addEntry("resources_cards/messages/messages_president.properties",AnaRendBlockHelp.file(en()));
+return b;
+}
+public static TranslationsAppli frPresident(){
+TranslationsAppli b = new TranslationsAppli();
+b.getMapping().addEntry("resources_cards/messages/messages_president.properties",AnaRendBlockHelp.file(fr()));
+return b;
+}
 public static StringMap<String> ms(){
 StringMap<String> p = new StringMap<String>();
 p.addEntry("resources_cards/css/president.css",css());
-p.addEntry("resources_cards/messages/en/messages_president.properties",en());
-p.addEntry("resources_cards/messages/fr/messages_president.properties",fr());
+//p.addEntry("resources_cards/messages/en/messages_president.properties",en());
+//p.addEntry("resources_cards/messages/fr/messages_president.properties",fr());
 return p;
 }
 static String css(){

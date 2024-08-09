@@ -20,6 +20,10 @@ import code.netw.NetWork;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.gui.MessGuiGr;
+import code.scripts.pages.aiki.MessagesInit;
+import code.scripts.pages.cards.MessBelotePage;
+import code.scripts.pages.cards.MessPresidentPage;
+import code.scripts.pages.cards.MessTarotPage;
 import code.sml.util.TranslationsLg;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
@@ -110,6 +114,14 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         NetWork.frTr(NetWork.initAppliTr(fr_));
         FileFrame.enTr(FileFrame.initAppliTr(en_));
         FileFrame.frTr(FileFrame.initAppliTr(fr_));
+        en_.getMapping().addEntry(MessBelotePage.APP_BEAN,MessBelotePage.enBelote());
+        fr_.getMapping().addEntry(MessBelotePage.APP_BEAN,MessBelotePage.frBelote());
+        en_.getMapping().addEntry(MessPresidentPage.APP_BEAN,MessPresidentPage.enPresident());
+        fr_.getMapping().addEntry(MessPresidentPage.APP_BEAN,MessPresidentPage.frPresident());
+        en_.getMapping().addEntry(MessTarotPage.APP_BEAN,MessTarotPage.enTarot());
+        fr_.getMapping().addEntry(MessTarotPage.APP_BEAN,MessTarotPage.frTarot());
+        en_.getMapping().addEntry(MessagesInit.APP_BEAN,MessagesInit.en());
+        fr_.getMapping().addEntry(MessagesInit.APP_BEAN,MessagesInit.fr());
         _pr.setCommon(MessGuiGr.ms());
     }
 

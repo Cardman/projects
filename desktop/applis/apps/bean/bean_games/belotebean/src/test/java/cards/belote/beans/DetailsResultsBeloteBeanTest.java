@@ -7,6 +7,7 @@ import code.bean.nat.NatNavigation;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
 import code.sml.NavigationCore;
+import code.sml.util.*;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
@@ -72,8 +73,11 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
     public void init() {
         StringMap<String> other_ = MessBelotePage.ms();
         NavigationCore.adjust(other_);
+        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+        mes_.addEntry(EN,MessBelotePage.enBelote());
+        mes_.addEntry(FR,MessBelotePage.frBelote());
         BeloteStandardsDetailResults stds_ = new BeloteStandardsDetailResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new DetailsBeloteLoader(), PagesBelotes.buildDetails(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new DetailsBeloteLoader(), PagesBelotes.buildDetails(),other_,mes_,"");
         stds_.setDataBase(results(game1(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

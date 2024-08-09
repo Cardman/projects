@@ -14,6 +14,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String AUTRE = "AUTRE";
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
+    public static final String FR = "fr";
     protected static final char NAV_SEP='.';
 
     public static void transit(PokemonStandards _stds, NatCaller _caller, NaSt _first, NaSt _second, long... _args) {

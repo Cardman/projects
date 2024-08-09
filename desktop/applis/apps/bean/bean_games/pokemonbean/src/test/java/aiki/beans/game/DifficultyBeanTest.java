@@ -17,7 +17,7 @@ import code.maths.Rate;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
-import code.sml.NavigationCore;
+import code.sml.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -498,8 +498,9 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         diff(fac_).setWinTrainerExp(rt());
         diff(fac_).setRateWinningExpPtsFight(rt());
         diff(fac_).setRateWinMoneyBase(rt());
-        StringMap<String> builtMessages_ = MessagesInit.ms();
-        NavigationCore.adjust(builtMessages_);
+        StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
+        builtMessages_.addEntry(EN,MessagesInit.en());
+        builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
         NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
@@ -535,8 +536,9 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     @Test
     public void nav() {
         FacadeGame fac_ = facTr(16);
-        StringMap<String> builtMessages_ = MessagesInit.ms();
-        NavigationCore.adjust(builtMessages_);
+        StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
+        builtMessages_.addEntry(EN,MessagesInit.en());
+        builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
         NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);

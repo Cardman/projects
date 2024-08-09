@@ -3,6 +3,7 @@ package code.bean.nat;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.sml.Document;
 import code.sml.NavigationCore;
+import code.sml.util.TranslationsAppli;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -10,6 +11,11 @@ public final class NatNavigation {
 
     private NatConfigurationCore session;
     private final NavigationCore bean = new NavigationCore();
+    private final StringMap<TranslationsAppli> applis = new StringMap<TranslationsAppli>();
+
+    public StringMap<TranslationsAppli> getApplis() {
+        return applis;
+    }
 
     public void setLanguage(String _language) {
         bean.setLanguage(_language);

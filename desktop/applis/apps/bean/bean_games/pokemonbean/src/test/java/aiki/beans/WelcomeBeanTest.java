@@ -14,10 +14,10 @@ import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
-import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.sml.*;
+import code.sml.util.*;
 import code.util.*;
 import code.util.core.*;
 import org.junit.Test;
@@ -124,8 +124,9 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     @Test
     public void init() {
         FacadeGame f_ = facade();
-        StringMap<String> builtMessages_ = MessagesInit.ms();
-        NavigationCore.adjust(builtMessages_);
+        StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
+        builtMessages_.addEntry(EN,MessagesInit.en());
+        builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkData pk_ = new PkData();
         StringMap<Document> b_ = PagesInit.build();

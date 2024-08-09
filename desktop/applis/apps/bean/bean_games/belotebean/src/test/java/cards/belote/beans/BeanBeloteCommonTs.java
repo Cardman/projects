@@ -11,6 +11,7 @@ import code.util.Longs;
 
 public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static final String EN = "en";
+    public static final String FR = "fr";
 
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";

@@ -12,6 +12,7 @@ public final class NatAnalyzingDocTest extends EquallableSmlAdvUtil {
         NatAnalyzingDoc n_ = new NatAnalyzingDoc();
         n_.setRendKeyWords(new RendKeyWordsGroup());
         n_.getRendKeyWords().getKeyWordsAttrs().setAttrAction("");
+        n_.getApplis().clear();
         ConfigurationCore c_ = new ConfigurationCore();
         c_.setFiles(new StringMap<String>());
         c_.setCurrentLanguage("");

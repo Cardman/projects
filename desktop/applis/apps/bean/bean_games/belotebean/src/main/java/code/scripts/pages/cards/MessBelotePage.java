@@ -1,6 +1,9 @@
 package code.scripts.pages.cards;
+import code.bean.nat.analyze.blocks.*;
+import code.sml.util.*;
 import code.util.*;
 public final class MessBelotePage{
+public static final String APP_BEAN = "belote_bean";
 private static final String C_0_0_0="You win.\n";
 private static final String C_0_0_10="{0}''s declaring ({1}):\n";
 private static final String C_0_0_11="No thing\n";
@@ -126,11 +129,21 @@ private static final String M_WON_TRICK="won_trick";
 private static final String M_YES="yes";
 private static final char SEP='=';
 private MessBelotePage(){}
+public static TranslationsAppli enBelote(){
+TranslationsAppli b = new TranslationsAppli();
+b.getMapping().addEntry("resources_cards/messages/messages_belote.properties",AnaRendBlockHelp.file(en()));
+return b;
+}
+public static TranslationsAppli frBelote(){
+TranslationsAppli b = new TranslationsAppli();
+b.getMapping().addEntry("resources_cards/messages/messages_belote.properties",AnaRendBlockHelp.file(fr()));
+return b;
+}
 public static StringMap<String> ms(){
 StringMap<String> b = new StringMap<String>();
 b.addEntry("resources_cards/css/belote.css",css());
-b.addEntry("resources_cards/messages/en/messages_belote.properties",en());
-b.addEntry("resources_cards/messages/fr/messages_belote.properties",fr());
+//b.addEntry("resources_cards/messages/en/messages_belote.properties",en());
+//b.addEntry("resources_cards/messages/fr/messages_belote.properties",fr());
 return b;
 }
 static String css(){

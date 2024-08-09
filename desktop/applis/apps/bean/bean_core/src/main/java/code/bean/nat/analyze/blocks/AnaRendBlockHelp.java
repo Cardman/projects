@@ -4,10 +4,10 @@ import code.bean.nat.BeanNatCommonLgNames;
 import code.sml.NatAnalyzingDoc;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.sml.*;
-import code.sml.util.ResourcesMessagesUtil;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.core.StringUtil;
+import code.sml.util.*;
+import code.util.*;
+import code.util.core.*;
+import code.util.opers.*;
 
 public final class AnaRendBlockHelp {
     public static final String LEFT_PAR = "(";
@@ -68,16 +68,22 @@ public final class AnaRendBlockHelp {
         String fileName_ = getProperty(var_, _analyzingDoc);
         StringMap<String> pres_ = new StringMap<String>();
         for (String l: _analyzingDoc.getLanguages()) {
-            StringMap<String> files_ = _analyzingDoc.getFiles();
-            String content_ = tryGetContent(l, fileName_, files_, _analyzingDoc);
-            StringMap<String> messages_ = NavigationCore.getMessages(content_);
+            StringMap<TranslationsFile> files_ = _analyzingDoc.getApplis().getVal(l).getMapping();
+            TranslationsFile content_ = tryGetContent(fileName_, files_, _analyzingDoc);
             String key_ = elts_.last();
-            String format_ = messages_.getVal(key_);
+            String format_ = content_.getMapping().getVal(key_);
             pres_.addEntry(l,format_);
         }
         return pres_;
     }
 
+    public static TranslationsFile file(String _content) {
+        TranslationsFile t_ = new TranslationsFile();
+        for (EntryCust<String,String> e: MessagesUtil.getMessages(DocumentBuilder.transformSpecialChars(_content,true,true)).entryList()) {
+            t_.add(e.getKey(),e.getValue());
+        }
+        return t_;
+    }
     static String getProperty(String _key, NatAnalyzingDoc _anaDoc) {
         return _anaDoc.getProperties().getVal(_key);
     }
@@ -220,12 +226,10 @@ public final class AnaRendBlockHelp {
         return _elt.getAttribute(_key);
     }
 
-    public static String tryGetContent(String _loc, String _relative, StringMap<String> _files, NatAnalyzingDoc _anaDoc) {
+    public static TranslationsFile tryGetContent(String _relative, StringMap<TranslationsFile> _files, NatAnalyzingDoc _anaDoc) {
         String folder_ = _anaDoc.getMessagesFolder();
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
-        return _files.getVal(fileName_);
+        return _files.getVal(folder_+"/"+_relative+".properties");
     }
-
     static String getCssHref(Element _link, RendKeyWordsGroup _rendKeyWords) {
         return _link.getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrHref());
     }

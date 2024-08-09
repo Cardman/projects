@@ -23,6 +23,7 @@ import code.gui.images.AbstractImage;
 import code.images.BaseSixtyFourUtil;
 import code.mock.*;
 import code.sml.*;
+import code.sml.util.TranslationsAppli;
 import code.stream.StreamBinaryFile;
 import code.threads.ConcreteBoolean;
 import code.threads.ConcreteInteger;
@@ -173,7 +174,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         window_.getFacade().setChangeToFightScene(true);
 //        window_.getBattle().resetWindows();
         assertFalse(window_.getModal().get());
-        AikiNatLgNamesNavigation res_ = new DataWebInit(new PreparedRenderedPages("", new DataGameInit(), new StringMap<Document>(), new StringMap<String>(), new StringMap<String>(), new PokemonStandardsSample(), new StringList()), window_.getFrames().getCompoFactory().newMenuItem("")).call();
+        AikiNatLgNamesNavigation res_ = new DataWebInit(new PreparedRenderedPages("", new DataGameInit(), new StringMap<Document>(), new StringMap<TranslationsAppli>(), new StringMap<String>(), new PokemonStandardsSample(), new StringList()), window_.getFrames().getCompoFactory().newMenuItem("")).call();
         res_.getNavigation().setLanguage("");
         assertEq("",res_.getNavigation().getLanguage());
         new WalkNicknameAutoCompleteListener(new MockTextField(""),window_.getFacade()).changedUpdate();

@@ -23,6 +23,8 @@ import code.maths.Rate;
 import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.sml.*;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.util.*;
 import org.junit.Test;
 
@@ -163,8 +165,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         assertNotNull(bean_.getLanguage());
         SampleBeanStruct v_ = init(bean_);
@@ -181,8 +182,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if><c:else>Empty</c:else></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -198,8 +198,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:else>Not empty</c:else></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -215,8 +214,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Empty</c:elseif></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -231,8 +229,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Not empty</c:elseif></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -247,8 +244,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Not empty</c:elseif><c:else>Empty</c:else></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -263,8 +259,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='composite.strings.isEmpty()'>Empty</c:elseif><c:else>Not empty</c:else></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -279,8 +274,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings3.isEmpty()'>Empty</c:if></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
         //setInteger(v_);
@@ -293,8 +287,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length(s)}</li></c:for></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -309,8 +302,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length2(s,s,s)}</li></c:for></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -325,8 +317,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length(s)}</li></c:for></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -341,8 +332,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\"><li>{length(s)}</li></c:for></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -357,8 +347,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{(([s]))}</li></c:for></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -373,8 +362,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{([s])}</li></c:for></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -389,8 +377,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings2\"><li><c:if condition='isEmpty(s)'>EMPTY</c:if></li></c:for></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("");
@@ -406,8 +393,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='$var'><li>{length(s)}</li></c:for></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -423,8 +409,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul>{(composite.sum(composite.integer1,composite.integer1))}</ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -440,14 +425,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=<a c:command=''$composite.sum({0},{0},{0})''>{0}</a>";
         String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><ul>&lt;a c:command='$composite.sum(5,5,5)'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><ul>&lt;a c:command='$composite.sum(5,5,5)'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
 
 //    @Test
@@ -473,14 +457,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=<a c:command=''$validateStrings()''>{0}</a>";
         String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><ul>&lt;a c:command='$validateStrings()'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><ul>&lt;a c:command='$validateStrings()'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
 
     @Test
@@ -490,14 +473,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=<a c:command=''composite''>{0}</a>";
         String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><ul>&lt;a c:command='composite'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><ul>&lt;a c:command='composite'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
     @Test
     public void process__2Test() {
@@ -506,8 +488,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul>{((composite.sum(composite.integer1,composite.integer1)))}</ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -522,14 +503,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one={0}";
         String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><ul>5</ul></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><ul>5</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
 //    @Test
 //    public void process2_Sub_Test() {
@@ -570,14 +550,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one={0}";
         String html_ = "<html c:bean='bean_one'><body>''a''</body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body>'a'</body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body>'a'</body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
 //    @Test
 //    public void process_2_Test() {
@@ -698,14 +677,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Click";
         String html_ = "<html c:bean='bean_one'><body><img/></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
 
     @Test
@@ -715,14 +693,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Click";
         String html_ = "<html c:bean='bean_one'><body><c:img/></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
     @Test
     public void process2LkTest() {
@@ -731,14 +708,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Click";
         String html_ = "<html c:bean='bean_one'><body><link/></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><link/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><link/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
     @Test
     public void process3LkTest() {
@@ -747,14 +723,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Click";
         String html_ = "<html c:bean='bean_one'><body><head><link/></head></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><head><link/><style></style></head></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><head><link/><style></style></head></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
     @Test
     public void process2SpTest() {
@@ -763,15 +738,15 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Click";
         String html_ = "<html c:bean='bean_one'><body><span/></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><span/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><span/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
+
 //    @Test
 //    public void process1FailTest() {
 //        String locale_ = "en";
@@ -795,8 +770,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree\"><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -814,8 +788,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -833,8 +806,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><c:for key=\"l\" value=\"w\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><tr><td>{k}</td><td>{v}</td><td>{l}</td><td>{w}</td></tr></c:for></c:for></table></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        trFile(folder_, locale_, relative_, content_);
         BeanOne bean_ = new BeanOne();
         SampleBeanStruct v_ = init(bean_);
 //        getStrings(v_).add("FIRST");
@@ -1320,7 +1292,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><span v='Text'>{typedString2}</span></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1363,7 +1334,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><span>{typedString2}</span></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1408,8 +1378,12 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"/>";
+        StringMap<TranslationsAppli> apps_ = new StringMap<TranslationsAppli>();
+        TranslationsAppli app_ = new TranslationsAppli();
+        TranslationsFile tf_ = AnaRendBlockHelp.file(content_);
+        app_.getMapping().addEntry(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), tf_);
+        apps_.addEntry(locale_, app_);
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
@@ -1436,7 +1410,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         StringMap<Document> docs_ = new StringMap<Document>();
         docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
         docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-        NatNavigation n_ = nav(locale_, docs_, files_, lgNames_, new SampleNativeInit());
+        NatNavigation n_ = nav(locale_, docs_, files_, apps_, lgNames_, new SampleNativeInit());
         lgNames_.initializeRendSessionDoc(n_);
         assertEq("<html/>", n_.getHtmlText());
     }
@@ -2689,7 +2663,14 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         _adv.initializeRendSessionDoc(_nav);
     }
 
-    private String getNatRes(String _folder, String _relative, String _html, StringMap<String> _files, SampleBeanStruct _v) {
+    private StringMap<TranslationsAppli> trFile(String _folder, String _locale, String _relative, String _content) {
+        StringMap<TranslationsAppli> files_ = new StringMap<TranslationsAppli>();
+        TranslationsAppli file_ = new TranslationsAppli();
+        file_.getMapping().addEntry(EquallableBeanCoreUtil.formatFile(_folder, _locale, _relative),AnaRendBlockHelp.file(_content));
+        files_.addEntry(_locale, file_);
+        return files_;
+    }
+    private String getNatRes(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<TranslationsAppli> _apps, SampleBeanStruct _v) {
         CustBeanLgNames lgNames_ = stds();
         NatConfigurationCore config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
@@ -2698,6 +2679,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
         config_.getFiles().addAllEntries(_files);
+        analyzingDoc_.getApplis().addAllEntries(_apps);
         setupNative2(_folder, _relative, dual_);
         putBean("bean_one", _v, lgNames_);
         StringMap<String> beansInfos_ = config_.getBeansInfos();
@@ -2962,10 +2944,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        ((BeanThree)_v.getComposite()).setInteger(5);
 //    }
 
-    private NatNavigation nav(String _lg, StringMap<Document> _docs, StringMap<String> _files, CustBeanLgNames _stds, AbstractNativeInit _init) {
+    private NatNavigation nav(String _lg, StringMap<Document> _docs, StringMap<String> _files, StringMap<TranslationsAppli> _apps, CustBeanLgNames _stds, AbstractNativeInit _init) {
         StringList lgs_ = new StringList(_lg);
         lgs_.add(_lg);
-        return _stds.nav(lgs_, _lg, _init, _docs, _files, _files, "");
+        return _stds.nav(lgs_, _lg, _init, _docs, _files, _apps, "");
     }
 
 }

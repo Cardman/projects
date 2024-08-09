@@ -4,6 +4,7 @@ import aiki.beans.PokemonStandards;
 import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.NatNavigation;
 import code.sml.Document;
+import code.sml.util.*;
 import code.util.*;
 
 public final class PreparedRenderedPages {
@@ -14,10 +15,10 @@ public final class PreparedRenderedPages {
     private final String relative;
     private PokemonStandards beanNatLgNames;
     private final StringMap<Document> built;
-    private final StringMap<String> builtMessages;
+    private final StringMap<TranslationsAppli> builtMessages;
     private final StringMap<String> builtOther;
 
-    public PreparedRenderedPages(String _relative, AbstractNativeInit _init, StringMap<Document> _build, StringMap<String> _builtMessages, StringMap<String> _builtOther, PokemonStandards _stds, StringList _lgs) {
+    public PreparedRenderedPages(String _relative, AbstractNativeInit _init, StringMap<Document> _build, StringMap<TranslationsAppli> _builtMessages, StringMap<String> _builtOther, PokemonStandards _stds, StringList _lgs) {
         relative = _relative;
         init = _init;
         built = _build;

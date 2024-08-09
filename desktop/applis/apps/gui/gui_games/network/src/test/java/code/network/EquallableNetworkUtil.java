@@ -377,21 +377,21 @@ public abstract class EquallableNetworkUtil {
         en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
     }
     private static void belote(CardFactories _cf, WindowNetWork _w) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
     }
 
     private static void president(CardFactories _cf, WindowNetWork _w) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
     }
 
     private static void tarot(CardFactories _cf, WindowNetWork _w) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
     }
 
     public static NatNavigation nav() {

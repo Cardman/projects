@@ -1,8 +1,10 @@
 package code.bean.nat;
 
+import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.formathtml.EquallableBeanCoreUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.sml.util.TranslationsFile;
 import code.util.*;
 import org.junit.Test;
 
@@ -25,13 +27,9 @@ public final class NatDualConfigurationContextTest extends EquallableBeanCoreUti
         other_.addEntry("sample/fr/prop.properties","a=b2\nc=d2");
         other_.addEntry("sample/en/prop2.properties","e=b1\nf=d1");
         other_.addEntry("sample/fr/prop2.properties","e=b2\nf=d2");
-        StringMap<String> files_ = NatDualConfigurationContext.files(nav_, d_, other_,other_,"");
-        assertEq(5,files_.size());
+        StringMap<String> files_ = NatDualConfigurationContext.files(d_, other_, "");
+        assertEq(1,files_.size());
         assertEq("*{}",files_.getVal("elt.css"));
-        assertEq("a=b1\nc=d1",files_.getVal("sample/en/prop.properties"));
-        assertEq("a=b2\nc=d2",files_.getVal("sample/fr/prop.properties"));
-        assertEq("e=b1\nf=d1",files_.getVal("sample/en/prop2.properties"));
-        assertEq("e=b2\nf=d2",files_.getVal("sample/fr/prop2.properties"));
     }
     @Test
     public void docs1() {
@@ -39,5 +37,12 @@ public final class NatDualConfigurationContextTest extends EquallableBeanCoreUti
         in_.addEntry("", DocumentBuilder.parseSax("<a>t</a>"));
         StringMap<Document> res_ = NatDualConfigurationContext.docs(in_, "");
         assertEq("<a>t</a>",res_.getVal("").export());
+    }
+    @Test
+    public void file() {
+        TranslationsFile f_ = AnaRendBlockHelp.file("a=b1\nc=d1");
+        assertEq(2,f_.getMapping().size());
+        assertEq("b1",f_.getMapping().getVal("a"));
+        assertEq("d1",f_.getMapping().getVal("c"));
     }
 }
