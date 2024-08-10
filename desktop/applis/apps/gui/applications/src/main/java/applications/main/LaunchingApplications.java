@@ -59,7 +59,7 @@ public class LaunchingApplications extends SoftApplicationCore {
 //        if (FileListInfo.isBinary(bytes_) && !FileListInfo.isZip(bytes_.getBytes()) && getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes()) != null) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonConverter();
             LaunchingConverter launch_ = new LaunchingConverter(getFactories());
-            launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
 //            AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
 //            if (img_ != null) {
@@ -76,7 +76,7 @@ public class LaunchingApplications extends SoftApplicationCore {
         if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonCards();
             LaunchingCards launch_ = new LaunchingCards(getFactories());
-            launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
         Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_, new SexListImpl());
@@ -84,7 +84,7 @@ public class LaunchingApplications extends SoftApplicationCore {
         if (loadingGameOrNull_ != null || gameOrNull_ != null) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonPokemon();
             LaunchingPokemon launch_ = new LaunchingPokemon(getFactories());
-            launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
         Document doc_ = _args.getDocument();
@@ -92,12 +92,12 @@ public class LaunchingApplications extends SoftApplicationCore {
             if (StringUtil.quickEq("smil", doc_.getDocumentElement().getTagName())) {
                 AbsButton bu_ = launchWindow(getFactories()).getButtonPlayer();
                 LaunchingPlayer launch_ = new LaunchingPlayer(getFactories());
-                launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+                launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
                 return;
             }
             AbsButton bu_ = launchWindow(getFactories()).getButtonDemo();
             LaunchingDemo launch_ = new LaunchingDemo(getFactories());
-            launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
 //        if (file_.indexOf('\n') < 0) {
@@ -114,25 +114,25 @@ public class LaunchingApplications extends SoftApplicationCore {
         if (linesFiles_.size() < 3) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonTests();
             LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFactories());
-            launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
         String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
         if (possibleMethod_.startsWith("initDb=")) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonRenders();
             LaunchingRenders launch_ = new LaunchingRenders(getFactories());
-            launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
         if (possibleMethod_.startsWith("main=")) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonApps();
             LaunchingFull launch_ = new LaunchingFull(getFactories());
-            launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
         AbsButton bu_ = launchWindow(getFactories()).getButtonTests();
         LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFactories());
-        launch_.launchWithoutLanguage(_language, _args, bu_, _pair);
+        launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
     }
 
     private WindowApps launchWindow(WithAppFactories _list) {
