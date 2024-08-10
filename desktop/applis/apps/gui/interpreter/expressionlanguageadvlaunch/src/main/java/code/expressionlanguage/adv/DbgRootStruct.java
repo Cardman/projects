@@ -19,7 +19,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
         super(_r,_r,_par);
     }
     AbsTreeGui buildReturn(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ArgumentWrapper _val) {
-        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
+        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode(AbsEditorTabList.EMPTY_STRING);
         setAssociated(root_);
         DbgAbsNodeStruct result_;
         if (_val.getWrapper() != null) {
@@ -37,7 +37,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
         return tree_;
     }
     AbsTreeGui build(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ViewPage _stView, BreakPointOutputInfo _infos) {
-        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("");
+        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode(AbsEditorTabList.EMPTY_STRING);
         setAssociated(root_);
         addWatches(_compo, root_, _infos.getWatchResults());
         DbgCallStruct pt_ = new DbgCallStruct(this, _stView.getInstance());
@@ -98,7 +98,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
 
     @Override
     public String str() {
-        return "";
+        return AbsEditorTabList.EMPTY_STRING;
     }
 
 }

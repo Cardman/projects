@@ -8,11 +8,11 @@ public final class AdvLogDbg implements AbsLogDbg {
 
     public AdvLogDbg(AbsTextArea _a) {
         this.area = _a;
-        area.setText("");
+        area.setText(AbsEditorTabList.EMPTY_STRING);
     }
 
     @Override
     public void log(String _ev) {
-        area.append(_ev+"\n");
+        area.append(_ev+AbsEditorTabList.LINE_RETURN);
     }
 }

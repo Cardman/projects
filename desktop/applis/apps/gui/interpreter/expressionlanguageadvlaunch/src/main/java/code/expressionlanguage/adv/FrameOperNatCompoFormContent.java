@@ -90,8 +90,8 @@ public final class FrameOperNatCompoFormContent {
         ok.addActionListener(new OkOperNatCompoFormEvent(_d,this, _p, _r));
         GuiBaseUtil.removeActionListeners(remove);
         remove.addActionListener(new OkRemoveOperNatCompoFormEvent(this, _p, _r));
-        getGuiSimpleStackForm().refresh(_v, "", _r, _d);
-        getGuiCompoundStackForm().refresh(_v, "", _r, _d);
+        getGuiSimpleStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiCompoundStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public AbsPanel getContentPane() {

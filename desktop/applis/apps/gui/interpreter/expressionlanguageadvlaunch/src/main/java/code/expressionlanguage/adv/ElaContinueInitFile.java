@@ -13,6 +13,6 @@ public final class ElaContinueInitFile implements AbsContinueFile {
     @Override
     public void next(FileDialogContent _content) {
         window.updateEnv(_content.getSelectedAbsolutePath());
-        window.dateSave();
+        window.dateSave(MessagesIde.IDE_CHOOSE_PRO);
     }
 }

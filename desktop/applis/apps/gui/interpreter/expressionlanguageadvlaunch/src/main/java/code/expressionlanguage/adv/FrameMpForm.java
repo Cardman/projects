@@ -20,7 +20,7 @@ public final class FrameMpForm extends AdvFrameMpForm{
         frameMpFormContent = new FrameMpFormContent(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
+        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
         fileName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         frameMpFormContent.guiBuildBase(_d);
         caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
@@ -43,7 +43,7 @@ public final class FrameMpForm extends AdvFrameMpForm{
             getGuiExitStackForm().getDependantPointsForm().init(_r,MethodPointBlockPair.CMP);
             updatePref(BreakPointBlockList.prefsMeths(_r.getContext().metList(),MethodPoint.BPC_ENTRY),getGuiEnterStackForm(),_c,_r);
             updatePref(BreakPointBlockList.prefsMeths(_r.getContext().metList(),MethodPoint.BPC_EXIT),getGuiExitStackForm(),_c,_r);
-            getEdited().setText("");
+            getEdited().setText(AbsEditorTabList.EMPTY_STRING);
             frameMpFormContent.getRemove().setEnabled(false);
         }
     }

@@ -52,10 +52,10 @@ public final class CheckAliases implements AbsActionListener {
         page_.setFileBuilder(fileBuilder_);
         AnalysisMessages.validateMessageContents(mess_.allMessages(dialog.getCustAliases().extractMessagesKeys()), page_);
         ContextFactory.validate(kwl_,page_,fileBuilder_);
-        errors.setText("");
+        errors.setText(AbsEditorTabList.EMPTY_STRING);
         for (String e: ls_.getList()) {
             errors.append(e);
-            errors.append("\n");
+            errors.append(AbsEditorTabList.LINE_RETURN);
         }
     }
 

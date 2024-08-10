@@ -22,7 +22,7 @@ public final class AddValueRow implements AbsActionListener {
 
     @Override
     public void action() {
-        EditValueRow r_ = new EditValueRow(windowCdmEditor, "", allComments.size());
+        EditValueRow r_ = new EditValueRow(windowCdmEditor, AbsEditorTabList.EMPTY_STRING, allComments.size());
         allComments.add(r_);
         cont.add(r_.getLine());
         GuiBaseUtil.recalculateWindow(frame);

@@ -12,6 +12,6 @@ public final class ElaContinueSavedFile implements AbsContinueFile {
 
     @Override
     public void next(FileDialogContent _content) {
-        window.dateSave();
+        window.dateSave(MessagesIde.IDE_INIT_PRO);
     }
 }

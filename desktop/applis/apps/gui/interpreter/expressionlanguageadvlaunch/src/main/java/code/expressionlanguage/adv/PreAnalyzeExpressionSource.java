@@ -17,7 +17,7 @@ public final class PreAnalyzeExpressionSource implements Runnable {
     @Override
     public void run() {
         if (dbg == 0) {
-            mainFrame.getStatusAnalyzeArea().setText("");
+            mainFrame.getStatusAnalyzeArea().setText(AbsEditorTabList.EMPTY_STRING);
         }
         ResultContext res_ = baseValidate(mainFrame);
         if (!res_.getPageEl().notAllEmptyErrors()) {

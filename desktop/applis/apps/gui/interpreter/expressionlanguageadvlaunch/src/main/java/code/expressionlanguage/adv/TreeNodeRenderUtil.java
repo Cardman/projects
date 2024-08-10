@@ -343,7 +343,7 @@ public final class TreeNodeRenderUtil {
         if (!_v.isEmpty()) {
             return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" + transform(_v) + "</" + SPAN +">";
         }
-        return "";
+        return AbsEditorTabList.EMPTY_STRING;
     }
 
     static String wrapValueInner(Struct _str, ContextEl _ctx) {
@@ -353,17 +353,17 @@ public final class TreeNodeRenderUtil {
         if (_str instanceof DisplayableStruct) {
             return ((DisplayableStruct)_str).getDisplayedString(_ctx).getInstance();
         }
-        return "";
+        return AbsEditorTabList.EMPTY_STRING;
     }
     static String locations(FileBlockIndex _elt) {
         String content_ = resource(_elt.getFile());
         int lenContent_ = content_.length();
         int locIndex_ = _elt.getIndex();
         if (locIndex_ >= lenContent_) {
-            return "";
+            return AbsEditorTabList.EMPTY_STRING;
         }
-        int min_ = NumberUtil.max(0, content_.lastIndexOf('\n', locIndex_));
-        int endLine_ = content_.indexOf('\n', locIndex_);
+        int min_ = NumberUtil.max(0, content_.lastIndexOf(AbsEditorTabList.LINE_RETURN_CH, locIndex_));
+        int endLine_ = content_.indexOf(AbsEditorTabList.LINE_RETURN_CH, locIndex_);
         if (endLine_ < 0) {
             endLine_ = lenContent_ - 1;
         }
@@ -384,7 +384,7 @@ public final class TreeNodeRenderUtil {
 
     static String resource(FileBlock _res) {
         if (_res == null) {
-            return "";
+            return AbsEditorTabList.EMPTY_STRING;
         }
         return StringUtil.nullToEmpty(_res.getContent());
     }

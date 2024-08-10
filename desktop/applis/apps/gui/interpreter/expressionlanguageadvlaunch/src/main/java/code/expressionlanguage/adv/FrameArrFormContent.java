@@ -209,19 +209,19 @@ public final class FrameArrFormContent {
         ok.addActionListener(new OkArrFormEvent(_d,this, _p, _r));
         GuiBaseUtil.removeActionListeners(remove);
         remove.addActionListener(new OkRemoveArrFormEvent(this, _p, _r));
-        getGuiLengthStackForm().refresh(_v, "", _r, _d);
-        getGuiIntGetStackForm().refresh(_v, "", _r, _d);
-        getGuiIntSetStackForm().refresh(_v, "", _r, _d);
-        getGuiIntCompoundGetStackForm().refresh(_v, "", _r, _d);
-        getGuiIntCompoundSetStackForm().refresh(_v, "", _r, _d);
-        getGuiIntCompoundSetErrStackForm().refresh(_v, "", _r, _d);
-        getGuiRangeGetStackForm().refresh(_v, "", _r, _d);
-        getGuiRangeSetStackForm().refresh(_v, "", _r, _d);
-        getGuiRangeCompoundGetStackForm().refresh(_v, "", _r, _d);
-        getGuiRangeCompoundSetStackForm().refresh(_v, "", _r, _d);
-        getGuiIntGetSetStackForm().refresh(_v, "", _r, _d);
-        getGuiInitArrayStackForm().refresh(_v, "", _r, _d);
-        getGuiCloneStackForm().refresh(_v, "", _r, _d);
+        getGuiLengthStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiIntGetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiIntSetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiIntCompoundGetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiIntCompoundSetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiIntCompoundSetErrStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiRangeGetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiRangeSetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiRangeCompoundGetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiRangeCompoundSetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiIntGetSetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiInitArrayStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiCloneStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public AbsPanel getContentPane() {

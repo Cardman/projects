@@ -147,7 +147,7 @@ public final class FramePointsTree {
     private void refreshWp(NatStringTreeMap<CustList<WatchPointBlockPair>> _m,AbstractMutableTreeNodeCore<String> _node,ResultContext _res, boolean _trueField) {
         String suff_;
         if (_trueField) {
-            suff_ = "";
+            suff_ = AbsEditorTabList.EMPTY_STRING;
         } else {
             suff_ = "()";
         }

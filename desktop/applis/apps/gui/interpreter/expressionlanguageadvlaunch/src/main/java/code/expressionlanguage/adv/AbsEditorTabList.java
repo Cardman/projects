@@ -6,6 +6,15 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.core.StringUtil;
 
 public abstract class AbsEditorTabList extends GroupFrame {
+    protected static final String EMPTY_STRING = "";
+    protected static final String LINE_RETURN = "\n";
+    protected static final String CR = "\r";
+    protected static final char CR_CHAR = '\r';
+    protected static final String CR_LF = "\r\n";
+    protected static final char LINE_RETURN_CH = '\n';
+    protected static final String SLASH = "/";
+    protected static final char SLASH_CH = '/';
+    protected static final char TAB_CH = '\t';
     private AbsResultContextNext resultContextNext;
     protected AbsEditorTabList(AbsResultContextNext _a, AbstractProgramInfos _list) {
         super(_list);

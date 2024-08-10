@@ -21,8 +21,8 @@ public final class OutputDialogMapMessagesEdit {
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
         AbsTextField keyAuto_ = factories_.getCompoFactory().newTextField(32);
-        value = factories_.getCompoFactory().newTextArea("",1,32);
-        valPartLabel = factories_.getCompoFactory().newPlainLabel("");
+        value = factories_.getCompoFactory().newTextArea(AbsEditorTabList.EMPTY_STRING,1,32);
+        valPartLabel = factories_.getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
         value.addAutoComplete(new DirectValidateKeyValueEvent(new ValidateMessage(_w,keyAuto_, value, messagesRows,valPartLabel,false)));
         auto = new AutoCompleteDocument(keyAuto_, new StringList(_keys), factories_, new FeedMessageValue(value, messagesRows, valPartLabel));
         value.setLineBorder(GuiConstants.BLACK);
@@ -51,7 +51,7 @@ public final class OutputDialogMapMessagesEdit {
         for (String k:_keys){
             int index_ = _infos.indexOfEntry(k);
             if (index_ < 0) {
-                messagesRows_.addEntry(k,"");
+                messagesRows_.addEntry(k,AbsEditorTabList.EMPTY_STRING);
             } else {
                 messagesRows_.addEntry(k,_infos.getValue(index_));
             }

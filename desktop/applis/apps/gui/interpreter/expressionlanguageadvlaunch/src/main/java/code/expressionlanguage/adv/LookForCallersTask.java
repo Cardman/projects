@@ -48,7 +48,7 @@ public final class LookForCallersTask implements Runnable {
             current_ = next_;
         }
         AbsCompoFactory compo_ = _window.getCommonFrame().getFrames().getCompoFactory();
-        AbstractMutableTreeNodeCore<String> n_ = compo_.newMutableTreeNode("");
+        AbstractMutableTreeNodeCore<String> n_ = compo_.newMutableTreeNode(AbsEditorTabList.EMPTY_STRING);
         for (MetaCaller r: roots_) {
             buildRoot(compo_, n_, r, _result);
         }
@@ -100,11 +100,11 @@ public final class LookForCallersTask implements Runnable {
 
     private static AbstractMutableTreeNodeCore<String> complete(AbsCompoFactory _compo, AbstractMutableTreeNodeCore<String> _blockToWrite, MetaCaller _read, ResultRowSrcLocationList _result) {
         CallerKind b_ = _read.getKind();
-        String r_ ="";
+        String r_ =AbsEditorTabList.EMPTY_STRING;
         if (_read.isRecursive()) {
             r_+="<->";
         }
-        String s_ ="";
+        String s_ =AbsEditorTabList.EMPTY_STRING;
         if (b_ != null) {
             s_+=b_;
         }

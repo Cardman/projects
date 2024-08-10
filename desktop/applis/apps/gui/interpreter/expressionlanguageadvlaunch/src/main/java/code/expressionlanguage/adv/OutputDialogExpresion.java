@@ -12,7 +12,7 @@ public final class OutputDialogExpresion implements SetupableFolder {
     private final AbsTextField srcFolder;
     private final ScrollCustomCombo chosenLanguage;
     private final AbsButton createEnv;
-    private String folderExp = "";
+    private String folderExp = AbsEditorTabList.EMPTY_STRING;
     public OutputDialogExpresion(WindowCdmEditor _w) {
         owner = _w;
         AbstractProgramInfos frs_ = _w.getCommonFrame().getFrames();
@@ -22,7 +22,7 @@ public final class OutputDialogExpresion implements SetupableFolder {
         chosenFolder = frs_.getCompoFactory().newPlainLabel(":");
         srcFolder = frs_.getCompoFactory().newTextField(32);
         StringList lgs_ = new StringList(frs_.getTranslations().getMapping().getKeys());
-        lgs_.add("");
+        lgs_.add(AbsEditorTabList.EMPTY_STRING);
         chosenLanguage = GuiBaseUtil.combo(frs_.getImageFactory(), lgs_, -1, frs_.getCompoFactory());
         createEnv = frs_.getCompoFactory().newPlainButton("create");
         createEnv.addActionListener(new ValidateExpressionEnvEvent(this));

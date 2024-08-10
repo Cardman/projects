@@ -30,7 +30,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
     private AbsTextArea text;
     private AbsTextArea textOutput;
     private Struct instance = NullStruct.NULL_VALUE;
-    private String typed = "";
+    private String typed = EMPTY_STRING;
     private final CustList<SegmentFindPart> found = new CustList<SegmentFindPart>();
     private int currentIndex;
     private AbsSpinner minValue;

@@ -37,7 +37,7 @@ public final class FrameWpFormContent {
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
-        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
+        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
         className = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         fieldName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         read = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("read");
@@ -82,11 +82,11 @@ public final class FrameWpFormContent {
         remove.addActionListener(new OkRemoveWatchFormEvent(_d, this, _p, _r));
         GuiBaseUtil.removeActionListeners(ok);
         ok.addActionListener(new OkWpFormEvent(_d, _r));
-        getGuiCompoundReadStackForm().refresh(_v, "", _r, _d);
-        getGuiCompoundWriteErrStackForm().refresh(_v, "", _r, _d);
-        getGuiCompoundWriteStackForm().refresh(_v, "", _r, _d);
-        getGuiReadStackForm().refresh(_v, "", _r, _d);
-        getGuiWriteStackForm().refresh(_v, "", _r, _d);
+        getGuiCompoundReadStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiCompoundWriteErrStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiCompoundWriteStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiReadStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiWriteStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public void initForm(WatchPointBlockPair _wp, AbsCommonFrame _c, ResultContext _r) {
@@ -104,7 +104,7 @@ public final class FrameWpFormContent {
             getGuiCompoundReadStackForm().getDependantPointsForm().init(_r,WatchPoint.WP);
             getGuiCompoundWriteStackForm().getDependantPointsForm().init(_r,WatchPoint.WP);
             getGuiCompoundWriteErrStackForm().getDependantPointsForm().init(_r,WatchPoint.WP);
-            getEdited().setText("");
+            getEdited().setText(AbsEditorTabList.EMPTY_STRING);
             remove.setEnabled(false);
             className.setEnabled(true);
             fieldName.setEnabled(true);

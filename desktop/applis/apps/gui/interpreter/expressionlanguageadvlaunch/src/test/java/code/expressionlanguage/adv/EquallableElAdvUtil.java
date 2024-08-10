@@ -36,7 +36,7 @@ import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableElAdvUtil {
-
+    public static final String EN = "en";
     protected static MethodId getMethodId(String _name, String..._classNames) {
         return getMethodId(MethodAccessKind.STATIC, _name, false, _classNames);
     }
@@ -757,7 +757,7 @@ public abstract class EquallableElAdvUtil {
     public static WindowCdmEditor windowLoadDefInit(AbstractProgramInfos _pr) {
         _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         _pr.setLanguage(FileInfos.EN);
-        update((MockProgramInfos) _pr);
+        updateChoose((MockProgramInfos) _pr);
         return window(_pr);
     }
 
@@ -789,6 +789,11 @@ public abstract class EquallableElAdvUtil {
     public static void update(MockProgramInfos _pr) {
         FileInfos.enTr(FileInfos.initComments(lg(_pr,FileInfos.EN)));
         FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
+    }
+
+    public static void updateChoose(MockProgramInfos _pr) {
+        FileInfos.enTr(MessagesIde.updateEn(FileInfos.initComments(lg(_pr,FileInfos.EN))));
+        FileInfos.frTr(MessagesIde.updateFr(FileInfos.initComments(lg(_pr,FileInfos.FR))));
     }
 
     public static void updateDialog(MockProgramInfos _pr) {
@@ -1144,6 +1149,11 @@ public abstract class EquallableElAdvUtil {
         return new MockProgramInfos("", "", _s, _set);
     }
 
+    public static MockProgramInfos build(String _h, String _t) {
+        MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        pr_.setLanguage(EN);
+        return pr_;
+    }
     protected static TabEditor tabEditor(WindowCdmEditor _w) {
         return tabEditor(_w,0);
     }

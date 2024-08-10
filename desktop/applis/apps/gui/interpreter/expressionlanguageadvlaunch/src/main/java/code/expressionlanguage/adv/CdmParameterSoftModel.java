@@ -4,8 +4,8 @@ import code.util.StringList;
 
 public final class CdmParameterSoftModel {
     private boolean directMatchKeyValue;
-    private String execConf = "";
-    private String folderExpression = "";
+    private String execConf = AbsEditorTabList.EMPTY_STRING;
+    private String folderExpression = AbsEditorTabList.EMPTY_STRING;
     private StringList lines = new StringList();
     private final StringList openedFiles = new StringList();
     private final StringList openedFilesToInit = new StringList();

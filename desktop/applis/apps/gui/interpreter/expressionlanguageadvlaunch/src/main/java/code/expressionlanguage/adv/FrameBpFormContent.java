@@ -23,7 +23,7 @@ public final class FrameBpFormContent {
         guiStdStackForm = new GuiStackForm(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
+        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
         enabledBp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
         fileName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
@@ -57,7 +57,7 @@ public final class FrameBpFormContent {
             remove.setEnabled(true);
         } else {
             getGuiStdStackForm().getDependantPointsForm().init(_r, BreakPoint.BP);
-            getEdited().setText("");
+            getEdited().setText(AbsEditorTabList.EMPTY_STRING);
             remove.setEnabled(false);
         }
     }
@@ -83,7 +83,7 @@ public final class FrameBpFormContent {
         ok.addActionListener(new OkBpFormEvent(_d, _r));
         GuiBaseUtil.removeActionListeners(remove);
         remove.addActionListener(new OkRemoveBpFormEvent(_d, this, _p, _r));
-        getGuiStdStackForm().refresh(_v, "", _r, _d);
+        getGuiStdStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public BreakPointBlockPair getSelectedBp() {

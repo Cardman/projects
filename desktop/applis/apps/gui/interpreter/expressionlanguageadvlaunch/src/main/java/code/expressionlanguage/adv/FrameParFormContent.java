@@ -70,7 +70,7 @@ public final class FrameParFormContent {
         ok.addActionListener(new OkParFormEvent(_d,this, _p, _r));
         GuiBaseUtil.removeActionListeners(remove);
         remove.addActionListener(new OkRemoveParFormEvent(this, _p, _r));
-        getGuiGetStackForm().refresh(_v, "", _r, _d);
+        getGuiGetStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public AbsPanel getContentPane() {

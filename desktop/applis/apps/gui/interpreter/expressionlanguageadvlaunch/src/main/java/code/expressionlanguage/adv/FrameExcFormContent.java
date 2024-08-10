@@ -99,9 +99,9 @@ public final class FrameExcFormContent {
         ok.addActionListener(new OkExcFormEvent(_d,this, _p, _r));
         GuiBaseUtil.removeActionListeners(remove);
         remove.addActionListener(new OkRemoveExcFormEvent(this, _p, _r));
-        getGuiThrownStackForm().refresh(_v, "", _r, _d);
-        getGuiCaughtStackForm().refresh(_v, "", _r, _d);
-        getGuiPropagatedStackForm().refresh(_v, "", _r, _d);
+        getGuiThrownStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiCaughtStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiPropagatedStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public AbsPanel getContentPane() {

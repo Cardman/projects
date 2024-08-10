@@ -26,7 +26,7 @@ public final class FrameTpFormContent {
         guiStaStackForm = new GuiStackForm(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
+        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
         instanceType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("instance");
         staticType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("static");
         enabledBp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
@@ -66,7 +66,7 @@ public final class FrameTpFormContent {
         } else {
             getGuiInsStackForm().getDependantPointsForm().init(_r, FramePointsTree.SORT_TP);
             getGuiStaStackForm().getDependantPointsForm().init(_r, FramePointsTree.SORT_TP);
-            getEdited().setText("");
+            getEdited().setText(AbsEditorTabList.EMPTY_STRING);
             remove.setEnabled(false);
         }
     }
@@ -92,8 +92,8 @@ public final class FrameTpFormContent {
         ok.addActionListener(new OkTpFormEvent(_d, _r));
         GuiBaseUtil.removeActionListeners(remove);
         remove.addActionListener(new OkRemoveTpFormEvent(_d, this, _p, _r));
-        getGuiInsStackForm().refresh(_v, "", _r, _d);
-        getGuiStaStackForm().refresh(_v, "", _r, _d);
+        getGuiInsStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiStaStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public TypePointBlockPair getSelectedTp() {

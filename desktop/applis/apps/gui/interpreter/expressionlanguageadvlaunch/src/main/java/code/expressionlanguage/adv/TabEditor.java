@@ -96,8 +96,8 @@ public final class TabEditor implements AbsTabEditor {
         taskManagerExp = frames_.getThreadFactory().newExecutorService();
         factories = frames_;
         label = frames_.getCompoFactory().newPlainLabel(":");
-        labelOcc = frames_.getCompoFactory().newPlainLabel("/");
-        labelOccExp = frames_.getCompoFactory().newPlainLabel("/");
+        labelOcc = frames_.getCompoFactory().newPlainLabel(AbsEditorTabList.SLASH);
+        labelOccExp = frames_.getCompoFactory().newPlainLabel(AbsEditorTabList.SLASH);
         center = frames_.getCompoFactory().newTextPane();
         center.setFocusable(true);
         center.addMouseListener(new ClickTextPane(center));
@@ -303,7 +303,7 @@ public final class TabEditor implements AbsTabEditor {
         int index_ = 0;
         int row_ = 0;
         while (index_ >= 0) {
-            int next_ = txt_.indexOf('\n',index_);
+            int next_ = txt_.indexOf(AbsEditorTabList.LINE_RETURN_CH,index_);
             if (row_ == adjRow_) {
                 int j_ = tab(tw_, txt_, index_, adjCol_);
                 if (j_ > -1) {
@@ -341,10 +341,10 @@ public final class TabEditor implements AbsTabEditor {
                 return -1;
             }
             char ch_ = _txt.charAt(curIndex_);
-            if (ch_ == '\n') {
+            if (ch_ == AbsEditorTabList.LINE_RETURN_CH) {
                 return -1;
             }
-            if (ch_ == '\t') {
+            if (ch_ == AbsEditorTabList.TAB_CH) {
                 d_ += _tw;
                 d_ -= d_ % _tw;
             } else {
@@ -373,13 +373,13 @@ public final class TabEditor implements AbsTabEditor {
 
     public void updateNav() {
         int n_ = getCurrentPart();
-        getLabelOcc().setText((n_+1)+"/"+getParts().size());
+        getLabelOcc().setText((n_+1)+AbsEditorTabList.SLASH+getParts().size());
         prevOcc.setEnabled(!getParts().isEmpty());
         nextOcc.setEnabled(!getParts().isEmpty());
     }
     public void updateNavExp() {
         int n_ = getCurrentPartExp();
-        labelOccExp.setText((n_+1)+"/"+getPartsExp().size());
+        labelOccExp.setText((n_+1)+AbsEditorTabList.SLASH+getPartsExp().size());
         prevOccExp.setEnabled(!getPartsExp().isEmpty());
         nextOccExp.setEnabled(!getPartsExp().isEmpty());
     }

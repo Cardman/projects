@@ -24,7 +24,7 @@ public abstract class DbgAbsNodeStruct implements DbgNodeStruct {
     private AbsTextArea logger;
     private AbsButton stop;
     private AbsCustComponent group;
-    private String infoStr = "";
+    private String infoStr = AbsEditorTabList.EMPTY_STRING;
     private AbstractMutableTreeNodeCore<String> associated;
 
     protected DbgAbsNodeStruct(DbgAbsNodeStruct _par) {

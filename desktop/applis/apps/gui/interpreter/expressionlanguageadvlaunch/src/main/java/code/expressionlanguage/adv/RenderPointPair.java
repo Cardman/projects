@@ -82,12 +82,12 @@ public final class RenderPointPair {
         CoreCheckedExecOperationNodeInfos core_ = new CoreCheckedExecOperationNodeInfos(ExecFormattedRootBlock.build(_str.getClassName(_context), _context.getClasses()), _str);
         RenderPointPair r_ = render(_d, clName_, ExcPointBlockKey.SAME);
         if (r_ != null) {
-            return new RenderPointInfosPreference(r_,core_,"",-1, core_.getDeclaring());
+            return new RenderPointInfosPreference(r_,core_,AbsEditorTabList.EMPTY_STRING,-1, core_.getDeclaring());
         }
         if (!clName_.isEmpty()) {
             RenderPointPair inex_ = render(_d, StringExpUtil.getIdFromAllTypes(clName_), ExcPointBlockKey.SAME_FAMILY);
             if (inex_ != null) {
-                return new RenderPointInfosPreference(inex_,core_,"",-1, core_.getDeclaring());
+                return new RenderPointInfosPreference(inex_,core_,AbsEditorTabList.EMPTY_STRING,-1, core_.getDeclaring());
             }
         }
         for (RenderPointInfosPreference m: rends(_d, _context,_str)) {
@@ -95,9 +95,9 @@ public final class RenderPointPair {
                 return m;
             }
         }
-        RenderPointPair any_ = render(_d, "", ExcPointBlockKey.SAME_FAMILY);
+        RenderPointPair any_ = render(_d, AbsEditorTabList.EMPTY_STRING, ExcPointBlockKey.SAME_FAMILY);
         if (any_ != null) {
-            return new RenderPointInfosPreference(any_,core_,"",-1, core_.getDeclaring());
+            return new RenderPointInfosPreference(any_,core_,AbsEditorTabList.EMPTY_STRING,-1, core_.getDeclaring());
         }
         return null;
     }

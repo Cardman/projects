@@ -158,7 +158,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     static void addTab(WindowWithTreeImpl _tr, String _path, BytesInfo _content) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
-        String name_ = _path.substring(_path.lastIndexOf('/')+1);
+        String name_ = _path.substring(_path.lastIndexOf(SLASH_CH)+1);
         TabEditor te_ = new TabEditor(_tr,_path,_path.substring(_tr.pathToSrc().length()),lineSeparator(dec_));
         te_.centerText(new DefaultUniformingString().apply(dec_));
         _tr.getTabs().add(te_);
@@ -169,14 +169,14 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         int len_ = _content.length();
         for (int i = 0; i < len_; i++) {
             char cur_ = _content.charAt(i);
-            if (cur_ == '\r') {
-                if (i + 1 < _content.length() && _content.charAt(i+1) == '\n') {
-                    return "\r\n";
+            if (cur_ == AbsEditorTabList.CR_CHAR) {
+                if (i + 1 < _content.length() && _content.charAt(i+1) == LINE_RETURN_CH) {
+                    return AbsEditorTabList.CR_LF;
                 }
-                return "\r";
+                return AbsEditorTabList.CR;
             }
         }
-        return "\n";
+        return AbsEditorTabList.LINE_RETURN;
     }
 
     @Override
@@ -206,7 +206,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         }
         currentFiles_.sortElts(new FileNameComparator());
         for (AbstractFile f : currentFolders_) {
-            _sel.add(_factories.getCompoFactory().newMutableTreeNode(f.getName()+"/"));
+            _sel.add(_factories.getCompoFactory().newMutableTreeNode(f.getName()+SLASH));
         }
         for (AbstractFile f : currentFiles_) {
             _sel.add(_factories.getCompoFactory().newMutableTreeNode(f.getName()));
@@ -251,7 +251,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     public void initTree(String _acc) {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        AbstractMutableTreeNodeCore<String> default_ = frs_.getCompoFactory().newMutableTreeNode(_acc+"/");
+        AbstractMutableTreeNodeCore<String> default_ = frs_.getCompoFactory().newMutableTreeNode(_acc+SLASH);
         folderSystem = frs_.getCompoFactory().newTreeGui(default_);
         folderSystem.select(folderSystem.getRoot());
         refreshList(folderSystem.selectEvt(),_acc, getCommonFrame().getFrames());
@@ -318,11 +318,11 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
             clearTreeDialog();
             return;
         }
-        if (elt_.endsWith("/")) {
+        if (elt_.endsWith(SLASH)) {
             frs_.getFileCoreStream().newFile(elt_).mkdirs();
         } else {
             StreamFolderFile.makeParent(elt_,frs_.getFileCoreStream());
-            StreamTextFile.saveTextFile(elt_,"",frs_.getStreams());
+            StreamTextFile.saveTextFile(elt_,EMPTY_STRING,frs_.getStreams());
             notifyDoc(elt_);
             addTab(this,elt_,new BytesInfo(new byte[0],false));
             editors.selectIndex(tabs.getLastIndex());
@@ -374,8 +374,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
             return;
         }
         int opened_ = indexOpened(str_);
-        String parentPath_ = dest_.substring(0,dest_.lastIndexOf('/')+1);
-        String name_ = dest_.substring(dest_.lastIndexOf('/')+1);
+        String parentPath_ = dest_.substring(0,dest_.lastIndexOf(SLASH_CH)+1);
+        String name_ = dest_.substring(dest_.lastIndexOf(SLASH_CH)+1);
         if (opened_ > -1) {
             getEditors().setTitle(opened_,name_);
             getEditors().setToolTipAt(opened_,dest_);
@@ -458,7 +458,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         for (CommentDelimiters c: _comm) {
             if (c.getEnd().get(0).trim().isEmpty()) {
                 c.getEnd().clear();
-                c.getEnd().add("\n");
+                c.getEnd().add(AbsEditorTabList.LINE_RETURN);
             }
         }
         manageOptions.getOptions().getComments().clear();

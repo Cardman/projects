@@ -86,7 +86,7 @@ public final class FrameOperNatFormContent {
         ok.addActionListener(new OkOperNatFormEvent(_d,this, _p, _r));
         GuiBaseUtil.removeActionListeners(remove);
         remove.addActionListener(new OkRemoveOperNatFormEvent(this, _p, _r));
-        getGuiSimpleStackForm().refresh(_v, "", _r, _d);
+        getGuiSimpleStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public AbsTextField getFirst() {

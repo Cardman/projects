@@ -120,7 +120,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         framePoints.guiBuild(this);
         AbsTabbedPane superTab_ = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         AbsPanel pagePrep_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        folderSystem = getCommonFrame().getFrames().getCompoFactory().newTreeGui(getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
+        folderSystem = getCommonFrame().getFrames().getCompoFactory().newTreeGui(getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(EMPTY_STRING));
         folderSystem.select(folderSystem.getRoot());
         tabbedPane = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         tabbedPane.setPreferredSize(new MetaDimension(512,512));
@@ -259,7 +259,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         for (String f: _files.getKeys()) {
             if (f.startsWith(_folderToVisit)) {
                 String rel_ = f.substring(_folderToVisit.length());
-                int sl_ = rel_.indexOf('/');
+                int sl_ = rel_.indexOf(SLASH_CH);
                 if (sl_ > -1) {
                     String part_ = rel_.substring(0, sl_);
                     if (!StringUtil.contains(currentFolders_,part_)) {
@@ -273,7 +273,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         currentFolders_.sortElts(new NaturalComparator());
         currentFiles_.sortElts(new NaturalComparator());
         for (String f : currentFolders_) {
-            _sel.add(_compoFactory.newMutableTreeNode(f+"/"));
+            _sel.add(_compoFactory.newMutableTreeNode(f+SLASH));
         }
         for (String f : currentFiles_) {
             _sel.add(_compoFactory.newMutableTreeNode(f));
@@ -282,7 +282,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     protected abstract AbsPanel buildPart();
     void addTab(ResultContext _res, ManageOptions _man, String _path, BytesInfo _content, Options _opt) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
-        String name_ = _path.substring(_path.lastIndexOf('/')+1);
+        String name_ = _path.substring(_path.lastIndexOf(SLASH_CH)+1);
         ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,getCommonFrame().getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt,_res);
         te_.centerText(new DefaultUniformingString().apply(dec_));
         ToggleBreakPointEvent.afterToggle(_res,te_);
@@ -531,7 +531,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         openPoints.addActionListener(new OpenFramePointsEvent(this,framePoints, _res));
         GuiBaseUtil.removeTreeSelectionListeners(folderSystem);
         folderSystem.addTreeSelectionListener(new ShowSrcReadOnlyTreeEvent(this,_res,folderSystem,new TabOpeningReadOnlyFile()));
-        refParent(folderSystem.getRoot(),"",folderSystem);
+        refParent(folderSystem.getRoot(),EMPTY_STRING,folderSystem);
         framePoints.refresh(viewable,this, _res);
         closeCompos();
         int len_ = _src.size();

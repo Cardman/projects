@@ -54,8 +54,8 @@ public abstract class AbsFrameMpFormContent {
     }
 
     public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d) {
-        getGuiEnterStackForm().refresh(_v, "", _r, _d);
-        getGuiExitStackForm().refresh(_v, "", _r, _d);
+        getGuiEnterStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+        getGuiExitStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
     }
 
     public AbsPanel getContentPane() {

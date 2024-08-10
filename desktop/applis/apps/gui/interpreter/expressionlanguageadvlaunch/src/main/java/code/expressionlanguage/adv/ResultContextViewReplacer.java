@@ -15,9 +15,9 @@ public final class ResultContextViewReplacer {
     private ExecNamedFunctionBlock viewMethod;
     private ExecRootBlock replaceType;
     private ExecNamedFunctionBlock replaceMethod;
-    private String aliasStringSegment="";
-    private String aliasStringSegmentBegin="";
-    private String aliasStringSegmentEnd="";
+    private String aliasStringSegment=AbsEditorTabList.EMPTY_STRING;
+    private String aliasStringSegmentBegin=AbsEditorTabList.EMPTY_STRING;
+    private String aliasStringSegmentEnd=AbsEditorTabList.EMPTY_STRING;
 
     public void update(StringViewReplaceAliases _aliases, LgNamesContent _content, ContextEl _result) {
         viewType = _result.getClasses().getClassBody(_aliases.getAliasAbsStringView());

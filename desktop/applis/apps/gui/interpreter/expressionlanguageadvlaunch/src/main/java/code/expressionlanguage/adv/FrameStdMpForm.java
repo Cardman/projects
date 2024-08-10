@@ -25,8 +25,8 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         frameMpFormContent = new FrameStdMpFormContent(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        treeStd = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui( _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
-        label = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel("");
+        treeStd = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui( _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(AbsEditorTabList.EMPTY_STRING));
+        label = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
         root = new MutableTreeNodeNav<AbsMetaStdType>();
         frameMpFormContent.guiBuildBase(_d);
     }
@@ -34,7 +34,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         listFct.clear();
         root = new MutableTreeNodeNav<AbsMetaStdType>();
         AbsCompoFactory cf_ = _d.getCommonFrame().getFrames().getCompoFactory();
-        AbstractMutableTreeNodeCore<String> root_ = cf_.newMutableTreeNode("");
+        AbstractMutableTreeNodeCore<String> root_ = cf_.newMutableTreeNode(AbsEditorTabList.EMPTY_STRING);
         for (EntryCust<String, StandardType> t: _res.getPageEl().getStandardsTypes().entryList()) {
             AbstractMutableTreeNodeCore<String> rootType_ = cf_.newMutableTreeNode(t.getKey());
             MetaStdType mt_ = new MetaStdType(t.getValue());
@@ -59,7 +59,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
             listFct.addEntry(t.getKey(), std_);
         }
         treeStd = cf_.newTreeGui(root_);
-        label = cf_.newPlainLabel("");
+        label = cf_.newPlainLabel(AbsEditorTabList.EMPTY_STRING);
         treeStd.addTreeSelectionListener(new SelectedStdFctTreeEvent(_d, root,this,_p, _res));
         treeStdScroll = cf_.newAbsScrollPane(treeStd);
     }

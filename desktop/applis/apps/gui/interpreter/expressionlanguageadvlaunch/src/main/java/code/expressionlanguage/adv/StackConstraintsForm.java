@@ -64,7 +64,7 @@ public final class StackConstraintsForm {
         return _l.match(_one);
     }
     public AbsSplitPane guiBuild(AbsDebuggerGui _d, AbsButton _valid) {
-        bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(""));
+        bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(AbsEditorTabList.EMPTY_STRING));
         bpFolderSystem.select(bpFolderSystem.getRoot());
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
         AbsPanel actions_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();

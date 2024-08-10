@@ -64,7 +64,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final ScrollCustomCombo chosenLanguage;
     private CdmParameterSoftModel softParams;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
-    private String confGlobal="";
+    private String confGlobal=EMPTY_STRING;
     private final AbstractBaseExecutorService service;
     private final AbstractBaseExecutorService serviceDbg;
     private final AbsCommonFrame statusAnalyze;
@@ -136,7 +136,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         chosenFolder = getCommonFrame().getFrames().getCompoFactory().newPlainLabel(":");
         srcFolder = getCommonFrame().getFrames().getCompoFactory().newTextField(32);
         StringList lgs_ = new StringList(_list.getTranslations().getMapping().getKeys());
-        lgs_.add("");
+        lgs_.add(EMPTY_STRING);
         chosenLanguage = GuiBaseUtil.combo(getCommonFrame().getFrames().getImageFactory(), lgs_, -1, getCommonFrame().getFrames().getCompoFactory());
         createFile = getCommonFrame().getFrames().getCompoFactory().newPlainButton("create");
         createFile.addActionListener(new CreateInitialFile(this));
@@ -191,7 +191,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
             getPanel().add(chosenFolder);
             getPanel().add(srcFolder);
             StringList lgs_ = new StringList(getCommonFrame().getFrames().getTranslations().getMapping().getKeys());
-            lgs_.add("");
+            lgs_.add(EMPTY_STRING);
             chosenLanguage.select(StringUtil.indexOf(lgs_, getCommonFrame().getFrames().getLanguage()));
             getPanel().add(chosenLanguage.getGlobal());
             getPanel().add(createFile);
@@ -199,7 +199,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
             getCommonFrame().setContentPane(getPanel());
             getCommonFrame().pack();
             StringList def_ = new StringList();
-            def_.add("");
+            def_.add(EMPTY_STRING);
             def_.add(getCommonFrame().getFrames().getLanguage());
             setManageOptions(manage(def_));
             return;
@@ -234,8 +234,8 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         }
         expressionEditors.last().updateEnv(add_);
     }
-    public void dateSave() {
-        resultFile.display("3e",Clock.getDateTimeText(getThreadFactory()));
+    public void dateSave(String _key) {
+        resultFile.display(StringUtil.nullToEmpty(MessagesIde.valInitChoose(getFrames().currentLg()).getVal(_key)),Clock.getDateTimeText(getThreadFactory()));
     }
     public void saveConf(String _fileName) {
         softParams = new CdmParameterSoftModel();
@@ -321,7 +321,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
                 }
             }
             if (!foundValue_) {
-                foundFile_.getMapping().addEntry(FileInfos.COMM_BEGIN,"");
+                foundFile_.getMapping().addEntry(FileInfos.COMM_BEGIN,EMPTY_STRING);
             }
         }
     }
@@ -341,7 +341,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     }
 
     public static String getTempDefConf(AbstractProgramInfos _tmpUserFolderSl) {
-        return getTempFolder(_tmpUserFolderSl)+"/"+DEF_CONF;
+        return getTempFolder(_tmpUserFolderSl)+AbsEditorTabList.SLASH+DEF_CONF;
     }
     private static CdmParameterSoftModel allParams(Document _doc, String _lgKey) {
         if (_doc == null || !StringUtil.quickEq(ROOT_CONF, _doc.getDocumentElement().getTagName())) {
@@ -389,16 +389,16 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         String currentFolder_ = getManageOptions().getEx().getAccess();
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         if (!getManageOptions().getEx().getSrcFolder().isEmpty()) {
-            getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+"/"+ getManageOptions().getEx().getSrcFolder()).mkdirs();
+            getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+AbsEditorTabList.SLASH+ getManageOptions().getEx().getSrcFolder()).mkdirs();
         } else {
-            getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+"/src").mkdirs();
+            getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+AbsEditorTabList.SLASH+"src").mkdirs();
         }
         StreamFolderFile.makeParent(softParams.getExecConf(), getCommonFrame().getFrames().getFileCoreStream());
         StreamTextFile.saveTextFile(softParams.getExecConf(), lines_, frs_.getStreams());
     }
 
     static String fileConf(ManageOptions _manage) {
-        return StringUtil.join(linesConf(_manage),'\n');
+        return StringUtil.join(linesConf(_manage),LINE_RETURN_CH);
     }
     static StringList linesConf(ManageOptions _manage) {
         StringList lines_ = new StringList();
@@ -440,7 +440,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         elt_.setAttribute(NODE_PATH,_params.getExecConf());
         elt_.setAttribute(NODE_EXP_PATH,_params.getFolderExpression());
         if (_params.isDirectMatchKeyValue()) {
-            elt_.setAttribute(NODE_DIRECT_MATCH_KEY_VALUE,"");
+            elt_.setAttribute(NODE_DIRECT_MATCH_KEY_VALUE,EMPTY_STRING);
         }
         append(doc_, elt_, NODE_FILES, _params.getOpenedFiles());
         append(doc_, elt_, NODE_EXP_FILES, _params.getOpenedFilesToInit());

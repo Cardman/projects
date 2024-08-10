@@ -104,7 +104,7 @@ public final class FramePoints {
         frameOperNatFormContent.refresh(_v, _r, _d, this);
         frameOperNatCompoFormContent.refresh(_v, _r, _d, this);
         frameRenderFormContent.refresh(_r, _d, this);
-        stackConstraintsForm.refresh(_v,"",_r,_d);
+        stackConstraintsForm.refresh(_v,AbsEditorTabList.EMPTY_STRING,_r,_d);
         GuiBaseUtil.removeActionListeners(validStack);
         validStack.addActionListener(new ValidateStepStackConstraintsEvent(_r,this));
         BreakPointFormEvent.feed(stackConstraintsForm.getMustBe(), _r.getBreakPointsBlock().getInclude());

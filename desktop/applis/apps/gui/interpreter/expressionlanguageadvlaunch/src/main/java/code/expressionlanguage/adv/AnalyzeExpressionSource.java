@@ -16,12 +16,12 @@ public final class AnalyzeExpressionSource implements Runnable {
     @Override
     public void run() {
         mainFrame.getAnalyzeMenu().setEnabled(false);
-        mainFrame.getStatusAnalyzeArea().setText("");
+        mainFrame.getStatusAnalyzeArea().setText(AbsEditorTabList.EMPTY_STRING);
         AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
         StringMap<String> added_ = addedExp(mainFrame);
         ResultContext resUser_ = RunningTest.nextValidateQuick(mainFrame.getResultContextNext(),mainFrame.getBaseResult(), added_);
         if (resUser_ == null || !resUser_.getPageEl().isCustomAna()) {
-            mainFrame.getStatusAnalyzeArea().append("KO\n");
+            mainFrame.getStatusAnalyzeArea().append("KO"+AbsEditorTabList.LINE_RETURN);
             mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));
             mainFrame.getAnalyzeMenu().setEnabled(true);
             return;
