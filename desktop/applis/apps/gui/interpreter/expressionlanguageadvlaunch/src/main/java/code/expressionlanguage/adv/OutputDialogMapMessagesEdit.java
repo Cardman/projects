@@ -6,6 +6,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class OutputDialogMapMessagesEdit {
     private final StringMap<String> messagesRows;
@@ -31,7 +32,7 @@ public final class OutputDialogMapMessagesEdit {
         AbsScrollPane inner_ = factories_.getCompoFactory().newAbsScrollPane(value);
         inner_.setPreferredSize(new MetaDimension(384,48));
         dels_.add(inner_);
-        valPart = factories_.getCompoFactory().newPlainButton("MATCH");
+        valPart = factories_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(MessagesIde.valMessages(factories_.currentLg()).getVal(MessagesIde.IDE_MESSAGES_VALIDATE)));
         valPart.setVisible(!_w.softParams().isDirectMatchKeyValue());
         valPart.addActionListener(new ValidateMessage(_w,keyAuto_, value, messagesRows,valPartLabel,true));
         dels_.add(valPart);

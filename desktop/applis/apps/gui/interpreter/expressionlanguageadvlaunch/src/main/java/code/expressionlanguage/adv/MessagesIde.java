@@ -32,6 +32,16 @@ public final class MessagesIde {
     public static final String IDE_ALIASES_NAMES = "2";
     public static final String IDE_ALIASES_VALIDATE = "3";
     public static final String IDE_ALIASES_CANCEL = "4";
+    public static final String IDE_COMMENTS = "4";
+    public static final String IDE_COMMENTS_VALIDATE = "0";
+    public static final String IDE_LANGUAGE = "5";
+    public static final String IDE_LANGUAGE_VALIDATE = "0";
+    public static final String IDE_MESSAGES = "6";
+    public static final String IDE_MESSAGES_VALIDATE = "0";
+    public static final String IDE_SRC = "7";
+    public static final String IDE_SRC_VALIDATE = "0";
+    public static final String IDE_TAB = "8";
+    public static final String IDE_TAB_VALIDATE = "0";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -46,6 +56,21 @@ public final class MessagesIde {
     public static StringMap<String> valAliases(TranslationsLg _lg) {
         return appli(_lg).getMapping().getVal(IDE_ALIASES).getMapping();
     }
+    public static StringMap<String> valComments(TranslationsLg _lg) {
+        return appli(_lg).getMapping().getVal(IDE_COMMENTS).getMapping();
+    }
+    public static StringMap<String> valLanguages(TranslationsLg _lg) {
+        return appli(_lg).getMapping().getVal(IDE_LANGUAGE).getMapping();
+    }
+    public static StringMap<String> valMessages(TranslationsLg _lg) {
+        return appli(_lg).getMapping().getVal(IDE_MESSAGES).getMapping();
+    }
+    public static StringMap<String> valSrc(TranslationsLg _lg) {
+        return appli(_lg).getMapping().getVal(IDE_SRC).getMapping();
+    }
+    public static StringMap<String> valTab(TranslationsLg _lg) {
+        return appli(_lg).getMapping().getVal(IDE_TAB).getMapping();
+    }
     public static TranslationsAppli appli(TranslationsLg _lg) {
         return _lg.getMapping().getVal(FileInfos.CDM);
     }
@@ -54,6 +79,11 @@ public final class MessagesIde {
         appendFindText(_a, enFindText());
         appendFiles(_a, enFiles());
         appendAliases(_a, enAliases());
+        appendComments(_a, enComments());
+        appendLanguage(_a, enLanguage());
+        appendMessages(_a, enMessages());
+        appendSrc(_a, enSrc());
+        appendTab(_a, enTab());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -61,6 +91,11 @@ public final class MessagesIde {
         appendFindText(_a, frFindText());
         appendFiles(_a, frFiles());
         appendAliases(_a, frAliases());
+        appendComments(_a, frComments());
+        appendLanguage(_a, frLanguage());
+        appendMessages(_a, frMessages());
+        appendSrc(_a, frSrc());
+        appendTab(_a, frTab());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -151,6 +186,71 @@ public final class MessagesIde {
         t_.add(IDE_ALIASES_NAMES,"alias");
         t_.add(IDE_ALIASES_VALIDATE,"Valider les mots");
         t_.add(IDE_ALIASES_CANCEL,"Annuler l'édition des mots");
+        return t_;
+    }
+    public static void appendComments(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_COMMENTS, _v);
+    }
+    public static TranslationsFile enComments(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_COMMENTS_VALIDATE,"validate comments");
+        return t_;
+    }
+    public static TranslationsFile frComments(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_COMMENTS_VALIDATE,"valider les commentaires");
+        return t_;
+    }
+    public static void appendLanguage(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_LANGUAGE, _v);
+    }
+    public static TranslationsFile enLanguage(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_LANGUAGE_VALIDATE,"validate language");
+        return t_;
+    }
+    public static TranslationsFile frLanguage(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_LANGUAGE_VALIDATE,"valider la langue");
+        return t_;
+    }
+    public static void appendMessages(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_MESSAGES, _v);
+    }
+    public static TranslationsFile enMessages(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_MESSAGES_VALIDATE,"validate messages match");
+        return t_;
+    }
+    public static TranslationsFile frMessages(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_MESSAGES_VALIDATE,"valider la correspondance de messages");
+        return t_;
+    }
+    public static void appendSrc(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_SRC, _v);
+    }
+    public static TranslationsFile enSrc(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_SRC_VALIDATE,"validate source folder");
+        return t_;
+    }
+    public static TranslationsFile frSrc(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_SRC_VALIDATE,"valider le dossier source");
+        return t_;
+    }
+    public static void appendTab(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_TAB, _v);
+    }
+    public static TranslationsFile enTab(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_TAB_VALIDATE,"validate spaces count by tabulation");
+        return t_;
+    }
+    public static TranslationsFile frTab(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_TAB_VALIDATE,"valider le nombre d'espaces pour les tabulations");
         return t_;
     }
 }

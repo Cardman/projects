@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
+import code.util.core.StringUtil;
 
 public final class OutputDialogComments implements WithFrame {
     private final CustList<CommentDelimiters> comments;
@@ -32,7 +33,7 @@ public final class OutputDialogComments implements WithFrame {
         rem = factories_.getCompoFactory().newPlainButton("-");
         rem.addActionListener(new RemoveCommentRow(commentsRows,dels, frame));
         all_.add(rem);
-        val = factories_.getCompoFactory().newPlainButton("OK");
+        val = factories_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(MessagesIde.valComments(factories_.currentLg()).getVal(MessagesIde.IDE_COMMENTS_VALIDATE)));
         val.addActionListener(new ValidateComments(this,commentsRows, _w));
         all_.add(val);
         frame.setContentPane(all_);

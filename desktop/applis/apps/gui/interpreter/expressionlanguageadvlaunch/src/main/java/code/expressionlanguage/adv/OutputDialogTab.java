@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.core.StringUtil;
 
 public final class OutputDialogTab implements WithFrame{
     private final AbsButton val;
@@ -16,7 +17,7 @@ public final class OutputDialogTab implements WithFrame{
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         tabulation = factories_.getCompoFactory().newSpinner(_w.getTabWidth(),1,64,1);
         all_.add(tabulation);
-        val = factories_.getCompoFactory().newPlainButton("OK");
+        val = factories_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(MessagesIde.valTab(factories_.currentLg()).getVal(MessagesIde.IDE_TAB_VALIDATE)));
         val.addActionListener(new ValidateTabulations(tabulation,_w));
         all_.add(val);
         frame.setContentPane(all_);

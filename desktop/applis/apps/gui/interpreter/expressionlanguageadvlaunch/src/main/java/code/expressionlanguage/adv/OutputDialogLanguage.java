@@ -20,7 +20,7 @@ public final class OutputDialogLanguage implements WithFrame {
         lgs_.add(AbsEditorTabList.EMPTY_STRING);
         chosenLanguage = GuiBaseUtil.combo(factories_.getImageFactory(), lgs_, StringUtil.indexOf(lgs_,_w.getUsedLg()), factories_.getCompoFactory());
         all_.add(chosenLanguage.getGlobal());
-        val = factories_.getCompoFactory().newPlainButton("OK");
+        val = factories_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(MessagesIde.valLanguages(factories_.currentLg()).getVal(MessagesIde.IDE_LANGUAGE_VALIDATE)));
         val.addActionListener(new ValidateUsedLanguage(chosenLanguage,_w));
         all_.add(val);
         frame.setContentPane(all_);

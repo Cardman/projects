@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.core.StringUtil;
 
 public final class OutputDialogSrc implements WithFrame{
     private final AbsButton val;
@@ -16,7 +17,7 @@ public final class OutputDialogSrc implements WithFrame{
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         src = factories_.getCompoFactory().newTextField(_w.getManageOptions().getEx().getSrcFolder());
         all_.add(src);
-        val = factories_.getCompoFactory().newPlainButton("OK");
+        val = factories_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(MessagesIde.valSrc(factories_.currentLg()).getVal(MessagesIde.IDE_SRC_VALIDATE)));
         val.addActionListener(new ValidateSrc(src,_w));
         all_.add(val);
         frame.setContentPane(all_);
