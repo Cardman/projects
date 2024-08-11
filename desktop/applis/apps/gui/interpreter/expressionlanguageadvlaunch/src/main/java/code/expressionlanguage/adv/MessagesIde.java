@@ -42,6 +42,9 @@ public final class MessagesIde {
     public static final String IDE_SRC_VALIDATE = "0";
     public static final String IDE_TAB = "8";
     public static final String IDE_TAB_VALIDATE = "0";
+    public static final String IDE_MANAGE_STRING = "9";
+    public static final String IDE_MANAGE_STRING_FOLDER = "0";
+    public static final String IDE_MANAGE_STRING_VALIDATE = "1";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -71,6 +74,9 @@ public final class MessagesIde {
     public static StringMap<String> valTab(TranslationsLg _lg) {
         return appli(_lg).getMapping().getVal(IDE_TAB).getMapping();
     }
+    public static StringMap<String> valManageString(TranslationsLg _lg) {
+        return appli(_lg).getMapping().getVal(IDE_MANAGE_STRING).getMapping();
+    }
     public static TranslationsAppli appli(TranslationsLg _lg) {
         return _lg.getMapping().getVal(FileInfos.CDM);
     }
@@ -84,6 +90,7 @@ public final class MessagesIde {
         appendMessages(_a, enMessages());
         appendSrc(_a, enSrc());
         appendTab(_a, enTab());
+        appendFolderExp(_a, enFolderExp());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -96,6 +103,7 @@ public final class MessagesIde {
         appendMessages(_a, frMessages());
         appendSrc(_a, frSrc());
         appendTab(_a, frTab());
+        appendFolderExp(_a, frFolderExp());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -251,6 +259,21 @@ public final class MessagesIde {
     public static TranslationsFile frTab(){
         TranslationsFile t_ = new TranslationsFile();
         t_.add(IDE_TAB_VALIDATE,"valider le nombre d'espaces pour les tabulations");
+        return t_;
+    }
+    public static void appendFolderExp(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_MANAGE_STRING, _v);
+    }
+    public static TranslationsFile enFolderExp(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_MANAGE_STRING_FOLDER,"Choose a folder");
+        t_.add(IDE_MANAGE_STRING_VALIDATE,"Validate string management space creation");
+        return t_;
+    }
+    public static TranslationsFile frFolderExp(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_MANAGE_STRING_FOLDER,"Choisir un dossier");
+        t_.add(IDE_MANAGE_STRING_VALIDATE,"valider la création de l'espace de gestion de chaînes");
         return t_;
     }
 }

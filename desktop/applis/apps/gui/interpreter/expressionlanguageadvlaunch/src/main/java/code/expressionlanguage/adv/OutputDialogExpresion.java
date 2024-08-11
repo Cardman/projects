@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class OutputDialogExpresion implements SetupableFolder {
@@ -17,14 +18,15 @@ public final class OutputDialogExpresion implements SetupableFolder {
         owner = _w;
         AbstractProgramInfos frs_ = _w.getCommonFrame().getFrames();
         AbsPanel panel_ = frs_.getCompoFactory().newPageBox();
-        chooseFolder = frs_.getCompoFactory().newPlainButton("folder");
+        StringMap<String> mes_ = MessagesIde.valManageString(frs_.currentLg());
+        chooseFolder = frs_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_MANAGE_STRING_FOLDER)));
         chooseFolder.addActionListener(new ChooseInitialFolderExp(this));
         chosenFolder = frs_.getCompoFactory().newPlainLabel(":");
         srcFolder = frs_.getCompoFactory().newTextField(32);
         StringList lgs_ = new StringList(frs_.getTranslations().getMapping().getKeys());
         lgs_.add(AbsEditorTabList.EMPTY_STRING);
         chosenLanguage = GuiBaseUtil.combo(frs_.getImageFactory(), lgs_, -1, frs_.getCompoFactory());
-        createEnv = frs_.getCompoFactory().newPlainButton("create");
+        createEnv = frs_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_MANAGE_STRING_VALIDATE)));
         createEnv.addActionListener(new ValidateExpressionEnvEvent(this));
         createEnv.setEnabled(false);
         panel_.add(chooseFolder);
