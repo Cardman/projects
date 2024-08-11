@@ -17,6 +17,7 @@ import code.gui.files.FileFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
+import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
@@ -36,7 +37,7 @@ import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableElAdvUtil {
-    public static final String EN = "en";
+    public static final String EN = FileInfos.EN;
     protected static MethodId getMethodId(String _name, String..._classNames) {
         return getMethodId(MethodAccessKind.STATIC, _name, false, _classNames);
     }
@@ -787,8 +788,9 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static void update(MockProgramInfos _pr) {
-        FileInfos.enTr(FileInfos.initComments(lg(_pr,FileInfos.EN)));
-        FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
+        updateChoose(_pr);
+//        FileInfos.enTr(FileInfos.initComments(lg(_pr,FileInfos.EN)));
+//        FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
     }
 
     public static void updateChoose(MockProgramInfos _pr) {
@@ -1147,6 +1149,16 @@ public abstract class EquallableElAdvUtil {
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         return new MockProgramInfos("", "", _s, _set);
+    }
+    public static MockProgramInfos buildTrs(String _h, String _t) {
+        MockProgramInfos pr_ = build(_h, _t);
+        TranslationsAppli en_ = FileInfos.initComments(lg(pr_, FileInfos.EN));
+        TranslationsAppli fr_ = FileInfos.initComments(lg(pr_, FileInfos.FR));
+        MessagesIde.appendFindText(en_, MessagesIde.enFindText());
+        MessagesIde.appendFindText(fr_, MessagesIde.frFindText());
+        FileInfos.enTr(en_);
+        FileInfos.frTr(fr_);
+        return pr_;
     }
 
     public static MockProgramInfos build(String _h, String _t) {

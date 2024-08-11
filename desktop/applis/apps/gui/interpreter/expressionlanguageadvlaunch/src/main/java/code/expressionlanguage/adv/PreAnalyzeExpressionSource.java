@@ -4,6 +4,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilimpl.ManageOptions;
+import code.gui.GuiConstants;
 
 public final class PreAnalyzeExpressionSource implements Runnable {
     private final WindowCdmEditor mainFrame;
@@ -19,6 +20,7 @@ public final class PreAnalyzeExpressionSource implements Runnable {
         if (dbg == 0) {
             mainFrame.getStatusAnalyzeArea().setText(AbsEditorTabList.EMPTY_STRING);
         }
+        mainFrame.getAnalyzeState().setLineBorder(GuiConstants.BLACK);
         ResultContext res_ = baseValidate(mainFrame);
         if (!res_.getPageEl().notAllEmptyErrors()) {
             if (dbg == 1) {
@@ -29,10 +31,11 @@ public final class PreAnalyzeExpressionSource implements Runnable {
                 mainFrame.getAnalyzeMenu().setEnabled(true);
                 mainFrame.setBaseResult(res_);
             }
-            appendState(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory())+":OK");
+            mainFrame.getAnalyzeState().setLineBorder(GuiConstants.GREEN);
         } else {
-            appendState(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory())+":KO");
+            mainFrame.getAnalyzeState().setLineBorder(GuiConstants.RED);
         }
+        appendState(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory()));
         if (dbg != 0) {
             return;
         }

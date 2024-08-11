@@ -12,6 +12,8 @@ import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class OutputDialogAliases implements WithFrame{
     private final OutputDialogMapMessagesEdit messages;
@@ -39,19 +41,20 @@ public final class OutputDialogAliases implements WithFrame{
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         AbsTabbedPane tab_ = factories_.getCompoFactory().newAbsTabbedPane();
-        tab_.add("messages",messages.getScroll());
-        tab_.add("key words",keyWords.getScroll());
-        tab_.add("aliases",aliases.getScroll());
+        StringMap<String> mes_ = MessagesIde.valAliases(factories_.currentLg());
+        tab_.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_ALIASES_MESSAGES)),messages.getScroll());
+        tab_.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_ALIASES_KEY_WORD)),keyWords.getScroll());
+        tab_.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_ALIASES_NAMES)),aliases.getScroll());
         all_.add(tab_);
         errors = factories_.getCompoFactory().newTextArea(32, 32);
         AbsScrollPane scErr_ = factories_.getCompoFactory().newAbsScrollPane(errors);
         scErr_.setPreferredSize(new MetaDimension(384,128));
         all_.add(scErr_);
         AbsPanel buttons_ = factories_.getCompoFactory().newLineBox();
-        check = factories_.getCompoFactory().newPlainButton("X");
+        check = factories_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_ALIASES_CANCEL)));
         check.addActionListener(new CheckAliases(this, _w,errors));
         buttons_.add(check);
-        val = factories_.getCompoFactory().newPlainButton("OK");
+        val = factories_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_ALIASES_VALIDATE)));
         val.addActionListener(new ValidateAliases(messages.getMessagesRows(),aliases.getMessagesRows(), keyWords.getMessagesRows(), _w));
         buttons_.add(val);
         all_.add(buttons_);

@@ -26,6 +26,7 @@ import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.*;
 import code.converterimages.gui.*;
+import code.expressionlanguage.adv.MessagesIde;
 import code.expressionlanguage.gui.unit.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.*;
@@ -559,6 +560,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
+        TranslationsLg en_ = p_.lg(EN);
+        FileInfos.enTr(MessagesIde.updateEn(FileInfos.initComments(en_)));
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element r_ = d_.createElement(WindowPlayer.SMIL);
         Element s1_ = d_.createElement(WindowPlayer.CST_MEDIA);

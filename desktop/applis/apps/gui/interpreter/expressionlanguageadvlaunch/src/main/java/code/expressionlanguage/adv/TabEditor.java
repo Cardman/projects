@@ -21,6 +21,7 @@ import code.threads.AbstractFuture;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class TabEditor implements AbsTabEditor {
     private final WindowWithTreeImpl windowSecEditor;
@@ -86,6 +87,7 @@ public final class TabEditor implements AbsTabEditor {
     private final FormFindReplaceExpression findReplaceExpression;
 
     public TabEditor(WindowWithTreeImpl _editor, String _fullPath, String _rel, String _lr) {
+        StringMap<String> mes_ = MessagesIde.valFindText(_editor.getFrames().currentLg());
         useFeed = _lr;
         fullPath = _fullPath;
         relPath = _rel;
@@ -111,15 +113,15 @@ public final class TabEditor implements AbsTabEditor {
         replacer = frames_.getCompoFactory().newTextField();
         prevOcc = frames_.getCompoFactory().newPlainButton("<-");
         nextOcc = frames_.getCompoFactory().newPlainButton("->");
-        closeFinder = frames_.getCompoFactory().newPlainButton("x");
-        refreshExpression = frames_.getCompoFactory().newPlainButton("refresh");
+        closeFinder = frames_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_CLOSE_FINDER)));
+        refreshExpression = frames_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_REFRESH)));
         lastBuild = frames_.getCompoFactory().newPlainLabel(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH);
-        selectExpressionClass = frames_.getCompoFactory().newPlainButton("reset");
-        findingExpression = frames_.getCompoFactory().newPlainButton("find");
-        findingExpressionCancel = frames_.getCompoFactory().newPlainButton("cancel");
+        selectExpressionClass = frames_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_RESET)));
+        findingExpression = frames_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_FIND)));
+        findingExpressionCancel = frames_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_CANCEL)));
         prevOccExp = frames_.getCompoFactory().newPlainButton("<-");
         nextOccExp = frames_.getCompoFactory().newPlainButton("->");
-        closeExpression = frames_.getCompoFactory().newPlainButton("x");
+        closeExpression = frames_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_CLOSE_EXPRESSION)));
         replaceOne = frames_.getCompoFactory().newPlainButton("1");
         replaceOne.addActionListener(new ReplaceAction(this,false,false));
         replaceAll = frames_.getCompoFactory().newPlainButton("*");
@@ -134,11 +136,11 @@ public final class TabEditor implements AbsTabEditor {
         AbsPanel colRowPanel_ = frames_.getCompoFactory().newLineBox();
         finder.addAutoComplete(new FinderTextChange(this));
         finderPanel.add(finder);
-        caseSens = frames_.getCompoFactory().newCustCheckBox("Aa");
+        caseSens = frames_.getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_SENSITIVE_CASE)));
         caseSens.addActionListener(new ToggleFindOptionEvent(this));
         caseSens.setSelected(true);
         finderPanel.add(caseSens);
-        wholeWord = frames_.getCompoFactory().newCustCheckBox("_");
+        wholeWord = frames_.getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_WHOLE_WORD)));
         wholeWord.addActionListener(new ToggleFindOptionEvent(this));
         wholeWord.setSelected(true);
         finderPanel.add(wholeWord);
@@ -148,7 +150,7 @@ public final class TabEditor implements AbsTabEditor {
         colRowPanel_.add(row);
         col.addChangeListener(new RowColStateChangedEvent(this,row,col));
         colRowPanel_.add(col);
-        val = frames_.getCompoFactory().newPlainButton("GO");
+        val = frames_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_GO)));
         val.addActionListener(new ValidateNavLine(this));
         colRowPanel_.add(val);
         closeFinder.addActionListener(new ClosePanelAction(this));
@@ -213,7 +215,7 @@ public final class TabEditor implements AbsTabEditor {
         expressionRepl_.add(replaceNextExp);
         expressionPanel_.add(expressionRepl_);
         AbsPanel applRepl_ = frames_.getCompoFactory().newLineBox();
-        applyExp = frames_.getCompoFactory().newPlainButton("apply");
+        applyExp = frames_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_TEXT_APPLY)));
         applyExp.addActionListener(new ReplaceExpressionApply(this));
         applyExp.setEnabled(false);
         applRepl_.add(applyExp);
