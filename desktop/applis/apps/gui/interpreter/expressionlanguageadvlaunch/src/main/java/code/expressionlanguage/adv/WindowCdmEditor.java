@@ -35,6 +35,7 @@ import code.threads.AbstractFuture;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGroupFrame,AbsOpenQuit,SetupableFolder {
@@ -401,25 +402,32 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         return StringUtil.join(linesConf(_manage),LINE_RETURN_CH);
     }
     static StringList linesConf(ManageOptions _manage) {
+        StringMap<String> mesKeys_ = ExecutingOptions.valExecOptionsKeys(_manage.getEx().getLightProgramInfos().currentLg());
+        String src_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_SRC);
+        String tabWidth_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_TABWIDTH);
+        String als_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_ALIASES);
+        String mess_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_MESSAGES);
+        String kw_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_KEYWORDS);
+        String com_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_COMMENTS);
         StringList lines_ = new StringList();
         lines_.add(_manage.getEx().getAccess());
         lines_.add(StringUtil.nullToEmpty(_manage.getEx().getLg()));
         CustList<CommentDelimiters> comments_ = _manage.getOptions().getComments();
         if (!comments_.isEmpty()) {
-            lines_.add("comments="+ParseLinesArgUtil.buildCommentsLine(comments_));
+            lines_.add(com_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildCommentsLine(comments_));
         }
         if (!_manage.getEx().getSrcFolder().isEmpty()) {
-            lines_.add("src="+ _manage.getEx().getSrcFolder());
+            lines_.add(src_+ExecutingOptions.EXEC_OPTIONS_SEP+ _manage.getEx().getSrcFolder());
         }
-        lines_.add("tabWidth="+ _manage.getOptions().getTabWidth());
+        lines_.add(tabWidth_+ExecutingOptions.EXEC_OPTIONS_SEP+ _manage.getOptions().getTabWidth());
         if (!_manage.getEx().getMessages().isEmpty()) {
-            lines_.add("messages="+ParseLinesArgUtil.buildMapLine(_manage.getEx().getMessages()));
+            lines_.add(mess_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(_manage.getEx().getMessages()));
         }
         if (!_manage.getEx().getKeyWords().isEmpty()) {
-            lines_.add("keyWords="+ParseLinesArgUtil.buildMapLine(_manage.getEx().getKeyWords()));
+            lines_.add(kw_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(_manage.getEx().getKeyWords()));
         }
         if (!_manage.getEx().getAliases().isEmpty()) {
-            lines_.add("aliases="+ParseLinesArgUtil.buildMapLine(_manage.getEx().getAliases()));
+            lines_.add(als_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(_manage.getEx().getAliases()));
         }
         return lines_;
     }

@@ -49,6 +49,7 @@ public final class ExecutingOptions {
     public static final String EXEC_OPTIONS_KEY_MESSAGES="17";
     public static final String EXEC_OPTIONS_KEY_KEYWORDS="18";
     public static final String EXEC_OPTIONS_KEY_COMMENTS="19";
+    public static final String EXEC_OPTIONS_KEY_MAIN="20";
     private String baseFiles="";
     private String srcFolder;
     private String logFolder;
@@ -177,6 +178,7 @@ public final class ExecutingOptions {
         e_.add(EXEC_OPTIONS_KEY_MESSAGES,"messages");
         e_.add(EXEC_OPTIONS_KEY_KEYWORDS,"keyWords");
         e_.add(EXEC_OPTIONS_KEY_COMMENTS,"comments");
+        e_.add(EXEC_OPTIONS_KEY_MAIN,"main");
         return e_;
     }
     public static TranslationsFile frExecOptionsKeys(){
@@ -201,6 +203,7 @@ public final class ExecutingOptions {
         f_.add(EXEC_OPTIONS_KEY_MESSAGES,"messages");
         f_.add(EXEC_OPTIONS_KEY_KEYWORDS,"motsCles");
         f_.add(EXEC_OPTIONS_KEY_COMMENTS,"comments");
+        f_.add(EXEC_OPTIONS_KEY_MAIN,"pcp");
         return f_;
     }
     public static StringList lines(String _content) {
