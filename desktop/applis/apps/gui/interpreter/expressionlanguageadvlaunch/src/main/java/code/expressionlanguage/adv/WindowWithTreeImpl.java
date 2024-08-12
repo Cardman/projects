@@ -530,15 +530,16 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
             b_.left();
             _p.add(b_);
         }
-        AbsButton b_ = fr_.newPlainButton("callers");
+        StringMap<String> mes_ = MessagesIde.valFindRef(getFrames().currentLg());
+        AbsButton b_ = fr_.newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_REF_CALLERS)));
         b_.addActionListener(new CallersHierarchyEvent(_r,this));
         b_.left();
         _p.add(b_);
-        AbsButton usagesRef_ = fr_.newPlainButton("usages only");
+        AbsButton usagesRef_ = fr_.newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_REF_USAGE_ONLY)));
         usagesRef_.addActionListener(new RefreshLocationEvent(_p, this, _r));
         usagesRef_.left();
         _p.add(usagesRef_);
-        AbsButton usagesDefRef_ = fr_.newPlainButton("usages and def");
+        AbsButton usagesDefRef_ = fr_.newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_FIND_REF_USAGE_AND_DEF)));
         usagesDefRef_.addActionListener(new RefreshLocationTabEvent(_p, this, _r));
         usagesDefRef_.left();
         _p.add(usagesDefRef_);

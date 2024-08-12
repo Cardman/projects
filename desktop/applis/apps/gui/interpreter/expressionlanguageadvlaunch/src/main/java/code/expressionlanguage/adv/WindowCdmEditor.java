@@ -392,7 +392,9 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         if (!getManageOptions().getEx().getSrcFolder().isEmpty()) {
             getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+AbsEditorTabList.SLASH+ getManageOptions().getEx().getSrcFolder()).mkdirs();
         } else {
-            getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+AbsEditorTabList.SLASH+"src").mkdirs();
+            StringMap<String> mesKeys_ = ExecutingOptions.valExecOptionsKeys(getFrames().currentLg());
+            String src_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_SRC);
+            getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+AbsEditorTabList.SLASH+src_).mkdirs();
         }
         StreamFolderFile.makeParent(softParams.getExecConf(), getCommonFrame().getFrames().getFileCoreStream());
         StreamTextFile.saveTextFile(softParams.getExecConf(), lines_, frs_.getStreams());

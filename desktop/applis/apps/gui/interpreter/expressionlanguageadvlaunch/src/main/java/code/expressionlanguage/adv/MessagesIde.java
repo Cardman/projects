@@ -45,6 +45,13 @@ public final class MessagesIde {
     public static final String IDE_MANAGE_STRING = "9";
     public static final String IDE_MANAGE_STRING_FOLDER = "0";
     public static final String IDE_MANAGE_STRING_VALIDATE = "1";
+    public static final String IDE_GLOBAL_PARAMETERS = "10";
+    public static final String IDE_GLOBAL_PARAMETERS_DIRECT_MATCH = "0";
+    public static final String IDE_GLOBAL_PARAMETERS_VALIDATE = "1";
+    public static final String IDE_FIND_REF = "11";
+    public static final String IDE_FIND_REF_CALLERS = "0";
+    public static final String IDE_FIND_REF_USAGE_ONLY = "1";
+    public static final String IDE_FIND_REF_USAGE_AND_DEF = "2";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -77,6 +84,12 @@ public final class MessagesIde {
     public static StringMap<String> valManageString(TranslationsLg _lg) {
         return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_MANAGE_STRING).getMapping();
     }
+    public static StringMap<String> valGlobalParameters(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_GLOBAL_PARAMETERS).getMapping();
+    }
+    public static StringMap<String> valFindRef(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_FIND_REF).getMapping();
+    }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendInitChoose(_a, enInitChoose());
         appendFindText(_a, enFindText());
@@ -88,6 +101,8 @@ public final class MessagesIde {
         appendSrc(_a, enSrc());
         appendTab(_a, enTab());
         appendFolderExp(_a, enFolderExp());
+        appendGlobalParameters(_a, enGlobalParameters());
+        appendFindRef(_a, enFindRef());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -101,6 +116,8 @@ public final class MessagesIde {
         appendSrc(_a, frSrc());
         appendTab(_a, frTab());
         appendFolderExp(_a, frFolderExp());
+        appendGlobalParameters(_a, frGlobalParameters());
+        appendFindRef(_a, frFindRef());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -271,6 +288,38 @@ public final class MessagesIde {
         TranslationsFile t_ = new TranslationsFile();
         t_.add(IDE_MANAGE_STRING_FOLDER,"Choisir un dossier");
         t_.add(IDE_MANAGE_STRING_VALIDATE,"valider la création de l'espace de gestion de chaînes");
+        return t_;
+    }
+    public static void appendGlobalParameters(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_GLOBAL_PARAMETERS, _v);
+    }
+    public static TranslationsFile enGlobalParameters(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_GLOBAL_PARAMETERS_DIRECT_MATCH,"Directly do matching between key and value");
+        t_.add(IDE_GLOBAL_PARAMETERS_VALIDATE,"Validate options");
+        return t_;
+    }
+    public static TranslationsFile frGlobalParameters(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_GLOBAL_PARAMETERS_DIRECT_MATCH,"Faire directement la correspondance entre la clé et la valeur");
+        t_.add(IDE_GLOBAL_PARAMETERS_VALIDATE,"valider les options");
+        return t_;
+    }
+    public static void appendFindRef(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_FIND_REF, _v);
+    }
+    public static TranslationsFile enFindRef(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_FIND_REF_CALLERS,"callers");
+        t_.add(IDE_FIND_REF_USAGE_ONLY,"usages only");
+        t_.add(IDE_FIND_REF_USAGE_AND_DEF,"usages and definition");
+        return t_;
+    }
+    public static TranslationsFile frFindRef(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(IDE_FIND_REF_CALLERS,"appelants");
+        t_.add(IDE_FIND_REF_USAGE_ONLY,"utilisations uniquement");
+        t_.add(IDE_FIND_REF_USAGE_AND_DEF,"utilisations et définition");
         return t_;
     }
 }
