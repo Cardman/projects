@@ -50,6 +50,8 @@ public final class ExecutingOptions {
     public static final String EXEC_OPTIONS_KEY_KEYWORDS="18";
     public static final String EXEC_OPTIONS_KEY_COMMENTS="19";
     public static final String EXEC_OPTIONS_KEY_MAIN="20";
+    public static final String EXEC_OPTIONS_EXT="exec_options_3";
+    public static final String EXEC_OPTIONS_EXT_VAL="0";
     private String baseFiles="";
     private String srcFolder;
     private String logFolder;
@@ -59,6 +61,7 @@ public final class ExecutingOptions {
     private String outputZip;
     private String outputFolder = "";
     private String output = "";
+    private String outputTxt;
     private boolean covering;
     private String coverFolder;
     private String errorsFolder;
@@ -83,6 +86,7 @@ public final class ExecutingOptions {
 
     public ExecutingOptions(TranslationsLg _lg) {
         this(valExecOptions(_lg),valExecOptionsFolder(_lg));
+        setOutputTxt(valExecOptionsExts(_lg).getVal(EXEC_OPTIONS_EXT_VAL));
     }
     public ExecutingOptions(StringMap<String> _prefs, StringMap<String> _folders) {
         setFileSystemParameterizing(new FileSystemParameterizing(_prefs.getVal(EXEC_OPTIONS_PREF_DIRECTORY),new StringBuilder(),new Ints(), _prefs.getVal(EXEC_OPTIONS_PREF_FILE),new StringBuilder(),new Ints()));
@@ -105,16 +109,21 @@ public final class ExecutingOptions {
     public static StringMap<String> valExecOptionsKeys(TranslationsLg _lg) {
         return FileInfos.getAppliTr(_lg).getMapping().getVal(EXEC_OPTIONS_KEY).getMapping();
     }
+    public static StringMap<String> valExecOptionsExts(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(EXEC_OPTIONS_EXT).getMapping();
+    }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendExecOptions(_a, mesExecOptions());
         appendExecOptionsFolder(_a, enExecOptionsFolder());
         appendExecOptionsKeys(_a, enExecOptionsKeys());
+        _a.getMapping().addEntry(EXEC_OPTIONS_EXT,mesExecOptionsExt());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
         appendExecOptions(_a, mesExecOptions());
         appendExecOptionsFolder(_a, frExecOptionsFolder());
         appendExecOptionsKeys(_a, frExecOptionsKeys());
+        _a.getMapping().addEntry(EXEC_OPTIONS_EXT,mesExecOptionsExt());
         return _a;
     }
     public static void appendExecOptions(TranslationsAppli _a, TranslationsFile _v) {
@@ -205,6 +214,11 @@ public final class ExecutingOptions {
         f_.add(EXEC_OPTIONS_KEY_COMMENTS,"comments");
         f_.add(EXEC_OPTIONS_KEY_MAIN,"pcp");
         return f_;
+    }
+    public static TranslationsFile mesExecOptionsExt(){
+        TranslationsFile t_ = new TranslationsFile(1);
+        t_.add(EXEC_OPTIONS_EXT_VAL,".txt");
+        return t_;
     }
     public static StringList lines(String _content) {
         StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
@@ -611,6 +625,14 @@ public final class ExecutingOptions {
 
     public void setOutput(String _output) {
         output = _output;
+    }
+
+    public String getOutputTxt() {
+        return outputTxt;
+    }
+
+    public void setOutputTxt(String _o) {
+        this.outputTxt = _o;
     }
 
     public String getOutputFolder() {

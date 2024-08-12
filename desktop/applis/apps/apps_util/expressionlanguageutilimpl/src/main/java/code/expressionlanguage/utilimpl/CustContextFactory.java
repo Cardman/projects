@@ -68,7 +68,7 @@ public final class CustContextFactory {
         }
         _progressingTests.ctx((InterruptibleContextEl) rCont_);
         _progressingTests.showWarnings(_progressingTests.ctx(),reportedMessages_,_options,_exec,infos_);
-        infos_.tryLogIssue("OK");
+        infos_.tryLogIssue("\u2611");
 //        String infoTest_ = _definedLgNames.getExecContent().getCustAliases().getAliasInfoTest();
 //        ContextEl cp_ = rCont_.copy(rCont_.getInterrupt(),NullStruct.NULL_VALUE);
 //        ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, cp_.getClasses());

@@ -49,7 +49,8 @@ public final class CrudGeneForm<K,V> {
         add = factory.getCompoFactory().newPlainButton("+");
         add.addActionListener(new AddCrudGeneFormEvent<K,V>(this));
         buttons_.add(add);
-        validAddEdit = factory.getCompoFactory().newPlainButton("OK");
+        validAddEdit = factory.getCompoFactory().newPlainButton("\u2611");
+        validAddEdit.setForeground(GuiConstants.GREEN);
         validAddEdit.setEnabled(false);
         validAddEdit.addActionListener(new ValidAddEditCrudGeneFormEvent<K,V>(this));
         buttons_.add(validAddEdit);
@@ -57,7 +58,8 @@ public final class CrudGeneForm<K,V> {
         validRemove.setEnabled(false);
         validRemove.addActionListener(new ValidRemoveCrudGeneFormEvent<K,V>(this));
         buttons_.add(validRemove);
-        cancel = factory.getCompoFactory().newPlainButton("CANCEL");
+        cancel = factory.getCompoFactory().newPlainButton("\u2612");
+        cancel.setForeground(GuiConstants.RED);
         cancel.setEnabled(false);
         cancel.addActionListener(new CancelCrudGeneFormEvent<K,V>(this));
         buttons_.add(cancel);

@@ -183,7 +183,7 @@ public final class MemoryReporter implements AbstractReporter {
         AbstractLogger logger_ = _infos.getLogger();
         if (_reportedMessages.notAllEmptyErrors()) {
             String folder_ = _exec.getOutput()+_exec.getLogFolder();
-            String dtPart_ = _time +".txt";
+            String dtPart_ = _time +_exec.getOutputTxt();
             logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayErrors());
             logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayWarnings());
             logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayStdErrors());
@@ -196,7 +196,7 @@ public final class MemoryReporter implements AbstractReporter {
         AbstractLogger logger_ = _infos.getLogger();
         if (!_reportedMessages.isEmptyWarnings()) {
             String folder_ = _exec.getOutput()+_exec.getLogFolder();
-            String dtPart_ = _time +".txt";
+            String dtPart_ = _time +_exec.getOutputTxt();
             logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayWarnings());
         }
     }

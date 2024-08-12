@@ -55,7 +55,7 @@ public final class EventStruct extends LaunchableStruct implements
         dtPart_.append(CustAliases.getDateTimeText(_r.getCurrentThreadFactory()));
         dtPart_.append("__");
         dtPart_.append(nb_);
-        dtPart_.append(".txt");
+        dtPart_.append(_r.getExecutingOptions().getOutputTxt());
         _r.getCustInit().putNewCustTreadIdDate(_r, dtPart_.toString());
         return nb_;
     }

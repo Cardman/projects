@@ -11,7 +11,7 @@ import code.gui.GuiBaseUtil;
 import code.threads.AbstractThreadFactory;
 
 public final class CommonExecution {
-    public static final String CROSS_SUCCESS = "x";
+    public static final String CROSS_SUCCESS = "\u2613";
     public static final String CROSS_FAIL = "";
     private final ProgTestBarInt progTestBar;
 
