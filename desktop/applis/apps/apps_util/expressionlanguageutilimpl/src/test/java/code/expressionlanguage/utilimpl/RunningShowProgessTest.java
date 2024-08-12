@@ -37,9 +37,8 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode(""), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
-        ExecutingOptions exec_ = new ExecutingOptions();
+        ExecutingOptions exec_ = exOpt(pr_);
         exec_.setLg("en");
-        exec_.setLightProgramInfos(pr_);
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
@@ -72,8 +71,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode(""), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
-        ExecutingOptions exec_ = new ExecutingOptions();
-        exec_.setLightProgramInfos(pr_);
+        ExecutingOptions exec_ = exOpt(pr_);
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         LightTestableFrame fram_ = new LightTestableFrame(pr_, null, new MockInterceptor(), mem_, bar_);

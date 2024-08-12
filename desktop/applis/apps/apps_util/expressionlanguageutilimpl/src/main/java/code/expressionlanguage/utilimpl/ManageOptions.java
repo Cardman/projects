@@ -15,7 +15,7 @@ public final class ManageOptions {
         this(_lgs, _linesFiles,_progressingTests.getFactory());
     }
     public ManageOptions(StringList _lgs, StringList _linesFiles, CdmFactory _progressingTests) {
-        ExecutingOptions exec_ = new ExecutingOptions();
+        ExecutingOptions exec_ = new ExecutingOptions(_progressingTests.getProgramInfos());
         exec_.setListGenerator(_progressingTests);
         Options opt_ = new Options();
         if (!StringUtil.contains(_lgs,_linesFiles.get(1))){

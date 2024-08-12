@@ -255,5 +255,15 @@ public abstract class EquallableElUtFilesUtil {
     public static MockNameFile[] wrap(MockNameFile... _files) {
         return _files;
     }
-
+    public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
+//        ExecutingOptions.updateEn(FileInfos.getAppliTr(_p.getTranslations().getMapping().getVal("en")));
+//        ExecutingOptions.updateFr(FileInfos.getAppliTr(_p.getTranslations().getMapping().getVal("fr")));
+        ExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("en")));
+        ExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("fr")));
+        ((MockProgramInfos)_p).setLanguage("en");
+        return new ExecutingOptions(_p);
+    }
+    public static ExecutingOptions exOptInit(AbstractLightProgramInfos _p) {
+        return new ExecutingOptions(_p);
+    }
 }

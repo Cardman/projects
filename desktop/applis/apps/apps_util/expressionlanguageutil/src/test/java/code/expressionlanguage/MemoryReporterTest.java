@@ -23,8 +23,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void errs1() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("folder/file.txt","{}");
         ResultContext res_ = ctxErrNoWarn(pr_, files_);
@@ -34,8 +33,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void errs2() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("folder/file.txt","{}");
         ResultContext res_ = ctxErrNoWarn(pr_, files_);
@@ -46,8 +44,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void errs3() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("folder/file.txt","{}");
         ResultContext res_ = ctxErrNoWarn(pr_, files_);
@@ -58,8 +55,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void errs4() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("folder/file.txt","{}");
         ResultContext res_ = ctxErrNoWarn(pr_, files_);
@@ -71,8 +67,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void errs5() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","{}");
         files_.addEntry("src/folder/file2.txt","public class pkg.Sample{ {int i = 0 == 0 ? 5 : 6;} }");
@@ -87,8 +82,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void errs6() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
         ResultContext re_ = ctxErr(pr_, files_, null);
@@ -102,8 +96,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void cover1() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
         ResultContext res_ = ctxNoWarn(pr_, files_);
@@ -115,8 +108,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void cover2() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setBaseFiles("/");
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
@@ -131,8 +123,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void cover3() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
         ResultContext res_ = ctxNoWarn(pr_, files_);
@@ -170,7 +161,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void koPaths1() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(pr_);
         assertFalse(r_.koPaths("out_folder", e_));
         assertEq("out_folder",e_.getOutputFolder());
         assertEq("/",e_.getBaseFiles());
@@ -179,7 +170,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void koPaths2() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setLogFolder("logger");
         e_.setCoverFolder("logger");
         assertTrue(r_.koPaths("", e_));
@@ -188,7 +179,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void koPaths3() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setLogFolder("log/ger");
         e_.setCoverFolder("log/ger");
         assertTrue(r_.koPaths("", e_));
@@ -197,7 +188,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void koPaths4() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setLogFolder("log//ger");
         e_.setCoverFolder("log//ger");
         assertTrue(r_.koPaths("", e_));
@@ -206,7 +197,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void koPaths5() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setErrorsFolder("logger");
         e_.setFiles("logger");
         assertTrue(r_.koPaths("", e_));
@@ -215,7 +206,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void koPaths6() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setSrcFolder("logger");
         e_.setResources("logger");
         assertTrue(r_.koPaths("", e_));
@@ -224,7 +215,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void koPaths7() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setOutputZip("//");
         assertTrue(r_.koPaths("", e_));
     }
@@ -232,15 +223,14 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void koPaths8() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setMainThread("//");
         assertTrue(r_.koPaths("", e_));
     }
     @Test
     public void errs7() {
         MockProgramInfos pr_ = prs();
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","{}");
         files_.addEntry("src/folder/file2.txt","public class pkg.Sample{ {int i = 0 == 0 ? 5 : 6;} }");
@@ -266,8 +256,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getZipFact().zipBinFiles(new StringMap<ContentTime>());
         new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getBinFact().writeFile("",new byte[0]);
         new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getTextFact().write("","",false);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         e_.setListGenerator(f_);
         e_.setCovering(true);
         assertTrue(e_.isCovering());
@@ -295,9 +284,8 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         update(_p);
         LgNamesUtils stds_ = newLgNamesGuiSampleGr(_p, _iss);
 //        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(_p);
         CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
-        e_.setLightProgramInfos(_p);
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
@@ -314,9 +302,8 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         update(_p);
         LgNamesUtils stds_ = newLgNamesGuiSampleGr(_p, null);
 //        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(_p);
         CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
-        e_.setLightProgramInfos(_p);
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
@@ -331,9 +318,8 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         update(_p);
         LgNamesUtils stds_ = newLgNamesGuiSampleGr(_p, null);
 //        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(_p);
         CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
-        e_.setLightProgramInfos(_p);
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
@@ -368,7 +354,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     public static LgNamesUtils newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesUtils stds_ = newLgNamesUt(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().setExecutingOptions(exOpt(_light));
         stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
         return stds_;
     }

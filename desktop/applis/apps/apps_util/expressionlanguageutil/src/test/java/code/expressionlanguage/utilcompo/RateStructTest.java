@@ -27,8 +27,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new();}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -50,8 +49,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new(\"\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -71,8 +69,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -94,8 +91,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = Rate.parseRate(\"\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -115,8 +111,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){String s = \"\";r = new(s);}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -136,8 +131,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){String s = \"2\";r = new(s);}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -159,8 +153,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){String s = null;r = new(s);}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -180,8 +173,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new(null);}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -201,8 +193,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"1\") + new Rate(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -220,8 +211,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = a + b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -240,8 +230,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"1\") - new Rate(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -259,8 +248,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = a - b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -278,8 +266,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"2\") * new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -297,8 +284,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"3\");public Rate r;public void run(){r = a * b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -316,8 +302,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"2\") / new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -335,8 +320,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"3\");public Rate r;public void run(){r = a / b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -354,8 +338,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = new LgInt(\"7\") / new LgInt(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -373,8 +356,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new LgInt(\"7\");public LgInt b=new LgInt(\"3\");public LgInt r;public void run(){r = a / b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -392,8 +374,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"2\") / new Rate(\"0\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -409,8 +390,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"0\");public Rate r;public void run(){r = a / b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -426,8 +406,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = new LgInt(\"7\") / new LgInt(\"0\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -443,8 +422,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new LgInt(\"7\");public LgInt b=new LgInt(\"0\");public LgInt r;public void run(){r = a / b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -460,8 +438,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"2\") / new LgInt(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -479,8 +456,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new LgInt(\"2\") / new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -498,8 +474,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public LgInt b=new(\"3\");public Rate r;public void run(){r = a / b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -517,8 +492,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new(\"2\");public Rate b=new(\"3\");public Rate r;public void run(){r = a / b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -536,8 +510,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"2\") % new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -555,8 +528,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"3\");public Rate r;public void run(){r = a % b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -574,8 +546,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = new LgInt(\"7\") % new LgInt(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -593,8 +564,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new LgInt(\"7\");public LgInt b=new LgInt(\"3\");public LgInt r;public void run(){r = a % b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -612,8 +582,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"2\") % new Rate(\"0\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -629,8 +598,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"0\");public Rate r;public void run(){r = a % b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -646,8 +614,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = new LgInt(\"7\") % new LgInt(\"0\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -663,8 +630,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new LgInt(\"7\");public LgInt b=new LgInt(\"0\");public LgInt r;public void run(){r = a % b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -681,8 +647,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Rate(\"2\") % new LgInt(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -700,8 +665,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new LgInt(\"2\") % new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -719,8 +683,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public LgInt b=new(\"3\");public Rate r;public void run(){r = a % b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -738,8 +701,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new(\"2\");public Rate b=new(\"3\");public Rate r;public void run(){r = a % b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -757,8 +719,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = - new Rate(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -776,8 +737,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = - b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -795,8 +755,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = - new LgInt(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -814,8 +773,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public LgInt b=new(\"2\");public LgInt r;public void run(){r = - b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -833,8 +791,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = + new Rate(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -852,8 +809,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = + b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -871,8 +827,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = -- b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -890,8 +845,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r =  b --;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -909,8 +863,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b;public Rate r;public void run(){r =  b --;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -926,8 +879,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b;public Rate r;public void run(){r =  -- b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -943,8 +895,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = ++ b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -962,8 +913,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = b ++;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -981,8 +931,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b;public Rate r;public void run(){r =  b ++;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -998,8 +947,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b;public Rate r;public void run(){r =  ++ b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1015,8 +963,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = b += a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1034,8 +981,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=null;public Rate r;public void run(){r = b += a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1051,8 +997,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public Rate r;public void run(){r = b -= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1070,8 +1015,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=null;public Rate r;public void run(){r = b -= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1087,8 +1031,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"3\");public Rate b=new(\"2\");public Rate r;public void run(){r = b *= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1106,8 +1049,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=null;public Rate r;public void run(){r = b *= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1123,8 +1065,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"3\");public Rate b=new(\"7\");public Rate r;public void run(){r = b /= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1142,8 +1083,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=null;public Rate r;public void run(){r = b /= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1159,8 +1099,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new(\"3\");public LgInt b=new(\"7\");public LgInt r;public void run(){r = b /= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1178,8 +1117,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new(\"1\");public LgInt b=null;public LgInt r;public void run(){r = b /= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1195,8 +1133,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"3\");public Rate b=new(\"7\");public Rate r;public void run(){r = b %= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1214,8 +1151,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=null;public Rate r;public void run(){r = b %= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1231,8 +1167,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new(\"3\");public LgInt b=new(\"7\");public LgInt r;public void run(){r = b %= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1250,8 +1185,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt a=new(\"1\");public LgInt b=null;public LgInt r;public void run(){r = b %= a;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1267,8 +1201,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a == b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1285,8 +1218,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"2\");public boolean r;public void run(){r = a == b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1304,8 +1236,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a == null;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1322,8 +1253,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"1\") < new Rate(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1340,8 +1270,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a < b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1358,8 +1287,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"2\") < new Rate(\"1\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1376,8 +1304,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"1\");public boolean r;public void run(){r = a < b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1394,8 +1321,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"3\") < new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1412,8 +1338,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"3\");public Rate b=new(\"3\");public boolean r;public void run(){r = a < b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1430,8 +1355,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"1\") <= new Rate(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1448,8 +1372,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a <= b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1466,8 +1389,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"2\") <= new Rate(\"1\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1484,8 +1406,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"1\");public boolean r;public void run(){r = a <= b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1502,8 +1423,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"3\") <= new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1520,8 +1440,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"3\");public Rate b=new(\"3\");public boolean r;public void run(){r = a <= b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1538,8 +1457,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"1\") > new Rate(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1556,8 +1474,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a > b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1574,8 +1491,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"2\") > new Rate(\"1\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1592,8 +1508,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"1\");public boolean r;public void run(){r = a > b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1610,8 +1525,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"3\") > new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1628,8 +1542,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"3\");public Rate b=new(\"3\");public boolean r;public void run(){r = a > b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1646,8 +1559,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"1\") >= new Rate(\"2\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1664,8 +1576,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a >= b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1682,8 +1593,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"2\") >= new Rate(\"1\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1700,8 +1610,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"1\");public boolean r;public void run(){r = a >= b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1718,8 +1627,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"3\") >= new Rate(\"3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1736,8 +1644,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"3\");public Rate b=new(\"3\");public boolean r;public void run(){r = a >= b;}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -1754,8 +1661,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Sample2(new(\"1\")) + new Sample2(new(\"2\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1774,8 +1680,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Sample2(new(\"1\")) - new Sample2(new(\"2\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1794,8 +1699,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Sample2(new(\"2\")) * new Sample2(new(\"3\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1814,8 +1718,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Sample2(new(\"2\")) / new Sample2(new(\"3\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1834,8 +1737,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = new Sample2(new(\"7\")) / new Sample2(new(\"3\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public LgInt r;(LgInt r){this.r=r;}public static LgInt $(Sample2 s){return s.r;}}");
@@ -1854,8 +1756,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = new Sample2(new(\"2\")) % new Sample2(new(\"3\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1874,8 +1775,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = new Sample2(new(\"7\")) % new Sample2(new(\"3\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public LgInt r;(LgInt r){this.r=r;}public static LgInt $(Sample2 s){return s.r;}}");
@@ -1894,8 +1794,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"1\")) < new Sample2(new(\"2\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1913,8 +1812,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) < new Sample2(new(\"1\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1932,8 +1830,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"1\")) <= new Sample2(new(\"2\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1951,8 +1848,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) <= new Sample2(new(\"1\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1970,8 +1866,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) > new Sample2(new(\"1\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -1989,8 +1884,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"1\")) > new Sample2(new(\"2\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -2008,8 +1902,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) >= new Sample2(new(\"1\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -2027,8 +1920,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"1\")) >= new Sample2(new(\"2\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -2046,8 +1938,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = - new Sample2(new(\"2\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -2066,8 +1957,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate r;public void run(){r = + new Sample2(new(\"2\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
@@ -2087,8 +1977,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"1\"));public Sample2 b=new(new Rate(\"2\"));public Sample2 r;public void run(){r = -- b;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2108,8 +1997,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"1\"));public Sample2 b=new(new Rate(\"2\"));public Sample2 r;public void run(){r = b --;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2129,8 +2017,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"1\"));public Sample2 b=new(new Rate(\"2\"));public Sample2 r;public void run(){r = ++ b;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2150,8 +2037,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"1\"));public Sample2 b=new(new Rate(\"2\"));public Sample2 r;public void run(){r = b ++;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2170,8 +2056,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"1\"));public Sample2 b=new(new Rate(\"2\"));public Sample2 r;public void run(){r = b += a;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2190,8 +2075,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"1\"));public Sample2 b=new(new Rate(\"2\"));public Sample2 r;public void run(){r = b -= a;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2210,8 +2094,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"3\"));public Sample2 b=new(new Rate(\"2\"));public Sample2 r;public void run(){r = b *= a;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2230,8 +2113,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"3\"));public Sample2 b=new(new Rate(\"7\"));public Sample2 r;public void run(){r = b /= a;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2250,8 +2132,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new LgInt(\"3\"));public Sample2 b=new(new LgInt(\"7\"));public Sample2 r;public void run(){r = b /= a;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public LgInt r;(LgInt r){this.r=r;}public static LgInt $(Sample2 s){return s.r;}public static Sample2 $(LgInt s){return new(s);}}");
@@ -2270,8 +2151,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new Rate(\"3\"));public Sample2 b=new(new Rate(\"7\"));public Sample2 r;public void run(){r = b %= a;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}public static Sample2 $(Rate s){return new(s);}}");
@@ -2290,8 +2170,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Sample2 a=new(new LgInt(\"3\"));public Sample2 b=new(new LgInt(\"7\"));public Sample2 r;public void run(){r = b %= a;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public LgInt r;(LgInt r){this.r=r;}public static LgInt $(Sample2 s){return s.r;}public static Sample2 $(LgInt s){return new(s);}}");
@@ -2310,8 +2189,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = new Rate(\"2/3\").den();}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2333,8 +2211,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){Rate r2=new(\"2/3\"); r = r2.den();}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2356,8 +2233,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){Rate r2=null; r = r2.den();}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2377,8 +2253,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = new Rate(\"2/3\").num();}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2400,8 +2275,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){Rate r2=new(\"2/3\"); r = r2.num();}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2423,8 +2297,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){Rate r2=null; r = r2.num();}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2444,8 +2317,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public String r;public void run(){r = StringUtil.valueOf(new Rate(\"2/3\"));}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2466,8 +2338,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public String r;public void run(){Rate r2=new(\"2/3\"); r = StringUtil.valueOf(r2);}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2488,8 +2359,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public String r;public void run(){r = \"\"+new Rate(\"2/3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2510,8 +2380,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public LgInt r;public void run(){r = (LgInt)class(Rate).defaultInstance();*new Rate(\"2/3\");}}");
         ContextEl ctx_ = build(opt_, e_, files_).getContext();
@@ -2532,8 +2401,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ExecutingOptions e_ = new ExecutingOptions();
-        e_.setLightProgramInfos(pr_);
+        ExecutingOptions e_ = exOpt(pr_);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new Rate(\"1\");public Sample2 b=new(new Rate(\"2\"));public Sample2 r;public void run(){a+b;a-b;a*b;a/b;a%b;}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}}");

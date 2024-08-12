@@ -5,6 +5,7 @@ import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.Options;
 import code.gui.CdmFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
+import code.sml.util.*;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -14,18 +15,52 @@ import code.util.core.StringUtil;
 
 public final class ExecutingOptions {
 
+    public static final String EXEC_OPTIONS_SEP="=";
+    public static final String EXEC_OPTIONS_PREF="exec_options_0";
+    public static final String EXEC_OPTIONS_PREF_DIRECTORY="0";
+    public static final String EXEC_OPTIONS_PREF_FILE="1";
+    public static final String EXEC_OPTIONS_FOLDER="exec_options_1";
+    public static final String EXEC_OPTIONS_FOLDER_SRC="0";
+    public static final String EXEC_OPTIONS_FOLDER_LOG="1";
+    public static final String EXEC_OPTIONS_FOLDER_MAIN_THREAD="2";
+    public static final String EXEC_OPTIONS_FOLDER_FILES="3";
+    public static final String EXEC_OPTIONS_FOLDER_RESOURCES="4";
+    public static final String EXEC_OPTIONS_FOLDER_OUTPUT="5";
+    public static final String EXEC_OPTIONS_FOLDER_COVERAGE="6";
+    public static final String EXEC_OPTIONS_FOLDER_ERRORS="7";
+    public static final String EXEC_OPTIONS_KEY="exec_options_2";
+    public static final String EXEC_OPTIONS_KEY_LOG="0";
+    public static final String EXEC_OPTIONS_KEY_LGS="1";
+    public static final String EXEC_OPTIONS_KEY_COVER="2";
+    public static final String EXEC_OPTIONS_KEY_ERR="3";
+    public static final String EXEC_OPTIONS_KEY_SRC="4";
+    public static final String EXEC_OPTIONS_KEY_SEED="5";
+    public static final String EXEC_OPTIONS_KEY_IMPL="6";
+    public static final String EXEC_OPTIONS_KEY_IMPL_LABEL="7";
+    public static final String EXEC_OPTIONS_KEY_WARN="8";
+    public static final String EXEC_OPTIONS_KEY_RES="9";
+    public static final String EXEC_OPTIONS_KEY_FILES="10";
+    public static final String EXEC_OPTIONS_KEY_OUT="11";
+    public static final String EXEC_OPTIONS_KEY_TABWIDTH="12";
+    public static final String EXEC_OPTIONS_KEY_INVOKEDIRECT="13";
+    public static final String EXEC_OPTIONS_KEY_ARGS="14";
+    public static final String EXEC_OPTIONS_KEY_CLASSES="15";
+    public static final String EXEC_OPTIONS_KEY_ALIASES="16";
+    public static final String EXEC_OPTIONS_KEY_MESSAGES="17";
+    public static final String EXEC_OPTIONS_KEY_KEYWORDS="18";
+    public static final String EXEC_OPTIONS_KEY_COMMENTS="19";
     private String baseFiles="";
-    private String srcFolder = "src";
-    private String logFolder = "logs";
-    private String mainThread = "main_thread.txt";
-    private String files = "files";
-    private String resources = "res";
-    private String outputZip = "out/results.zip";
+    private String srcFolder;
+    private String logFolder;
+    private String mainThread;
+    private String files;
+    private String resources;
+    private String outputZip;
     private String outputFolder = "";
     private String output = "";
     private boolean covering;
-    private String coverFolder = "coverage";
-    private String errorsFolder = "errors";
+    private String coverFolder;
+    private String errorsFolder;
     private boolean invokeDirect;
     private boolean hasArg;
     private StringList args = new StringList();
@@ -40,10 +75,134 @@ public final class ExecutingOptions {
     private AbstractInterceptor interceptor;
     private FileSystemParameterizing fileSystemParameterizing;
 
-    public ExecutingOptions() {
-        setFileSystemParameterizing(new FileSystemParameterizing("d",new StringBuilder(),new Ints(), "f",new StringBuilder(),new Ints()));
+    public ExecutingOptions(AbstractLightProgramInfos _api) {
+        this(_api.currentLg());
+        setLightProgramInfos(_api);
     }
 
+    public ExecutingOptions(TranslationsLg _lg) {
+        this(valExecOptions(_lg),valExecOptionsFolder(_lg));
+    }
+    public ExecutingOptions(StringMap<String> _prefs, StringMap<String> _folders) {
+        setFileSystemParameterizing(new FileSystemParameterizing(_prefs.getVal(EXEC_OPTIONS_PREF_DIRECTORY),new StringBuilder(),new Ints(), _prefs.getVal(EXEC_OPTIONS_PREF_FILE),new StringBuilder(),new Ints()));
+        srcFolder = StringUtil.nullToEmpty(_folders.getVal(EXEC_OPTIONS_FOLDER_SRC));
+        logFolder = StringUtil.nullToEmpty(_folders.getVal(EXEC_OPTIONS_FOLDER_LOG));
+        mainThread = StringUtil.nullToEmpty(_folders.getVal(EXEC_OPTIONS_FOLDER_MAIN_THREAD));
+        files = StringUtil.nullToEmpty(_folders.getVal(EXEC_OPTIONS_FOLDER_FILES));
+        resources = StringUtil.nullToEmpty(_folders.getVal(EXEC_OPTIONS_FOLDER_RESOURCES));
+        outputZip = StringUtil.nullToEmpty(_folders.getVal(EXEC_OPTIONS_FOLDER_OUTPUT));
+        coverFolder = StringUtil.nullToEmpty(_folders.getVal(EXEC_OPTIONS_FOLDER_COVERAGE));
+        errorsFolder = StringUtil.nullToEmpty(_folders.getVal(EXEC_OPTIONS_FOLDER_ERRORS));
+    }
+
+    public static StringMap<String> valExecOptions(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(EXEC_OPTIONS_PREF).getMapping();
+    }
+    public static StringMap<String> valExecOptionsFolder(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(EXEC_OPTIONS_FOLDER).getMapping();
+    }
+    public static StringMap<String> valExecOptionsKeys(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(EXEC_OPTIONS_KEY).getMapping();
+    }
+    public static TranslationsAppli updateEn(TranslationsAppli _a){
+        appendExecOptions(_a, mesExecOptions());
+        appendExecOptionsFolder(_a, enExecOptionsFolder());
+        appendExecOptionsKeys(_a, enExecOptionsKeys());
+        return _a;
+    }
+    public static TranslationsAppli updateFr(TranslationsAppli _a){
+        appendExecOptions(_a, mesExecOptions());
+        appendExecOptionsFolder(_a, frExecOptionsFolder());
+        appendExecOptionsKeys(_a, frExecOptionsKeys());
+        return _a;
+    }
+    public static void appendExecOptions(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(EXEC_OPTIONS_PREF, _v);
+    }
+    public static TranslationsFile mesExecOptions(){
+        TranslationsFile t_ = new TranslationsFile(2);
+        t_.add(EXEC_OPTIONS_PREF_DIRECTORY,"d");
+        t_.add(EXEC_OPTIONS_PREF_FILE,"f");
+        return t_;
+    }
+    public static void appendExecOptionsFolder(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(EXEC_OPTIONS_FOLDER, _v);
+    }
+    public static TranslationsFile enExecOptionsFolder(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(EXEC_OPTIONS_FOLDER_SRC,"src");
+        e_.add(EXEC_OPTIONS_FOLDER_LOG,"logs");
+        e_.add(EXEC_OPTIONS_FOLDER_MAIN_THREAD,"main_thread.txt");
+        e_.add(EXEC_OPTIONS_FOLDER_FILES,"files");
+        e_.add(EXEC_OPTIONS_FOLDER_RESOURCES,"res");
+        e_.add(EXEC_OPTIONS_FOLDER_OUTPUT,"out/results.zip");
+        e_.add(EXEC_OPTIONS_FOLDER_COVERAGE,"coverage");
+        e_.add(EXEC_OPTIONS_FOLDER_ERRORS,"errors");
+        return e_;
+    }
+    public static TranslationsFile frExecOptionsFolder(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(EXEC_OPTIONS_FOLDER_SRC,"src");
+        f_.add(EXEC_OPTIONS_FOLDER_LOG,"sortie");
+        f_.add(EXEC_OPTIONS_FOLDER_MAIN_THREAD,"pcp_tache.txt");
+        f_.add(EXEC_OPTIONS_FOLDER_FILES,"fichiers");
+        f_.add(EXEC_OPTIONS_FOLDER_RESOURCES,"res");
+        f_.add(EXEC_OPTIONS_FOLDER_OUTPUT,"sortie_archive/valeurs.zip");
+        f_.add(EXEC_OPTIONS_FOLDER_COVERAGE,"couverture");
+        f_.add(EXEC_OPTIONS_FOLDER_ERRORS,"erreurs");
+        return f_;
+    }
+    public static void appendExecOptionsKeys(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(EXEC_OPTIONS_KEY, _v);
+    }
+    public static TranslationsFile enExecOptionsKeys(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(EXEC_OPTIONS_KEY_LOG,"log");
+        e_.add(EXEC_OPTIONS_KEY_LGS,"lgs");
+        e_.add(EXEC_OPTIONS_KEY_COVER,"cover");
+        e_.add(EXEC_OPTIONS_KEY_ERR,"err");
+        e_.add(EXEC_OPTIONS_KEY_SRC,"src");
+        e_.add(EXEC_OPTIONS_KEY_SEED,"seed");
+        e_.add(EXEC_OPTIONS_KEY_IMPL,"impl");
+        e_.add(EXEC_OPTIONS_KEY_IMPL_LABEL,"impl_label");
+        e_.add(EXEC_OPTIONS_KEY_WARN,"warn");
+        e_.add(EXEC_OPTIONS_KEY_RES,"res");
+        e_.add(EXEC_OPTIONS_KEY_FILES,"files");
+        e_.add(EXEC_OPTIONS_KEY_OUT,"out");
+        e_.add(EXEC_OPTIONS_KEY_TABWIDTH,"tabWidth");
+        e_.add(EXEC_OPTIONS_KEY_INVOKEDIRECT,"invokeDirect");
+        e_.add(EXEC_OPTIONS_KEY_ARGS,"args");
+        e_.add(EXEC_OPTIONS_KEY_CLASSES,"classes");
+        e_.add(EXEC_OPTIONS_KEY_ALIASES,"aliases");
+        e_.add(EXEC_OPTIONS_KEY_MESSAGES,"messages");
+        e_.add(EXEC_OPTIONS_KEY_KEYWORDS,"keyWords");
+        e_.add(EXEC_OPTIONS_KEY_COMMENTS,"comments");
+        return e_;
+    }
+    public static TranslationsFile frExecOptionsKeys(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(EXEC_OPTIONS_KEY_LOG,"log");
+        f_.add(EXEC_OPTIONS_KEY_LGS,"lgs");
+        f_.add(EXEC_OPTIONS_KEY_COVER,"couverture");
+        f_.add(EXEC_OPTIONS_KEY_ERR,"err");
+        f_.add(EXEC_OPTIONS_KEY_SRC,"src");
+        f_.add(EXEC_OPTIONS_KEY_SEED,"graine");
+        f_.add(EXEC_OPTIONS_KEY_IMPL,"impl");
+        f_.add(EXEC_OPTIONS_KEY_IMPL_LABEL,"impl_eq");
+        f_.add(EXEC_OPTIONS_KEY_WARN,"avert");
+        f_.add(EXEC_OPTIONS_KEY_RES,"res");
+        f_.add(EXEC_OPTIONS_KEY_FILES,"fichiers");
+        f_.add(EXEC_OPTIONS_KEY_OUT,"sortie");
+        f_.add(EXEC_OPTIONS_KEY_TABWIDTH,"tabulationLargeur");
+        f_.add(EXEC_OPTIONS_KEY_INVOKEDIRECT,"invoqDirect");
+        f_.add(EXEC_OPTIONS_KEY_ARGS,"args");
+        f_.add(EXEC_OPTIONS_KEY_CLASSES,"classes");
+        f_.add(EXEC_OPTIONS_KEY_ALIASES,"aliases");
+        f_.add(EXEC_OPTIONS_KEY_MESSAGES,"messages");
+        f_.add(EXEC_OPTIONS_KEY_KEYWORDS,"motsCles");
+        f_.add(EXEC_OPTIONS_KEY_COMMENTS,"comments");
+        return f_;
+    }
     public static StringList lines(String _content) {
         StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
@@ -56,6 +215,27 @@ public final class ExecutingOptions {
         return linesFiles_;
     }
     public static void setupOptionals(int _from, Options _options, ExecutingOptions _exec, StringList _lines) {
+        StringMap<String> mesKeys_ = valExecOptionsKeys(_exec.lightProgramInfos.currentLg());
+        String log_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_LOG);
+        String lgs_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_LGS);
+        String cov_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_COVER);
+        String err_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_ERR);
+        String src_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_SRC);
+        String seed_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_SEED);
+        String imp_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_IMPL);
+        String impLab_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_IMPL_LABEL);
+        String w_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_WARN);
+        String res_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_RES);
+        String files_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_FILES);
+        String out_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_OUT);
+        String tabWidth_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_TABWIDTH);
+        String invDir_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_INVOKEDIRECT);
+        String args_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_ARGS);
+        String cls_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_CLASSES);
+        String als_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_ALIASES);
+        String mess_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_MESSAGES);
+        String kw_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_KEYWORDS);
+        String com_ = mesKeys_.getVal(EXEC_OPTIONS_KEY_COMMENTS);
         StringBuilder argParts_ = new StringBuilder();
         StringBuilder aliasesPart_ = new StringBuilder();
         StringBuilder messagesPart_ = new StringBuilder();
@@ -63,26 +243,26 @@ public final class ExecutingOptions {
         StringBuilder classesPart_ = new StringBuilder();
         StringBuilder warnsPart_ = new StringBuilder();
         for (String l: _lines.mid(_from)) {
-            extractLog(_exec, l);
-            extractLgs(_exec, l);
-            extractCover(_options, _exec, l);
-            extractErr(_options, _exec, l);
-            extractSrc(_options, _exec, l);
-            extractSeed(_options, l);
-            extractImpl(_options, l);
-            extractImplLabel(_options, l);
-            extractParts(warnsPart_, l, "warn=");
-            extractResources(_exec, l);
-            extractFiles(_exec, l);
-            extractOut(_exec, l);
-            extractTab(_options, l);
-            extractInvoke(_exec, l);
-            extractArgs(_exec, argParts_, l);
-            extractParts(classesPart_, l, "classes=");
-            extractParts(aliasesPart_, l, "aliases=");
-            extractParts(messagesPart_, l, "messages=");
-            extractParts(keyWordsPart_, l, "keyWords=");
-            extractComments(_options, l);
+            extractLog(_exec, l, log_);
+            extractLgs(_exec, l, lgs_);
+            extractCover(_options, _exec, l, cov_);
+            extractErr(_options, _exec, l, err_);
+            extractSrc(_options, _exec, l, src_);
+            extractSeed(_options, l, seed_);
+            extractImpl(_options, l, imp_);
+            extractImplLabel(_options, l, impLab_);
+            extractParts(warnsPart_, l, w_+EXEC_OPTIONS_SEP);
+            extractResources(_exec, l, res_);
+            extractFiles(_exec, l, files_);
+            extractOut(_exec, l, out_);
+            extractTab(_options, l, tabWidth_);
+            extractInvoke(_exec, l, invDir_);
+            extractArgs(_exec, argParts_, l, args_);
+            extractParts(classesPart_, l, cls_+EXEC_OPTIONS_SEP);
+            extractParts(aliasesPart_, l, als_+EXEC_OPTIONS_SEP);
+            extractParts(messagesPart_, l, mess_+EXEC_OPTIONS_SEP);
+            extractParts(keyWordsPart_, l, kw_+EXEC_OPTIONS_SEP);
+            extractComments(_options, l, com_);
         }
         finishArgs(_exec, argParts_);
         finishInit(_options, classesPart_);
@@ -136,30 +316,30 @@ public final class ExecutingOptions {
         }
     }
 
-    private static void extractComments(Options _options, String _l) {
-        if (_l.startsWith("comments=")) {
-            CustList<CommentDelimiters> comments_ = ParseLinesArgUtil.buildComments(_l.substring("comments=".length()));
+    private static void extractComments(Options _options, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            CustList<CommentDelimiters> comments_ = ParseLinesArgUtil.buildComments(_l.substring((_pref +EXEC_OPTIONS_SEP).length()));
             _options.getComments().clear();
             _options.getComments().addAllElts(comments_);
         }
     }
 
-    private static void extractArgs(ExecutingOptions _exec, StringBuilder _argParts, String _l) {
-        if (_l.startsWith("args=")) {
+    private static void extractArgs(ExecutingOptions _exec, StringBuilder _argParts, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
             _exec.setHasArg(true);
-            _argParts.append(_l.substring("args=".length()));
+            _argParts.append(_l.substring((_pref +EXEC_OPTIONS_SEP).length()));
         }
     }
 
-    private static void extractInvoke(ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("invokeDirect=")) {
+    private static void extractInvoke(ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
             _exec.setInvokeDirect(true);
         }
     }
 
-    private static void extractTab(Options _options, String _l) {
-        if (_l.startsWith("tabWidth=")) {
-            String output_ = _l.substring("tabWidth=".length());
+    private static void extractTab(Options _options, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             int t_ = NumberUtil.parseInt(output_);
             if (t_ > 0) {
                 _options.setTabWidth(t_);
@@ -167,9 +347,9 @@ public final class ExecutingOptions {
         }
     }
 
-    private static void extractOut(ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("out=")) {
-            String output_ = _l.substring("out=".length());
+    private static void extractOut(ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             if (!output_.isEmpty()) {
                 output_ = adjustPath(output_);
                 _exec.setOutputZip(StringUtil.replaceBackSlash(output_));
@@ -177,9 +357,9 @@ public final class ExecutingOptions {
         }
     }
 
-    private static void extractFiles(ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("files=")) {
-            String output_ = _l.substring("files=".length());
+    private static void extractFiles(ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             if (!output_.isEmpty()) {
                 output_ = adjustPath(output_);
                 _exec.setFiles(StringUtil.replaceBackSlash(output_));
@@ -187,9 +367,9 @@ public final class ExecutingOptions {
         }
     }
 
-    private static void extractResources(ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("res=")) {
-            String output_ = _l.substring("res=".length());
+    private static void extractResources(ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             if (!output_.isEmpty()) {
                 output_ = adjustPath(output_);
                 _exec.setResources(StringUtil.replaceBackSlash(output_));
@@ -204,30 +384,30 @@ public final class ExecutingOptions {
         }
     }
 
-    private static void extractImpl(Options _options, String _l) {
-        if (_l.startsWith("impl=")) {
+    private static void extractImpl(Options _options, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
             _options.getOptionsReport().setDisplayImplicit(true);
         }
     }
 
-    private static void extractImplLabel(Options _options, String _l) {
-        if (_l.startsWith("impl_label=")) {
+    private static void extractImplLabel(Options _options, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
             _options.getOptionsReport().setDisplayImplicitLabel(true);
         }
     }
 
-    private static void extractSeed(Options _options, String _l) {
-        if (_l.startsWith("seed=")) {
-            _options.setSeedElts(_l.substring("seed=".length()));
+    private static void extractSeed(Options _options, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            _options.setSeedElts(_l.substring((_pref +EXEC_OPTIONS_SEP).length()));
         }
     }
 
-    private static void extractSrc(Options _options, ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("src=")) {
+    private static void extractSrc(Options _options, ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
             _options.setCovering(true);
             _exec.setCovering(true);
             _options.setGettingErrors(true);
-            String output_ = _l.substring("src=".length());
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             if (!output_.isEmpty()) {
                 output_ = adjustPath(output_);
                 _exec.setSrcFolder(StringUtil.replaceBackSlash(output_));
@@ -241,30 +421,30 @@ public final class ExecutingOptions {
         }
         return _o;
     }
-    private static void extractErr(Options _options, ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("err=")) {
+    private static void extractErr(Options _options, ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
             _options.setGettingErrors(true);
-            String output_ = _l.substring("err=".length());
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             if (!output_.isEmpty()) {
                 _exec.setErrorsFolder(StringUtil.replaceBackSlash(output_));
             }
         }
     }
 
-    private static void extractCover(Options _options, ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("cover=")) {
+    private static void extractCover(Options _options, ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
             _options.setCovering(true);
             _exec.setCovering(true);
-            String output_ = _l.substring("cover=".length());
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             if (!output_.isEmpty()) {
                 _exec.setCoverFolder(StringUtil.replaceBackSlash(output_));
             }
         }
     }
 
-    private static void extractLgs(ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("lgs=")) {
-            String output_ = _l.substring("lgs=".length());
+    private static void extractLgs(ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             for (String s: StringUtil.splitChars(output_,',')) {
                 String tr_ = s.trim();
                 if (tr_.isEmpty()) {
@@ -275,9 +455,9 @@ public final class ExecutingOptions {
         }
     }
 
-    private static void extractLog(ExecutingOptions _exec, String _l) {
-        if (_l.startsWith("log=")) {
-            String output_ = _l.substring("log=".length());
+    private static void extractLog(ExecutingOptions _exec, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            String output_ = _l.substring((_pref +EXEC_OPTIONS_SEP).length());
             int lastSep_ = output_.lastIndexOf('>');
             if (lastSep_ > -1) {
                 _exec.setLogFolder(StringUtil.replaceBackSlash(output_.substring(0,lastSep_)));

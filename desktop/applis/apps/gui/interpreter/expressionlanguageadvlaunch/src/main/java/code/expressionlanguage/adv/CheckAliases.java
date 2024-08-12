@@ -29,7 +29,7 @@ public final class CheckAliases implements AbsActionListener {
         StringMap<String> messages_ = windowCdmEditor.getLgMessages();
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
-        ExecutingOptions ex_ = new ExecutingOptions();
+        ExecutingOptions ex_ = new ExecutingOptions(windowCdmEditor.getCommonFrame().getFrames());
         ex_.setMessages(messages_);
         ex_.setAliases(ValidateAliases.filterFields(dialog.getAliases().getMessagesRows()));
         ex_.setKeyWords(ValidateAliases.filterFields(dialog.getKeyWords().getMessagesRows()));

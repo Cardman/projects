@@ -48,37 +48,34 @@ public final class MessagesIde {
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_INIT_CHOOSE_PRO).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_INIT_CHOOSE_PRO).getMapping();
     }
     public static StringMap<String> valFindText(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_FIND_TEXT).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_FIND_TEXT).getMapping();
     }
     public static StringMap<String> valFiles(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_FILES).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_FILES).getMapping();
     }
     public static StringMap<String> valAliases(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_ALIASES).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_ALIASES).getMapping();
     }
     public static StringMap<String> valComments(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_COMMENTS).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_COMMENTS).getMapping();
     }
     public static StringMap<String> valLanguages(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_LANGUAGE).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_LANGUAGE).getMapping();
     }
     public static StringMap<String> valMessages(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_MESSAGES).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_MESSAGES).getMapping();
     }
     public static StringMap<String> valSrc(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_SRC).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_SRC).getMapping();
     }
     public static StringMap<String> valTab(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_TAB).getMapping();
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_TAB).getMapping();
     }
     public static StringMap<String> valManageString(TranslationsLg _lg) {
-        return appli(_lg).getMapping().getVal(IDE_MANAGE_STRING).getMapping();
-    }
-    public static TranslationsAppli appli(TranslationsLg _lg) {
-        return _lg.getMapping().getVal(FileInfos.CDM);
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_MANAGE_STRING).getMapping();
     }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendInitChoose(_a, enInitChoose());

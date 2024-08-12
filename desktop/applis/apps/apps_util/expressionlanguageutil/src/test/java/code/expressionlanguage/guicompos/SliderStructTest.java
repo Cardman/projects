@@ -479,9 +479,8 @@ public final class SliderStructTest extends EquallableElUtUtil {
         update(_p);
         LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(), _p);
-        ExecutingOptions e_ = new ExecutingOptions();
+        ExecutingOptions e_ = exOpt(_p);
         CdmFactory cdm_ = new CdmFactory(_p, new MockInterceptor());
-        e_.setLightProgramInfos(_p);
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
@@ -521,7 +520,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
 
     public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().setExecutingOptions(exOpt(_light));
         stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
         return stds_;
     }

@@ -127,8 +127,7 @@ public final class RunningTest implements Runnable {
 
     private static ExecutingOptions exec(AbstractLightProgramInfos _factories, AbstractInterceptor _interceptor, String _lg) {
         CdmFactory cdmFactory_ = new CdmFactory(_factories, _interceptor);
-        ExecutingOptions ex_ = new ExecutingOptions();
-        ex_.setLightProgramInfos(_factories);
+        ExecutingOptions ex_ = new ExecutingOptions(_factories);
         ex_.setLg(_lg);
         ex_.setListGenerator(cdmFactory_);
         return ex_;

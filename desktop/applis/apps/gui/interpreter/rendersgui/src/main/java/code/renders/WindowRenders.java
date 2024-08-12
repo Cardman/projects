@@ -147,7 +147,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         StringMap<String> zipFiles_ = result_.getZipFiles();
         String clName_ = "";
         String mName_ = "";
-        ExecutingOptions exec_ = new ExecutingOptions();
+        ExecutingOptions exec_ = new ExecutingOptions(getFrames());
         exec_.setAccess(archive_);
         exec_.setListGenerator(interceptor);
         String lg_ = getFrames().getLanguage();
@@ -174,7 +174,8 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         }
         AbstractNameValidating validator_ = getValidator();
         LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(new RenderIssuer(session),getFileCoreStream(),getStreams()),
-                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(interceptor.getProgramInfos(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
+                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
+//                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(interceptor.getProgramInfos(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
         lgNames_.getExecContent().setExecutingOptions(exec_);
         String lgCode_ = lgCode();
         lgNames_.getExecContent().updateTranslations(getFrames().getTranslations(),getFrames().getLanguage(),lgCode_);

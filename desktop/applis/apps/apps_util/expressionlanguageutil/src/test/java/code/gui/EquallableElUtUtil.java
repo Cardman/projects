@@ -111,7 +111,7 @@ public abstract class EquallableElUtUtil {
     }
     public static LgNamesGui newLgNamesGuiSampleFull(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().setExecutingOptions(exOpt(_light));
         stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
@@ -119,7 +119,7 @@ public abstract class EquallableElUtUtil {
     }
     public static LgNamesGui newLgNamesGuiSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGuiLight(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().setExecutingOptions(exOpt(_light));
         stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
@@ -142,7 +142,7 @@ public abstract class EquallableElUtUtil {
     }
     public static LgNamesUtils newLgNamesUtSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesUtils stds_ = newLgNamesUt(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().setExecutingOptions(exOpt(_light));
         stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
@@ -151,7 +151,7 @@ public abstract class EquallableElUtUtil {
 
     public static LgNamesUtils newLgNamesUtSampleLight(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesUtils stds_ = newLgNamesUtLight(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().setExecutingOptions(exOpt(_light));
         stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
@@ -159,7 +159,7 @@ public abstract class EquallableElUtUtil {
     }
     public static LgNamesGui newLgNamesGuiSampleCl(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGuiLight(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
+        stds_.getExecContent().setExecutingOptions(exOpt(_light));
         stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"");
         return stds_;
     }
@@ -494,5 +494,14 @@ public abstract class EquallableElUtUtil {
     }
     public static ContextEl gene(LgNamesGui _definedLgNames, Options _opt) {
         return new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()).gene(getForwards(_definedLgNames, _opt));
+    }
+    public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
+        ExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("en")));
+        ExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("fr")));
+        ((MockProgramInfos)_p).setLanguage("en");
+        return new ExecutingOptions(_p);
+    }
+    public static ExecutingOptions exOptInit(AbstractLightProgramInfos _p) {
+        return new ExecutingOptions(_p);
     }
 }

@@ -25,7 +25,7 @@ public final class MemoryReporter implements AbstractReporter {
     private final UniformingString uniformingString;
     private final AbstractZipFact zipFact;
     private final AbstractThreadFactory threadFactory;
-    private final AbstractLightProgramInfos li;
+//    private final AbstractLightProgramInfos li;
     private final StringMap<ContentTime> reports = new StringMap<ContentTime>();
 
     public MemoryReporter(AbstractLightProgramInfos _light, byte[] _conf, BytesInfo _src, BytesInfo _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString) {
@@ -34,7 +34,7 @@ public final class MemoryReporter implements AbstractReporter {
         this.files = _files;
         nameValidating = _nameValidating;
         uniformingString = _uniformingString;
-        li = _light;
+//        li = _light;
         zipFact = _light.getZipFact();
         threadFactory = _light.getThreadFactory();
     }
@@ -56,7 +56,7 @@ public final class MemoryReporter implements AbstractReporter {
 
     @Override
     public boolean koPaths(String _folderPath, ExecutingOptions _exec) {
-        _exec.setLightProgramInfos(li);
+//        _exec.setLightProgramInfos(li);
         if (!nameValidating.okPath(_exec.getOutputZip(),'/','\\')) {
             return true;
         }
