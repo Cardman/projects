@@ -6,6 +6,8 @@ import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class WindowExpressionEditor extends WindowWithTreeImpl {
     private final WindowCdmEditor mainFrame;
@@ -23,11 +25,12 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         folderInteract = new ExpMenuFrameInteract(_menu);
         getCommonFrame().addWindowListener(new CloseExpFrame(this, folderInteract));
         AbsMenuBar bar_ = frames_.getCompoFactory().newMenuBar();
-        EnabledMenu file_ = frames_.getCompoFactory().newMenu("file");
-        sessionMenuExp = frames_.getCompoFactory().newMenuItem("session exp");
+        StringMap<String> mes_ = MessagesIde.valFrames(_parent.getFrames().currentLg());
+        EnabledMenu file_ = frames_.getCompoFactory().newMenu(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_FILE)));
+        sessionMenuExp = frames_.getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_SESSION_EXP)));
         sessionExp = new ExpDebGuiImpl(new ExpMenuFrameInteract(sessionMenuExp),_parent.getMainResultNext(), frames_,_parent.getFactory());
         sessionMenuExp.addActionListener(new OpenExpDebGuiImplEvent(this,sessionExp));
-        sessionMenuSingleMain = frames_.getCompoFactory().newMenuItem("session single main");
+        sessionMenuSingleMain = frames_.getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_SESSION_SINGLE_MAIN)));
         sessionSingleMain = new InitDebGuiImpl(new ExpMenuFrameInteract(sessionMenuSingleMain),_parent.getMainResultNext(), frames_,_parent.getFactory());
         sessionMenuSingleMain.addActionListener(new OpenSingleMainDebGuiImplEvent(this,sessionSingleMain));
         bar_.add(file_);
@@ -36,7 +39,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         file_.addMenuItem(getDelete());
         EnabledMenu menu_ = getParameters();
         bar_.add(menu_);
-        EnabledMenu run_ = frames_.getCompoFactory().newMenu("run");
+        EnabledMenu run_ = frames_.getCompoFactory().newMenu(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_RUN)));
         run_.addMenuItem(sessionMenuExp);
         run_.addMenuItem(sessionMenuSingleMain);
         bar_.add(run_);

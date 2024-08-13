@@ -166,6 +166,28 @@ public final class MessagesIde {
     public static final String IDE_POINTS_FORMS_VARARG = "1";
     public static final String IDE_POINTS_FORMS_RETURN = "2";
     public static final String IDE_POINTS_FORMS_PARAM = "3";
+    public static final String IDE_POINTS_FRAMES = "19";
+    public static final String IDE_POINTS_FRAMES_FILE = "0";
+    public static final String IDE_POINTS_FRAMES_SRC = "1";
+    public static final String IDE_POINTS_FRAMES_CREATE = "2";
+    public static final String IDE_POINTS_FRAMES_DELETE = "3";
+    public static final String IDE_POINTS_FRAMES_PARAMETERS = "4";
+    public static final String IDE_POINTS_FRAMES_LANGUAGE = "5";
+    public static final String IDE_POINTS_FRAMES_TABULATIONS = "6";
+    public static final String IDE_POINTS_FRAMES_COMMENTS = "7";
+    public static final String IDE_POINTS_FRAMES_ALIASES = "8";
+    public static final String IDE_POINTS_FRAMES_FIND = "9";
+    public static final String IDE_POINTS_FRAMES_EVENT = "10";
+    public static final String IDE_POINTS_FRAMES_OPEN = "11";
+    public static final String IDE_POINTS_FRAMES_FOLDER_EXP = "12";
+    public static final String IDE_POINTS_FRAMES_CONF = "13";
+    public static final String IDE_POINTS_FRAMES_RUN = "14";
+    public static final String IDE_POINTS_FRAMES_ANALYZE = "15";
+    public static final String IDE_POINTS_FRAMES_STATUS = "16";
+    public static final String IDE_POINTS_FRAMES_CHOOSE_FOLDER = "17";
+    public static final String IDE_POINTS_FRAMES_CREATE_FILE = "18";
+    public static final String IDE_POINTS_FRAMES_SESSION_EXP = "19";
+    public static final String IDE_POINTS_FRAMES_SESSION_SINGLE_MAIN = "20";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -225,6 +247,9 @@ public final class MessagesIde {
     public static StringMap<String> valForms(TranslationsLg _lg) {
         return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_FORMS).getMapping();
     }
+    public static StringMap<String> valFrames(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_FRAMES).getMapping();
+    }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendInitChoose(_a, enInitChoose());
         appendFindText(_a, enFindText());
@@ -245,6 +270,7 @@ public final class MessagesIde {
         appendGlForm(_a, enGlForm());
         appendSessionForm(_a, enSessionForm());
         appendPointsForms(_a, enPointsForms());
+        appendFrames(_a, enFrames());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -267,6 +293,7 @@ public final class MessagesIde {
         appendGlForm(_a, frGlForm());
         appendSessionForm(_a, frSessionForm());
         appendPointsForms(_a, frPointsForms());
+        appendFrames(_a, frFrames());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -760,6 +787,59 @@ public final class MessagesIde {
         f_.add(IDE_POINTS_FORMS_VARARG,"variadique");
         f_.add(IDE_POINTS_FORMS_RETURN,"retourner une référence");
         f_.add(IDE_POINTS_FORMS_PARAM,"paramétrer une référence");
+        return f_;
+    }
+    public static void appendFrames(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_POINTS_FRAMES, _v);
+    }
+    public static TranslationsFile enFrames(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_POINTS_FRAMES_FILE,"file");
+        e_.add(IDE_POINTS_FRAMES_SRC,"inputs output conf");
+        e_.add(IDE_POINTS_FRAMES_CREATE,"new");
+        e_.add(IDE_POINTS_FRAMES_DELETE,"delete");
+        e_.add(IDE_POINTS_FRAMES_PARAMETERS,"parameters");
+        e_.add(IDE_POINTS_FRAMES_LANGUAGE,"language");
+        e_.add(IDE_POINTS_FRAMES_TABULATIONS,"tabulations");
+        e_.add(IDE_POINTS_FRAMES_COMMENTS,"comments");
+        e_.add(IDE_POINTS_FRAMES_ALIASES,"aliases");
+        e_.add(IDE_POINTS_FRAMES_FIND,"find");
+        e_.add(IDE_POINTS_FRAMES_EVENT,"event");
+        e_.add(IDE_POINTS_FRAMES_OPEN,"open");
+        e_.add(IDE_POINTS_FRAMES_FOLDER_EXP,"folder exp");
+        e_.add(IDE_POINTS_FRAMES_CONF,"soft conf");
+        e_.add(IDE_POINTS_FRAMES_RUN,"run");
+        e_.add(IDE_POINTS_FRAMES_ANALYZE,"analyze");
+        e_.add(IDE_POINTS_FRAMES_STATUS,"status");
+        e_.add(IDE_POINTS_FRAMES_CHOOSE_FOLDER,"choose a folder");
+        e_.add(IDE_POINTS_FRAMES_CREATE_FILE,"create a file");
+        e_.add(IDE_POINTS_FRAMES_SESSION_EXP,"session exp");
+        e_.add(IDE_POINTS_FRAMES_SESSION_SINGLE_MAIN,"session single main");
+        return e_;
+    }
+    public static TranslationsFile frFrames(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_POINTS_FRAMES_FILE,"fichier");
+        f_.add(IDE_POINTS_FRAMES_SRC,"entrées sorties conf");
+        f_.add(IDE_POINTS_FRAMES_CREATE,"nouveau");
+        f_.add(IDE_POINTS_FRAMES_DELETE,"supprimer");
+        f_.add(IDE_POINTS_FRAMES_PARAMETERS,"paramètres");
+        f_.add(IDE_POINTS_FRAMES_LANGUAGE,"langage");
+        f_.add(IDE_POINTS_FRAMES_TABULATIONS,"tabulations");
+        f_.add(IDE_POINTS_FRAMES_COMMENTS,"commentaires");
+        f_.add(IDE_POINTS_FRAMES_ALIASES,"alias");
+        f_.add(IDE_POINTS_FRAMES_FIND,"rechercher");
+        f_.add(IDE_POINTS_FRAMES_EVENT,"événement");
+        f_.add(IDE_POINTS_FRAMES_OPEN,"ouvrir");
+        f_.add(IDE_POINTS_FRAMES_FOLDER_EXP,"dossier pour gestion d'expressions");
+        f_.add(IDE_POINTS_FRAMES_CONF,"configuration du logiciel");
+        f_.add(IDE_POINTS_FRAMES_RUN,"exécuter");
+        f_.add(IDE_POINTS_FRAMES_ANALYZE,"analyser");
+        f_.add(IDE_POINTS_FRAMES_STATUS,"statut");
+        f_.add(IDE_POINTS_FRAMES_CHOOSE_FOLDER,"choisir un dossier");
+        f_.add(IDE_POINTS_FRAMES_CREATE_FILE,"créer un fichier");
+        f_.add(IDE_POINTS_FRAMES_SESSION_EXP,"session sur un gestion d'expression");
+        f_.add(IDE_POINTS_FRAMES_SESSION_SINGLE_MAIN,"session sur une simple méthode principale");
         return f_;
     }
 }
