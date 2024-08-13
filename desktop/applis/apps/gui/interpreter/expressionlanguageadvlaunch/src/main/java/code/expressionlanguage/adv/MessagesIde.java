@@ -189,203 +189,203 @@ public final class MessagesIde {
         _a.getMapping().addEntry(IDE_INIT_CHOOSE_PRO, _v);
     }
     public static TranslationsFile enInitChoose(){
-        TranslationsFile t_ = new TranslationsFile(2);
-        t_.add(IDE_INIT_PRO,"Finished initializing project");
-        t_.add(IDE_CHOOSE_PRO,"Finished loading project");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile(2);
+        e_.add(IDE_INIT_PRO,"Finished initializing project");
+        e_.add(IDE_CHOOSE_PRO,"Finished loading project");
+        return e_;
     }
     public static TranslationsFile frInitChoose(){
-        TranslationsFile t_ = new TranslationsFile(2);
-        t_.add(IDE_INIT_PRO,"Initialisation finie du projet");
-        t_.add(IDE_CHOOSE_PRO,"Chargement fini du projet");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile(2);
+        f_.add(IDE_INIT_PRO,"Initialisation finie du projet");
+        f_.add(IDE_CHOOSE_PRO,"Chargement fini du projet");
+        return f_;
     }
     public static void appendFindText(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_FIND_TEXT, _v);
     }
     public static TranslationsFile enFindText(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_FIND_TEXT_SENSITIVE_CASE,"Case sensitive (Aa)");
-        t_.add(IDE_FIND_TEXT_WHOLE_WORD,"Whole word");
-        t_.add(IDE_FIND_TEXT_CLOSE_FINDER,"Close text finder/replacer");
-        t_.add(IDE_FIND_TEXT_GO,"Go to line");
-        t_.add(IDE_FIND_TEXT_REFRESH,"Refresh");
-        t_.add(IDE_FIND_TEXT_RESET,"Reset");
-        t_.add(IDE_FIND_TEXT_FIND,"Find by coded macros");
-        t_.add(IDE_FIND_TEXT_CANCEL,"Cancel finding expression");
-        t_.add(IDE_FIND_TEXT_APPLY,"Apply replacement by coded macros");
-        t_.add(IDE_FIND_TEXT_CLOSE_EXPRESSION,"Close expression finder/replacer");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_FIND_TEXT_SENSITIVE_CASE,"Case sensitive (Aa)");
+        e_.add(IDE_FIND_TEXT_WHOLE_WORD,"Whole word");
+        e_.add(IDE_FIND_TEXT_CLOSE_FINDER,"Close text finder/replacer");
+        e_.add(IDE_FIND_TEXT_GO,"Go to line");
+        e_.add(IDE_FIND_TEXT_REFRESH,"Refresh");
+        e_.add(IDE_FIND_TEXT_RESET,"Reset");
+        e_.add(IDE_FIND_TEXT_FIND,"Find by coded macros");
+        e_.add(IDE_FIND_TEXT_CANCEL,"Cancel finding expression");
+        e_.add(IDE_FIND_TEXT_APPLY,"Apply replacement by coded macros");
+        e_.add(IDE_FIND_TEXT_CLOSE_EXPRESSION,"Close expression finder/replacer");
+        return e_;
     }
     public static TranslationsFile frFindText(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_FIND_TEXT_SENSITIVE_CASE,"Sensible à la casse (Aa)");
-        t_.add(IDE_FIND_TEXT_WHOLE_WORD,"Mot complet");
-        t_.add(IDE_FIND_TEXT_CLOSE_FINDER,"Fermer la recherche/remplacement de texte");
-        t_.add(IDE_FIND_TEXT_GO,"Aller à la ligne");
-        t_.add(IDE_FIND_TEXT_REFRESH,"Rafraîchir");
-        t_.add(IDE_FIND_TEXT_RESET,"Remettre à zéro");
-        t_.add(IDE_FIND_TEXT_FIND,"Rechercher par macros codées");
-        t_.add(IDE_FIND_TEXT_CANCEL,"Annuler la recherche d'expressions");
-        t_.add(IDE_FIND_TEXT_APPLY,"Appliquer le remplacement par macros codées");
-        t_.add(IDE_FIND_TEXT_CLOSE_EXPRESSION,"Fermer la recherche/remplacement d'expression");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_FIND_TEXT_SENSITIVE_CASE,"Sensible à la casse (Aa)");
+        f_.add(IDE_FIND_TEXT_WHOLE_WORD,"Mot complet");
+        f_.add(IDE_FIND_TEXT_CLOSE_FINDER,"Fermer la recherche/remplacement de texte");
+        f_.add(IDE_FIND_TEXT_GO,"Aller à la ligne");
+        f_.add(IDE_FIND_TEXT_REFRESH,"Rafraîchir");
+        f_.add(IDE_FIND_TEXT_RESET,"Remettre à zéro");
+        f_.add(IDE_FIND_TEXT_FIND,"Rechercher par macros codées");
+        f_.add(IDE_FIND_TEXT_CANCEL,"Annuler la recherche d'expressions");
+        f_.add(IDE_FIND_TEXT_APPLY,"Appliquer le remplacement par macros codées");
+        f_.add(IDE_FIND_TEXT_CLOSE_EXPRESSION,"Fermer la recherche/remplacement d'expression");
+        return f_;
     }
     public static void appendFiles(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_FILES, _v);
     }
     public static TranslationsFile enFiles(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_FILES_CREATE_VALIDATE,"Create");
-        t_.add(IDE_FILES_CREATE_CANCEL,"Cancel creating");
-        t_.add(IDE_FILES_RENAMING_VALIDATE,"Rename");
-        t_.add(IDE_FILES_RENAMING_CANCEL,"Cancel renaming");
-        t_.add(IDE_FILES_REMOVING_VALIDATE,"Remove");
-        t_.add(IDE_FILES_REMOVING_CANCEL,"Cancel removing");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_FILES_CREATE_VALIDATE,"Create");
+        e_.add(IDE_FILES_CREATE_CANCEL,"Cancel creating");
+        e_.add(IDE_FILES_RENAMING_VALIDATE,"Rename");
+        e_.add(IDE_FILES_RENAMING_CANCEL,"Cancel renaming");
+        e_.add(IDE_FILES_REMOVING_VALIDATE,"Remove");
+        e_.add(IDE_FILES_REMOVING_CANCEL,"Cancel removing");
+        return e_;
     }
     public static TranslationsFile frFiles(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_FILES_CREATE_VALIDATE,"Créer");
-        t_.add(IDE_FILES_CREATE_CANCEL,"Annuler la création");
-        t_.add(IDE_FILES_RENAMING_VALIDATE,"Renommer");
-        t_.add(IDE_FILES_RENAMING_CANCEL,"Annuler le renommage");
-        t_.add(IDE_FILES_REMOVING_VALIDATE,"Supprimer");
-        t_.add(IDE_FILES_REMOVING_CANCEL,"Annuler la suppression");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_FILES_CREATE_VALIDATE,"Créer");
+        f_.add(IDE_FILES_CREATE_CANCEL,"Annuler la création");
+        f_.add(IDE_FILES_RENAMING_VALIDATE,"Renommer");
+        f_.add(IDE_FILES_RENAMING_CANCEL,"Annuler le renommage");
+        f_.add(IDE_FILES_REMOVING_VALIDATE,"Supprimer");
+        f_.add(IDE_FILES_REMOVING_CANCEL,"Annuler la suppression");
+        return f_;
     }
     public static void appendAliases(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_ALIASES, _v);
     }
     public static TranslationsFile enAliases(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_ALIASES_MESSAGES,"messages");
-        t_.add(IDE_ALIASES_KEY_WORD,"key words");
-        t_.add(IDE_ALIASES_NAMES,"aliases");
-        t_.add(IDE_ALIASES_VALIDATE,"Validate words");
-        t_.add(IDE_ALIASES_CANCEL,"Cancel editing words");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_ALIASES_MESSAGES,"messages");
+        e_.add(IDE_ALIASES_KEY_WORD,"key words");
+        e_.add(IDE_ALIASES_NAMES,"aliases");
+        e_.add(IDE_ALIASES_VALIDATE,"Validate words");
+        e_.add(IDE_ALIASES_CANCEL,"Cancel editing words");
+        return e_;
     }
     public static TranslationsFile frAliases(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_ALIASES_MESSAGES,"messages");
-        t_.add(IDE_ALIASES_KEY_WORD,"mots clés");
-        t_.add(IDE_ALIASES_NAMES,"alias");
-        t_.add(IDE_ALIASES_VALIDATE,"Valider les mots");
-        t_.add(IDE_ALIASES_CANCEL,"Annuler l'édition des mots");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_ALIASES_MESSAGES,"messages");
+        f_.add(IDE_ALIASES_KEY_WORD,"mots clés");
+        f_.add(IDE_ALIASES_NAMES,"alias");
+        f_.add(IDE_ALIASES_VALIDATE,"Valider les mots");
+        f_.add(IDE_ALIASES_CANCEL,"Annuler l'édition des mots");
+        return f_;
     }
     public static void appendComments(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_COMMENTS, _v);
     }
     public static TranslationsFile enComments(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_COMMENTS_VALIDATE,"validate comments");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_COMMENTS_VALIDATE,"validate comments");
+        return e_;
     }
     public static TranslationsFile frComments(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_COMMENTS_VALIDATE,"valider les commentaires");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_COMMENTS_VALIDATE,"valider les commentaires");
+        return f_;
     }
     public static void appendLanguage(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_LANGUAGE, _v);
     }
     public static TranslationsFile enLanguage(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_LANGUAGE_VALIDATE,"validate language");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_LANGUAGE_VALIDATE,"validate language");
+        return e_;
     }
     public static TranslationsFile frLanguage(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_LANGUAGE_VALIDATE,"valider la langue");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_LANGUAGE_VALIDATE,"valider la langue");
+        return f_;
     }
     public static void appendMessages(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_MESSAGES, _v);
     }
     public static TranslationsFile enMessages(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_MESSAGES_VALIDATE,"validate messages match");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_MESSAGES_VALIDATE,"validate messages match");
+        return e_;
     }
     public static TranslationsFile frMessages(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_MESSAGES_VALIDATE,"valider la correspondance de messages");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_MESSAGES_VALIDATE,"valider la correspondance de messages");
+        return f_;
     }
     public static void appendSrc(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_SRC, _v);
     }
     public static TranslationsFile enSrc(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_SRC_VALIDATE,"validate source folder");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_SRC_VALIDATE,"validate source folder");
+        return e_;
     }
     public static TranslationsFile frSrc(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_SRC_VALIDATE,"valider le dossier source");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_SRC_VALIDATE,"valider le dossier source");
+        return f_;
     }
     public static void appendTab(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_TAB, _v);
     }
     public static TranslationsFile enTab(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_TAB_VALIDATE,"validate spaces count by tabulation");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_TAB_VALIDATE,"validate spaces count by tabulation");
+        return e_;
     }
     public static TranslationsFile frTab(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_TAB_VALIDATE,"valider le nombre d'espaces pour les tabulations");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_TAB_VALIDATE,"valider le nombre d'espaces pour les tabulations");
+        return f_;
     }
     public static void appendFolderExp(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_MANAGE_STRING, _v);
     }
     public static TranslationsFile enFolderExp(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_MANAGE_STRING_FOLDER,"Choose a folder");
-        t_.add(IDE_MANAGE_STRING_VALIDATE,"Validate string management space creation");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_MANAGE_STRING_FOLDER,"Choose a folder");
+        e_.add(IDE_MANAGE_STRING_VALIDATE,"Validate string management space creation");
+        return e_;
     }
     public static TranslationsFile frFolderExp(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_MANAGE_STRING_FOLDER,"Choisir un dossier");
-        t_.add(IDE_MANAGE_STRING_VALIDATE,"valider la création de l'espace de gestion de chaînes");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_MANAGE_STRING_FOLDER,"Choisir un dossier");
+        f_.add(IDE_MANAGE_STRING_VALIDATE,"valider la création de l'espace de gestion de chaînes");
+        return f_;
     }
     public static void appendGlobalParameters(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_GLOBAL_PARAMETERS, _v);
     }
     public static TranslationsFile enGlobalParameters(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_GLOBAL_PARAMETERS_DIRECT_MATCH,"Directly do matching between key and value");
-        t_.add(IDE_GLOBAL_PARAMETERS_VALIDATE,"Validate options");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_GLOBAL_PARAMETERS_DIRECT_MATCH,"Directly do matching between key and value");
+        e_.add(IDE_GLOBAL_PARAMETERS_VALIDATE,"Validate options");
+        return e_;
     }
     public static TranslationsFile frGlobalParameters(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_GLOBAL_PARAMETERS_DIRECT_MATCH,"Faire directement la correspondance entre la clé et la valeur");
-        t_.add(IDE_GLOBAL_PARAMETERS_VALIDATE,"valider les options");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_GLOBAL_PARAMETERS_DIRECT_MATCH,"Faire directement la correspondance entre la clé et la valeur");
+        f_.add(IDE_GLOBAL_PARAMETERS_VALIDATE,"valider les options");
+        return f_;
     }
     public static void appendFindRef(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_FIND_REF, _v);
     }
     public static TranslationsFile enFindRef(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_FIND_REF_CALLERS,"callers");
-        t_.add(IDE_FIND_REF_USAGE_ONLY,"usages only");
-        t_.add(IDE_FIND_REF_USAGE_AND_DEF,"usages and definition");
-        return t_;
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_FIND_REF_CALLERS,"callers");
+        e_.add(IDE_FIND_REF_USAGE_ONLY,"usages only");
+        e_.add(IDE_FIND_REF_USAGE_AND_DEF,"usages and definition");
+        return e_;
     }
     public static TranslationsFile frFindRef(){
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(IDE_FIND_REF_CALLERS,"appelants");
-        t_.add(IDE_FIND_REF_USAGE_ONLY,"utilisations uniquement");
-        t_.add(IDE_FIND_REF_USAGE_AND_DEF,"utilisations et définition");
-        return t_;
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_FIND_REF_CALLERS,"appelants");
+        f_.add(IDE_FIND_REF_USAGE_ONLY,"utilisations uniquement");
+        f_.add(IDE_FIND_REF_USAGE_AND_DEF,"utilisations et définition");
+        return f_;
     }
     public static void appendPointsKind(TranslationsAppli _a, TranslationsFile _v) {
         _a.getMapping().addEntry(IDE_POINTS_KIND, _v);
