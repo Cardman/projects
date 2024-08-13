@@ -28,7 +28,7 @@ public abstract class EquallableUnitInterpreterUtil {
     public static void update(MockProgramInfos _pr) {
         _pr.setLanguages(new StringList(""));
         _pr.setLanguage("");
-        FileInfos.enTr(FileInfos.initComments(lg(_pr,"")));
+        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(lg(_pr,""))));
         updateBase(_pr.currentLg());
     }
     public static void updateBase(TranslationsLg _en) {

@@ -40,7 +40,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         ExecutingOptions exec_ = exOpt(pr_);
         exec_.setLg("en");
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         exec_.setListGenerator(progTest_.getFactory());
         stds_.getExecContent().setExecutingOptions(exec_);
@@ -73,7 +73,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
         ExecutingOptions exec_ = exOpt(pr_);
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         LightTestableFrame fram_ = new LightTestableFrame(pr_, null, new MockInterceptor(), mem_, bar_);
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(fram_);
         exec_.setListGenerator(progTest_.getFactory());

@@ -298,7 +298,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wu1() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(FileInfos.initComments(en_));
+        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
@@ -322,7 +322,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wu2() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(FileInfos.initComments(en_));
+        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
@@ -345,7 +345,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wf() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(FileInfos.initComments(en_));
+        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
@@ -725,7 +725,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wuBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(FileInfos.initComments(en_));
+        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
@@ -748,7 +748,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wfBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(FileInfos.initComments(en_));
+        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));

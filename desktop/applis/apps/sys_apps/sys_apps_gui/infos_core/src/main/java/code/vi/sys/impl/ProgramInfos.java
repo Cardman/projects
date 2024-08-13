@@ -12,6 +12,7 @@ import cards.gui.labels.AbsMetaLabelCard;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import code.expressionlanguage.filenames.DefaultNameValidating;
+import code.expressionlanguage.gui.unit.ProgTestBar;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
 import code.gui.files.*;
@@ -104,8 +105,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMiniCardsSel().addAllEntries(AbsMetaLabelCard.frSel());
 //        en_.setTreeCards(HelpScriptConfPages.info());
 //        fr_.setTreeCards(HelpScriptConfPages.info());
-        FileInfos.enTr(FileInfos.initComments(en_));
-        FileInfos.frTr(FileInfos.initComments(fr_));
+        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
+        FileInfos.frTr(ProgTestBar.updateFr(FileInfos.initComments(fr_)));
         Games.enTr(Games.initAppliTr(en_));
         Games.frTr(Games.initAppliTr(fr_));
         GamesPk.enTr(GamesPk.initAppliTr(en_));

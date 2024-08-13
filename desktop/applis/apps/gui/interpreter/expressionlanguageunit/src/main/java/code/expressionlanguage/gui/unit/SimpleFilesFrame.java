@@ -10,8 +10,6 @@ import code.gui.*;
 
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
-import code.scripts.messages.gui.MessCdmUnitGr;
-import code.sml.util.ResourcesMessagesUtil;
 import code.stream.BytesInfo;
 import code.stream.PathsUtil;
 import code.stream.StreamBinaryFile;
@@ -22,7 +20,7 @@ import code.util.core.StringUtil;
 
 
 public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,AbsChildFrame {
-    private static final String DIALOG_ACCESS = "unit.simplefilesframe";
+//    private static final String DIALOG_ACCESS = "unit.simplefilesframe";
     private final EnabledMenu menu;
     private final EnabledMenu open;
     private final EnabledMenu stop;
@@ -47,7 +45,7 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
     private final AbsTableGui resultsTable;
     private final AbsTextArea results;
     private final AbsProgressBar progressBar;
-    private final StringMap<String> messages;
+//    private final StringMap<String> messages;
     private final WindowUnit parent;
     private final AbsButton srcButton;
     private final AbsButton filesButton;
@@ -62,53 +60,55 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
     public SimpleFilesFrame(WindowUnit _parent, String _title) {
         super(_parent.getFrames());
         parent =_parent;
-        setAccessFile(DIALOG_ACCESS);
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", _parent.getFrames().getLanguage(), getAccessFile());
-        String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
-        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//        setAccessFile(DIALOG_ACCESS);
+//        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", _parent.getFrames().getLanguage(), getAccessFile());
+//        String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
+//        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+        StringMap<String> spe_ = ProgTestBar.valExecOptionsSimple(getFrames().currentLg());
+        StringMap<String> mes_ = ProgTestBar.valExecOptionsTable(getFrames().currentLg());
         setDialogIcon(_parent.getCommonFrame());
         getCommonFrame().setLocationRelativeTo(_parent.getCommonFrame());
         setTitle(_title);
         setFocusableWindowState(true);
         setJMenuBar(parent.getCompoFactory().newMenuBar());
-        menu = parent.getCompoFactory().newMenu(messages.getVal("file"));
-        open = parent.getCompoFactory().newMenuItem(messages.getVal("open"));
+        menu = parent.getCompoFactory().newMenu(mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_FILE));
+        open = parent.getCompoFactory().newMenuItem(mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_OPEN));
         open.addActionListener(new FileSelectEvent(_parent, this));
         open.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         menu.addMenuItem(getCompoFactory().newSep());
-        stop = parent.getCompoFactory().newMenuItem(messages.getVal("stop"));
+        stop = parent.getCompoFactory().newMenuItem(mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_STOP));
         stop.addActionListener(new StopRunEvent(_parent));
         menu.addMenuItem(stop);
         getJMenuBar().add(menu);
         contentPane = parent.getCompoFactory().newPageBox();
         form = parent.getCompoFactory().newGrid(0,2);
-        content = parent.getCompoFactory().newPlainLabel(messages.getVal("configuration"));
+        content = parent.getCompoFactory().newPlainLabel(mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_CONFIGURATION));
         form.add(content);
         conf = parent.getCompoFactory().newTextArea(64,64);
         AbsScrollPane scr_ = parent.getCompoFactory().newAbsScrollPane(conf);
         scr_.setPreferredSize(new MetaDimension(256,96));
         form.add(scr_);
         AbsPanel formButtons_ = parent.getCompoFactory().newGrid(0,2);
-        launch = parent.getCompoFactory().newPlainButton(messages.getVal("launch"));
+        launch = parent.getCompoFactory().newPlainButton(mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_LAUNCH));
         launch.addActionListener(new ListenerLaunchTests(_parent, this));
         formButtons_.add(launch);
-        launchByFile = parent.getCompoFactory().newPlainButton(messages.getVal("launchByFile"));
+        launchByFile = parent.getCompoFactory().newPlainButton(spe_.getVal(ProgTestBar.EXEC_OPTIONS_SIMPLE_LAUNCH));
         launchByFile.addActionListener(new ListenerLaunchFileTests(_parent, this));
         formButtons_.add(launchByFile);
         form.add(formButtons_);
         subForm = parent.getCompoFactory().newGrid(0,2);
         folderField = parent.getCompoFactory().newTextField();
-        subForm.add(parent.getCompoFactory().newPlainLabel(messages.getVal("folder")));
+        subForm.add(parent.getCompoFactory().newPlainLabel(spe_.getVal(ProgTestBar.EXEC_OPTIONS_SIMPLE_FOLDER)));
         subForm.add(folderField);
         srcField = parent.getCompoFactory().newTextField();
-        srcButton = parent.getCompoFactory().newPlainButton(messages.getVal("src"));
+        srcButton = parent.getCompoFactory().newPlainButton(spe_.getVal(ProgTestBar.EXEC_OPTIONS_SIMPLE_SRC));
         AbsButton srcButton_ = srcButton;
         srcButton_.addActionListener(new LoadSrcEvent(this));
         subForm.add(srcButton_);
         subForm.add(srcField);
         filesField = parent.getCompoFactory().newTextField();
-        filesButton = parent.getCompoFactory().newPlainButton(messages.getVal("files"));
+        filesButton = parent.getCompoFactory().newPlainButton(spe_.getVal(ProgTestBar.EXEC_OPTIONS_SIMPLE_FILES));
         AbsButton filesButton_ = filesButton;
         filesButton_.addActionListener(new LoadFilesEvent(this));
         subForm.add(filesButton_);
@@ -116,23 +116,23 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
         form.add(subForm);
         contentPane.add(form);
         progressing = parent.getCompoFactory().newPageBox();
-        doneTests = parent.getCompoFactory().newPlainLabel(messages.getVal("tests"));
+        doneTests = parent.getCompoFactory().newPlainLabel(mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_TESTS));
         progressing.add(doneTests);
         doneTestsCount = parent.getCompoFactory().newPlainLabel("");
         progressing.add(doneTestsCount);
         doneTestsCalls = parent.getCompoFactory().newPlainLabel("");
         progressing.add(doneTestsCalls);
-        method = parent.getCompoFactory().newPlainLabel(messages.getVal("method"));
+        method = parent.getCompoFactory().newPlainLabel(mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_METHOD));
         progressing.add(method);
         currentMethod = parent.getCompoFactory().newPlainLabel("");
         progressing.add(currentMethod);
         progressBar = parent.getCompoFactory().newAbsProgressBar();
         progressing.add(progressBar);
         String[] cols_ = new String[4];
-        cols_[0] =messages.getVal("number");
-        cols_[1] =messages.getVal("method");
-        cols_[2] =messages.getVal("params");
-        cols_[3] =messages.getVal("success");
+        cols_[0] =mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_NUMBER);
+        cols_[1] =mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_METHOD);
+        cols_[2] =mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_PARAMS);
+        cols_[3] =mes_.getVal(ProgTestBar.EXEC_OPTIONS_TABLE_SUCCESS);
         resultsTable = parent.getCompoFactory().newTableGui(cols_);
         results = parent.getCompoFactory().newTextArea(1024,1024);
         AbsScrollPane scrTable_ = parent.getCompoFactory().newAbsScrollPane(resultsTable);
@@ -152,7 +152,7 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
         addWindowListener(new ClosingChildFrameEvent(this));
 //        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         pack();
-        commonExecution = new CommonExecution(new ProgTestBar(messages,doneTestsCalls,doneTestsCount,currentMethod,resultsTable,results,progressBar));
+        commonExecution = new CommonExecution(new ProgTestBar(getFrames(),doneTestsCalls,doneTestsCount,currentMethod,resultsTable,results,progressBar));
     }
 
     @Override
@@ -208,7 +208,7 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
 //            return files_;
         }
         if (!PathsUtil.isAbsolute(folderField.getText(), parent.getFileCoreStream())) {
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadPath"),_fileField.getText(),folderField.getText()));
+            errors.append(StringUtil.simpleStringsFormat(ProgTestBar.valExecOptionsSimpleMes(getFrames().currentLg()).getVal(ProgTestBar.EXEC_OPTIONS_SIMPLE_MES_FAILED_PATH),_fileField.getText(),folderField.getText()));
             errors.append("\n");
             return new BytesInfo(new byte[0],true);
         }
@@ -283,13 +283,14 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
     }
 
     public BytesInfo readFile(String _filePath) {
+        StringMap<String> mes_ = ProgTestBar.valExecOptionsSimpleMes(getFrames().currentLg());
         BytesInfo confFile_ = StreamBinaryFile.loadFile(_filePath, parent.getStreams());
         if (confFile_.isNul()) {
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_filePath));
+            errors.append(StringUtil.simpleStringsFormat(mes_.getVal(ProgTestBar.EXEC_OPTIONS_SIMPLE_MES_FAILED_CONTENT),_filePath));
             errors.append("\n");
             return new BytesInfo(new byte[0],true);
         }
-        errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_filePath));
+        errors.append(StringUtil.simpleStringsFormat(mes_.getVal(ProgTestBar.EXEC_OPTIONS_SIMPLE_MES_SUCCESS),_filePath));
         errors.append("\n");
         return confFile_;
     }

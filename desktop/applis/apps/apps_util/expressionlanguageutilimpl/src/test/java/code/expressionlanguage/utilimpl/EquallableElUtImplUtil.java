@@ -252,8 +252,8 @@ public abstract class EquallableElUtImplUtil {
         return pr_;
     }
     public static void update(MockProgramInfos _pr) {
-        FileInfos.enTr(FileInfos.initComments(lg(_pr,FileInfos.EN)));
-        FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
+        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(lg(_pr,FileInfos.EN))));
+        FileInfos.frTr(ProgTestBar.updateFr(FileInfos.initComments(lg(_pr,FileInfos.FR))));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);
@@ -281,11 +281,12 @@ public abstract class EquallableElUtImplUtil {
         return _files;
     }
 
-    public static StringMap<String> messages() {
-        StringMap<String> ms_ = new StringMap<String>();
-        ms_.addEntry(ProgTestBar.KEY_FAIL,"0");
-        ms_.addEntry(ProgTestBar.KEY_SUCCESS,"1");
-        return ms_;
+    public static StringMap<String> messages(AbstractLightProgramInfos _p) {
+        TranslationsLg lg_ = _p.currentLg();
+        ProgTestBar.valExecOptionsMain(lg_);
+        ProgTestBar.valExecOptionsSimpleMes(lg_);
+        ProgTestBar.valExecOptionsSimple(lg_);
+        return ProgTestBar.valExecOptionsTable(lg_);
     }
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
         return new ExecutingOptions(_p);
