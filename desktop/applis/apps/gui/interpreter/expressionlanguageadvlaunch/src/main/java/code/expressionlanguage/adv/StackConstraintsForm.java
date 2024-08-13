@@ -10,6 +10,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class StackConstraintsForm {
     private ReadOnlyFormTabEditor readOnlyFormTabEditor;
@@ -64,17 +65,18 @@ public final class StackConstraintsForm {
         return _l.match(_one);
     }
     public AbsSplitPane guiBuild(AbsDebuggerGui _d, AbsButton _valid) {
+        StringMap<String> mes_ = MessagesIde.valPointForm(_d.getFrames().currentLg());
         bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(AbsEditorTabList.EMPTY_STRING));
         bpFolderSystem.select(bpFolderSystem.getRoot());
         readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
         AbsPanel actions_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()),actions_);
-        singleCaret = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("single");
+        singleCaret = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_SINGLE)));
         singleCaret.setSelected(true);
         actions_.add(singleCaret);
-        bpAddFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add include");
+        bpAddFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_INC)));
         actions_.add(bpAddFile);
-        bpRemoveFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("add exclude");
+        bpRemoveFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_EXC)));
         actions_.add(bpRemoveFile);
         includedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         excludedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();

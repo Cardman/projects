@@ -8,6 +8,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.comparators.NaturalComparator;
+import code.util.core.StringUtil;
 
 public final class GuiStackForm {
     private AbsCustCheckBox hit;
@@ -35,17 +36,18 @@ public final class GuiStackForm {
     }
 
     public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
+        StringMap<String> mes_ = MessagesIde.valPointForm(_d.getFrames().currentLg());
         pref = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
         pref.setVisible(false);
-        enabledSub = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("specific enabled");
+        enabledSub = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_SPEC)));
         enabledSub.setSelected(true);
-        hit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("hit");
-        disabledWhenHit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("disabled when hit");
-        disableAgain = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("disable again");
-        suspend = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("suspend");
-        stackLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace");
-        stackErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace if conditional err");
-        stackResErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("log stack trace result if conditional err");
+        hit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_HIT)));
+        disabledWhenHit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_HIT)));
+        disableAgain = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_AGAIN)));
+        suspend = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_SUSPEND)));
+        stackLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST)));
+        stackErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST_ERR)));
+        stackResErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST_RES_ERR)));
         conditional = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         logs = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
         watches = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
@@ -66,18 +68,19 @@ public final class GuiStackForm {
         staIncExc_.add(stackLog);
         staIncExc_.add(count);
         staIncExc_.add(countSub);
-        tab_.addIntTab("main elements",staIncExc_);
-        tab_.addIntTab("conditional",_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(conditional));
-        tab_.addIntTab("logs",_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(logs));
-        tab_.addIntTab("watches",_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(watches));
-        tab_.addIntTab("contraints pass",panel_);
-        tab_.addIntTab("deps",_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dependantPointsForm.guiBuild(_d)));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_MAIN)),staIncExc_);
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_COND)),_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(conditional));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOGS)),_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(logs));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_WATCHES)),_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(watches));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_CONST)),panel_);
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DEPS)),_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dependantPointsForm.guiBuild(_d)));
         staScIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(tab_);
         return staScIncExc;
     }
 
     public static void initPrefs(CustList<BreakPointCondition> _bpc, CrudGeneForm<String, Integer> _f) {
-        AbsButton pref_ = _f.getFactory().getCompoFactory().newPlainButton("pref");
+        StringMap<String> mes_ = MessagesIde.valPointForm(_f.getFactory().currentLg());
+        AbsButton pref_ = _f.getFactory().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_PREF)));
         pref_.addActionListener(new ValuePrefEvent(_f, _bpc));
         _f.getButtons().add(pref_);
     }

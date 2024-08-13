@@ -107,6 +107,36 @@ public final class MessagesIde {
     public static final String IDE_POINTS_INH_FROM = "15";
     public static final String IDE_POINTS_FAMILY = "16";
     public static final String IDE_POINTS_EXACT = "17";
+    public static final String IDE_POINTS_POINT_FORM = "14";
+    public static final String IDE_POINTS_POINT_FORM_SPEC = "0";
+    public static final String IDE_POINTS_POINT_FORM_HIT = "1";
+    public static final String IDE_POINTS_POINT_FORM_DIS_HIT = "2";
+    public static final String IDE_POINTS_POINT_FORM_DIS_AGAIN = "3";
+    public static final String IDE_POINTS_POINT_FORM_DIS_SUSPEND = "4";
+    public static final String IDE_POINTS_POINT_FORM_LOG_ST = "5";
+    public static final String IDE_POINTS_POINT_FORM_LOG_ST_ERR = "6";
+    public static final String IDE_POINTS_POINT_FORM_LOG_ST_RES_ERR = "7";
+    public static final String IDE_POINTS_POINT_FORM_MAIN = "8";
+    public static final String IDE_POINTS_POINT_FORM_COND = "9";
+    public static final String IDE_POINTS_POINT_FORM_LOGS = "10";
+    public static final String IDE_POINTS_POINT_FORM_WATCHES = "11";
+    public static final String IDE_POINTS_POINT_FORM_CONST = "12";
+    public static final String IDE_POINTS_POINT_FORM_DEPS = "13";
+    public static final String IDE_POINTS_POINT_FORM_PREF = "14";
+    public static final String IDE_POINTS_POINT_FORM_SINGLE = "15";
+    public static final String IDE_POINTS_POINT_FORM_INC = "16";
+    public static final String IDE_POINTS_POINT_FORM_EXC = "17";
+    public static final String IDE_POINTS_REND_FORM = "15";
+    public static final String IDE_POINTS_REND_FORM_EN_REND = "0";
+    public static final String IDE_POINTS_REND_FORM_EN_EXP = "1";
+    public static final String IDE_POINTS_REND_FORM_EN_BOTH_EXP = "2";
+    public static final String IDE_POINTS_REND_FORM_EN_BOTH_REND = "3";
+    public static final String IDE_POINTS_REND_FORM_EXP = "4";
+    public static final String IDE_POINTS_REND_FORM_EXP_REND = "5";
+    public static final String IDE_POINTS_REND_FORM_EN_GL = "6";
+    public static final String IDE_POINTS_REND_FORM_VALIDATE = "7";
+    public static final String IDE_POINTS_REND_FORM_REMOVE = "8";
+    public static final String IDE_POINTS_REND_FORM_PREF = "9";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -151,6 +181,12 @@ public final class MessagesIde {
     public static StringMap<String> valGroup(TranslationsLg _lg) {
         return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_GROUP).getMapping();
     }
+    public static StringMap<String> valPointForm(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_POINT_FORM).getMapping();
+    }
+    public static StringMap<String> valRendForm(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_REND_FORM).getMapping();
+    }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendInitChoose(_a, enInitChoose());
         appendFindText(_a, enFindText());
@@ -166,6 +202,8 @@ public final class MessagesIde {
         appendFindRef(_a, enFindRef());
         appendPointsKind(_a, enPointsKind());
         appendGroup(_a, enGroup());
+        appendPointForm(_a, enPointForm());
+        appendRendForm(_a, enRendForm());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -183,6 +221,8 @@ public final class MessagesIde {
         appendFindRef(_a, frFindRef());
         appendPointsKind(_a, frPointsKind());
         appendGroup(_a, frGroup());
+        appendPointForm(_a, frPointForm());
+        appendRendForm(_a, frRendForm());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -493,7 +533,6 @@ public final class MessagesIde {
         e_.add(IDE_POINTS_EXACT,"same type");
         return e_;
     }
-
     public static TranslationsFile frGroup(){
         TranslationsFile f_ = new TranslationsFile();
         f_.add(IDE_POINTS_GROUP_ALL,"points d'arrêt");
@@ -514,6 +553,84 @@ public final class MessagesIde {
         f_.add(IDE_POINTS_INH_FROM,"hérite");
         f_.add(IDE_POINTS_FAMILY,"même famille");
         f_.add(IDE_POINTS_EXACT,"même type");
+        return f_;
+    }
+    public static void appendPointForm(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_POINTS_POINT_FORM, _v);
+    }
+    public static TranslationsFile enPointForm(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_POINTS_POINT_FORM_SPEC,"specific enabled");
+        e_.add(IDE_POINTS_POINT_FORM_HIT,"hit");
+        e_.add(IDE_POINTS_POINT_FORM_DIS_HIT,"disabled when hit");
+        e_.add(IDE_POINTS_POINT_FORM_DIS_AGAIN,"disable again");
+        e_.add(IDE_POINTS_POINT_FORM_DIS_SUSPEND,"suspend");
+        e_.add(IDE_POINTS_POINT_FORM_LOG_ST,"log stack trace");
+        e_.add(IDE_POINTS_POINT_FORM_LOG_ST_ERR,"log stack trace if conditional err");
+        e_.add(IDE_POINTS_POINT_FORM_LOG_ST_RES_ERR,"log stack trace result if conditional err");
+        e_.add(IDE_POINTS_POINT_FORM_MAIN,"main elements");
+        e_.add(IDE_POINTS_POINT_FORM_COND,"conditional");
+        e_.add(IDE_POINTS_POINT_FORM_LOGS,"logs");
+        e_.add(IDE_POINTS_POINT_FORM_WATCHES,"watches");
+        e_.add(IDE_POINTS_POINT_FORM_CONST,"contraints pass");
+        e_.add(IDE_POINTS_POINT_FORM_DEPS,"dependencies");
+        e_.add(IDE_POINTS_POINT_FORM_PREF,"preference about stack");
+        e_.add(IDE_POINTS_POINT_FORM_SINGLE,"single");
+        e_.add(IDE_POINTS_POINT_FORM_INC,"add include");
+        e_.add(IDE_POINTS_POINT_FORM_EXC,"add exclude");
+        return e_;
+    }
+    public static TranslationsFile frPointForm(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_POINTS_POINT_FORM_SPEC,"spécifique actif");
+        f_.add(IDE_POINTS_POINT_FORM_HIT,"atteint");
+        f_.add(IDE_POINTS_POINT_FORM_DIS_HIT,"désactivé lorsqu'atteint");
+        f_.add(IDE_POINTS_POINT_FORM_DIS_AGAIN,"désactivé à nouveau");
+        f_.add(IDE_POINTS_POINT_FORM_DIS_SUSPEND,"suspendre");
+        f_.add(IDE_POINTS_POINT_FORM_LOG_ST,"afficher la pile d'appel");
+        f_.add(IDE_POINTS_POINT_FORM_LOG_ST_ERR,"afficher la pile d'appel lors d'une erreur conditionnelle");
+        f_.add(IDE_POINTS_POINT_FORM_LOG_ST_RES_ERR,"afficher le résultat de la pile d'appel lors d'une erreur conditionnelle");
+        f_.add(IDE_POINTS_POINT_FORM_MAIN,"éléments principaux");
+        f_.add(IDE_POINTS_POINT_FORM_COND,"conditionnel");
+        f_.add(IDE_POINTS_POINT_FORM_LOGS,"afficheurs");
+        f_.add(IDE_POINTS_POINT_FORM_WATCHES,"regards");
+        f_.add(IDE_POINTS_POINT_FORM_CONST,"contrainte de passage");
+        f_.add(IDE_POINTS_POINT_FORM_DEPS,"dépendances");
+        f_.add(IDE_POINTS_POINT_FORM_PREF,"préférence à propos de la pile");
+        f_.add(IDE_POINTS_POINT_FORM_SINGLE,"simple");
+        f_.add(IDE_POINTS_POINT_FORM_INC,"ajout d'inclusion");
+        f_.add(IDE_POINTS_POINT_FORM_EXC,"ajout d'exclusion");
+        return f_;
+    }
+    public static void appendRendForm(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_POINTS_REND_FORM, _v);
+    }
+    public static TranslationsFile enRendForm(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_POINTS_REND_FORM_EN_REND,"enabled custom render");
+        e_.add(IDE_POINTS_REND_FORM_EN_EXP,"enabled expand");
+        e_.add(IDE_POINTS_REND_FORM_EN_BOTH_EXP,"enabled both (expand first)");
+        e_.add(IDE_POINTS_REND_FORM_EN_BOTH_REND,"enabled both (render first)");
+        e_.add(IDE_POINTS_REND_FORM_EXP,"expand first");
+        e_.add(IDE_POINTS_REND_FORM_EXP_REND,"expand render order");
+        e_.add(IDE_POINTS_REND_FORM_EN_GL,"enabled global");
+        e_.add(IDE_POINTS_REND_FORM_VALIDATE,"ok");
+        e_.add(IDE_POINTS_REND_FORM_REMOVE,"remove render point");
+        e_.add(IDE_POINTS_REND_FORM_PREF,"preference about render");
+        return e_;
+    }
+    public static TranslationsFile frRendForm(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_POINTS_REND_FORM_EN_REND,"rendu personnalisé actif");
+        f_.add(IDE_POINTS_REND_FORM_EN_EXP,"expansion active");
+        f_.add(IDE_POINTS_REND_FORM_EN_BOTH_EXP,"les deux actifs (expansion en premier)");
+        f_.add(IDE_POINTS_REND_FORM_EN_BOTH_REND,"les deux actifs (rendu en premier)");
+        f_.add(IDE_POINTS_REND_FORM_EXP,"étendre en premier");
+        f_.add(IDE_POINTS_REND_FORM_EXP_REND,"ordre d'expansion de rendu");
+        f_.add(IDE_POINTS_REND_FORM_EN_GL,"globalement actif");
+        f_.add(IDE_POINTS_REND_FORM_VALIDATE,"ok");
+        f_.add(IDE_POINTS_REND_FORM_REMOVE,"supprimer le point de rendu");
+        f_.add(IDE_POINTS_REND_FORM_PREF,"préférence à propos du rendu");
         return f_;
     }
 }

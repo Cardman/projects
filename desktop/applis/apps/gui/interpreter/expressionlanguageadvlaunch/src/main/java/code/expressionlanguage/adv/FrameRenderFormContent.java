@@ -9,6 +9,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.NaturalComparator;
+import code.util.core.StringUtil;
 
 public final class FrameRenderFormContent {
     private AbsTextArea renderText;
@@ -35,17 +36,18 @@ public final class FrameRenderFormContent {
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
+        StringMap<String> mes_ = MessagesIde.valRendForm(_d.getFrames().currentLg());
         pref = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
         pref.setVisible(false);
-        enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled custom render");
-        enabledExpand = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled expand");
-        enabledExpandRender = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled both (expand first)");
-        enabledRenderExpand = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled both (render first)");
-        expandFirst = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("expand first");
-        expandRenderChoice = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("expand render order");
-        enabledExcGlobal = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled global");
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
+        enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_EN_REND)));
+        enabledExpand = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_EN_EXP)));
+        enabledExpandRender = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_EN_BOTH_EXP)));
+        enabledRenderExpand = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_EN_BOTH_REND)));
+        expandFirst = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_EXP)));
+        expandRenderChoice = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_EXP_REND)));
+        enabledExcGlobal = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_EN_GL)));
+        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_VALIDATE)));
+        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_REMOVE)));
         clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         exactForm.guiBuild(_d);
         renderText = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
@@ -124,7 +126,8 @@ public final class FrameRenderFormContent {
         return values_;
     }
     public void initPrefs(CustList<RenderPointPair> _bpc, CrudGeneForm<String, Integer> _f) {
-        AbsButton pref_ = _f.getFactory().getCompoFactory().newPlainButton("pref");
+        StringMap<String> mes_ = MessagesIde.valRendForm(_f.getFactory().currentLg());
+        AbsButton pref_ = _f.getFactory().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_PREF)));
         pref_.addActionListener(new ValuePrefRendEvent(_f, _bpc));
         _f.getButtons().add(pref_);
     }
