@@ -7590,7 +7590,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         AbsTreeGui trDetail_ = b_.getTreeDetail();
         AbstractMutableTreeNodeCore<String> node_ = trDetail_.getRoot().getFirstChild().getNextSibling();
         DbgAbsNodeStruct info_ = b_.getRoot().getNode().simular(node_).info();
-        new DbgRenderStrNodeTask(null, trDetail_,node_,info_,b_.getCompoFactory(), b_.getThreadFactory()).run();
+        new DbgRenderStrNodeTask(null, trDetail_,node_,info_,b_.getFrames()).run();
 //        ((MockCompoFactory)b_.getCompoFactory()).invoke();
         assertFalse(node_.info().isEmpty());
     }
@@ -8944,7 +8944,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     }
 
     private Struct resNode(DbgAbsNodeStruct _i, AbsDebuggerGui _b) {
-        return TreeNodeRenderUtil.result(RenderPointPair.stopExc(_b.getRenderList(), _i), _i, _b.getCompoFactory(), _b.getThreadFactory());
+        return TreeNodeRenderUtil.result(RenderPointPair.stopExc(_b.getRenderList(), _i), _i, _b.getFrames());
     }
 
 

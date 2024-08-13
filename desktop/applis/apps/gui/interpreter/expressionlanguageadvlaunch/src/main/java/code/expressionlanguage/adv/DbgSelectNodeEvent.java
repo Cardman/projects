@@ -1,8 +1,9 @@
 package code.expressionlanguage.adv;
 
-import code.gui.*;
-import code.gui.initialize.AbsCompoFactory;
-import code.threads.AbstractThreadFactory;
+import code.gui.AbsShortListTree;
+import code.gui.AbsTreeGui;
+import code.gui.AbstractMutableTreeNodeCore;
+import code.gui.MutableTreeNodeUtil;
 import code.util.CustList;
 
 public final class DbgSelectNodeEvent implements AbsShortListTree {
@@ -10,16 +11,12 @@ public final class DbgSelectNodeEvent implements AbsShortListTree {
     private final CustList<RenderPointPair> list;
     private final AbsTreeGui tree;
     private final DbgRootStruct root;
-    private final AbsCompoFactory compoFactory;
-    private final AbstractThreadFactory threadFactory;
 
-    public DbgSelectNodeEvent(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsTreeGui _t, DbgRootStruct _r, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    public DbgSelectNodeEvent(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsTreeGui _t, DbgRootStruct _r) {
         this.window = _win;
         this.list = _renderList;
         this.tree = _t;
         this.root = _r;
-        this.compoFactory = _compo;
-        this.threadFactory = _th;
     }
 
     @Override
@@ -29,21 +26,21 @@ public final class DbgSelectNodeEvent implements AbsShortListTree {
             return;
         }
         DbgAbsNodeStruct i_ = e_.info();
-        process(window,i_, tree, compoFactory, threadFactory, list);
+        process(window,i_, tree, list);
     }
 
-    static void process(AbsDebuggerGui _window, DbgAbsNodeStruct _i, AbsTreeGui _tree, AbsCompoFactory _compo, AbstractThreadFactory _thFact, CustList<RenderPointPair> _ls) {
+    static void process(AbsDebuggerGui _window, DbgAbsNodeStruct _i, AbsTreeGui _tree, CustList<RenderPointPair> _ls) {
         if (_i.select()){
             AbstractMutableTreeNodeCore<String> sel_ = _tree.selectEvt();
             MutableTreeNodeUtil.reload(_tree);
-            render(_window, _i, _tree, _compo, _thFact, _ls, sel_);
+            render(_window, _i, _tree, _ls, sel_);
             return;
         }
         _window.currentThreadActions(null);
     }
 
-    static void render(AbsDebuggerGui _window, DbgAbsNodeStruct _i, AbsTreeGui _tree, AbsCompoFactory _compo, AbstractThreadFactory _thFact, CustList<RenderPointPair> _ls, AbstractMutableTreeNodeCore<String> _sel) {
-        _window.currentThreadActions(new DbgRenderStrNodeTask(RenderPointPair.stopExc(_ls, _i), _tree, _sel, _i, _compo, _thFact));
+    static void render(AbsDebuggerGui _window, DbgAbsNodeStruct _i, AbsTreeGui _tree, CustList<RenderPointPair> _ls, AbstractMutableTreeNodeCore<String> _sel) {
+        _window.currentThreadActions(new DbgRenderStrNodeTask(RenderPointPair.stopExc(_ls, _i), _tree, _sel, _i, _window.getFrames()));
     }
 
 }

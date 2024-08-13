@@ -10,15 +10,16 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.AbsTreeGui;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.initialize.AbsCompoFactory;
-import code.threads.AbstractThreadFactory;
 import code.util.CustList;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class DbgRootStruct extends DbgAbsNodeStruct {
 
     public DbgRootStruct(ContextEl _r, DbgAbsNodeStruct _par) {
         super(_r,_r,_par);
     }
-    AbsTreeGui buildReturn(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ArgumentWrapper _val) {
+    AbsTreeGui buildReturn(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, ArgumentWrapper _val) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode(AbsEditorTabList.EMPTY_STRING);
         setAssociated(root_);
         DbgAbsNodeStruct result_;
@@ -33,10 +34,10 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
         result_.setAssociated(sub_);
         root_.add(sub_);
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
-        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_win,_renderList,tree_, this, _compo,_th));
+        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_win,_renderList,tree_, this));
         return tree_;
     }
-    AbsTreeGui build(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th, ViewPage _stView, BreakPointOutputInfo _infos) {
+    AbsTreeGui build(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, ViewPage _stView, BreakPointOutputInfo _infos) {
         AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode(AbsEditorTabList.EMPTY_STRING);
         setAssociated(root_);
         addWatches(_compo, root_, _infos.getWatchResults());
@@ -56,14 +57,15 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
             nodeVar_.setAssociated(sub_);
         }
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
-        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_win,_renderList,tree_, this, _compo,_th));
+        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_win,_renderList,tree_, this));
         return tree_;
     }
-    AbsTreeGui buildDynamic(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode("vars");
+    AbsTreeGui buildDynamic(AbsDebuggerGui _win, CustList<RenderPointPair> _renderList, AbsCompoFactory _compo) {
+        StringMap<String> mes_ = MessagesIde.valSessionForm(_win.getFrames().currentLg());
+        AbstractMutableTreeNodeCore<String> root_ = _compo.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_VARS)));
         setAssociated(root_);
         AbsTreeGui tree_ = _compo.newTreeGui(root_);
-        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_win,_renderList,tree_, this, _compo,_th));
+        tree_.addTreeSelectionListener(new DbgSelectNodeEvent(_win,_renderList,tree_, this));
         return tree_;
     }
 

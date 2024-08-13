@@ -7,6 +7,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.*;
 import code.threads.AbstractAtomicBoolean;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class DynamicAnalysisTask implements Runnable {
@@ -25,6 +26,7 @@ public final class DynamicAnalysisTask implements Runnable {
     private final AbsScrollPane scroll;
 
     public DynamicAnalysisTask(AbsDebuggerGui _w, AbstractPageEl _c, ResultContext _rc, AbsTreeGui _tr, DbgRootStruct _root) {
+        StringMap<String> mes_ = MessagesIde.valSessionForm(_w.getFrames().currentLg());
         this.window = _w;
         this.dynamic = StringUtil.nullToEmpty(_w.getDynamicEval().getText());
         this.stackCall = _w.getStackCall();
@@ -35,18 +37,18 @@ public final class DynamicAnalysisTask implements Runnable {
         this.tree = _tr;
         this.root = _root;
         AbsPanel buttons_ = window.getCompoFactory().newPageBox();
-        stButton = window.getCompoFactory().newPlainButton("stop:" + dynamic);
+        stButton = window.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_CANCEL_EVAL))+":" + dynamic);
         buttons_.add(stButton);
         stButton.addActionListener(new CancelEvalDynEvent(_w, stButton,interrupted));
         textArea = window.getCompoFactory().newTextArea();
         textArea.setEditable(false);
         textArea.setEditable(false);
-        refreshButton = window.getCompoFactory().newPlainButton("refresh render");
+        refreshButton = window.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_REFRESH_RENDER)));
         refreshButton.addActionListener(new RefreshRenderDynEvent(_w,_tr,_root));
         buttons_.add(refreshButton);
         scroll = window.getCompoFactory().newAbsScrollPane();
         AbsSplitPane elt_ = window.getCompoFactory().newVerticalSplitPane(window.getCompoFactory().newVerticalSplitPane(buttons_,window.getCompoFactory().newAbsScrollPane(textArea)), scroll);
-        window.getWatches().addIntTab("vars",elt_, dynamic.trim());
+        window.getWatches().addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_VARS)),elt_, dynamic.trim());
         window.getCommonFrame().pack();
     }
 

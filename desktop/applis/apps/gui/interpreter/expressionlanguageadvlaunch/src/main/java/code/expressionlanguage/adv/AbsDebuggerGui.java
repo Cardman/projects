@@ -302,14 +302,15 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getPauseStack().setEnabled(false);
         setStackCallView(view_);
         stackCall = getStackCallView().getStack();
+        StringMap<String> mes_ = MessagesIde.valSessionForm(getFrames().currentLg());
         if (!stackCall.getBreakPointInfo().getBreakPointOutputInfo().isStoppedBreakPoint()) {
             callStack.removeAll();
             callStackRender.removeAll();
             callButtons.clear();
             callButtonsRender.clear();
             root = new DbgRootStruct(ctx_, null);
-            treeDetail = root.buildReturn(this,renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), view_.getStack().aw());
-            AbsButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
+            treeDetail = root.buildReturn(this,renderList,getCommonFrame().getFrames().getCompoFactory(), view_.getStack().aw());
+            AbsButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_SHOW)));
             shRend_.addActionListener(new DbgSelectNodeLogEvent(root,treeDetail,statusDbgAreaScrollRender));
             callStackRender.add(shRend_);
             callButtonsRender.add(shRend_);
@@ -332,13 +333,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             String dis_ = p_.getStackElt().getDisplayedString(ctx_).getInstance();
             DbgRootStruct r_ = new DbgRootStruct(ctx_, null);
             root = r_;
-            AbsTreeGui b_ = r_.build(this,renderList,getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
+            AbsTreeGui b_ = r_.build(this,renderList,getCommonFrame().getFrames().getCompoFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
             treeDetail = b_;
             AbsButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
             callButtons.add(but_);
             but_.addActionListener(new SelectCallStackEvent(this,p_,b_,r_));
             callStack.add(but_);
-            AbsButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton("show render");
+            AbsButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_SHOW)));
             shRend_.addActionListener(new DbgSelectNodeLogEvent(r_,b_,statusDbgAreaScrollRender));
             callStackRender.add(shRend_);
             callButtonsRender.add(shRend_);
@@ -373,13 +374,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void dynamicAnalyzeSelectedPage(ResultContext _res) {
         DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
         this.rootStructStr = root_;
-        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
+        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory());
         getThreadFactory().newStartedThread(build(_res, root_, d_, currentPage));
     }
     public void dynamicAnalyzeNoSelectedPage(ResultContext _res) {
         DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
         this.rootStructStr = root_;
-        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory(), getCommonFrame().getFrames().getThreadFactory());
+        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory());
         getThreadFactory().newStartedThread(build(_res, root_, d_, null));
     }
 
@@ -430,7 +431,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         }
         DbgAbsNodeStruct i_ = e_.info();
         i_.removeChildren();
-        DbgSelectNodeEvent.process(this,i_, _tree,getCompoFactory(),getThreadFactory(),renderList);
+        DbgSelectNodeEvent.process(this,i_, _tree, renderList);
     }
     public void possibleSelectInstruction(int _s, ResultContext _res) {
         if (_s > -1) {

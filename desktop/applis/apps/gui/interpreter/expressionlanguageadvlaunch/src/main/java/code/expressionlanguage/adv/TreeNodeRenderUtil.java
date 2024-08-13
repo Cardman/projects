@@ -24,8 +24,10 @@ import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
+import code.util.StringMap;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -46,59 +48,62 @@ public final class TreeNodeRenderUtil {
     private TreeNodeRenderUtil() {
     }
 
-    static void renderNode(RenderPointInfosPreference _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        Struct res_ = resultWrap(_renderPointPairs,_node, _compo, _th);
+    static void renderNode(RenderPointInfosPreference _renderPointPairs, AbsTreeGui _tree, AbstractMutableTreeNodeCore<String> _tr, DbgNodeStruct _node, AbstractLightProgramInfos _compo) {
+        Struct res_ = resultWrap(_renderPointPairs,_node, _compo);
         if (_node.value() == null) {
             return;
         }
         _node.repr(res_);
         String render_ = format(_node);
-        _compo.invokeNow(new FinalRenderingTask(_tree,_tr,render_));
+        _compo.getCompoFactory().invokeNow(new FinalRenderingTask(_tree,_tr,render_));
     }
 
-    static Struct resultWrap(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
-        return result(_renderPointPairs, _node, _compo, _th);
+    static Struct resultWrap(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbstractLightProgramInfos _compo) {
+        return result(_renderPointPairs, _node, _compo);
     }
-    static Struct result(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbsCompoFactory _compo, AbstractThreadFactory _th) {
+    static Struct result(RenderPointInfosPreference _renderPointPairs, DbgNodeStruct _node, AbstractLightProgramInfos _compo) {
+        AbsCompoFactory c_ = _compo.getCompoFactory();
+        AbstractThreadFactory th_ = _compo.getThreadFactory();
         if (_renderPointPairs == null) {
             Struct res_ = _node.value();
-            _node.feedChildren(_compo);
+            _node.feedChildren(c_);
             return res_;
         }
-        AbsTextArea ta_ = _compo.newTextArea();
+        AbsTextArea ta_ = c_.newTextArea();
         ta_.setEditable(false);
         _node.logs(ta_);
-        AbsButton stop_ = _compo.newPlainButton("stop");
+        StringMap<String> mes_ = MessagesIde.valSessionForm(_compo.currentLg());
+        AbsButton stop_ = c_.newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_CANCEL_RENDER)));
         _node.stopButton(stop_);
-        _node.panel(_compo.newVerticalSplitPane(_compo.newAbsScrollPane(ta_), stop_));
+        _node.panel(c_.newVerticalSplitPane(c_.newAbsScrollPane(ta_), stop_));
         AdvLogDbg logger_ = new AdvLogDbg(ta_);
         RenderPointPair rp_ = _renderPointPairs.getBreakPointCondition();
         if (rp_.isExpandRenderFirst()) {
             ResultContextLambda er_ = stopCurrent(rp_.getExpandRender());
             if (okExpandRend(er_, rp_)) {
-                return expandRender(er_,_renderPointPairs,_node,_compo,_th,stop_,logger_);
+                return expandRender(er_,_renderPointPairs,_node,c_,th_,stop_,logger_);
             }
             ResultContextLambda re_ = stopCurrent(rp_.getRenderExpand());
             if (okRendExp(re_, rp_)) {
-                return renderExpand(re_,_renderPointPairs,_node,_compo,_th,stop_,logger_);
+                return renderExpand(re_,_renderPointPairs,_node,c_,th_,stop_,logger_);
             }
         } else {
             ResultContextLambda re_ = stopCurrent(rp_.getRenderExpand());
             if (okRendExp(re_, rp_)) {
-                return renderExpand(re_,_renderPointPairs,_node,_compo,_th,stop_,logger_);
+                return renderExpand(re_,_renderPointPairs,_node,c_,th_,stop_,logger_);
             }
             ResultContextLambda er_ = stopCurrent(rp_.getExpandRender());
             if (okExpandRend(er_, rp_)) {
-                return expandRender(er_,_renderPointPairs,_node,_compo,_th,stop_,logger_);
+                return expandRender(er_,_renderPointPairs,_node,c_,th_,stop_,logger_);
             }
         }
         Struct res_;
         if (rp_.isExpandFirst()) {
-            expand(_renderPointPairs, _node, _compo, _th, stop_, logger_);
-            res_ = computeStr(_renderPointPairs,_node,_th,stop_, logger_);
+            expand(_renderPointPairs, _node, c_, th_, stop_, logger_);
+            res_ = computeStr(_renderPointPairs,_node,th_,stop_, logger_);
         } else {
-            res_ = computeStr(_renderPointPairs, _node, _th, stop_, logger_);
-            expand(_renderPointPairs, _node, _compo, _th, stop_, logger_);
+            res_ = computeStr(_renderPointPairs, _node, th_, stop_, logger_);
+            expand(_renderPointPairs, _node, c_, th_, stop_, logger_);
         }
         return res_;
     }

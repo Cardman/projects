@@ -9,6 +9,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FramePoints {
     private final AbsCommonFrame commonFrame;
@@ -53,6 +54,7 @@ public final class FramePoints {
         stackConstraintsForm = new StackConstraintsForm();
     }
     public void guiBuild(AbsDebuggerGui _d) {
+        StringMap<String> mes_ = MessagesIde.valGlForm(_d.getFrames().currentLg());
         view = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         viewRp = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
@@ -60,9 +62,9 @@ public final class FramePoints {
         framePointsTree.guiBuild(_d.getFrames());
         pointsKeys_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(framePointsTree.getTree()));
         pointsKeys_.add(framePointsTree.getCreate());
-        validStack = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("validate constraints stack for stepping into");
+        validStack = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_STACK)));
         AbsSplitPane pageStack_ = stackConstraintsForm.guiBuild(_d,validStack);
-        AbstractMutableTreeNodeCore<String> root_ = _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode("render points");
+        AbstractMutableTreeNodeCore<String> root_ = _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_REND)));
         tree = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(root_);
         create = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+");
         AbsPanel renderPts_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
@@ -70,9 +72,9 @@ public final class FramePoints {
         renderPts_.add(create);
         frameRenderFormContent.guiBuild(_d);
         AbsPanel all_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        tab_.addIntTab("custom points",_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(pointsKeys_,view));
-        tab_.addIntTab("constraints",commonFrame.getFrames().getCompoFactory().newAbsScrollPane(pageStack_));
-        tab_.addIntTab("render points",_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(renderPts_),viewRp));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_POINTS)),_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(pointsKeys_,view));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_CONST)),commonFrame.getFrames().getCompoFactory().newAbsScrollPane(pageStack_));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_REND)),_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(renderPts_),viewRp));
         all_.add(tab_);
         commonFrame.setContentPane(all_);
         frameExcFormContent.guiBuild(_d);

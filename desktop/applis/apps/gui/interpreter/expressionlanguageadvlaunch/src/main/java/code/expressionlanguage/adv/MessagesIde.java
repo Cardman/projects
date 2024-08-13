@@ -137,6 +137,17 @@ public final class MessagesIde {
     public static final String IDE_POINTS_REND_FORM_VALIDATE = "7";
     public static final String IDE_POINTS_REND_FORM_REMOVE = "8";
     public static final String IDE_POINTS_REND_FORM_PREF = "9";
+    public static final String IDE_POINTS_GL_FORM = "16";
+    public static final String IDE_POINTS_GL_FORM_STACK = "0";
+    public static final String IDE_POINTS_GL_FORM_REND = "1";
+    public static final String IDE_POINTS_GL_FORM_POINTS = "2";
+    public static final String IDE_POINTS_GL_FORM_CONST = "3";
+    public static final String IDE_POINTS_SESSION_FORM = "17";
+    public static final String IDE_POINTS_SESSION_FORM_SHOW = "0";
+    public static final String IDE_POINTS_SESSION_FORM_VARS = "1";
+    public static final String IDE_POINTS_SESSION_FORM_CANCEL_EVAL = "2";
+    public static final String IDE_POINTS_SESSION_FORM_REFRESH_RENDER = "3";
+    public static final String IDE_POINTS_SESSION_FORM_CANCEL_RENDER = "4";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -187,6 +198,12 @@ public final class MessagesIde {
     public static StringMap<String> valRendForm(TranslationsLg _lg) {
         return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_REND_FORM).getMapping();
     }
+    public static StringMap<String> valGlForm(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_GL_FORM).getMapping();
+    }
+    public static StringMap<String> valSessionForm(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_SESSION_FORM).getMapping();
+    }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendInitChoose(_a, enInitChoose());
         appendFindText(_a, enFindText());
@@ -204,6 +221,8 @@ public final class MessagesIde {
         appendGroup(_a, enGroup());
         appendPointForm(_a, enPointForm());
         appendRendForm(_a, enRendForm());
+        appendGlForm(_a, enGlForm());
+        appendSessionForm(_a, enSessionForm());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -223,6 +242,8 @@ public final class MessagesIde {
         appendGroup(_a, frGroup());
         appendPointForm(_a, frPointForm());
         appendRendForm(_a, frRendForm());
+        appendGlForm(_a, frGlForm());
+        appendSessionForm(_a, frSessionForm());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -631,6 +652,46 @@ public final class MessagesIde {
         f_.add(IDE_POINTS_REND_FORM_VALIDATE,"ok");
         f_.add(IDE_POINTS_REND_FORM_REMOVE,"supprimer le point de rendu");
         f_.add(IDE_POINTS_REND_FORM_PREF,"préférence à propos du rendu");
+        return f_;
+    }
+    public static void appendGlForm(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_POINTS_GL_FORM, _v);
+    }
+    public static TranslationsFile enGlForm(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_POINTS_GL_FORM_STACK,"validate constraints stack for stepping into");
+        e_.add(IDE_POINTS_GL_FORM_REND,"render points");
+        e_.add(IDE_POINTS_GL_FORM_POINTS,"custom points");
+        e_.add(IDE_POINTS_GL_FORM_CONST,"constraints");
+        return e_;
+    }
+    public static TranslationsFile frGlForm(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_POINTS_GL_FORM_STACK,"valider les contraintes de pile pour entrer dans le corps de fonction");
+        f_.add(IDE_POINTS_GL_FORM_REND,"points de rendu");
+        f_.add(IDE_POINTS_GL_FORM_POINTS,"points personnalisés");
+        f_.add(IDE_POINTS_GL_FORM_CONST,"contraintes");
+        return f_;
+    }
+    public static void appendSessionForm(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_POINTS_SESSION_FORM, _v);
+    }
+    public static TranslationsFile enSessionForm(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_POINTS_SESSION_FORM_SHOW,"show render");
+        e_.add(IDE_POINTS_SESSION_FORM_VARS,"variables");
+        e_.add(IDE_POINTS_SESSION_FORM_CANCEL_EVAL,"stop evaluating");
+        e_.add(IDE_POINTS_SESSION_FORM_REFRESH_RENDER,"refresh render");
+        e_.add(IDE_POINTS_SESSION_FORM_CANCEL_RENDER,"stop rendering");
+        return e_;
+    }
+    public static TranslationsFile frSessionForm(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_POINTS_SESSION_FORM_SHOW,"afficher le rendu");
+        f_.add(IDE_POINTS_SESSION_FORM_VARS,"variables");
+        f_.add(IDE_POINTS_SESSION_FORM_CANCEL_EVAL,"arrêter l'évaluation");
+        f_.add(IDE_POINTS_SESSION_FORM_REFRESH_RENDER,"rafraîchir le rendu");
+        f_.add(IDE_POINTS_SESSION_FORM_CANCEL_RENDER,"arrêter le rendu");
         return f_;
     }
 }
