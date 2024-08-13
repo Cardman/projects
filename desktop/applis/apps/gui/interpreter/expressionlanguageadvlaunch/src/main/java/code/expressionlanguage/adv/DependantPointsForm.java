@@ -33,7 +33,7 @@ public final class DependantPointsForm {
     private final CustList<AbsCustCheckBox> checksCurrent = new IdList<AbsCustCheckBox>();
     private AbstractProgramInfos frames;
 
-    public DependantPointsForm(AbsCompoFactory _c) {
+    public DependantPointsForm(AbstractProgramInfos _c) {
         framePointsTree = new FramePointsTree(_c);
     }
 
@@ -41,7 +41,7 @@ public final class DependantPointsForm {
         frames = _d.getCommonFrame().getFrames();
         compoFactory = frames.getCompoFactory();
         view = compoFactory.newAbsScrollPane();
-        framePointsTree.guiBuild();
+        framePointsTree.guiBuild(frames);
         AbsPanel all_ = compoFactory.newLineBox();
         excFrom = compoFactory.newPageBox();
         stdForm = compoFactory.newPageBox();

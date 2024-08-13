@@ -88,6 +88,25 @@ public final class MessagesIde {
     public static final String IDE_POINTS_KIND_ENABLED = "32";
     public static final String IDE_POINTS_KIND_REMOVE = "33";
     public static final String IDE_POINTS_KIND_VALIDATE = "34";
+    public static final String IDE_POINTS_GROUP = "13";
+    public static final String IDE_POINTS_GROUP_ALL = "0";
+    public static final String IDE_POINTS_GROUP_INS = "1";
+    public static final String IDE_POINTS_GROUP_WP = "2";
+    public static final String IDE_POINTS_GROUP_WAM = "3";
+    public static final String IDE_POINTS_GROUP_EXC = "4";
+    public static final String IDE_POINTS_GROUP_CM = "5";
+    public static final String IDE_POINTS_GROUP_SM = "6";
+    public static final String IDE_POINTS_GROUP_ARR = "7";
+    public static final String IDE_POINTS_GROUP_PP = "8";
+    public static final String IDE_POINTS_GROUP_NAT = "9";
+    public static final String IDE_POINTS_GROUP_NAT_COMP = "10";
+    public static final String IDE_POINTS_GROUP_TYPE = "11";
+    public static final String IDE_POINTS_INH_FROM_PARAM = "12";
+    public static final String IDE_POINTS_FAMILY_PARAM = "13";
+    public static final String IDE_POINTS_EXACT_PARAM = "14";
+    public static final String IDE_POINTS_INH_FROM = "15";
+    public static final String IDE_POINTS_FAMILY = "16";
+    public static final String IDE_POINTS_EXACT = "17";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -129,6 +148,9 @@ public final class MessagesIde {
     public static StringMap<String> valPointsKind(TranslationsLg _lg) {
         return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_KIND).getMapping();
     }
+    public static StringMap<String> valGroup(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_GROUP).getMapping();
+    }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendInitChoose(_a, enInitChoose());
         appendFindText(_a, enFindText());
@@ -143,6 +165,7 @@ public final class MessagesIde {
         appendGlobalParameters(_a, enGlobalParameters());
         appendFindRef(_a, enFindRef());
         appendPointsKind(_a, enPointsKind());
+        appendGroup(_a, enGroup());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -159,6 +182,7 @@ public final class MessagesIde {
         appendGlobalParameters(_a, frGlobalParameters());
         appendFindRef(_a, frFindRef());
         appendPointsKind(_a, frPointsKind());
+        appendGroup(_a, frGroup());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -442,6 +466,54 @@ public final class MessagesIde {
         f_.add(IDE_POINTS_KIND_ENABLED,"point actif");
         f_.add(IDE_POINTS_KIND_REMOVE,"supprimer point");
         f_.add(IDE_POINTS_KIND_VALIDATE,"valider point");
+        return f_;
+    }
+    public static void appendGroup(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_POINTS_GROUP, _v);
+    }
+    public static TranslationsFile enGroup(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_POINTS_GROUP_ALL,"break points");
+        e_.add(IDE_POINTS_GROUP_INS,"instruction");
+        e_.add(IDE_POINTS_GROUP_WP,"watch field");
+        e_.add(IDE_POINTS_GROUP_WAM,"watch annotation method");
+        e_.add(IDE_POINTS_GROUP_EXC,"exception");
+        e_.add(IDE_POINTS_GROUP_CM,"custom method");
+        e_.add(IDE_POINTS_GROUP_SM,"standard method");
+        e_.add(IDE_POINTS_GROUP_ARR,"array point");
+        e_.add(IDE_POINTS_GROUP_PP,"parent point");
+        e_.add(IDE_POINTS_GROUP_NAT,"native operator point");
+        e_.add(IDE_POINTS_GROUP_NAT_COMP,"native compound operator point");
+        e_.add(IDE_POINTS_GROUP_TYPE,"type points");
+        e_.add(IDE_POINTS_INH_FROM_PARAM,"inherit from {0}");
+        e_.add(IDE_POINTS_FAMILY_PARAM,"all types family in {0}");
+        e_.add(IDE_POINTS_EXACT_PARAM,"exact type as {0}");
+        e_.add(IDE_POINTS_INH_FROM,"inherit");
+        e_.add(IDE_POINTS_FAMILY,"same family");
+        e_.add(IDE_POINTS_EXACT,"same type");
+        return e_;
+    }
+
+    public static TranslationsFile frGroup(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_POINTS_GROUP_ALL,"points d'arrêt");
+        f_.add(IDE_POINTS_GROUP_INS,"instruction");
+        f_.add(IDE_POINTS_GROUP_WP,"regard du champ");
+        f_.add(IDE_POINTS_GROUP_WAM,"regard de méthode d'annotation");
+        f_.add(IDE_POINTS_GROUP_EXC,"exception");
+        f_.add(IDE_POINTS_GROUP_CM,"méthode personnalisée");
+        f_.add(IDE_POINTS_GROUP_SM,"méthode standard");
+        f_.add(IDE_POINTS_GROUP_ARR,"point de tableau");
+        f_.add(IDE_POINTS_GROUP_PP,"point de parent");
+        f_.add(IDE_POINTS_GROUP_NAT,"point d'opérateur natif");
+        f_.add(IDE_POINTS_GROUP_NAT_COMP,"point d'opérateur composé natif");
+        f_.add(IDE_POINTS_GROUP_TYPE,"points de type");
+        f_.add(IDE_POINTS_INH_FROM_PARAM,"hérite de {0}");
+        f_.add(IDE_POINTS_FAMILY_PARAM,"tous la famille de types que {0}");
+        f_.add(IDE_POINTS_EXACT_PARAM,"le même type que {0}");
+        f_.add(IDE_POINTS_INH_FROM,"hérite");
+        f_.add(IDE_POINTS_FAMILY,"même famille");
+        f_.add(IDE_POINTS_EXACT,"même type");
         return f_;
     }
 }

@@ -9,9 +9,12 @@ import code.gui.AbsTreeGui;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatStringTreeMap;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FramePointsTree {
     public static final int SORT_BP = 0;
@@ -26,6 +29,7 @@ public final class FramePointsTree {
     public static final int SORT_CP = 9;
     public static final int SORT_TP = 10;
     private final AbsCompoFactory compoFactory;
+    private final AbstractProgramInfos frames;
     private AbsTreeGui tree;
     private AbsButton create;
     private AbstractMutableTreeNodeCore<String> instruction;
@@ -50,33 +54,35 @@ public final class FramePointsTree {
     private final NatStringTreeMap<CustList<StdMethodPointBlockPair>> stdList = new NatStringTreeMap<CustList<StdMethodPointBlockPair>>();
     private final NatStringTreeMap<CustList<ArrPointBlockPair>> arrList = new NatStringTreeMap<CustList<ArrPointBlockPair>>();
     private final NatStringTreeMap<CustList<TypePointBlockPair>> tpList = new NatStringTreeMap<CustList<TypePointBlockPair>>();
-    public FramePointsTree(AbsCompoFactory _c) {
-        compoFactory = _c;
+    public FramePointsTree(AbstractProgramInfos _c) {
+        frames = _c;
+        compoFactory = _c.getCompoFactory();
     }
 
-    public void guiBuild() {
-        AbstractMutableTreeNodeCore<String> root_ = compoFactory.newMutableTreeNode("break points");
-        instruction = compoFactory.newMutableTreeNode("instruction");
+    public void guiBuild(AbstractProgramInfos _api) {
+        StringMap<String> mes_ = MessagesIde.valGroup(_api.currentLg());
+        AbstractMutableTreeNodeCore<String> root_ = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_ALL)));
+        instruction = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_INS)));
         root_.add(instruction);
-        watchField = compoFactory.newMutableTreeNode("watch field");
+        watchField = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_WP)));
         root_.add(watchField);
-        watchFieldAnnot = compoFactory.newMutableTreeNode("watch annotation method");
+        watchFieldAnnot = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_WAM)));
         root_.add(watchFieldAnnot);
-        exception = compoFactory.newMutableTreeNode("exception");
+        exception = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_EXC)));
         root_.add(exception);
-        customMethod = compoFactory.newMutableTreeNode("custom method");
+        customMethod = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_CM)));
         root_.add(customMethod);
-        standardMethod = compoFactory.newMutableTreeNode("standard method");
+        standardMethod = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_SM)));
         root_.add(standardMethod);
-        arrayPoints = compoFactory.newMutableTreeNode("array point");
+        arrayPoints = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_ARR)));
         root_.add(arrayPoints);
-        parentPoints = compoFactory.newMutableTreeNode("parent point");
+        parentPoints = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_PP)));
         root_.add(parentPoints);
-        operNatPoints = compoFactory.newMutableTreeNode("native operator point");
+        operNatPoints = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_NAT)));
         root_.add(operNatPoints);
-        operNatCompoPoints = compoFactory.newMutableTreeNode("native compound operator point");
+        operNatCompoPoints = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_NAT_COMP)));
         root_.add(operNatCompoPoints);
-        typePoints = compoFactory.newMutableTreeNode("type points");
+        typePoints = compoFactory.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GROUP_TYPE)));
         root_.add(typePoints);
         tree = compoFactory.newTreeGui(root_);
         create = compoFactory.newPlainButton("+");
@@ -187,7 +193,7 @@ public final class FramePointsTree {
     public void refreshException(ResultContext _res) {
         exception.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedExc(excList, _res.getContext().excList()).entryList()) {
-            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory);
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory, frames);
             exception.add(file_);
         }
         tree.reload(exception);
@@ -195,7 +201,7 @@ public final class FramePointsTree {
     public void refreshParent(ResultContext _res) {
         parentPoints.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedPar(_res).entryList()) {
-            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory);
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory, frames);
             parentPoints.add(file_);
         }
         tree.reload(parentPoints);
@@ -257,13 +263,13 @@ public final class FramePointsTree {
     public void refreshArray(ResultContext _res) {
         arrayPoints.removeAllChildren();
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: sortedArr(_res).entryList()) {
-            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory);
+            AbstractMutableTreeNodeCore<String> file_ = node(p.getKey(), p.getValue(), compoFactory, frames);
             arrayPoints.add(file_);
         }
         tree.reload(arrayPoints);
     }
 
-    static AbstractMutableTreeNodeCore<String> node(String _key, CustList<ExcPointBlockKey> _value, AbsCompoFactory _compo) {
+    static AbstractMutableTreeNodeCore<String> node(String _key, CustList<ExcPointBlockKey> _value, AbsCompoFactory _compo, AbstractProgramInfos _api) {
         CustList<ExcPointBlockKey> listInh_ = new CustList<ExcPointBlockKey>();
         CustList<ExcPointBlockKey> listId_ = new CustList<ExcPointBlockKey>();
         CustList<ExcPointBlockKey> listExact_ = new CustList<ExcPointBlockKey>();
@@ -273,7 +279,7 @@ public final class FramePointsTree {
         listInh_.sortElts(new CmpLocalFileExcPoint());
         listId_.sortElts(new CmpLocalFileExcPoint());
         listExact_.sortElts(new CmpLocalFileExcPoint());
-        return node(listInh_,listId_, listExact_, _key, _compo);
+        return node(listInh_,listId_, listExact_, _key, _compo, _api);
     }
 
     static NatStringTreeMap<CustList<ExcPointBlockKey>> sortedExc(NatStringTreeMap<CustList<ExcPointBlockPair>> _exListMap, AbsCollection<ExcPointBlockPair> _exCollection) {
@@ -371,16 +377,20 @@ public final class FramePointsTree {
         }
         return excList_;
     }
-    static AbstractMutableTreeNodeCore<String> node(CustList<ExcPointBlockKey> _listInherit, CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, String _key, AbsCompoFactory _compo) {
+    static AbstractMutableTreeNodeCore<String> node(CustList<ExcPointBlockKey> _listInherit, CustList<ExcPointBlockKey> _listId, CustList<ExcPointBlockKey> _listExact, String _key, AbsCompoFactory _compo, AbstractProgramInfos _api) {
+        StringMap<String> mes_ = MessagesIde.valGroup(_api.currentLg());
+        String inh_ = mes_.getVal(MessagesIde.IDE_POINTS_INH_FROM_PARAM);
+        String fam_ = mes_.getVal(MessagesIde.IDE_POINTS_FAMILY_PARAM);
+        String ex_ = mes_.getVal(MessagesIde.IDE_POINTS_EXACT_PARAM);
         AbstractMutableTreeNodeCore<String> file_ = _compo.newMutableTreeNode(_key);
         for (ExcPointBlockKey l: _listInherit) {
-            file_.add(_compo.newMutableTreeNode("inherit from "+l.getClName()));
+            file_.add(_compo.newMutableTreeNode(StringUtil.simpleStringsFormat(inh_,l.getClName())));
         }
         for (ExcPointBlockKey l: _listId) {
-            file_.add(_compo.newMutableTreeNode("all types family in "+l.getClName()));
+            file_.add(_compo.newMutableTreeNode(StringUtil.simpleStringsFormat(fam_,l.getClName())));
         }
         for (ExcPointBlockKey l: _listExact) {
-            file_.add(_compo.newMutableTreeNode("exact type "+l.getClName()));
+            file_.add(_compo.newMutableTreeNode(StringUtil.simpleStringsFormat(ex_,l.getClName())));
         }
         return file_;
     }

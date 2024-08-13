@@ -32,9 +32,11 @@ public final class FramePoints {
     private AbsButton create;
     private final NatStringTreeMap<CustList<RenderPointPair>> renderList = new NatStringTreeMap<CustList<RenderPointPair>>();
     private AbstractInterceptorStdCaller caller;
+    private final AbstractProgramInfos frames;
 
     public FramePoints(AbsDebuggerGui _d, AbstractProgramInfos _list) {
-        framePointsTree = new FramePointsTree(_d.getCompoFactory());
+        frames = _list;
+        framePointsTree = new FramePointsTree(_list);
         commonFrame = _list.getFrameFactory().newCommonFrame(_list, null);
         commonFrame.addWindowListener(new CancelFramePointsEvent(_d));
         frameExcFormContent = new FrameExcFormContent(_list);
@@ -55,7 +57,7 @@ public final class FramePoints {
         viewRp = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         AbsPanel pointsKeys_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        framePointsTree.guiBuild();
+        framePointsTree.guiBuild(_d.getFrames());
         pointsKeys_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(framePointsTree.getTree()));
         pointsKeys_.add(framePointsTree.getCreate());
         validStack = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("validate constraints stack for stepping into");
@@ -138,7 +140,7 @@ public final class FramePoints {
             p_.add(_res.get(i).getExcPointBlockPair());
         }
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: FramePointsTree.sortedRend(renderList, _res).entryList()) {
-            AbstractMutableTreeNodeCore<String> file_ = FramePointsTree.node(p.getKey(), p.getValue(),commonFrame.getFrames().getCompoFactory());
+            AbstractMutableTreeNodeCore<String> file_ = FramePointsTree.node(p.getKey(), p.getValue(),commonFrame.getFrames().getCompoFactory(), frames);
             root_.add(file_);
         }
         tree.reload(root_);

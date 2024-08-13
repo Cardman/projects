@@ -30,7 +30,7 @@ public final class GuiStackForm {
     private final DependantPointsForm dependantPointsForm;
     public GuiStackForm(AbstractProgramInfos _c) {
         prefs = new CrudGeneForm<String,Integer>(_c,new NaturalComparator());
-        dependantPointsForm = new DependantPointsForm(_c.getCompoFactory());
+        dependantPointsForm = new DependantPointsForm(_c);
         stackConstraintsForm = new StackConstraintsForm();
     }
 

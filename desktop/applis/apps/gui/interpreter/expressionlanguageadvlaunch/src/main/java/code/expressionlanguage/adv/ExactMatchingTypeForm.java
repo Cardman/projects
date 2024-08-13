@@ -4,6 +4,8 @@ import code.expressionlanguage.exec.dbg.ExcPointBlockKey;
 import code.gui.AbsPanel;
 import code.gui.AbsRadioButton;
 import code.gui.CustButtonGroup;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class ExactMatchingTypeForm {
     private AbsPanel panel;
@@ -12,15 +14,19 @@ public final class ExactMatchingTypeForm {
     private AbsRadioButton sameFamily;
 
     public void guiBuild(AbsDebuggerGui _d) {
+        StringMap<String> mes_ = MessagesIde.valGroup(_d.getFrames().currentLg());
+        String inh_ = mes_.getVal(MessagesIde.IDE_POINTS_INH_FROM);
+        String fam_ = mes_.getVal(MessagesIde.IDE_POINTS_FAMILY);
+        String ex_ = mes_.getVal(MessagesIde.IDE_POINTS_EXACT);
         panel = _d.getFrames().getCompoFactory().newPageBox();
         CustButtonGroup group_ = new CustButtonGroup();
-        inherit = _d.getFrames().getCompoFactory().newRadioButton("inherit");
+        inherit = _d.getFrames().getCompoFactory().newRadioButton(StringUtil.nullToEmpty(inh_));
         group_.add(inherit);
         panel.add(inherit);
-        sameFamily = _d.getFrames().getCompoFactory().newRadioButton("same family");
+        sameFamily = _d.getFrames().getCompoFactory().newRadioButton(StringUtil.nullToEmpty(fam_));
         group_.add(sameFamily);
         panel.add(sameFamily);
-        same = _d.getFrames().getCompoFactory().newRadioButton("same");
+        same = _d.getFrames().getCompoFactory().newRadioButton(StringUtil.nullToEmpty(ex_));
         group_.add(same);
         panel.add(same);
     }
