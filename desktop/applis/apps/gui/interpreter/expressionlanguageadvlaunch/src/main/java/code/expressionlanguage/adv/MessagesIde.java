@@ -52,6 +52,42 @@ public final class MessagesIde {
     public static final String IDE_FIND_REF_CALLERS = "0";
     public static final String IDE_FIND_REF_USAGE_ONLY = "1";
     public static final String IDE_FIND_REF_USAGE_AND_DEF = "2";
+    public static final String IDE_POINTS_KIND = "12";
+    public static final String IDE_POINTS_KIND_STD = "0";
+    public static final String IDE_POINTS_KIND_STATIC = "1";
+    public static final String IDE_POINTS_KIND_INSTANCE = "2";
+    public static final String IDE_POINTS_KIND_LENGTH = "3";
+    public static final String IDE_POINTS_KIND_INT_GET = "4";
+    public static final String IDE_POINTS_KIND_INT_SET = "5";
+    public static final String IDE_POINTS_KIND_INT_COMPOUND_GET = "6";
+    public static final String IDE_POINTS_KIND_INT_COMPOUND_SET = "7";
+    public static final String IDE_POINTS_KIND_INT_COMPOUND_SET_ERR = "8";
+    public static final String IDE_POINTS_KIND_RANGE_GET = "9";
+    public static final String IDE_POINTS_KIND_RANGE_SET = "10";
+    public static final String IDE_POINTS_KIND_RANGE_COMPOUND_GET = "11";
+    public static final String IDE_POINTS_KIND_RANGE_COMPOUND_SET = "12";
+    public static final String IDE_POINTS_KIND_INT_GET_SET = "13";
+    public static final String IDE_POINTS_KIND_INIT_ARRAY = "14";
+    public static final String IDE_POINTS_KIND_CLONE = "15";
+    public static final String IDE_POINTS_KIND_THROWN = "16";
+    public static final String IDE_POINTS_KIND_CAUGHT = "17";
+    public static final String IDE_POINTS_KIND_PROPAGATED = "18";
+    public static final String IDE_POINTS_KIND_SIMPLE = "19";
+    public static final String IDE_POINTS_KIND_COMPOUND = "20";
+    public static final String IDE_POINTS_KIND_GET = "21";
+    public static final String IDE_POINTS_KIND_STD_CONSTRUCTOR = "22";
+    public static final String IDE_POINTS_KIND_STD_METHOD = "23";
+    public static final String IDE_POINTS_KIND_WP_GET = "24";
+    public static final String IDE_POINTS_KIND_WP_SET = "25";
+    public static final String IDE_POINTS_KIND_WP_COMPOUND_GET = "26";
+    public static final String IDE_POINTS_KIND_WP_COMPOUND_SET = "27";
+    public static final String IDE_POINTS_KIND_WP_COMPOUND_SET_ERR = "28";
+    public static final String IDE_POINTS_KIND_WP_TRUE_FIELD = "29";
+    public static final String IDE_POINTS_KIND_ENTRY = "30";
+    public static final String IDE_POINTS_KIND_EXIT = "31";
+    public static final String IDE_POINTS_KIND_ENABLED = "32";
+    public static final String IDE_POINTS_KIND_REMOVE = "33";
+    public static final String IDE_POINTS_KIND_VALIDATE = "34";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -90,6 +126,9 @@ public final class MessagesIde {
     public static StringMap<String> valFindRef(TranslationsLg _lg) {
         return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_FIND_REF).getMapping();
     }
+    public static StringMap<String> valPointsKind(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_KIND).getMapping();
+    }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendInitChoose(_a, enInitChoose());
         appendFindText(_a, enFindText());
@@ -103,6 +142,7 @@ public final class MessagesIde {
         appendFolderExp(_a, enFolderExp());
         appendGlobalParameters(_a, enGlobalParameters());
         appendFindRef(_a, enFindRef());
+        appendPointsKind(_a, enPointsKind());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -118,6 +158,7 @@ public final class MessagesIde {
         appendFolderExp(_a, frFolderExp());
         appendGlobalParameters(_a, frGlobalParameters());
         appendFindRef(_a, frFindRef());
+        appendPointsKind(_a, frPointsKind());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -321,5 +362,86 @@ public final class MessagesIde {
         t_.add(IDE_FIND_REF_USAGE_ONLY,"utilisations uniquement");
         t_.add(IDE_FIND_REF_USAGE_AND_DEF,"utilisations et définition");
         return t_;
+    }
+    public static void appendPointsKind(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_POINTS_KIND, _v);
+    }
+    public static TranslationsFile enPointsKind(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_POINTS_KIND_STD,"standard");
+        e_.add(IDE_POINTS_KIND_STATIC,"static");
+        e_.add(IDE_POINTS_KIND_INSTANCE,"instance");
+        e_.add(IDE_POINTS_KIND_LENGTH,"array length");
+        e_.add(IDE_POINTS_KIND_INT_GET,"array get phase by index");
+        e_.add(IDE_POINTS_KIND_INT_SET,"array set phase by index");
+        e_.add(IDE_POINTS_KIND_INT_COMPOUND_GET,"array compound get phase by index");
+        e_.add(IDE_POINTS_KIND_INT_COMPOUND_SET,"array compound set phase by index");
+        e_.add(IDE_POINTS_KIND_INT_COMPOUND_SET_ERR,"array compound set phase by index when error");
+        e_.add(IDE_POINTS_KIND_RANGE_GET,"array get by range");
+        e_.add(IDE_POINTS_KIND_RANGE_SET,"array set by range");
+        e_.add(IDE_POINTS_KIND_RANGE_COMPOUND_GET,"array compound get phase by range");
+        e_.add(IDE_POINTS_KIND_RANGE_COMPOUND_SET,"array compound set phase by range");
+        e_.add(IDE_POINTS_KIND_INT_GET_SET,"array get and set phase");
+        e_.add(IDE_POINTS_KIND_INIT_ARRAY,"array initialisation phase");
+        e_.add(IDE_POINTS_KIND_CLONE,"array clone phase");
+        e_.add(IDE_POINTS_KIND_THROWN,"thrown exception");
+        e_.add(IDE_POINTS_KIND_CAUGHT,"caught exception");
+        e_.add(IDE_POINTS_KIND_PROPAGATED,"propagated exception");
+        e_.add(IDE_POINTS_KIND_SIMPLE,"single native operation");
+        e_.add(IDE_POINTS_KIND_COMPOUND,"compound native operation");
+        e_.add(IDE_POINTS_KIND_GET,"get parent");
+        e_.add(IDE_POINTS_KIND_STD_CONSTRUCTOR,"native constructor");
+        e_.add(IDE_POINTS_KIND_STD_METHOD,"native method");
+        e_.add(IDE_POINTS_KIND_WP_GET,"field get phase");
+        e_.add(IDE_POINTS_KIND_WP_SET,"field set phase");
+        e_.add(IDE_POINTS_KIND_WP_COMPOUND_GET,"field compound get phase");
+        e_.add(IDE_POINTS_KIND_WP_COMPOUND_SET,"field compound set phase");
+        e_.add(IDE_POINTS_KIND_WP_COMPOUND_SET_ERR,"field compound set phase when error");
+        e_.add(IDE_POINTS_KIND_WP_TRUE_FIELD,"true field");
+        e_.add(IDE_POINTS_KIND_ENTRY,"method entry");
+        e_.add(IDE_POINTS_KIND_EXIT,"method exit");
+        e_.add(IDE_POINTS_KIND_ENABLED,"enabled point");
+        e_.add(IDE_POINTS_KIND_REMOVE,"remove point");
+        e_.add(IDE_POINTS_KIND_VALIDATE,"validate point");
+        return e_;
+    }
+    public static TranslationsFile frPointsKind(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_POINTS_KIND_STD,"standard");
+        f_.add(IDE_POINTS_KIND_STATIC,"static");
+        f_.add(IDE_POINTS_KIND_INSTANCE,"instance");
+        f_.add(IDE_POINTS_KIND_LENGTH,"longueur de tableau");
+        f_.add(IDE_POINTS_KIND_INT_GET,"phase de récupération d'élément de tableau par indice");
+        f_.add(IDE_POINTS_KIND_INT_SET,"phase de mise à jour d'élément de tableau par indice");
+        f_.add(IDE_POINTS_KIND_INT_COMPOUND_GET,"phase de récupération composée d'élément de tableau par indice");
+        f_.add(IDE_POINTS_KIND_INT_COMPOUND_SET,"phase de mise à jour composée d'élément de tableau par indice");
+        f_.add(IDE_POINTS_KIND_INT_COMPOUND_SET_ERR,"phase de mise à jour composée d'élément de tableau par indice lors d'une erreur");
+        f_.add(IDE_POINTS_KIND_RANGE_GET,"phase de récupération d'élément de tableau par intervalle");
+        f_.add(IDE_POINTS_KIND_RANGE_SET,"phase de mise à jour d'élément de tableau par intervalle");
+        f_.add(IDE_POINTS_KIND_RANGE_COMPOUND_GET,"phase de récupération composée d'élément de tableau par intervalle");
+        f_.add(IDE_POINTS_KIND_RANGE_COMPOUND_SET,"phase de mise à jour composée d'élément de tableau par intervalle");
+        f_.add(IDE_POINTS_KIND_INT_GET_SET,"phase de récupération et de mise à jour d'élément de tableau");
+        f_.add(IDE_POINTS_KIND_INIT_ARRAY,"phase d'initialisation de tableau");
+        f_.add(IDE_POINTS_KIND_CLONE,"phase de clonage de tableau");
+        f_.add(IDE_POINTS_KIND_THROWN,"exception levée");
+        f_.add(IDE_POINTS_KIND_CAUGHT,"exception capturée");
+        f_.add(IDE_POINTS_KIND_PROPAGATED,"exception propagée");
+        f_.add(IDE_POINTS_KIND_SIMPLE,"opération native simple");
+        f_.add(IDE_POINTS_KIND_COMPOUND,"opération native composée");
+        f_.add(IDE_POINTS_KIND_GET,"récupération du parent");
+        f_.add(IDE_POINTS_KIND_STD_CONSTRUCTOR,"constructeur natif");
+        f_.add(IDE_POINTS_KIND_STD_METHOD,"méthode native");
+        f_.add(IDE_POINTS_KIND_WP_GET,"phase de récupération de champ");
+        f_.add(IDE_POINTS_KIND_WP_SET,"phase de mise à jour de champ");
+        f_.add(IDE_POINTS_KIND_WP_COMPOUND_GET,"phase de récupération composée de champ");
+        f_.add(IDE_POINTS_KIND_WP_COMPOUND_SET,"phase de mise à jour composée de champ");
+        f_.add(IDE_POINTS_KIND_WP_COMPOUND_SET_ERR,"phase de mise à jour composée de champ lors d'une erreur");
+        f_.add(IDE_POINTS_KIND_WP_TRUE_FIELD,"champ réel");
+        f_.add(IDE_POINTS_KIND_ENTRY,"entrée de méthode");
+        f_.add(IDE_POINTS_KIND_EXIT,"sortie de méthode");
+        f_.add(IDE_POINTS_KIND_ENABLED,"point actif");
+        f_.add(IDE_POINTS_KIND_REMOVE,"supprimer point");
+        f_.add(IDE_POINTS_KIND_VALIDATE,"valider point");
+        return f_;
     }
 }

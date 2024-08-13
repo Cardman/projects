@@ -7,6 +7,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FrameParFormContent {
     private final GuiStackForm guiGetStackForm;
@@ -24,10 +25,11 @@ public final class FrameParFormContent {
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
-        get = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("get");
-        enabledPar = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
+        StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
+        get = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_GET)));
+        enabledPar = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
         clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         exactForm.guiBuild(_d);
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();

@@ -7,6 +7,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FrameExcFormContent {
     private final GuiStackForm guiThrownStackForm;
@@ -30,12 +31,13 @@ public final class FrameExcFormContent {
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
-        thrown = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("thrown");
-        caught = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("caught");
-        propagated = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("propagated");
-        enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
+        StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
+        thrown = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_THROWN)));
+        caught = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CAUGHT)));
+        propagated = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_PROPAGATED)));
+        enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
         clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         exactForm.guiBuild(_d);
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
@@ -46,9 +48,9 @@ public final class FrameExcFormContent {
         bpForm_.add(caught);
         bpForm_.add(propagated);
         AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
-        putStForm(_d, tab_, guiThrownStackForm, "thrown");
-        putStForm(_d, tab_, guiCaughtStackForm, "caught");
-        putStForm(_d, tab_, guiPropagatedStackForm, "propagated");
+        putStForm(_d, tab_, guiThrownStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_THROWN)));
+        putStForm(_d, tab_, guiCaughtStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CAUGHT)));
+        putStForm(_d, tab_, guiPropagatedStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_PROPAGATED)));
         bpForm_.add(tab_);
         getGuiThrownStackForm().showPrefs();
         getGuiCaughtStackForm().showPrefs();

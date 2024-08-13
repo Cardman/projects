@@ -6,25 +6,14 @@ import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
 import code.gui.AbsScrollPane;
 import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.Ints;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class DependantPointsForm {
-    public static final String ENTRY = "entry";
-    public static final String EXIT = "exit";
-    public static final String STD = "std";
-    public static final String STATIC = "static";
-    public static final String INSTANCE = "instance";
-    public static final String THROWN = "thrown";
-    public static final String LENGTH = "length";
-    public static final String CAUGHT = "caught";
-    public static final String PROPAGATED = "propagated";
-    public static final String READ = "read";
-    public static final String WRITE = "write";
-    public static final String COMPOUND_READ = "compound read";
-    public static final String COMPOUND_WRITE = "compound write";
-    public static final String COMPOUND_WRITE_ERR = "compound write err";
     private final FramePointsTree framePointsTree;
     private AbsPanel excFrom;
     private AbsPanel stdForm;
@@ -42,12 +31,15 @@ public final class DependantPointsForm {
     private final Ints selectedCurrent = new Ints();
     private final CustList<AbsCustCheckBox> checks = new IdList<AbsCustCheckBox>();
     private final CustList<AbsCustCheckBox> checksCurrent = new IdList<AbsCustCheckBox>();
+    private AbstractProgramInfos frames;
+
     public DependantPointsForm(AbsCompoFactory _c) {
         framePointsTree = new FramePointsTree(_c);
     }
 
     public AbsPanel guiBuild(AbsDebuggerGui _d) {
-        compoFactory = _d.getCommonFrame().getFrames().getCompoFactory();
+        frames = _d.getCommonFrame().getFrames();
+        compoFactory = frames.getCompoFactory();
         view = compoFactory.newAbsScrollPane();
         framePointsTree.guiBuild();
         AbsPanel all_ = compoFactory.newLineBox();
@@ -104,152 +96,163 @@ public final class DependantPointsForm {
 //        refreshWatch(_res);
 //        refreshMethod(_res);
 //        refreshBp(_res);
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         if (_add == BreakPoint.BP) {
-            bpForm.add(check(STD,BreakPoint.BPC_STD));
+            bpForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STD),BreakPoint.BPC_STD));
         } else if (_add == ExcPoint.EP) {
-            excFrom.add(check(THROWN,ExcPoint.BPC_THROWN));
-            excFrom.add(check(CAUGHT,ExcPoint.BPC_CAUGHT));
-            excFrom.add(check(PROPAGATED,ExcPoint.BPC_PROPAGATED));
+            excFrom.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_THROWN),ExcPoint.BPC_THROWN));
+            excFrom.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CAUGHT),ExcPoint.BPC_CAUGHT));
+            excFrom.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_PROPAGATED),ExcPoint.BPC_PROPAGATED));
         } else if (_add == WatchPoint.WP) {
-            wpForm.add(check(READ,WatchPoint.BPC_READ));
-            wpForm.add(check(WRITE,WatchPoint.BPC_WRITE));
-            wpForm.add(check(COMPOUND_READ,WatchPoint.BPC_COMPOUND_READ));
-            wpForm.add(check(COMPOUND_WRITE,WatchPoint.BPC_COMPOUND_WRITE));
-            wpForm.add(check(COMPOUND_WRITE_ERR,WatchPoint.BPC_COMPOUND_WRITE_ERR));
+            wpForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_GET),WatchPoint.BPC_READ));
+            wpForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_SET),WatchPoint.BPC_WRITE));
+            wpForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_GET),WatchPoint.BPC_COMPOUND_READ));
+            wpForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_SET),WatchPoint.BPC_COMPOUND_WRITE));
+            wpForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_SET_ERR),WatchPoint.BPC_COMPOUND_WRITE_ERR));
         } else if (_add == MethodPointBlockPair.CMP) {
-            metForm.add(check(ENTRY,MethodPoint.BPC_ENTRY));
-            metForm.add(check(EXIT,MethodPoint.BPC_EXIT));
+            metForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENTRY),MethodPoint.BPC_ENTRY));
+            metForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_EXIT),MethodPoint.BPC_EXIT));
         } else if (_add == StdMethodPointBlockPair.SMP) {
-            stdForm.add(check(ENTRY,MethodPoint.BPC_ENTRY));
-            stdForm.add(check(EXIT,MethodPoint.BPC_EXIT));
+            stdForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENTRY),MethodPoint.BPC_ENTRY));
+            stdForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_EXIT),MethodPoint.BPC_EXIT));
         } else if (_add == ArrPoint.AP) {
-            arrForm.add(check(LENGTH,ArrPoint.BPC_LENGTH));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_GET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_SET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_COMPOUND_GET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_COMPOUND_SET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_COMPOUND_SET_ERR));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_GET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_SET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_COMPOUND_GET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_RANGE_COMPOUND_SET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_INT_GET_SET));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_INIT));
-            arrForm.add(check(LENGTH,ArrPoint.BPC_CLONE));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_LENGTH),ArrPoint.BPC_LENGTH));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET),ArrPoint.BPC_INT_GET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_SET),ArrPoint.BPC_INT_SET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_GET),ArrPoint.BPC_INT_COMPOUND_GET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_SET),ArrPoint.BPC_INT_COMPOUND_SET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_SET_ERR),ArrPoint.BPC_INT_COMPOUND_SET_ERR));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_GET),ArrPoint.BPC_RANGE_GET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_SET),ArrPoint.BPC_RANGE_SET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_COMPOUND_GET),ArrPoint.BPC_RANGE_COMPOUND_GET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_COMPOUND_SET),ArrPoint.BPC_RANGE_COMPOUND_SET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET_SET),ArrPoint.BPC_INT_GET_SET));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INIT_ARRAY),ArrPoint.BPC_INIT));
+            arrForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CLONE),ArrPoint.BPC_CLONE));
         } else if (_add == ParPoint.PP) {
-            parForm.add(check(THROWN,ParPoint.BPC_GET));
+            parForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_GET),ParPoint.BPC_GET));
         } else if (_add == OperNatPoint.OP) {
-            operNatForm.add(check(THROWN,OperNatPoint.BPC_SIMPLE));
+            operNatForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE),OperNatPoint.BPC_SIMPLE));
         } else if (_add == FramePointsTree.SORT_CP) {
-            operNatCompoForm.add(check(THROWN,OperNatPoint.BPC_SIMPLE));
-            operNatCompoForm.add(check(THROWN,OperNatPoint.BPC_COMPOUND));
+            operNatCompoForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE),OperNatPoint.BPC_SIMPLE));
+            operNatCompoForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_COMPOUND),OperNatPoint.BPC_COMPOUND));
         } else if (_add == FramePointsTree.SORT_TP) {
-            typeForm.add(check(STATIC,BreakPoint.BPC_STATIC));
-            typeForm.add(check(INSTANCE,BreakPoint.BPC_INSTANCE));
+            typeForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STATIC),BreakPoint.BPC_STATIC));
+            typeForm.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INSTANCE),BreakPoint.BPC_INSTANCE));
         }
     }
 
     public void guiContentBuild(BreakPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(STD,_p.getValue().getResultStd()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STD),_p.getValue().getResultStd()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(TypePointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(INSTANCE,_p.getValue().getResultInstance()));
-        page_.add(check(STATIC,_p.getValue().getResultStatic()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INSTANCE),_p.getValue().getResultInstance()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STATIC),_p.getValue().getResultStatic()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(ExcPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(THROWN,_p.getValue().getResultThrown()));
-        page_.add(check(CAUGHT,_p.getValue().getResultCaught()));
-        page_.add(check(PROPAGATED,_p.getValue().getResultPropagated()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_THROWN),_p.getValue().getResultThrown()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CAUGHT),_p.getValue().getResultCaught()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_PROPAGATED),_p.getValue().getResultPropagated()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(ParPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(THROWN,_p.getValue().getResultGet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_GET),_p.getValue().getResultGet()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuildNotCompo(OperNatPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(THROWN,_p.getValue().getResultSimple()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE),_p.getValue().getResultSimple()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(OperNatPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(THROWN,_p.getValue().getResultSimple()));
-        page_.add(check(THROWN,_p.getValue().getResultCompound()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE),_p.getValue().getResultSimple()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_COMPOUND),_p.getValue().getResultCompound()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(ArrPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(LENGTH,_p.getValue().getResultLength()));
-        page_.add(check(LENGTH,_p.getValue().getResultIntGet()));
-        page_.add(check(LENGTH,_p.getValue().getResultIntSet()));
-        page_.add(check(LENGTH,_p.getValue().getResultIntCompoundGet()));
-        page_.add(check(LENGTH,_p.getValue().getResultIntCompoundSet()));
-        page_.add(check(LENGTH,_p.getValue().getResultIntCompoundSetErr()));
-        page_.add(check(LENGTH,_p.getValue().getResultRangeGet()));
-        page_.add(check(LENGTH,_p.getValue().getResultRangeSet()));
-        page_.add(check(LENGTH,_p.getValue().getResultRangeCompoundGet()));
-        page_.add(check(LENGTH,_p.getValue().getResultRangeCompoundSet()));
-        page_.add(check(LENGTH,_p.getValue().getResultIntGetSet()));
-        page_.add(check(LENGTH,_p.getValue().getResultInitArray()));
-        page_.add(check(LENGTH,_p.getValue().getResultClone()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_LENGTH),_p.getValue().getResultLength()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET),_p.getValue().getResultIntGet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_SET),_p.getValue().getResultIntSet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_GET),_p.getValue().getResultIntCompoundGet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_SET),_p.getValue().getResultIntCompoundSet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_SET_ERR),_p.getValue().getResultIntCompoundSetErr()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_GET),_p.getValue().getResultRangeGet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_SET),_p.getValue().getResultRangeSet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_COMPOUND_GET),_p.getValue().getResultRangeCompoundGet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_COMPOUND_SET),_p.getValue().getResultRangeCompoundSet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET_SET),_p.getValue().getResultIntGetSet()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INIT_ARRAY),_p.getValue().getResultInitArray()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CLONE),_p.getValue().getResultClone()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(MethodPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(ENTRY,_p.getValue().getResultEntry()));
-        page_.add(check(EXIT,_p.getValue().getResultExit()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENTRY),_p.getValue().getResultEntry()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_EXIT),_p.getValue().getResultExit()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(StdMethodPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(ENTRY,_p.getValue().getResultEntry()));
-        page_.add(check(EXIT,_p.getValue().getResultExit()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENTRY),_p.getValue().getResultEntry()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_EXIT),_p.getValue().getResultExit()));
         view.setViewportView(page_);
     }
 
     public void guiContentBuild(WatchPointBlockPair _p) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(frames.currentLg());
         checks.clear();
         AbsPanel page_ = compoFactory.newPageBox();
-        page_.add(check(READ,_p.getValue().getResultRead()));
-        page_.add(check(WRITE,_p.getValue().getResultWrite()));
-        page_.add(check(COMPOUND_READ,_p.getValue().getResultCompoundRead()));
-        page_.add(check(COMPOUND_WRITE,_p.getValue().getResultCompoundWrite()));
-        page_.add(check(COMPOUND_WRITE_ERR,_p.getValue().getResultCompoundWriteErr()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_GET),_p.getValue().getResultRead()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_SET),_p.getValue().getResultWrite()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_GET),_p.getValue().getResultCompoundRead()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_SET),_p.getValue().getResultCompoundWrite()));
+        page_.add(check(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_SET_ERR),_p.getValue().getResultCompoundWriteErr()));
         view.setViewportView(page_);
     }
 
     private AbsCustCheckBox check(String _title, BreakPointCondition _cond) {
-        AbsCustCheckBox ch_ = compoFactory.newCustCheckBox(_title,selected.containsObj(_cond));
+        AbsCustCheckBox ch_ = compoFactory.newCustCheckBox(StringUtil.nullToEmpty(_title),selected.containsObj(_cond));
         checks.add(ch_);
         ch_.addActionListener(new AddRemoveBpcEvent(ch_,this,_cond));
         return ch_;
     }
 
     private AbsCustCheckBox check(String _title, int _cond) {
-        AbsCustCheckBox ch_ = compoFactory.newCustCheckBox(_title);
+        AbsCustCheckBox ch_ = compoFactory.newCustCheckBox(StringUtil.nullToEmpty(_title));
         checksCurrent.add(ch_);
         ch_.addActionListener(new AddRemoveBpcFirstEvent(ch_,this,_cond));
         return ch_;

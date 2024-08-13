@@ -6,6 +6,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FrameBpFormContent {
     private AbsTextField fileName;
@@ -23,16 +24,17 @@ public final class FrameBpFormContent {
         guiStdStackForm = new GuiStackForm(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
         edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
-        enabledBp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
+        enabledBp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
         fileName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
+        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
         AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
         bpForm_.add(enabledBp);
         tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
-        putStForm(tabs, "std", guiStdStackForm.guiBuild(_d));
+        putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STD)), guiStdStackForm.guiBuild(_d));
         bpForm_.add(tabs);
         bpForm_.add(fileName);
         bpForm_.add(caret);

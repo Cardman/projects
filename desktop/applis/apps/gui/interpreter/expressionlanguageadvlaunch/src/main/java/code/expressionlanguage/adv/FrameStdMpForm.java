@@ -12,6 +12,7 @@ import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class FrameStdMpForm  extends AdvFrameMpForm{
     private final FrameStdMpFormContent frameMpFormContent;
@@ -31,6 +32,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         frameMpFormContent.guiBuildBase(_d);
     }
     public void tree(AbsDebuggerGui _d, FramePoints _p, ResultContext _res) {
+        StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
         listFct.clear();
         root = new MutableTreeNodeNav<AbsMetaStdType>();
         AbsCompoFactory cf_ = _d.getCommonFrame().getFrames().getCompoFactory();
@@ -48,9 +50,9 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
             }
             for (StandardNamedFunction c:std_) {
                 if (c instanceof StandardConstructor) {
-                    rootType_.add(cf_.newMutableTreeNode("constructor "+c.getSignature(_res.getPageEl().getDisplayedStrings())));
+                    rootType_.add(cf_.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STD_CONSTRUCTOR)) +":"+c.getSignature(_res.getPageEl().getDisplayedStrings())));
                 } else {
-                    rootType_.add(cf_.newMutableTreeNode("method "+c.getSignature(_res.getPageEl().getDisplayedStrings())));
+                    rootType_.add(cf_.newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STD_METHOD)) +":"+c.getSignature(_res.getPageEl().getDisplayedStrings())));
                 }
                 MetaStdFunction m_ = new MetaStdFunction(t.getValue(), c);
                 mt_.getElt().add(m_.getElt());

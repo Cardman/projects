@@ -8,6 +8,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FrameOperNatFormContent {
     private final GuiStackForm guiSimpleStackForm;
@@ -27,10 +28,11 @@ public final class FrameOperNatFormContent {
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
-        simple = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("get");
-        enabledOperNat = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
+        StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
+        simple = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)));
+        enabledOperNat = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
         symbol = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         first = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         second = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
@@ -41,7 +43,7 @@ public final class FrameOperNatFormContent {
         onForm_.add(enabledOperNat);
         onForm_.add(simple);
         tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
-        putStForm(tabs, "simple", guiSimpleStackForm.guiBuild(_d));
+        putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)), guiSimpleStackForm.guiBuild(_d));
         onForm_.add(tabs);
         onForm_.add(ok);
         onForm_.add(remove);

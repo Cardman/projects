@@ -7,6 +7,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class FrameOperNatCompoFormContent {
     private final GuiStackForm guiSimpleStackForm;
@@ -29,11 +30,12 @@ public final class FrameOperNatCompoFormContent {
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
-        simple = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("get");
-        compound = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("get");
-        enabledOperNat = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("enabled");
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("ok");
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("remove");
+        StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
+        simple = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)));
+        compound = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_COMPOUND)));
+        enabledOperNat = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
         symbol = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         first = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
         second = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
@@ -45,8 +47,8 @@ public final class FrameOperNatCompoFormContent {
         bpForm_.add(simple);
         bpForm_.add(compound);
         tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
-        putStForm(tabs, "simple", guiSimpleStackForm.guiBuild(_d));
-        putStForm(tabs, "compound", guiCompoundStackForm.guiBuild(_d));
+        putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)), guiSimpleStackForm.guiBuild(_d));
+        putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_COMPOUND)), guiCompoundStackForm.guiBuild(_d));
         bpForm_.add(tabs);
         bpForm_.add(ok);
         bpForm_.add(remove);
