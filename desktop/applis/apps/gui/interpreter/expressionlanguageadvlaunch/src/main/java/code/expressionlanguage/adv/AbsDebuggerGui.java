@@ -114,6 +114,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     }
 
     public void guiBuild() {
+        StringMap<String> mesSession_ = MessagesIde.valSessionForm(getFrames().currentLg());
         dbgMenu = getEvent().act();
         getDbgMenu().open();
         manageOptions = getEvent().manageOpt();
@@ -126,8 +127,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         tabbedPane.setPreferredSize(new MetaDimension(512,512));
         AbsPanel spec_ = buildPart();
         spec_.add(pagePrep_);
-        superTab_.addIntTab("prepare",getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane), spec_));
-        mute = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox("mute");
+        superTab_.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_PREPARE)),getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane), spec_));
+        mute = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_MUTE)));
         selectEnter = getCommonFrame().getFrames().getCompoFactory().newPlainButton("|>");
         selectEnter.setEnabled(false);
         nextAction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">>");
@@ -146,7 +147,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nextCursorExpression.setEnabled(false);
         pauseStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("||");
         pauseStack.setEnabled(false);
-        stopStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("stop");
+        stopStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("\u23F9");
         stopStack.setEnabled(false);
         detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
@@ -156,8 +157,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
                 getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(callStackRender));
         AbsPanel dynPanel_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         dynamicEval = getCommonFrame().getFrames().getCompoFactory().newTextArea();
-        evalPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton("eval page");
-        evalNoPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton("eval no page");
+        evalPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_EVAL_PAGE)));
+        evalNoPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_EVAL_NO_PAGE)));
         watches = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         dynTrees = new CustList<AbsTreeGui>();
         buttons = new IdList<AbsButton>();
@@ -168,7 +169,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         dynPanel_.add(evalNoPage);
         dynPanel_.add(watches);
 //        dynPanel_.add(cancelDynWatch);
-        refreshRender = getCompoFactory().newPlainButton("refresh render");
+        refreshRender = getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_REFRESH_RENDER)));
         AbsSplitPane detRender_ = getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(refreshRender,detail);
         navigation = getCommonFrame().getFrames().getCompoFactory().newLineBox();
         navigation.setVisible(false);
@@ -187,27 +188,27 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         pagePrep_.add(nav_);
         sessionTab = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
         sessionTab.setVisible(false);
-        sessionTab.addIntTab("calls",calls_);
-        sessionTab.addIntTab("render calculation",detRender_);
-        sessionTab.addIntTab("dynamic",getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynPanel_));
+        sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_CALLS)),calls_);
+        sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_RENDER_CALCULATION)),detRender_);
+        sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_DYNAMIC)),getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynPanel_));
         statusAnalyzeArea = getCommonFrame().getFrames().getCompoFactory().newTextArea();
         statusAnalyzeArea.setEditable(false);
-        superTab_.addIntTab("status",getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
+        superTab_.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_STATUS)),getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
         statusDbgAreaScroll = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
         statusDbgAreaScrollRender = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
-        sessionTab.addIntTab("logs",statusDbgAreaScroll);
-        sessionTab.addIntTab("render",statusDbgAreaScrollRender);
+        sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_LOGS)),statusDbgAreaScroll);
+        sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_RENDER)),statusDbgAreaScrollRender);
         pagePrep_.add(sessionTab);
         AbsPanel pane_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
         pane_.add(superTab_);
         getCommonFrame().setContentPane(pane_);
         getCommonFrame().setVisible(true);
         AbsMenuBar bar_ = getCommonFrame().getFrames().getCompoFactory().newMenuBar();
-        EnabledMenu session_ = getCommonFrame().getFrames().getCompoFactory().newMenu("session");
-        analyzeMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem("analyze");
+        EnabledMenu session_ = getCommonFrame().getFrames().getCompoFactory().newMenu(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_MENU)));
+        analyzeMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_ANALYZE)));
         analyzeMenu.addActionListener(getEvent());
         session_.addMenuItem(analyzeMenu);
-        openPoints = getCommonFrame().getFrames().getCompoFactory().newMenuItem("open points");
+        openPoints = getCommonFrame().getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_OPEN_POINTS)));
         openPoints.setEnabled(false);
         openPoints.setAccelerator(GuiConstants.VK_F6,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
         session_.addMenuItem(openPoints);

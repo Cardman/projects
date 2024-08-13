@@ -50,7 +50,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final String CST_RESOURCES_FOLDER = "resources_player";
     private static final String REL_SEP = " / ";
     private static final String CST_PAUSE = "||";
-    private static final String CST_STOP = "[]";
+//    private static final String CST_STOP = "[]";
     private static final String CST_PREVIOUS = "<|";
     private static final String CST_NEXT = "|>";
     private static final String CST_PLAY = ">";
@@ -73,7 +73,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsButton play = getCompoFactory().newPlainButton(CST_PLAY);
     private final AbsButton playPrevious = getCompoFactory().newPlainButton(CST_PREVIOUS);
     private final AbsButton playNext = getCompoFactory().newPlainButton(CST_NEXT);
-    private final AbsButton stop = getCompoFactory().newPlainButton(CST_STOP);
+    private final AbsButton stop = getCompoFactory().newPlainButton("\u23F9");
     private final AbsPlainLabel currentNoSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsPlainLabel currentSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsScrollPane scroll;

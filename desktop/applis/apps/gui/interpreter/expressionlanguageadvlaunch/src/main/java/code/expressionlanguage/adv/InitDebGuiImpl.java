@@ -25,6 +25,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
+import code.util.core.StringUtil;
 
 public final class InitDebGuiImpl extends AbsDebuggerGui {
     private final MethodFromFilter methodFilter;
@@ -47,9 +48,10 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     protected AbsPanel buildPart() {
         AbsCommonFrame frame_ = getCommonFrame();
         AbstractProgramInfos pr_ = frame_.getFrames();
-        vararg = pr_.getCompoFactory().newCustCheckBox("vararg");
-        retRef = pr_.getCompoFactory().newCustCheckBox("return");
-        paramRef = pr_.getCompoFactory().newCustCheckBox("params");
+        StringMap<String> mes_ = MessagesIde.valForms(pr_.currentLg());
+        vararg = pr_.getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FORMS_VARARG)));
+        retRef = pr_.getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FORMS_RETURN)));
+        paramRef = pr_.getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FORMS_PARAM)));
         classesField = pr_.getCompoFactory().newTextField();
         clMethField = pr_.getCompoFactory().newTextField();
         classesFieldAutoComplete = new AutoCompleteDocument(classesField, new StringList(), pr_,new FeedExpressionClassValue());

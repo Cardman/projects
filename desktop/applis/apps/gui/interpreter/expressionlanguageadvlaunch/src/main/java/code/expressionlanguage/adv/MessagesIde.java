@@ -148,6 +148,24 @@ public final class MessagesIde {
     public static final String IDE_POINTS_SESSION_FORM_CANCEL_EVAL = "2";
     public static final String IDE_POINTS_SESSION_FORM_REFRESH_RENDER = "3";
     public static final String IDE_POINTS_SESSION_FORM_CANCEL_RENDER = "4";
+    public static final String IDE_POINTS_SESSION_FORM_PREPARE = "5";
+    public static final String IDE_POINTS_SESSION_FORM_MUTE = "6";
+    public static final String IDE_POINTS_SESSION_FORM_EVAL_PAGE = "7";
+    public static final String IDE_POINTS_SESSION_FORM_EVAL_NO_PAGE = "8";
+    public static final String IDE_POINTS_SESSION_FORM_CALLS = "9";
+    public static final String IDE_POINTS_SESSION_FORM_RENDER_CALCULATION = "10";
+    public static final String IDE_POINTS_SESSION_FORM_DYNAMIC = "11";
+    public static final String IDE_POINTS_SESSION_FORM_STATUS = "12";
+    public static final String IDE_POINTS_SESSION_FORM_LOGS = "13";
+    public static final String IDE_POINTS_SESSION_FORM_RENDER = "14";
+    public static final String IDE_POINTS_SESSION_FORM_MENU = "15";
+    public static final String IDE_POINTS_SESSION_FORM_ANALYZE = "16";
+    public static final String IDE_POINTS_SESSION_FORM_OPEN_POINTS = "17";
+    public static final String IDE_POINTS_FORMS = "18";
+    public static final String IDE_POINTS_FORMS_CLASS = "0";
+    public static final String IDE_POINTS_FORMS_VARARG = "1";
+    public static final String IDE_POINTS_FORMS_RETURN = "2";
+    public static final String IDE_POINTS_FORMS_PARAM = "3";
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -204,6 +222,9 @@ public final class MessagesIde {
     public static StringMap<String> valSessionForm(TranslationsLg _lg) {
         return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_SESSION_FORM).getMapping();
     }
+    public static StringMap<String> valForms(TranslationsLg _lg) {
+        return FileInfos.getAppliTr(_lg).getMapping().getVal(IDE_POINTS_FORMS).getMapping();
+    }
     public static TranslationsAppli updateEn(TranslationsAppli _a){
         appendInitChoose(_a, enInitChoose());
         appendFindText(_a, enFindText());
@@ -223,6 +244,7 @@ public final class MessagesIde {
         appendRendForm(_a, enRendForm());
         appendGlForm(_a, enGlForm());
         appendSessionForm(_a, enSessionForm());
+        appendPointsForms(_a, enPointsForms());
         return _a;
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
@@ -244,6 +266,7 @@ public final class MessagesIde {
         appendRendForm(_a, frRendForm());
         appendGlForm(_a, frGlForm());
         appendSessionForm(_a, frSessionForm());
+        appendPointsForms(_a, frPointsForms());
         return _a;
     }
     public static void appendInitChoose(TranslationsAppli _a, TranslationsFile _v) {
@@ -683,6 +706,19 @@ public final class MessagesIde {
         e_.add(IDE_POINTS_SESSION_FORM_CANCEL_EVAL,"stop evaluating");
         e_.add(IDE_POINTS_SESSION_FORM_REFRESH_RENDER,"refresh render");
         e_.add(IDE_POINTS_SESSION_FORM_CANCEL_RENDER,"stop rendering");
+        e_.add(IDE_POINTS_SESSION_FORM_PREPARE,"prepare session");
+        e_.add(IDE_POINTS_SESSION_FORM_MUTE,"mute");
+        e_.add(IDE_POINTS_SESSION_FORM_EVAL_PAGE,"eval page");
+        e_.add(IDE_POINTS_SESSION_FORM_EVAL_NO_PAGE,"eval no page");
+        e_.add(IDE_POINTS_SESSION_FORM_CALLS,"calls");
+        e_.add(IDE_POINTS_SESSION_FORM_RENDER_CALCULATION,"render calculation");
+        e_.add(IDE_POINTS_SESSION_FORM_DYNAMIC,"dynamic");
+        e_.add(IDE_POINTS_SESSION_FORM_STATUS,"status");
+        e_.add(IDE_POINTS_SESSION_FORM_LOGS,"logs");
+        e_.add(IDE_POINTS_SESSION_FORM_RENDER,"render");
+        e_.add(IDE_POINTS_SESSION_FORM_MENU,"session");
+        e_.add(IDE_POINTS_SESSION_FORM_ANALYZE,"analyze");
+        e_.add(IDE_POINTS_SESSION_FORM_OPEN_POINTS,"open points");
         return e_;
     }
     public static TranslationsFile frSessionForm(){
@@ -692,6 +728,38 @@ public final class MessagesIde {
         f_.add(IDE_POINTS_SESSION_FORM_CANCEL_EVAL,"arrêter l'évaluation");
         f_.add(IDE_POINTS_SESSION_FORM_REFRESH_RENDER,"rafraîchir le rendu");
         f_.add(IDE_POINTS_SESSION_FORM_CANCEL_RENDER,"arrêter le rendu");
+        f_.add(IDE_POINTS_SESSION_FORM_PREPARE,"préparer la session");
+        f_.add(IDE_POINTS_SESSION_FORM_MUTE,"ignorer");
+        f_.add(IDE_POINTS_SESSION_FORM_EVAL_PAGE,"évaluer avec l'élément de pile");
+        f_.add(IDE_POINTS_SESSION_FORM_EVAL_NO_PAGE,"évaluer sans l'élément de pile");
+        f_.add(IDE_POINTS_SESSION_FORM_CALLS,"appels");
+        f_.add(IDE_POINTS_SESSION_FORM_RENDER_CALCULATION,"calcul de rendu");
+        f_.add(IDE_POINTS_SESSION_FORM_DYNAMIC,"dynamique");
+        f_.add(IDE_POINTS_SESSION_FORM_STATUS,"statut");
+        f_.add(IDE_POINTS_SESSION_FORM_LOGS,"affichage");
+        f_.add(IDE_POINTS_SESSION_FORM_RENDER,"rendu");
+        f_.add(IDE_POINTS_SESSION_FORM_MENU,"session");
+        f_.add(IDE_POINTS_SESSION_FORM_ANALYZE,"analyse");
+        f_.add(IDE_POINTS_SESSION_FORM_OPEN_POINTS,"ouvrir les points");
+        return f_;
+    }
+    public static void appendPointsForms(TranslationsAppli _a, TranslationsFile _v) {
+        _a.getMapping().addEntry(IDE_POINTS_FORMS, _v);
+    }
+    public static TranslationsFile enPointsForms(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(IDE_POINTS_FORMS_CLASS,"select a class");
+        e_.add(IDE_POINTS_FORMS_VARARG,"vararg");
+        e_.add(IDE_POINTS_FORMS_RETURN,"return");
+        e_.add(IDE_POINTS_FORMS_PARAM,"params");
+        return e_;
+    }
+    public static TranslationsFile frPointsForms(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(IDE_POINTS_FORMS_CLASS,"sélectionner une classe");
+        f_.add(IDE_POINTS_FORMS_VARARG,"variadique");
+        f_.add(IDE_POINTS_FORMS_RETURN,"retourner une référence");
+        f_.add(IDE_POINTS_FORMS_PARAM,"paramétrer une référence");
         return f_;
     }
 }

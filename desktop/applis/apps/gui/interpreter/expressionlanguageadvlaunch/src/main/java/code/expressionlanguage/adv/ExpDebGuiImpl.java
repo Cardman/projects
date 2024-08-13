@@ -23,6 +23,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class ExpDebGuiImpl extends AbsDebuggerGui {
     private FormFindReplaceExpression findReplaceExpression;
@@ -49,10 +50,11 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
     protected AbsPanel buildPart() {
         AbsCommonFrame frame_ = getCommonFrame();
         AbstractProgramInfos pr_ = frame_.getFrames();
+        StringMap<String> mes_ = MessagesIde.valForms(pr_.currentLg());
         findReplaceExpression = new FormFindReplaceExpression(pr_);
         AbsPanel page_ = pr_.getCompoFactory().newPageBox();
         page_.add(findReplaceExpression.getFinderExpClasses());
-        selectClass = pr_.getCompoFactory().newPlainButton("select");
+        selectClass = pr_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FORMS_CLASS)));
         selectClass.addActionListener(new SelectClassDbgEvent(findReplaceExpression));
         page_.add(selectClass);
         text = pr_.getCompoFactory().newTextArea();
