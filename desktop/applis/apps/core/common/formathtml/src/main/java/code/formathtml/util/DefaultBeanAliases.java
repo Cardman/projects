@@ -577,7 +577,6 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         _lgs.getMapping().addEntry(RendKeyWords.ATTRS_FILE, RendKeyWords.frAttrs());
         _lgs.getMapping().addEntry(RendKeyWords.VALUES_FILE, RendKeyWords.frValues());
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_VALUES_FILE, RendKeyWords.frStyleValues());
-        _lgs.getMapping().addEntry(RendKeyWords.STYLE_UNITS_FILE, RendKeyWords.frStyleValues());
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_UNITS_FILE, RendKeyWords.frStyleUnits());
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_ATTRS_FILE, RendKeyWords.frStyleAttrs());
         _lgs.getMapping().addEntry(RendAnalysisMessages.FILE, RendAnalysisMessages.fr());
