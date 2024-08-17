@@ -10,65 +10,70 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.errors.RendKeyWords;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.MessageStruct;
 import code.formathtml.util.stds.*;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class DefaultBeanAliases implements AbsAliasFileBuilder {
-    private static final String BEAN = "Bean";
-    private static final String MAP_KEYS = "MapKeys";
-    private static final String MAP_VALUES = "MapValues";
-    private static final String MAP_INDEX_OF_ENTRY = "MapIndexOfEntry";
-    private static final String MAP_ADD_ENTRY = "MapAddEntry";
-    private static final String MAP_GET_VALUE = "MapGetValue";
-    private static final String MAP_FIRST_VALUE = "MapFirstValue";
-    private static final String MAP_LAST_VALUE = "MapLastValue";
-    private static final String MAP_SET_VALUE = "MapSetValue";
-    private static final String MAP_PUT = "MapPut";
-    private static final String MAP_CONTAINS = "MapContains";
-    private static final String MAP_PUT_ALL = "MapPutAll";
-    private static final String MAP_GET_VAL = "MapGetVal";
-    private static final String MAP_REMOVE_KEY = "MapRemoveKey";
-    private static final String MAP_GET_KEY = "MapGetKey";
-    private static final String MAP_FIRST_KEY = "MapFirstKey";
-    private static final String MAP_LAST_KEY = "MapLastKey";
-    private static final String MAP_SET_KEY = "MapSetKey";
-    private static final String MAP_SIZE = "MapSize";
-    private static final String MAP_IS_EMPTY = "MapIsEmpty";
-    private static final String MAP_CLEAR = "MapClear";
-    private static final String VALIDATOR = "Validator";
-    private static final String VALIDATE = "Validate";
-    private static final String DATA_BASE_FIELD = "DataBaseField";
-    private static final String FORMS = "Forms";
-    private static final String SET_FORMS = "SetForms";
-    private static final String GET_FORMS = "GetForms";
-    private static final String LANGUAGE = "Language";
-    private static final String SET_LANGUAGE = "SetLanguage";
-    private static final String GET_LANGUAGE = "GetLanguage";
-    private static final String SCOPE = "Scope";
-    private static final String SET_SCOPE = "SetScope";
-    private static final String GET_SCOPE = "GetScope";
-    private static final String SET_DATA_BASE = "SetDataBase";
-    private static final String GET_DATA_BASE = "GetDataBase";
-    private static final String BEFORE_DISPLAYING = "BeforeDisplaying";
-    private static final String STRING_MAP_OBJECT = "StringMapObject";
-    private static final String DOCUMENT = "Document";
-    private static final String DOCUMENT_ALL = "DocumentAll";
-    private static final String GET_DECLARED_LOCAL_TYPES = "GetDeclaredLocalTypes";
-    private static final String GET_DECLARED_ANONYMOUS_TYPES = "GetDeclaredAnonymousTypes";
-    private static final String MESSAGE = "Message";
-    private static final String NEW_MESSAGE = "NewMessage";
-    private static final String MESSAGE_FORMAT = "MessageFormat";
-    private static final String MESSAGE_GET_ARGS = "MessageGetArgs";
-    private static final String MESSAGE_SET_ARGS = "MessageSetArgs";
-    private static final String DOCUMENT_BEAN_ARRAY="DocumentBeanArray";
-    private static final String DOCUMENT_BEAN_NAME="DocumentBeanName";
-    private static final String DOCUMENT_BEAN_VALUE="DocumentBeanValue";
-    private static final String DOCUMENT_VALIDATOR_ARRAY="DocumentValidatorArray";
-    private static final String DOCUMENT_VALIDATOR_VALUE="DocumentValidatorValue";
+    public static final String TYPES_RENDER = "types_render";
+    public static final String GET_DECLARED_ANONYMOUS_TYPES="__________1932";
+    public static final String GET_DECLARED_LOCAL_TYPES="__________1933";
+    public static final String BEAN="2149";
+    public static final String MAP_KEYS="2150";
+    public static final String MAP_VALUES="2151";
+    public static final String MAP_INDEX_OF_ENTRY="2152";
+    public static final String MAP_ADD_ENTRY="2153";
+    public static final String MAP_GET_VALUE="2154";
+    public static final String MAP_FIRST_VALUE="2155";
+    public static final String MAP_LAST_VALUE="2156";
+    public static final String MAP_SET_VALUE="2157";
+    public static final String MAP_PUT="2158";
+    public static final String MAP_CONTAINS="2159";
+    public static final String MAP_PUT_ALL="2160";
+    public static final String MAP_GET_VAL="2161";
+    public static final String MAP_REMOVE_KEY="2162";
+    public static final String MAP_GET_KEY="2163";
+    public static final String MAP_FIRST_KEY="2164";
+    public static final String MAP_LAST_KEY="2165";
+    public static final String MAP_SET_KEY="2166";
+    public static final String MAP_SIZE="2167";
+    public static final String MAP_IS_EMPTY="2168";
+    public static final String MAP_CLEAR="2169";
+    public static final String VALIDATOR="2170";
+    public static final String VALIDATE="2171";
+    public static final String DATA_BASE_FIELD="2172";
+    public static final String FORMS="2173";
+    public static final String SET_FORMS="2174";
+    public static final String GET_FORMS="2175";
+    public static final String LANGUAGE="2176";
+    public static final String SET_LANGUAGE="2177";
+    public static final String GET_LANGUAGE="2178";
+    public static final String SCOPE="2179";
+    public static final String SET_SCOPE="2180";
+    public static final String GET_SCOPE="2181";
+    public static final String SET_DATA_BASE="2182";
+    public static final String GET_DATA_BASE="2183";
+    public static final String BEFORE_DISPLAYING="2184";
+    public static final String STRING_MAP_OBJECT="2185";
+    public static final String MESSAGE="2186";
+    public static final String DOCUMENT="2187";
+    public static final String DOCUMENT_ALL="2188";
+    public static final String DOCUMENT_VALIDATOR_ARRAY="2189";
+    public static final String DOCUMENT_VALIDATOR_VALUE="2190";
+    public static final String DOCUMENT_BEAN_ARRAY="2191";
+    public static final String DOCUMENT_BEAN_VALUE="2192";
+    public static final String DOCUMENT_BEAN_NAME="2193";
+    public static final String NEW_MESSAGE="2194";
+    public static final String MESSAGE_FORMAT="2195";
+    public static final String MESSAGE_GET_ARGS="2196";
+    public static final String MESSAGE_SET_ARGS="2197";
     private static final char END_LINE = ';';
     private static final char SPACE = ' ';
     private static final char LEFT_BRACE = '{';
@@ -555,139 +560,275 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         StandardType.addType(_content.getStandards(),aliasDocument, std_);
 
     }
-    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
-        CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
-        m_.addAllElts(beanAliasParameters.allTableTypeMethodParamNames());
-        return m_;
-    }
-    public void build(StringMap<String> _util, StringMap<String> _cust) {
-        beanAliasParameters.build(_util, _cust);
-        setAliasBean(LgNamesContent.get(_util, _cust, BEAN));
-        setAliasMapKeys(LgNamesContent.get(_util, _cust, MAP_KEYS));
-        setAliasMapValues(LgNamesContent.get(_util, _cust, MAP_VALUES));
-        setAliasMapIndexOfEntry(LgNamesContent.get(_util, _cust, MAP_INDEX_OF_ENTRY));
-        setAliasMapAddEntry(LgNamesContent.get(_util, _cust, MAP_ADD_ENTRY));
-        setAliasMapGetValue(LgNamesContent.get(_util, _cust, MAP_GET_VALUE));
-        setAliasMapFirstValue(LgNamesContent.get(_util, _cust, MAP_FIRST_VALUE));
-        setAliasMapLastValue(LgNamesContent.get(_util, _cust, MAP_LAST_VALUE));
-        setAliasMapSetValue(LgNamesContent.get(_util, _cust, MAP_SET_VALUE));
-        setAliasMapPut(LgNamesContent.get(_util, _cust, MAP_PUT));
-        setAliasMapContains(LgNamesContent.get(_util, _cust, MAP_CONTAINS));
-        setAliasMapPutAll(LgNamesContent.get(_util, _cust, MAP_PUT_ALL));
-        setAliasMapGetVal(LgNamesContent.get(_util, _cust, MAP_GET_VAL));
-        setAliasMapRemoveKey(LgNamesContent.get(_util, _cust, MAP_REMOVE_KEY));
-        setAliasMapGetKey(LgNamesContent.get(_util, _cust, MAP_GET_KEY));
-        setAliasMapFirstKey(LgNamesContent.get(_util, _cust, MAP_FIRST_KEY));
-        setAliasMapLastKey(LgNamesContent.get(_util, _cust, MAP_LAST_KEY));
-        setAliasMapSetKey(LgNamesContent.get(_util, _cust, MAP_SET_KEY));
-        setAliasMapSize(LgNamesContent.get(_util, _cust, MAP_SIZE));
-        setAliasMapIsEmpty(LgNamesContent.get(_util, _cust, MAP_IS_EMPTY));
-        setAliasMapClear(LgNamesContent.get(_util, _cust, MAP_CLEAR));
-        setAliasValidator(LgNamesContent.get(_util, _cust, VALIDATOR));
-        setAliasValidate(LgNamesContent.get(_util, _cust, VALIDATE));
-        setAliasDataBaseField(LgNamesContent.get(_util, _cust, DATA_BASE_FIELD));
-        setAliasForms(LgNamesContent.get(_util, _cust, FORMS));
-        setAliasSetForms(LgNamesContent.get(_util, _cust, SET_FORMS));
-        setAliasGetForms(LgNamesContent.get(_util, _cust, GET_FORMS));
-        setAliasLanguage(LgNamesContent.get(_util, _cust, LANGUAGE));
-        setAliasSetLanguage(LgNamesContent.get(_util, _cust, SET_LANGUAGE));
-        setAliasGetLanguage(LgNamesContent.get(_util, _cust, GET_LANGUAGE));
-        setAliasScope(LgNamesContent.get(_util, _cust, SCOPE));
-        setAliasSetScope(LgNamesContent.get(_util, _cust, SET_SCOPE));
-        setAliasGetScope(LgNamesContent.get(_util, _cust, GET_SCOPE));
-        setAliasSetDataBase(LgNamesContent.get(_util, _cust, SET_DATA_BASE));
-        setAliasGetDataBase(LgNamesContent.get(_util, _cust, GET_DATA_BASE));
-        setAliasBeforeDisplaying(LgNamesContent.get(_util, _cust, BEFORE_DISPLAYING));
-        setAliasStringMapObject(LgNamesContent.get(_util, _cust, STRING_MAP_OBJECT));
-        setAliasMessage(LgNamesContent.get(_util, _cust, MESSAGE));
-        setAliasDocument(LgNamesContent.get(_util, _cust, DOCUMENT));
-        setAliasDocumentAll(LgNamesContent.get(_util, _cust, DOCUMENT_ALL));
-        setAliasNewMessage(LgNamesContent.get(_util, _cust, NEW_MESSAGE));
-        setAliasMessageFormat(LgNamesContent.get(_util, _cust, MESSAGE_FORMAT));
-        setAliasMessageGetArgs(LgNamesContent.get(_util, _cust, MESSAGE_GET_ARGS));
-        setAliasMessageSetArgs(LgNamesContent.get(_util, _cust, MESSAGE_SET_ARGS));
-        setAliasDocumentBeanArray(LgNamesContent.get(_util, _cust, DOCUMENT_BEAN_ARRAY));
-        setAliasDocumentBeanName(LgNamesContent.get(_util, _cust, DOCUMENT_BEAN_NAME));
-        setAliasDocumentBeanValue(LgNamesContent.get(_util, _cust, DOCUMENT_BEAN_VALUE));
-        setAliasDocumentValidatorArray(LgNamesContent.get(_util, _cust, DOCUMENT_VALIDATOR_ARRAY));
-        setAliasDocumentValidatorValue(LgNamesContent.get(_util, _cust, DOCUMENT_VALIDATOR_VALUE));
+    public static void enTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(TYPES_RENDER, DefaultBeanAliases.en());
+        _lgs.getMapping().addEntry(RendKeyWords.TAGS_FILE, RendKeyWords.enTags());
+        _lgs.getMapping().addEntry(RendKeyWords.ATTRS_FILE, RendKeyWords.enAttrs());
+        _lgs.getMapping().addEntry(RendKeyWords.VALUES_FILE, RendKeyWords.enValues());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_VALUES_FILE, RendKeyWords.enStyleValues());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_UNITS_FILE, RendKeyWords.enStyleUnits());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_ATTRS_FILE, RendKeyWords.enStyleAttrs());
+        _lgs.getMapping().addEntry(RendAnalysisMessages.FILE, RendAnalysisMessages.en());
     }
 
-    public StringMap<String> allRefTypes() {
+    public static void frTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(TYPES_RENDER, DefaultBeanAliases.fr());
+        _lgs.getMapping().addEntry(RendKeyWords.TAGS_FILE, RendKeyWords.frTags());
+        _lgs.getMapping().addEntry(RendKeyWords.ATTRS_FILE, RendKeyWords.frAttrs());
+        _lgs.getMapping().addEntry(RendKeyWords.VALUES_FILE, RendKeyWords.frValues());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_VALUES_FILE, RendKeyWords.frStyleValues());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_UNITS_FILE, RendKeyWords.frStyleValues());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_UNITS_FILE, RendKeyWords.frStyleUnits());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_ATTRS_FILE, RendKeyWords.frStyleAttrs());
+        _lgs.getMapping().addEntry(RendAnalysisMessages.FILE, RendAnalysisMessages.fr());
+    }
+    public static TranslationsFile en() {
+        TranslationsFile en_ = new TranslationsFile();
+        en(en_);
+        BeanAliasParameters.en(en_);
+        return en_;
+    }
+    public static TranslationsFile fr() {
+        TranslationsFile fr_ = new TranslationsFile();
+        fr(fr_);
+        BeanAliasParameters.fr(fr_);
+        return fr_;
+    }
+    public static void en(TranslationsFile _en) {
+        _en.add(BEAN,"Bean=$core.Bean");
+        _en.add(MAP_KEYS,"MapKeys=keys");
+        _en.add(MAP_VALUES,"MapValues=values");
+        _en.add(MAP_INDEX_OF_ENTRY,"MapIndexOfEntry=indexOfEntry");
+        _en.add(MAP_ADD_ENTRY,"MapAddEntry=addEntry");
+        _en.add(MAP_GET_VALUE,"MapGetValue=getValue");
+        _en.add(MAP_FIRST_VALUE,"MapFirstValue=firstValue");
+        _en.add(MAP_LAST_VALUE,"MapLastValue=lastValue");
+        _en.add(MAP_SET_VALUE,"MapSetValue=setValue");
+        _en.add(MAP_PUT,"MapPut=put");
+        _en.add(MAP_CONTAINS,"MapContains=contains");
+        _en.add(MAP_PUT_ALL,"MapPutAll=putAll");
+        _en.add(MAP_GET_VAL,"MapGetVal=getVal");
+        _en.add(MAP_REMOVE_KEY,"MapRemoveKey=removeKey");
+        _en.add(MAP_GET_KEY,"MapGetKey=getKey");
+        _en.add(MAP_FIRST_KEY,"MapFirstKey=firstKey");
+        _en.add(MAP_LAST_KEY,"MapLastKey=lastKey");
+        _en.add(MAP_SET_KEY,"MapSetKey=setKey");
+        _en.add(MAP_SIZE,"MapSize=size");
+        _en.add(MAP_IS_EMPTY,"MapIsEmpty=isEmpty");
+        _en.add(MAP_CLEAR,"MapClear=clear");
+        _en.add(VALIDATOR,"Validator=$core.Validator");
+        _en.add(VALIDATE,"Validate=validate");
+        _en.add(DATA_BASE_FIELD,"DataBaseField=dataBase");
+        _en.add(FORMS,"Forms=forms");
+        _en.add(SET_FORMS,"SetForms=setForms");
+        _en.add(GET_FORMS,"GetForms=getForms");
+        _en.add(LANGUAGE,"Language=language");
+        _en.add(SET_LANGUAGE,"SetLanguage=setLanguage");
+        _en.add(GET_LANGUAGE,"GetLanguage=getLanguage");
+        _en.add(SCOPE,"Scope=scope");
+        _en.add(SET_SCOPE,"SetScope=setScope");
+        _en.add(GET_SCOPE,"GetScope=getScope");
+        _en.add(SET_DATA_BASE,"SetDataBase=setDataBase");
+        _en.add(GET_DATA_BASE,"GetDataBase=getDataBase");
+        _en.add(BEFORE_DISPLAYING,"BeforeDisplaying=beforeDisplaying");
+        _en.add(STRING_MAP_OBJECT,"StringMapObject=$core.StringMapObject");
+        _en.add(MESSAGE,"Message=$core.Message");
+        _en.add(DOCUMENT,"Document=$core.Document");
+        _en.add(DOCUMENT_ALL,"DocumentAll=all");
+        _en.add(DOCUMENT_VALIDATOR_ARRAY,"DocumentValidatorArray=validatorArray");
+        _en.add(DOCUMENT_VALIDATOR_VALUE,"DocumentValidatorValue=validatorValue");
+        _en.add(DOCUMENT_BEAN_ARRAY,"DocumentBeanArray=beanArray");
+        _en.add(DOCUMENT_BEAN_VALUE,"DocumentBeanValue=beanValue");
+        _en.add(DOCUMENT_BEAN_NAME,"DocumentBeanName=beanName");
+        _en.add(NEW_MESSAGE,"NewMessage=newStandardMessage");
+        _en.add(MESSAGE_FORMAT,"MessageFormat=format");
+        _en.add(MESSAGE_GET_ARGS,"MessageGetArgs=getArgs");
+        _en.add(MESSAGE_SET_ARGS,"MessageSetArgs=setArgs");
+    }
+    public static void fr(TranslationsFile _fr) {
+        _fr.add(BEAN,"Bean=$coeur.Graine");
+        _fr.add(MAP_KEYS,"MapKeys=cles");
+        _fr.add(MAP_VALUES,"MapValues=valeurs");
+        _fr.add(MAP_INDEX_OF_ENTRY,"MapIndexOfEntry=indicePaire");
+        _fr.add(MAP_ADD_ENTRY,"MapAddEntry=ajPaire");
+        _fr.add(MAP_GET_VALUE,"MapGetValue=obtValeur");
+        _fr.add(MAP_FIRST_VALUE,"MapFirstValue=preVal");
+        _fr.add(MAP_LAST_VALUE,"MapLastValue=derVal");
+        _fr.add(MAP_SET_VALUE,"MapSetValue=majVal");
+        _fr.add(MAP_PUT,"MapPut=ajOuMaj");
+        _fr.add(MAP_CONTAINS,"MapContains=contient");
+        _fr.add(MAP_PUT_ALL,"MapPutAll=ajOuMajTous");
+        _fr.add(MAP_GET_VAL,"MapGetVal=obtVal");
+        _fr.add(MAP_REMOVE_KEY,"MapRemoveKey=supprCle");
+        _fr.add(MAP_GET_KEY,"MapGetKey=obtCle");
+        _fr.add(MAP_FIRST_KEY,"MapFirstKey=preCle");
+        _fr.add(MAP_LAST_KEY,"MapLastKey=derCle");
+        _fr.add(MAP_SET_KEY,"MapSetKey=majCle");
+        _fr.add(MAP_SIZE,"MapSize=taille");
+        _fr.add(MAP_IS_EMPTY,"MapIsEmpty=estVide");
+        _fr.add(MAP_CLEAR,"MapClear=suppr");
+        _fr.add(VALIDATOR,"Validator=$coeur.Validateur");
+        _fr.add(VALIDATE,"Validate=valider");
+        _fr.add(DATA_BASE_FIELD,"DataBaseField=baseDonnees");
+        _fr.add(FORMS,"Forms=formulaire");
+        _fr.add(SET_FORMS,"SetForms=majFormulaire");
+        _fr.add(GET_FORMS,"GetForms=obtFormulaire");
+        _fr.add(LANGUAGE,"Language=langue");
+        _fr.add(SET_LANGUAGE,"SetLanguage=majLangue");
+        _fr.add(GET_LANGUAGE,"GetLanguage=obtLangue");
+        _fr.add(SCOPE,"Scope=scope");
+        _fr.add(SET_SCOPE,"SetScope=majScope");
+        _fr.add(GET_SCOPE,"GetScope=obtScope");
+        _fr.add(SET_DATA_BASE,"SetDataBase=majBaseDonnees");
+        _fr.add(GET_DATA_BASE,"GetDataBase=obtBaseDonnees");
+        _fr.add(BEFORE_DISPLAYING,"BeforeDisplaying=avantAffiche");
+        _fr.add(STRING_MAP_OBJECT,"StringMapObject=$coeur.StringMapObject");
+        _fr.add(MESSAGE,"Message=$coeur.Message");
+        _fr.add(DOCUMENT,"Document=$coeur.Document");
+        _fr.add(DOCUMENT_ALL,"DocumentAll=tous");
+        _fr.add(DOCUMENT_VALIDATOR_ARRAY,"DocumentValidatorArray=validateurTab");
+        _fr.add(DOCUMENT_VALIDATOR_VALUE,"DocumentValidatorValue=validateurValeur");
+        _fr.add(DOCUMENT_BEAN_ARRAY,"DocumentBeanArray=graineTab");
+        _fr.add(DOCUMENT_BEAN_VALUE,"DocumentBeanValue=graineValeur");
+        _fr.add(DOCUMENT_BEAN_NAME,"DocumentBeanName=graineNom");
+        _fr.add(NEW_MESSAGE,"NewMessage=nvuMessageStandard");
+        _fr.add(MESSAGE_FORMAT,"MessageFormat=format");
+        _fr.add(MESSAGE_GET_ARGS,"MessageGetArgs=obtArguments");
+        _fr.add(MESSAGE_SET_ARGS,"MessageSetArgs=majArguments");
+    }
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
+        CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
+        m_.addAllElts(beanAliasParameters.allTableTypeMethodParamNames(_mapping));
+        return m_;
+    }
+    public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
+        beanAliasParameters.build(_util, _cust, _mapping);
+        setAliasBean(LgNamesContent.get(_util, _cust, _mapping.getVal(BEAN)));
+        setAliasMapKeys(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_KEYS)));
+        setAliasMapValues(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_VALUES)));
+        setAliasMapIndexOfEntry(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_INDEX_OF_ENTRY)));
+        setAliasMapAddEntry(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_ADD_ENTRY)));
+        setAliasMapGetValue(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_GET_VALUE)));
+        setAliasMapFirstValue(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_FIRST_VALUE)));
+        setAliasMapLastValue(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_LAST_VALUE)));
+        setAliasMapSetValue(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_SET_VALUE)));
+        setAliasMapPut(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_PUT)));
+        setAliasMapContains(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_CONTAINS)));
+        setAliasMapPutAll(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_PUT_ALL)));
+        setAliasMapGetVal(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_GET_VAL)));
+        setAliasMapRemoveKey(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_REMOVE_KEY)));
+        setAliasMapGetKey(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_GET_KEY)));
+        setAliasMapFirstKey(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_FIRST_KEY)));
+        setAliasMapLastKey(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_LAST_KEY)));
+        setAliasMapSetKey(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_SET_KEY)));
+        setAliasMapSize(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_SIZE)));
+        setAliasMapIsEmpty(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_IS_EMPTY)));
+        setAliasMapClear(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_CLEAR)));
+        setAliasValidator(LgNamesContent.get(_util, _cust, _mapping.getVal(VALIDATOR)));
+        setAliasValidate(LgNamesContent.get(_util, _cust, _mapping.getVal(VALIDATE)));
+        setAliasDataBaseField(LgNamesContent.get(_util, _cust, _mapping.getVal(DATA_BASE_FIELD)));
+        setAliasForms(LgNamesContent.get(_util, _cust, _mapping.getVal(FORMS)));
+        setAliasSetForms(LgNamesContent.get(_util, _cust, _mapping.getVal(SET_FORMS)));
+        setAliasGetForms(LgNamesContent.get(_util, _cust, _mapping.getVal(GET_FORMS)));
+        setAliasLanguage(LgNamesContent.get(_util, _cust, _mapping.getVal(LANGUAGE)));
+        setAliasSetLanguage(LgNamesContent.get(_util, _cust, _mapping.getVal(SET_LANGUAGE)));
+        setAliasGetLanguage(LgNamesContent.get(_util, _cust, _mapping.getVal(GET_LANGUAGE)));
+        setAliasScope(LgNamesContent.get(_util, _cust, _mapping.getVal(SCOPE)));
+        setAliasSetScope(LgNamesContent.get(_util, _cust, _mapping.getVal(SET_SCOPE)));
+        setAliasGetScope(LgNamesContent.get(_util, _cust, _mapping.getVal(GET_SCOPE)));
+        setAliasSetDataBase(LgNamesContent.get(_util, _cust, _mapping.getVal(SET_DATA_BASE)));
+        setAliasGetDataBase(LgNamesContent.get(_util, _cust, _mapping.getVal(GET_DATA_BASE)));
+        setAliasBeforeDisplaying(LgNamesContent.get(_util, _cust, _mapping.getVal(BEFORE_DISPLAYING)));
+        setAliasStringMapObject(LgNamesContent.get(_util, _cust, _mapping.getVal(STRING_MAP_OBJECT)));
+        setAliasMessage(LgNamesContent.get(_util, _cust, _mapping.getVal(MESSAGE)));
+        setAliasDocument(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT)));
+        setAliasDocumentAll(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_ALL)));
+        setAliasNewMessage(LgNamesContent.get(_util, _cust, _mapping.getVal(NEW_MESSAGE)));
+        setAliasMessageFormat(LgNamesContent.get(_util, _cust, _mapping.getVal(MESSAGE_FORMAT)));
+        setAliasMessageGetArgs(LgNamesContent.get(_util, _cust, _mapping.getVal(MESSAGE_GET_ARGS)));
+        setAliasMessageSetArgs(LgNamesContent.get(_util, _cust, _mapping.getVal(MESSAGE_SET_ARGS)));
+        setAliasDocumentBeanArray(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_BEAN_ARRAY)));
+        setAliasDocumentBeanName(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_BEAN_NAME)));
+        setAliasDocumentBeanValue(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_BEAN_VALUE)));
+        setAliasDocumentValidatorArray(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_VALIDATOR_ARRAY)));
+        setAliasDocumentValidatorValue(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_VALIDATOR_VALUE)));
+    }
+
+    public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> types_ = new StringMap<String>();
-        types_.addEntry(MESSAGE,getAliasMessage());
-        types_.addEntry(DOCUMENT,getAliasDocument());
-        types_.addEntry(VALIDATOR,getAliasValidator());
-        types_.addEntry(STRING_MAP_OBJECT,getAliasStringMapObject());
-        types_.addEntry(BEAN,getAliasBean());
+        types_.addEntry(_mapping.getVal(MESSAGE),getAliasMessage());
+        types_.addEntry(_mapping.getVal(DOCUMENT),getAliasDocument());
+        types_.addEntry(_mapping.getVal(VALIDATOR),getAliasValidator());
+        types_.addEntry(_mapping.getVal(STRING_MAP_OBJECT),getAliasStringMapObject());
+        types_.addEntry(_mapping.getVal(BEAN),getAliasBean());
         return types_;
     }
 
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AliasReflection _reflect, StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> methods_ = new StringMap<CustList<KeyValueMemberName>>();
         methods_.addEntry(getAliasMessage(),
-                new CustList<KeyValueMemberName>(new KeyValueMemberName(NEW_MESSAGE,getAliasNewMessage()),
-                        new KeyValueMemberName(MESSAGE_FORMAT,getAliasMessageFormat()),
-                        new KeyValueMemberName(MESSAGE_GET_ARGS,getAliasMessageGetArgs()),
-                        new KeyValueMemberName(MESSAGE_SET_ARGS,getAliasMessageSetArgs())));
+                new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(NEW_MESSAGE),getAliasNewMessage()),
+                        new KeyValueMemberName(_mapping.getVal(MESSAGE_FORMAT),getAliasMessageFormat()),
+                        new KeyValueMemberName(_mapping.getVal(MESSAGE_GET_ARGS),getAliasMessageGetArgs()),
+                        new KeyValueMemberName(_mapping.getVal(MESSAGE_SET_ARGS),getAliasMessageSetArgs())));
         CustList<KeyValueMemberName> lis_ = _reflect.listAnnot(_mapping);
-        lis_.add(new KeyValueMemberName(DOCUMENT_ALL,getAliasDocumentAll()));
-        lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_ARRAY,getAliasDocumentBeanArray()));
-        lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_NAME,getAliasDocumentBeanName()));
-        lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_VALUE,getAliasDocumentBeanValue()));
-        lis_.add(new KeyValueMemberName(DOCUMENT_VALIDATOR_ARRAY,getAliasDocumentValidatorArray()));
-        lis_.add(new KeyValueMemberName(DOCUMENT_VALIDATOR_VALUE,getAliasDocumentValidatorValue()));
-        lis_.add(new KeyValueMemberName(GET_DECLARED_LOCAL_TYPES,_reflect.getAliasGetDeclaredLocalTypes()));
-        lis_.add(new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,_reflect.getAliasGetDeclaredAnonymousTypes()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_ALL),getAliasDocumentAll()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_BEAN_ARRAY),getAliasDocumentBeanArray()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_BEAN_NAME),getAliasDocumentBeanName()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_BEAN_VALUE),getAliasDocumentBeanValue()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_VALIDATOR_ARRAY),getAliasDocumentValidatorArray()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_VALIDATOR_VALUE),getAliasDocumentValidatorValue()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(GET_DECLARED_LOCAL_TYPES),_reflect.getAliasGetDeclaredLocalTypes()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(GET_DECLARED_ANONYMOUS_TYPES),_reflect.getAliasGetDeclaredAnonymousTypes()));
         methods_.addEntry(getAliasDocument(), lis_);
         methods_.addEntry(getAliasValidator(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(VALIDATE,getAliasValidate())));
+                new KeyValueMemberName(_mapping.getVal(VALIDATE),getAliasValidate())));
         methods_.addEntry(getAliasStringMapObject(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(MAP_GET_VAL,getAliasMapGetVal()),
-                new KeyValueMemberName(MAP_PUT,getAliasMapPut()),
-                new KeyValueMemberName(MAP_PUT_ALL,getAliasMapPutAll()),
-                new KeyValueMemberName(MAP_INDEX_OF_ENTRY,getAliasMapIndexOfEntry()),
-                new KeyValueMemberName(MAP_ADD_ENTRY,getAliasMapAddEntry()),
-                new KeyValueMemberName(MAP_CONTAINS,getAliasMapContains()),
-                new KeyValueMemberName(MAP_SIZE,getAliasMapSize()),
-                new KeyValueMemberName(MAP_IS_EMPTY,getAliasMapIsEmpty()),
-                new KeyValueMemberName(MAP_CLEAR,getAliasMapClear()),
-                new KeyValueMemberName(MAP_REMOVE_KEY,getAliasMapRemoveKey()),
-                new KeyValueMemberName(MAP_FIRST_VALUE,getAliasMapFirstValue()),
-                new KeyValueMemberName(MAP_LAST_VALUE,getAliasMapLastValue()),
-                new KeyValueMemberName(MAP_GET_VALUE,getAliasMapGetValue()),
-                new KeyValueMemberName(MAP_SET_VALUE,getAliasMapSetValue()),
-                new KeyValueMemberName(MAP_FIRST_KEY,getAliasMapFirstKey()),
-                new KeyValueMemberName(MAP_LAST_KEY,getAliasMapLastKey()),
-                new KeyValueMemberName(MAP_GET_KEY,getAliasMapGetKey()),
-                new KeyValueMemberName(MAP_SET_KEY,getAliasMapSetKey())
+                new KeyValueMemberName(_mapping.getVal(MAP_GET_VAL),getAliasMapGetVal()),
+                new KeyValueMemberName(_mapping.getVal(MAP_PUT),getAliasMapPut()),
+                new KeyValueMemberName(_mapping.getVal(MAP_PUT_ALL),getAliasMapPutAll()),
+                new KeyValueMemberName(_mapping.getVal(MAP_INDEX_OF_ENTRY),getAliasMapIndexOfEntry()),
+                new KeyValueMemberName(_mapping.getVal(MAP_ADD_ENTRY),getAliasMapAddEntry()),
+                new KeyValueMemberName(_mapping.getVal(MAP_CONTAINS),getAliasMapContains()),
+                new KeyValueMemberName(_mapping.getVal(MAP_SIZE),getAliasMapSize()),
+                new KeyValueMemberName(_mapping.getVal(MAP_IS_EMPTY),getAliasMapIsEmpty()),
+                new KeyValueMemberName(_mapping.getVal(MAP_CLEAR),getAliasMapClear()),
+                new KeyValueMemberName(_mapping.getVal(MAP_REMOVE_KEY),getAliasMapRemoveKey()),
+                new KeyValueMemberName(_mapping.getVal(MAP_FIRST_VALUE),getAliasMapFirstValue()),
+                new KeyValueMemberName(_mapping.getVal(MAP_LAST_VALUE),getAliasMapLastValue()),
+                new KeyValueMemberName(_mapping.getVal(MAP_GET_VALUE),getAliasMapGetValue()),
+                new KeyValueMemberName(_mapping.getVal(MAP_SET_VALUE),getAliasMapSetValue()),
+                new KeyValueMemberName(_mapping.getVal(MAP_FIRST_KEY),getAliasMapFirstKey()),
+                new KeyValueMemberName(_mapping.getVal(MAP_LAST_KEY),getAliasMapLastKey()),
+                new KeyValueMemberName(_mapping.getVal(MAP_GET_KEY),getAliasMapGetKey()),
+                new KeyValueMemberName(_mapping.getVal(MAP_SET_KEY),getAliasMapSetKey())
         ));
         methods_.addEntry(getAliasBean(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(BEFORE_DISPLAYING,getAliasBeforeDisplaying()),
-                new KeyValueMemberName(GET_DATA_BASE,getAliasGetDataBase()),
-                new KeyValueMemberName(GET_LANGUAGE,getAliasGetLanguage()),
-                new KeyValueMemberName(GET_SCOPE,getAliasGetScope()),
-                new KeyValueMemberName(GET_FORMS,getAliasGetForms()),
-                new KeyValueMemberName(SET_DATA_BASE,getAliasSetDataBase()),
-                new KeyValueMemberName(SET_LANGUAGE,getAliasSetLanguage()),
-                new KeyValueMemberName(SET_SCOPE,getAliasSetScope()),
-                new KeyValueMemberName(SET_FORMS,getAliasSetForms())
+                new KeyValueMemberName(_mapping.getVal(BEFORE_DISPLAYING),getAliasBeforeDisplaying()),
+                new KeyValueMemberName(_mapping.getVal(GET_DATA_BASE),getAliasGetDataBase()),
+                new KeyValueMemberName(_mapping.getVal(GET_LANGUAGE),getAliasGetLanguage()),
+                new KeyValueMemberName(_mapping.getVal(GET_SCOPE),getAliasGetScope()),
+                new KeyValueMemberName(_mapping.getVal(GET_FORMS),getAliasGetForms()),
+                new KeyValueMemberName(_mapping.getVal(SET_DATA_BASE),getAliasSetDataBase()),
+                new KeyValueMemberName(_mapping.getVal(SET_LANGUAGE),getAliasSetLanguage()),
+                new KeyValueMemberName(_mapping.getVal(SET_SCOPE),getAliasSetScope()),
+                new KeyValueMemberName(_mapping.getVal(SET_FORMS),getAliasSetForms())
         ));
         return methods_;
     }
 
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> fields_ = new StringMap<CustList<KeyValueMemberName>>();
         fields_.addEntry(getAliasMessage(),
                 new CustList<KeyValueMemberName>(
-                        new KeyValueMemberName(MAP_KEYS,getAliasMapKeys()),
-                        new KeyValueMemberName(MAP_VALUES,getAliasMapValues())));
+                        new KeyValueMemberName(_mapping.getVal(MAP_KEYS),getAliasMapKeys()),
+                        new KeyValueMemberName(_mapping.getVal(MAP_VALUES),getAliasMapValues())));
         fields_.addEntry(getAliasBean(),
                 new CustList<KeyValueMemberName>(
-                        new KeyValueMemberName(FORMS,getAliasForms()),
-                        new KeyValueMemberName(LANGUAGE,getAliasLanguage()),
-                        new KeyValueMemberName(DATA_BASE_FIELD,getAliasDataBaseField()),
-                        new KeyValueMemberName(SCOPE,getAliasScope())));
+                        new KeyValueMemberName(_mapping.getVal(FORMS),getAliasForms()),
+                        new KeyValueMemberName(_mapping.getVal(LANGUAGE),getAliasLanguage()),
+                        new KeyValueMemberName(_mapping.getVal(DATA_BASE_FIELD),getAliasDataBaseField()),
+                        new KeyValueMemberName(_mapping.getVal(SCOPE),getAliasScope())));
         return fields_;
     }
     public static MessageStruct getMessageStruct(Struct _str, String _aliasMessage) {

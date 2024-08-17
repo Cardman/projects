@@ -29,6 +29,7 @@ import code.converterimages.gui.*;
 import code.expressionlanguage.adv.MessagesIde;
 import code.expressionlanguage.gui.unit.*;
 import code.expressionlanguage.utilcompo.*;
+import code.formathtml.util.DefaultBeanAliases;
 import code.gui.*;
 import code.gui.files.*;
 import code.gui.images.*;
@@ -230,7 +231,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void rend() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(FileInfos.initComments(en_));
+        DefaultBeanAliases.enTr(FileInfos.enTr(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         String xmlConf_ = "<cfg>\n" +
@@ -657,7 +658,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void rendBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(FileInfos.initComments(en_));
+        DefaultBeanAliases.enTr(FileInfos.enTr(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         String xmlConf_ = "<cfg>\n" +

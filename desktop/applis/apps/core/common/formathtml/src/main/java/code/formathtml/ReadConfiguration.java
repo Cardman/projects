@@ -34,7 +34,7 @@ public final class ReadConfiguration {
         _stds.buildAliases(_elt,_lg, rkw_,kw_, _context.getAnalysisMessages(),a_);
         _page.setLogErr(_forwards);
         AnalysisMessages.validateMessageContents(a_.allMessages(_stds.mappingMessages()), _page);
-        AnalysisMessages.validateMessageContents(_context.getAnalysisMessages().allMessages(), _page);
+        AnalysisMessages.validateMessageContents(_context.getAnalysisMessages().allMessages(_stds.mappingRendMessages()), _page);
         if (!_page.isEmptyMessageError()) {
             return false;
         }
@@ -42,26 +42,27 @@ public final class ReadConfiguration {
         _page.setMappingKeyWords(_stds.mappingKeywords());
         _page.setMappingAliases(_stds.mappingAliases());
         ContextFactory.validateStds(new AnalysisElementsBase(_forwards, a_, kw_, new CustList<CommentDelimiters>(), _forwards.getOptions(), _stds.getContent(), _page));
-        return loadContext(_page, rkw_);
+        return loadContext(_page, rkw_, _stds);
     }
 
-    public static boolean loadContext(AnalyzedPageEl _page, RendKeyWords _rkw) {
-        StringMap<String> allTags_ = _rkw.allTags();
+    public static boolean loadContext(AnalyzedPageEl _page, RendKeyWords _rkw, BeanCustLgNames _std) {
+        StringMap<String> allTags_ = _rkw.allTags(_std.mappingRendKeywords());
         _rkw.validateTagContents(allTags_, _page);
         _rkw.validateDuplicates(allTags_, _page);
-        StringMap<String> allAttrs_ = _rkw.allAttrs();
-        _rkw.validateAttrContents(allAttrs_, _page);
+        StringMap<String> mappingAttrs_ = _std.mappingAttrs();
+        StringMap<String> allAttrs_ = _rkw.allAttrs(mappingAttrs_);
+        _rkw.validateAttrContents(allAttrs_, _page, mappingAttrs_);
         _rkw.validateDuplicates(allAttrs_, _page);
-        StringMap<String> allValues_ = _rkw.allValues();
+        StringMap<String> allValues_ = _rkw.allValues(_std.mappingValues());
         _rkw.validateValueContents(allValues_, _page);
         _rkw.validateDuplicates(allValues_, _page);
-        StringMap<String> allStyleAttrs_ = _rkw.allStyleAttrs();
-        _rkw.validateAttrContents(allStyleAttrs_, _page);
+        StringMap<String> allStyleAttrs_ = _rkw.allStyleAttrs(_std.mappingStyleAttrs());
+        _rkw.validateAttrContents(allStyleAttrs_, _page, mappingAttrs_);
         _rkw.validateDuplicates(allStyleAttrs_, _page);
-        StringMap<String> allSyleValues_ = _rkw.allStyleValues();
+        StringMap<String> allSyleValues_ = _rkw.allStyleValues(_std.mappingStyleValues());
         _rkw.validateStyleValueContents(allSyleValues_, _page);
         _rkw.validateDuplicates(allSyleValues_, _page);
-        StringMap<String> allStyleUnits_ = _rkw.allStyleUnits();
+        StringMap<String> allStyleUnits_ = _rkw.allStyleUnits(_std.mappingStyleUnits());
         _rkw.validateStyleUnitContents(allStyleUnits_, _page);
         _rkw.validateDuplicates(allStyleUnits_, _page);
         return _page.isEmptyStdError();

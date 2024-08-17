@@ -22,9 +22,9 @@ import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
-import code.scripts.messages.gui.MessCdmRenderGr;
+import code.formathtml.util.DefaultBeanAliases;
 import code.sml.Element;
-import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.*;
 import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.StringList;
@@ -32,9 +32,9 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
-    public static final String RESOURCES_RENDERS_ALIASES = "resources_renders/aliases";
+//    public static final String RESOURCES_RENDERS_ALIASES = "resources_renders/aliases";
     private final LgNamesUtilsContent execContent;
-    private final StringMap<String> properties = MessCdmRenderGr.ms();
+//    private final StringMap<String> properties = MessCdmRenderGr.ms();
     public LgNamesRenderUtils(FileInfos _infos,AbstractInterceptor _inter) {
         super(_infos.getGenerator());
         execContent = new LgNamesUtilsContent(_infos, _inter);
@@ -118,15 +118,15 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleValuesPart_, styleValues_);
         if (!_lg.isEmpty()) {
             execContent.getCustAliases().messages(_mess, mess_);
-            rendMessages(_rMess,_lg,rendMess_);
+            rendMessages(_rMess, rendMess_);
             execContent.getCustAliases().keyWord(_kw, kw_);
-            otherAlias(_lg,al_);
-            otherTags(_rkw,_lg,tags_);
-            otherAttrs(_rkw,_lg,attrs_);
-            otherValues(_rkw,_lg,values_);
-            otherStyleAttrs(_rkw,_lg,styleAttrs_);
-            otherStyleValues(_rkw,_lg,styleValues_);
-            otherStyleUnits(_rkw,_lg,styleUnits_);
+            otherAlias(al_);
+            otherTags(_rkw, tags_);
+            otherAttrs(_rkw, attrs_);
+            otherValues(_rkw, values_);
+            otherStyleAttrs(_rkw, styleAttrs_);
+            otherStyleValues(_rkw, styleValues_);
+            otherStyleUnits(_rkw, styleUnits_);
         } else {
             execContent.getCustAliases().messages(_mess,mess_,new StringMap<String>());
             rendMessages(_rMess,rendMess_,new StringMap<String>());
@@ -151,101 +151,211 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         ParseLinesArgUtil.buildMap(_parts, _map);
     }
 
-    private void otherStyleUnits(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"styleunits");
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        otherStyleUnits(_rendKw,util_,_cust);
+    private void otherStyleUnits(RendKeyWords _rendKw, StringMap<String> _cust) {
+        otherStyleUnits(_rendKw,addonStyleUnits(execContent.getCustAliases()),_cust);
     }
     private void allStyleUnits(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
         otherStyleUnits(_rendKw,_util,_cust);
     }
     private void otherStyleUnits(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.otherStyleUnits(_util, _cust);
+        _rendKw.otherStyleUnits(_util, _cust, extractStyleUnits());
     }
-    private void otherStyleValues(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"stylevalues");
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        otherStyleValues(_rendKw,util_,_cust);
+    public StringMap<String> extractStyleUnits() {
+        TranslationsLg lg_ = CustAliases.lg(execContent.getCustAliases().getTranslations(), execContent.getCustAliases().getUserLg(), execContent.getCustAliases().getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.STYLE_UNITS_FILE);
+        return TranslationsFile.extractKeys(com_);
+    }
+
+    public static StringMap<String> addonStyleUnits(CustAliases _cust) {
+        return defStyleUnits(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> defStyleUnits(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.STYLE_UNITS_FILE);
+        return TranslationsFile.extractMap(com_);
+    }
+    private void otherStyleValues(RendKeyWords _rendKw, StringMap<String> _cust) {
+        otherStyleValues(_rendKw,addonStyleValues(execContent.getCustAliases()),_cust);
     }
     private void allStyleValues(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
         otherStyleValues(_rendKw,_util,_cust);
     }
     private void otherStyleValues(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.otherStyleValues(_util, _cust);
+        _rendKw.otherStyleValues(_util, _cust, extractStyleValues());
     }
-    private void otherStyleAttrs(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"styleattrs");
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        otherStyleAttrs(_rendKw,util_,_cust);
+    public StringMap<String> extractStyleValues() {
+        TranslationsLg lg_ = CustAliases.lg(execContent.getCustAliases().getTranslations(), execContent.getCustAliases().getUserLg(), execContent.getCustAliases().getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.STYLE_VALUES_FILE);
+        return TranslationsFile.extractKeys(com_);
+    }
+
+    public static StringMap<String> addonStyleValues(CustAliases _cust) {
+        return defStyleValues(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> defStyleValues(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.STYLE_VALUES_FILE);
+        return TranslationsFile.extractMap(com_);
+    }
+    private void otherStyleAttrs(RendKeyWords _rendKw, StringMap<String> _cust) {
+        otherStyleAttrs(_rendKw,addonStyleAttrs(execContent.getCustAliases()),_cust);
     }
     private void allStyleAttrs(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
         otherStyleAttrs(_rendKw,_util,_cust);
     }
     private void otherStyleAttrs(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.otherStyleAttrs(_util, _cust);
+        _rendKw.otherStyleAttrs(_util, _cust, extractStyleAttrs());
     }
-    private void otherValues(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"values");
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        otherValues(_rendKw,util_,_cust);
+    public StringMap<String> extractStyleAttrs() {
+        TranslationsLg lg_ = CustAliases.lg(execContent.getCustAliases().getTranslations(), execContent.getCustAliases().getUserLg(), execContent.getCustAliases().getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.STYLE_ATTRS_FILE);
+        return TranslationsFile.extractKeys(com_);
+    }
+
+    public static StringMap<String> addonStyleAttrs(CustAliases _cust) {
+        return defStyleAttrs(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> defStyleAttrs(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.STYLE_ATTRS_FILE);
+        return TranslationsFile.extractMap(com_);
+    }
+    private void otherValues(RendKeyWords _rendKw, StringMap<String> _cust) {
+        otherValues(_rendKw,addonValues(execContent.getCustAliases()),_cust);
     }
     private void allValues(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
         otherValues(_rendKw,_util,_cust);
     }
     private void otherValues(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.otherValues(_util, _cust);
+        StringMap<String> keys_ = extractValues();
+        _rendKw.otherValues(_util, _cust, keys_);
     }
-    private void otherAttrs(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"attrs");
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        otherAttrs(_rendKw,util_,_cust);
+    public StringMap<String> extractValues() {
+        TranslationsLg lg_ = CustAliases.lg(execContent.getCustAliases().getTranslations(), execContent.getCustAliases().getUserLg(), execContent.getCustAliases().getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.VALUES_FILE);
+        return TranslationsFile.extractKeys(com_);
+    }
+
+    public static StringMap<String> addonValues(CustAliases _cust) {
+        return defValues(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> defValues(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.VALUES_FILE);
+        return TranslationsFile.extractMap(com_);
+    }
+    private void otherAttrs(RendKeyWords _rendKw, StringMap<String> _cust) {
+        otherAttrs(_rendKw,addonAttrs(execContent.getCustAliases()),_cust);
     }
     private void allAttrs(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
         otherAttrs(_rendKw,_util,_cust);
     }
     private void otherAttrs(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.otherAttrs(_util, _cust);
+        StringMap<String> keys_ = extractAttrs();
+        _rendKw.otherAttrs(_util, _cust, keys_);
     }
-    private void otherTags(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"tags");
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        otherTags(_rendKw,util_,_cust);
+    public StringMap<String> extractAttrs() {
+        TranslationsLg lg_ = CustAliases.lg(execContent.getCustAliases().getTranslations(), execContent.getCustAliases().getUserLg(), execContent.getCustAliases().getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.ATTRS_FILE);
+        return TranslationsFile.extractKeys(com_);
+    }
+
+    public static StringMap<String> addonAttrs(CustAliases _cust) {
+        return defAttrs(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> defAttrs(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.ATTRS_FILE);
+        return TranslationsFile.extractMap(com_);
+    }
+    private void otherTags(RendKeyWords _rendKw, StringMap<String> _cust) {
+        otherTags(_rendKw,addonKeywords(execContent.getCustAliases()),_cust);
     }
     private void allTags(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
         otherTags(_rendKw,_util,_cust);
     }
     private void otherTags(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
-        _rendKw.otherTags(_util, _cust);
+        StringMap<String> keys_ = extractKeywordsKeys();
+        _rendKw.otherTags(_util, _cust, keys_);
     }
-    private void otherAlias(String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"types");
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        getBeanAliases().build(util_, _cust);
+    public StringMap<String> extractKeywordsKeys() {
+        TranslationsLg lg_ = CustAliases.lg(execContent.getCustAliases().getTranslations(), execContent.getCustAliases().getUserLg(), execContent.getCustAliases().getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.TAGS_FILE);
+        return TranslationsFile.extractKeys(com_);
+    }
+
+    public static StringMap<String> addonKeywords(CustAliases _cust) {
+        return defKeywords(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> defKeywords(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.TAGS_FILE);
+        return TranslationsFile.extractMap(com_);
+    }
+    private void otherAlias(StringMap<String> _cust) {
+        StringMap<String> keys_ = extractAliasesKeys(execContent.getCustAliases());
+        getBeanAliases().build(addonAliases(execContent.getCustAliases()), _cust, keys_);
         execContent.getCustAliases().otherAlias(getContent(), _cust);
     }
     private void allAlias(StringMap<String> _util, StringMap<String> _cust) {
-        getBeanAliases().build(_util, _cust);
+        StringMap<String> keys_ = extractAliasesKeys(execContent.getCustAliases());
+        getBeanAliases().build(_util, _cust, keys_);
         execContent.getCustAliases().otherAlias(getContent(),_cust);
     }
 
 
-    private void rendMessages(RendAnalysisMessages _mess, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_RENDERS_ALIASES,_lang,"messagesrender");
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        rendMessages(_mess,util_,_cust);
+    public static StringMap<String> addonAliases(CustAliases _cust) {
+        return defAliases(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
     }
-    private void rendMessages(RendAnalysisMessages _mess, StringMap<String> _util, StringMap<String> _cust) {
-        _mess.rendMessages(_util, _cust);
+    public static StringMap<String> extractAliasesKeys(CustAliases _cust) {
+        TranslationsLg lg_ = CustAliases.lg(_cust.getTranslations(), _cust.getUserLg(), _cust.getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(DefaultBeanAliases.TYPES_RENDER);
+        return TranslationsFile.extractKeys(com_);
     }
 
+    public static StringMap<String> defAliases(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(DefaultBeanAliases.TYPES_RENDER);
+        return TranslationsFile.extractMap(com_);
+    }
+    private void rendMessages(RendAnalysisMessages _mess, StringMap<String> _cust) {
+        rendMessages(_mess,addonMessages(execContent.getCustAliases()),_cust);
+    }
+    private void rendMessages(RendAnalysisMessages _mess, StringMap<String> _util, StringMap<String> _cust) {
+        StringMap<String> keys_ = extractMessagesKeys(execContent.getCustAliases());
+        _mess.rendMessages(_util, _cust, keys_);
+    }
+
+    public static StringMap<String> addonMessages(CustAliases _cust) {
+        return defMessages(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> extractMessagesKeys(CustAliases _cust) {
+        TranslationsLg lg_ = CustAliases.lg(_cust.getTranslations(), _cust.getUserLg(), _cust.getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendAnalysisMessages.FILE);
+        return TranslationsFile.extractKeys(com_);
+    }
+
+    public static StringMap<String> defMessages(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendAnalysisMessages.FILE);
+        return TranslationsFile.extractMap(com_);
+    }
     @Override
     public String getAliasLgInt() {
         return getExecContent().getCustAliases().getMathAdvAliases().getAliasLgInt();
@@ -298,6 +408,41 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public StringMap<String> mappingKeywords() {
         return execContent.getCustAliases().extractKeywordsKeys();
+    }
+
+    @Override
+    public StringMap<String> mappingRendKeywords() {
+        return extractKeywordsKeys();
+    }
+
+    @Override
+    public StringMap<String> mappingAttrs() {
+        return extractAttrs();
+    }
+
+    @Override
+    public StringMap<String> mappingValues() {
+        return extractValues();
+    }
+
+    @Override
+    public StringMap<String> mappingRendMessages() {
+        return extractMessagesKeys(execContent.getCustAliases());
+    }
+
+    @Override
+    public StringMap<String> mappingStyleValues() {
+        return extractStyleValues();
+    }
+
+    @Override
+    public StringMap<String> mappingStyleUnits() {
+        return extractStyleUnits();
+    }
+
+    @Override
+    public StringMap<String> mappingStyleAttrs() {
+        return extractStyleAttrs();
     }
 
     @Override

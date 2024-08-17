@@ -14,6 +14,7 @@ import cards.main.CardNatLgNamesNavigation;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.gui.unit.ProgTestBar;
 import code.expressionlanguage.utilcompo.FileInfos;
+import code.formathtml.util.DefaultBeanAliases;
 import code.gui.*;
 import code.gui.files.*;
 import code.gui.initialize.*;
@@ -105,8 +106,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMiniCardsSel().addAllEntries(AbsMetaLabelCard.frSel());
 //        en_.setTreeCards(HelpScriptConfPages.info());
 //        fr_.setTreeCards(HelpScriptConfPages.info());
-        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
-        FileInfos.frTr(ProgTestBar.updateFr(FileInfos.initComments(fr_)));
+        DefaultBeanAliases.enTr(FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_))));
+        DefaultBeanAliases.frTr(FileInfos.frTr(ProgTestBar.updateFr(FileInfos.initComments(fr_))));
         Games.enTr(Games.initAppliTr(en_));
         Games.frTr(Games.initAppliTr(fr_));
         GamesPk.enTr(GamesPk.initAppliTr(en_));

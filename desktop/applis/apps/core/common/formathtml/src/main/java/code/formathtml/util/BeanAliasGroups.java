@@ -17,7 +17,7 @@ public class BeanAliasGroups extends DefaultAliasGroups {
     @Override
     public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> types_ = super.allRefTypes(_mapping);
-        for (EntryCust<String,String> e: beanAliases.allRefTypes().entryList()) {
+        for (EntryCust<String,String> e: beanAliases.allRefTypes(_mapping).entryList()) {
             types_.addEntry(e.getKey(),e.getValue());
         }
         return types_;
@@ -35,14 +35,14 @@ public class BeanAliasGroups extends DefaultAliasGroups {
     @Override
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
         CustList<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodParamNames(_mapping);
-        m_.addAllElts(beanAliases.allTableTypeMethodParamNames());
+        m_.addAllElts(beanAliases.allTableTypeMethodParamNames(_mapping));
         return m_;
     }
 
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames(_mapping);
-        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeFieldNames().entryList()) {
+        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeFieldNames(_mapping).entryList()) {
             fields_.addEntry(e.getKey(),e.getValue());
         }
         return fields_;

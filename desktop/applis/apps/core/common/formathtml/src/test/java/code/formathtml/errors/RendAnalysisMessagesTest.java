@@ -25,7 +25,7 @@ public final class RendAnalysisMessagesTest extends EquallableRenderUtil {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(new ListLoggableLgNames());
         page_.setAnalysisMessages(new AnalysisMessages());
-        AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
+        AnalysisMessages.validateMessageContents(def_.allMessages(RendAnalysisMessages.mapping()), page_);
         assertTrue(!page_.isEmptyMessageError());
     }
 
@@ -36,7 +36,7 @@ public final class RendAnalysisMessagesTest extends EquallableRenderUtil {
         StringMap<String> cust_ = new StringMap<String>();
         cust_.put("","value");
         RendAnalysisMessages lgNamesContent_ = new RendAnalysisMessages();
-        lgNamesContent_.rendMessages(def_, cust_);
+        lgNamesContent_.rendMessages(def_, cust_, RendAnalysisMessages.mapping());
         assertEq("",lgNamesContent_.getEmptyAttr());
         DefaultBeanAliases.getMessageStruct(null,"");
     }

@@ -52,19 +52,21 @@ public final class FileInfos {
     public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
         return _lgs.getMapping().getVal(CDM);
     }
-    public static void enTr(TranslationsAppli _lgs) {
+    public static TranslationsAppli enTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.en());
         _lgs.getMapping().addEntry(KEYWORDS, KeyWords.en());
         _lgs.getMapping().addEntry(TYPES, CustAliases.en());
         _lgs.getMapping().addEntry(TYPES_GUI, GuiAliases.en());
         ExecutingOptions.updateEn(_lgs);
+        return _lgs;
     }
-    public static void frTr(TranslationsAppli _lgs) {
+    public static TranslationsAppli frTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.fr());
         _lgs.getMapping().addEntry(KEYWORDS, KeyWords.fr());
         _lgs.getMapping().addEntry(TYPES, CustAliases.fr());
         _lgs.getMapping().addEntry(TYPES_GUI, GuiAliases.fr());
         ExecutingOptions.updateFr(_lgs);
+        return _lgs;
     }
 
     public static TranslationsAppli initComments(TranslationsLg _lgs) {

@@ -10,6 +10,8 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNamesContent;
+import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
 import code.maths.montecarlo.AbstractGenerator;
@@ -51,6 +53,41 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     @Override
     public StringMap<String> mappingKeywords() {
         return KeyWords.mapping();
+    }
+
+    @Override
+    public StringMap<String> mappingRendKeywords() {
+        return RendKeyWords.mappingTags();
+    }
+
+    @Override
+    public StringMap<String> mappingAttrs() {
+        return RendKeyWords.mappingAttrs();
+    }
+
+    @Override
+    public StringMap<String> mappingValues() {
+        return RendKeyWords.mappingValues();
+    }
+
+    @Override
+    public StringMap<String> mappingRendMessages() {
+        return RendAnalysisMessages.mapping();
+    }
+
+    @Override
+    public StringMap<String> mappingStyleValues() {
+        return RendKeyWords.mappingStyleValues();
+    }
+
+    @Override
+    public StringMap<String> mappingStyleUnits() {
+        return RendKeyWords.mappingStyleUnits();
+    }
+
+    @Override
+    public StringMap<String> mappingStyleAttrs() {
+        return RendKeyWords.mappingStyleAttrs();
     }
 
     @Override

@@ -1,11 +1,13 @@
 package code.renders;
 
 import code.expressionlanguage.utilcompo.*;
+import code.formathtml.util.DefaultBeanAliases;
 import code.gui.*;
 import code.gui.files.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
+import code.renders.utilcompo.LgNamesRenderUtils;
 import code.sml.util.*;
 import code.stream.core.*;
 import code.threads.*;
@@ -24,7 +26,7 @@ public abstract class EquallableRendersGuiUtil {
     public static void update(MockProgramInfos _pr) {
         _pr.setLanguages(new StringList("en"));
         _pr.setLanguage("en");
-        FileInfos.enTr(FileInfos.initComments(lg(_pr,"en")));
+        DefaultBeanAliases.enTr(FileInfos.enTr(FileInfos.initComments(lg(_pr,"en"))));
         updateBase(_pr.currentLg());
     }
     public static void updateBase(TranslationsLg _en) {

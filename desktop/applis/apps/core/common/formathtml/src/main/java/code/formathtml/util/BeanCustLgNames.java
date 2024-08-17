@@ -1286,5 +1286,15 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
     public abstract CustList<AbsAliasFileBuilder> newFileBuilders();
     public abstract StringMap<String> mappingMessages();
     public abstract StringMap<String> mappingKeywords();
+    public abstract StringMap<String> mappingRendKeywords();
     public abstract StringMap<String> mappingAliases();
+    public abstract StringMap<String> mappingAttrs();
+
+    public abstract StringMap<String> mappingValues();
+
+    public abstract StringMap<String> mappingRendMessages();
+
+    public abstract StringMap<String> mappingStyleValues();
+    public abstract StringMap<String> mappingStyleUnits();
+    public abstract StringMap<String> mappingStyleAttrs();
 }

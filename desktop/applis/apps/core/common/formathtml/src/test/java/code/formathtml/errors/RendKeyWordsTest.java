@@ -9,6 +9,8 @@ import code.formathtml.EquallableRenderUtil;
 import code.formathtml.InitializationLgNamesRender;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultBeanAliases;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -30,7 +32,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         r_.setKeyWordBody("");
         r_.setKeyWordBreak("continue");
         r_.setKeyWordIf("-f");
-        StringMap<String> tags_ = r_.allTags();
+        StringMap<String> tags_ = r_.allTags(RendKeyWords.mappingTags());
         validateTagContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
         assertTrue(!ac_.isEmptyStdError());
@@ -56,7 +58,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         r_.setAttrAlias("bean");
         r_.setAttrChecked("-f");
         r_.setAttrPrepare("param");
-        StringMap<String> tags_ = r_.allAttrs();
+        StringMap<String> tags_ = r_.allAttrs(RendKeyWords.mappingAttrs());
         validateAttrContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
         assertTrue(!ac_.isEmptyStdError());
@@ -74,7 +76,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setValueRadio("");
-        StringMap<String> tags_ = r_.allValues();
+        StringMap<String> tags_ = r_.allValues(RendKeyWords.mappingValues());
         validateValueContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
         assertTrue(!ac_.isEmptyStdError());
@@ -98,7 +100,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleValueRgb("");
         r_.setStyleValueRed("-");
-        StringMap<String> tags_ = r_.allStyleValues();
+        StringMap<String> tags_ = r_.allStyleValues(RendKeyWords.mappingStyleValues());
         validateStyleValueContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
         assertTrue(!ac_.isEmptyStdError());
@@ -122,7 +124,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleAttrBorder("");
         r_.setStyleAttrColor("/");
-        StringMap<String> tags_ = r_.allStyleAttrs();
+        StringMap<String> tags_ = r_.allStyleAttrs(RendKeyWords.mappingStyleAttrs());
         validateAttrContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
         assertTrue(!ac_.isEmptyStdError());
@@ -142,7 +144,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleUnitEm("");
         r_.setStyleUnitPx("0");
-        StringMap<String> tags_ = r_.allStyleUnits();
+        StringMap<String> tags_ = r_.allStyleUnits(RendKeyWords.mappingStyleUnits());
         validateStyle(ac_, r_, tags_);
         assertTrue(!ac_.isEmptyStdError());
     }
@@ -161,7 +163,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleUnitEm("");
         r_.setStyleUnitPx("/");
-        StringMap<String> tags_ = r_.allStyleUnits();
+        StringMap<String> tags_ = r_.allStyleUnits(RendKeyWords.mappingStyleUnits());
         validateStyle(ac_, r_, tags_);
         assertTrue(!ac_.isEmptyStdError());
     }
@@ -327,7 +329,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         r_.setAttrClass("");
         r_.setAttrDelay("");
         r_.setAttrWidth("");
-        StringMap<String> tags_ = r_.allStyleUnits();
+        StringMap<String> tags_ = r_.allStyleUnits(RendKeyWords.mappingStyleUnits());
         validateStyle(ac_, r_, tags_);
         assertTrue(!ac_.isEmptyStdError());
     }
@@ -337,7 +339,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
     }
 
     private static void validateMess(RendAnalysisMessages _def, AnalyzedPageEl _s) {
-        AnalysisMessages.validateMessageContents(_def.allMessages(), _s);
+        AnalysisMessages.validateMessageContents(_def.allMessages(RendAnalysisMessages.mapping()), _s);
     }
 
     private static AnalyzedPageEl build(KeyWords _kw, BeanCustLgNames _lgName) {
@@ -349,7 +351,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
     }
 
     private static void validateAttrContents(AnalyzedPageEl _conf, RendKeyWords _r, StringMap<String> _tags) {
-        _r.validateAttrContents(_tags, _conf);
+        _r.validateAttrContents(_tags, _conf, RendKeyWords.mappingAttrs());
     }
 
     private static void validateDuplicates(AnalyzedPageEl _conf, RendKeyWords _r, StringMap<String> _tags) {
@@ -363,10 +365,24 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         StringMap<String> cust_ = new StringMap<String>();
         cust_.put("","value");
         DefaultBeanAliases lgNamesContent_ = new DefaultBeanAliases();
-        lgNamesContent_.build(def_, cust_);
+        TranslationsAppli en_ = new TranslationsAppli();
+        DefaultBeanAliases.enTr(en_);
+        lgNamesContent_.build(def_, cust_, TranslationsFile.extractKeys(en_.getMapping().getVal(DefaultBeanAliases.TYPES_RENDER)));
         assertEq("",lgNamesContent_.getAliasBean());
     }
 
+    @Test
+    public void getAlias_4() {
+        StringMap<String> def_ = new StringMap<String>();
+        def_.put("","value");
+        StringMap<String> cust_ = new StringMap<String>();
+        cust_.put("","value");
+        DefaultBeanAliases lgNamesContent_ = new DefaultBeanAliases();
+        TranslationsAppli fr_ = new TranslationsAppli();
+        DefaultBeanAliases.frTr(fr_);
+        lgNamesContent_.build(def_, cust_, TranslationsFile.extractKeys(fr_.getMapping().getVal(DefaultBeanAliases.TYPES_RENDER)));
+        assertEq("",lgNamesContent_.getAliasBean());
+    }
     @Test
     public void getAlias5() {
         StringMap<String> def_ = new StringMap<String>();
@@ -374,12 +390,12 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         StringMap<String> cust_ = new StringMap<String>();
         cust_.put("","value");
         RendKeyWords lgNamesContent_ = new RendKeyWords();
-        lgNamesContent_.otherStyleUnits(def_, cust_);
-        lgNamesContent_.otherTags(def_, cust_);
-        lgNamesContent_.otherAttrs(def_, cust_);
-        lgNamesContent_.otherStyleAttrs(def_, cust_);
-        lgNamesContent_.otherStyleValues(def_, cust_);
-        lgNamesContent_.otherValues(def_, cust_);
+        lgNamesContent_.otherStyleUnits(def_, cust_, RendKeyWords.mappingStyleUnits());
+        lgNamesContent_.otherTags(def_, cust_, RendKeyWords.mappingTags());
+        lgNamesContent_.otherAttrs(def_, cust_, RendKeyWords.mappingAttrs());
+        lgNamesContent_.otherStyleAttrs(def_, cust_, RendKeyWords.mappingStyleAttrs());
+        lgNamesContent_.otherStyleValues(def_, cust_, RendKeyWords.mappingStyleValues());
+        lgNamesContent_.otherValues(def_, cust_, RendKeyWords.mappingValues());
         assertEq("",lgNamesContent_.getKeyWordAnchor());
     }
 }

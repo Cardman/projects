@@ -572,7 +572,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         kw_.initSupplDigits();
         ContextFactory.beforeBuild(forwards_,new AnalysisMessages(),kw_,new CustList<CommentDelimiters>(), opt_,lgNames_.getContent(),page_);
         ContextFactory.build(forwards_,kw_,opt_,page_,new DefBuildLightResultContextNext());
-        ReadConfiguration.loadContext(page_, new RendKeyWords());
+        ReadConfiguration.loadContext(page_, new RendKeyWords(), lgNames_);
         assertTrue(page_.isEmptyStdError());
         DualConfigurationContext dual_ = new DualConfigurationContext();
         Navigation nav_ = new Navigation();
