@@ -500,6 +500,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
+        SongRenderer.updateEn(SongRenderer.initAppliTr(p_.lg(EN)));
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element r_ = d_.createElement(WindowPlayer.SMIL);
         Element s1_ = d_.createElement(WindowPlayer.CST_MEDIA);
@@ -529,6 +530,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
+        SongRenderer.updateEn(SongRenderer.initAppliTr(p_.lg(EN)));
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element r_ = d_.createElement(WindowPlayer.SMIL);
         Element s1_ = d_.createElement(WindowPlayer.CST_MEDIA);
@@ -834,6 +836,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
+        SongRenderer.updateEn(SongRenderer.initAppliTr(p_.lg(EN)));
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element r_ = d_.createElement(WindowPlayer.SMIL);
         Element s1_ = d_.createElement(WindowPlayer.CST_MEDIA);

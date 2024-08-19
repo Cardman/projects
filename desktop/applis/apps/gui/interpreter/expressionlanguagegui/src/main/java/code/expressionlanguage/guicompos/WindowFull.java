@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.gui.unit.MessagesCdmFullGui;
 import code.gui.*;
 
 
@@ -11,8 +12,6 @@ import code.gui.files.DefButtonsOpenPanelAct;
 import code.gui.files.FileOpenFrame;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
-import code.scripts.messages.gui.MessCdmGuiGr;
-import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
 import code.util.StringMap;
@@ -32,7 +31,6 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
     private final AbsButton coverage;
     private final AbsButton stop;
 
-    private final StringMap<String> messages;
     private final CdmFactory cdmFactory;
 //    private final GuiInterpreterElements currentElements;
     private AbstractLightProgramInfos light;
@@ -49,34 +47,34 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         GuiBaseUtil.choose(this);
         cdmFactory = _list;
 //        currentElements = new GuiInterpreterElements(getFrames());
-        setAccessFile("launcher.mainwindow");
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/gui/messages", _programInfos.getLanguage(), getAccessFile());
-        String loadedResourcesMessages_ = MessCdmGuiGr.ms().getVal(fileName_);
-        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
-        setTitle(messages.getVal("title"));
+//        setAccessFile("launcher.mainwindow");
+//        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/gui/messages", _programInfos.getLanguage(), getAccessFile());
+//        String loadedResourcesMessages_ = MessCdmGuiGr.ms().getVal(fileName_);
+        StringMap<String> messages_ = MessagesCdmFullGui.valMessages(_programInfos.currentLg());
+        setTitle(messages_.getVal(MessagesCdmFullGui.TITLE));
         setJMenuBar(getCompoFactory().newMenuBar());
-        menu = getCompoFactory().newMenu(messages.getVal("file"));
-        open = getCompoFactory().newMenuItem(messages.getVal("open"));
+        menu = getCompoFactory().newMenu(messages_.getVal(MessagesCdmFullGui.FILE));
+        open = getCompoFactory().newMenuItem(messages_.getVal(MessagesCdmFullGui.OPEN));
         open.addActionListener(new FileOpenEventFull(this));
         open.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         getJMenuBar().add(menu);
         contentPane = getCompoFactory().newPageBox();
         form = getCompoFactory().newGrid(0,2);
-        content = getCompoFactory().newPlainLabel(messages.getVal("configuration"));
+        content = getCompoFactory().newPlainLabel(messages_.getVal(MessagesCdmFullGui.CONFIGURATION));
         form.add(content);
         conf = getCompoFactory().newTextArea(64,64);
         AbsScrollPane scr_ = getCompoFactory().newAbsScrollPane(conf);
         scr_.setPreferredSize(new MetaDimension(256,96));
         form.add(scr_);
-        launch = getCompoFactory().newPlainButton(messages.getVal("launch"));
+        launch = getCompoFactory().newPlainButton(messages_.getVal(MessagesCdmFullGui.LAUNCH));
         launch.addActionListener(new ListenerLaunchApp(this));
         form.add(launch);
-        coverage = getCompoFactory().newPlainButton("coverage");
+        coverage = getCompoFactory().newPlainButton(messages_.getVal(MessagesCdmFullGui.COVERAGE));
         coverage.addActionListener(new CoverageAction(this));
         coverage.setEnabled(false);
         form.add(coverage);
-        stop = getCompoFactory().newPlainButton("stop");
+        stop = getCompoFactory().newPlainButton(messages_.getVal(MessagesCdmFullGui.STOP));
         stop.addActionListener(new StopAction(this));
         stop.setEnabled(false);
         form.add(stop);

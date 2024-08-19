@@ -19,7 +19,6 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.*;
@@ -37,17 +36,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     public static final String CST_KEY_RANDOM = "random";
     public static final String CST_ATTR_VALUE = "value";
     public static final String APPS_MUSICPLAYER = "musicplayer";
-    private static final String ACCESS = "player.gui.mainwindow";
 
     private static final String CST_START = "Start";
 //    private static final String CST_CLOSE = "Close";
     private static final String CST_STOP_EVT = "Stop";
-    private static final String CST_TITLE_PLAYER = "titlePlayer";
-    private static final String CST_SONGS = "songs";
-    private static final String CST_RANDOM = "random";
-    private static final String CST_CANNOT_READ_TITLE = "cannotReadTitle";
-    private static final String CST_CANNOT_READ_MESSAGE_WPL = "cannotReadMessageWpl";
-    private static final String CST_RESOURCES_FOLDER = "resources_player";
     private static final String REL_SEP = " / ";
     private static final String CST_PAUSE = "||";
 //    private static final String CST_STOP = "[]";
@@ -60,11 +52,12 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final String RESOURCES_FOLDER = "resources_player";
     private static final String ICON = "player.txt";
     private final ReportingFrame resultFile = ReportingFrame.newInstance(getFrames());
-    private final StringMap<String> messagesFiles = MessPlayerGr.ms();
+//    private final StringMap<String> messagesFiles = new StringMap<String>();
     private StringMap<String> messages = new StringMap<String>();
 
     private final AbstractScheduledExecutorService timer = getThreadFactory().newScheduledExecutorService();
     private final AbsPlainLabel songsLabel = getCompoFactory().newPlainLabel("");
+    private final AbsPlainLabel songsSave = getCompoFactory().newPlainLabel("");
     private AbsClipStream clipStream;
     private int noSong = -1;
     private final AbsTextArea songs = getCompoFactory().newTextArea(10, 40);
@@ -74,6 +67,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsButton playPrevious = getCompoFactory().newPlainButton(CST_PREVIOUS);
     private final AbsButton playNext = getCompoFactory().newPlainButton(CST_NEXT);
     private final AbsButton stop = getCompoFactory().newPlainButton("\u23F9");
+    private final AbsTextField fileSave = getCompoFactory().newTextField();
     private final AbsPlainLabel currentNoSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsPlainLabel currentSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsScrollPane scroll;
@@ -97,13 +91,13 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         mainButton = _pair.getMainButton();
         GuiBaseUtil.choose(this);
         initMessages(_lg);
-        setTitle(messages.getVal(CST_TITLE_PLAYER));
+        setTitle(messages.getVal(MessagesPlayer.TITLE));
         setIconImage(getIcon(_list.getImageFactory()));
         AbsPanel pane_ = getCompoFactory().newPageBox();
-        songsLabel.setText(messages.getVal(CST_SONGS));
+        songsLabel.setText(messages.getVal(MessagesPlayer.SONGS));
         pane_.add(songsLabel);
         pane_.add(songs);
-        random.setText(messages.getVal(CST_RANDOM));
+        random.setText(messages.getVal(MessagesPlayer.RANDOM));
         pane_.add(random);
         AbsPanel actions_ = getCompoFactory().newLineBox();
 //        playPrevious.setTextAndSize(PREVIOUS);
@@ -117,6 +111,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         stop.addActionListener(new StopSong(this));
         actions_.add(stop);
         pane_.add(actions_);
+        AbsPanel actionsSave_ = getCompoFactory().newLineBox();
+        songsSave.setText(messages.getVal(MessagesPlayer.LAST));
+        actionsSave_.add(songsSave);
+        actionsSave_.add(fileSave);
+        pane_.add(actionsSave_);
         scroll = getCompoFactory().newAbsScrollPane(songRend.getPaintableLabel());
         scroll.setPreferredSize(new MetaDimension(256, 352));
         pane_.add(scroll);
@@ -161,9 +160,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     }
 
     public void initMessages(String _lg) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(CST_RESOURCES_FOLDER, _lg, ACCESS);
-        String loadedResourcesMessages_ = messagesFiles.getVal(fileName_);
-        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+        setLanguageKey(_lg);
+//        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(CST_RESOURCES_FOLDER, _lg, ACCESS);
+//        String loadedResourcesMessages_ = messagesFiles.getVal(fileName_);
+        messages = SongRenderer.valPlayerMessages(getFrames().currentLg());
     }
 
     public void playOrPause(boolean _click) {
@@ -204,7 +204,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         String txt_ = StringUtil.decode(bytes_);
         Document doc_ = DocumentBuilder.parseNoTextDocument(txt_);
         if (doc_ == null) {
-            resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+            resultFile.display(messages.getVal(MessagesPlayer.CANNOT_READ_TITLE),messages.getVal(MessagesPlayer.CANNOT_READ_MESSAGE));
 //                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
             return;
         }
@@ -220,7 +220,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
             }
         }
         if (songsList.isEmpty()) {
-            resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+            resultFile.display(messages.getVal(MessagesPlayer.CANNOT_READ_TITLE),messages.getVal(MessagesPlayer.CANNOT_READ_MESSAGE));
 //                    getFrames().getMessageDialogAbs().input(getCommonFrame(), messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE), GuiConstants.ERROR_MESSAGE);
             return;
         }
@@ -287,7 +287,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         scroll.revalidate();
         pack();
         if (clipStream == null) {
-            resultFile.display(messages.getVal(CST_CANNOT_READ_TITLE),messages.getVal(CST_CANNOT_READ_MESSAGE_WPL));
+            resultFile.display(messages.getVal(MessagesPlayer.CANNOT_READ_TITLE),messages.getVal(MessagesPlayer.CANNOT_READ_MESSAGE));
             return;
         }
         clipStream.addLineListener(this);
@@ -383,7 +383,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         }
 //        contentList = mainDoc_.export();
 //        StreamTextFile.saveTextFile("last.wpl",contentList,getStreams());
-        StreamTextFile.saveTextFile("last.wpl",mainDoc_.export(),getStreams());
+        StreamTextFile.saveTextFile(fileSave.getText(),mainDoc_.export(),getStreams());
     }
 
     public static CustList<LoadedSongBytes> shuffledSongsNames(CustList<LoadedSongBytes> _list, AbstractGenerator _gene) {
@@ -532,9 +532,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     public void changeLanguage(String _language) {
         setLanguageKey(_language);
         initMessages(_language);
-        setTitle(messages.getVal(CST_TITLE_PLAYER));
-        random.setText(messages.getVal(CST_RANDOM));
-        songsLabel.setText(messages.getVal(CST_SONGS));
+        setTitle(messages.getVal(MessagesPlayer.TITLE));
+        random.setText(messages.getVal(MessagesPlayer.RANDOM));
+        songsLabel.setText(messages.getVal(MessagesPlayer.SONGS));
+        songsSave.setText(messages.getVal(MessagesPlayer.LAST));
     }
 
     @Override

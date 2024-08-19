@@ -11,10 +11,11 @@ import code.util.Ints;
 import org.junit.Assert;
 
 public abstract class EquallableSoundPlayerUtil {
-
+    public static final String EN = "en";
+    public static final String FR = "fr";
     public static WindowPlayer windowPlayer() {
         MockProgramInfos pr_ = build();
-        return new WindowPlayer("",pr_, new LanguagesButtonsPair(null,null,null));
+        return new WindowPlayer(EN,pr_, new LanguagesButtonsPair(null,null,null));
     }
     public static WindowRecorder windowRecorder() {
         MockProgramInfos pr_ = build();
@@ -25,7 +26,9 @@ public abstract class EquallableSoundPlayerUtil {
     }
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new CustomSeedGene(_dbs), new MockFileSet(0, new long[1], new String[]{"/"}));
-        pr_.setLanguage("");
+        pr_.setLanguage(EN);
+        SongRenderer.updateEn(SongRenderer.initAppliTr(pr_.lg(EN)));
+        SongRenderer.updateFr(SongRenderer.initAppliTr(pr_.lg(FR)));
         return pr_;
     }
     public static AbstractThread tryAn(MockThreadFactory _g) {

@@ -6,12 +6,16 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
+import code.sml.util.*;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
 public final class SongRenderer {
 
+    public static final String SONGS_APP = "songs";
+    public static final String PLAYER_FILE = "player";
+    public static final String RECORDER_FILE = "recorder";
     private int noSong;
 
     private CustList<LoadedSongBytes> songs = new CustList<LoadedSongBytes>();
@@ -21,7 +25,30 @@ public final class SongRenderer {
         compo = _compoFactory;
         paintableLabel = _compoFactory.newAbsPaintableLabel();
     }
-
+    public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getMapping().addEntry(SONGS_APP, a_);
+        return a_;
+    }
+    public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
+        return _lgs.getMapping().getVal(SONGS_APP);
+    }
+    public static StringMap<String> valPlayerMessages(TranslationsLg _lg) {
+        return SongRenderer.getAppliTr(_lg).getMapping().getVal(PLAYER_FILE).getMapping();
+    }
+    public static StringMap<String> valRecorderMessages(TranslationsLg _lg) {
+        return SongRenderer.getAppliTr(_lg).getMapping().getVal(RECORDER_FILE).getMapping();
+    }
+    public static TranslationsAppli updateEn(TranslationsAppli _a){
+        _a.getMapping().addEntry(PLAYER_FILE,MessagesPlayer.en());
+        _a.getMapping().addEntry(RECORDER_FILE,MessagesRecorder.en());
+        return _a;
+    }
+    public static TranslationsAppli updateFr(TranslationsAppli _a){
+        _a.getMapping().addEntry(PLAYER_FILE,MessagesPlayer.fr());
+        _a.getMapping().addEntry(RECORDER_FILE,MessagesRecorder.fr());
+        return _a;
+    }
     public void setSongs(CustList<LoadedSongBytes> _songs) {
         songs = new CustList<LoadedSongBytes>(_songs);
     }

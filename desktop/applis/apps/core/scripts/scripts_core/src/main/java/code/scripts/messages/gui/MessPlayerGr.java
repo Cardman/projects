@@ -37,29 +37,29 @@ private static final String ADD_IMG_2_9="///////////////////////////////////////
 private MessPlayerGr(){}
 public static StringMap<String> ms(){
 StringMap<String> m = new StringMap<String>();
-m.addEntry("resources_player/en/player/gui/mainwindow.properties",resourcesPlayerEnPlayerGuiMainwindow());
-m.addEntry("resources_player/fr/player/gui/mainwindow.properties",resourcesPlayerFrPlayerGuiMainwindow());
+//m.addEntry("resources_player/en/player/gui/mainwindow.properties",resourcesPlayerEnPlayerGuiMainwindow());
+//m.addEntry("resources_player/fr/player/gui/mainwindow.properties",resourcesPlayerFrPlayerGuiMainwindow());
 m.addEntry("resources_player/player.txt",resourcesPlayerPlayer());
 return m;
 }
-static String resourcesPlayerEnPlayerGuiMainwindow(){
-String f="titlePlayer=Player of WAV songs\n";
-f+="songs=songs:\n";
-f+="random=Random\n";
-f+="cannotReadTitle=Error while reading song.\n";
-f+="cannotReadMessageWpl=No file in WPL file\n";
-f+="cannotReadMessageWav=Invalid WAV format\n";
-return f;
-}
-static String resourcesPlayerFrPlayerGuiMainwindow(){
-String f="titlePlayer=Lecteur de chansons WAV\n";
-f+="songs=chansons:\n";
-f+="random=Al&eacute;atoire\n";
-f+="cannotReadTitle=Erreur lors de la lecture de la chanson.\n";
-f+="cannotReadMessageWpl=Aucun fichier dans le fichier WPL\n";
-f+="cannotReadMessageWav=Fichier WAV invalide\n";
-return f;
-}
+//static String resourcesPlayerEnPlayerGuiMainwindow(){
+//String f="titlePlayer=Player of WAV songs\n";
+//f+="songs=songs:\n";
+//f+="random=Random\n";
+//f+="cannotReadTitle=Error while reading song.\n";
+//f+="cannotReadMessageWpl=No file in WPL file\n";
+//f+="cannotReadMessageWav=Invalid WAV format\n";
+//return f;
+//}
+//static String resourcesPlayerFrPlayerGuiMainwindow(){
+//String f="titlePlayer=Lecteur de chansons WAV\n";
+//f+="songs=chansons:\n";
+//f+="random=Al&eacute;atoire\n";
+//f+="cannotReadTitle=Erreur lors de la lecture de la chanson.\n";
+//f+="cannotReadMessageWpl=Aucun fichier dans le fichier WPL\n";
+//f+="cannotReadMessageWav=Fichier WAV invalide\n";
+//return f;
+//}
 static String resourcesPlayerPlayer(){
 String i=ADD_IMG_2_0;
 i+=ADD_IMG_2_1;

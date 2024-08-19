@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.gui.unit.MessagesCdmFullGui;
 import code.expressionlanguage.gui.unit.ProgTestBar;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.stds.DfInstancer;
@@ -286,6 +287,7 @@ public abstract class EquallableElUtImplUtil {
         ProgTestBar.valExecOptionsMain(lg_);
         ProgTestBar.valExecOptionsSimpleMes(lg_);
         ProgTestBar.valExecOptionsSimple(lg_);
+        MessagesCdmFullGui.valMessages(lg_);
         return ProgTestBar.valExecOptionsTable(lg_);
     }
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {

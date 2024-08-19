@@ -78,14 +78,14 @@ public final class ProgTestBar implements ProgTestBarInt{
         _a.getMapping().addEntry(EXEC_OPTIONS_SIMPLE,enExecOptionsSimple());
         _a.getMapping().addEntry(EXEC_OPTIONS_SIMPLE_MES,enExecOptionsSimpleMes());
         _a.getMapping().addEntry(EXEC_OPTIONS_MAIN,enExecOptionsMain());
-        return _a;
+        return MessagesCdmFullGui.updateEn(_a);
     }
     public static TranslationsAppli updateFr(TranslationsAppli _a){
         _a.getMapping().addEntry(EXEC_OPTIONS_TABLE,frExecOptionsTable());
         _a.getMapping().addEntry(EXEC_OPTIONS_SIMPLE,frExecOptionsSimple());
         _a.getMapping().addEntry(EXEC_OPTIONS_SIMPLE_MES,frExecOptionsSimpleMes());
         _a.getMapping().addEntry(EXEC_OPTIONS_MAIN,frExecOptionsMain());
-        return _a;
+        return MessagesCdmFullGui.updateFr(_a);
     }
     public static TranslationsFile enExecOptionsTable(){
         TranslationsFile e_ = new TranslationsFile();

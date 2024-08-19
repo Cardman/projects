@@ -19,6 +19,7 @@ import code.gui.*;
 import code.gui.files.*;
 import code.gui.initialize.*;
 import code.netw.NetWork;
+import code.player.gui.SongRenderer;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.gui.MessGuiGr;
 import code.scripts.pages.aiki.MessagesInit;
@@ -116,6 +117,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         NetWork.frTr(NetWork.initAppliTr(fr_));
         FileFrame.enTr(FileFrame.initAppliTr(en_));
         FileFrame.frTr(FileFrame.initAppliTr(fr_));
+        SongRenderer.updateEn(SongRenderer.initAppliTr(en_));
+        SongRenderer.updateFr(SongRenderer.initAppliTr(fr_));
         en_.getMapping().addEntry(MessBelotePage.APP_BEAN,MessBelotePage.enBelote());
         fr_.getMapping().addEntry(MessBelotePage.APP_BEAN,MessBelotePage.frBelote());
         en_.getMapping().addEntry(MessPresidentPage.APP_BEAN,MessPresidentPage.enPresident());

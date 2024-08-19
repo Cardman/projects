@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.gui.unit.MessagesCdmFullGui;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
 import code.gui.files.*;
@@ -26,7 +27,7 @@ public abstract class EquallableGuiInterpreterUtil {
     public static void update(MockProgramInfos _pr) {
         _pr.setLanguages(new StringList(""));
         _pr.setLanguage("");
-        FileInfos.enTr(FileInfos.initComments(lg(_pr,"")));
+        MessagesCdmFullGui.updateEn(FileInfos.enTr(FileInfos.initComments(lg(_pr,""))));
         updateBase(_pr.currentLg());
     }
 

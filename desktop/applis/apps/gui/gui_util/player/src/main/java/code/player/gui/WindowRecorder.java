@@ -6,8 +6,11 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
 import code.stream.StreamBinaryFile;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
+    public static final String EMPTY = "";
     private final AbsSlider rate;
     private final AbsSlider size;
     private final AbsSlider channel;
@@ -17,7 +20,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     private final AbsButton recordSong;
     private final AbsButton stopSong;
     private final AbsButton playSong;
-    private final AbsPlainLabel status = getCompoFactory().newPlainLabel("");
+    private final AbsPlainLabel status = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsSoundRecord soundRecord;
     private AbsPlayBack playBack;
     private boolean built;
@@ -27,7 +30,8 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
         super(_list);
         mainButton = _pair.getMainButton();
         GuiBaseUtil.choose(this);
-        setTitle("recorder");
+        StringMap<String> mes_ = SongRenderer.valRecorderMessages(_list.currentLg());
+        setTitle(mes_.getVal(MessagesRecorder.TITLE));
         soundRecord = _list.newSoundPattern();
         AbsPanel container_ = _list.getCompoFactory().newPageBox();
         AbsPanel group_ = _list.getCompoFactory().newLineBox();
@@ -38,42 +42,42 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
         alignTopLeft(inputs_);
         group_.add(labels_);
         group_.add(inputs_);
-        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel("rate"));
+        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel(mes_.getVal(MessagesRecorder.RATE)));
         rate = _list.getCompoFactory().newAbsSlider(8000,128000,44100);
         rate.addChangeListener(new StatusChangeSlider(this));
         alignTopLeft(rate);
         inputs_.add(rate);
-        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel("size"));
+        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel(mes_.getVal(MessagesRecorder.SIZE)));
         size = _list.getCompoFactory().newAbsSlider(1,32,16);
         size.addChangeListener(new StatusChangeSlider(this));
         alignTopLeft(size);
         inputs_.add(size);
-        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel("channels"));
+        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel(mes_.getVal(MessagesRecorder.CHANNELS)));
         channel = _list.getCompoFactory().newAbsSlider(1,8,2);
         channel.addChangeListener(new StatusChangeSlider(this));
         alignTopLeft(channel);
         inputs_.add(channel);
-        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel("signed"));
+        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel(mes_.getVal(MessagesRecorder.SIGNED)));
         signed = _list.getCompoFactory().newCustCheckBox();
         signed.setSelected(true);
         signed.addActionListener(new StatusChangeCheck(this));
         alignTopLeft(signed);
         inputs_.add(signed);
-        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel("big endian"));
+        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel(mes_.getVal(MessagesRecorder.BIG_ENDIAN)));
         bigEndian = _list.getCompoFactory().newCustCheckBox();
         bigEndian.setSelected(true);
         bigEndian.addActionListener(new StatusChangeCheck(this));
         alignTopLeft(bigEndian);
         inputs_.add(bigEndian);
-        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel("file save"));
+        alignAddedTopLeft(labels_,_list.getCompoFactory().newPlainLabel(mes_.getVal(MessagesRecorder.FIVE_SAVE)));
         fileSave = _list.getCompoFactory().newTextField();
         alignTopLeft(fileSave);
         inputs_.add(fileSave);
         AbsPanel buttons_ = _list.getCompoFactory().newLineBox();
         alignTopLeft(buttons_);
-        recordSong = _list.getCompoFactory().newPlainButton("record");
-        stopSong = _list.getCompoFactory().newPlainButton("stop");
-        playSong = _list.getCompoFactory().newPlainButton("play");
+        recordSong = _list.getCompoFactory().newPlainButton(mes_.getVal(MessagesRecorder.RECORD));
+        stopSong = _list.getCompoFactory().newPlainButton(mes_.getVal(MessagesRecorder.STOP));
+        playSong = _list.getCompoFactory().newPlainButton(mes_.getVal(MessagesRecorder.PLAY));
         setState();
         recordSong.addActionListener(new RecordingSongAction(this));
         stopSong.addActionListener(new StopRecordingSongAction(this));
@@ -124,12 +128,13 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     }
     public void eventRecord() {
         String fileTxt_ = fileSave.getText().trim();
+        StringMap<String> mes_ = SongRenderer.valRecorderMessages(getFrames().currentLg());
         if (fileTxt_.isEmpty()){
-            status.setText("Error");
+            status.setText(mes_.getVal(MessagesRecorder.BAD_NAME));
             pack();
             return;
         }
-        status.setText("");
+        status.setText(EMPTY);
         pack();
         getFrames().getThreadFactory().newStartedThread(new RecordingSong(fileTxt_,this));
     }
@@ -138,7 +143,8 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
         playSong.setEnabled(false);
         stopSong.setEnabled(true);
         byte[] bytes_ = soundRecord.recordSong();
-        setTitle("recorder "+soundRecord.millis()+" ms");
+        StringMap<String> mes_ = SongRenderer.valRecorderMessages(getFrames().currentLg());
+        setTitle(StringUtil.simpleStringsFormat(mes_.getVal(MessagesRecorder.RECORDING),Long.toString(soundRecord.millis())));
         if (bytes_.length > 0) {
             StreamBinaryFile.writeFile(_file,bytes_,getStreams());
             return;
@@ -147,7 +153,8 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     }
     public void error() {
         setState();
-        status.setText("Error");
+        StringMap<String> mes_ = SongRenderer.valRecorderMessages(getFrames().currentLg());
+        status.setText(mes_.getVal(MessagesRecorder.BAD_RECORD));
         pack();
     }
     public void stop() {
@@ -159,7 +166,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
         }
         setState();
         playBack = null;
-        status.setText("");
+        status.setText(EMPTY);
         pack();
     }
     public void setState(){
