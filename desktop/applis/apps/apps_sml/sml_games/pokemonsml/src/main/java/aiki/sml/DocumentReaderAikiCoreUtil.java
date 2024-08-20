@@ -276,7 +276,7 @@ public final class DocumentReaderAikiCoreUtil {
             IdMap<Gender, String> genders_ = new IdMap<Gender, String>();
             for (Element c : _c.getChildElements()) {
                 genders_.put(getGenderByName(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                        DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
+                        c.getAttribute(DocumentWriterCoreUtil.VALUE));
             }
             _d.getTranslatedGenders().put(_valueTr, genders_);
         }
@@ -284,7 +284,7 @@ public final class DocumentReaderAikiCoreUtil {
             IdMap<SelectedBoolean, String> booleans_ = new IdMap<SelectedBoolean, String>();
             for (Element c : _c.getChildElements()) {
                 booleans_.put(getBoolByName(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                        DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
+                        c.getAttribute(DocumentWriterCoreUtil.VALUE));
             }
             _d.getTranslatedBooleans().put(_valueTr, booleans_);
         }
@@ -293,7 +293,7 @@ public final class DocumentReaderAikiCoreUtil {
             for (Element c : _c.getChildElements()) {
                 diffWinPts_.put(
                         getDiffWonPtsByName(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                        DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
+                        c.getAttribute(DocumentWriterCoreUtil.VALUE));
             }
             _d.getTranslatedDiffWinPts().put(_valueTr, diffWinPts_);
         }
@@ -302,7 +302,7 @@ public final class DocumentReaderAikiCoreUtil {
             for (Element c : _c.getChildElements()) {
                 diffModel_.put(
                         getModelByName(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                        DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
+                        c.getAttribute(DocumentWriterCoreUtil.VALUE));
             }
             _d.getTranslatedDiffModelLaw().put(_valueTr, diffModel_);
         }
@@ -315,7 +315,7 @@ public final class DocumentReaderAikiCoreUtil {
             for (Element c : _c.getChildElements()) {
                 env_.put(
                         getEnvByName(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                        DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
+                        c.getAttribute(DocumentWriterCoreUtil.VALUE));
             }
             _d.getTranslatedEnvironment().put(_valueTr, env_);
         }
@@ -324,7 +324,7 @@ public final class DocumentReaderAikiCoreUtil {
             for (Element c : _c.getChildElements()) {
                 sta_.put(
                         Statistic.getStatisticByName(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                        DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
+                        c.getAttribute(DocumentWriterCoreUtil.VALUE));
             }
             _d.getTranslatedStatistics().put(_valueTr, sta_);
         }
@@ -333,7 +333,7 @@ public final class DocumentReaderAikiCoreUtil {
             for (Element c : _c.getChildElements()) {
                 tar_.put(
                         getTargetChoiceByName(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                        DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
+                        c.getAttribute(DocumentWriterCoreUtil.VALUE));
             }
             _d.getTranslatedTargets().put(_valueTr, tar_);
         }
@@ -375,8 +375,8 @@ public final class DocumentReaderAikiCoreUtil {
     private static void trsMap(Element _e, String _l, StringMap<StringMap<String>> _dest) {
         StringMap<String> categories_ = new StringMap<String>();
         for (Element c : _e.getChildElements()) {
-            categories_.put(DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                    DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
+            categories_.put(c.getAttribute(DocumentWriterCoreUtil.FIELD),
+                    c.getAttribute(DocumentWriterCoreUtil.VALUE));
         }
         _dest.put(_l, categories_);
     }

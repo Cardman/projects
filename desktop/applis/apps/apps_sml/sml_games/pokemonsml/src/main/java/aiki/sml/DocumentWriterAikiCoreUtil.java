@@ -1042,7 +1042,7 @@ public final class DocumentWriterAikiCoreUtil {
             AbsMap<SelectedBoolean, String> genders_ = _d.getTranslatedBooleans()
                     .getVal(l);
             for (SelectedBoolean g : genders_.getKeys()) {
-                linesGenders_.addEntry(g.getBoolName(),DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.addEntry(g.getBoolName(), genders_.getVal(g));
             }
             _files.put(ATTR_TRS+DataBase.SEPARATOR_FILES+i+DataBase.SEPARATOR_FILES+KIND_TRS_BOOLS, imgTrs(linesGenders_,l,KIND_TRS_BOOLS));
             i++;
@@ -1056,7 +1056,7 @@ public final class DocumentWriterAikiCoreUtil {
             IdMap<DifficultyWinPointsFight, String> genders_ = _d.getTranslatedDiffWinPts()
                     .getVal(l);
             for (DifficultyWinPointsFight g : genders_.getKeys()) {
-                linesGenders_.addEntry(g.getWinName(),DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.addEntry(g.getWinName(), genders_.getVal(g));
             }
             _files.put(ATTR_TRS+DataBase.SEPARATOR_FILES+i+DataBase.SEPARATOR_FILES+KIND_TRS_D_WIN, imgTrs(linesGenders_,l,KIND_TRS_D_WIN));
             i++;
@@ -1070,7 +1070,7 @@ public final class DocumentWriterAikiCoreUtil {
             IdMap<DifficultyModelLaw, String> genders_ = _d.getTranslatedDiffModelLaw()
                     .getVal(l);
             for (DifficultyModelLaw g : genders_.getKeys()) {
-                linesGenders_.addEntry(g.getModelName(),DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.addEntry(g.getModelName(), genders_.getVal(g));
             }
             _files.put(ATTR_TRS+DataBase.SEPARATOR_FILES+i+DataBase.SEPARATOR_FILES+KIND_TRS_D_MODEL, imgTrs(linesGenders_,l,KIND_TRS_D_MODEL));
             i++;
@@ -1084,7 +1084,7 @@ public final class DocumentWriterAikiCoreUtil {
             IdMap<EnvironmentType, String> genders_ = _d.getTranslatedEnvironment()
                     .getVal(l);
             for (EnvironmentType g : genders_.getKeys()) {
-                linesGenders_.addEntry(g.getEnvName(),DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.addEntry(g.getEnvName(), genders_.getVal(g));
             }
             _files.put(ATTR_TRS+DataBase.SEPARATOR_FILES+i+DataBase.SEPARATOR_FILES+KIND_TRS_ENV, imgTrs(linesGenders_,l,KIND_TRS_ENV));
             i++;
@@ -1098,7 +1098,7 @@ public final class DocumentWriterAikiCoreUtil {
             IdMap<Statistic, String> genders_ = _d.getTranslatedStatistics()
                     .getVal(l);
             for (Statistic g : genders_.getKeys()) {
-                linesGenders_.addEntry(g.getStatName(),DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.addEntry(g.getStatName(), genders_.getVal(g));
             }
             _files.put(ATTR_TRS+DataBase.SEPARATOR_FILES+i+DataBase.SEPARATOR_FILES+KIND_TRS_STAT, imgTrs(linesGenders_,l,KIND_TRS_STAT));
             i++;
@@ -1112,7 +1112,7 @@ public final class DocumentWriterAikiCoreUtil {
             IdMap<TargetChoice, String> genders_ = _d.getTranslatedTargets()
                     .getVal(l);
             for (TargetChoice g : genders_.getKeys()) {
-                linesGenders_.addEntry(g.getTargetName(),DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+                linesGenders_.addEntry(g.getTargetName(), genders_.getVal(g));
             }
             _files.put(ATTR_TRS+DataBase.SEPARATOR_FILES+i+DataBase.SEPARATOR_FILES+KIND_TRS_TARG, imgTrs(linesGenders_,l,KIND_TRS_TARG));
             i++;
@@ -1123,7 +1123,7 @@ public final class DocumentWriterAikiCoreUtil {
         StringMap<String>  linesGenders_ = new StringMap<String>();
         AbsMap<Gender, String> genders_ = _d.getTranslatedGenders().getVal(_l);
         for (Gender g : genders_.getKeys()) {
-            linesGenders_.addEntry(g.getGenderName(),DocumentBuilder.encodeToHtml(genders_.getVal(g)));
+            linesGenders_.addEntry(g.getGenderName(), genders_.getVal(g));
         }
         return linesGenders_;
     }
@@ -1134,7 +1134,7 @@ public final class DocumentWriterAikiCoreUtil {
             StringMap<String> linesGenders_ = new StringMap<String>();
             StringMap<String> status_ = _from.getVal(l);
             for (String g : status_.getKeys()) {
-                linesGenders_.addEntry(DocumentBuilder.encodeToHtml(g),DocumentBuilder.encodeToHtml(status_.getVal(g)));
+                linesGenders_.addEntry(g, status_.getVal(g));
             }
             _files.put(ATTR_TRS+DataBase.SEPARATOR_FILES+i+DataBase.SEPARATOR_FILES+_file, imgTrs(linesGenders_, l, _file));
             i++;
