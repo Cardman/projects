@@ -1134,7 +1134,7 @@ public final class DocumentWriterAikiCoreUtil {
             StringMap<String> linesGenders_ = new StringMap<String>();
             StringMap<String> status_ = _from.getVal(l);
             for (String g : status_.getKeys()) {
-                linesGenders_.addEntry(g,DocumentBuilder.encodeToHtml(status_.getVal(g)));
+                linesGenders_.addEntry(DocumentBuilder.encodeToHtml(g),DocumentBuilder.encodeToHtml(status_.getVal(g)));
             }
             _files.put(ATTR_TRS+DataBase.SEPARATOR_FILES+i+DataBase.SEPARATOR_FILES+_file, imgTrs(linesGenders_, l, _file));
             i++;

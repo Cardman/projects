@@ -375,7 +375,7 @@ public final class DocumentReaderAikiCoreUtil {
     private static void trsMap(Element _e, String _l, StringMap<StringMap<String>> _dest) {
         StringMap<String> categories_ = new StringMap<String>();
         for (Element c : _e.getChildElements()) {
-            categories_.put(c.getAttribute(DocumentWriterCoreUtil.FIELD),
+            categories_.put(DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.FIELD)),
                     DocumentBuilder.transformSpecialChars(c.getAttribute(DocumentWriterCoreUtil.VALUE)));
         }
         _dest.put(_l, categories_);
