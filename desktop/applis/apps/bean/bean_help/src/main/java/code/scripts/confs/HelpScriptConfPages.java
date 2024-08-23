@@ -42,7 +42,7 @@ public final class HelpScriptConfPages {
     public static final String PARAMETRES="parametres";
     public static final String PARTIE="partie";
     public static final String PAUSE="pause";
-    public static final String POSITION="position";
+    public static final String POSITION="0";
     public static final String PRESIDENT="president";
     public static final String QUATRE_JOUEURS_REP="quatre_joueurs_rep";
     public static final String QUITTER="quitter";
@@ -52,7 +52,7 @@ public final class HelpScriptConfPages {
     public static final String SURCONTRAT="surcontrat";
     public static final String TAROT="tarot";
     public static final String TEMPORISATION="temporisation";
-    public static final String TEXTE="texte";
+    public static final String TEXTE="1";
     public static final String TROIS_JOUEURS="trois_joueurs";
     public static final String VARIANTES="variantes";
     public static final String AIDE_GENERALE="aide_generale";

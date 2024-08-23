@@ -13,7 +13,7 @@ import code.util.core.*;
 
 public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricksHands {
 
-    protected static final String DEFAULT ="Default";
+    protected static final String DEFAULT ="";
     private final AbsPanel cards;
     private final AbsPanel tricks;
     private final AbsPanel selectedTrick;

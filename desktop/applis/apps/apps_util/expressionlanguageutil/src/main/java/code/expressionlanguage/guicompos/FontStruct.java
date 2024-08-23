@@ -13,25 +13,25 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
     private final boolean italic;
     private final int size;
     public FontStruct() {
-        family = getFontFamily(NullStruct.NULL_VALUE);
+        family = "";
         size = 12;
         bold = false;
         italic = false;
     }
     public FontStruct(int _size) {
-        family = getFontFamily(NullStruct.NULL_VALUE);
+        family = "";
         size = _size;
         bold = false;
         italic = false;
     }
     public FontStruct(Struct _family, boolean _bold,boolean _italic, int _size) {
-        family = getFontFamily(_family);
+        family = StringUtil.nullToEmpty(NumParsers.getStringValue(_family));
         bold = _bold;
         italic = _italic;
         size = _size;
     }
     public FontStruct(MetaFont _action) {
-        family = _action.getFontFamily();
+        family = StringUtil.nullToEmpty(_action.getFontFamily());
         bold = GuiConstants.boldFlag(_action.getFont());
         italic = GuiConstants.italicFlag(_action.getFont());
         size = _action.getRealSize();
@@ -44,16 +44,6 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
 
     private MetaFont meta(int _font) {
         return new MetaFont(family, _font, size);
-    }
-
-    private static String getFontFamily(Struct _family) {
-        String fontFamily_;
-        if (!(_family instanceof StringStruct)) {
-            fontFamily_ = "Default";
-        } else {
-            fontFamily_ = ((StringStruct)_family).getInstance();
-        }
-        return fontFamily_;
     }
 
     public StringStruct getName() {

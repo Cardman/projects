@@ -10,7 +10,7 @@ import code.util.core.StringUtil;
 
 public final class DefTileRender implements IntTileRender {
 
-    private static final String CST_KO = "KO";
+    private static final String CST_KO = "\u274C";
     private static final String PER_CENT = " %";
     @Override
     public AbstractImage render(AbstractImageFactory _fact, int[][] _img, int _defWidth, int _defHeight) {

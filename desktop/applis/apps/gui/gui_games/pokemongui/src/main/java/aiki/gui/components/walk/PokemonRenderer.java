@@ -20,7 +20,7 @@ public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
 
     private static final String PER_CENT = " %";
 
-    private static final String CST_KO = "KO";
+    private static final String CST_KO = "\u274C";
 
     private int sideLength;
 

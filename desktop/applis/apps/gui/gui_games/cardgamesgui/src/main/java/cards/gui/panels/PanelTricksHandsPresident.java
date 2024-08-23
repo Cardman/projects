@@ -21,7 +21,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 
     private static final String CURRENT_TRICK = "";
     private static final String EMPTY =CURRENT_TRICK;
-    private static final String DEFAULT ="Default";
+    private static final String DEFAULT ="";
     private final AbsPanel tricks;
     private final AbsPanel selectedTrick;
     private final AbsPanel hands;

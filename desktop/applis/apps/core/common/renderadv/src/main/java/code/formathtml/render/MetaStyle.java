@@ -19,7 +19,7 @@ public final class MetaStyle {
 
     private int borderColor;
 
-    private String fontFamily = "Default";
+    private String fontFamily = "";
 
     private int em = 1;
     private int emToPixels = 16;

@@ -10,6 +10,6 @@ import cards.main.CardFactories;
 public final class BeloteCardsScrollableList extends CardsScrollableList<CardBelote> {
 
     public BeloteCardsScrollableList(WindowCardsInt _parent, int _nb, int _pmax, String _titre, DisplayingBelote _dis) {
-        super(_parent.getCompoFactory(),_nb,_pmax,_titre,CardFactories.belote(_parent.getCompoFactory(), _parent.getImageFactory(), new CardBeloteCellRenderer(_parent)),new CardBeloteCmp(_dis.getDisplaying().getSuits(), _dis.getOrderBeforeBids(), _dis.getDisplaying().isDecreasing()));
+        super(_parent.getFrames(),_nb,_pmax,_titre,CardFactories.belote(_parent.getCompoFactory(), _parent.getImageFactory(), new CardBeloteCellRenderer(_parent)),new CardBeloteCmp(_dis.getDisplaying().getSuits(), _dis.getOrderBeforeBids(), _dis.getDisplaying().isDecreasing()));
     }
 }

@@ -13,7 +13,7 @@ import code.util.StringMap;
 import code.util.core.NumberUtil;
 
 public final class GraphicKey extends AbsMetaLabelCard {
-    private static final String DEFAULT="Default";
+    private static final String DEFAULT="";
     private final Ints couleurs;
     private final StringList pseudos;
     private final StringMap<String> messages;

@@ -45,11 +45,15 @@ public final class EditorCards {
         return translate().getVal(_k);
     }
     public StringMap<String> translate() {
-        return Games.getEditorTr(Games.getAppliTr(programInfos.currentLg())).getMapping();
+        return translate(programInfos);
+    }
+
+    public static StringMap<String> translate(AbstractProgramInfos _pr) {
+        return Games.getEditorTr(Games.getAppliTr(_pr.currentLg())).getMapping();
     }
 
     public AbsPlainLabel buildLabelSelectCard(AbsCompoFactory _compo) {
-        String mess_ = Games.getEditorTr(Games.getAppliTr(programInfos.currentLg())).getMapping().getVal(MessagesEditorCards.SELECTED_CARDS);
+        String mess_ = translate(programInfos).getVal(MessagesEditorCards.SELECTED_CARDS);
         labelSelectCards = _compo.newPlainLabel(StringUtil.simpleNumberFormat(mess_,0));
         return getLabelSelectCards();
     }

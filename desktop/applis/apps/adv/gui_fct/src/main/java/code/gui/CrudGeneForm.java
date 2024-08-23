@@ -58,7 +58,7 @@ public final class CrudGeneForm<K,V> {
         validRemove.setEnabled(false);
         validRemove.addActionListener(new ValidRemoveCrudGeneFormEvent<K,V>(this));
         buttons_.add(validRemove);
-        cancel = factory.getCompoFactory().newPlainButton("\u2612");
+        cancel = factory.getCompoFactory().newPlainButton("\u274C");
         cancel.setForeground(GuiConstants.RED);
         cancel.setEnabled(false);
         cancel.addActionListener(new CancelCrudGeneFormEvent<K,V>(this));

@@ -25,9 +25,9 @@ import code.util.core.StringUtil;
 
 public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
 
-    private static final String POSITION = "position";
+    private static final String POSITION = HelpScriptConfPages.POSITION;
 
-    private static final String TEXTE = "texte";
+    private static final String TEXTE = HelpScriptConfPages.TEXTE;
 
     private final EnabledMenu generalHelp;
 

@@ -4707,7 +4707,7 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         assertEq("",imgMeta_.getTitle());
         assertNull(imgMeta_.getAnchor());
         assertEq(0,imgMeta_.getStyle().getDelta());
-        assertEq("Default",imgMeta_.getStyle().getFontFamily());
+        assertEq("",imgMeta_.getStyle().getFontFamily());
         assertNull(imgMeta_.getLastChild());
         imgMeta_ = (MetaPlainLabel) cont_.getChildren().get(1);
         assertEq("",imgMeta_.getTitle());

@@ -18,7 +18,7 @@ import code.util.core.StringUtil;
 
 public class FighterRenderer implements AbsCustCellRenderGene<FighterPosition> {
 
-    private static final String CST_KO = "KO";
+    private static final String CST_KO = "\u274C";
     private static final String PER_CENT = " %";
 
     private int sideLength;

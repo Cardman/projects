@@ -3,17 +3,19 @@ package cards.gui.panels;
 import code.gui.AbsPanel;
 import code.gui.RowGraphicList;
 import code.gui.ScrollCustomGraphicList;
-import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.*;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.core.IndexConstants;
 
 /** */
 abstract class ScrollableList<T> {
+    private final AbstractProgramInfos frames;
     private final AbsPanel container;
     private final ScrollCustomGraphicList<T> liste;
-    ScrollableList(AbsCompoFactory _absCompoFactory, ScrollCustomGraphicList<T> _l) {
-        container = _absCompoFactory.newBorder();
+    ScrollableList(AbstractProgramInfos _absCompoFactory, ScrollCustomGraphicList<T> _l) {
+        frames = _absCompoFactory;
+        container = _absCompoFactory.getCompoFactory().newBorder();
         container.setLoweredBorder();
         liste = _l;
     }
@@ -51,6 +53,10 @@ abstract class ScrollableList<T> {
     }
     public ScrollCustomGraphicList<T> getListe() {
         return liste;
+    }
+
+    public AbstractProgramInfos getFrames() {
+        return frames;
     }
 
     public AbsPanel getContainer() {

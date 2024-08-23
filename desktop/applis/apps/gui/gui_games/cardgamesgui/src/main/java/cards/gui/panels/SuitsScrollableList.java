@@ -15,7 +15,7 @@ import code.util.IdList;
 public final class SuitsScrollableList extends ScrollableList<Suit> {
 //    private EnumList<Suit> suits;
     public SuitsScrollableList(IdList<Suit> _couleurs, int _nb, WindowCardsInt _window, String _title) {
-        super(_window.getCompoFactory(),CardFactories.suit(_window.getCompoFactory(), _window.getImageFactory(),new SuitCellRenderer(_window)));
+        super(_window.getFrames(),CardFactories.suit(_window.getCompoFactory(), _window.getImageFactory(),new SuitCellRenderer(_window)));
         AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(_title);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
 //        suits = _couleurs;

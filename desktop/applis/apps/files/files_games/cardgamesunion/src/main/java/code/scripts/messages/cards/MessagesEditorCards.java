@@ -25,6 +25,7 @@ public final class MessagesEditorCards {
     public static final String SAVE_WITHOUT_CLOSING = "19";
     public static final String SELECTED_CARDS = "20";
     public static final String USER_HAND = "21";
+    public static final String PLS = "22";
     private MessagesEditorCards() {
     }
     public static TranslationsFile en(){
@@ -51,6 +52,7 @@ public final class MessagesEditorCards {
         e_.add(SAVE_WITHOUT_CLOSING,"Save without closing");
         e_.add(SELECTED_CARDS,"Number of selected cards: {0}");
         e_.add(USER_HAND,"Your hand");
+        e_.add(PLS,"Pls: {0}");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -77,6 +79,7 @@ public final class MessagesEditorCards {
         f_.add(SAVE_WITHOUT_CLOSING,"Sauvegarder sans fermer");
         f_.add(SELECTED_CARDS,"Nombre de cartes sélectionnées: {0}");
         f_.add(USER_HAND,"Votre main");
+        f_.add(PLS,"Pls: {0}");
         return f_;
     }
 }

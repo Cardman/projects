@@ -11,7 +11,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 
 public final class GraphicCard<T> extends AbsMetaLabelCard {
-    static final String DEFAULT="Default";
+    static final String DEFAULT="";
     private T card;
     private CouleurValeur id;
     private final boolean fullCard;
