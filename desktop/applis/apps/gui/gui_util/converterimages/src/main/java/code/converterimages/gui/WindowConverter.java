@@ -51,7 +51,7 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
         mainButton = _pair.getMainButton();
 //        atomicBoolean = _list.getThreadFactory().newAtomicBoolean();
         folderOpenFrame = new FolderOpenFrame(_list,_list.getThreadFactory().newAtomicBoolean());
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _list);
         setTitle(CONVERT_IMAGE);
         AbsPanel content_ = _list.getCompoFactory().newPageBox();
 //        readImages = getCompoFactory().newCustCheckBox(READ_IMAGES);
@@ -187,7 +187,7 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
     public void quit() {
         getCommonFrame().setVisible(false);
         LanguageDialogButtons.enable(mainButton,true);
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(this, getFrames());
     }
 
 //    public void dispose() {

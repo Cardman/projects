@@ -14,7 +14,7 @@ public final class CreateInitialFile implements AbsActionListener {
     @Override
     public void action() {
         windowCdmEditor.getModal().set(true);
-        FileSaveFrame.setFileSaveDialogByFrame(true,windowCdmEditor.getCommonFrame().getFrames().getHomePath(),windowCdmEditor.getFileSaveFrame(),new DefButtonsSavePanelAct(new ElaSaveFile(windowCdmEditor),new ElaContinueSavedFile(windowCdmEditor)));
+        FileSaveFrame.setFileSaveDialogByFrame(true,windowCdmEditor.getFrames().getHomePath(),windowCdmEditor.getFileSaveFrame(),new DefButtonsSavePanelAct(new ElaSaveFile(windowCdmEditor),new ElaContinueSavedFile(windowCdmEditor)));
 //        String fileName_ = StringUtil.nullToEmpty(windowCdmEditor.getFileSaveDialogInt().input(windowCdmEditor.getCommonFrame(), true, "", windowCdmEditor.getCommonFrame().getFrames().getHomePath()));
 //        if (fileName_.isEmpty()) {
 //            return;

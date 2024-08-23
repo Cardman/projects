@@ -5,6 +5,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatStringTreeMap;
@@ -38,7 +39,7 @@ public final class FramePoints {
     public FramePoints(AbsDebuggerGui _d, AbstractProgramInfos _list) {
         frames = _list;
         framePointsTree = new FramePointsTree(_list);
-        commonFrame = _list.getFrameFactory().newCommonFrame(_list, null);
+        commonFrame = _list.getFrameFactory().newCommonFrame();
         commonFrame.addWindowListener(new CancelFramePointsEvent(_d));
         frameExcFormContent = new FrameExcFormContent(_list);
         frameStdFormContent = new FrameStdMpForm(_list);
@@ -51,30 +52,30 @@ public final class FramePoints {
         frameOperNatFormContent = new FrameOperNatFormContent(_list);
         frameOperNatCompoFormContent = new FrameOperNatCompoFormContent(_list);
         frameRenderFormContent = new FrameRenderFormContent(_list);
-        stackConstraintsForm = new StackConstraintsForm();
+        stackConstraintsForm = new StackConstraintsForm(_list);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valGlForm(_d.getFrames().currentLg());
-        view = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
-        viewRp = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
-        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
-        AbsPanel pointsKeys_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        view = _d.getFrames().getCompoFactory().newAbsScrollPane();
+        viewRp = _d.getFrames().getCompoFactory().newAbsScrollPane();
+        AbsTabbedPane tab_ = _d.getFrames().getCompoFactory().newAbsTabbedPane();
+        AbsPanel pointsKeys_ = _d.getFrames().getCompoFactory().newPageBox();
         framePointsTree.guiBuild(_d.getFrames());
-        pointsKeys_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(framePointsTree.getTree()));
+        pointsKeys_.add(_d.getFrames().getCompoFactory().newAbsScrollPane(framePointsTree.getTree()));
         pointsKeys_.add(framePointsTree.getCreate());
-        validStack = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_STACK)));
+        validStack = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_STACK)));
         AbsSplitPane pageStack_ = stackConstraintsForm.guiBuild(_d,validStack);
-        AbstractMutableTreeNodeCore<String> root_ = _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_REND)));
-        tree = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(root_);
-        create = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton("+");
-        AbsPanel renderPts_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        renderPts_.add(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(tree));
+        AbstractMutableTreeNodeCore<String> root_ = _d.getFrames().getCompoFactory().newMutableTreeNode(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_REND)));
+        tree = _d.getFrames().getCompoFactory().newTreeGui(root_);
+        create = _d.getFrames().getCompoFactory().newPlainButton("+");
+        AbsPanel renderPts_ = _d.getFrames().getCompoFactory().newPageBox();
+        renderPts_.add(_d.getFrames().getCompoFactory().newAbsScrollPane(tree));
         renderPts_.add(create);
         frameRenderFormContent.guiBuild(_d);
-        AbsPanel all_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_POINTS)),_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(pointsKeys_,view));
-        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_CONST)),commonFrame.getFrames().getCompoFactory().newAbsScrollPane(pageStack_));
-        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_REND)),_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(commonFrame.getFrames().getCompoFactory().newAbsScrollPane(renderPts_),viewRp));
+        AbsPanel all_ = _d.getFrames().getCompoFactory().newPageBox();
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_POINTS)),_d.getFrames().getCompoFactory().newHorizontalSplitPane(pointsKeys_,view));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_CONST)),_d.getFrames().getCompoFactory().newAbsScrollPane(pageStack_));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_REND)),_d.getFrames().getCompoFactory().newHorizontalSplitPane(_d.getFrames().getCompoFactory().newAbsScrollPane(renderPts_),viewRp));
         all_.add(tab_);
         commonFrame.setContentPane(all_);
         frameExcFormContent.guiBuild(_d);
@@ -142,7 +143,7 @@ public final class FramePoints {
             p_.add(_res.get(i).getExcPointBlockPair());
         }
         for (EntryCust<String, CustList<ExcPointBlockKey>> p: FramePointsTree.sortedRend(renderList, _res).entryList()) {
-            AbstractMutableTreeNodeCore<String> file_ = FramePointsTree.node(p.getKey(), p.getValue(),commonFrame.getFrames().getCompoFactory(), frames);
+            AbstractMutableTreeNodeCore<String> file_ = FramePointsTree.node(p.getKey(), p.getValue(),frames.getCompoFactory(), frames);
             root_.add(file_);
         }
         tree.reload(root_);
@@ -185,11 +186,12 @@ public final class FramePoints {
         framePointsTree.refreshWp(_res);
         framePointsTree.refreshWpAnnot(_res);
     }
-    public static String displayWatch(WatchPointBlockPair _p) {
+    public static String displayWatch(WatchPointBlockPair _p, TranslationsLg _lg) {
+        StringMap<String> mes_ = MessagesIde.valGlForm(_lg);
         if (_p.getWp().isTrueField()) {
-            return "exact "+_p.getRoot().getFullName()+":"+_p.getWp().fieldName();
+            return mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_EXACT)+" "+_p.getRoot().getFullName()+":"+_p.getWp().fieldName();
         }
-        return "annot "+_p.getRoot().getFullName()+":"+_p.getWp().fieldName();
+        return mes_.getVal(MessagesIde.IDE_POINTS_GL_FORM_ANNOT)+" "+_p.getRoot().getFullName()+":"+_p.getWp().fieldName();
     }
     public FramePointsTree getFramePointsTree() {
         return framePointsTree;

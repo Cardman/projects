@@ -10,6 +10,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.gui.AbsCommonFrame;
 import code.gui.PackingWindowAfter;
 import code.gui.events.AbsActionListener;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
 public final class WatchPointFormEvent implements AbsActionListener {
@@ -46,11 +47,11 @@ public final class WatchPointFormEvent implements AbsActionListener {
         }
         _w.getFramePoints().init(_w, _r);
         _w.getFramePoints().guiContentBuild(bp_,_r);
-        watchAction(_content, _frame, bp_, _r);
+        watchAction(_content, _frame, bp_, _r, _w.getFrames());
     }
 
-    static void watchAction(FrameWpFormContent _content, AbsCommonFrame _frame, WatchPointBlockPair _bp, ResultContext _r) {
-        _content.getEdited().setText(FramePoints.displayWatch(_bp));
+    static void watchAction(FrameWpFormContent _content, AbsCommonFrame _frame, WatchPointBlockPair _bp, ResultContext _r, AbstractProgramInfos _api) {
+        _content.getEdited().setText(FramePoints.displayWatch(_bp,_api.currentLg()));
         _content.getEnabledWp().setSelected(_bp.getValue().isEnabled());
         BreakPointFormEvent.specific(_content.getGuiReadStackForm(), _bp.getValue().getResultRead(), new CustList<BreakPointCondition>(), _frame,_r);
         BreakPointFormEvent.specific(_content.getGuiWriteStackForm(), _bp.getValue().getResultWrite(), new CustList<BreakPointCondition>(), _frame,_r);
@@ -63,7 +64,7 @@ public final class WatchPointFormEvent implements AbsActionListener {
         _content.getCompoundWrite().setSelected(_bp.getValue().isCompoundWrite());
         _content.getCompoundWriteErr().setSelected(_bp.getValue().isCompoundWriteErr());
         _frame.setVisible(true);
-        PackingWindowAfter.pack(_frame);
+        PackingWindowAfter.pack(_frame, _content.getFrames().getCompoFactory());
     }
 
 

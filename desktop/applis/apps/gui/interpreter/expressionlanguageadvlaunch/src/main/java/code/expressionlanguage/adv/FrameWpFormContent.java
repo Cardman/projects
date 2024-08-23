@@ -28,8 +28,10 @@ public final class FrameWpFormContent {
     private AbsButton ok;
     private AbsButton remove;
     private AbsPanel contentPane;
+    private final AbstractProgramInfos frames;
 
     public FrameWpFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiReadStackForm = new GuiStackForm(_c);
         guiWriteStackForm = new GuiStackForm(_c);
         guiCompoundReadStackForm = new GuiStackForm(_c);
@@ -39,19 +41,19 @@ public final class FrameWpFormContent {
 
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
-        className = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        fieldName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        read = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_GET)));
-        write = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_SET)));
-        trueField = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_TRUE_FIELD)));
-        compoundRead = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_GET)));
-        compoundWrite = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_SET)));
-        compoundWriteErr = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_SET_ERR)));
-        enabledWp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        edited = _d.getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
+        className = _d.getFrames().getCompoFactory().newTextField();
+        fieldName = _d.getFrames().getCompoFactory().newTextField();
+        read = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_GET)));
+        write = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_SET)));
+        trueField = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_TRUE_FIELD)));
+        compoundRead = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_GET)));
+        compoundWrite = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_SET)));
+        compoundWriteErr = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_SET_ERR)));
+        enabledWp = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(edited);
         bpForm_.add(enabledWp);
         bpForm_.add(read);
@@ -59,7 +61,7 @@ public final class FrameWpFormContent {
         bpForm_.add(compoundRead);
         bpForm_.add(compoundWrite);
         bpForm_.add(compoundWriteErr);
-        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        AbsTabbedPane tab_ = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(_d, tab_, guiReadStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_GET)));
         putStForm(_d, tab_, guiWriteStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_SET)));
         putStForm(_d, tab_, guiCompoundReadStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_WP_COMPOUND_GET)));
@@ -95,7 +97,7 @@ public final class FrameWpFormContent {
         setSelectedWp(_wp);
         WatchPointBlockPair exc_ = getSelectedWp();
         if (exc_ != null) {
-            WatchPointFormEvent.watchAction(this, _c,exc_,_r);
+            WatchPointFormEvent.watchAction(this, _c,exc_,_r, frames);
             remove.setEnabled(true);
             className.setEnabled(false);
             fieldName.setEnabled(false);
@@ -112,6 +114,10 @@ public final class FrameWpFormContent {
             fieldName.setEnabled(true);
             trueField.setEnabled(true);
         }
+    }
+
+    public AbstractProgramInfos getFrames() {
+        return frames;
     }
 
     public AbsTextField getClassName() {

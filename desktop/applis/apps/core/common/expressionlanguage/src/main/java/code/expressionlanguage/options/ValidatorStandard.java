@@ -482,7 +482,7 @@ public final class ValidatorStandard {
     }
 
     public static String tr(StringList _list) {
-        String candidate_ = tr(_list,"tmp");
+        String candidate_ = tr(_list,"_");
         _list.add(candidate_);
         return candidate_;
     }

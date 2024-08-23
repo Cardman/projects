@@ -15,11 +15,12 @@ import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.*;
 import code.maths.Rate;
+import code.scripts.confs.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
 public class AbilityBean extends CommonBean {
-    static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";
+    static final String EFFECT_SEND_BEAN=PkScriptPages.REN_ADD_WEB_HTML_SENDING_EFFSENDING_HTML;
     private String name;
     private String displayName;
     private boolean achievedDisappearedPk;

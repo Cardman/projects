@@ -30,15 +30,15 @@ import code.util.core.StringUtil;
 
 public class PokemonBean extends CommonBean {
 
-    private static final String PAGE_LEVELGENDER ="web/html/pokemon/evolutions/evolevelgender.html";
-    private static final String PAGE_LEVEL ="web/html/pokemon/evolutions/evolevel.html";
-    private static final String PAGE_HAPPY ="web/html/pokemon/evolutions/evohappy.html";
-    private static final String PAGE_MOVE ="web/html/pokemon/evolutions/evomove.html";
-    private static final String PAGE_ITEM ="web/html/pokemon/evolutions/evoitem.html";
-    private static final String PAGE_STONEGENDER ="web/html/pokemon/evolutions/evostonegender.html";
-    private static final String PAGE_STONE ="web/html/pokemon/evolutions/evostone.html";
-    private static final String PAGE_TYPE ="web/html/pokemon/evolutions/evotype.html";
-    private static final String PAGE_TEAM ="web/html/pokemon/evolutions/evoteam.html";
+    private static final String PAGE_LEVELGENDER = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_LEVELGENDER;
+    private static final String PAGE_LEVEL = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_LEVEL;
+    private static final String PAGE_HAPPY = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_HAPPY;
+    private static final String PAGE_MOVE = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_MOVE;
+    private static final String PAGE_ITEM = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_ITEM;
+    private static final String PAGE_STONEGENDER = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_STONEGENDER;
+    private static final String PAGE_STONE = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_STONE;
+    private static final String PAGE_TYPE = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_TYPE;
+    private static final String PAGE_TEAM = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_TEAM;
     private String name;
     private String backImage;
     private String frontImage;

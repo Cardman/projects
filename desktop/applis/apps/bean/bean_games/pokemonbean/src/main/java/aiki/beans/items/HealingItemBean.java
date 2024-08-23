@@ -3,7 +3,7 @@ package aiki.beans.items;
 import aiki.fight.items.HealingItem;
 
 public class HealingItemBean extends ItemBean {
-    static final String HEALING_ITEM_BEAN="web/html/items/healingitem.html";
+    static final String HEALING_ITEM_BEAN=AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGITEM_HTML;
     private boolean healingTeam;
 
     @Override

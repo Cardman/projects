@@ -321,7 +321,7 @@ public class ScenePanel {
         sceneInteract = compoFactory.newBorder();
         resultScene = ReportingFrame.newInstance(_window.getFrames());
         pkDetailContent = new PkDetailContent(_window.getFrames());
-        attract = compoFactory.newPlainButton("OK");
+        attract = compoFactory.newPlainButton(messages.getVal(MessagesRenderScenePanel.OK));
         attract.addActionListener(new PkNonModalEvent(_window.getModal()),new AttractEvent(this));
         endGame = compoFactory.newPlainLabel("");
         component = compoFactory.newLineBox();
@@ -704,7 +704,7 @@ public class ScenePanel {
         line_.add(mapPanel.getContainer());
         line_.add(window.getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
         box_.add(line_);
-        validateMoveToPlace = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+        validateMoveToPlace = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.OK));
         validateMoveToPlace.addActionListener(new PkNonModalEvent(window.getModal()),new ChoosePlaceEvent(this));
         box_.add(validateMoveToPlace);
         panelOptions.add(box_, GuiConstants.BORDER_LAYOUT_CENTER);

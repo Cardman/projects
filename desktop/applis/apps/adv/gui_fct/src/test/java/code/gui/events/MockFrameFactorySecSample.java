@@ -1,27 +1,22 @@
 package code.gui.events;
 
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.initialize.AbstractProgramInfos;
 import code.mock.MockAbsFrameFactory;
 
 public final class MockFrameFactorySecSample extends MockAbsFrameFactory {
-    public MockFrameFactorySecSample(AbstractProgramInfos _fr) {
-        super(_fr);
-    }
 
     @Override
-    public AbsCommonFrame newCommonFrame(AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
-        return new MockCommonFrameSecSample(_frames);
+    public AbsCommonFrame newCommonFrame() {
+        return new MockCommonFrameSecSample();
     }
 
     @Override
     public AbsOtherDialog newOtherDialog() {
-        return new MockDialogSecSample(getProgramInfos());
+        return new MockDialogSecSample();
     }
 
     @Override
     public AbsOtherFrame newOtherFrame() {
-        return new MockCommonFrameSecSample(getProgramInfos());
+        return new MockCommonFrameSecSample();
     }
 }

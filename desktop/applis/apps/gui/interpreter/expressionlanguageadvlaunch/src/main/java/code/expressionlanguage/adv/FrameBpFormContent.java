@@ -19,21 +19,23 @@ public final class FrameBpFormContent {
     private AbsButton remove;
     private AbsPanel contentPane;
     private AbsTabbedPane tabs;
+    private final AbstractProgramInfos frames;
 
     public FrameBpFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiStdStackForm = new GuiStackForm(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
-        enabledBp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        fileName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        edited = _d.getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
+        enabledBp = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        fileName = _d.getFrames().getCompoFactory().newTextField();
+        caret = _d.getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(enabledBp);
-        tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        tabs = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STD)), guiStdStackForm.guiBuild(_d));
         bpForm_.add(tabs);
         bpForm_.add(fileName);
@@ -108,4 +110,7 @@ public final class FrameBpFormContent {
         return guiStdStackForm;
     }
 
+    public AbstractProgramInfos getFrames() {
+        return frames;
+    }
 }

@@ -5,7 +5,6 @@ import code.gui.events.AbsWindowListener;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
-import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.IdList;
 
@@ -19,17 +18,15 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
     private boolean visible;
     private boolean mainFrame;
     private AbsMenuBar menu;
-    private final AbstractProgramInfos frames;
     private AbstractImage imageIconFrame;
     private int locationFirst;
     private int locationSecond;
 
     private MetaPoint locationOnScreen = new MetaPoint(0,0);
 
-    protected MockWindow(AbstractProgramInfos _f) {
-        this.frames = _f;
-        pane = _f.getCompoFactory().newLineBox();
-        menu = _f.getCompoFactory().newMenuBar();
+    protected MockWindow() {
+        pane = new MockPanel(MockLayout.LINE);
+        menu = new MockMenuBar();
     }
 
     @Override
@@ -66,10 +63,6 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
     }
     public CustList<AbsWindowListenerClosing> getWindowListenersDef() {
         return new CustList<AbsWindowListenerClosing>(windowClosListeners);
-    }
-
-    public AbstractProgramInfos getFrames() {
-        return frames;
     }
 
     public String getLanguageKey() {
@@ -126,7 +119,7 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
     }
 
     public void setContentPane(AbsScrollPane _contentPane) {
-        AbsPanel p_ = frames.getCompoFactory().newLineBox();
+        AbsPanel p_ = new MockPanel(MockLayout.LINE);
         p_.add(_contentPane);
         setContentPane(p_);
     }
@@ -174,8 +167,8 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
     }
 
     public void setLocationRelativeToNull() {
-        locationFirst = frames.getScreenWidth()/2;
-        locationSecond = frames.getScreenHeight()/2;
+        locationFirst = 512;
+        locationSecond = 64;
     }
 
     public String getTitle() {

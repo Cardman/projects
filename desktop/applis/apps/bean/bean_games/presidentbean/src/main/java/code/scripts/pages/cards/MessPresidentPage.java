@@ -77,12 +77,12 @@ private static final char SEP='=';
 private MessPresidentPage(){}
 public static TranslationsAppli enPresident(){
 TranslationsAppli b = new TranslationsAppli();
-b.getMapping().addEntry("resources_cards/messages/messages_president.properties",AnaRendBlockHelp.file(en()));
+b.getMapping().addEntry("resources_cards/messages/messages_president",AnaRendBlockHelp.file(en()));
 return b;
 }
 public static TranslationsAppli frPresident(){
 TranslationsAppli b = new TranslationsAppli();
-b.getMapping().addEntry("resources_cards/messages/messages_president.properties",AnaRendBlockHelp.file(fr()));
+b.getMapping().addEntry("resources_cards/messages/messages_president",AnaRendBlockHelp.file(fr()));
 return b;
 }
 public static StringMap<String> ms(){

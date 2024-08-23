@@ -1,5 +1,6 @@
 package aiki.beans.map.characters;
 import aiki.beans.CommonBean;
+import aiki.beans.map.elements.*;
 import aiki.db.DataBase;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.Trainer;
@@ -10,7 +11,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public class TrainerBean extends CommonBean {
-    static final String PAGE_TEAM = "web/html/map/elements/pokemon_team.html";
+    static final String PAGE_TEAM = AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
     private Trainer trainer;
     private String name = DataBase.EMPTY_STRING;
     private String move = DataBase.EMPTY_STRING;

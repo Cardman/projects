@@ -13,7 +13,7 @@ public final class OutputDialogTab implements WithFrame{
     public OutputDialogTab(WindowWithTreeImpl _w,AbsCommonFrame _fr, EnabledMenu _c) {
         frame = _fr;
         associated = _c;
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         tabulation = factories_.getCompoFactory().newSpinner(_w.getTabWidth(),1,64,1);
         all_.add(tabulation);

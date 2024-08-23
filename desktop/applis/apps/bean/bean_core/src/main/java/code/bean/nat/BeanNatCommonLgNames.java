@@ -18,7 +18,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     public static final String TYPE_VALIDATOR = "code.bean.validator.Validator";
     public static final String TYPE_BEAN = "code.bean.Bean";
 
-    public static final String TYPE_ENTRY = "$custentry";
+//    public static final String TYPE_ENTRY = "$custentry";
     public static final String TYPE_ITERATOR = "code.util.SimpleItr";
     public static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     public static final String TYPE_ENTRIES = "$custentries";
@@ -26,7 +26,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     public static final String OBJECT = "java.lang.Object";
     public static final String VOID = "$void";
     public static final String PRIM_BOOLEAN = "$boolean";
-    public static final String PRIM_BYTE = "$byte";
+//    public static final String PRIM_BYTE = "$byte";
     public static final String PRIM_INTEGER = "$int";
     public static final String PRIM_LONG = "$long";
     public static final String STRING = "java.lang.String";
@@ -34,7 +34,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     public static final String TYPE_RATE = "r";
     public static final String TYPE_LG_INT = "li";
     public static final String IS_EMPTY = "isEmpty";
-    protected static final char BEGIN_ARGS = '(';
+//    protected static final char BEGIN_ARGS = '(';
 
     private final StringMap<String> iterables = new StringMap<String>();
     private final StringMap<NaSt> beansStruct = new StringMap<NaSt>();

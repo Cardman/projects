@@ -19,7 +19,7 @@ public final class AnalyzeExpressionSource implements Runnable {
         mainFrame.getAnalyzeMenu().setEnabled(false);
         mainFrame.getStatusAnalyzeArea().setText(AbsEditorTabList.EMPTY_STRING);
         mainFrame.getStatusAnalyzeArea().setLineBorder(GuiConstants.BLACK);
-        AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
+        AbstractProgramInfos frames_ = mainFrame.getFrames();
         StringMap<String> added_ = addedExp(mainFrame);
         ResultContext resUser_ = RunningTest.nextValidateQuick(mainFrame.getResultContextNext(),mainFrame.getBaseResult(), added_);
         if (resUser_ == null || !resUser_.getPageEl().isCustomAna()) {

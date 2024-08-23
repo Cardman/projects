@@ -44,7 +44,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         mainButton = _pair.getMainButton();
         atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
         fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _programInfos);
         cdmFactory = _list;
 //        currentElements = new GuiInterpreterElements(getFrames());
 //        setAccessFile("launcher.mainwindow");
@@ -165,7 +165,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         launch.setEnabled(true);
         light = null;
         LanguageDialogButtons.enable(mainButton,true);
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(this, getFrames());
     }
 
     @Override

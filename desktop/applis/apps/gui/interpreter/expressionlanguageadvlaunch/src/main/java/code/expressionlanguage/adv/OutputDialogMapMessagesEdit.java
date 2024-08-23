@@ -19,7 +19,7 @@ public final class OutputDialogMapMessagesEdit {
 
     public OutputDialogMapMessagesEdit(WindowWithTreeImpl _w, StringMap<String> _map, CustList<String> _keys) {
         messagesRows = initRows(_map, _keys);
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
         AbsTextField keyAuto_ = factories_.getCompoFactory().newTextField(32);
         value = factories_.getCompoFactory().newTextArea(AbsEditorTabList.EMPTY_STRING,1,32);

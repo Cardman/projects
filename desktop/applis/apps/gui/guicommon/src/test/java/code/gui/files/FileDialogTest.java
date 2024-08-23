@@ -37,7 +37,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         TopLeftFrame tl_ = new TopLeftFrame();
         tl_.setWidth(-1000000);
         tl_.setHeight(-1000000);
-        FileDialog.setLocation(pr_.getFrameFactory().newCommonFrame(pr_,pr_.getImageFactory().newImageArgb(1,1)), tl_);
+        setLocation(pr_, tl_);
         assertEq(-1000000,tl_.getHeight());
         assertEq(-1000000,tl_.getWidth());
     }
@@ -49,7 +49,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         TopLeftFrame tl_ = new TopLeftFrame();
         tl_.setWidth(1000000);
         tl_.setHeight(1000000);
-        FileDialog.setLocation(pr_.getFrameFactory().newCommonFrame(pr_,pr_.getImageFactory().newImageArgb(1,1)), tl_);
+        setLocation(pr_, tl_);
         assertEq(1000000,tl_.getHeight());
         assertEq(1000000,tl_.getWidth());
     }
@@ -61,7 +61,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         TopLeftFrame tl_ = new TopLeftFrame();
         tl_.setWidth(1);
         tl_.setHeight(1);
-        FileDialog.setLocation(pr_.getFrameFactory().newCommonFrame(pr_,pr_.getImageFactory().newImageArgb(1,1)), tl_);
+        setLocation(pr_, tl_);
         assertEq(1,tl_.getHeight());
         assertEq(1,tl_.getWidth());
     }
@@ -95,6 +95,11 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         assertEq(1,img_.getWidth());
         assertEq(1,img_.getHeight());
     }
+
+    private void setLocation(MockProgramInfos _pr, TopLeftFrame _tl) {
+        FileDialog.setLocation(_pr.getFrameFactory().newCommonFrame(), _tl, _pr);
+    }
+
 //    @Test
 //    public void defs() {
 //        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));

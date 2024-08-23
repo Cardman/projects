@@ -1,13 +1,14 @@
 package aiki.beans.map.characters;
 import aiki.beans.CommonBean;
+import aiki.beans.map.elements.*;
 import aiki.db.DataBase;
 import aiki.map.characters.Ally;
 import aiki.map.characters.TempTrainer;
 import code.images.BaseSixtyFourUtil;
 
 public class DualFightBean extends CommonBean {
-    static final String PAGE_ALLY = "web/html/map/elements/ally.html";
-    static final String PAGE_TEAM = "web/html/map/elements/pokemon_team.html";
+    static final String PAGE_ALLY = AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_ALLY_HTML;
+    static final String PAGE_TEAM = AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
     private TempTrainer trainer;
     private Ally ally;
     private String image;

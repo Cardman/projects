@@ -9,7 +9,7 @@ public final class CdmParameterSoftDialog {
     private final AbsButton val;
     private final AbsCustCheckBox check;
     public CdmParameterSoftDialog(WindowCdmEditor _w) {
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         AbsPanel buttons_ = factories_.getCompoFactory().newLineBox();
         StringMap<String> mes_ = MessagesIde.valGlobalParameters(_w.getFrames().currentLg());

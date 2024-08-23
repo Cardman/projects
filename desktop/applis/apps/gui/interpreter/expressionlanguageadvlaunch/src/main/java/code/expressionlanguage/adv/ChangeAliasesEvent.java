@@ -17,9 +17,8 @@ public final class ChangeAliasesEvent implements AbsActionListener {
     @Override
     public void action() {
         if (windowCdmEditor.getAliasesFrames().isEmpty()) {
-            AbsCommonFrame fr_ = windowCdmEditor.getCommonFrame();
-            AbstractProgramInfos frs_ = fr_.getFrames();
-            AbsCommonFrame frame_ = frs_.getFrameFactory().newCommonFrame(frs_, null);
+            AbstractProgramInfos frs_ = windowCdmEditor.getFrames();
+            AbsCommonFrame frame_ = frs_.getFrameFactory().newCommonFrame();
             frame_.addWindowListener(new CloseFrame(frame_,aliasesMenu));
             OutputDialogAliases w_ = new OutputDialogAliases(windowCdmEditor, frame_, aliasesMenu);
             windowCdmEditor.getAliasesFrames().add(w_);

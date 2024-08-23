@@ -77,7 +77,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         mainButton = _pair.getMainButton();
         atomicBoolean = _programInfos.getThreadFactory().newAtomicBoolean();
         fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _programInfos);
         exec = _programInfos.getThreadFactory().newExecutorService();
         interceptor = _list;
 //        setAccessFile("unit.mainwindow");
@@ -196,7 +196,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         filesFrame.setVisible(false);
         simpleFrame.setEnabled(true);
         LanguageDialogButtons.enable(mainButton,true);
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(this, getFrames());
     }
 
     @Override

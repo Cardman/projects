@@ -23,8 +23,10 @@ public final class FrameExcFormContent {
     private AbsButton ok;
     private AbsButton remove;
     private AbsPanel contentPane;
+    private final AbstractProgramInfos frames;
 
     public FrameExcFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiThrownStackForm = new GuiStackForm(_c);
         guiCaughtStackForm = new GuiStackForm(_c);
         guiPropagatedStackForm = new GuiStackForm(_c);
@@ -32,22 +34,22 @@ public final class FrameExcFormContent {
 
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        thrown = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_THROWN)));
-        caught = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CAUGHT)));
-        propagated = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_PROPAGATED)));
-        enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
+        thrown = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_THROWN)));
+        caught = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CAUGHT)));
+        propagated = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_PROPAGATED)));
+        enabledExc = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        clName = _d.getFrames().getCompoFactory().newTextField();
         exactForm.guiBuild(_d);
-        AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(exactForm.getPanel());
         bpForm_.add(clName);
         bpForm_.add(enabledExc);
         bpForm_.add(thrown);
         bpForm_.add(caught);
         bpForm_.add(propagated);
-        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        AbsTabbedPane tab_ = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(_d, tab_, guiThrownStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_THROWN)));
         putStForm(_d, tab_, guiCaughtStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CAUGHT)));
         putStForm(_d, tab_, guiPropagatedStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_PROPAGATED)));
@@ -83,7 +85,7 @@ public final class FrameExcFormContent {
             getThrown().setSelected(exc_.getValue().isThrown());
             getCaught().setSelected(exc_.getValue().isCaught());
             getPropagated().setSelected(exc_.getValue().isPropagated());
-            PackingWindowAfter.pack(_f);
+            PackingWindowAfter.pack(_f, frames.getCompoFactory());
         } else {
             getGuiThrownStackForm().getDependantPointsForm().init(_r, ExcPoint.EP);
             getGuiCaughtStackForm().getDependantPointsForm().init(_r,ExcPoint.EP);

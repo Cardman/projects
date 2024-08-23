@@ -92,7 +92,7 @@ public final class TabEditor implements AbsTabEditor {
         fullPath = _fullPath;
         relPath = _rel;
         windowSecEditor = _editor;
-        AbstractProgramInfos frames_ = _editor.getCommonFrame().getFrames();
+        AbstractProgramInfos frames_ = _editor.getFrames();
         findReplaceExpression = new FormFindReplaceExpression(frames_);
         taskManager = frames_.getThreadFactory().newExecutorService();
         taskManagerExp = frames_.getThreadFactory().newExecutorService();
@@ -416,14 +416,14 @@ public final class TabEditor implements AbsTabEditor {
         ResultContext base_ = windowSecEditor.getMainFrame().getBaseResult();
         ResultContext copy_ = windowSecEditor.getResultContextNext().next(base_,userResult_);
         ForwardInfos.generalForward(copy_);
-        AbstractAtomicBoolean inter_ = windowSecEditor.getMainFrame().getCommonFrame().getFrames().getThreadFactory().newAtomicBoolean();
+        AbstractAtomicBoolean inter_ = windowSecEditor.getMainFrame().getFrames().getThreadFactory().newAtomicBoolean();
         action = windowSecEditor.getResultContextNext().generateAdv(inter_).geneWith(copy_.getForwards());
         ContextEl ctx_ = action;
         getFindingExpressionCancel().setEnabled(true);
         Classes.forwardAndClear(ctx_);
         Options options_ = copy_.getForwards().getOptions();
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
-        AbstractProgramInfos frames_ = windowSecEditor.getMainFrame().getCommonFrame().getFrames();
+        AbstractProgramInfos frames_ = windowSecEditor.getMainFrame().getFrames();
         lastBuild.setText(CustAliases.getDateTimeText(frames_.getThreadFactory()));
         selectExpressionClass.setEnabled(true);
         findReplaceExpression.refresh(base_,ctx_);

@@ -38,7 +38,7 @@ public final class DependantPointsForm {
     }
 
     public AbsPanel guiBuild(AbsDebuggerGui _d) {
-        frames = _d.getCommonFrame().getFrames();
+        frames = _d.getFrames();
         compoFactory = frames.getCompoFactory();
         view = compoFactory.newAbsScrollPane();
         framePointsTree.guiBuild(frames);

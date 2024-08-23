@@ -25,14 +25,14 @@ public final class FileDialog {
     private FileDialog() {
     }
 
-    public static void setLocation(AbsCommonFrame _frame, TopLeftFrame _topLeft) {
-        setLocation(_frame, _topLeft.getWidth(), _topLeft.getHeight());
+    public static void setLocation(AbsCommonFrame _frame, TopLeftFrame _topLeft, AbstractProgramInfos _frs) {
+        setLocation(_frame, _topLeft.getWidth(), _topLeft.getHeight(), _frs);
     }
 
-    private static void setLocation(AbsCommonFrame _frame, int _x, int _y) {
+    private static void setLocation(AbsCommonFrame _frame, int _x, int _y, AbstractProgramInfos _frs) {
         int x_ = _x;
         int y_ = _y;
-        IntPoint dims_ = getScreenSize(_frame.getFrames());
+        IntPoint dims_ = getScreenSize(_frs);
         if (x_ + MIN_BORDER > dims_.getXcoords()) {
             x_ = 0;
         }

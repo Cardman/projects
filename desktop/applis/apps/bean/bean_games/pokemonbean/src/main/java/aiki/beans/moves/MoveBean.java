@@ -25,40 +25,6 @@ import code.util.core.StringUtil;
 
 public class MoveBean extends CommonBean {
 
-    private static final String PAGE_DAMAGE = "web/html/moves/effects/effdamage.html";
-    private static final String PAGE_DAMAGERATE = "web/html/moves/effects/effdamagerate.html";
-    private static final String PAGE_STATIS = "web/html/moves/effects/effstatis.html";
-    private static final String PAGE_STATUS = "web/html/moves/effects/effstatus.html";
-    private static final String PAGE_TEAM = "web/html/moves/effects/effteam.html";
-    private static final String PAGE_GLOBAL = "web/html/moves/effects/effglobal.html";
-    private static final String PAGE_ENDROUND = "web/html/moves/effects/effendround.html";
-    private static final String PAGE_TEAMWHILESENDINGFOE = "web/html/moves/effects/effteamwhilesendingfoe.html";
-    private static final String PAGE_COPYMOVE = "web/html/moves/effects/effcopymove.html";
-    private static final String PAGE_FULLHPRATE = "web/html/moves/effects/efffullhprate.html";
-    private static final String PAGE_INVOKE = "web/html/moves/effects/effinvoke.html";
-    private static final String PAGE_SWITCHMOVETYPES = "web/html/moves/effects/effswitchmovetypes.html";
-    private static final String PAGE_COUNTERATTACK = "web/html/moves/effects/effcounterattack.html";
-    private static final String PAGE_PROTECTION = "web/html/moves/effects/effprotection.html";
-    private static final String PAGE_ACCURACY = "web/html/moves/effects/effaccuracy.html";
-    private static final String PAGE_COPYFIGHTER = "web/html/moves/effects/effcopyfighter.html";
-    private static final String PAGE_PROTECTFROMTYPES = "web/html/moves/effects/effprotectfromtypes.html";
-    private static final String PAGE_UNPROTECTFROMTYPES = "web/html/moves/effects/effunprotectfromtypes.html";
-    private static final String PAGE_ALLY = "web/html/moves/effects/effally.html";
-    private static final String PAGE_BATONPASS = "web/html/moves/effects/effbatonpass.html";
-    private static final String PAGE_CLONE = "web/html/moves/effects/effclone.html";
-    private static final String PAGE_COMMONSTATISTICS = "web/html/moves/effects/effcommonstatistics.html";
-    private static final String PAGE_ORDER = "web/html/moves/effects/efforder.html";
-    private static final String PAGE_RESTRICTION = "web/html/moves/effects/effrestriction.html";
-    private static final String PAGE_SWITCHABILITIES = "web/html/moves/effects/effswitchabilities.html";
-    private static final String PAGE_SWITCHITEMS = "web/html/moves/effects/effswitchitems.html";
-    private static final String PAGE_SWITCHTYPES = "web/html/moves/effects/effswitchtypes.html";
-    private static final String PAGE_SWITCHPOINTVIEW = "web/html/moves/effects/effswitchpointview.html";
-    private static final String PAGE_REMAINEDHPRATE = "web/html/moves/effects/effremainedhprate.html";
-    private static final String PAGE_MULTUSEDMOVEPOWER = "web/html/moves/effects/effmultusedmovepower.html";
-    private static final String PAGE_MULTSUFFEREDMOVEPOWER = "web/html/moves/effects/effmultsufferedmovepower.html";
-    private static final String PAGE_SWITCHPOSITION = "web/html/moves/effects/effswitchposition.html";
-    private static final String PAGE_VARPP = "web/html/moves/effects/effvarpp.html";
-    private static final String PAGE_WINMONEY = "web/html/moves/effects/effwinmoney.html";
     private String name;
     private String displayName;
     private short pp;
@@ -879,113 +845,113 @@ public class MoveBean extends CommonBean {
         MoveData moveData_ = data_.getMove(name);
         Effect eff_ = moveData_.getEffet(_long);
         if (eff_ instanceof EffectDamage) {
-            return PAGE_DAMAGE;
+            return AikiBeansMovesStd.PAGE_DAMAGE;
         }
         if (eff_ instanceof EffectDamageRate) {
-            return PAGE_DAMAGERATE;
+            return AikiBeansMovesStd.PAGE_DAMAGERATE;
         }
         if (eff_ instanceof EffectStatistic) {
-            return PAGE_STATIS;
+            return AikiBeansMovesStd.PAGE_STATIS;
         }
         if (eff_ instanceof EffectStatus) {
-            return PAGE_STATUS;
+            return AikiBeansMovesStd.PAGE_STATUS;
         }
         if (eff_ instanceof EffectTeam) {
-            return PAGE_TEAM;
+            return AikiBeansMovesStd.PAGE_TEAM;
         }
         if (eff_ instanceof EffectGlobal) {
-            return PAGE_GLOBAL;
+            return AikiBeansMovesStd.PAGE_GLOBAL;
         }
         if (eff_ instanceof EffectEndRound) {
-            return PAGE_ENDROUND;
+            return AikiBeansMovesStd.PAGE_ENDROUND;
         }
         if (eff_ instanceof EffectTeamWhileSendFoe) {
-            return PAGE_TEAMWHILESENDINGFOE;
+            return AikiBeansMovesStd.PAGE_TEAMWHILESENDINGFOE;
         }
         if (eff_ instanceof EffectCopyMove) {
-            return PAGE_COPYMOVE;
+            return AikiBeansMovesStd.PAGE_COPYMOVE;
         }
         if (eff_ instanceof EffectFullHpRate) {
-            return PAGE_FULLHPRATE;
+            return AikiBeansMovesStd.PAGE_FULLHPRATE;
         }
         if (eff_ instanceof EffectInvoke) {
-            return PAGE_INVOKE;
+            return AikiBeansMovesStd.PAGE_INVOKE;
         }
         if (eff_ instanceof EffectSwitchTypes) {
-            return PAGE_SWITCHTYPES;
+            return AikiBeansMovesStd.PAGE_SWITCHTYPES;
         }
         if (eff_ instanceof EffectSwitchMoveTypes) {
-            return PAGE_SWITCHMOVETYPES;
+            return AikiBeansMovesStd.PAGE_SWITCHMOVETYPES;
         }
         return red(eff_);
     }
 
     private String red(Effect _eff) {
         if (_eff instanceof EffectCounterAttack) {
-            return PAGE_COUNTERATTACK;
+            return AikiBeansMovesStd.PAGE_COUNTERATTACK;
         }
         if (_eff instanceof EffectProtection) {
-            return PAGE_PROTECTION;
+            return AikiBeansMovesStd.PAGE_PROTECTION;
         }
         if (_eff instanceof EffectAccuracy) {
-            return PAGE_ACCURACY;
+            return AikiBeansMovesStd.PAGE_ACCURACY;
         }
         if (_eff instanceof EffectCopyFighter) {
-            return PAGE_COPYFIGHTER;
+            return AikiBeansMovesStd.PAGE_COPYFIGHTER;
         }
         if (_eff instanceof EffectProtectFromTypes) {
-            return PAGE_PROTECTFROMTYPES;
+            return AikiBeansMovesStd.PAGE_PROTECTFROMTYPES;
         }
         if (_eff instanceof EffectUnprotectFromTypes) {
-            return PAGE_UNPROTECTFROMTYPES;
+            return AikiBeansMovesStd.PAGE_UNPROTECTFROMTYPES;
         }
         if (_eff instanceof EffectAlly) {
-            return PAGE_ALLY;
+            return AikiBeansMovesStd.PAGE_ALLY;
         }
         if (_eff instanceof EffectBatonPass) {
-            return PAGE_BATONPASS;
+            return AikiBeansMovesStd.PAGE_BATONPASS;
         }
         if (_eff instanceof EffectClone) {
-            return PAGE_CLONE;
+            return AikiBeansMovesStd.PAGE_CLONE;
         }
         if (_eff instanceof EffectCommonStatistics) {
-            return PAGE_COMMONSTATISTICS;
+            return AikiBeansMovesStd.PAGE_COMMONSTATISTICS;
         }
         return redir(_eff);
     }
 
     private String redir(Effect _eff) {
         if (_eff instanceof EffectOrder) {
-            return PAGE_ORDER;
+            return AikiBeansMovesStd.PAGE_ORDER;
         }
         if (_eff instanceof EffectRestriction) {
-            return PAGE_RESTRICTION;
+            return AikiBeansMovesStd.PAGE_RESTRICTION;
         }
         if (_eff instanceof EffectSwitchAbilities) {
-            return PAGE_SWITCHABILITIES;
+            return AikiBeansMovesStd.PAGE_SWITCHABILITIES;
         }
         if (_eff instanceof EffectSwitchItems) {
-            return PAGE_SWITCHITEMS;
+            return AikiBeansMovesStd.PAGE_SWITCHITEMS;
         }
         if (_eff instanceof EffectSwitchPointView) {
-            return PAGE_SWITCHPOINTVIEW;
+            return AikiBeansMovesStd.PAGE_SWITCHPOINTVIEW;
         }
         if (_eff instanceof EffectRemainedHpRate) {
-            return PAGE_REMAINEDHPRATE;
+            return AikiBeansMovesStd.PAGE_REMAINEDHPRATE;
         }
         if (_eff instanceof EffectMultUsedMovePower) {
-            return PAGE_MULTUSEDMOVEPOWER;
+            return AikiBeansMovesStd.PAGE_MULTUSEDMOVEPOWER;
         }
         if (_eff instanceof EffectMultSufferedMovePower) {
-            return PAGE_MULTSUFFEREDMOVEPOWER;
+            return AikiBeansMovesStd.PAGE_MULTSUFFEREDMOVEPOWER;
         }
         if (_eff instanceof EffectSwitchPosition) {
-            return PAGE_SWITCHPOSITION;
+            return AikiBeansMovesStd.PAGE_SWITCHPOSITION;
         }
         if (_eff instanceof EffectVarPP) {
-            return PAGE_VARPP;
+            return AikiBeansMovesStd.PAGE_VARPP;
         }
-        return PAGE_WINMONEY;
+        return AikiBeansMovesStd.PAGE_WINMONEY;
     }
 
     public String getDisplayName() {

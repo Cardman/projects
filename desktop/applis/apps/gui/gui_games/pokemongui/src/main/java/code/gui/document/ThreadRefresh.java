@@ -32,7 +32,7 @@ public final class ThreadRefresh implements Runnable {
 //            finish();
 //            return;
 //        }
-        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,new RendKeyWordsGroup(),"ABCDEF",new FixCharacterCaseConverter());
+        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,new RendKeyWordsGroup(),"",new FixCharacterCaseConverter());
 //        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
         page.getGene().getCompoFactory().invokeNow(new WindowPage(metadoc_, page.getScroll(), page));
     }

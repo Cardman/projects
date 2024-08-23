@@ -26,8 +26,8 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         frameMpFormContent = new FrameStdMpFormContent(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        treeStd = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui( _d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(AbsEditorTabList.EMPTY_STRING));
-        label = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
+        treeStd = _d.getFrames().getCompoFactory().newTreeGui( _d.getFrames().getCompoFactory().newMutableTreeNode(AbsEditorTabList.EMPTY_STRING));
+        label = _d.getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
         root = new MutableTreeNodeNav<AbsMetaStdType>();
         frameMpFormContent.guiBuildBase(_d);
     }
@@ -35,7 +35,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
         listFct.clear();
         root = new MutableTreeNodeNav<AbsMetaStdType>();
-        AbsCompoFactory cf_ = _d.getCommonFrame().getFrames().getCompoFactory();
+        AbsCompoFactory cf_ = _d.getCompoFactory();
         AbstractMutableTreeNodeCore<String> root_ = cf_.newMutableTreeNode(AbsEditorTabList.EMPTY_STRING);
         for (EntryCust<String, StandardType> t: _res.getPageEl().getStandardsTypes().entryList()) {
             AbstractMutableTreeNodeCore<String> rootType_ = cf_.newMutableTreeNode(t.getKey());
@@ -147,7 +147,7 @@ public final class FrameStdMpForm  extends AdvFrameMpForm{
             frameMpFormContent.getContentPane().add(f_);
             frameMpFormContent.getContentPane().add(frameMpFormContent.getOk());
             frameMpFormContent.getContentPane().add(frameMpFormContent.getRemove());
-            PackingWindowAfter.pack(_f);
+            PackingWindowAfter.pack(_f, frameMpFormContent.getFrames().getCompoFactory());
         } else {
             getGuiEnterStackForm().getDependantPointsForm().init(_r,StdMethodPointBlockPair.SMP);
             getGuiExitStackForm().getDependantPointsForm().init(_r,StdMethodPointBlockPair.SMP);

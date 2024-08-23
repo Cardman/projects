@@ -131,12 +131,12 @@ private static final char SEP='=';
 private MessBelotePage(){}
 public static TranslationsAppli enBelote(){
 TranslationsAppli b = new TranslationsAppli();
-b.getMapping().addEntry("resources_cards/messages/messages_belote.properties",AnaRendBlockHelp.file(en()));
+b.getMapping().addEntry("resources_cards/messages/messages_belote",AnaRendBlockHelp.file(en()));
 return b;
 }
 public static TranslationsAppli frBelote(){
 TranslationsAppli b = new TranslationsAppli();
-b.getMapping().addEntry("resources_cards/messages/messages_belote.properties",AnaRendBlockHelp.file(fr()));
+b.getMapping().addEntry("resources_cards/messages/messages_belote",AnaRendBlockHelp.file(fr()));
 return b;
 }
 public static StringMap<String> ms(){

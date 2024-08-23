@@ -5,7 +5,7 @@ import code.util.CustList;
 public final class SuffixedNumbers {
     private final CustList<SuffixedNumber> encodedChars = new CustList<SuffixedNumber>();
 
-    public void addEntry(String _key, char _ch) {
+    public void addEntry(String _key, int _ch) {
         encodedChars.add(new SuffixedNumber(_key,_ch));
     }
 

@@ -35,12 +35,12 @@ public final class PreAnalyzeExpressionSource implements Runnable {
         } else {
             mainFrame.getAnalyzeState().setLineBorder(GuiConstants.RED);
         }
-        appendState(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory()));
+        appendState(CustAliases.getDateTimeText(mainFrame.getFrames().getThreadFactory()));
         if (dbg != 0) {
             return;
         }
         mainFrame.getEvents().selectIndex(1);
-        mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory()));
+        mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(mainFrame.getFrames().getThreadFactory()));
     }
     private void appendState(String _str) {
         if (dbg != 0) {

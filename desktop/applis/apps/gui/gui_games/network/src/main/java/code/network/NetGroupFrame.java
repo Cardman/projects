@@ -28,7 +28,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow, Abs
     protected NetGroupFrame(AbstractProgramInfos _list) {
         super(_list);
         sockets = new NetCommon();
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _list);
         lock = _list.getThreadFactory().newExecutorService();
     }
 //    /**

@@ -14,7 +14,7 @@ public final class OutputDialogLanguage implements WithFrame {
     public OutputDialogLanguage(WindowWithTreeImpl _w,AbsCommonFrame _fr, EnabledMenu _c) {
         frame = _fr;
         associated = _c;
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         StringList lgs_ = new StringList(factories_.getTranslations().getMapping().getKeys());
         lgs_.add(AbsEditorTabList.EMPTY_STRING);
@@ -30,7 +30,7 @@ public final class OutputDialogLanguage implements WithFrame {
     }
 
     public void reinit(WindowWithTreeImpl _w) {
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         StringList lgs_ = new StringList(factories_.getTranslations().getMapping().getKeys());
         lgs_.add(AbsEditorTabList.EMPTY_STRING);
         chosenLanguage.select(StringUtil.indexOf(lgs_,_w.getUsedLg()));

@@ -30,7 +30,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
     public static final String PORT_INI = "cards_port.ini";
     public static final String SUITS_TXT = "suits.txt";
     public static final String COORDS="cards.coords";
-    public static final String FOLDER_MESSAGES_GUI = "resources_cards/gui/messages";
+//    public static final String FOLDER_MESSAGES_GUI = "resources_cards/gui/messages";
     public static final String RESOURCES_HTML_FILES_RULES_BELOTE = "resources_cards/conf/rules_belote.xml";
     public static final String RESOURCES_HTML_FILES_RULES_PRESIDENT = "resources_cards/conf/rules_president.xml";
     public static final String RESOURCES_HTML_FILES_RULES_TAROT = "resources_cards/conf/rules_tarot.xml";

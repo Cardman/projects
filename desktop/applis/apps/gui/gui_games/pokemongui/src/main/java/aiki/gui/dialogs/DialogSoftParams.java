@@ -13,7 +13,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class DialogSoftParams {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.softparams";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.softparams";
 
 //    private static final String TITLE = "title";
 //    private static final String ZIP_LOAD = "zipLoad";
@@ -49,8 +49,8 @@ public final class DialogSoftParams {
 //    private boolean ok;
 
     public DialogSoftParams(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
-        absDialog.setAccessFile(DIALOG_ACCESS);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame();
+//        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSoftParams(WindowAiki _window, LoadingGame _loading) {
@@ -150,7 +150,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(selectHomePathZip);
-        validChoice = _window.getCompoFactory().newPlainButton(WindowAiki.OK);
+        validChoice = _window.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPkSoftParams.OK));
         validChoice.addActionListener(new PkNonModalEvent(_window.getModal()),new ValidateSoftParams(this,_window));
         panel_.add(validChoice);
         absDialog.setContentPane(panel_);

@@ -47,7 +47,7 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
     @Override
     protected AbsPanel buildPart() {
         AbsCommonFrame frame_ = getCommonFrame();
-        AbstractProgramInfos pr_ = frame_.getFrames();
+        AbstractProgramInfos pr_ = getFrames();
         StringMap<String> mes_ = MessagesIde.valForms(pr_.currentLg());
         vararg = pr_.getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FORMS_VARARG)));
         retRef = pr_.getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FORMS_RETURN)));
@@ -64,7 +64,7 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
         page_.add(clMethField);
         methodFilter.setClassesField(classesField);
         methodFilter.setVararg(vararg);
-        formInputDebugLines = new FormInputDebugLines(frame_);
+        formInputDebugLines = new FormInputDebugLines(frame_, pr_);
         page_.add(formInputDebugLines.getScrollPaneGl());
         return page_;
     }

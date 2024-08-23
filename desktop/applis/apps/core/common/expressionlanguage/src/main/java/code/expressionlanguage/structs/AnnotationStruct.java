@@ -12,8 +12,8 @@ import code.util.core.StringUtil;
 
 public final class AnnotationStruct extends WithoutParentStruct implements FieldableStruct,DisplayableStruct {
 
-    private static final String INFINITY = "I";
-    private static final String NAN = "N";
+    private static final String INFINITY = "|";
+    private static final String NAN = ":";
     private final String className;
 
     private final CustList<ClassFieldStruct> fields;

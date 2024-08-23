@@ -8,7 +8,7 @@ import code.util.core.StringUtil;
 
 public final class MockCommonFrameTreeSample extends MockAbsCommonFrame implements MockListTreeWindow{
     public MockCommonFrameTreeSample(AbstractProgramInfos _fr) {
-        super(_fr, "");
+        super("");
         AbstractMutableTreeNodeCore<String> root_ = _fr.getCompoFactory().newMutableTreeNode("0");
         root_.add(_fr.getCompoFactory().newMutableTreeNode("1"));
         MockTreeGui m_ = (MockTreeGui) _fr.getCompoFactory().newTreeGui(root_);

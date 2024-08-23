@@ -34,7 +34,7 @@ public final class ParsedArgument {
                 NumberInfosOutput out_ = ElResolverCommon.processNb(_keywords, 0, trim_, StringExpUtil.nextCharIs(trim_, 0, len_, '.'));
                 NumberInfos infos_ = out_.getInfos();
                 infos_.setPositive(true);
-                infos_.setSuffix('D');
+                infos_.setSuffix(NumberInfos.WRAP_DOUBLE);
                 Struct str_ = NumParsers.parseNb(infos_);
                 if (str_ instanceof NumberStruct && ((NumberStruct)str_).doubleStruct() < 1) {
                     nbs_.add((NumberStruct) str_);
@@ -65,62 +65,62 @@ public final class ParsedArgument {
         String shortPrimType_ = _context.getAliasPrimShort();
         String byteType_ = _context.getAliasByte();
         String bytePrimType_ = _context.getAliasPrimByte();
-        char suffix_ = _infosNb.getSuffix();
+        int suffix_ = _infosNb.getSuffix();
         Struct str_ = NumParsers.parseNb(_infosNb);
         ParsedArgument p_ = new ParsedArgument();
         p_.object = str_;
         if (str_ == NullStruct.NULL_VALUE) {
             return p_;
         }
-        if (suffix_ == 'D') {
+        if (suffix_ == NumberInfos.WRAP_DOUBLE) {
             p_.type = doubleType_;
             return p_;
         }
-        if (suffix_ == 'd') {
+        if (suffix_ == NumberInfos.PRIM_DOUBLE) {
             p_.type = doublePrimType_;
             return p_;
         }
-        if (suffix_ == 'F') {
+        if (suffix_ == NumberInfos.WRAP_FLOAT) {
             p_.type = floatType_;
             return p_;
         }
-        if (suffix_ == 'f') {
+        if (suffix_ == NumberInfos.PRIM_FLOAT) {
             p_.type = floatPrimType_;
             return p_;
         }
-        if (suffix_ == 'L') {
+        if (suffix_ == NumberInfos.WRAP_LONG) {
             p_.type = longType_;
             return p_;
         }
-        if (suffix_ == 'l') {
+        if (suffix_ == NumberInfos.PRIM_LONG) {
             p_.type = longPrimType_;
             return p_;
         }
-        if (suffix_ == 'I') {
+        if (suffix_ == NumberInfos.WRAP_INT) {
             p_.type = intType_;
             return p_;
         }
-        if (suffix_ == 'i') {
+        if (suffix_ == NumberInfos.PRIM_INT) {
             p_.type = intPrimType_;
             return p_;
         }
-        if (suffix_ == 'C') {
+        if (suffix_ == NumberInfos.WRAP_CHAR) {
             p_.type = charType_;
             return p_;
         }
-        if (suffix_ == 'c') {
+        if (suffix_ == NumberInfos.PRIM_CHAR) {
             p_.type = charPrimType_;
             return p_;
         }
-        if (suffix_ == 'S') {
+        if (suffix_ == NumberInfos.WRAP_SHORT) {
             p_.type = shortType_;
             return p_;
         }
-        if (suffix_ == 's') {
+        if (suffix_ == NumberInfos.PRIM_SHORT) {
             p_.type = shortPrimType_;
             return p_;
         }
-        if (suffix_ == 'B') {
+        if (suffix_ == NumberInfos.WRAP_BYTE) {
             p_.type = byteType_;
             return p_;
         }

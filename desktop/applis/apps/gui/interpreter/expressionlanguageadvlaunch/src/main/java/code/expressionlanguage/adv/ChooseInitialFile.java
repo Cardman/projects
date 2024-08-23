@@ -14,7 +14,7 @@ public final class ChooseInitialFile implements AbsActionListener {
     @Override
     public void action() {
         windowCdmEditor.getModal().set(true);
-        FileOpenFrame.setFileSaveDialogByFrame(true,windowCdmEditor.getCommonFrame().getFrames().getHomePath(),windowCdmEditor.getFileOpenFrame(),new DefButtonsOpenPanelAct(new ElaContinueInitFile(windowCdmEditor)));
+        FileOpenFrame.setFileSaveDialogByFrame(true,windowCdmEditor.getFrames().getHomePath(),windowCdmEditor.getFileOpenFrame(),new DefButtonsOpenPanelAct(new ElaContinueInitFile(windowCdmEditor)));
 //        FileSaveFrame.setFileSaveDialogByFrame(true,windowCdmEditor.getCommonFrame().getFrames().getHomePath(),windowCdmEditor.getFileSaveFrame(),new DefButtonsSavePanelAct(new ElaSaveFile(windowCdmEditor),new ElaContinueFile(windowCdmEditor)));
 
 //        String fileName_ = StringUtil.nullToEmpty(windowCdmEditor.getFileOpenDialogInt().input(windowCdmEditor.getCommonFrame(), true, "", windowCdmEditor.getCommonFrame().getFrames().getHomePath()));

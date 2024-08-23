@@ -10,10 +10,6 @@ public final class FoundErrorInterpret {
 
     private static final String SEP_KEY_VAL = ":";
 
-    private static final String FILE_INTRO = "file";
-
-    private static final String LINE_COL = "line col";
-
     private FileBlock file;
 
     private int indexFile;
@@ -37,8 +33,7 @@ public final class FoundErrorInterpret {
 
     public void setLocationFile(String _locationFile) {
         StringBuilder str_ = new StringBuilder(SEP_INFO);
-        str_.append(FILE_INTRO).append(SEP_KEY_VAL).append(file.getFileName()).append(SEP_INFO);
-        str_.append(LINE_COL).append(SEP_KEY_VAL).append(_locationFile).append(SEP_INFO);
+        str_.append(file.getFileName()).append(SEP_KEY_VAL).append(_locationFile).append(SEP_INFO);
         fullLocationFile = str_.toString();
     }
 

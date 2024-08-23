@@ -47,7 +47,7 @@ public final class LookForCallersTask implements Runnable {
             }
             current_ = next_;
         }
-        AbsCompoFactory compo_ = _window.getCommonFrame().getFrames().getCompoFactory();
+        AbsCompoFactory compo_ = _window.getFrames().getCompoFactory();
         AbstractMutableTreeNodeCore<String> n_ = compo_.newMutableTreeNode(AbsEditorTabList.EMPTY_STRING);
         for (MetaCaller r: roots_) {
             buildRoot(compo_, n_, r, _result);
@@ -56,7 +56,7 @@ public final class LookForCallersTask implements Runnable {
     }
 
     private static AbsTreeGui tree(WindowWithTreeImpl _window, ResultRowSrcLocationList _result) {
-        AbsCompoFactory compo_ = _window.getCommonFrame().getFrames().getCompoFactory();
+        AbsCompoFactory compo_ = _window.getFrames().getCompoFactory();
         AbsTreeGui tree_ = compo_.newTreeGui(_result.getNode());
         tree_.addTreeSelectionListener(new LocationsTreeEvent(_result.getPage(), _window, _result.getRoot()));
         return tree_;

@@ -19,7 +19,7 @@ public final class LanguageDialogButtons implements AbsChildFrame {
     public LanguageDialogButtons(AbstractProgramInfos _frameFactory, EnabledMenu _lgMenu, AbsActionListenerAct _act) {
         lgMenu = _lgMenu;
         content = new LanguageComponentButtons(_frameFactory,_act);
-        commonFrame = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
+        commonFrame = _frameFactory.getFrameFactory().newCommonFrame();
         commonFrame.addWindowListener(new ClosingChildFrameEvent(this));
     }
 

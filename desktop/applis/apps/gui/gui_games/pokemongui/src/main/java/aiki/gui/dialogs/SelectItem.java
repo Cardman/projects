@@ -21,7 +21,7 @@ public final class SelectItem extends SelectDialog {
     public static final int USE = 0;
     public static final int BUY = 1;
     public static final int SELL = 2;
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectitem";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectitem";
 
 //    private static final String TITLE = "title";
 
@@ -42,7 +42,7 @@ public final class SelectItem extends SelectDialog {
 
     public SelectItem(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
-        getSelectDial().setAccessFile(DIALOG_ACCESS);
+//        getSelectDial().setAccessFile(DIALOG_ACCESS);
         compo = _infos.getCompoFactory();
     }
 

@@ -15,7 +15,7 @@ import code.threads.AbstractFutureParam;
 import code.util.StringMap;
 
 public final class DialogGameProgess {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialoggameprogess";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialoggameprogess";
 
     private static final String TEXT = "0";
 
@@ -23,8 +23,8 @@ public final class DialogGameProgess {
     private final AbsCommonFrame absDialog;
 
     public DialogGameProgess(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
-        absDialog.setAccessFile(DIALOG_ACCESS);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame();
+//        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setGameProgress(WindowAiki _window, String _title, FacadeGame _facade, AbstractFutureParam<AikiNatLgNamesNavigation> _pre) {

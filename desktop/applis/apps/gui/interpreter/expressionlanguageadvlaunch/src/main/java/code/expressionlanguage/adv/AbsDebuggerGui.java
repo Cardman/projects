@@ -119,59 +119,59 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getDbgMenu().open();
         manageOptions = getEvent().manageOpt();
         framePoints.guiBuild(this);
-        AbsTabbedPane superTab_ = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
-        AbsPanel pagePrep_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        folderSystem = getCommonFrame().getFrames().getCompoFactory().newTreeGui(getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(EMPTY_STRING));
+        AbsTabbedPane superTab_ = getFrames().getCompoFactory().newAbsTabbedPane();
+        AbsPanel pagePrep_ = getFrames().getCompoFactory().newPageBox();
+        folderSystem = getFrames().getCompoFactory().newTreeGui(getFrames().getCompoFactory().newMutableTreeNode(EMPTY_STRING));
         folderSystem.select(folderSystem.getRoot());
-        tabbedPane = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        tabbedPane = getFrames().getCompoFactory().newAbsTabbedPane();
         tabbedPane.setPreferredSize(new MetaDimension(512,512));
         AbsPanel spec_ = buildPart();
         spec_.add(pagePrep_);
-        superTab_.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_PREPARE)),getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane), spec_));
-        mute = getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_MUTE)));
-        selectEnter = getCommonFrame().getFrames().getCompoFactory().newPlainButton("|>");
+        superTab_.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_PREPARE)),getFrames().getCompoFactory().newVerticalSplitPane(getFrames().getCompoFactory().newHorizontalSplitPane(getFrames().getCompoFactory().newAbsScrollPane(folderSystem),tabbedPane), spec_));
+        mute = getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_MUTE)));
+        selectEnter = getFrames().getCompoFactory().newPlainButton("|>");
         selectEnter.setEnabled(false);
-        nextAction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">>");
+        nextAction = getFrames().getCompoFactory().newPlainButton(">>");
         nextAction.setEnabled(false);
-        nextInstruction = getCommonFrame().getFrames().getCompoFactory().newPlainButton(">");
+        nextInstruction = getFrames().getCompoFactory().newPlainButton(">");
         nextInstruction.setEnabled(false);
-        nextBlock = getCommonFrame().getFrames().getCompoFactory().newPlainButton(".");
+        nextBlock = getFrames().getCompoFactory().newPlainButton(".");
         nextBlock.setEnabled(false);
-        nextGoUp = getCommonFrame().getFrames().getCompoFactory().newPlainButton("^");
+        nextGoUp = getFrames().getCompoFactory().newPlainButton("^");
         nextGoUp.setEnabled(false);
-        nextInMethod = getCommonFrame().getFrames().getCompoFactory().newPlainButton("=");
+        nextInMethod = getFrames().getCompoFactory().newPlainButton("=");
         nextInMethod.setEnabled(false);
-        nextCursorInstruction = getCommonFrame().getFrames().getCompoFactory().newPlainButton("_");
+        nextCursorInstruction = getFrames().getCompoFactory().newPlainButton("_");
         nextCursorInstruction.setEnabled(false);
-        nextCursorExpression = getCommonFrame().getFrames().getCompoFactory().newPlainButton("__");
+        nextCursorExpression = getFrames().getCompoFactory().newPlainButton("__");
         nextCursorExpression.setEnabled(false);
-        pauseStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("||");
+        pauseStack = getFrames().getCompoFactory().newPlainButton("||");
         pauseStack.setEnabled(false);
-        stopStack = getCommonFrame().getFrames().getCompoFactory().newPlainButton("\u23F9");
+        stopStack = getFrames().getCompoFactory().newPlainButton("\u23F9");
         stopStack.setEnabled(false);
-        detail = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
-        callStack = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        callStackRender = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        AbsSplitPane calls_ = getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(
-                getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(callStack),
-                getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(callStackRender));
-        AbsPanel dynPanel_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        dynamicEval = getCommonFrame().getFrames().getCompoFactory().newTextArea();
-        evalPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_EVAL_PAGE)));
-        evalNoPage = getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_EVAL_NO_PAGE)));
-        watches = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        detail = getFrames().getCompoFactory().newAbsScrollPane();
+        callStack = getFrames().getCompoFactory().newPageBox();
+        callStackRender = getFrames().getCompoFactory().newPageBox();
+        AbsSplitPane calls_ = getFrames().getCompoFactory().newHorizontalSplitPane(
+                getFrames().getCompoFactory().newAbsScrollPane(callStack),
+                getFrames().getCompoFactory().newAbsScrollPane(callStackRender));
+        AbsPanel dynPanel_ = getFrames().getCompoFactory().newPageBox();
+        dynamicEval = getFrames().getCompoFactory().newTextArea();
+        evalPage = getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_EVAL_PAGE)));
+        evalNoPage = getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_EVAL_NO_PAGE)));
+        watches = getFrames().getCompoFactory().newAbsTabbedPane();
         dynTrees = new CustList<AbsTreeGui>();
         buttons = new IdList<AbsButton>();
         buttonsDynRef = new IdList<AbsButton>();
-//        cancelDynWatch = getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        dynPanel_.add(getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynamicEval));
+//        cancelDynWatch = getFrames().getCompoFactory().newPageBox();
+        dynPanel_.add(getFrames().getCompoFactory().newAbsScrollPane(dynamicEval));
         dynPanel_.add(evalPage);
         dynPanel_.add(evalNoPage);
         dynPanel_.add(watches);
 //        dynPanel_.add(cancelDynWatch);
         refreshRender = getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_REFRESH_RENDER)));
-        AbsSplitPane detRender_ = getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(refreshRender,detail);
-        navigation = getCommonFrame().getFrames().getCompoFactory().newLineBox();
+        AbsSplitPane detRender_ = getFrames().getCompoFactory().newVerticalSplitPane(refreshRender,detail);
+        navigation = getFrames().getCompoFactory().newLineBox();
         navigation.setVisible(false);
         AbsPanel nav_ = navigation;
         nav_.add(mute);
@@ -186,35 +186,35 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         nav_.add(pauseStack);
         nav_.add(stopStack);
         pagePrep_.add(nav_);
-        sessionTab = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        sessionTab = getFrames().getCompoFactory().newAbsTabbedPane();
         sessionTab.setVisible(false);
         sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_CALLS)),calls_);
         sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_RENDER_CALCULATION)),detRender_);
-        sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_DYNAMIC)),getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dynPanel_));
-        statusAnalyzeArea = getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_DYNAMIC)),getFrames().getCompoFactory().newAbsScrollPane(dynPanel_));
+        statusAnalyzeArea = getFrames().getCompoFactory().newTextArea();
         statusAnalyzeArea.setEditable(false);
-        superTab_.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_STATUS)),getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
-        statusDbgAreaScroll = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
-        statusDbgAreaScrollRender = getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane();
+        superTab_.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_STATUS)),getFrames().getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
+        statusDbgAreaScroll = getFrames().getCompoFactory().newAbsScrollPane();
+        statusDbgAreaScrollRender = getFrames().getCompoFactory().newAbsScrollPane();
         sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_LOGS)),statusDbgAreaScroll);
         sessionTab.addIntTab(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_RENDER)),statusDbgAreaScrollRender);
         pagePrep_.add(sessionTab);
-        AbsPanel pane_ = getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        AbsPanel pane_ = getFrames().getCompoFactory().newPageBox();
         pane_.add(superTab_);
         getCommonFrame().setContentPane(pane_);
         getCommonFrame().setVisible(true);
-        AbsMenuBar bar_ = getCommonFrame().getFrames().getCompoFactory().newMenuBar();
-        EnabledMenu session_ = getCommonFrame().getFrames().getCompoFactory().newMenu(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_MENU)));
-        analyzeMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_ANALYZE)));
+        AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
+        EnabledMenu session_ = getFrames().getCompoFactory().newMenu(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_MENU)));
+        analyzeMenu = getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_ANALYZE)));
         analyzeMenu.addActionListener(getEvent());
         session_.addMenuItem(analyzeMenu);
-        openPoints = getCommonFrame().getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_OPEN_POINTS)));
+        openPoints = getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mesSession_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_OPEN_POINTS)));
         openPoints.setEnabled(false);
         openPoints.setAccelerator(GuiConstants.VK_F6,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
         session_.addMenuItem(openPoints);
         bar_.add(session_);
         getCommonFrame().setJMenuBar(bar_);
-        PackingWindowAfter.pack(getCommonFrame());
+        PackingWindowAfter.pack(getCommonFrame(), getFrames().getCompoFactory());
     }
 
     public void setViewable(StringMap<String> _v) {
@@ -251,7 +251,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     void refParent(AbstractMutableTreeNodeCore<String> _parent, StringMap<String> _files, String _parentPath, AbsTreeGui _t) {
         _parent.removeAllChildren();
-        refreshList(_parent, _files, _parentPath, getCommonFrame().getFrames().getCompoFactory());
+        refreshList(_parent, _files, _parentPath, getFrames().getCompoFactory());
         MutableTreeNodeUtil.reload(_t);
     }
     static void refreshList(AbstractMutableTreeNodeCore<String> _sel, StringMap<String> _files, String _folderToVisit, AbsCompoFactory _compoFactory) {
@@ -284,7 +284,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     void addTab(ResultContext _res, ManageOptions _man, String _path, BytesInfo _content, Options _opt) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf(SLASH_CH)+1);
-        ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,getCommonFrame().getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt,_res);
+        ReadOnlyTabEditor te_ = new ReadOnlyTabEditor(this,getFrames(), _path.substring(pathToSrc(_man).length()), WindowWithTreeImpl.lineSeparator(dec_),_opt,_res);
         te_.centerText(new DefaultUniformingString().apply(dec_));
         ToggleBreakPointEvent.afterToggle(_res,te_);
         tabs.add(te_);
@@ -310,8 +310,8 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             callButtons.clear();
             callButtonsRender.clear();
             root = new DbgRootStruct(ctx_, null);
-            treeDetail = root.buildReturn(this,renderList,getCommonFrame().getFrames().getCompoFactory(), view_.getStack().aw());
-            AbsButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_SHOW)));
+            treeDetail = root.buildReturn(this,renderList,getFrames().getCompoFactory(), view_.getStack().aw());
+            AbsButton shRend_ = getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_SHOW)));
             shRend_.addActionListener(new DbgSelectNodeLogEvent(root,treeDetail,statusDbgAreaScrollRender));
             callStackRender.add(shRend_);
             callButtonsRender.add(shRend_);
@@ -334,13 +334,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
             String dis_ = p_.getStackElt().getDisplayedString(ctx_).getInstance();
             DbgRootStruct r_ = new DbgRootStruct(ctx_, null);
             root = r_;
-            AbsTreeGui b_ = r_.build(this,renderList,getCommonFrame().getFrames().getCompoFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
+            AbsTreeGui b_ = r_.build(this,renderList,getFrames().getCompoFactory(), p_, stackCall.getBreakPointInfo().getBreakPointOutputInfo());
             treeDetail = b_;
-            AbsButton but_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(dis_);
+            AbsButton but_ = getFrames().getCompoFactory().newPlainButton(dis_);
             callButtons.add(but_);
             but_.addActionListener(new SelectCallStackEvent(this,p_,b_,r_));
             callStack.add(but_);
-            AbsButton shRend_ = getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_SHOW)));
+            AbsButton shRend_ = getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_SESSION_FORM_SHOW)));
             shRend_.addActionListener(new DbgSelectNodeLogEvent(r_,b_,statusDbgAreaScrollRender));
             callStackRender.add(shRend_);
             callButtonsRender.add(shRend_);
@@ -358,7 +358,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         GuiBaseUtil.removeActionListeners(evalNoPage);
         evalNoPage.addActionListener(new EvalNoPageEvent(this,_res));
         sessionTab.setVisible(true);
-        PackingWindowAfter.pack(getCommonFrame());
+        PackingWindowAfter.pack(getCommonFrame(), getFrames().getCompoFactory());
         nextAction.setEnabled(true);
         nextInstruction.setEnabled(true);
         nextBlock.setEnabled(true);
@@ -375,13 +375,13 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
     public void dynamicAnalyzeSelectedPage(ResultContext _res) {
         DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
         this.rootStructStr = root_;
-        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory());
+        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getFrames().getCompoFactory());
         getThreadFactory().newStartedThread(build(_res, root_, d_, currentPage));
     }
     public void dynamicAnalyzeNoSelectedPage(ResultContext _res) {
         DbgRootStruct root_ = new DbgRootStruct(root.getResult(), null);
         this.rootStructStr = root_;
-        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getCommonFrame().getFrames().getCompoFactory());
+        AbsTreeGui d_ = root_.buildDynamic(this,renderList, getFrames().getCompoFactory());
         getThreadFactory().newStartedThread(build(_res, root_, d_, null));
     }
 
@@ -395,7 +395,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
 
     public void refreshDynamic(DynamicAnalysisTask _d, WatchResults _wr) {
         AbsTreeGui tr_ = _d.getTree();
-        _d.getRoot().addWatches(getCommonFrame().getFrames().getCompoFactory(), tr_.getRoot(), _wr);
+        _d.getRoot().addWatches(getFrames().getCompoFactory(), tr_.getRoot(), _wr);
         _d.getScroll().setViewportView(tr_);
         getCommonFrame().pack();
     }
@@ -573,7 +573,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         getNextCursorExpression().setEnabled(false);
     }
     public void currentThreadActions(Runnable _t) {
-        getCommonFrame().getFrames().getThreadFactory().newStartedThread(_t);
+        getFrames().getThreadFactory().newStartedThread(_t);
     }
 
     public AbstractAtomicBoolean getStoppedClick() {
@@ -613,7 +613,7 @@ public abstract class AbsDebuggerGui extends AbsEditorTabList {
         return folderSystem;
     }
     protected void endCall(){
-        PackingWindowAfter.pack(getCommonFrame());
+        PackingWindowAfter.pack(getCommonFrame(), getFrames().getCompoFactory());
     }
 
     public StackCall getStackCall() {

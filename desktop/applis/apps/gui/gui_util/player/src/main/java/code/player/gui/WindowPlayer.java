@@ -89,7 +89,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     public WindowPlayer(String _lg, AbstractProgramInfos _list, LanguagesButtonsPair _pair) {
         super(_list);
         mainButton = _pair.getMainButton();
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _list);
         initMessages(_lg);
         setTitle(messages.getVal(MessagesPlayer.TITLE));
         setIconImage(getIcon(_list.getImageFactory()));
@@ -520,7 +520,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     public void quit() {
         getCommonFrame().setVisible(false);
         LanguageDialogButtons.enable(mainButton,true);
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(this, getFrames());
     }
 
 //    @Override

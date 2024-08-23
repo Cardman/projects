@@ -14,7 +14,7 @@ public final class MockWithChangeListenerSample extends MockAbsCommonFrame imple
     private final AbsProgressBar progressBar;
 
     public MockWithChangeListenerSample(AbstractProgramInfos _f, String _lgKey) {
-        super(_f, _lgKey);
+        super(_lgKey);
         spinner = _f.getCompoFactory().newSpinner(5, 3, 7, 1);
         spinner.addChangeListener(new MockChangeListener(this,0));
         getContentPane().add(spinner);

@@ -40,7 +40,7 @@ public final class DialogHeros {
         window = _win;
         beginGame = _programInfos.getCompoFactory().newPageBox();
         nickname = _programInfos.getCompoFactory().newTextField(16);
-        frame = _programInfos.getFrameFactory().newCommonFrame(_programInfos,null);
+        frame = _programInfos.getFrameFactory().newCommonFrame();
         frame.addWindowListener(new ClosingDialogHerosEvent(_win));
     }
 

@@ -15,9 +15,9 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void init1() {
         WindowCdmEditor w_=newWindowLoadDefExpFolder("/folder/exp");
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        updateDialog((MockProgramInfos) w_.getFrames());
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
         loadConfFolder(w_);
@@ -28,7 +28,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void init2() {
         WindowCdmEditor w_=newWindowLoadDefExpFolder("/folder/exp");
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         WindowExpressionEditor s_ = geneSec(w_);
         s_.getTree().select(s_.getTree().getRoot());
         s_.getTree().select(s_.getTree().getRoot().getFirstChild());
@@ -38,8 +38,8 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void init3() {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.getTree().select(s_.getTree().getRoot());
@@ -49,8 +49,8 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void init4() {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.getTree().select(s_.getTree().getRoot());
@@ -61,7 +61,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void init5() {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         assertEq(0,s_.getTabs().size());
@@ -69,9 +69,9 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void init6() {
         WindowCdmEditor w_=newWindowLoadDefExpFolder("/folder/exp");
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        updateDialog((MockProgramInfos) w_.getFrames());
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
         ((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getSrcFolder().setText("sample_src");
@@ -82,7 +82,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void closeMain() {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         CustList<WindowExpressionEditor> exp_ = new CustList<WindowExpressionEditor>(w_.getExpressionEditors());
         w_.quit();
@@ -92,7 +92,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void closeSec() {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         ((MockWindow)w_.getExpressionEditors().get(0).getCommonFrame()).getWindowListenersDef().get(0).windowClosing();
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
@@ -102,9 +102,9 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void initNo() {
         WindowCdmEditor w_=newWindowLoadDefExpFolder("");
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        updateDialog((MockProgramInfos) w_.getFrames());
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
         assertEq(0,w_.getExpressionEditors().size());
@@ -112,8 +112,8 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void noSelect() {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.getTree().select(null);
@@ -122,25 +122,25 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void lg() {
         WindowCdmEditor w_=newWindowLoadDefExpFolder("/folder/exp");
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        updateDialog((MockProgramInfos) w_.getFrames());
+        w_.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
         loadConfFolder(w_);
         assertEq("/folder/exp",((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getFolderExp());
         ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getCreateEnv()).getActionListeners().get(0).action();
         ((MockMenuItem)w_.getExpressionEditors().get(0).getLanguageMenu()).getActionListeners().get(0).action();
-        w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getChosenLanguage().select(StringUtil.indexOf(w_.getCommonFrame().getFrames().getLanguages(),"fr"));
+        w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getChosenLanguage().select(StringUtil.indexOf(w_.getFrames().getLanguages(),"fr"));
         ((MockPlainButton)w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getVal()).getActionListeners().get(0).action();
         WindowCdmEditor w2_=quickCreate(newMockProgramInfosInitConfExpFolder("/folder/exp"));
         String name_ = w_.getConfGlobal();
         String name2_ = w_.getExecConf();
-        StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
-        StreamTextFile.saveTextFile(name2_,StreamTextFile.contentsOfFile(name2_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
+        StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getFrames().getFileCoreStream(),w_.getFrames().getStreams()),w2_.getFrames().getStreams());
+        StreamTextFile.saveTextFile(name2_,StreamTextFile.contentsOfFile(name2_,w_.getFrames().getFileCoreStream(),w_.getFrames().getStreams()),w2_.getFrames().getStreams());
         w2_.updateEnv(name_);
         assertEq("fr",w2_.manage(w2_.getSoftParams().getLines()).getEx().getLg());
-        assertEq("en",w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getCommonFrame().getFrames().getFileCoreStream(),w2_.getCommonFrame().getFrames().getStreams()))).getEx().getLg());
+        assertEq("en",w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getFrames().getFileCoreStream(),w2_.getFrames().getStreams()))).getEx().getLg());
     }
 
     private void loadConfFolder(WindowCdmEditor _w) {

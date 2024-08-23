@@ -8725,7 +8725,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
     @Test
     public void noAna2() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "src//bad","public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
-        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getCommonFrame().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getFrames().getStreams());
         w_.getFolderExpressionMenu().getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
@@ -8772,8 +8772,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
         return ((ExpDebGuiImpl)_b).getFound();
     }
     public static AbsDebuggerGui buildExpAdvCore(WindowCdmEditor _w) {
-        AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
-        SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
+        AbstractProgramInfos pr_ = _w.getFrames();
+        SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getFrames(),_w.getFactory());
         return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_, pr_,_w.getFactory());
     }
     protected static void analyzeBad2(WindowCdmEditor _w) {

@@ -20,7 +20,7 @@ import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 
 public final class SelectPokemon extends SelectDialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectpokemon";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectpokemon";
 
 //    private static final String TITLE = "title";
 
@@ -45,7 +45,7 @@ public final class SelectPokemon extends SelectDialog {
     public SelectPokemon(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
         pkDetailContent = new PkDetailContent(_infos);
-        getSelectDial().setAccessFile(DIALOG_ACCESS);
+//        getSelectDial().setAccessFile(DIALOG_ACCESS);
         compo = _infos.getCompoFactory();
         mainComponent = compo.newBorder();
     }

@@ -31,7 +31,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void init3() {
         WindowCdmEditor w_=newWindowLoadDef();
         assertEq(10, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
-        AbsTextPane t_ = w_.getCommonFrame().getFrames().getCompoFactory().newTextPane();
+        AbsTextPane t_ = w_.getFrames().getCompoFactory().newTextPane();
         t_.setFocusable(true);
         t_.setVisible(true);
         t_.setSize(new MetaDimension(1,1));
@@ -65,7 +65,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void folderCreate() {
         WindowCdmEditor w_ = windowLoadDefNoTab(newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"folder/")));
-        assertTrue(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/folder/").isDirectory());
+        assertTrue(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/folder/").isDirectory());
     }
     @Test
     public void notSrc() {
@@ -76,14 +76,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         w_.getTargetName().setText("folder/");
         ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
-        assertTrue(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/folder/").isDirectory());
+        assertTrue(w_.getFrames().getFileCoreStream().newFile("/project/sources/folder/").isDirectory());
     }
     @Test
     public void fileExist() {
         WindowCdmEditor w_ = windowLoadDef(newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")));
         tabEditor(w_).getCenter().setText("TEXT");
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        assertTrue(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
+        assertTrue(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
         assertEq("TEXT",tabEditor(w_).getCenter().getText());
     }
     @Test
@@ -95,7 +95,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         w_.getTargetName().setText("file.txt");
         ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/file.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/file.txt").exists());
     }
     @Test
     public void noSelect() {
@@ -104,7 +104,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tr_.select(null);
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/file.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/file.txt").exists());
     }
     @Test
     public void noText() {
@@ -113,7 +113,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tr_.select(null);
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/file.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/file.txt").exists());
     }
     @Test
     public void saveText() {
@@ -186,14 +186,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tabSelect(w_).getCenter().setText("TEXT");
         saveSelected(w_);
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").delete();
+        w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").delete();
         assertEq(2,w_.getTabs().size());
         assertEq(2,w_.getEditors().getComponentCount());
         refresh(w_);
         assertEq(1,w_.getTabs().size());
         assertEq(1,w_.getEditors().getComponentCount());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
     }
     @Test
     public void refreshTreeDeleteEdited2() {
@@ -202,14 +202,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tabSelect(w_).getCenter().setText("TEXT");
         saveSelected(w_);
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").delete();
+        w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").delete();
         assertEq(2,w_.getTabs().size());
         assertEq(2,w_.getEditors().getComponentCount());
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
         assertEq(1,w_.getTabs().size());
         assertEq(1,w_.getEditors().getComponentCount());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
     }
     @Test
     public void refreshTreeDeleteEdited3() {
@@ -219,14 +219,14 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         saveSelected(w_);
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
         closeTab(w_);
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").delete();
+        w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").delete();
         assertEq(1,w_.getTabs().size());
         assertEq(1,w_.getEditors().getComponentCount());
         refresh(w_);
         assertEq(1,w_.getTabs().size());
         assertEq(1,w_.getEditors().getComponentCount());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
     }
     @Test
     public void rename1() {
@@ -236,7 +236,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
         rename(w_,"file3.txt");
         assertEq("/project/sources/src/file3.txt",tabSelect(w_).getFullPath());
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file3.txt", w_));
     }
     @Test
@@ -247,7 +247,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
         closeTab(w_);
         rename(w_,"file3.txt");
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file3.txt", w_));
     }
     @Test
@@ -261,7 +261,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
         rename(w_,"file3.txt");
         assertEq("/project/sources/src/file3.txt",tabSelect(w_).getFullPath());
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file3.txt", w_));
         assertEq("TEXT2",contentsOfFile("/project/sources/src/file2.txt", w_));
     }
@@ -317,7 +317,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq(1,w_.getTabs().size());
         assertEq(1,w_.getEditors().getComponentCount());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
     }
     @Test
     public void delete2() {
@@ -334,7 +334,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq(1,w_.getTabs().size());
         assertEq(1,w_.getEditors().getComponentCount());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+        assertFalse(w_.getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
     }
     @Test
     public void delete3() {
@@ -379,7 +379,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf2() {
         String chooseConf_ = "/editor/conf.xml";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoChooseFolder(chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -389,7 +389,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf3() {
         String chooseConf_ = "/editor/conf.xml";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoChooseFolderConf("/folder/sources/"));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -402,7 +402,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf4() {
         String chooseConf_ = "/editor/conf.xml";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -421,7 +421,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf5() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
@@ -437,7 +437,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf6() {
         String chooseConf_ = "/editor/conf.xml";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -464,7 +464,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf7() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -492,7 +492,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf8() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -516,7 +516,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf9() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -541,7 +541,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void fileConf10() {
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoDirConfSave("/folder/sources", "/editor/conf.xml"));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockMenuItem)w_.getChooseFile()).getActionListeners().get(0).action();
         loadConf(w_,"/editor/conf.xml");
@@ -551,7 +551,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void fileConf11() {
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoDirConf("/folder/sources", ""));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         ((MockMenuItem)w_.getChooseFile()).getActionListeners().get(0).action();
         assertEq("",w_.getExecConf());
@@ -561,7 +561,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf12() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
@@ -578,7 +578,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void fileConf13() {
         String chooseConf_ = "/editor/conf.txt";
         WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();

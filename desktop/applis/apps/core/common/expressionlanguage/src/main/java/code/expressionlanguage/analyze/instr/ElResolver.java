@@ -67,9 +67,9 @@ public final class ElResolver {
     static final char PAR_RIGHT = ')';
     static final char SEP_ARG = ',';
     static final char DOT_VAR = '.';
-    static final char DOUBLE = 'd';
+//    static final char DOUBLE = 'd';
 
-    static final char INTEGER = 'i';
+//    static final char INTEGER = 'i';
     static final char NB_INTERN_SP = '_';
 
     static final char ANNOT = '@';

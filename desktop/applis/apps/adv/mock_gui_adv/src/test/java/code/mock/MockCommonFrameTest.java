@@ -8,7 +8,7 @@ public class MockCommonFrameTest extends EquallableMockGuiAdvUtil{
     @Test
     public void ft() {
         MockProgramInfos pr_ = init();
-        AbsCommonFrame f_ = pr_.getMockFrameFactory().newCommonFrame(pr_,pr_.getImageFactory().newImageArgb(1,1));
+        AbsCommonFrame f_ = pr_.getMockFrameFactory().newCommonFrame();
         f_.pack();
         assertTrue(((MockCustComponent)f_.getPane()).isAccessible());
         pr_.getMockFrameFactory().newOtherFrame();
@@ -16,7 +16,7 @@ public class MockCommonFrameTest extends EquallableMockGuiAdvUtil{
     @Test
     public void ftrd() {
         MockProgramInfos pr_ = init2();
-        AbsCommonFrame f_ = pr_.getMockFrameFactory().newCommonFrame(pr_,pr_.getImageFactory().newImageArgb(1,1));
+        AbsCommonFrame f_ = pr_.getMockFrameFactory().newCommonFrame();
         f_.pack();
         assertTrue(((MockCustComponent)f_.getPane()).isAccessible());
         pr_.getMockFrameFactory().newOtherFrame();

@@ -16,7 +16,7 @@ import code.threads.AbstractFutureParam;
 import code.util.StringMap;
 
 public final class DialogDifficulty {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialogdifficulty";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialogdifficulty";
 
     private static final String TEXT = "0";
 
@@ -28,9 +28,9 @@ public final class DialogDifficulty {
     private FacadeGame facade;
 
     public DialogDifficulty(AbstractProgramInfos _frameFactory) {
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame();
         absDialog.addWindowListener(new ClosingDialogDifficulty(this));
-        absDialog.setAccessFile(DIALOG_ACCESS);
+//        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogDifficulty(WindowAiki _window, String _title, FacadeGame _facade, AbstractFutureParam<AikiNatLgNamesNavigation> _pre) {

@@ -14,10 +14,11 @@ import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import aiki.fight.util.StatisticPokemon;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
+import code.scripts.confs.*;
 import code.util.*;
 
 public class ItemForBattleBean extends ItemBean {
-    static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";
+    static final String EFFECT_SEND_BEAN=PkScriptPages.REN_ADD_WEB_HTML_SENDING_EFFSENDING_HTML;
     private StringList typesPk;
     private StringList typesPkAbilities;
     private boolean cancelImmuType;

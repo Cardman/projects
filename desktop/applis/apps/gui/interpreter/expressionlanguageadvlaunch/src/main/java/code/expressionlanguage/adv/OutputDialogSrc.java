@@ -13,7 +13,7 @@ public final class OutputDialogSrc implements WithFrame{
     public OutputDialogSrc(WindowWithTreeImpl _w, AbsCommonFrame _fr, EnabledMenu _c) {
         frame = _fr;
         associated = _c;
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         src = factories_.getCompoFactory().newTextField(_w.getManageOptions().getEx().getSrcFolder());
         all_.add(src);

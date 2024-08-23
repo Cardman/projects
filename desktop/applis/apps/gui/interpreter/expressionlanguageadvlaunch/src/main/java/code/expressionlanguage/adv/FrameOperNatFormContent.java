@@ -22,27 +22,29 @@ public final class FrameOperNatFormContent {
     private AbsButton remove;
     private AbsPanel contentPane;
     private AbsTabbedPane tabs;
+    private final AbstractProgramInfos frames;
 
     public FrameOperNatFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiSimpleStackForm = new GuiStackForm(_c);
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        simple = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)));
-        enabledOperNat = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        symbol = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        first = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        second = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        AbsPanel onForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        simple = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)));
+        enabledOperNat = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        symbol = _d.getFrames().getCompoFactory().newTextField();
+        first = _d.getFrames().getCompoFactory().newTextField();
+        second = _d.getFrames().getCompoFactory().newTextField();
+        AbsPanel onForm_ = _d.getFrames().getCompoFactory().newPageBox();
         onForm_.add(symbol);
         onForm_.add(first);
         onForm_.add(second);
         onForm_.add(enabledOperNat);
         onForm_.add(simple);
-        tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        tabs = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)), guiSimpleStackForm.guiBuild(_d));
         onForm_.add(tabs);
         onForm_.add(ok);
@@ -63,7 +65,7 @@ public final class FrameOperNatFormContent {
             getEnabledOperNat().setSelected(exc_.getValue().isEnabled());
             BreakPointFormEvent.specific(getGuiSimpleStackForm(), exc_.getValue().getResultSimple(),new CustList<BreakPointCondition>(),  _f,_r);
             getSimple().setSelected(exc_.getValue().isSimple());
-            PackingWindowAfter.pack(_f);
+            PackingWindowAfter.pack(_f, frames.getCompoFactory());
         } else {
             getGuiSimpleStackForm().getDependantPointsForm().init(_r, OperNatPoint.OP);
             symbol.setEnabled(true);

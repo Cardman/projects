@@ -71,13 +71,13 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         EnabledMenu file_ = _list.getCompoFactory().newMenu(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_FILE)));
         bar_.add(file_);
-        srcMenu = getCommonFrame().getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_SRC)));
+        srcMenu = getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_SRC)));
         srcMenu.addActionListener(new ChangeSrcEvent(this, srcMenu));
-        create = getCommonFrame().getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_CREATE)));
+        create = getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_CREATE)));
         create.addActionListener(new AddNewTreeFileNode(this));
         create.setAccelerator(GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
         create.setEnabled(false);
-        delete = getCommonFrame().getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_DELETE)));
+        delete = getFrames().getCompoFactory().newMenuItem(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_DELETE)));
         delete.addActionListener(new RemoveTreeAction(this));
         delete.setAccelerator(GuiConstants.VK_DELETE,0);
         delete.setEnabled(false);
@@ -106,7 +106,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         events = _list.getCompoFactory().newAbsTabbedPane();
         events.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_FIND)), _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll, _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll)));
         events.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_EVENT)), _list.getCompoFactory().newAbsScrollPane(analyzeState));
-        editors = getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        editors = getFrames().getCompoFactory().newAbsTabbedPane();
         getCommonFrame().setContentPane(panel);
         getCommonFrame().setJMenuBar(bar_);
         getCommonFrame().pack();
@@ -115,7 +115,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     public boolean applyTreeChangeSelected(boolean _treeEvent) {
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         AbstractMutableTreeNodeCore<String> sel_ = getTree().selectEvt();
         changeEnable(sel_);
         if (sel_ == null) {
@@ -135,7 +135,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     boolean openFile(String _str) {
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         BytesInfo content_ = StreamBinaryFile.loadFile(_str, frs_.getStreams());
         if (!content_.isNul()) {
             int opened_ = indexOpened(_str);
@@ -215,7 +215,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     void refresh(AbstractMutableTreeNodeCore<String> _sel, String _str) {
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         AbstractMutableTreeNodeCore<String> r_ = getTree().getRoot();
         AbstractMutableTreeNodeCore<String> adj_ = _sel;
         String adjPath_ = _str;
@@ -238,7 +238,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     void refParent(AbstractMutableTreeNodeCore<String> _parent, String _parentPath) {
         _parent.removeAllChildren();
-        refreshList(_parent, _parentPath, getCommonFrame().getFrames());
+        refreshList(_parent, _parentPath, getFrames());
         MutableTreeNodeUtil.reload(getTree());
     }
 
@@ -251,11 +251,11 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     public void initTree(String _acc) {
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         AbstractMutableTreeNodeCore<String> default_ = frs_.getCompoFactory().newMutableTreeNode(_acc+SLASH);
         folderSystem = frs_.getCompoFactory().newTreeGui(default_);
         folderSystem.select(folderSystem.getRoot());
-        refreshList(folderSystem.selectEvt(),_acc, getCommonFrame().getFrames());
+        refreshList(folderSystem.selectEvt(),_acc, getFrames());
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
         refreshNode = frs_.getCompoFactory().wrap(new RefreshTreeAction(this));
         folderSystem.registerKeyboardAction(refreshNode, GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
@@ -267,7 +267,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         folderSystem.registerKeyboardAction(createSystem,GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
     }
     public void endTree() {
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         setScrollDialog(frs_.getCompoFactory().newAbsScrollPane());
         getScrollDialog().setVisible(false);
         panelSymbols.removeAll();
@@ -290,7 +290,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     void showFileOrFolder() {
         changeEnable(false);
         scrollDialog.setVisible(true);
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         AbsCompoFactory c_ = frs_.getCompoFactory();
         AbsPanel panel_ = c_.newPageBox();
         targetName = c_.newTextField();
@@ -309,7 +309,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
 
     public void fileOrFolder() {
         String str_ = GuiBaseUtil.buildPath(selectedNode);
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         AbstractFile currentFolder_ = frs_.getFileCoreStream().newFile(str_);
         if (!currentFolder_.isDirectory()) {
             clearTreeDialog();
@@ -341,7 +341,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     static void updateDoc(WindowCdmEditor _m) {
-        AbstractProgramInfos frs_ = _m.getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = _m.getFrames();
         String contentConf_ = _m.buildDefConfFile();
         StreamTextFile.saveTextFile(_m.getConfGlobal(), contentConf_, frs_.getStreams());
     }
@@ -350,7 +350,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         changeEnable(false);
         String str_ = GuiBaseUtil.buildPath(selectedNode);
         scrollDialog.setVisible(true);
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         AbsCompoFactory c_ = frs_.getCompoFactory();
         AbsPanel panel_ = c_.newPageBox();
         targetName = c_.newTextField();
@@ -368,7 +368,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     void renameValidate() {
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         String str_ = GuiBaseUtil.buildPath(selectedNode);
         AbstractMutableTreeNodeCore<String> par_ = selectedNode.getParent();
         String dest_ = GuiBaseUtil.buildPath(par_)+targetName.getText();
@@ -399,7 +399,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         changeEnable(false);
         String str_ = GuiBaseUtil.buildPath(selectedNode);
         scrollDialog.setVisible(true);
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         AbsCompoFactory c_ = frs_.getCompoFactory();
         AbsPanel panel_ = c_.newPageBox();
         panel_.add(c_.newPlainLabel(str_));
@@ -414,7 +414,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         GuiBaseUtil.recalculateWindow(getCommonFrame());
     }
     void removeValidate() {
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         String str_ = GuiBaseUtil.buildPath(selectedNode);
         AbstractMutableTreeNodeCore<String> par_ = selectedNode.getParent();
         if (!frs_.getFileCoreStream().newFile(str_).delete()){
@@ -514,7 +514,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         panelSymbols.removeAll();
         lastCount.setText(Long.toString(_ls.size()));
         panelSymbols.add(lastCount);
-        AbsCompoFactory fr_ = getCommonFrame().getFrames().getCompoFactory();
+        AbsCompoFactory fr_ = getFrames().getCompoFactory();
         for (ResultRowSrcLocationList f: symbols) {
             AbsPanel c_ = fr_.newLineBox();
             updatePanel(c_,f);
@@ -523,7 +523,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         update(r_);
     }
     public void updatePanel(AbsPanel _p,ResultRowSrcLocationList _r) {
-        AbsCompoFactory fr_ = getCommonFrame().getFrames().getCompoFactory();
+        AbsCompoFactory fr_ = getFrames().getCompoFactory();
         _p.left();
         for (RowSrcLocation l: _r.getSymbols()) {
             AbsButton b_ = fr_.newPlainButton(l.getKind() + ":" + l.getDisplay());
@@ -553,7 +553,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     protected ManageOptions manage(StringList _linesFiles) {
-        return new ManageOptions(getCommonFrame().getFrames().getLanguages(), _linesFiles, factory);
+        return new ManageOptions(getFrames().getLanguages(), _linesFiles, factory);
     }
 
     public AbsTreeGui getFolderSystem() {

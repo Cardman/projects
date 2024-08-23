@@ -51,12 +51,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //public final class WindowAiki extends NetGroupFrame
     //implemented SettingInfosAfterCompiler
 
-    public static final String OK = "ok";
+//    public static final String OK = "ok";
     public static final String APPS_AIKI = "aiki";
     public static final String TEMP_FOLDER = "pokemon";
-    private static final String DIALOG_ACCESS = "aiki.gui.mainwindow";
+//    private static final String DIALOG_ACCESS = "aiki.gui.mainwindow";
 
-    private static final String TITLE = "title";
+//    private static final String TITLE = "title";
 
 //    private static final String CST_FILE = "file";
 //    private static final String FOLDER_LOAD = "folderLoad";
@@ -243,7 +243,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         core = new WindowAikiCore(_fact,_list, resultFile);
         renderDataWeb = new FrameHtmlData(this, dataWeb);
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _list);
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list, this);
         selectPokemon = new SelectPokemon(_list, this);
@@ -258,7 +258,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         softParams = new DialogSoftParams(_list);
 //        dialogServer = new DialogServerAiki(_list);
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
-        setAccessFile(DIALOG_ACCESS);
+//        setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         setFocusableWindowState(true);
 //        facade = new FacadeGame();
@@ -298,7 +298,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         addWindowListener(new QuittingEvent(this));
         core.getFacade().setData(new DataBase(_list.getGenerator()));
         initMessages();
-        setTitle(messages.getVal(TITLE));
+        setTitle(messages.getVal(MessagesRenderWindowPk.TITLE));
     }
 //    public static StringMap<String> getMessagesFromLocaleClass(String _loc) {
 //        return getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _loc, DIALOG_ACCESS);
@@ -378,7 +378,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         battle.getRenderDataFight().closeWindow();
         dataBattle.setEnabled(isInBattle());
         ecrireCoordonnees();
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(this, getFrames());
 //        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
 //            QuitAiki quit_ = new QuitAiki();
 //            quit_.setClosing(true);

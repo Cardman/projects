@@ -9,11 +9,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefNodeContainer;
-import code.sml.NodeContainer;
-import code.sml.NodeInformations;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.Element;
+import code.sml.*;
 import code.util.LongMap;
 import code.util.LongTreeMap;
 import code.util.StringList;
@@ -2263,7 +2259,7 @@ public final class RenderNavigationTest extends CommonRender {
         nc_.getNodeInformation().setEnabled(true);
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
-        values_.add("on");
+        values_.add(SetupableAnalyzingDoc.ON);
         ni_.setValue(values_);
         a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
@@ -2442,7 +2438,7 @@ public final class RenderNavigationTest extends CommonRender {
         nc_.getNodeInformation().setEnabled(true);
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
-        values_.add("on");
+        values_.add(SetupableAnalyzingDoc.ON);
         ni_.setValue(values_);
         nc_ = containers_.getVal(3L);
         nc_.getNodeInformation().setEnabled(true);
@@ -3914,7 +3910,7 @@ public final class RenderNavigationTest extends CommonRender {
         nc_.getNodeInformation().setEnabled(true);
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
-        values_.add("on");
+        values_.add(SetupableAnalyzingDoc.ON);
         ni_.setValue(values_);
         a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
@@ -3964,7 +3960,7 @@ public final class RenderNavigationTest extends CommonRender {
         nc_.getNodeInformation().setEnabled(true);
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
-        values_.add("off");
+        values_.add(SetupableAnalyzingDoc.OFF);
         ni_.setValue(values_);
         a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);

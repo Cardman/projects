@@ -58,7 +58,7 @@ public final class HelpCaller {
                 }
             }
         }
-        return MetaDocument.newInstance(dest_, rend_,"ABCDEF",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(_imgs));
+        return MetaDocument.newInstance(dest_, rend_,"",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(_imgs));
     }
     private Node proc(Node _current, String _prefix, Document _doc, StringMap<TranslationsFile> _files, RendKeyWordsGroup _rend) {
         if (_current instanceof Element) {

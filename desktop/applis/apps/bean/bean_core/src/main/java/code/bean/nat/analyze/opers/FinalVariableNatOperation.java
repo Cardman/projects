@@ -1,9 +1,10 @@
 package code.bean.nat.analyze.opers;
 
-import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.bean.nat.fwd.opers.NatAnaVariableContent;
-import code.util.core.IndexConstants;
+import code.bean.nat.*;
+import code.bean.nat.analyze.blocks.*;
+import code.bean.nat.analyze.instr.*;
+import code.bean.nat.fwd.opers.*;
+import code.util.core.*;
 
 public final class FinalVariableNatOperation extends LeafNatOperation {
 
@@ -35,7 +36,7 @@ public final class FinalVariableNatOperation extends LeafNatOperation {
             return;
         }
         variableContent.setVariableName(str_);
-        setResultClass("$int");
+        setResultClass(BeanNatCommonLgNames.PRIM_INTEGER);
     }
 
     public boolean isVarIndex() {

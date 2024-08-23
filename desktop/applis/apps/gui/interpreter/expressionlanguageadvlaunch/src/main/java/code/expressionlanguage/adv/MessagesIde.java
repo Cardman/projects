@@ -142,6 +142,8 @@ public final class MessagesIde {
     public static final String IDE_POINTS_GL_FORM_REND = "1";
     public static final String IDE_POINTS_GL_FORM_POINTS = "2";
     public static final String IDE_POINTS_GL_FORM_CONST = "3";
+    public static final String IDE_POINTS_GL_FORM_EXACT = "4";
+    public static final String IDE_POINTS_GL_FORM_ANNOT = "5";
     public static final String IDE_POINTS_SESSION_FORM = "17";
     public static final String IDE_POINTS_SESSION_FORM_SHOW = "0";
     public static final String IDE_POINTS_SESSION_FORM_VARS = "1";
@@ -188,6 +190,8 @@ public final class MessagesIde {
     public static final String IDE_POINTS_FRAMES_CREATE_FILE = "18";
     public static final String IDE_POINTS_FRAMES_SESSION_EXP = "19";
     public static final String IDE_POINTS_FRAMES_SESSION_SINGLE_MAIN = "20";
+    public static final String CDM_EDITOR = "cdm_editor";
+
     private MessagesIde(){
     }
     public static StringMap<String> valInitChoose(TranslationsLg _lg) {
@@ -713,6 +717,8 @@ public final class MessagesIde {
         e_.add(IDE_POINTS_GL_FORM_REND,"render points");
         e_.add(IDE_POINTS_GL_FORM_POINTS,"custom points");
         e_.add(IDE_POINTS_GL_FORM_CONST,"constraints");
+        e_.add(IDE_POINTS_GL_FORM_EXACT,"real field");
+        e_.add(IDE_POINTS_GL_FORM_ANNOT,"annotation method");
         return e_;
     }
     public static TranslationsFile frGlForm(){
@@ -721,6 +727,8 @@ public final class MessagesIde {
         f_.add(IDE_POINTS_GL_FORM_REND,"points de rendu");
         f_.add(IDE_POINTS_GL_FORM_POINTS,"points personnalisés");
         f_.add(IDE_POINTS_GL_FORM_CONST,"contraintes");
+        f_.add(IDE_POINTS_GL_FORM_EXACT,"champ réel");
+        f_.add(IDE_POINTS_GL_FORM_ANNOT,"méthode d'annotation");
         return f_;
     }
     public static void appendSessionForm(TranslationsAppli _a, TranslationsFile _v) {

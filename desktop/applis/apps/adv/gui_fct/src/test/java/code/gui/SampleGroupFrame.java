@@ -5,7 +5,7 @@ import code.gui.initialize.AbstractProgramInfos;
 public final class SampleGroupFrame extends GroupFrame implements AbsOpenQuit,AbsChildFrame {
     public SampleGroupFrame(AbstractProgramInfos _list) {
         super(_list);
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _list);
     }
 
     @Override

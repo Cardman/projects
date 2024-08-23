@@ -20,7 +20,7 @@ public final class OutputDialogComments implements WithFrame {
         frame = _fr;
         associated = _c;
         comments = new CustList<CommentDelimiters>(_w.getComments());
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         commentsRows = new CustList<EditCommentRow>();
         dels = factories_.getCompoFactory().newPageBox();
         lines(factories_);
@@ -42,7 +42,7 @@ public final class OutputDialogComments implements WithFrame {
         associated.setEnabled(false);
     }
     public void reinit(WindowWithTreeImpl _w) {
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         comments.clear();
         comments.addAllElts(_w.getComments());
         dels.removeAll();

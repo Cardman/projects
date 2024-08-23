@@ -18,7 +18,7 @@ import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 
 public final class SelectEgg extends SelectDialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectegg";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectegg";
 
 //    private static final String TITLE = "title";
 
@@ -32,7 +32,7 @@ public final class SelectEgg extends SelectDialog {
 
     public SelectEgg(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
-        getSelectDial().setAccessFile(DIALOG_ACCESS);
+//        getSelectDial().setAccessFile(DIALOG_ACCESS);
         compo = _infos.getCompoFactory();
     }
 

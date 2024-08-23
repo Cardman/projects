@@ -397,7 +397,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        c_.gridwidth = GridBagConstraints.REMAINDER;
 //        grid.setConstraints(fleeWeb, c_);
         if (!facade.getFight().getFightType().isExisting()) {
-            validateActions = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+            validateActions = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderBattle.OK));
             validateActions.addActionListener(new PkNonModalEvent(window.getModal()),new EndFightEvent(this));
             //fleeWeb.add(validateActions);
             //upper.add(fleeWeb);

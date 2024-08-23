@@ -1,11 +1,9 @@
 package code.vi.sys.impl.gui;
 
 import code.gui.*;
-import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbsLightFrameFactory;
 import code.gui.initialize.AbsStringBuffer;
-import code.gui.initialize.AbstractProgramInfos;
 import code.vi.prot.impl.gui.CustComponent;
 
 import java.awt.*;
@@ -14,8 +12,8 @@ import java.awt.image.MemoryImageSource;
 public final class DefFrameFactory implements AbsFrameFactory, AbsLightFrameFactory {
     private static final String SELECT = "select";
     @Override
-    public AbsCommonFrame newCommonFrame(AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
-        return new CommonFrame(_frames, _imageIconFrame);
+    public AbsCommonFrame newCommonFrame() {
+        return new CommonFrame();
     }
 
     @Override

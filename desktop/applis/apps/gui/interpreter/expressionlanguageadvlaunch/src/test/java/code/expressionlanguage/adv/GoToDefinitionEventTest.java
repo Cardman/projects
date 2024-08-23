@@ -55,7 +55,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         s_.getTree().select(s_.getTree().getRoot().getFirstChild().getNextSibling().getNextSibling().getFirstChild());
         s_.getTabs().get(0).getCenter().select(43,43);
         currentElement(s_.getTabs().get(0));
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/exp/src/file_exp2.txt").delete();
+        w_.getFrames().getFileCoreStream().newFile("/project/sources/exp/src/file_exp2.txt").delete();
         goTo(s_, 0);
         assertEq(1,s_.getTabs().size());
         assertEq(0,s_.getEditors().getSelectedIndex());
@@ -156,7 +156,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
     @Test
     public void noAna() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "src//bad","public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
-        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getCommonFrame().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);
@@ -198,7 +198,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
     @Test
     public void noAnaAfter() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspaceAlready( "src//bad","public class pkg.ExClass:AbsStringReplacer{Second s;public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}","public class pkg.Second{}");
-        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getCommonFrame().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/project/sources/exp/0.txt","",w_.getFrames().getStreams());
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.setLimitSymbol(1);

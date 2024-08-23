@@ -17,7 +17,7 @@ public final class OutputDialogExpresion implements SetupableFolder {
     private String folderExp = AbsEditorTabList.EMPTY_STRING;
     public OutputDialogExpresion(WindowCdmEditor _w) {
         owner = _w;
-        AbstractProgramInfos frs_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = _w.getFrames();
         AbsPanel panel_ = frs_.getCompoFactory().newPageBox();
         StringMap<String> mes_ = MessagesIde.valManageString(frs_.currentLg());
         chooseFolder = frs_.getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_MANAGE_STRING_FOLDER)));

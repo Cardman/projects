@@ -22,7 +22,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractFutureParam;
 
 public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
 
     private static final String TEXT = "0";
 
@@ -43,7 +43,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         super(_parent.getFrames());
         window = _parent;
         videoLoading = _parent.getVideoLoading();
-        setAccessFile(DIALOG_ACCESS);
+//        setAccessFile(DIALOG_ACCESS);
 //        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent.getCommonFrame());
         getCommonFrame().setLocationRelativeTo(_parent.getCommonFrame());

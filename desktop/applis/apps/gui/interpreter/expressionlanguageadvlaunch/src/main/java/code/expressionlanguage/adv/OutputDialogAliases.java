@@ -38,7 +38,7 @@ public final class OutputDialogAliases implements WithFrame{
         custAliases = new CustAliases();
         lgNamesContent = new LgNamesContent();
         aliases = new OutputDialogMapMessagesEdit(_w,_w.getLgAliases(), aliases(_w));
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         AbsTabbedPane tab_ = factories_.getCompoFactory().newAbsTabbedPane();
         StringMap<String> mes_ = MessagesIde.valAliases(factories_.currentLg());
@@ -76,13 +76,13 @@ public final class OutputDialogAliases implements WithFrame{
     }
 
     static CustList<String> keyWords(WindowWithTreeImpl _w) {
-        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getFrames().getLanguage());
+        TranslationsLg lg_ = CustAliases.lg(_w.getFrames().getTranslations(), _w.getUsedLg(), _w.getFrames().getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
         return TranslationsFile.extractKeys(com_).values();
     }
     static StringList aliases(WindowWithTreeImpl _w) {
-        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getFrames().getLanguage());
+        TranslationsLg lg_ = CustAliases.lg(_w.getFrames().getTranslations(), _w.getUsedLg(), _w.getFrames().getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile types_ = app_.getMapping().getVal(FileInfos.TYPES);
         TranslationsFile typesGui_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
@@ -92,7 +92,7 @@ public final class OutputDialogAliases implements WithFrame{
     }
 
     static CustList<String> keysMessages(WindowWithTreeImpl _w) {
-        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getFrames().getLanguage());
+        TranslationsLg lg_ = CustAliases.lg(_w.getFrames().getTranslations(), _w.getUsedLg(), _w.getFrames().getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
         return TranslationsFile.extractKeys(com_).values();

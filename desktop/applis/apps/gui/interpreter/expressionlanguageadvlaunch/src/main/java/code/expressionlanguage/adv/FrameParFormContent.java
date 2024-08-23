@@ -19,20 +19,22 @@ public final class FrameParFormContent {
     private AbsButton ok;
     private AbsButton remove;
     private AbsPanel contentPane;
+    private final AbstractProgramInfos frames;
 
     public FrameParFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiGetStackForm = new GuiStackForm(_c);
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        get = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_GET)));
-        enabledPar = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
+        get = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_GET)));
+        enabledPar = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        clName = _d.getFrames().getCompoFactory().newTextField();
         exactForm.guiBuild(_d);
-        AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(exactForm.getPanel());
         bpForm_.add(clName);
         bpForm_.add(enabledPar);
@@ -58,7 +60,7 @@ public final class FrameParFormContent {
             getEnabledPar().setSelected(exc_.getValue().isEnabled());
             BreakPointFormEvent.specific(getGuiGetStackForm(), exc_.getValue().getResultGet(), BreakPointBlockList.prefsPar(_r.getContext().parList()), _f,_r);
             getGet().setSelected(exc_.getValue().isGet());
-            PackingWindowAfter.pack(_f);
+            PackingWindowAfter.pack(_f, frames.getCompoFactory());
         } else {
             getGuiGetStackForm().getDependantPointsForm().init(_r, ParPoint.PP);
             FrameMpForm.updatePref(BreakPointBlockList.prefsPar(_r.getContext().parList()),getGuiGetStackForm(),_f,_r);

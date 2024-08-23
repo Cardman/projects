@@ -29,7 +29,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class TeamPanel {
-    public static final String TEAM_PANEL = "aiki.gui.components.walk.teampanel";
+//    public static final String TEAM_PANEL = "aiki.gui.components.walk.teampanel";
 
     private static final String SPACE = " ";
 

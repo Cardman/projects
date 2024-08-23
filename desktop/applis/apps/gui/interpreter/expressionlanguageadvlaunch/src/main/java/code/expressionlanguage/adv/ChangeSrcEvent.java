@@ -16,9 +16,8 @@ public final class ChangeSrcEvent implements AbsActionListener {
     @Override
     public void action() {
         if (windowCdmEditor.getSrcFrames().isEmpty()) {
-            AbsCommonFrame fr_ = windowCdmEditor.getCommonFrame();
-            AbstractProgramInfos frs_ = fr_.getFrames();
-            AbsCommonFrame frame_ = frs_.getFrameFactory().newCommonFrame(frs_, null);
+            AbstractProgramInfos frs_ = windowCdmEditor.getFrames();
+            AbsCommonFrame frame_ = frs_.getFrameFactory().newCommonFrame();
             frame_.addWindowListener(new CloseFrame(frame_, srcMenu));
             OutputDialogSrc w_ = new OutputDialogSrc(windowCdmEditor, frame_, srcMenu);
             windowCdmEditor.getSrcFrames().add(w_);

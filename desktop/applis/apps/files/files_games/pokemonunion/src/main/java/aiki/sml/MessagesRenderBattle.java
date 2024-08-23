@@ -30,6 +30,7 @@ public final class MessagesRenderBattle {
     public static final String TITLE = "24";
     public static final String VALIDATE_EVOS = "25";
     public static final String VALIDATE_SWITCH = "26";
+    public static final String OK = "27";
     private MessagesRenderBattle() {
     }
     public static TranslationsFile en(){
@@ -61,6 +62,7 @@ public final class MessagesRenderBattle {
         e_.add(TITLE,"Data about the current fight");
         e_.add(VALIDATE_EVOS,"Validate evolutions and moves");
         e_.add(VALIDATE_SWITCH,"Validate switches");
+        e_.add(OK,"ok");
         return e_;
     }
 
@@ -93,6 +95,7 @@ public final class MessagesRenderBattle {
         f_.add(TITLE,"Données sur le combat courant");
         f_.add(VALIDATE_EVOS,"Valider les évolutions et attaques");
         f_.add(VALIDATE_SWITCH,"Valider les remplacements");
+        f_.add(OK,"ok");
         return f_;
     }
 }

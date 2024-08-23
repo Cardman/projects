@@ -78,14 +78,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     //    public static final String READY = "ready";
 
-    public static final String REASON = "reason";
+//    public static final String REASON = "reason";
 
 //    public static final String WAIT_TURN = "waitTurn";
 
     public static final String APP_CARDS = "cards";
     public static final String TEMP_FOLDER = "cards";
 
-    private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
+//    private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
 
 //    private static final String TOO_MANY = "tooMany";
 
@@ -233,7 +233,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         languageDialogButtons = new LanguageDialogButtons(_list,_pair.getLgMenu(), new AlwaysActionListenerAct());
         setPausingCardsAnims(new DefPausingCardsAnims());
         modal = _list.getThreadFactory().newAtomicBoolean();
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _list);
         generalHelp = _geneHelp;
         fileSaveFrame = new FileSaveFrame(_list, modal);
         fileOpenFrame = new FileOpenFrame(_list, modal);
@@ -255,7 +255,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        preparedPresident = _president;
 //        preparedTarot = _tarot;
 //        pseudosJoueurs=new Nicknames(getLanguageKey());
-        setAccessFile(DIALOG_ACCESS);
+//        setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         requestFocus();
         setFocusableWindowState(true);
@@ -337,7 +337,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         addWindowListener(new QuittingEvent(this));
     }
     public static AbsCommonFrame frame(AbstractProgramInfos _pr) {
-        return _pr.getFrameFactory().newCommonFrame(_pr,null);
+        return _pr.getFrameFactory().newCommonFrame();
     }
 //    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
 //        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
@@ -449,7 +449,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         beforeClose();
         LanguageDialogButtons.enable(mainButton.getMainButton(),true);
 //        LanguageComponentButtons.enableButtons(mainButton.getButtons(),true);
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(this, getFrames());
 //        closeOpened();
         /*if (containerGame instanceof ContainerMulti) {
             if (!getMultiStop().isEnabled()) {

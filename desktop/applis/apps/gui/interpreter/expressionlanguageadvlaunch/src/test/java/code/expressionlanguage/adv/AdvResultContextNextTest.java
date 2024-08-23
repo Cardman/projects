@@ -194,13 +194,13 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
         return ((ExpDebGuiImpl)_b).getFound();
     }
     public static AbsDebuggerGui buildExpAdv(WindowCdmEditor _w) {
-        AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
-        SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
+        AbstractProgramInfos pr_ = _w.getFrames();
+        SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getFrames(),_w.getFactory());
         return new ExpDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_, pr_,_w.getFactory());
     }
     public static AbsDebuggerGui buildExpAdvCore(WindowCdmEditor _w) {
-        AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
-        SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getCommonFrame().getFrames(),_w.getFactory());
+        AbstractProgramInfos pr_ = _w.getFrames();
+        SampleMockResultContextNext m_ = new SampleMockResultContextNext(_w,_w.getFrames(),_w.getFactory());
         return new InitDebGuiImpl(new ExpMenuFrameInteract(pr_.getCompoFactory().newMenuItem()),m_, pr_,_w.getFactory());
     }
     public static WindowCdmEditor newWindowLoadDefExpWorkspaceAdv(String _expSrc) {

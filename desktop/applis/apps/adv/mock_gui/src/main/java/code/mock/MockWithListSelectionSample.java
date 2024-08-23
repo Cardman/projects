@@ -15,7 +15,7 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
     private final AbsTextField textField;
 
     public MockWithListSelectionSample(AbstractProgramInfos _f, String _lgKey) {
-        super(_f, _lgKey);
+        super(_lgKey);
         graphicComboGrInt = new MockGraphicComboBoxGenerator().createCombo(new StringList("0","1","2","3"),1);
         graphicComboGrInt.addListener(new MockListSelection(0,this));
         getContentPane().add(graphicComboGrInt.getGlobal());

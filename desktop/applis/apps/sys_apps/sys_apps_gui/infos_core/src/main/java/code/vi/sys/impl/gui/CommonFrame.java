@@ -4,7 +4,6 @@ import code.gui.*;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
-import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.IdMap;
 import code.vi.prot.impl.DefImage;
@@ -20,8 +19,7 @@ import java.awt.event.WindowEvent;
 
 public final class CommonFrame implements AbsCommonFrame {
 
-    private final AbstractProgramInfos frames;
-    private String accessFile;
+    //    private String accessFile;
 
     private AbsPanel contentPane = Panel.newLineBox();
 
@@ -29,9 +27,7 @@ public final class CommonFrame implements AbsCommonFrame {
     private AbsMenuBar menuBar;
     private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
     private AbstractImage imageIconFrame;
-    public CommonFrame(AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
-        frames = _frames;
-        imageIconFrame = _imageIconFrame;
+    public CommonFrame() {
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
 
@@ -42,10 +38,6 @@ public final class CommonFrame implements AbsCommonFrame {
 
     public void setImageIconFrame(AbstractImage _imageIconFrame) {
         imageIconFrame = _imageIconFrame;
-    }
-
-    public AbstractProgramInfos getFrames(){
-        return frames;
     }
 
     public void dispose() {
@@ -121,13 +113,13 @@ public final class CommonFrame implements AbsCommonFrame {
         frame.setIconImage(DefImageFactory.icon((DefImage) _image).getImage());
     }
 
-    public String getAccessFile() {
-        return accessFile;
-    }
-
-    public void setAccessFile(String _accessFile) {
-        accessFile = _accessFile;
-    }
+//    public String getAccessFile() {
+//        return accessFile;
+//    }
+//
+//    public void setAccessFile(String _accessFile) {
+//        accessFile = _accessFile;
+//    }
 
     public void setContentPane(AbsPanel _contentPane) {
         frame.setContentPane(((Panel)_contentPane).getNatComponent());

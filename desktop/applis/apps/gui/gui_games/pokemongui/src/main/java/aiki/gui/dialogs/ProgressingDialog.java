@@ -50,7 +50,7 @@ public final class ProgressingDialog implements ProgressDialog {
 
     public ProgressingDialog(AbstractProgramInfos _frameFactory, AbstractAtomicBooleanCore _frame) {
         frames = _frameFactory;
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame();
         absDialog.addWindowListener(new ClosingProgressingDialog(this, _frame));
         loadFlag =_frameFactory.getThreadFactory().newAtomicBoolean();
         comp = _frameFactory.getCompoFactory().newPlainLabel("");

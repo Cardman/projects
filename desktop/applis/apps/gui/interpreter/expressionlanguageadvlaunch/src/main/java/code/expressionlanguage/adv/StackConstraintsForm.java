@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.dbg.ExecFileBlockFct;
 import code.expressionlanguage.exec.dbg.ExecFileBlockTraceIndex;
 import code.expressionlanguage.options.ResultContext;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -23,6 +24,11 @@ public final class StackConstraintsForm {
     private AbsSplitPane staIncExc;
     private final CustList<AbsCallContraints> mustBe = new CustList<AbsCallContraints>();
     private final CustList<AbsCallContraints> mustNotBe = new CustList<AbsCallContraints>();
+    private final AbstractProgramInfos frames;
+
+    public StackConstraintsForm(AbstractProgramInfos _api) {
+        frames = _api;
+    }
 
     public void add(ResultContext _res, CustList<AbsCallContraints> _list, ReadOnlyFormTabEditor _e) {
         FileBlock v_ = _res.getPageEl().getPreviousFilesBodies().getVal(_e.getFullPath());
@@ -66,20 +72,20 @@ public final class StackConstraintsForm {
     }
     public AbsSplitPane guiBuild(AbsDebuggerGui _d, AbsButton _valid) {
         StringMap<String> mes_ = MessagesIde.valPointForm(_d.getFrames().currentLg());
-        bpFolderSystem = _d.getCommonFrame().getFrames().getCompoFactory().newTreeGui(_d.getCommonFrame().getFrames().getCompoFactory().newMutableTreeNode(AbsEditorTabList.EMPTY_STRING));
+        bpFolderSystem = _d.getFrames().getCompoFactory().newTreeGui(_d.getFrames().getCompoFactory().newMutableTreeNode(AbsEditorTabList.EMPTY_STRING));
         bpFolderSystem.select(bpFolderSystem.getRoot());
-        readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getCommonFrame().getFrames(), _d.getManageOptions().getOptions());
-        AbsPanel actions_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        staIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newVerticalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newHorizontalSplitPane(_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()),actions_);
-        singleCaret = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_SINGLE)));
+        readOnlyFormTabEditor = new ReadOnlyFormTabEditor(_d,_d.getFrames(), _d.getManageOptions().getOptions());
+        AbsPanel actions_ = _d.getFrames().getCompoFactory().newPageBox();
+        staIncExc = _d.getFrames().getCompoFactory().newVerticalSplitPane(_d.getFrames().getCompoFactory().newHorizontalSplitPane(_d.getFrames().getCompoFactory().newAbsScrollPane(bpFolderSystem),readOnlyFormTabEditor.getPanel()),actions_);
+        singleCaret = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_SINGLE)));
         singleCaret.setSelected(true);
         actions_.add(singleCaret);
-        bpAddFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_INC)));
+        bpAddFile = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_INC)));
         actions_.add(bpAddFile);
-        bpRemoveFile = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_EXC)));
+        bpRemoveFile = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_EXC)));
         actions_.add(bpRemoveFile);
-        includedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
-        excludedFileIndex = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        includedFileIndex = _d.getFrames().getCompoFactory().newPageBox();
+        excludedFileIndex = _d.getFrames().getCompoFactory().newPageBox();
         actions_.add(includedFileIndex);
         actions_.add(excludedFileIndex);
         if (_valid != null){
@@ -102,12 +108,12 @@ public final class StackConstraintsForm {
         includedFileIndex.removeAll();
         excludedFileIndex.removeAll();
         for (AbsCallContraints l: getMustBe()) {
-            AbsButton r_ = _c.getFrames().getCompoFactory().newPlainButton("+ "+l.valueStr());
+            AbsButton r_ = frames.getCompoFactory().newPlainButton("+ "+l.valueStr());
             r_.addActionListener(new RemoveIncludeEvent(this, l, _c));
             includedFileIndex.add(r_);
         }
         for (AbsCallContraints l: getMustNotBe()) {
-            AbsButton r_ = _c.getFrames().getCompoFactory().newPlainButton("- "+l.valueStr());
+            AbsButton r_ = frames.getCompoFactory().newPlainButton("- "+l.valueStr());
             r_.addActionListener(new RemoveExcludeEvent(this, l, _c));
             excludedFileIndex.add(r_);
         }

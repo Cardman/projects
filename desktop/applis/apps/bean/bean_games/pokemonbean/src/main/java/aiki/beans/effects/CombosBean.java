@@ -6,11 +6,12 @@ import aiki.beans.facade.comparators.DictionaryComparatorCombos;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.util.ListEffectCombo;
+import code.scripts.confs.*;
 import code.util.CustList;
 import code.util.StringList;
 
 public class CombosBean extends CommonBean {
-    static final String COMBO="web/html/combo/combo.html";
+    static final String COMBO=PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBO_HTML;
     private ComboDto combos;
 
     @Override

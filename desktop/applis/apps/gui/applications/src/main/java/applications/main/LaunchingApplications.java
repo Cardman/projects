@@ -138,7 +138,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     private WindowApps launchWindow(WithAppFactories _list) {
         TopLeftFrame topLeft_ = FileDialog.loadCoords(getTempFolder(_list.getProgramInfos()),COORDS, _list.getProgramInfos().getFileCoreStream(), _list.getProgramInfos().getStreams());
         WindowApps w_ = getWindow(_list);
-        FileDialog.setLocation(w_.getCommonFrame(), topLeft_);
+        FileDialog.setLocation(w_.getCommonFrame(), topLeft_, _list.getProgramInfos());
         return w_;
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {

@@ -5,8 +5,8 @@ import code.util.StringMap;
 import code.util.core.NumberUtil;
 
 public abstract class SetupableAnalyzingDoc {
-    public static final String OFF = "off";
-    public static final String ON = "on";
+    public static final String OFF = "0";
+    public static final String ON = "1";
     private StringList languages = new StringList();
 
     private String internGlobalClass="";

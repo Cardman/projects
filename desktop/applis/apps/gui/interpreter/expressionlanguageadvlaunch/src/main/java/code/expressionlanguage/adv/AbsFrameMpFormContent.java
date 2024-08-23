@@ -19,28 +19,30 @@ public abstract class AbsFrameMpFormContent {
     private AbsButton remove;
     private AbsPanel contentPaneForm;
     private AbsPanel contentPane;
+    private final AbstractProgramInfos frames;
     protected AbsFrameMpFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiEnterStackForm = new GuiStackForm(_c);
         guiExitStackForm = new GuiStackForm(_c);
     }
     public abstract void guiBuildBase(AbsDebuggerGui _d);
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        enterFunction = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENTRY)));
-        exitFunction = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_EXIT)));
-        enabledMp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        enterFunction = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENTRY)));
+        exitFunction = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_EXIT)));
+        enabledMp = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(enabledMp);
         bpForm_.add(enterFunction);
         bpForm_.add(exitFunction);
-        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        AbsTabbedPane tab_ = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(_d, tab_, guiEnterStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENTRY)));
         putStForm(_d, tab_, guiExitStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_EXIT)));
         bpForm_.add(tab_);
         contentPaneForm = bpForm_;
-        contentPane = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        contentPane = _d.getFrames().getCompoFactory().newPageBox();
     }
 
     private void putStForm(AbsDebuggerGui _d, AbsTabbedPane _tab, GuiStackForm _target, String _title) {
@@ -58,6 +60,10 @@ public abstract class AbsFrameMpFormContent {
     public void refresh(StringMap<String> _v, ResultContext _r, AbsDebuggerGui _d) {
         getGuiEnterStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
         getGuiExitStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+    }
+
+    public AbstractProgramInfos getFrames() {
+        return frames;
     }
 
     public AbsPanel getContentPane() {

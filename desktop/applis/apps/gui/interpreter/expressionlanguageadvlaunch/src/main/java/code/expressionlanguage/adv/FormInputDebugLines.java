@@ -14,22 +14,21 @@ public final class FormInputDebugLines {
 //    private final AbsPlainButton val;
     private final AbsScrollPane scrollPaneGl;
 //    private final CustList<StringStruct> output = new CustList<StringStruct>();
-    public FormInputDebugLines(AbsCommonFrame _par) {
-        AbstractProgramInfos factories_ = _par.getFrames();
+    public FormInputDebugLines(AbsCommonFrame _par, AbstractProgramInfos _api) {
         commentsRows = new CustList<EditValueRow>();
-        AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
-        AbsPanel all_ = factories_.getCompoFactory().newPageBox();
-        all_.add(factories_.getCompoFactory().newAbsScrollPane(dels_));
-        add = factories_.getCompoFactory().newPlainButton("+");
-        add.addActionListener(new AddValueRow(commentsRows,dels_,factories_, _par));
+        AbsPanel dels_ = _api.getCompoFactory().newPageBox();
+        AbsPanel all_ = _api.getCompoFactory().newPageBox();
+        all_.add(_api.getCompoFactory().newAbsScrollPane(dels_));
+        add = _api.getCompoFactory().newPlainButton("+");
+        add.addActionListener(new AddValueRow(commentsRows,dels_, _api, _par));
         all_.add(add);
-        rem = factories_.getCompoFactory().newPlainButton("-");
+        rem = _api.getCompoFactory().newPlainButton("-");
         rem.addActionListener(new RemoveValueRow(commentsRows,dels_, _par));
         all_.add(rem);
 //        val = factories_.getCompoFactory().newPlainButton("OK");
 //        val.addActionListener(new ValidateValues(output,commentsRows));
 //        all_.add(val);
-        scrollPaneGl = factories_.getCompoFactory().newAbsScrollPane(all_);
+        scrollPaneGl = _api.getCompoFactory().newAbsScrollPane(all_);
     }
 
     public AbsScrollPane getScrollPaneGl() {

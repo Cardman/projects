@@ -56,7 +56,7 @@ public final class MessagesRenderScenePanel {
     public static final String WITHDRAW_EGG = "50";
     public static final String WITHDRAW_PK = "51";
     public static final String ROOMS = "52";
-//    public static final String BUG = "53";
+    public static final String OK = "53";
     public static final String CST_SERVER = "54";
 //    public static final String NOT_CONNECTED = "55";
     public static final String READY = "56";
@@ -121,7 +121,7 @@ public final class MessagesRenderScenePanel {
         e_.add(WITHDRAW_EGG,"Withdraw the selected egg from the box");
         e_.add(WITHDRAW_PK,"Withdraw the selected pokemon from the box");
         e_.add(ROOMS,"Nb remaining rooms: {0}");
-//        e_.add(BUG,"Bug");
+        e_.add(OK,"ok");
         e_.add(CST_SERVER,"Trading pokemon between players");
 //        e_.add(NOT_CONNECTED,"Not connected");
         e_.add(READY,"Ready for trading");
@@ -186,7 +186,7 @@ public final class MessagesRenderScenePanel {
         f_.add(WITHDRAW_EGG,"Retirer l'oeuf sélectionné de la boîte");
         f_.add(WITHDRAW_PK,"Retirer le pokemon sélectionné de la boîte");
         f_.add(ROOMS,"Nb de places restantes: {0}");
-//        f_.add(BUG,"Problème");
+        f_.add(OK,"ok");
         f_.add(CST_SERVER,"Échange de pokemon entre joueurs");
 //        f_.add(NOT_CONNECTED,"Non connecté");
         f_.add(READY,"Prêt pour l'échange");

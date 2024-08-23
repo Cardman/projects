@@ -23,7 +23,7 @@ public final class AddCommentRow implements AbsActionListener {
 
     @Override
     public void action() {
-        EditCommentRow r_ = new EditCommentRow(windowCdmEditor.getCommonFrame().getFrames(), new CommentDelimiters(AbsEditorTabList.EMPTY_STRING, new StringList(AbsEditorTabList.EMPTY_STRING)), allComments.size());
+        EditCommentRow r_ = new EditCommentRow(windowCdmEditor.getFrames(), new CommentDelimiters(AbsEditorTabList.EMPTY_STRING, new StringList(AbsEditorTabList.EMPTY_STRING)), allComments.size());
         allComments.add(r_);
         cont.add(r_.getLine());
         GuiBaseUtil.recalculateWindow(frame);

@@ -78,7 +78,7 @@ public abstract class EquallableGuiDocUtil {
         Assert.assertEquals(_expected.getList(), _result.getList());
     }
     public static RenderedPage withFrame(RenderedPage _rend) {
-        _rend.setFrame(_rend.getGene().getFrameFactory().newCommonFrame(_rend.getGene(),null));
+        _rend.setFrame(_rend.getGene().getFrameFactory().newCommonFrame());
         return _rend;
     }
     public static RenderedPage withStd(RenderedPage _rend) {

@@ -76,7 +76,7 @@ public final class QuickSubmitFormTest extends EquallableRenderAdvUtil {
         submit(intForm_, page_);
         StringList l_ = page_.getContainer(0, 0).getValue();
         assertEq(1, l_.size());
-        assertEq("on", l_.get(0));
+        assertEq(SetupableAnalyzingDoc.ON, l_.get(0));
     }
     @Test
     public void form6Test() {
@@ -89,7 +89,7 @@ public final class QuickSubmitFormTest extends EquallableRenderAdvUtil {
         submit(intForm_, page_);
         StringList l_ = page_.getContainer(0, 0).getValue();
         assertEq(1, l_.size());
-        assertEq("off", l_.get(0));
+        assertEq(SetupableAnalyzingDoc.OFF, l_.get(0));
     }
     @Test
     public void form7Test() {

@@ -2,7 +2,6 @@ package code.gui.document;
 
 import code.formathtml.render.*;
 import code.gui.ProgressingWebDialog;
-import code.gui.TextAnswerValue;
 import code.gui.images.AbstractImage;
 import code.maths.montecarlo.CustomSeedGene;
 import code.maths.montecarlo.DefaultGenerator;
@@ -108,7 +107,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.setRenderAction(new AbstractRenderActionNoAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
-        ren_.setFrame(pr_.getFrameFactory().newCommonFrame(pr_,null));
+        ren_.setFrame(pr_.getFrameFactory().newCommonFrame());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
         setupText(c_,"",g_);
@@ -124,7 +123,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
-        ren_.setFrame(pr_.getFrameFactory().newCommonFrame(pr_,null));
+        ren_.setFrame(pr_.getFrameFactory().newCommonFrame());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
         setupText(c_,"",g_);
@@ -140,7 +139,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.setRenderAction(new AbstractRenderActionNoAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
-        ren_.setFrame(pr_.getFrameFactory().newCommonFrame(pr_,null));
+        ren_.setFrame(pr_.getFrameFactory().newCommonFrame());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
         setupText(c_,"",g_);
@@ -158,7 +157,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
-        ren_.setFrame(pr_.getFrameFactory().newCommonFrame(pr_,null));
+        ren_.setFrame(pr_.getFrameFactory().newCommonFrame());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
         setupText(c_,"",g_);
@@ -175,7 +174,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.setRenderAction(new AbstractRenderActionNoAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
-        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame(ren_.getGene(),null));
+        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
         setupText(c_,"",g_);
@@ -191,7 +190,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
-        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame(ren_.getGene(),null));
+        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
         setupText(c_,"",g_);
@@ -207,7 +206,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.setRenderAction(new AbstractRenderActionNoAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
-        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame(ren_.getGene(),null));
+        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
         setupText(c_,"",g_);
@@ -225,7 +224,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
-        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame(ren_.getGene(),null));
+        ren_.setFrame(ren_.getGene().getFrameFactory().newCommonFrame());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
         setupText(c_,"",g_);

@@ -28,7 +28,7 @@ public final class AnalyzeDebugTask implements Runnable {
                 all_.addEntry(m.getKey(),m.getValue().getContent());
             }
         }
-        AbsTextArea ta_ = gui.getCommonFrame().getFrames().getCompoFactory().newTextArea();
+        AbsTextArea ta_ = gui.getFrames().getCompoFactory().newTextArea();
         ta_.setEditable(false);
         ResultContext ana_ = gen_.next(base, src, new DbgStackStopper(new AdvLogDbg(ta_)));
         if (ana_ == null) {

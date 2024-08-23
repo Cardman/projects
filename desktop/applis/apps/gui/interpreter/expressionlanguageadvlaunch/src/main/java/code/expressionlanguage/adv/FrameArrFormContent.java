@@ -43,8 +43,10 @@ public final class FrameArrFormContent {
     private AbsButton ok;
     private AbsButton remove;
     private AbsPanel contentPane;
+    private final AbstractProgramInfos frames;
 
     public FrameArrFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiLengthStackForm = new GuiStackForm(_c);
         guiIntGetStackForm = new GuiStackForm(_c);
         guiIntSetStackForm = new GuiStackForm(_c);
@@ -62,25 +64,25 @@ public final class FrameArrFormContent {
 
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        length = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_LENGTH)));
-        intGet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET)));
-        intSet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_SET)));
-        intCompoundGet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_GET)));
-        intCompoundSet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_SET)));
-        intCompoundSetErr = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_SET_ERR)));
-        rangeGet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_GET)));
-        rangeSet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_SET)));
-        rangeCompoundGet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_COMPOUND_GET)));
-        rangeCompoundSet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_COMPOUND_SET)));
-        intGetSet = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET_SET)));
-        initArray = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INIT_ARRAY)));
-        clone = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CLONE)));
-        enabledExc = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        clName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
+        length = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_LENGTH)));
+        intGet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET)));
+        intSet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_SET)));
+        intCompoundGet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_GET)));
+        intCompoundSet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_SET)));
+        intCompoundSetErr = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_COMPOUND_SET_ERR)));
+        rangeGet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_GET)));
+        rangeSet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_SET)));
+        rangeCompoundGet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_COMPOUND_GET)));
+        rangeCompoundSet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_RANGE_COMPOUND_SET)));
+        intGetSet = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET_SET)));
+        initArray = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INIT_ARRAY)));
+        clone = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_CLONE)));
+        enabledExc = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        clName = _d.getFrames().getCompoFactory().newTextField();
         exactForm.guiBuild(_d);
-        AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(exactForm.getPanel());
         bpForm_.add(clName);
         bpForm_.add(enabledExc);
@@ -97,7 +99,7 @@ public final class FrameArrFormContent {
         bpForm_.add(intGetSet);
         bpForm_.add(initArray);
         bpForm_.add(clone);
-        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        AbsTabbedPane tab_ = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(_d, tab_, guiLengthStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_LENGTH)));
         putStForm(_d, tab_, guiIntGetStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_GET)));
         putStForm(_d, tab_, guiIntSetStackForm, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INT_SET)));
@@ -173,7 +175,7 @@ public final class FrameArrFormContent {
             getInitArray().setSelected(exc_.getValue().isInitArray());
             BreakPointFormEvent.specific(getGuiCloneStackForm(), exc_.getValue().getResultClone(), BreakPointBlockList.prefsArr(_r.getContext().arrList(), ArrPoint.BPC_CLONE), _f,_r);
             getClone().setSelected(exc_.getValue().isInitArray());
-            PackingWindowAfter.pack(_f);
+            PackingWindowAfter.pack(_f, frames.getCompoFactory());
         } else {
             getGuiLengthStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);
             getGuiIntGetStackForm().getDependantPointsForm().init(_r, ArrPoint.AP);

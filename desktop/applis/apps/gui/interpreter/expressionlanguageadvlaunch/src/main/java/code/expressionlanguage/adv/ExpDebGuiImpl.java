@@ -48,8 +48,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
 
     @Override
     protected AbsPanel buildPart() {
-        AbsCommonFrame frame_ = getCommonFrame();
-        AbstractProgramInfos pr_ = frame_.getFrames();
+        AbstractProgramInfos pr_ = getFrames();
         StringMap<String> mes_ = MessagesIde.valForms(pr_.currentLg());
         findReplaceExpression = new FormFindReplaceExpression(pr_);
         AbsPanel page_ = pr_.getCompoFactory().newPageBox();

@@ -112,7 +112,7 @@ public final class ElResolverCommon {
         String hexPre_ = _key.getKeyWordNbHex();
         String binPre_ = _key.getKeyWordNbBin();
         if (_seenDot) {
-            nbInfos_.setSuffix(ElResolver.DOUBLE);
+            nbInfos_.setSuffix(NumberInfos.PRIM_DOUBLE);
             decPart_.append(startChar_);
             if (StringUtil.isWhitespace(startChar_)) {
                 nbInfos_.setError(true);
@@ -120,7 +120,7 @@ public final class ElResolverCommon {
             nbInfos_.setBase(base_);
             return start_ + 1;
         }
-        nbInfos_.setSuffix(ElResolver.INTEGER);
+        nbInfos_.setSuffix(NumberInfos.PRIM_INT);
         int len_ = _string.length();
         if (startChar_ != '0' || start_ + 1 >= len_) {
             intPart_.append(startChar_);
@@ -129,7 +129,7 @@ public final class ElResolverCommon {
         }
         SuffixedNumber suff_ = _key.getNbKeyWord(_string, start_ + 1);
         if (suff_ != null) {
-            char ch_ = suff_.getValue();
+            int ch_ = suff_.getValue();
             nbInfos_.setSuffix(ch_);
             intPart_.append(startChar_);
             _output.setNextIndex(start_ + 1 + suff_.getKey().length());
@@ -234,7 +234,7 @@ public final class ElResolverCommon {
             return _j + 1;
         }
         if (n_ == -1 && nbInfos_.getBase() == 10) {
-            nbInfos_.setSuffix(ElResolver.DOUBLE);
+            nbInfos_.setSuffix(NumberInfos.PRIM_DOUBLE);
             _output.setNextIndex(_j + 1);
             return _j;
         }
@@ -273,7 +273,7 @@ public final class ElResolverCommon {
             append(_seenDot, intPart_, decPart_, current_);
             return _j + 1;
         }
-        nbInfos_.setSuffix(ElResolver.DOUBLE);
+        nbInfos_.setSuffix(NumberInfos.PRIM_DOUBLE);
         //_string.charAt(iExp_) == EXP
         processExp(_key, _j + _off - 1, _string, _output);
         return _j;
@@ -307,7 +307,7 @@ public final class ElResolverCommon {
         int len_ = _string.length();
         NumberInfos nbInfos_ = _output.getInfos();
         StringBuilder decPart_ = nbInfos_.getDecimalPart();
-        nbInfos_.setSuffix(ElResolver.DOUBLE);
+        nbInfos_.setSuffix(NumberInfos.PRIM_DOUBLE);
         int base_ = nbInfos_.getBase();
         int offFirst_ = offExp(base_, decExp_, binExp_, _string, j_ + 1);
         if (offFirst_ > 0) {
@@ -406,7 +406,7 @@ public final class ElResolverCommon {
     private static int incrSuff(KeyWords _key, String _string, NumberInfosOutput _output, int _j) {
         SuffixedNumber suff_ = _key.getNbKeyWord(_string, _j);
         if (suff_ != null) {
-            char su_ = suff_.getValue();
+            int su_ = suff_.getValue();
             _output.getInfos().setSuffix(su_);
             return suff_.getKey().length();
         }
@@ -418,7 +418,7 @@ public final class ElResolverCommon {
         if (suff_ == null) {
             return false;
         }
-        char ch_ = suff_.getValue();
+        int ch_ = suff_.getValue();
         _nbInfos.setSuffix(ch_);
         int n_ = _j + suff_.getKey().length();
         int d_ = StringExpUtil.nextPrintChar(n_, _string.length(), _string);
@@ -591,7 +591,7 @@ public final class ElResolverCommon {
         if (StringExpUtil.nextCharIs(_string, n_, len_, ElResolver.DOT_VAR)) {
             p_ = StringExpUtil.nextPrintChar(n_+1, len_, _string);
             d_ = n_;
-            _output.getInfos().setSuffix(ElResolver.DOUBLE);
+            _output.getInfos().setSuffix(NumberInfos.PRIM_DOUBLE);
         } else {
             p_ = n_;
             d_ = _j;

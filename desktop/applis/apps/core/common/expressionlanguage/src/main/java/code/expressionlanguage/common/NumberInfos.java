@@ -2,6 +2,20 @@ package code.expressionlanguage.common;
 
 public final class NumberInfos {
 
+    public static final int WRAP_DOUBLE=1;
+    public static final int WRAP_FLOAT=2;
+    public static final int WRAP_LONG=3;
+    public static final int WRAP_INT=4;
+    public static final int WRAP_CHAR=5;
+    public static final int WRAP_SHORT=6;
+    public static final int WRAP_BYTE=7;
+    public static final int PRIM_DOUBLE=8;
+    public static final int PRIM_FLOAT=9;
+    public static final int PRIM_LONG=10;
+    public static final int PRIM_INT=11;
+    public static final int PRIM_CHAR=12;
+    public static final int PRIM_SHORT=13;
+    public static final int PRIM_BYTE=14;
     private boolean positive;
     private boolean error;
 
@@ -11,7 +25,7 @@ public final class NumberInfos {
 
     private StringBuilder exponentialPart;
 
-    private char suffix;
+    private int suffix;
 
     private int base;
 
@@ -55,11 +69,11 @@ public final class NumberInfos {
         exponentialPart = _exponentialPart;
     }
 
-    public char getSuffix() {
+    public int getSuffix() {
         return suffix;
     }
 
-    public void setSuffix(char _suffix) {
+    public void setSuffix(int _suffix) {
         suffix = _suffix;
     }
 

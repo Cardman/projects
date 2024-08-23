@@ -4,7 +4,6 @@ import code.gui.events.*;
 import code.gui.files.ClosingFileFrameEvent;
 import code.gui.initialize.*;
 import code.mock.*;
-import code.sml.util.ResourcesMessagesUtil;
 import code.threads.ConcreteBoolean;
 import code.util.*;
 import code.util.comparators.NaturalComparator;
@@ -68,7 +67,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         sub_.add(new MockPlainLabel("-"));
         sub_.add(new MockScrollPane(new MockTextArea("_")));
         mockPanel_.add(sub_);
-        MockCommonFrameSecSample fr_ = new MockCommonFrameSecSample(init());
+        MockCommonFrameSecSample fr_ = new MockCommonFrameSecSample();
         fr_.setContentPane(mockPanel_);
         GuiBaseUtil.recalculateWindow(fr_);
         CustList<MockCustComponent> accessible_ = ((MockCustComponent)fr_.getPane()).getAccessible();
@@ -93,8 +92,8 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void paques() {
         MockProgramInfosSecSample i_ = init();
-        AbsCommonFrame c_ = i_.getFrameFactory().newCommonFrame(i_, null);
-        PackingWindowAfter.pack(c_);
+        AbsCommonFrame c_ = i_.getFrameFactory().newCommonFrame();
+        PackingWindowAfter.pack(c_, i_.getCompoFactory());
         c_.setVisible(true);
         assertTrue(c_.isVisible());
     }
@@ -184,11 +183,11 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         MockSampleFrame fr2_ = new MockSampleFrame(pr_);
         fr_.getCommonFrame().addWindowListener(new ClosingFileFrameEvent(fr_.getCommonFrame(),new ConcreteBoolean()));
         fr_.getCommonFrame().setVisible(true);
-        StringMap<String> m_ = new StringMap<String>();
-        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+//        StringMap<String> m_ = new StringMap<String>();
+//        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
         GuiBaseUtil.choose(pr_,fr_);
         GuiBaseUtil.choose(pr_,fr2_);
-        GuiBaseUtil.tryExit(fr_.getCommonFrame());
+        GuiBaseUtil.tryExit(fr_.getCommonFrame(), pr_);
         assertEq(1,fr_.getCommonFrame().getWindowListenersDef().size());
     }
     @Test
@@ -197,10 +196,10 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         MockSampleFrame fr_ = new MockSampleFrame(pr_);
         fr_.getCommonFrame().addWindowListener(new ClosingFileFrameEvent(fr_.getCommonFrame(),new ConcreteBoolean()));
         fr_.getCommonFrame().setVisible(false);
-        StringMap<String> m_ = new StringMap<String>();
-        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+//        StringMap<String> m_ = new StringMap<String>();
+//        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
         GuiBaseUtil.choose(pr_,fr_);
-        GuiBaseUtil.tryExit(fr_.getCommonFrame());
+        GuiBaseUtil.tryExit(fr_.getCommonFrame(), pr_);
         assertEq(0,fr_.getCommonFrame().getWindowListenersDef().size());
     }
     @Test
@@ -209,10 +208,10 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         MockSampleFrame fr_ = new MockSampleFrame(pr_);
         fr_.getCommonFrame().addWindowListener(new ClosingFileFrameEvent(fr_.getCommonFrame(),new ConcreteBoolean()));
         fr_.getCommonFrame().setVisible(true);
-        StringMap<String> m_ = new StringMap<String>();
-        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+//        StringMap<String> m_ = new StringMap<String>();
+//        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
         GuiBaseUtil.choose(pr_,fr_);
-        GuiBaseUtil.choose(fr_);
+        GuiBaseUtil.choose(fr_, pr_);
         assertFalse(GuiBaseUtil.changeStaticLanguage("",pr_));
         assertTrue(GuiBaseUtil.changeStaticLanguage("_",pr_));
 //        GuiBaseUtil.showDialogError(0,fr_.getCommonFrame());
@@ -226,8 +225,8 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         MockSampleFrame fr_ = new MockSampleFrame(pr_);
         fr_.getCommonFrame().addWindowListener(new ClosingFileFrameEvent(fr_.getCommonFrame(),new ConcreteBoolean()));
         fr_.getCommonFrame().setVisible(true);
-        StringMap<String> m_ = new StringMap<String>();
-        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+//        StringMap<String> m_ = new StringMap<String>();
+//        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
         GuiBaseUtil.choose(pr_,fr_);
 //        GuiBaseUtil.showDialogError(0, fr_.getCommonFrame());
         assertFalse(GuiBaseUtil.tryToReopen("_",pr_));
@@ -351,10 +350,10 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         s_.setFocusableWindowState(true);
         s_.setFocusableWindowState(false);
         s_.addWindowListener(new QuittingEvent(((AbsOpenQuit)s_)));
-        s_.setAccessFile("");
-        GuiBaseUtil.trEx((AbsOpenQuit)s_);
+//        s_.setAccessFile("");
+        GuiBaseUtil.trEx((AbsOpenQuit)s_, pr_);
         s_.getLocation();
-        assertEq("",s_.getAccessFile());
+//        assertEq("",s_.getAccessFile());
         s_.setTitle("frime");
         assertEq("frime",s_.getTitle());
     }
@@ -697,7 +696,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
     private CrudGeneForm<String, Integer> crud(StringMap<Integer> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
-        AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame(pr_,null);
+        AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
         CrudGeneForm<String, Integer> c_ = new CrudGeneForm<String, Integer>(pr_, new NaturalComparator());
         GuiBaseUtil.initStringMapInt(f_, c_, _map, _dico,new DefValidateText());
         return c_;

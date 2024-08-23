@@ -39,16 +39,16 @@ public final class OutputDialogSrcTest extends EquallableElAdvUtil {
         WindowCdmEditor w2_=quickCreate(newMockProgramInfosInitConfExpFolder("/folder/exp"));
         String name_ = w_.getConfGlobal();
         String name2_ = w_.getExecConf();
-        StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
-        StreamTextFile.saveTextFile(name2_,StreamTextFile.contentsOfFile(name2_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
+        StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getFrames().getFileCoreStream(),w_.getFrames().getStreams()),w2_.getFrames().getStreams());
+        StreamTextFile.saveTextFile(name2_,StreamTextFile.contentsOfFile(name2_,w_.getFrames().getFileCoreStream(),w_.getFrames().getStreams()),w2_.getFrames().getStreams());
         w2_.updateEnv(name_);
         assertEq("src",w2_.manage(w2_.getSoftParams().getLines()).getEx().getSrcFolder());
-        assertEq("other_src",w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getCommonFrame().getFrames().getFileCoreStream(),w2_.getCommonFrame().getFrames().getStreams()))).getEx().getSrcFolder());
+        assertEq("other_src",w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getFrames().getFileCoreStream(),w2_.getFrames().getStreams()))).getEx().getSrcFolder());
     }
     @Test
     public void action4() {
         WindowCdmEditor w_=newWindowLoadDef();
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         WindowExpressionEditor s_ = geneSec(w_);
         OutputDialogSrc o_ = srcFolder(s_);
         o_.getSrc().setText("other_src");
@@ -59,7 +59,7 @@ public final class OutputDialogSrcTest extends EquallableElAdvUtil {
     @Test
     public void action5() {
         WindowCdmEditor w_=newWindowLoadDef();
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         WindowExpressionEditor s_ = geneSec(w_);
         OutputDialogSrc o_ = srcFolder(s_);
         o_.getSrc().setText("other_src");
@@ -69,7 +69,7 @@ public final class OutputDialogSrcTest extends EquallableElAdvUtil {
     @Test
     public void action6() {
         WindowCdmEditor w_=newWindowLoadDef();
-        updateDialog((MockProgramInfos) w_.getCommonFrame().getFrames());
+        updateDialog((MockProgramInfos) w_.getFrames());
         WindowExpressionEditor s_ = geneSec(w_);
         OutputDialogSrc o_ = srcFolder(s_);
         o_.getSrc().setText("other_src");
@@ -82,10 +82,10 @@ public final class OutputDialogSrcTest extends EquallableElAdvUtil {
         WindowCdmEditor w2_=quickCreate(newMockProgramInfosInitConfExpFolder("/folder/exp"));
         String name_ = w_.getConfGlobal();
         String name2_ = w_.getExecConf();
-        StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
-        StreamTextFile.saveTextFile(name2_,StreamTextFile.contentsOfFile(name2_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
+        StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getFrames().getFileCoreStream(),w_.getFrames().getStreams()),w2_.getFrames().getStreams());
+        StreamTextFile.saveTextFile(name2_,StreamTextFile.contentsOfFile(name2_,w_.getFrames().getFileCoreStream(),w_.getFrames().getStreams()),w2_.getFrames().getStreams());
         w2_.updateEnv(name_);
         assertEq("other_src",w2_.manage(w2_.getSoftParams().getLines()).getEx().getSrcFolder());
-        assertEq("src",w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getCommonFrame().getFrames().getFileCoreStream(),w2_.getCommonFrame().getFrames().getStreams()))).getEx().getSrcFolder());
+        assertEq("src",w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getFrames().getFileCoreStream(),w2_.getFrames().getStreams()))).getEx().getSrcFolder());
     }
 }

@@ -29,7 +29,7 @@ public final class LocationsTreeEvent implements AbsShortListTree {
         MetaCaller e_ = f_.info();
         CustList<FileBlockIndex> locs_ = e_.getNumber();
         int len_ = locs_.size();
-        AbsCompoFactory comp_ = window.getCommonFrame().getFrames().getCompoFactory();
+        AbsCompoFactory comp_ = window.getFrames().getCompoFactory();
         AbsPanel pa_ = comp_.newPageBox();
         for (int i = 0; i < len_; i++) {
             FileBlockIndex elt_ = locs_.get(i);

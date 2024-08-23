@@ -4,7 +4,7 @@ import code.util.core.NumberUtil;
 
 public final class GuiConstants {
 
-    public static final String FOLDER_MESSAGES_GUI = "resources_gui/gui/components";
+//    public static final String FOLDER_MESSAGES_GUI = "resources_gui/gui/components";
     public static final int HORIZONTAL_SPLIT = 1;
     public static final int ERROR_MESSAGE = 0;
     public static final int WARNING_MESSAGE = 2;

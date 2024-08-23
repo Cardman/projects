@@ -10,7 +10,7 @@ import code.images.BaseSixtyFourUtil;
 import code.util.StringMap;
 
 public abstract class ItemBean extends CommonBean {
-    static final String ITEM_BEAN="web/html/items/item.html";
+    static final String ITEM_BEAN=AikiBeansItemsStd.WEB_HTML_ITEMS_ITEM_HTML;
 
     private DictionaryComparator<String, Short> happiness;
     private String name;

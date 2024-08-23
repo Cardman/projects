@@ -70,7 +70,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         super(_list);
         mainButton = _pair;
         setTaskEnabled(new DefRtsTaskEnabled());
-        GuiBaseUtil.choose(this);
+        GuiBaseUtil.choose(this, _list);
         CustList<AbsMetaLabelRts> elts_ = new CustList<AbsMetaLabelRts>();
         stopped = _list.getThreadFactory().newAtomicBoolean();
         stopped.set(true);
@@ -335,7 +335,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         getCommonFrame().setVisible(false);
         LanguageDialogButtons.enable(mainButton.getMainButton(),true);
 //        LanguageComponentButtons.enableButtons(mainButton.getButtons(),true);
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(this, getFrames());
     }
 
     @Override

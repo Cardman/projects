@@ -306,7 +306,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
 //    static final String CST_WELCOME = "welcome";
 
-    private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
+//    private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
 
 //    private static final String TOO_MANY = "tooMany";
 
@@ -510,7 +510,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        preparedPresident = _president;
 //        preparedTarot = _tarot;
 //        pseudosJoueurs=new Nicknames(getLanguageKey());
-        setAccessFile(DIALOG_ACCESS);
+//        setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         requestFocus();
         setFocusableWindowState(true);
@@ -694,7 +694,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
     @Override
     public void quit() {
-        GuiBaseUtil.trEx(this);
+        GuiBaseUtil.trEx(this, getFrames());
         LanguageDialogButtons.enable(getButtonClick().getMainButton(),true);
 //        LanguageComponentButtons.enableButtons(getButtonClick().getButtons(),true);
         netg.changerNombreDePartiesEnQuittant(this);
@@ -882,7 +882,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         getDialogServerContent().closeConnexion(_exit,_socket);
         if (_exit.isClosing()) {
 //        if (_exit != null && _exit.isClosing()) {
-            GuiBaseUtil.trEx(this);
+            GuiBaseUtil.trEx(this, getFrames());
             return;
         }
         pack();
@@ -946,7 +946,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         getDialogServerContent().closeConnexion(_exit,_socket);
         if (_exit.isClosing()) {
 //        if (_exit != null && _exit.isClosing()) {
-            GuiBaseUtil.trEx(this);
+            GuiBaseUtil.trEx(this, getFrames());
             return;
         }
         pack();

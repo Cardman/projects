@@ -2,9 +2,9 @@ package code.expressionlanguage.options;
 
 public final class SuffixedNumber {
     private final String keyWord;
-    private final char suffix;
+    private final int suffix;
 
-    public SuffixedNumber(String _k, char _v) {
+    public SuffixedNumber(String _k, int _v) {
         this.keyWord = _k;
         this.suffix = _v;
     }
@@ -13,7 +13,7 @@ public final class SuffixedNumber {
         return keyWord;
     }
 
-    public char getValue() {
+    public int getValue() {
         return suffix;
     }
 }

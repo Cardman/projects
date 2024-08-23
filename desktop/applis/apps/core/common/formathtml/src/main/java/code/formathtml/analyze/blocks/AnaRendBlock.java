@@ -27,7 +27,7 @@ public abstract class AnaRendBlock {
     static final char RIGHT_EL = '}';
     static final char LEFT_EL = '{';
     static final char QUOTE = 39;
-    static final String TMP_BLOCK_TAG = "tmp";
+    static final String TMP_BLOCK_TAG = "_";
     static final String LT_END_TAG = "</";
     static final char GT_TAG = '>';
     static final char LT_BEGIN_TAG = '<';

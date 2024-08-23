@@ -13,6 +13,7 @@ public final class MessagesRenderPkSoftParams {
     public static final String SELECT_HOME_PATH_ZIP = "7";
     public static final String TITLE = "8";
     public static final String ZIP_LOAD = "9";
+    public static final String OK = "10";
     private MessagesRenderPkSoftParams() {
     }
     public static TranslationsFile en(){
@@ -27,6 +28,7 @@ public final class MessagesRenderPkSoftParams {
         e_.add(SELECT_HOME_PATH_ZIP,"Load archives files from the home folder");
         e_.add(TITLE,"Parameters of files saving and movement");
         e_.add(ZIP_LOAD,"Load the last zipped game");
+        e_.add(OK,"ok");
         return e_;
     }
 
@@ -42,6 +44,7 @@ public final class MessagesRenderPkSoftParams {
         f_.add(SELECT_HOME_PATH_ZIP,"Charger des fichiers d'archives depuis l'espace personnel");
         f_.add(TITLE,"Paramètres de sauvegarde de fichiers et de mouvement");
         f_.add(ZIP_LOAD,"Charger la dernière archive de jeu");
+        f_.add(OK,"ok");
         return f_;
     }
 }

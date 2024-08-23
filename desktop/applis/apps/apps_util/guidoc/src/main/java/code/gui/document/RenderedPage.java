@@ -49,7 +49,7 @@ public final class RenderedPage implements ProcessingSession {
     private final AbstractProgramInfos gene;
     private AbstractScheduledExecutorService timer;
     private AbstractFuture taskTimer;
-    private String keyWordDigit = "ABCDEF";
+    private String keyWordDigit = "";
     private final CharacterCaseConverter converter;
     private final AbsActionListenerAct aa;
     private final LanguageComponentButtons languageComponentButtons;

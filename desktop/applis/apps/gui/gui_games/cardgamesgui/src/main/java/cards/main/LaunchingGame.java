@@ -32,7 +32,7 @@ public final class LaunchingGame implements Runnable {
         WindowCards window_ = new WindowCards(new CardGamesStream(list,WindowCards.getTempFolderSl(list)), list,taskLoadImgs.getGeneralHelp(), new IntArtCardGames(), pair);
         window_.setPrepare(taskLoadImgs.getTaskNav());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
-        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowCards.getTempFolder(list), FrameGeneralHelp.COORDS, list.getFileCoreStream(), list.getStreams()));
+        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowCards.getTempFolder(list), FrameGeneralHelp.COORDS, list.getFileCoreStream(), list.getStreams()), list);
         window_.setImageIconFrame(WindowCards.getIcon(window_.getImageFactory()));
         window_.pack();
         window_.setVisible(true);

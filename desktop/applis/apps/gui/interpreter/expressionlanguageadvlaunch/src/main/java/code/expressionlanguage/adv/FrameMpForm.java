@@ -20,10 +20,10 @@ public final class FrameMpForm extends AdvFrameMpForm{
         frameMpFormContent = new FrameMpFormContent(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
-        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
-        fileName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
+        edited = _d.getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
+        fileName = _d.getFrames().getCompoFactory().newTextField();
         frameMpFormContent.guiBuildBase(_d);
-        caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
+        caret = _d.getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         AbsPanel f_ = frameMpFormContent.getContentPaneForm();
         frameMpFormContent.getContentPane().removeAll();
         frameMpFormContent.getContentPane().add(f_);

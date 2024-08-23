@@ -2,12 +2,10 @@ package code.mock;
 
 import code.gui.AbsCommonFrame;
 import code.gui.AbsOtherFrame;
-import code.gui.initialize.AbstractProgramInfos;
 
 public abstract class MockAbsCommonFrame extends MockWindow implements AbsCommonFrame,AbsOtherFrame {
 
-    protected MockAbsCommonFrame(AbstractProgramInfos _f, String _lgKey) {
-        super(_f);
+    protected MockAbsCommonFrame(String _lgKey) {
         setLanguageKey(_lgKey);
     }
 

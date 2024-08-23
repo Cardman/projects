@@ -17,7 +17,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 
 public final class SelectTm extends SelectDialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecttm";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecttm";
 
 //    private static final String TITLE = "title";
 
@@ -30,7 +30,7 @@ public final class SelectTm extends SelectDialog {
 
     public SelectTm(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
-        getSelectDial().setAccessFile(DIALOG_ACCESS);
+//        getSelectDial().setAccessFile(DIALOG_ACCESS);
         compo = _infos.getCompoFactory();
     }
 

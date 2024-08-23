@@ -3,7 +3,7 @@ import aiki.fight.moves.effects.EffectEndRoundStatus;
 import code.maths.Rate;
 
 public class EffectEndRoundStatusBean extends EffectEndRoundBean{
-    static final String END_ROUND_STATUS_HTML="web/html/endround/status.html";
+    static final String END_ROUND_STATUS_HTML=AikiBeansEndroundStd.PAGE_STATUS;
     private Rate inflictedRateHpTarget;
 
     protected void beforeDisplayingEffectEndRoundStatus() {

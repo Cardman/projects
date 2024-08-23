@@ -1,6 +1,5 @@
 package code.mock;
 
-import code.gui.TextAnswerValue;
 import code.maths.montecarlo.CustomSeedGene;
 import code.maths.montecarlo.DefaultGenerator;
 
@@ -14,6 +13,6 @@ public final class MockProgramInfosSample extends MockAbsProgramInfos{
 
     @Override
     public MockAbsFrameFactory getMockFrameFactory() {
-        return new MockFrameFactorySample(this);
+        return new MockFrameFactorySample();
     }
 }

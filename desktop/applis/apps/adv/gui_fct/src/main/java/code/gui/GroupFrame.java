@@ -17,11 +17,13 @@ import code.threads.AbstractThreadFactory;
 public abstract class GroupFrame implements AbsGroupFrame {
 
     private final AbsCommonFrame commonFrame;
+    private final AbstractProgramInfos abstractProgramInfos;
 
 //    private final SetterLanguage languageDialog;
 
     protected GroupFrame(AbstractProgramInfos _list) {
-        commonFrame = _list.getFrameFactory().newCommonFrame(_list, null);
+        commonFrame = _list.getFrameFactory().newCommonFrame();
+        abstractProgramInfos = _list;
 //        languageDialog = _list.getSetterLanguage();
     }
 
@@ -39,7 +41,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
 
     //@Override
     public AbstractProgramInfos getFrames() {
-        return commonFrame.getFrames();
+        return abstractProgramInfos;
     }
 
     //@Override
@@ -54,9 +56,9 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public void setAccessFile(String _accessFile) {
-        commonFrame.setAccessFile(_accessFile);
-    }
+//    public void setAccessFile(String _accessFile) {
+//        commonFrame.setAccessFile(_accessFile);
+//    }
 
     //@Override
     public void setFocusableWindowState(boolean _focusableWindowState) {
@@ -108,9 +110,9 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public String getAccessFile() {
-        return commonFrame.getAccessFile();
-    }
+//    public String getAccessFile() {
+//        return commonFrame.getAccessFile();
+//    }
 
     public String getTitle() {
         return commonFrame.getTitle();
@@ -194,7 +196,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
         return getFrames().getGenerator();
     }
     public void revalidateFrame() {
-        PackingWindowAfter.pack(this.getCommonFrame());
+        PackingWindowAfter.pack(this.getCommonFrame(), getFrames().getCompoFactory());
     }
 
     public AbstractImageFactory getImageFactory(){

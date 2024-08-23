@@ -171,7 +171,7 @@ public abstract class EquallableElAdvUtil {
         return new ExpDebGuiImpl(new ExpMenuFrameInteract(_pr.getCompoFactory().newMenuItem()),new MockResultContextNext("src"), _pr, new CdmFactory(_pr, new MockInterceptor()));
     }
     public static ManageOptions opt(AbsDebuggerGui _pr) {
-        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = _pr.getFrames();
         String flatConf_ = StreamTextFile.contentsOfFile("/editor/conf.xml", frs_.getFileCoreStream(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
         return new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
@@ -180,12 +180,12 @@ public abstract class EquallableElAdvUtil {
         return _pr.getResultContextNext().init(_man.getOptions());
     }
     public static void save(AbsDebuggerGui _pr, StringMap<String> _src, String _relative, String _content) {
-        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = _pr.getFrames();
         StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,frs_.getStreams());
         _src.addEntry(_relative,_content);
     }
     public static void saveFolder(AbsDebuggerGui _pr, StringMap<String> _src, String _relative, String _content) {
-        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = _pr.getFrames();
         StreamFolderFile.makeParent("/project/sources/"+_relative, frs_.getFileCoreStream());
         StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,frs_.getStreams());
         _src.addEntry(_relative,_content);
@@ -194,7 +194,7 @@ public abstract class EquallableElAdvUtil {
         StreamTextFile.saveTextFile("/project/sources/"+_relative, _content,_pr.getStreams());
     }
     public static void guiAna(ResultContext _b, AbsDebuggerGui _g, ManageOptions _man, StringMap<String> _s) {
-        ExpMenuFrameInteract exp_ = new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem());
+        ExpMenuFrameInteract exp_ = new ExpMenuFrameInteract(_g.getFrames().getCompoFactory().newMenuItem());
         _g.build(new AnalyzingDebugEvent(exp_,_b,_g,_man,_s));
         ((MockMenuItem)_g.getAnalyzeMenu()).getActionListeners().get(0).action();
 //        _g.getCurrentThreadActions().join();
@@ -523,7 +523,7 @@ public abstract class EquallableElAdvUtil {
         tryAn((MockThreadFactory) _w.getFrames().getThreadFactory());
     }
     public static void guiNoAna(AbsDebuggerGui _g, ManageOptions _m) {
-        _g.build(new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getCommonFrame().getFrames().getCompoFactory().newMenuItem()),null,_g,_m,new StringMap<String>()));
+        _g.build(new AnalyzingDebugEvent(new ExpMenuFrameInteract(_g.getFrames().getCompoFactory().newMenuItem()),null,_g,_m,new StringMap<String>()));
     }
     public static void toggleBp(AbsDebuggerGui _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F2,0)).action();
@@ -603,7 +603,7 @@ public abstract class EquallableElAdvUtil {
         return _w.getTabs().get(_w.getTabbedPane().getSelectedIndex());
     }
     public static ManageOptions optBad(AbsDebuggerGui _pr) {
-        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = _pr.getFrames();
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
         lines_.add("en");
@@ -611,7 +611,7 @@ public abstract class EquallableElAdvUtil {
         return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
     }
    public static ManageOptions optBad2(AbsDebuggerGui _pr) {
-        AbstractProgramInfos frs_ = _pr.getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = _pr.getFrames();
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
         lines_.add("en");
@@ -748,7 +748,7 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefInit(WindowCdmEditor _first) {
-        AbstractProgramInfos pr_ = _first.getCommonFrame().getFrames();
+        AbstractProgramInfos pr_ = _first.getFrames();
         pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         pr_.setLanguage(FileInfos.EN);
         update((MockProgramInfos) pr_);
@@ -807,7 +807,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     protected static void analyze(WindowCdmEditor _w) {
-        AbstractProgramInfos pr_ = _w.getCommonFrame().getFrames();
+        AbstractProgramInfos pr_ = _w.getFrames();
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
         MockResultContextNext res_ = new MockResultContextNext(_w.getManageOptions().getEx().getSrcFolder(),StreamFolderFile.getFiles(_w.getFolderExpression(),new DefaultUniformingString(),pr_.getFileCoreStream(), pr_.getStreams()).getZipFiles());
@@ -939,8 +939,8 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowExpressionEditor geneSec(WindowCdmEditor _w) {
-        _w.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","", _w.getCommonFrame().getFrames().getStreams());
+        _w.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","", _w.getFrames().getStreams());
         ((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0).action();
         ((MockPlainButton)((FolderForExpression)((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
         loadConfFolderSub(_w);
@@ -959,8 +959,8 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowExpressionEditor geneSecAlready(WindowCdmEditor _w) {
-        _w.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","", _w.getCommonFrame().getFrames().getStreams());
+        _w.getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","", _w.getFrames().getStreams());
         ((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0).action();
         return _w.getExpressionEditors().get(0);
     }
@@ -1112,16 +1112,16 @@ public abstract class EquallableElAdvUtil {
         _editor.saveConf();
     }
     public static String contentsOfFile(String _nomFichier, WindowCdmEditor _tech) {
-        return StreamTextFile.contentsOfFile(_nomFichier,_tech.getCommonFrame().getFrames().getFileCoreStream(),_tech.getCommonFrame().getFrames().getStreams());
+        return StreamTextFile.contentsOfFile(_nomFichier,_tech.getFrames().getFileCoreStream(),_tech.getFrames().getStreams());
     }
     public static boolean saveTextFile(String _nomFichier, String _content, WindowCdmEditor _tech) {
-        return StreamTextFile.saveTextFile(_nomFichier,_content,_tech.getCommonFrame().getFrames().getStreams());
+        return StreamTextFile.saveTextFile(_nomFichier,_content,_tech.getFrames().getStreams());
     }
     public static AbstractFile newFile(WindowCdmEditor _tmpUserFolderSl, String _name) {
-        return _tmpUserFolderSl.getCommonFrame().getFrames().getFileCoreStream().newFile(_name);
+        return _tmpUserFolderSl.getFrames().getFileCoreStream().newFile(_name);
     }
     public static String getTempDefConf(WindowCdmEditor _tmpUserFolderSl) {
-        return getTempDefConf(_tmpUserFolderSl.getCommonFrame().getFrames());
+        return getTempDefConf(_tmpUserFolderSl.getFrames());
     }
     public static String getTempDefConf(AbstractProgramInfos _tmpUserFolderSl) {
         return WindowCdmEditor.getTempDefConf(_tmpUserFolderSl);
@@ -1185,18 +1185,18 @@ public abstract class EquallableElAdvUtil {
     protected void findNow(WindowCdmEditor _w, String _v) {
         tabEditor(_w).getFinder().setText(_v);
         executeOneTask(tabEditor(_w).getTaskManager());
-//        invokeAndClear(_w.getCommonFrame().getFrames());
+//        invokeAndClear(_w.getFrames());
     }
 
     protected void changeNow(WindowCdmEditor _w, String _v) {
         tabEditor(_w).getCenter().setText(_v);
         executeOneTask(tabEditor(_w).getTaskManager());
-//        invokeAndClear(_w.getCommonFrame().getFrames());
+//        invokeAndClear(_w.getFrames());
     }
     protected void findText(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK)).action();
         executeOneTask(tabEditor(_w).getTaskManager());
-//        invokeAndClear(_w.getCommonFrame().getFrames());
+//        invokeAndClear(_w.getFrames());
     }
 
     protected void findTextNoTask(WindowCdmEditor _w) {
@@ -1206,7 +1206,7 @@ public abstract class EquallableElAdvUtil {
     protected void replaceText(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_R,GuiConstants.CTRL_DOWN_MASK)).action();
         executeOneTask(tabEditor(_w).getTaskManager());
-//        invokeAndClear(_w.getCommonFrame().getFrames());
+//        invokeAndClear(_w.getFrames());
     }
 //    protected static void invokeAndClear(AbstractProgramInfos _pr) {
 //        ((MockCompoFactory) _pr.getCompoFactory()).invoke();
@@ -1214,7 +1214,7 @@ public abstract class EquallableElAdvUtil {
 //    }
     protected void storeEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
-//        invokeAndClear(_w.getCommonFrame().getFrames());
+//        invokeAndClear(_w.getFrames());
     }
     protected void save(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();
@@ -1276,7 +1276,7 @@ public abstract class EquallableElAdvUtil {
     }
     protected void clearEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
-//        invokeAndClear(_w.getCommonFrame().getFrames());
+//        invokeAndClear(_w.getFrames());
     }
 
     public static void addRend(AbsDebuggerGui _g) {

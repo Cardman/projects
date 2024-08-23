@@ -9,7 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class HealingStatusBean extends HealingItemBean {
-    static final String HEALING_STATUS_BEAN="web/html/items/healingstatus.html";
+    static final String HEALING_STATUS_BEAN=AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
     private StringList status;
     private boolean healingKo;
     private Rate healedHpRate;

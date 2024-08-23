@@ -23,7 +23,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class ConsultHosts {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.consulthosts";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.consulthosts";
 
 //    private static final String TITLE = "title";
 
@@ -45,8 +45,8 @@ public final class ConsultHosts {
 
     public ConsultHosts(AbstractProgramInfos _frameFactory) {
         pkDetailContent = new PkDetailContent(_frameFactory);
-        absDialog = _frameFactory.getFrameFactory().newCommonFrame(_frameFactory,null);
-        absDialog.setAccessFile(DIALOG_ACCESS);
+        absDialog = _frameFactory.getFrameFactory().newCommonFrame();
+//        absDialog.setAccessFile(DIALOG_ACCESS);
         mainComponent = _frameFactory.getCompoFactory().newBorder();
     }
 

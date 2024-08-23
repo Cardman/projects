@@ -23,7 +23,7 @@ public final class NumParsers {
     private NumParsers() {
     }
     public static Struct parseNb(NumberInfos _infosNb) {
-        char suffix_ = _infosNb.getSuffix();
+        int suffix_ = _infosNb.getSuffix();
         if (_infosNb.isError()) {
             return NullStruct.NULL_VALUE;
         }
@@ -44,7 +44,7 @@ public final class NumParsers {
         return processTen(suffix_, nb_);
     }
 
-    private static WithoutParentStruct processDotted(NumberInfos _infosNb, char _suffix) {
+    private static WithoutParentStruct processDotted(NumberInfos _infosNb, int _suffix) {
         DoubleInfo doubleInfo_ = NumParsers.parseDoubleOrInvalid(_infosNb);
         if (isDoubleSuffix(_suffix)) {
             return new DoubleStruct(doubleInfo_.getValue());
@@ -55,7 +55,7 @@ public final class NumParsers {
         return new FloatStruct((float) doubleInfo_.getValue());
     }
 
-    private static WithoutParentStruct processSixteen(char _suffix, String _nb) {
+    private static WithoutParentStruct processSixteen(int _suffix, String _nb) {
         if (_nb.length() > 16) {
             return NullStruct.NULL_VALUE;
         }
@@ -84,7 +84,7 @@ public final class NumParsers {
         return new ByteStruct(int_);
     }
 
-    private static WithoutParentStruct processTwo(char _suffix, String _nb) {
+    private static WithoutParentStruct processTwo(int _suffix, String _nb) {
         if (_nb.length() > 64) {
             return NullStruct.NULL_VALUE;
         }
@@ -133,7 +133,7 @@ public final class NumParsers {
         return new IntStruct(int_);
     }
 
-    private static WithoutParentStruct processEight(char _suffix, String _nb) {
+    private static WithoutParentStruct processEight(int _suffix, String _nb) {
         if (isLongSuffix(_suffix)) {
             return processEightLong(_nb);
         }
@@ -250,15 +250,15 @@ public final class NumParsers {
         return _nb.charAt(0) != '0' && _nb.charAt(0) != '1';
     }
 
-    private static boolean isFloatSuffix(char _suffix) {
-        return _suffix == 'F' || _suffix == 'f';
+    private static boolean isFloatSuffix(int _suffix) {
+        return _suffix == NumberInfos.WRAP_FLOAT || _suffix == NumberInfos.PRIM_FLOAT;
     }
 
-    private static boolean isDoubleSuffix(char _suffix) {
-        return _suffix == 'D' || _suffix == 'd';
+    private static boolean isDoubleSuffix(int _suffix) {
+        return _suffix == NumberInfos.WRAP_DOUBLE || _suffix == NumberInfos.PRIM_DOUBLE;
     }
 
-    private static WithoutParentStruct processTen(char _suffix, String _nb) {
+    private static WithoutParentStruct processTen(int _suffix, String _nb) {
         LongInfo longValue_ = NumParsers.parseLong(_nb, 10);
         if (!longValue_.isValid()) {
             String str_  = StringUtil.concat("-", _nb);
@@ -321,24 +321,24 @@ public final class NumParsers {
         return new CharStruct((char) _value);
     }
 
-    private static boolean isCharSuffix(char _suffix) {
-        return _suffix == 'C' || _suffix == 'c';
+    private static boolean isCharSuffix(int _suffix) {
+        return _suffix == NumberInfos.WRAP_CHAR || _suffix == NumberInfos.PRIM_CHAR;
     }
 
-    private static boolean isByteSuffix(char _suffix) {
-        return _suffix == 'B' || _suffix == 'b';
+    private static boolean isByteSuffix(int _suffix) {
+        return _suffix == NumberInfos.WRAP_BYTE || _suffix == NumberInfos.PRIM_BYTE;
     }
 
-    private static boolean isShortSuffix(char _suffix) {
-        return _suffix == 'S' || _suffix == 's';
+    private static boolean isShortSuffix(int _suffix) {
+        return _suffix == NumberInfos.WRAP_SHORT || _suffix == NumberInfos.PRIM_SHORT;
     }
 
-    private static boolean isIntSuffix(char _suffix) {
-        return _suffix == 'I' || _suffix == 'i';
+    private static boolean isIntSuffix(int _suffix) {
+        return _suffix == NumberInfos.WRAP_INT || _suffix == NumberInfos.PRIM_INT;
     }
 
-    private static boolean isLongSuffix(char _suffix) {
-        return _suffix == 'L' || _suffix == 'l';
+    private static boolean isLongSuffix(int _suffix) {
+        return _suffix == NumberInfos.WRAP_LONG || _suffix == NumberInfos.PRIM_LONG;
     }
 
 

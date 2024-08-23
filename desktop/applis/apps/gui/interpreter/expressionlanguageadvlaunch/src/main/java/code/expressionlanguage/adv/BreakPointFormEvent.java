@@ -50,7 +50,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _bp.getEnabledBp().setSelected(_pair.getValue().isEnabled());
         specific(_bp.getGuiStdStackForm(), _pair.getValue().getResultStd(), new CustList<BreakPointCondition>(), _f, _r);
         _f.setVisible(true);
-        PackingWindowAfter.pack(_f);
+        PackingWindowAfter.pack(_f, _bp.getFrames().getCompoFactory());
     }
 
     static void tpAction(TypePointBlockPair _pair, AbsCommonFrame _f, FrameTpFormContent _bp, ResultContext _r) {
@@ -61,7 +61,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _bp.getInstanceType().setSelected(_pair.getValue().isInstanceType());
         _bp.getStaticType().setSelected(_pair.getValue().isStaticType());
         _f.setVisible(true);
-        PackingWindowAfter.pack(_f);
+        PackingWindowAfter.pack(_f, _bp.getFrames().getCompoFactory());
     }
 
     static void methodAction(MethodPointBlockPair _mp, FrameMpForm _mePoint, AbsCommonFrame _frame, ResultContext _r) {
@@ -73,7 +73,7 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _mePoint.getEnterFunction().setSelected(_mp.getValue().isEntry());
         _mePoint.getExitFunction().setSelected(_mp.getValue().isExit());
         _frame.setVisible(true);
-        PackingWindowAfter.pack(_frame);
+        PackingWindowAfter.pack(_frame, _mePoint.getFrameMpFormContent().getFrames().getCompoFactory());
     }
 
     static void specific(GuiStackForm _specForm, BreakPointCondition _model, CustList<BreakPointCondition> _bpcs, AbsCommonFrame _frame, ResultContext _r) {

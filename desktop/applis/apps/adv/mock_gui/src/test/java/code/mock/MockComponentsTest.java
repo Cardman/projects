@@ -17,16 +17,16 @@ import org.junit.Test;
 public final class MockComponentsTest extends EquallableMockGuiUtil {
     @Test
     public void c1() {
-        MockCommonFrameSample fr_ = new MockCommonFrameSample(init());
+        MockCommonFrameSample fr_ = new MockCommonFrameSample();
         fr_.setVisible(true);
         assertTrue(fr_.isVisible());
     }
     @Test
     public void c2() {
         MockProgramInfosSample init_ = init();
-        init_.setScreenHeight(128);
-        init_.setScreenWidth(1024);
-        MockCommonFrameSample fr_ = new MockCommonFrameSample(init_);
+        init_.setScreenHeight(init_.getScreenHeight());
+        init_.setScreenWidth(init_.getScreenWidth());
+        MockCommonFrameSample fr_ = new MockCommonFrameSample();
         fr_.setLocationRelativeToWindow(null);
         assertEq(512,fr_.getLocationFirst());
         assertEq(64,fr_.getLocationSecond());
@@ -36,8 +36,8 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         MockProgramInfosSample init_ = init();
         init_.setScreenHeight(128);
         init_.setScreenWidth(1024);
-        MockCommonFrameSample fr_ = new MockCommonFrameSample(init_);
-        MockCommonFrameSample fr2_ = new MockCommonFrameSample(init_);
+        MockCommonFrameSample fr_ = new MockCommonFrameSample();
+        MockCommonFrameSample fr2_ = new MockCommonFrameSample();
         fr_.setLocationRelativeToWindow(null);
         fr2_.setLocationOnScreen(new MetaPoint(512,64));
         fr2_.getPane().setSize(new MetaDimension(128,64));
@@ -50,8 +50,8 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         MockProgramInfosSample init_ = init();
         init_.setScreenHeight(128);
         init_.setScreenWidth(1024);
-        MockCommonFrameSample fr_ = new MockCommonFrameSample(init_);
-        MockCommonFrameSample fr2_ = new MockCommonFrameSample(init_);
+        MockCommonFrameSample fr_ = new MockCommonFrameSample();
+        MockCommonFrameSample fr2_ = new MockCommonFrameSample();
         fr_.setLocationRelativeToWindow(null);
         fr2_.setLocationOnScreen(new MetaPoint(512,64));
         fr2_.getPane().setSize(new MetaDimension(128,64));
@@ -309,7 +309,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         set_.init(null,pr_,"");
         set_.setLanguage(set_.getLanguage());
         AbsFrameFactory frFact_ = pr_.getFrameFactory();
-        MockAbsCommonFrame mf_ = (MockAbsCommonFrame) frFact_.newCommonFrame(pr_, ig_);
+        MockAbsCommonFrame mf_ = (MockAbsCommonFrame) frFact_.newCommonFrame();
         mf_.setJMenuBar(mf_.getJMenuBar());
         mf_.setFocusable(true);
         mf_.requestFocus();
@@ -339,7 +339,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertEq(0,mf_.getWindowListeners().size());
         assertEq("",mf_.getLanguageKey());
         mf_.setFocusableWindowState(true);
-        MockSoundRecord sound_ = (MockSoundRecord) mf_.getFrames().newSoundPattern();
+        MockSoundRecord sound_ = (MockSoundRecord) pr_.newSoundPattern();
         MockWithAdvActionSample advAct_ = new MockWithAdvActionSample();
         assertFalse(advAct_.isAct());
         new MockAdvAction(0,advAct_).action(null,"");
@@ -398,14 +398,14 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         mf_.dispatchExit();
         mf_.setVisible(false);
         assertFalse(mf_.isVisible());
-        MockDialogSample adv_ = new MockDialogSample(pr_);
+        MockDialogSample adv_ = new MockDialogSample();
         adv_.setModal(true);
         assertTrue(adv_.isModal());
         adv_.setModal(false);
         assertFalse(adv_.isModal());
-        new MockDialogSample(pr_).setLocationRelativeTo(adv_);
+        new MockDialogSample().setLocationRelativeTo(adv_);
         adv_.getImageIconFrame();
-        new MockDialogSample(pr_).setLocationRelativeTo((AbsOtherFrame)new MockCommonFrameSample(pr_));
+        new MockDialogSample().setLocationRelativeTo((AbsOtherFrame)new MockCommonFrameSample());
     }
     @Test
     public void c15() {

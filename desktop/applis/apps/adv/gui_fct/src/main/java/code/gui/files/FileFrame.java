@@ -17,7 +17,7 @@ public abstract class FileFrame {
     protected FileFrame(AbstractProgramInfos _frameFact, AbstractAtomicBoolean _m){
 //        fileDialogContent = _f;
         prInfos = _frameFact;
-        frame = _frameFact.getFrameFactory().newCommonFrame(_frameFact,null);
+        frame = _frameFact.getFrameFactory().newCommonFrame();
         closing = new ClosingFileFrameEvent(frame, _m);
         frame.addWindowListener(closing);
     }

@@ -22,7 +22,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class GuiBaseUtil {
-    static final String ACCESS = "gui.groupframe";
+//    static final String ACCESS = "gui.groupframe";
     private static final byte SIXTY_FOUR_BITS = 64;
     private static final byte SIXTEEN_BITS = 16;
     private static final byte FOUR_BITS = 4;
@@ -274,14 +274,14 @@ public final class GuiBaseUtil {
         _com.dispatchExit();
     }
 
-    public static void tryExit(AbsCommonFrame _comm) {
-        if(!_comm.getFrames().getFrames().first().getCommonFrame().isVisible()) {
+    public static void tryExit(AbsCommonFrame _comm, AbstractProgramInfos _frames) {
+        if(!_frames.getFrames().first().getCommonFrame().isVisible()) {
             removeAllListeners(_comm);
         }
     }
 
-    public static void choose(AbsOpenQuit _this) {
-        choose(_this.getCommonFrame().getFrames(),_this);
+    public static void choose(AbsOpenQuit _this, AbstractProgramInfos _frams) {
+        choose(_frams,_this);
     }
     public static void choose(AbstractProgramInfos _list, AbsOpenQuit _this) {
         _list.getFrames().add(_this);
@@ -500,13 +500,13 @@ public final class GuiBaseUtil {
         return true;
     }
 
-    public static void trEx(AbsOpenQuit _t) {
-        trEx(_t.getCommonFrame());
+    public static void trEx(AbsOpenQuit _t, AbstractProgramInfos _frames) {
+        trEx(_t.getCommonFrame(), _frames);
 //        _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
     }
 
-    public static void trEx(AbsCommonFrame _t) {
-        tryExit(_t);
+    public static void trEx(AbsCommonFrame _t, AbstractProgramInfos _frames) {
+        tryExit(_t, _frames);
 //        _t.getCommonFrame().getFrames().getCounts().getVal(_t.getApplicationName()).decrementAndGet();
     }
 

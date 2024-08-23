@@ -13,7 +13,7 @@ public final class AnaRendBlockHelp {
     public static final String LEFT_PAR = "(";
     public static final String RIGHT_PAR = ")";
     public static final String COMMA = ",";
-    static final String TMP_LOC = "tmpLoc";
+    static final String TMP_LOC = "_";
     static final String EMPTY_STRING = "";
 
     private AnaRendBlockHelp() {
@@ -228,7 +228,7 @@ public final class AnaRendBlockHelp {
 
     public static TranslationsFile tryGetContent(String _relative, StringMap<TranslationsFile> _files, NatAnalyzingDoc _anaDoc) {
         String folder_ = _anaDoc.getMessagesFolder();
-        return _files.getVal(folder_+"/"+_relative+".properties");
+        return _files.getVal(folder_+"/"+_relative);
     }
     static String getCssHref(Element _link, RendKeyWordsGroup _rendKeyWords) {
         return _link.getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrHref());

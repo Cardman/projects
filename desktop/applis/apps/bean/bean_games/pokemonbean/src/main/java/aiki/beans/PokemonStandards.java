@@ -26,15 +26,15 @@ import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.exec.variables.*;
 import code.bean.nat.fwd.*;
-import code.bean.nat.*;
 import code.maths.*;
 import code.sml.HtmlPageInt;
 import code.sml.NavigationCore;
+import code.sml.SetupableAnalyzingDoc;
 import code.util.*;
 import code.util.core.*;
 public abstract class PokemonStandards extends BeanNatCommonLgNames implements BeanNatCommonLgNamesForm {
 
-    public static final String ON = "on";
+    public static final String ON = SetupableAnalyzingDoc.ON;
 
     public static final String EMPTY_STRING = "";
 

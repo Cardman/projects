@@ -3649,7 +3649,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
         assertEq(16, ni_.get(0).getBase());
-        assertEq('i', ni_.get(0).getSuffix());
+        assertEq(NumberInfos.PRIM_INT, ni_.get(0).getSuffix());
         assertEq("1", ni_.get(0).getIntPart().toString());
         assertEq("", ni_.get(0).getDecimalPart().toString());
         assertEq("", ni_.get(0).getExponentialPart().toString());
@@ -3672,7 +3672,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
         assertEq(16, ni_.get(0).getBase());
-        assertEq('i', ni_.get(0).getSuffix());
+        assertEq(NumberInfos.PRIM_INT, ni_.get(0).getSuffix());
         assertEq("1F", ni_.get(0).getIntPart().toString());
         assertEq("", ni_.get(0).getDecimalPart().toString());
         assertEq("", ni_.get(0).getExponentialPart().toString());
@@ -3695,7 +3695,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
         assertEq(16, ni_.get(0).getBase());
-        assertEq('d', ni_.get(0).getSuffix());
+        assertEq(NumberInfos.PRIM_DOUBLE, ni_.get(0).getSuffix());
         assertEq("1", ni_.get(0).getIntPart().toString());
         assertEq("", ni_.get(0).getDecimalPart().toString());
         assertEq("0", ni_.get(0).getExponentialPart().toString());
@@ -3718,7 +3718,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
         assertEq(16, ni_.get(0).getBase());
-        assertEq('d', ni_.get(0).getSuffix());
+        assertEq(NumberInfos.PRIM_DOUBLE, ni_.get(0).getSuffix());
         assertEq("1F", ni_.get(0).getIntPart().toString());
         assertEq("", ni_.get(0).getDecimalPart().toString());
         assertEq("0", ni_.get(0).getExponentialPart().toString());
@@ -3741,7 +3741,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
         assertEq(16, ni_.get(0).getBase());
-        assertEq('d', ni_.get(0).getSuffix());
+        assertEq(NumberInfos.PRIM_DOUBLE, ni_.get(0).getSuffix());
         assertEq("1", ni_.get(0).getIntPart().toString());
         assertEq("2", ni_.get(0).getDecimalPart().toString());
         assertEq("0", ni_.get(0).getExponentialPart().toString());
@@ -3764,7 +3764,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
         assertEq(16, ni_.get(0).getBase());
-        assertEq('d', ni_.get(0).getSuffix());
+        assertEq(NumberInfos.PRIM_DOUBLE, ni_.get(0).getSuffix());
         assertEq("1F", ni_.get(0).getIntPart().toString());
         assertEq("2", ni_.get(0).getDecimalPart().toString());
         assertEq("0", ni_.get(0).getExponentialPart().toString());

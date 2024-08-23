@@ -32,30 +32,30 @@ public final class GuiStackForm {
     public GuiStackForm(AbstractProgramInfos _c) {
         prefs = new CrudGeneForm<String,Integer>(_c,new NaturalComparator());
         dependantPointsForm = new DependantPointsForm(_c);
-        stackConstraintsForm = new StackConstraintsForm();
+        stackConstraintsForm = new StackConstraintsForm(_c);
     }
 
     public AbsScrollPane guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointForm(_d.getFrames().currentLg());
-        pref = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
+        pref = _d.getFrames().getCompoFactory().newSpinner(0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
         pref.setVisible(false);
-        enabledSub = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_SPEC)));
+        enabledSub = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_SPEC)));
         enabledSub.setSelected(true);
-        hit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_HIT)));
-        disabledWhenHit = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_HIT)));
-        disableAgain = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_AGAIN)));
-        suspend = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_SUSPEND)));
-        stackLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST)));
-        stackErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST_ERR)));
-        stackResErrLog = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST_RES_ERR)));
-        conditional = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
-        logs = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
-        watches = _d.getCommonFrame().getFrames().getCompoFactory().newTextArea();
-        count = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        countSub = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        AbsTabbedPane tab_ = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        hit = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_HIT)));
+        disabledWhenHit = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_HIT)));
+        disableAgain = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_AGAIN)));
+        suspend = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DIS_SUSPEND)));
+        stackLog = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST)));
+        stackErrLog = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST_ERR)));
+        stackResErrLog = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOG_ST_RES_ERR)));
+        conditional = _d.getFrames().getCompoFactory().newTextArea();
+        logs = _d.getFrames().getCompoFactory().newTextArea();
+        watches = _d.getFrames().getCompoFactory().newTextArea();
+        count = _d.getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
+        countSub = _d.getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
+        AbsTabbedPane tab_ = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         AbsSplitPane panel_ = stackConstraintsForm.guiBuild(_d,null);
-        AbsPanel staIncExc_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        AbsPanel staIncExc_ = _d.getFrames().getCompoFactory().newPageBox();
         staIncExc_.add(pref);
         AbsPanel g_ = prefs.getGroup();
         g_.setVisible(false);
@@ -69,12 +69,12 @@ public final class GuiStackForm {
         staIncExc_.add(count);
         staIncExc_.add(countSub);
         tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_MAIN)),staIncExc_);
-        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_COND)),_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(conditional));
-        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOGS)),_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(logs));
-        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_WATCHES)),_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(watches));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_COND)),_d.getFrames().getCompoFactory().newAbsScrollPane(conditional));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_LOGS)),_d.getFrames().getCompoFactory().newAbsScrollPane(logs));
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_WATCHES)),_d.getFrames().getCompoFactory().newAbsScrollPane(watches));
         tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_CONST)),panel_);
-        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DEPS)),_d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(dependantPointsForm.guiBuild(_d)));
-        staScIncExc = _d.getCommonFrame().getFrames().getCompoFactory().newAbsScrollPane(tab_);
+        tab_.addIntTab(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_DEPS)),_d.getFrames().getCompoFactory().newAbsScrollPane(dependantPointsForm.guiBuild(_d)));
+        staScIncExc = _d.getFrames().getCompoFactory().newAbsScrollPane(tab_);
         return staScIncExc;
     }
 

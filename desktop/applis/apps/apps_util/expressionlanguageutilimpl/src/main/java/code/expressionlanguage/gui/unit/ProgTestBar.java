@@ -40,6 +40,7 @@ public final class ProgTestBar implements ProgTestBarInt{
     public static final String EXEC_OPTIONS_MAIN="exec_options_7";
     public static final String EXEC_OPTIONS_MAIN_ARCHIVE="0";
     public static final String EXEC_OPTIONS_MAIN_MEMORY="1";
+    public static final String LINE_RETURN = "\n";
     private final AbstractLightProgramInfos messages;
     private final AbsPlainLabel doneTestsCalls;
     private final AbsPlainLabel doneTestsCount;
@@ -237,12 +238,12 @@ public final class ProgTestBar implements ProgTestBarInt{
         setValueAt(_res.getResultSuccess(),cur_,3);
         results.add(_res);
         StringBuilder build_ = new StringBuilder();
-        build_.append(Long.toString(cur_)+"\n");
-        build_.append(methodInfo_ + "\n");
-        build_.append(_res.getResultSuccessLong()).append("\n");
-        build_.append(_res.getErrMess()+"\n");
-        build_.append(_res.getMethodParams()+"\n");
-        build_.append("\n="+_res.getTime()+" "+valExecOptionsTable(messages.currentLg()).getVal(EXEC_OPTIONS_TABLE_MS)+"\n");
+        build_.append(Long.toString(cur_)+ LINE_RETURN);
+        build_.append(methodInfo_ + LINE_RETURN);
+        build_.append(_res.getResultSuccessLong()).append(LINE_RETURN);
+        build_.append(_res.getErrMess()+ LINE_RETURN);
+        build_.append(_res.getMethodParams()+ LINE_RETURN);
+        build_.append(LINE_RETURN +"="+_res.getTime()+" "+valExecOptionsTable(messages.currentLg()).getVal(EXEC_OPTIONS_TABLE_MS)+ LINE_RETURN);
         resultsArea.append(build_.toString());
     }
 

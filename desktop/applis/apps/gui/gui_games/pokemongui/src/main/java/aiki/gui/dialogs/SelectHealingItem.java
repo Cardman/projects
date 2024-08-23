@@ -23,7 +23,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class SelectHealingItem extends SelectDialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealingitem";
+//    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealingitem";
 
 //    private static final String TITLE = "title";
 
@@ -38,7 +38,7 @@ public final class SelectHealingItem extends SelectDialog {
 
     public SelectHealingItem(AbstractProgramInfos _infos, WindowAiki _window) {
         super(_infos.getFrameFactory(), _window);
-        getSelectDial().setAccessFile(DIALOG_ACCESS);
+//        getSelectDial().setAccessFile(DIALOG_ACCESS);
         compo= _infos.getCompoFactory();
     }
 

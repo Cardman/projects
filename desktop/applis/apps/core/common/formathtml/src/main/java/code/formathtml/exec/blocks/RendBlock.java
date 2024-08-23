@@ -33,7 +33,7 @@ public abstract class RendBlock {
     public static final String RETURN_LINE = "\n";
     public static final String CALL_METHOD = "$";
     public static final String EMPTY_STRING = "";
-    public static final String TMP_BLOCK_TAG = "tmp";
+    public static final String TMP_BLOCK_TAG = "_";
     public static final String LT_END_TAG = "</";
     public static final char GT_TAG = '>';
     public static final char LT_BEGIN_TAG = '<';

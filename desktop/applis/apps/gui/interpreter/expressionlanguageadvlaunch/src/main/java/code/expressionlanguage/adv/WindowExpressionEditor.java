@@ -18,10 +18,10 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
     private final ExpDebGuiImpl sessionExp;
     private final InitDebGuiImpl sessionSingleMain;
     public WindowExpressionEditor(WindowCdmEditor _parent, EnabledMenu _menu) {
-        super(_parent.getResultContextNext(), _parent.getCommonFrame().getFrames(),_parent.getFactory());
+        super(_parent.getResultContextNext(), _parent.getFrames(),_parent.getFactory());
         folderExpressionMenu = _menu;
         mainFrame = _parent;
-        AbstractProgramInfos frames_ = _parent.getCommonFrame().getFrames();
+        AbstractProgramInfos frames_ = _parent.getFrames();
         folderInteract = new ExpMenuFrameInteract(_menu);
         getCommonFrame().addWindowListener(new CloseExpFrame(this, folderInteract));
         AbsMenuBar bar_ = frames_.getCompoFactory().newMenuBar();
@@ -45,7 +45,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         bar_.add(run_);
         getCommonFrame().setJMenuBar(bar_);
         chgManagement(false);
-        setEditors(getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane());
+        setEditors(getFrames().getCompoFactory().newAbsTabbedPane());
         TabValueChanged tvc_ = new TabValueChanged(this);
         getEditors().addChangeListener(tvc_);
         getEditors().addMouseListener(tvc_);
@@ -62,7 +62,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         String acc_ = mainFrame.getFolderExpression();
         getPanel().removeAll();
         initTree(acc_);
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractProgramInfos frs_ = getFrames();
         getTabs().clear();
         setEditors(frs_.getCompoFactory().newAbsTabbedPane());
         TabValueChanged tvc_ = new TabValueChanged(this);
@@ -74,7 +74,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         StringList existing_ = new StringList();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = pathToSrc()+src_.get(i);
-            BytesInfo content_ = StreamBinaryFile.loadFile(fullPath_, getCommonFrame().getFrames().getStreams());
+            BytesInfo content_ = StreamBinaryFile.loadFile(fullPath_, getFrames().getStreams());
             if (content_.isNul()) {
                 continue;
             }

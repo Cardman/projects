@@ -2,13 +2,11 @@ package code.gui;
 
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
-import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
 
 
 public interface AbsCommonFrame extends ChangeableTitle {
-    AbstractProgramInfos getFrames();
 
     void setImageIconFrame(AbstractImage _imageIconFrame);
     void dispose();
@@ -29,8 +27,8 @@ public interface AbsCommonFrame extends ChangeableTitle {
     void dispatchExit();
 
     void setIconImage(AbstractImage _image);
-    String getAccessFile();
-    void setAccessFile(String _accessFile);
+//    String getAccessFile();
+//    void setAccessFile(String _accessFile);
     void setContentPane(AbsPanel _contentPane);
     void setContentPane(AbsScrollPane _contentPane);
     AbsMenuBar getJMenuBar();

@@ -23,30 +23,32 @@ public final class FrameOperNatCompoFormContent {
     private AbsButton remove;
     private AbsPanel contentPane;
     private AbsTabbedPane tabs;
+    private final AbstractProgramInfos frames;
 
     public FrameOperNatCompoFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiSimpleStackForm = new GuiStackForm(_c);
         guiCompoundStackForm = new GuiStackForm(_c);
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        simple = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)));
-        compound = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_COMPOUND)));
-        enabledOperNat = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        symbol = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        first = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        second = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        AbsPanel bpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        simple = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)));
+        compound = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_COMPOUND)));
+        enabledOperNat = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        symbol = _d.getFrames().getCompoFactory().newTextField();
+        first = _d.getFrames().getCompoFactory().newTextField();
+        second = _d.getFrames().getCompoFactory().newTextField();
+        AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(symbol);
         bpForm_.add(first);
         bpForm_.add(second);
         bpForm_.add(enabledOperNat);
         bpForm_.add(simple);
         bpForm_.add(compound);
-        tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        tabs = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_SIMPLE)), guiSimpleStackForm.guiBuild(_d));
         putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_COMPOUND)), guiCompoundStackForm.guiBuild(_d));
         bpForm_.add(tabs);
@@ -76,7 +78,7 @@ public final class FrameOperNatCompoFormContent {
             BreakPointFormEvent.specific(getGuiCompoundStackForm(), exc_.getValue().getResultCompound(),new CustList<BreakPointCondition>(),  _f,_r);
             getSimple().setSelected(exc_.getValue().isSimple());
             getCompound().setSelected(exc_.getValue().isCompound());
-            PackingWindowAfter.pack(_f);
+            PackingWindowAfter.pack(_f, frames.getCompoFactory());
         } else {
             getGuiSimpleStackForm().getDependantPointsForm().init(_r, FramePointsTree.SORT_CP);
             getGuiCompoundStackForm().getDependantPointsForm().init(_r, FramePointsTree.SORT_CP);

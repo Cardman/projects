@@ -32,7 +32,7 @@ public abstract class EquallableBeanCoreUtil {
         return new NatConfigurationCore();
     }
     public static String formatFile(String _folder, String _locale, String _relative) {
-        return StringUtil.concat(_folder,"/",_relative,".properties");
+        return StringUtil.concat(_folder,"/",_relative);
     }
 
     public static void assertEq(boolean _expected, boolean _result) {

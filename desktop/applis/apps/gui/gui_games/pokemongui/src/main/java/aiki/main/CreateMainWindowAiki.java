@@ -43,7 +43,7 @@ public final class CreateMainWindowAiki implements Runnable {
 //        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), builtMessages_, builtOther_, new PkProg(), list.getLanguages());
         WindowAiki window_ = new WindowAiki(list,aikiFactory, pair);
 //        window_.getDataWeb().setEnabled(false);
-        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), LoadingGame.COORDS, list.getFileCoreStream(), list.getStreams()));
+        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), LoadingGame.COORDS, list.getFileCoreStream(), list.getStreams()), list);
 //        fight_.run();
 //        pk_.run();
 //        pkNet_.run();

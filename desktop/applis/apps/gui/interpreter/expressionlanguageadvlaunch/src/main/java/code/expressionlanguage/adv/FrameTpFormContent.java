@@ -21,26 +21,28 @@ public final class FrameTpFormContent {
     private AbsButton remove;
     private AbsPanel contentPane;
     private AbsTabbedPane tabs;
+    private final AbstractProgramInfos frames;
 
     public FrameTpFormContent(AbstractProgramInfos _c) {
+        frames = _c;
         guiInsStackForm = new GuiStackForm(_c);
         guiStaStackForm = new GuiStackForm(_c);
     }
     public void guiBuild(AbsDebuggerGui _d) {
         StringMap<String> mes_ = MessagesIde.valPointsKind(_d.getFrames().currentLg());
-        edited = _d.getCommonFrame().getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
-        instanceType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INSTANCE)));
-        staticType = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STATIC)));
-        enabledBp = _d.getCommonFrame().getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
-        fileName = _d.getCommonFrame().getFrames().getCompoFactory().newTextField();
-        caret = _d.getCommonFrame().getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
-        ok = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
-        remove = _d.getCommonFrame().getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
-        AbsPanel tpForm_ = _d.getCommonFrame().getFrames().getCompoFactory().newPageBox();
+        edited = _d.getFrames().getCompoFactory().newPlainLabel(AbsEditorTabList.EMPTY_STRING);
+        instanceType = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INSTANCE)));
+        staticType = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STATIC)));
+        enabledBp = _d.getFrames().getCompoFactory().newCustCheckBox(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_ENABLED)));
+        fileName = _d.getFrames().getCompoFactory().newTextField();
+        caret = _d.getFrames().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
+        ok = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_VALIDATE)));
+        remove = _d.getFrames().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_REMOVE)));
+        AbsPanel tpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         tpForm_.add(enabledBp);
         tpForm_.add(instanceType);
         tpForm_.add(staticType);
-        tabs = _d.getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane();
+        tabs = _d.getFrames().getCompoFactory().newAbsTabbedPane();
         putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_INSTANCE)), guiInsStackForm.guiBuild(_d));
         putStForm(tabs, StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_KIND_STATIC)), guiStaStackForm.guiBuild(_d));
         tpForm_.add(tabs);
@@ -96,6 +98,10 @@ public final class FrameTpFormContent {
         remove.addActionListener(new OkRemoveTpFormEvent(_d, this, _p, _r));
         getGuiInsStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
         getGuiStaStackForm().refresh(_v, AbsEditorTabList.EMPTY_STRING, _r, _d);
+    }
+
+    public AbstractProgramInfos getFrames() {
+        return frames;
     }
 
     public TypePointBlockPair getSelectedTp() {
