@@ -14,23 +14,23 @@ import code.util.IdList;
 public final class DocumentWriterCardsUnionUtil {
 
     public static final String EMPTY_STRING = "";
-    public static final String FIELD_DELAY_WAITING_BIDS = "delayWaitingBids";
-    public static final String FIELD_DELAY_WAITING_CARDS = "delayWaitingCards";
-    public static final String FIELD_DELAY_WAITING_TRICKS = "delayWaitingTricks";
-    public static final String FIELD_LAUNCHING = "launching";
-    public static final String FIELD_PARTIES_BELOTE = "partiesBelote";
-    public static final String FIELD_PARTIES_PRESIDENT = "partiesPresident";
-    public static final String FIELD_PARTIES_TAROT = "partiesTarot";
-    public static final String FIELD_PLAY_CARD_CLICK = "playCardClick";
+    public static final String FIELD_DELAY_WAITING_BIDS = "2";
+    public static final String FIELD_DELAY_WAITING_CARDS = "3";
+    public static final String FIELD_DELAY_WAITING_TRICKS = "4";
+    public static final String FIELD_LAUNCHING = "0";
+    public static final String FIELD_PARTIES_BELOTE = "0";
+    public static final String FIELD_PARTIES_PRESIDENT = "1";
+    public static final String FIELD_PARTIES_TAROT = "2";
+    public static final String FIELD_PLAY_CARD_CLICK = "6";
     public static final String FIELD_PSEUDO = "0";
     public static final String FIELD_PSEUDOS_BELOTE = "1";
     public static final String FIELD_PSEUDOS_PRESIDENT = "2";
     public static final String FIELD_PSEUDOS_TAROT = "3";
-    public static final String FIELD_RULES_BELOTE = "rulesBelote";
-    public static final String FIELD_RULES_PRESIDENT = "rulesPresident";
-    public static final String FIELD_RULES_TAROT = "rulesTarot";
-    public static final String FIELD_SAVE_HOME_FOLDER = "saveHomeFolder";
-    public static final String FIELD_WAIT_TRICK_CLICK = "waitTrickClick";
+    public static final String FIELD_RULES_BELOTE = "3";
+    public static final String FIELD_RULES_PRESIDENT = "4";
+    public static final String FIELD_RULES_TAROT = "5";
+    public static final String FIELD_SAVE_HOME_FOLDER = "1";
+    public static final String FIELD_WAIT_TRICK_CLICK = "5";
     private DocumentWriterCardsUnionUtil() {
     }
 

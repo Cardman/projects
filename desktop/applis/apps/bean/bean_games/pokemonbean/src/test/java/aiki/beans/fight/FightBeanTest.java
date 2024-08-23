@@ -106,11 +106,12 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void nav1() {
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
-        builtMessages_.addEntry(EN,MessagesInit.en());
-        builtMessages_.addEntry(FR,MessagesInit.fr());
+        builtMessages_.addEntry(EN,MessagesInit.enFight());
+        builtMessages_.addEntry(FR,MessagesInit.frFight());
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_);
+        nav_.setLanguage(EN);
         pk_.setDataBase(facadeCalculation5(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\"web_fight/css/fight.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
@@ -141,11 +142,12 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void nav2() {
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
-        builtMessages_.addEntry(EN,MessagesInit.en());
-        builtMessages_.addEntry(FR,MessagesInit.fr());
+        builtMessages_.addEntry(EN,MessagesInit.enFight());
+        builtMessages_.addEntry(FR,MessagesInit.frFight());
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_);
+        nav_.setLanguage(EN);
         pk_.setDataBase(facadeCalculation7(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\"web_fight/css/fight.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +

@@ -16,7 +16,6 @@ import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.opers.NatStdRefVariableOperation;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
-import code.bean.nat.*;
 import code.formathtml.sample.*;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -2947,7 +2946,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     private NatNavigation nav(String _lg, StringMap<Document> _docs, StringMap<String> _files, StringMap<TranslationsAppli> _apps, CustBeanLgNames _stds, AbstractNativeInit _init) {
         StringList lgs_ = new StringList(_lg);
         lgs_.add(_lg);
-        return _stds.nav(lgs_, _lg, _init, _docs, _files, _apps, "");
+        return _stds.nav(lgs_, _init, _docs, _files, _apps);
     }
 
 }

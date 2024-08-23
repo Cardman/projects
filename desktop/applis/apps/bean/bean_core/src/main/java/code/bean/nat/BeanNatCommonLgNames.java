@@ -84,24 +84,23 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         return beansStruct.getVal(_beanName);
     }
 
-    public NatNavigation nav(StringList _languages, String _lg, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<TranslationsAppli> _otherMessage, String _rel) {
+    public NatNavigation nav(StringList _languages, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<TranslationsAppli> _otherMessage) {
         NatConfigurationCore session_ = new NatConfigurationCore();
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(session_);
-        nav_.setLanguage(_lg);
+        nav_.setLanguage("");
         nav_.setLanguages(_languages);
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(this, _init);
         NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
         nat_.getForwards();
         d_.init(session_);
         nav_.setSession(session_);
-        StringMap<String> files_ = NatDualConfigurationContext.files(d_,_other, _rel);
+        StringMap<String> files_ = NatDualConfigurationContext.files(d_,_other);
         String realFilePath_ = session_.getFirstUrl();
-        StringMap<Document> docs_ = NatDualConfigurationContext.docs(_built,_rel);
         session_.setFirstUrl(realFilePath_);
         nav_.setFiles(files_);
         nav_.getApplis().addAllEntries(_otherMessage);
-        setupAll(docs_,nav_, nav_.getSession(), blockBuilder(), d_);
+        setupAll(_built,nav_, nav_.getSession(), blockBuilder(), d_);
         return nav_;
     }
     protected abstract AbstractNatBlockBuilder blockBuilder();

@@ -55,22 +55,23 @@ public abstract class SoftApplicationCore {
         AikiFactory a_ = factories_.getAikiFactory();
         AbstractProgramInfos frs_ = getFrames();
         StringList lgs_ = new StringList(frs_.getTranslations().getMapping().getKeys());
-        aiki(a_,lgs_,frs_.getTranslations().byAppl(MessagesInit.APP_BEAN),frs_.getDisplayLanguages(),frs_.getGenerator());
+        aiki(a_,lgs_,frs_.getTranslations(),frs_.getDisplayLanguages(),frs_.getGenerator());
         CardFactories cf_ = factories_.getCardFactories();
         belote(cf_, lgs_, frs_.getTranslations().byAppl(MessBelotePage.APP_BEAN));
         president(cf_, lgs_, frs_.getTranslations().byAppl(MessPresidentPage.APP_BEAN));
         tarot(cf_, lgs_, frs_.getTranslations().byAppl(MessTarotPage.APP_BEAN));
         cf_.submitHelp();
     }
-    private static void aiki(AikiFactory _af, StringList _lgs, StringMap<TranslationsAppli> _msg, StringMap<String> _dis, AbstractGenerator _gene) {
+    private static void aiki(AikiFactory _af, StringList _lgs, Translations _msg, StringMap<String> _dis, AbstractGenerator _gene) {
         _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl()));
         StringMap<String> builtOther_ = CssInit.ms();
-        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), PagesInit.build(), _msg, builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
-        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), PagesInit.buildFight(), _msg, builtOther_, new PkFight(), _lgs),null));
-        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs),null));
-        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), _msg, builtOther_, new PkInd(), _lgs),null));
-        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), _msg, builtOther_, new PkDiff(), _lgs),null));
-        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(LoadingGame.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), _msg, builtOther_, new PkProg(), _lgs),null));
+        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
+        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesInit.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs),null));
+        StringMap<TranslationsAppli> stds_ = _msg.byAppl(MessagesInit.APP_BEAN);
+        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
+        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
+        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(new DiffGameInit(), PagesInit.buildDiff(), stds_, builtOther_, new PkDiff(), _lgs),null));
+        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(new ProgGameInit(), PagesInit.buildProg(), stds_, builtOther_, new PkProg(), _lgs),null));
     }
 
     private static void belote(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {

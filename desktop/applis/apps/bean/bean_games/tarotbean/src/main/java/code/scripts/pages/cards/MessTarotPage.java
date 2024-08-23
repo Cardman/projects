@@ -281,12 +281,12 @@ private static final char SEP='=';
 private MessTarotPage(){}
 public static TranslationsAppli enTarot(){
 TranslationsAppli b = new TranslationsAppli();
-b.getMapping().addEntry("resources_cards/messages/messages_tarot",AnaRendBlockHelp.file(en()));
+b.getMapping().addEntry("messages_tarot",AnaRendBlockHelp.file(en()));
 return b;
 }
 public static TranslationsAppli frTarot(){
 TranslationsAppli b = new TranslationsAppli();
-b.getMapping().addEntry("resources_cards/messages/messages_tarot",AnaRendBlockHelp.file(fr()));
+b.getMapping().addEntry("messages_tarot",AnaRendBlockHelp.file(fr()));
 return b;
 }
 public static StringMap<String> ms(){

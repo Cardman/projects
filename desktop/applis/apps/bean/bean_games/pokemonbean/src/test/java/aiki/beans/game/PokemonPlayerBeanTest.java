@@ -450,7 +450,8 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkInd pk_ = new PkInd();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_);
+        nav_.setLanguage(EN);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the pokemon PIKA</title><link href=\"web_pk/css/pokemon.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +

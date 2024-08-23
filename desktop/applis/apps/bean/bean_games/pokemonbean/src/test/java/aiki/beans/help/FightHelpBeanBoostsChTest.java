@@ -2,9 +2,10 @@ package aiki.beans.help;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.Fight;
 import code.maths.Rate;
 import code.util.LongTreeMap;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class FightHelpBeanBoostsChTest extends InitDbFightHelp {
@@ -23,9 +24,16 @@ public final class FightHelpBeanBoostsChTest extends InitDbFightHelp {
     public void form() {
         assertEq("b+1",callFightHelpBeanRateFormulaChGet(bean(db())));
     }
+    @Test
+    public void varBoost() {
+        assertEq("b",callFightHelpBeanBoostVarGet(bean(db())));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         f_.getData().setRateBoostCriticalHit(VAR_PREFIX+ DataBase.DEF_BOOST+"+1");
+        StringMap<String> litteral_ = new StringMap<String>();
+        litteral_.addEntry(DataBase.DEF_BOOST, StringUtil.concat("_",TAB,"b",TAB,"_"));
+        f_.getData().getLitterals().addEntry(LANGUAGE,litteral_);
         return f_;
     }
 }

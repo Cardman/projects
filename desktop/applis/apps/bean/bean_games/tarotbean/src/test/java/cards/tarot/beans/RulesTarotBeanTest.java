@@ -8,7 +8,6 @@ import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
-import code.sml.NavigationCore;
 import code.sml.util.TranslationsAppli;
 import code.util.IdList;
 import code.util.*;
@@ -104,7 +103,8 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsRules stds_ = new TarotStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_);
+        nav_.setLanguage(EN);
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -124,7 +124,8 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsRules stds_ = new TarotStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),FR,new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_);
+        nav_.setLanguage(FR);
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

@@ -27,7 +27,7 @@ public final class NatDualConfigurationContextTest extends EquallableBeanCoreUti
         other_.addEntry("sample/fr/prop","a=b2\nc=d2");
         other_.addEntry("sample/en/prop2","e=b1\nf=d1");
         other_.addEntry("sample/fr/prop2","e=b2\nf=d2");
-        StringMap<String> files_ = NatDualConfigurationContext.files(d_, other_, "");
+        StringMap<String> files_ = NatDualConfigurationContext.files(d_, other_);
         assertEq(1,files_.size());
         assertEq("*{}",files_.getVal("elt.css"));
     }
@@ -35,8 +35,7 @@ public final class NatDualConfigurationContextTest extends EquallableBeanCoreUti
     public void docs1() {
         StringMap<Document> in_ = new StringMap<Document>();
         in_.addEntry("", DocumentBuilder.parseSax("<a>t</a>"));
-        StringMap<Document> res_ = NatDualConfigurationContext.docs(in_, "");
-        assertEq("<a>t</a>",res_.getVal("").export());
+        assertEq("<a>t</a>",in_.getVal("").export());
     }
     @Test
     public void file() {

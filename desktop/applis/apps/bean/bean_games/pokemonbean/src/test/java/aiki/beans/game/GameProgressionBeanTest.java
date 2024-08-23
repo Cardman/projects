@@ -581,7 +581,8 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkProg pk_ = new PkProg();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_);
+        nav_.setLanguage(EN);
         pk_.setDataBase(fac(progress(),GIRL,Sex.GIRL));
         pk_.initializeRendSessionDoc(nav_);
         String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
@@ -706,7 +707,8 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkProg pk_ = new PkProg();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_);
+        nav_.setLanguage(EN);
         pk_.setDataBase(fac(progress(),BOY,Sex.BOY));
         pk_.initializeRendSessionDoc(nav_);
         String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +

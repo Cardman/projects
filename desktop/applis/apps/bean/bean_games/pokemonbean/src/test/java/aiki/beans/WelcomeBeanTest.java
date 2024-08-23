@@ -125,12 +125,13 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     public void init() {
         FacadeGame f_ = facade();
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
-        builtMessages_.addEntry(EN,MessagesInit.en());
-        builtMessages_.addEntry(FR,MessagesInit.fr());
+        builtMessages_.addEntry(EN,MessagesInit.enData());
+        builtMessages_.addEntry(FR,MessagesInit.frData());
         StringMap<String> builtOther_ = CssInit.ms();
         PkData pk_ = new PkData();
         StringMap<Document> b_ = PagesInit.build();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"),EN,new DataGameInit(), b_,builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new DataGameInit(), b_,builtOther_,builtMessages_);
+        nav_.setLanguage(EN);
         pk_.setDataBase(f_);
         pk_.initializeRendSessionDoc(nav_);
         assertFalse(nav_.getHtmlText().isEmpty());

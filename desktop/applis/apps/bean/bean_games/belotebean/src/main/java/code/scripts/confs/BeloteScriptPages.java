@@ -22,7 +22,7 @@ public final class BeloteScriptPages {
 //    public static final String CLASS_NAME = "className";
 //    public static final String NAVIGATION = "navigation";
     public static final String MESSAGES_FOLDER = "messagesFolder";
-    public static final String RESOURCES_CARDS_MESSAGES = "resources_cards/messages";
+    public static final String RESOURCES_CARDS_MESSAGES = "";
 //    public static final String DATA_BASE_CLASS_NAME = "dataBaseClassName";
 //    public static final String PROPERTIES = "properties";
     public static final String MESSAGES_BELOTE = "messages_belote";

@@ -173,16 +173,16 @@ public final class MathExpUtil {
         if (_char <= '9') {
             return true;
         }
-        if (_char < 'A') {
+        if (_char < NumberUtil.MIN_UPP) {
             return false;
         }
-        if (_char <= 'Z') {
+        if (_char <= NumberUtil.MIN_UPP + 25) {
             return true;
         }
-        if (_char < 'a') {
+        if (_char < NumberUtil.MIN_LOW) {
             return false;
         }
-        if (_char <= 'z') {
+        if (_char <= NumberUtil.MIN_LOW + 25) {
             return true;
         }
         return _char >= 160;

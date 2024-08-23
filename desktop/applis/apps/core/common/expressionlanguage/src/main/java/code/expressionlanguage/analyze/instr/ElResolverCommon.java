@@ -11,7 +11,7 @@ import code.expressionlanguage.options.SuffixedNumber;
 import code.maths.litteralcom.MathExpUtil;
 import code.util.CharList;
 import code.util.Ints;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 public final class ElResolverCommon {
     private ElResolverCommon() {
@@ -455,7 +455,7 @@ public final class ElResolverCommon {
             String keyWordNbDig_ = _key.getKeyWordNbDig();
             int ch_ = keyWordNbDig_.indexOf(min_);
             if (ch_ >= 0) {
-                return ch_ + 'A';
+                return ch_ + NumberUtil.MIN_UPP;
             }
             return -1;
         }

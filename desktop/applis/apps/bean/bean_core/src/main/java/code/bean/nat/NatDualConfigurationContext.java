@@ -1,8 +1,6 @@
 package code.bean.nat;
 
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.sml.Document;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -19,24 +17,16 @@ public class NatDualConfigurationContext {
         setRenderFiles(new StringList());
     }
 
-    public static StringMap<Document> docs(StringMap<Document> _built, String _relative) {
-        StringMap<Document> docs_ = new StringMap<Document>();
-        for (EntryCust<String,Document> e: _built.entryList()) {
-            docs_.addEntry(e.getKey().substring(_relative.length()),e.getValue());
-        }
-        return docs_;
-    }
-
     public void init(NatConfigurationCore _conf) {
         _conf.updatePref();
         String firstUrl_ = _conf.getFirstUrl();
         getRenderFiles().removeAllString(firstUrl_);
         getRenderFiles().add(firstUrl_);
     }
-    public static StringMap<String> files(NatDualConfigurationContext _d, StringMap<String> _other, String _rel){
+    public static StringMap<String> files(NatDualConfigurationContext _d, StringMap<String> _other){
         StringMap<String> files_ = new StringMap<String>();
         for (String a : _d.getAddedFiles()) {
-            String val_ = _other.getVal(_rel + a);
+            String val_ = _other.getVal(a);
             tryPut(files_, a, val_);
         }
         return files_;

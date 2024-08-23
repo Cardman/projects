@@ -8,8 +8,8 @@ public final class AikiBeansHelpStd{
     public static final String TYPE_FIGHT_HELP_BEAN = "aiki.beans.help.FightHelpBean";
     public static final String TYPE_GENERAL_HELP_BEAN = "aiki.beans.help.GeneralHelpBean";
     public static final String TYPE_LANGS_BEAN = "aiki.beans.help.LangsBean";
-    public static final String TYPE_LANGUAGE_ELEMENT_KEY = "aiki.beans.help.LanguageElementKey";
-    public static final String TYPE_LANGUAGE_ELEMENT_STRING_KEY = "aiki.beans.help.LanguageElementStringKey";
+//    public static final String TYPE_LANGUAGE_ELEMENT_KEY = "aiki.beans.help.LanguageElementKey";
+//    public static final String TYPE_LANGUAGE_ELEMENT_STRING_KEY = "aiki.beans.help.LanguageElementStringKey";
     private static final String GET_MAP_WIDTH = "getMapWidth";
 //    private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String GET_PLACE_NAME = "getPlaceName";
@@ -476,6 +476,7 @@ public final class AikiBeansHelpStd{
     private static final String HM = "hm";
     private static final String TYPES = "types";
     private static final String LANGUAGES = "languages";
+    private static final String BOOST_VAR = "boost";
     private static final String DEFAULT_BOOST_VALUE = "defaultBoostValue";
     private static final String PRIVATING_MOVES = "privatingMoves";
     private static final String MOVES_HEALING_SUBSTITUTE = "movesHealingSubstitute";
@@ -651,6 +652,7 @@ public final class AikiBeansHelpStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(BOOST_VAR, BeanNatCommonLgNames.STRING, new FightHelpBeanBoostVarGet(),null));
         fields_.add(new StandardField(DEFAULT_BOOST_VALUE, BeanNatCommonLgNames.PRIM_INTEGER, new FightHelpBeanDefaultBoostValueGet(),null));
         fields_.add(new StandardField(PRIVATING_MOVES, BeanNatCommonLgNames.TYPE_LIST, new FightHelpBeanPrivatingMovesGet(),null));
         fields_.add(new StandardField(MOVES_HEALING_SUBSTITUTE, BeanNatCommonLgNames.TYPE_LIST, new FightHelpBeanMovesHealingSubstituteGet(),null));

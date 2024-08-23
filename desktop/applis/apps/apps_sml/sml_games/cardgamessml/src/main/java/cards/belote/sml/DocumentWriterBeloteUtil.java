@@ -21,9 +21,9 @@ import code.util.core.BoolVal;
 
 public final class DocumentWriterBeloteUtil {
     public static final String TYPE_GAME_BELOTE = "0";
-    public static final String TYPE_RESULTS_BELOTE = "ResultsBelote";
-    public static final String TYPE_RULES_BELOTE = "RulesBelote";
-    public static final String TYPE_TRICKS_HANDS_BELOTE = "TricksHandsBelote";
+    public static final String TYPE_RESULTS_BELOTE = "_";
+    public static final String TYPE_RULES_BELOTE = "_0";
+    public static final String TYPE_TRICKS_HANDS_BELOTE = "_";
     public static final String EMPTY_STRING = "";
     public static final String FIELD_ALLOWED_BIDS = "0";
     public static final String FIELD_ALLOWED_DECLARES = "1";

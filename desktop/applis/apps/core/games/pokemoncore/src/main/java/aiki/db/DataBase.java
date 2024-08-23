@@ -429,23 +429,6 @@ public class DataBase {
 
     public static final String SEP_BETWEEN_KEYS = "__";
     public static final String IMG_FILES_RES_EXT = ".png";
-    public static final String TRANSLATION_CATEGORIES = "categories.txt";
-    public static final String TRANSLATION_GENDERS = "genders.txt";
-    public static final String TRANSLATION_ENVIRONMENTS = "environments.txt";
-    public static final String TRANSLATION_BOOLEANS = "booleans.txt";
-    public static final String TRANSLATION_DIFF_WIN_PTS = "winpts.txt";
-    public static final String TRANSLATION_DIFF_MODEL_LAW = "modellaw.txt";
-    public static final String TRANSLATION_STATISTICS = "statistics.txt";
-    public static final String TRANSLATION_TARGETS = "targets.txt";
-    public static final String TRANSLATION_TYPES = "types.txt";
-    public static final String TRANSLATION_POKEMON = "pokemon.txt";
-    public static final String TRANSLATION_MOVES = "moves.txt";
-    public static final String TRANSLATION_ITEMS = "items.txt";
-    public static final String TRANSLATION_ABILITIES = "abilities.txt";
-    public static final String TRANSLATION_STATUS = "status.txt";
-    public static final String TRANSLATION_MATH = "math.txt";
-    public static final String TRANSLATION_CLASSES = "classes.txt";
-    public static final String TRANSLATION_LITTERAL = "litteral.txt";
 
     public static final String DEF_STAT_HP= "0";
     public static final String DEF_STAT_ATTACK= "1";
@@ -3219,9 +3202,14 @@ public class DataBase {
             setError(true);
         }
         for (String v: variables) {
-            for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
-                checkLittVar(v, m);
-            }
+            checkLittVar(v);
+        }
+        checkLittVar(StringUtil.concat(prefixVar(),DataBase.SEP_BETWEEN_KEYS,boost()));
+    }
+
+    private void checkLittVar(String _v) {
+        for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
+            checkLittVar(_v, m);
         }
     }
 
@@ -5032,7 +5020,7 @@ public class DataBase {
         for (int i = 0; i < len_; i++) {
             char curr_ = _string.charAt(i);
             if (isLowerLetter(curr_)) {
-                int char_ = curr_ - 'a' + 'A';
+                int char_ = curr_ - NumberUtil.MIN_LOW + NumberUtil.MIN_UPP;
                 str_.append((char)char_);
                 continue;
             }
@@ -5042,7 +5030,7 @@ public class DataBase {
     }
 
     private static boolean isLowerLetter(char _curr) {
-        return _curr >= 'a' && _curr <= 'z';
+        return _curr >= NumberUtil.MIN_LOW && _curr <= NumberUtil.MIN_LOW + 25;
     }
 
     public void setMessages(DataBase _other) {

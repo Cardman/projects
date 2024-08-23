@@ -1,14 +1,12 @@
 package code.gui;
 
-import code.util.core.StringUtil;
-
 public class TaskPaintingLabel implements Runnable {
 
     private static final int DELTA = 100;
 
     private static final int SECOND_MILLIS = 1000;
 
-    private static final String UNIT = " s";
+//    private static final String UNIT = " s";
 //
 //    private static final String SEPARATOR = " - ";
 //
@@ -38,7 +36,7 @@ public class TaskPaintingLabel implements Runnable {
 //            return;
 //        }
         time += DELTA;
-        dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT));
+        dialog.setTitle(Long.toString(time/SECOND_MILLIS));
 //        if (dialog.getPercent().isEmpty()) {
 //            dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT));
 //        } else {

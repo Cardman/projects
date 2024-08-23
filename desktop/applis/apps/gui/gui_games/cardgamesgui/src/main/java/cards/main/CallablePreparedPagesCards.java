@@ -28,6 +28,6 @@ public final class CallablePreparedPagesCards implements IntCallable<CardNatLgNa
 
     @Override
     public CardNatLgNamesNavigation call() {
-        return new CardNatLgNamesNavigation(beanNatLgNames,beanNatLgNames.nav(availableLanguages,"",init,built,builtOther,other,""));
+        return new CardNatLgNamesNavigation(beanNatLgNames,beanNatLgNames.nav(availableLanguages, init,built,builtOther,other));
     }
 }

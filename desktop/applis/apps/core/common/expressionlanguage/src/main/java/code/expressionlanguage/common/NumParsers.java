@@ -1,5 +1,6 @@
 package code.expressionlanguage.common;
 
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
 import code.maths.litteralcom.MathExpUtil;
@@ -737,11 +738,11 @@ public final class NumParsers {
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
             int ch_ = str_.charAt(i_);
-            if (ch_ >= 'A' && ch_ <= 'F') {
-                ch_ = ch_ - 'A' + 'a';
+            if (ch_ >= NumberUtil.MIN_UPP && ch_ <= NumberUtil.MAX_UPP) {
+                ch_ = ch_ - NumberUtil.MIN_UPP + NumberUtil.MIN_LOW;
             }
             i_++;
-            int t_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - 'a', 0);
+            int t_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - NumberUtil.MIN_LOW, 0);
             int k_ = 3;
             for (int j = 0; j < 4; j++) {
                 if (t_ % 2 == 1) {
@@ -909,11 +910,11 @@ public final class NumParsers {
         if (_ch >= '0' && _ch <= '9') {
             return _ch - '0';
         }
-        if (_ch >= 'a' && _ch <= 'z') {
-            return 10 + _ch - 'a';
+        if (_ch >= NumberUtil.MIN_LOW && _ch <= NumberUtil.MIN_LOW + 25) {
+            return 10 + _ch - NumberUtil.MIN_LOW;
         }
-        if (_ch >= 'A' && _ch <= 'Z') {
-            return 10 + _ch - 'A';
+        if (_ch >= NumberUtil.MIN_UPP && _ch <= NumberUtil.MIN_UPP + 25) {
+            return 10 + _ch - NumberUtil.MIN_UPP;
         }
         return -1;
     }
@@ -1053,7 +1054,7 @@ public final class NumParsers {
         if (Float.isNaN(f_)) {
             return new StringStruct(_nan);
         }
-        return new StringStruct(StringUtil.replace(Float.toString(f_),"E",_exp));
+        return new StringStruct(StringUtil.replace(Float.toString(f_), KeyWords.EXPONENT_REPLACE,_exp));
     }
 
     public static StringStruct getDoubleString(NumberStruct _nb, String _infinity, String _nan, String _exp) {
@@ -1067,7 +1068,7 @@ public final class NumParsers {
         if (Double.isNaN(d_)) {
             return new StringStruct(_nan);
         }
-        return new StringStruct(StringUtil.replace(Double.toString(d_),"E",_exp));
+        return new StringStruct(StringUtil.replace(Double.toString(d_),KeyWords.EXPONENT_REPLACE,_exp));
     }
 
     public static int compareGene(NumberStruct _nb1, NumberStruct _nb2) {

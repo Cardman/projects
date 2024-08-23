@@ -1,6 +1,7 @@
 package code.formathtml.render;
 
 import code.util.Ints;
+import code.util.core.NumberUtil;
 
 public final class MetaNumberedLabel extends MetaLabel {
 
@@ -125,7 +126,7 @@ public final class MetaNumberedLabel extends MetaLabel {
                 str_.append(" ");
                 continue;
             }
-            int char_ = curr_ - 'a' + 'A';
+            int char_ = curr_ - NumberUtil.MIN_LOW + NumberUtil.MIN_UPP;
             str_.append((char)char_);
         }
         return str_.toString();

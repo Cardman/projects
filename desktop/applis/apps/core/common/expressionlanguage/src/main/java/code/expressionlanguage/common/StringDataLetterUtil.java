@@ -7,16 +7,16 @@ public final class StringDataLetterUtil {
     }
 
     public static boolean isLetter(char _ch) {
-        if (_ch < 'A') {
+        if (_ch < NumberUtil.MIN_UPP) {
             return false;
         }
-        if (_ch <= 'Z') {
+        if (_ch <= NumberUtil.MIN_UPP + 25) {
             return true;
         }
-        if (_ch < 'a') {
+        if (_ch < NumberUtil.MIN_LOW) {
             return false;
         }
-        if (_ch <= 'z') {
+        if (_ch <= NumberUtil.MIN_LOW + 25) {
             return true;
         }
         if (_ch < 170) {

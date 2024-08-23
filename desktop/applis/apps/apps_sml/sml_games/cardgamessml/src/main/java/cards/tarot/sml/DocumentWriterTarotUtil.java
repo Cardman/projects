@@ -20,9 +20,9 @@ import code.util.core.BoolVal;
 public final class DocumentWriterTarotUtil {
 
     public static final String TYPE_GAME_TAROT = "2";
-    public static final String TYPE_RESULTS_TAROT = "ResultsTarot";
-    public static final String TYPE_RULES_TAROT = "RulesTarot";
-    public static final String TYPE_TRICKS_HANDS_TAROT = "TricksHandsTarot";
+    public static final String TYPE_RESULTS_TAROT = "_";
+    public static final String TYPE_RULES_TAROT = "_2";
+    public static final String TYPE_TRICKS_HANDS_TAROT = "_";
     public static final String EMPTY_STRING = "";
     public static final String FIELD_ALLOWED_BIDS = "0";
     public static final String FIELD_ALLOWED_HANDFULS = "1";

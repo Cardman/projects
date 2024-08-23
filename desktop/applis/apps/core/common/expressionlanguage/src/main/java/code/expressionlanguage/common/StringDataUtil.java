@@ -74,11 +74,11 @@ public final class StringDataUtil {
         if (MathExpUtil.isDigit(_ch)) {
             digit_ = _ch - '0';
         }
-        if (inRangeBounds(_ch, 'a', 'z')) {
-            digit_ = _ch - 'a' + 10;
+        if (inRangeBounds(_ch, NumberUtil.MIN_LOW, NumberUtil.MIN_LOW + 25)) {
+            digit_ = _ch - NumberUtil.MIN_LOW + 10;
         }
-        if (inRangeBounds(_ch, 'A', 'Z')) {
-            digit_ = _ch - 'A' + 10;
+        if (inRangeBounds(_ch, NumberUtil.MIN_UPP, NumberUtil.MIN_UPP + 25)) {
+            digit_ = _ch - NumberUtil.MIN_UPP + 10;
         }
         if (digit_ < _radix) {
             return digit_;
@@ -102,7 +102,7 @@ public final class StringDataUtil {
         if (_digit < 10) {
             return (char) ('0'+_digit);
         }
-        return (char)('a'+_digit-10);
+        return (char)(NumberUtil.MIN_LOW+_digit-10);
     }
 
     public static boolean isLetterOrDigit(char _ch) {

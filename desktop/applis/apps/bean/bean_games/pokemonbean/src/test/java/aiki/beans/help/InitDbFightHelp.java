@@ -2073,6 +2073,9 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanRateFormulaGet(),_str,_args);
     }
 
+    public static NaSt callFightHelpBeanBoostVarGet(NaSt _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FightHelpBeanBoostVarGet(),_str,_args);
+    }
     public static NaSt callFightHelpBeanRatesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanRatesGet(),_str,_args);
     }

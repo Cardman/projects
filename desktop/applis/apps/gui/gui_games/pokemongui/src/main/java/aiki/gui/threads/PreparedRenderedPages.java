@@ -12,14 +12,12 @@ public final class PreparedRenderedPages {
     private final PokemonStandards stds;
     private final StringList availableLanguages;
     private NatNavigation navigation;
-    private final String relative;
     private PokemonStandards beanNatLgNames;
     private final StringMap<Document> built;
     private final StringMap<TranslationsAppli> builtMessages;
     private final StringMap<String> builtOther;
 
-    public PreparedRenderedPages(String _relative, AbstractNativeInit _init, StringMap<Document> _build, StringMap<TranslationsAppli> _builtMessages, StringMap<String> _builtOther, PokemonStandards _stds, StringList _lgs) {
-        relative = _relative;
+    public PreparedRenderedPages(AbstractNativeInit _init, StringMap<Document> _build, StringMap<TranslationsAppli> _builtMessages, StringMap<String> _builtOther, PokemonStandards _stds, StringList _lgs) {
         init = _init;
         built = _build;
         builtMessages = _builtMessages;
@@ -30,7 +28,7 @@ public final class PreparedRenderedPages {
 
     public void run() {
         beanNatLgNames = stds;
-        navigation = stds.nav(availableLanguages,"",init,built,builtOther,builtMessages,relative);
+        navigation = stds.nav(availableLanguages, init,built,builtOther,builtMessages);
     }
 
     public NatNavigation getNavigation() {

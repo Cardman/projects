@@ -6,8 +6,8 @@ import code.util.core.StringUtil;
 public final class BaseSixtyFourUtil {
 
     private static final int FIRST_DIGIT = '0';
-    private static final int FIRST_LOW_LETTER = 'a';
-    private static final int FIRST_UPP_LETTER = 'A';
+    private static final int FIRST_LOW_LETTER = NumberUtil.MIN_LOW;
+    private static final int FIRST_UPP_LETTER = NumberUtil.MIN_UPP;
     private static final short BYTE = 256;
     private static final byte SIXTY_FOUR_BITS = 64;
     private static final byte SIXTEEN_BITS = 16;
@@ -119,10 +119,10 @@ public final class BaseSixtyFourUtil {
         if (_ch >= FIRST_DIGIT && _ch <= '9') {
             int diff_ = _ch - FIRST_DIGIT;
             v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
-        } else if (_ch >= FIRST_LOW_LETTER && _ch <= 'z') {
+        } else if (_ch >= FIRST_LOW_LETTER && _ch <= NumberUtil.MIN_LOW + 25) {
             int diff_ = _ch - FIRST_LOW_LETTER;
             v_ = (byte) (NB_LETTERS+diff_);
-        } else if (_ch >= FIRST_UPP_LETTER && _ch <= 'Z') {
+        } else if (_ch >= FIRST_UPP_LETTER && _ch <= NumberUtil.MIN_UPP + 25) {
             int diff_ = _ch - FIRST_UPP_LETTER;
             v_ = (byte) diff_;
         } else if (_ch == '+') {

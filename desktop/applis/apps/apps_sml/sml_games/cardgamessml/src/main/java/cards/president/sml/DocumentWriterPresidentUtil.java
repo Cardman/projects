@@ -21,9 +21,9 @@ import code.util.IdList;
 
 public final class DocumentWriterPresidentUtil {
     public static final String TYPE_GAME_PRESIDENT = "1";
-    public static final String TYPE_RESULTS_PRESIDENT = "ResultsPresident";
-    public static final String TYPE_RULES_PRESIDENT = "RulesPresident";
-    public static final String TYPE_TRICKS_HANDS_PRESIDENT = "TricksHandsPresident";
+    public static final String TYPE_RESULTS_PRESIDENT = "_";
+    public static final String TYPE_RULES_PRESIDENT = "_1";
+    public static final String TYPE_TRICKS_HANDS_PRESIDENT = "_";
     public static final String EMPTY_STRING = "";
     public static final String FIELD_CARDS_HANDS_AT_INITIAL_STATE = "0";
     public static final String FIELD_CLOCKWISE = "1";

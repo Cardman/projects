@@ -106,6 +106,8 @@ public final class KeyWords {
     public static final String PACKAGE="88";
     public static final String PROTECTED="89";
     public static final String PRIVATE="90";
+    public static final String EXPONENT_REPLACE="E";
+    public static final char EXPONENT_REPLACE_CH='E';
     private String keyWordValue = "$value";
     private String keyWordVar = "$var";
     private String keyWordInterfaces = "$interfaces";

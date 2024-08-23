@@ -38,7 +38,7 @@ public final class BeloteStandardsSampleNet extends BeloteStandards {
     }
 
     @Override
-    public NatNavigation nav(StringList _languages, String _lg, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<TranslationsAppli> _otherMessage, String _rel) {
+    public NatNavigation nav(StringList _languages, AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<TranslationsAppli> _otherMessage) {
         return EquallableNetworkUtil.nav();
     }
 }

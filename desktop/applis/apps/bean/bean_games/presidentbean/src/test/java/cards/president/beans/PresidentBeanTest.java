@@ -7,7 +7,6 @@ import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
-import code.sml.NavigationCore;
 import code.sml.util.*;
 import code.util.*;
 import org.junit.Test;
@@ -47,7 +46,8 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         mes_.addEntry(EN,MessPresidentPage.enPresident());
         mes_.addEntry(FR,MessPresidentPage.frPresident());
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,mes_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new ResultsPresidentLoader(),PagesPresidents.build(),other_,mes_);
+        nav_.setLanguage(EN);
         stds_.setDataBase(build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -63,7 +63,8 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         mes_.addEntry(EN,MessPresidentPage.enPresident());
         mes_.addEntry(FR,MessPresidentPage.frPresident());
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,mes_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new ResultsPresidentLoader(),PagesPresidents.build(),other_,mes_);
+        nav_.setLanguage(EN);
         stds_.setDataBase(build(game(),fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4)));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

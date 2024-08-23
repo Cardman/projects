@@ -3,6 +3,10 @@ package code.util.core;
 import code.util.ints.Listable;
 
 public final class NumberUtil {
+    public static final char MIN_LOW = 97;
+    public static final char MAX_LOW = MIN_LOW+5;
+    public static final char MIN_UPP = 65;
+    public static final char MAX_UPP = MIN_UPP+5;
     private static final int DEFAULT_RADIX = 10;
     private static final byte HEX_BASE = 16;
     private static final char MINUS = '-';
@@ -216,10 +220,10 @@ public final class NumberUtil {
         while (i_ < max_) {
             int ch_ = _string.charAt(i_);
             if (isMajHex(ch_)) {
-                ch_ = ch_ - 'A' + 'a';
+                ch_ = ch_ - MIN_UPP + MIN_LOW;
             }
             i_++;
-            int digit_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - 'a', 0);
+            int digit_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - MIN_LOW, 0);
             result_ *= HEX_BASE;
             result_ += digit_;
         }
@@ -227,11 +231,11 @@ public final class NumberUtil {
     }
 
     public static boolean isMajHex(int _ch) {
-        return _ch >= 'A' && _ch <= 'F';
+        return _ch >= MIN_UPP && _ch <= MAX_UPP;
     }
 
     public static boolean isMinHex(int _ch) {
-        return _ch >= 'a' && _ch <= 'f';
+        return _ch >= MIN_LOW && _ch <= MAX_LOW;
     }
 
     //this long parser is very naive

@@ -69,7 +69,7 @@ public final class AnaRendBlockHelp {
         StringMap<String> pres_ = new StringMap<String>();
         for (String l: _analyzingDoc.getLanguages()) {
             StringMap<TranslationsFile> files_ = _analyzingDoc.getApplis().getVal(l).getMapping();
-            TranslationsFile content_ = tryGetContent(fileName_, files_, _analyzingDoc);
+            TranslationsFile content_ = tryGetContent(fileName_, files_);
             String key_ = elts_.last();
             String format_ = content_.getMapping().getVal(key_);
             pres_.addEntry(l,format_);
@@ -226,9 +226,8 @@ public final class AnaRendBlockHelp {
         return _elt.getAttribute(_key);
     }
 
-    public static TranslationsFile tryGetContent(String _relative, StringMap<TranslationsFile> _files, NatAnalyzingDoc _anaDoc) {
-        String folder_ = _anaDoc.getMessagesFolder();
-        return _files.getVal(folder_+"/"+_relative);
+    public static TranslationsFile tryGetContent(String _relative, StringMap<TranslationsFile> _files) {
+        return _files.getVal(_relative);
     }
     static String getCssHref(Element _link, RendKeyWordsGroup _rendKeyWords) {
         return _link.getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrHref());

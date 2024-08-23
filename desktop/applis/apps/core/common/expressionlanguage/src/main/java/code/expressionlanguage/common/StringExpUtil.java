@@ -717,7 +717,7 @@ public final class StringExpUtil {
                 str_.setCharAt(i,(char)('6' + '9'-c_));
                 continue;
             }
-            str_.setCharAt(i,(char)('a' + '5'-c_));
+            str_.setCharAt(i,(char)(NumberUtil.MIN_LOW + '5'-c_));
         }
         return str_.toString();
     }
@@ -770,7 +770,7 @@ public final class StringExpUtil {
         if (_i < 10) {
             return Long.toString(_i);
         }
-        return Character.toString((char)(_i+'a'-10));
+        return Character.toString((char)(_i+NumberUtil.MIN_LOW-10));
     }
 
     public static boolean matchChars(String _info, int _index, char... _chars) {

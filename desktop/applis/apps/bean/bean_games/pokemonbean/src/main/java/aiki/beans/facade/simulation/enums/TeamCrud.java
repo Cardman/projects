@@ -4,7 +4,7 @@ import code.util.IdList;
 import code.util.core.StringUtil;
 
 public enum TeamCrud {
-    ADD("ADD"),EDIT("EDIT"),REMOVE("REMOVE"),NOTHING("NOTHING");
+    ADD("0"),EDIT("1"),REMOVE("2"),NOTHING("3");
     private final String teamCrudString;
     TeamCrud(String _t){
         teamCrudString= _t;

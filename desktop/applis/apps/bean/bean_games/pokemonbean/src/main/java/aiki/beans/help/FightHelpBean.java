@@ -38,7 +38,7 @@ import code.util.ints.Listable;
 
 public class FightHelpBean extends CommonBean {
 
-    private static final String VAR_BOOST ="b";
+//    private static final String VAR_BOOST ="b";
     private StringList abilitiesSentBeginWeather;
     private StringList abilitiesSentBeginOther;
     private StringList abilitiesSentStatis;
@@ -207,17 +207,19 @@ public class FightHelpBean extends CommonBean {
         defaultMove = data_.getDefMove();
         defaultBoostValue = data_.getDefaultBoost();
         strongMove = data_.getStrongMovePower();
-        StringMap<String> replace_ = new StringMap<String>();
-        rateFormula = data_.getRateBoost();
-        String pref_ = data_.prefixVar();
-        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,data_.boost()), VAR_BOOST);
+//        StringMap<String> replace_ = new StringMap<String>();
+//        rateFormula = data_.getRateBoost();
+//        String pref_ = data_.prefixVar();
+//        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,data_.boost()), VAR_BOOST);
 //        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
-        rateFormula = MathExpUtil.replaceWordsJoin(rateFormula, replace_);
-        replace_ = new StringMap<String>();
-        rateFormulaCh = data_.getRateBoostCriticalHit();
-        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,data_.boost()), VAR_BOOST);
+//        rateFormula = MathExpUtil.replaceWordsJoin(rateFormula, replace_);
+        rateFormula = data_.getFormula(data_.getRateBoost(),getLanguage());
+//        replace_ = new StringMap<String>();
+//        rateFormulaCh = data_.getRateBoostCriticalHit();
+//        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,data_.boost()), VAR_BOOST);
 //        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
-        rateFormulaCh = MathExpUtil.replaceWordsJoin(rateFormulaCh, replace_);
+//        rateFormulaCh = MathExpUtil.replaceWordsJoin(rateFormulaCh, replace_);
+        rateFormulaCh = data_.getFormula(data_.getRateBoostCriticalHit(),getLanguage());
         long minBoost_ = data_.getMinBoost();
         long maxBoost_ = data_.getMaxBoost();
         initBoosts(minBoost_, maxBoost_);
@@ -5265,6 +5267,11 @@ public class FightHelpBean extends CommonBean {
 
     public String getRateFormula() {
         return rateFormula;
+    }
+
+    public String getBoostVar() {
+        DataBase data_ = getDataBase();
+        return StringUtil.splitStrings(data_.getLitterals().getVal(getLanguage()).getVal(data_.boost()), "\t").get(1);
     }
 
     public LongTreeMap<Rate> getBoosts() {

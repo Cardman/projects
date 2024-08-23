@@ -9,7 +9,7 @@ import code.sml.Element;
 public final class DocumentWriterGuiUtil {
     public static final String WIDTH = "0";
     public static final String HEIGHT = "1";
-    public static final String TOP_LEFT_FRAME = "TopLeftFrame";
+    public static final String TOP_LEFT_FRAME = "__";
     private static final String EMPTY_STRING = "";
     private DocumentWriterGuiUtil() {
     }

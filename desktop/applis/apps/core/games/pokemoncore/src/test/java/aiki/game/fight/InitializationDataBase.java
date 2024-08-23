@@ -1840,6 +1840,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         litteral_.addEntry(DataBase.DEF_NB_FLEES, StringUtil.concat(MOVE_FORMULA,TAB,"nb_flees",TAB,"Number of attempts of flee."));
         litteral_.addEntry(DataBase.DEF_LEVEL_WINNER, StringUtil.concat(MOVE_FORMULA,TAB,"lvl_l",TAB,"Level of the KO fighter"));
         litteral_.addEntry(DataBase.DEF_LEVEL_LOOSER, StringUtil.concat(MOVE_FORMULA,TAB,"lvl_w",TAB,"Level of the player fighter which wins points"));
+        litteral_.addEntry(DataBase.DEF_BOOST, StringUtil.concat("_",TAB,"b",TAB,"_"));
         _data.getLitterals().addEntry(LANGUAGE,litteral_);
     }
 

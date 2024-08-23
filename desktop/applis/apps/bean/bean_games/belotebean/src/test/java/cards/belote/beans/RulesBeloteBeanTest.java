@@ -8,7 +8,6 @@ import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
-import code.sml.NavigationCore;
 import code.sml.util.*;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -98,7 +97,8 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
         mes_.addEntry(EN,MessBelotePage.enBelote());
         mes_.addEntry(FR,MessBelotePage.frBelote());
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),EN,new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,mes_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,mes_);
+        nav_.setLanguage(EN);
         stds_.setDataBaseRules(rules(DealingBelote.CLASSIC_2_VS_2, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -115,7 +115,8 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
         mes_.addEntry(EN,MessBelotePage.enBelote());
         mes_.addEntry(FR,MessBelotePage.frBelote());
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"),FR,new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,mes_,"");
+        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,mes_);
+        nav_.setLanguage(FR);
         stds_.setDataBaseRules(rules(DealingBelote.CLASSIC_2_VS_2, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
