@@ -93,6 +93,7 @@ public final class AikiBeansFightStd{
     private static final String HEIGHT = "height";
     private static final String HEIGHT_STR = "heightStr";
     private static final String REMAINING_HP = "remainingHp";
+    private static final String MAX_HP = "maxHp";
     private static final String REMAINING_HP_STR = "remainingHpStr";
     private static final String REMAINING_HP_STR_PER_CENT = "remainingHpStrPerCent";
     private static final String CLONE = "clone";
@@ -225,6 +226,7 @@ public final class AikiBeansFightStd{
         fields_.add(new StandardField(HEIGHT,BeanNatCommonLgNames.TYPE_RATE, new FighterBeanHeightGet(),null));
         fields_.add(new StandardField(HEIGHT_STR,BeanNatCommonLgNames.STRING, new FighterBeanHeightStrGet(),null));
         fields_.add(new StandardField(REMAINING_HP,BeanNatCommonLgNames.TYPE_RATE, new FighterBeanRemainingHpGet(),null));
+        fields_.add(new StandardField(MAX_HP,BeanNatCommonLgNames.TYPE_RATE, new FighterBeanFullHpGet(),null));
         fields_.add(new StandardField(REMAINING_HP_STR,BeanNatCommonLgNames.STRING, new FighterBeanRemainingHpStrGet(),null));
         fields_.add(new StandardField(REMAINING_HP_STR_PER_CENT,BeanNatCommonLgNames.STRING, new FighterBeanRemainingHpStrPerCentGet(),null));
         fields_.add(new StandardField(CLONE,BeanNatCommonLgNames.TYPE_RATE, new FighterBeanCloneGet(),null));

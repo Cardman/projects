@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageFightFighter extends PageCardsCommon{
 private static final String C_P_208_0="javahtml";
 private static final String C_P_208_1="fighter";
@@ -59,6 +58,7 @@ private static final String C_P_208_52="height";
 private static final String C_P_208_53="heightStr";
 private static final String C_P_208_54="msg_fighter,remain_hp";
 private static final String C_P_208_55="remainingHp";
+private static final String C_P_208_55_0="maxHp";
 private static final String C_P_208_56="remainingHpStr";
 private static final String C_P_208_57="remainingHpStrPerCent";
 private static final String C_P_208_58="msg_fighter,clone";
@@ -808,6 +808,11 @@ CustList<Attr> attrs3_=al(1);
 attrs3_.add(at(VALUE,C_P_208_57));
 at(elt3_,attrs3_);
 ad(elt0_,elt3_);
+Element elt4_=el(_doc113,PARAM);
+CustList<Attr> attrs4_=al(1);
+attrs4_.add(at(VALUE,C_P_208_55_0));
+at(elt4_,attrs4_);
+ad(elt0_,elt4_);
 ad(_body,elt0_);
 }
 static void build21(Element _body,Document _doc113){

@@ -1798,7 +1798,7 @@ public class RateTest extends EquallableMathUtil {
     @Test
     public void evaluate4Test(){
         Rate rate_ = new Rate("1");
-        assertEq("1.E0",rate_.evaluate(1));
+        assertEq("1."+Rate.POWER+"0",rate_.evaluate(1));
     }
     @Test
     public void evaluate5Test(){
@@ -1808,37 +1808,37 @@ public class RateTest extends EquallableMathUtil {
     @Test
     public void evaluate6Test(){
         Rate rate_ = new Rate("2");
-        assertEq("2.E0",rate_.evaluate(1));
+        assertEq("2."+Rate.POWER+"0",rate_.evaluate(1));
     }
     @Test
     public void evaluate7Test(){
         Rate rate_ = new Rate("2");
-        assertEq("2.0E0",rate_.evaluate(2));
+        assertEq("2.0"+Rate.POWER+"0",rate_.evaluate(2));
     }
     @Test
     public void evaluate8Test(){
         Rate rate_ = new Rate("3/2");
-        assertEq("1.5E0",rate_.evaluate(2));
+        assertEq("1.5"+Rate.POWER+"0",rate_.evaluate(2));
     }
     @Test
     public void evaluate9Test(){
         Rate rate_ = new Rate("1/2");
-        assertEq("5.0E-1",rate_.evaluate(2));
+        assertEq("5.0"+Rate.POWER+"-1",rate_.evaluate(2));
     }
     @Test
     public void evaluate10Test(){
         Rate rate_ = new Rate("-3/2");
-        assertEq("-1.5E0",rate_.evaluate(2));
+        assertEq("-1.5"+Rate.POWER+"0",rate_.evaluate(2));
     }
     @Test
     public void evaluate11Test(){
         Rate rate_ = new Rate("-30/2");
-        assertEq("-1.5E1",rate_.evaluate(2));
+        assertEq("-1.5"+Rate.POWER+"1",rate_.evaluate(2));
     }
     @Test
     public void evaluate12Test(){
         Rate rate_ = new Rate("-300001/20000");
-        assertEq("-1.5E1",rate_.evaluate(2));
+        assertEq("-1.5"+Rate.POWER+"1",rate_.evaluate(2));
     }
     @Test
     public void evaluate13Test(){

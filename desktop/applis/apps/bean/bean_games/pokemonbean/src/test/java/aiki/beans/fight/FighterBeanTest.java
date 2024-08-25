@@ -274,7 +274,7 @@ public final class FighterBeanTest extends InitDbFight {
 
     @Test
     public void weStr() {
-        assertEq("1.0E0",callFighterBeanWeightStrGet(playerPath(0)));
+        assertEq("1.0"+Rate.POWER+"0",callFighterBeanWeightStrGet(playerPath(0)));
     }
 
     @Test
@@ -284,7 +284,7 @@ public final class FighterBeanTest extends InitDbFight {
 
     @Test
     public void heStr() {
-        assertEq("1.0E0",callFighterBeanHeightStrGet(playerPath(0)));
+        assertEq("1.0"+Rate.POWER+"0",callFighterBeanHeightStrGet(playerPath(0)));
     }
 
     @Test
@@ -304,7 +304,7 @@ public final class FighterBeanTest extends InitDbFight {
 
     @Test
     public void reStr() {
-        assertEq("1.3E1",callFighterBeanRemainingHpStrGet(playerPath(0)));
+        assertEq("1.3"+Rate.POWER+"1",callFighterBeanRemainingHpStrGet(playerPath(0)));
     }
 
     @Test
@@ -313,8 +313,13 @@ public final class FighterBeanTest extends InitDbFight {
     }
 
     @Test
+    public void full() {
+        assertEq(Rate.newRate("1399/100"),callFighterBeanFullHpGet(playerPath(0)));
+    }
+
+    @Test
     public void rePerStr() {
-        assertEq("1.0E2",callFighterBeanRemainingHpStrPerCentGet(playerPath(0)));
+        assertEq("1.0"+Rate.POWER+"2",callFighterBeanRemainingHpStrPerCentGet(playerPath(0)));
     }
 
     @Test

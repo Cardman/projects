@@ -609,7 +609,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void evtPercent() {
-        assertEq("1.0E2",callEffectWhileSendingBeanEvtRatePerCentGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+        assertEq("1.0"+Rate.POWER+"2",callEffectWhileSendingBeanEvtRatePerCentGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
     }
     @Test
     public void getDefaultBoost1() {

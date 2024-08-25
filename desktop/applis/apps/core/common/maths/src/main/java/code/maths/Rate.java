@@ -18,12 +18,12 @@ public final class Rate implements Displayable {
 
     public static final int CENT = 100;
 
+    public static final String POWER = "*10^";
+
     private static final char SEP_INT_DEC = '.';
 
     private static final char ZERO = '0';
     private static final String EMPTY_STRING = "";
-
-    private static final String POWER = "E";
 
     /** */
     private LgInt numerateur;

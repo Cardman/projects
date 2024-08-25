@@ -24,7 +24,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
     private String ability;
     private String item;
     private Rate remainingHp;
-    private String remainingHpPerCent;
+//    private String remainingHpPerCent;
     private Rate fullHp;
     private StringList types;
     private StringList status;
@@ -77,7 +77,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
         }
         remainingHp = pkPlayer_.getRemainingHp();
         fullHp = pkPlayer_.pvMax(data_);
-        remainingHpPerCent = Rate.multiply(Rate.divide(remainingHp, fullHp), new Rate(100)).evaluate(2);
+//        remainingHpPerCent = Rate.multiply(Rate.divide(remainingHp, fullHp), new Rate(100)).evaluate(2);
         types = new StringList();
         for (String t: data_.getPokemon(pkPlayer_.getName()).getTypes()) {
             types.add(translatedTypes_.getVal(t));
@@ -168,7 +168,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
     }
 
     public String getRemainingHpPerCent() {
-        return remainingHpPerCent;
+        return Rate.multiply(Rate.divide(remainingHp, fullHp), new Rate(100)).evaluate(2);
     }
 
     public Rate getFullHp() {

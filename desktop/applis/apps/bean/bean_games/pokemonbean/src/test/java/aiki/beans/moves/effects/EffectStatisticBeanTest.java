@@ -37,7 +37,7 @@ public final class EffectStatisticBeanTest extends InitDbMoveEffectStatistic {
     }
     @Test
     public void evtPercent() {
-        assertEq("1.0E2",callEffectStatisticBeanEvtRatePerCentGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(eff(Rate.one(), VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR, VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR)),0)));
+        assertEq("1.0"+Rate.POWER+"2",callEffectStatisticBeanEvtRatePerCentGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(eff(Rate.one(), VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR, VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR)),0)));
     }
     @Test
     public void getDefaultBoost() {

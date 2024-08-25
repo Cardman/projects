@@ -189,11 +189,11 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void roundHeight() {
-        assertEq("1.0E0",callPokemonBeanRoundHeight());
+        assertEq("1.0"+Rate.POWER+"0",callPokemonBeanRoundHeight());
     }
     @Test
     public void roundWeight() {
-        assertEq("1.0E0",callPokemonBeanRoundWeight());
+        assertEq("1.0"+Rate.POWER+"0",callPokemonBeanRoundWeight());
     }
     @Test
     public void getHatchingSteps() {

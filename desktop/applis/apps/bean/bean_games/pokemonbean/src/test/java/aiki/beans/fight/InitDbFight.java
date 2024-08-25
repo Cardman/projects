@@ -503,6 +503,10 @@ public abstract class InitDbFight extends InitDbBean {
         return BeanPokemonCommonTs.callLongs(new FighterBeanRemainingHpGet(),_str,_args);
     }
 
+    public static NaSt callFighterBeanFullHpGet(NaSt _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FighterBeanFullHpGet(),_str,_args);
+    }
+
     public static NaSt callFighterBeanRemainingHpStrPerCentGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanRemainingHpStrPerCentGet(),_str,_args);
     }

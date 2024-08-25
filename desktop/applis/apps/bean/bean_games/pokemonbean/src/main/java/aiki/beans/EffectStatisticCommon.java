@@ -15,7 +15,7 @@ public final class EffectStatisticCommon {
 
     private NatStringTreeMap< String> localFailStatis;
     private Rate evtRate;
-    private String evtRatePerCent;
+//    private String evtRatePerCent;
     private StringList copyBoost;
     private StringList swapBoostStatis;
 
@@ -31,7 +31,7 @@ public final class EffectStatisticCommon {
         EffectStatistic adj_ = eff(_data, _statis);
         AbsMap<Statistic,String> translatedStatistics_ = _data.getTranslatedStatistics().getVal(_lg);
         evtRate = adj_.getEvtRate();
-        evtRatePerCent = Rate.multiply(evtRate, new Rate(CommonBean.CST_CENT)).evaluate(2);
+//        evtRatePerCent = Rate.multiply(evtRate, new Rate(CommonBean.CST_CENT)).evaluate(2);
         NatStringTreeMap< Byte> statisVarRank_;
         statisVarRank_ = new NatStringTreeMap< Byte>();
         for (Statistic s: adj_.getStatisVarRank().getKeys()) {
@@ -135,7 +135,7 @@ public final class EffectStatisticCommon {
     }
 
     public String getEvtRatePerCent() {
-        return evtRatePerCent;
+        return Rate.multiply(evtRate, new Rate(CommonBean.CST_CENT)).evaluate(2);
     }
 
     public NatStringTreeMap<Byte> getStatisVarRank() {

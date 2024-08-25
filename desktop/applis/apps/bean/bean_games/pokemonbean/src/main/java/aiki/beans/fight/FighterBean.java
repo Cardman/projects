@@ -28,8 +28,8 @@ public class FighterBean extends CommonFightBean {
     private String gender;
     private Rate weight;
     private Rate height;
-    private String weightStr;
-    private String heightStr;
+//    private String weightStr;
+//    private String heightStr;
     private String currentName;
     private String currentGender;
     private String item;
@@ -42,11 +42,12 @@ public class FighterBean extends CommonFightBean {
     private NatStringTreeMap<UsesOfMove> moves;
     private NatStringTreeMap<UsesOfMove> currentMoves;
     private CustList<StatisticInfo> statistics;
+    private Rate maxHp;
     private Rate remainingHp;
-    private String remainingHpStr;
-    private String remainingHpStrPerCent;
+//    private String remainingHpStr;
+//    private String remainingHpStrPerCent;
     private Rate clone;
-    private String cloneStr;
+//    private String cloneStr;
     private StringList protectedAgainstMoveTypes;
     private NatStringTreeMap<ActivityOfMove> enabledMoves;
     private NatStringTreeMap<BoolVal> enabledMovesForAlly;
@@ -109,8 +110,8 @@ public class FighterBean extends CommonFightBean {
         currentGender = translationsGenders_.getVal(fighter_.getCurrentGender());
         weight = fighter_.getWeight();
         height = fighter_.getHeight();
-        weightStr = weight.evaluate(2);
-        heightStr = height.evaluate(2);
+//        weightStr = weight.evaluate(2);
+//        heightStr = height.evaluate(2);
         level = fighter_.getLevel();
         happiness = fighter_.getHappiness();
         if (fighter_.getItem().isEmpty()) {
@@ -141,10 +142,11 @@ public class FighterBean extends CommonFightBean {
         nbPrepaRound = fighter_.getNbPrepaRound();
         needingToRecharge = fighter_.isNeedingToRecharge();
         remainingHp = fighter_.getRemainingHp();
-        remainingHpStr = remainingHp.evaluate(2);
-        remainingHpStrPerCent = Rate.multiply(Rate.divide(remainingHp, fighter_.pvMax()), new Rate(100)).evaluate(2);
+        maxHp = fighter_.pvMax();
+//        remainingHpStr = remainingHp.evaluate(2);
+//        remainingHpStrPerCent = Rate.multiply(Rate.divide(remainingHp, maxHp), new Rate(100)).evaluate(2);
         clone = fighter_.getClone();
-        cloneStr = clone.evaluate(2);
+//        cloneStr = clone.evaluate(2);
         types = new StringList();
         for (String t: fighter_.getTypes()) {
             types.add(translationsTypes_.getVal(t));
@@ -652,7 +654,7 @@ public class FighterBean extends CommonFightBean {
     }
 
     public String getWeightStr() {
-        return weightStr;
+        return weight.evaluate(2);
     }
 
     public Rate getHeight() {
@@ -660,19 +662,23 @@ public class FighterBean extends CommonFightBean {
     }
 
     public String getHeightStr() {
-        return heightStr;
+        return height.evaluate(2);
     }
 
     public Rate getRemainingHp() {
         return remainingHp;
     }
 
+    public Rate getMaxHp() {
+        return maxHp;
+    }
+
     public String getRemainingHpStr() {
-        return remainingHpStr;
+        return remainingHp.evaluate(2);
     }
 
     public String getRemainingHpStrPerCent() {
-        return remainingHpStrPerCent;
+        return Rate.multiply(Rate.divide(remainingHp, maxHp), new Rate(100)).evaluate(2);
     }
 
     public Rate getClone() {
@@ -680,7 +686,7 @@ public class FighterBean extends CommonFightBean {
     }
 
     public String getCloneStr() {
-        return cloneStr;
+        return clone.evaluate(2);
     }
 
     public String getAbility() {
