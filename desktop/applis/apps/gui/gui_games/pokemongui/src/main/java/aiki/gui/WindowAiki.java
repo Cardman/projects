@@ -52,7 +52,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     //implemented SettingInfosAfterCompiler
 
 //    public static final String OK = "ok";
-    public static final String APPS_AIKI = "aiki";
+//    public static final String APPS_AIKI = "aiki";
     public static final String TEMP_FOLDER = "pokemon";
 //    private static final String DIALOG_ACCESS = "aiki.gui.mainwindow";
 
@@ -310,7 +310,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    }
 
     public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return FileDialog.getImage(MessPkVideoGr.ms().getVal(StringUtil.concat(LoadingGame.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, LoadingGame.ICON_TXT)), _fact);
+        return FileDialog.getImage(MessPkVideoGr.resourcesPkPokemon(), _fact);
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
@@ -347,7 +347,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (loadingConf.isSaveGameAtExit()) {
 //        if (loadingConf != null && loadingConf.isSaveGameAtExit()) {
             if (loadingConf.getLastSavedGame().isEmpty()) {
-                String name_ = StringUtil.concat(getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME, LoadingGame.GAME_EXT);
+                String name_ = StringUtil.concat(getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME);
                 loadingConf.setLastSavedGame(name_);
                 save(name_);
             } else {
@@ -495,9 +495,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    }
     public void initMessages() {
         core.getFacade().getData().setLanguage(core.getFacade().getLanguage());
-        TranslationsAppli app_ = GamesPk.getAppliTr(getFrames().currentLg());
+        TranslationsAppli app_ = MessagesPkGame.getAppliTr(getFrames().currentLg());
         GamesPk.initMessages(core.getFacade().getData(), app_);
-        messages = GamesPk.getWindowPkContentTr(app_).getMapping();
+        messages = MessagesPkGame.getWindowPkContentTr(app_).getMapping();
         core.setMessages(messages);
         file.setText(messages.getVal(MessagesRenderWindowPk.CST_FILE));
         core.getZipLoad().setText(messages.getVal(MessagesRenderWindowPk.ZIP_LOAD));
@@ -1762,7 +1762,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     @Override
     public String getApplicationName() {
-        return APPS_AIKI;
+        return MessagesPkGame.PK;
     }
 
     /*@Override

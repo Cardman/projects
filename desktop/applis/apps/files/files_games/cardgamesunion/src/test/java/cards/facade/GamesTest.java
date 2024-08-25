@@ -19,7 +19,6 @@ import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
 import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsLg;
-import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
 import code.util.Bytes;
 import code.util.IdList;
@@ -30,8 +29,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void games() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendGamesNames(Games.initAppliTr(en_), MessagesGamesGames.en());
-        Games.appendGamesNames(Games.initAppliTr(fr_), MessagesGamesGames.fr());
+        MessagesCardGames.appendGamesNames(MessagesCardGames.initAppliTr(en_), MessagesGamesGames.en());
+        MessagesCardGames.appendGamesNames(MessagesCardGames.initAppliTr(fr_), MessagesGamesGames.fr());
         assertFalse(GameEnum.BELOTE.toString(en_).isEmpty());
         assertFalse(GameEnum.PRESIDENT.toString(en_).isEmpty());
         assertFalse(GameEnum.TAROT.toString(en_).isEmpty());
@@ -167,8 +166,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void save() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonFile(Games.initAppliTr(en_), MessagesCommonFile.en());
-        Games.appendCommonFile(Games.initAppliTr(fr_), MessagesCommonFile.fr());
+        MessagesCardGames.appendCommonFile(MessagesCardGames.initAppliTr(en_), MessagesCommonFile.en());
+        MessagesCardGames.appendCommonFile(MessagesCardGames.initAppliTr(fr_), MessagesCommonFile.fr());
         Games.setMessages(new ResultsGame(),en_);
         Games.setMessages(new ResultsGame(),fr_);
         MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
@@ -216,8 +215,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString1() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
-        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(en_), MessagesCommonCards.en());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(fr_), MessagesCommonCards.fr());
         HandBelote h_ = new HandBelote();
         h_.ajouter(CardBelote.SPADE_1);
         assertFalse(Games.toString(h_,en_).isEmpty());
@@ -227,8 +226,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString2() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
-        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(en_), MessagesCommonCards.en());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(fr_), MessagesCommonCards.fr());
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.SPADE_1);
         assertFalse(Games.toString(h_,en_).isEmpty());
@@ -238,8 +237,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString3() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
-        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(en_), MessagesCommonCards.en());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(fr_), MessagesCommonCards.fr());
         HandTarot h_ = new HandTarot();
         h_.ajouter(CardTarot.SPADE_1);
         assertFalse(Games.toString(h_,en_).isEmpty());
@@ -249,8 +248,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString4() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
-        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(en_), MessagesCommonCards.en());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(fr_), MessagesCommonCards.fr());
         assertFalse(Games.toCardString(0,en_).isEmpty());
         assertFalse(Games.toCardString(0,fr_).isEmpty());
     }
@@ -288,8 +287,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString10() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
-        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(en_), MessagesBelote.en());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(fr_), MessagesBelote.fr());
         assertFalse(Games.toString(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP,en_).isEmpty());
         assertFalse(Games.toString(BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP,fr_).isEmpty());
     }
@@ -297,10 +296,10 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString11() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonFile(Games.initAppliTr(en_), MessagesCommonFile.en());
-        Games.appendCommonFile(Games.initAppliTr(fr_), MessagesCommonFile.fr());
-        Games.appendCommonBelote(Games.getAppliTr(en_),MessagesBelote.en());
-        Games.appendCommonBelote(Games.getAppliTr(fr_),MessagesBelote.fr());
+        MessagesCardGames.appendCommonFile(MessagesCardGames.initAppliTr(en_), MessagesCommonFile.en());
+        MessagesCardGames.appendCommonFile(MessagesCardGames.initAppliTr(fr_), MessagesCommonFile.fr());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.getAppliTr(en_),MessagesBelote.en());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.getAppliTr(fr_),MessagesBelote.fr());
         assertFalse(Games.toString(new BidBeloteSuit(), en_).isEmpty());
         assertFalse(Games.toString(new BidBeloteSuit(), fr_).isEmpty());
     }
@@ -308,8 +307,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString12() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
-        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(en_), MessagesBelote.en());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(fr_), MessagesBelote.fr());
         assertFalse(Games.toString(BidBelote.FOLD,en_).isEmpty());
         assertFalse(Games.toString(BidBelote.FOLD,fr_).isEmpty());
     }
@@ -317,8 +316,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString13() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
-        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(en_), MessagesBelote.en());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(fr_), MessagesBelote.fr());
         assertFalse(Games.toString(DeclaresBelote.HUNDRED, en_).isEmpty());
         assertFalse(Games.toString(DeclaresBelote.HUNDRED,fr_).isEmpty());
     }
@@ -326,8 +325,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString14() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
-        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(en_), MessagesBelote.en());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(fr_), MessagesBelote.fr());
         assertFalse(Games.toStringBeloteReb(en_).isEmpty());
         assertFalse(Games.toStringBeloteReb(fr_).isEmpty());
     }
@@ -335,8 +334,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString15() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
-        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(en_), MessagesBelote.en());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(fr_), MessagesBelote.fr());
         assertFalse(Games.toStringBonusBelote(en_).isEmpty());
         assertFalse(Games.toStringBonusBelote(fr_).isEmpty());
     }
@@ -344,8 +343,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString16() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonPresident(Games.initAppliTr(en_), MessagesPresident.en());
-        Games.appendCommonPresident(Games.initAppliTr(fr_), MessagesPresident.fr());
+        MessagesCardGames.appendCommonPresident(MessagesCardGames.initAppliTr(en_), MessagesPresident.en());
+        MessagesCardGames.appendCommonPresident(MessagesCardGames.initAppliTr(fr_), MessagesPresident.fr());
         assertFalse(Games.toString(Playing.CAN_PLAY,en_).isEmpty());
         assertFalse(Games.toString(Playing.CAN_PLAY,fr_).isEmpty());
     }
@@ -353,8 +352,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString17() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonPresident(Games.initAppliTr(en_), MessagesPresident.en());
-        Games.appendCommonPresident(Games.initAppliTr(fr_), MessagesPresident.fr());
+        MessagesCardGames.appendCommonPresident(MessagesCardGames.initAppliTr(en_), MessagesPresident.en());
+        MessagesCardGames.appendCommonPresident(MessagesCardGames.initAppliTr(fr_), MessagesPresident.fr());
         assertFalse(Games.toString(EqualtyPlaying.FORBIDDEN, en_).isEmpty());
         assertFalse(Games.toString(EqualtyPlaying.FORBIDDEN,fr_).isEmpty());
     }
@@ -362,8 +361,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString18() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
-        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(en_), MessagesTarot.en());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(fr_), MessagesTarot.fr());
         assertFalse(Games.toString(ModeTarot.NORMAL, en_).isEmpty());
         assertFalse(Games.toString(ModeTarot.NORMAL,fr_).isEmpty());
     }
@@ -371,8 +370,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString19() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonChTarot(Games.initAppliTr(en_), MessagesChoiceTarot.en());
-        Games.appendCommonChTarot(Games.initAppliTr(fr_), MessagesChoiceTarot.fr());
+        MessagesCardGames.appendCommonChTarot(MessagesCardGames.initAppliTr(en_), MessagesChoiceTarot.en());
+        MessagesCardGames.appendCommonChTarot(MessagesCardGames.initAppliTr(fr_), MessagesChoiceTarot.fr());
         assertFalse(Games.toString(ChoiceTarot.HUNT_SMALL, en_).isEmpty());
         assertFalse(Games.toString(ChoiceTarot.HUNT_SMALL,fr_).isEmpty());
         assertFalse(Games.toString(ChoiceTarot.SAVE_SMALL, en_).isEmpty());
@@ -384,8 +383,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString20() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
-        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(en_), MessagesTarot.en());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(fr_), MessagesTarot.fr());
         assertFalse(Games.toString(BidTarot.SLAM, en_).isEmpty());
         assertFalse(Games.toString(BidTarot.SLAM,fr_).isEmpty());
     }
@@ -393,8 +392,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString21() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
-        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(en_), MessagesTarot.en());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(fr_), MessagesTarot.fr());
         assertFalse(Games.toString(Handfuls.FOUR, en_).isEmpty());
         assertFalse(Games.toString(Handfuls.FOUR,fr_).isEmpty());
     }
@@ -402,8 +401,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString22() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
-        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(en_), MessagesTarot.en());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(fr_), MessagesTarot.fr());
         assertFalse(Games.toString(Miseres.LOW_CARDS, en_).isEmpty());
         assertFalse(Games.toString(Miseres.LOW_CARDS,fr_).isEmpty());
     }
@@ -411,8 +410,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString23() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
-        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(en_), MessagesTarot.en());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(fr_), MessagesTarot.fr());
         assertFalse(Games.toString(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL, en_).isEmpty());
         assertFalse(Games.toString(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL,fr_).isEmpty());
     }
@@ -420,8 +419,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString24() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
-        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(en_), MessagesTarot.en());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(fr_), MessagesTarot.fr());
         assertFalse(Games.toString(EndDealTarot.ATTACK_WIN, en_).isEmpty());
         assertFalse(Games.toString(EndDealTarot.ATTACK_WIN,fr_).isEmpty());
     }
@@ -429,8 +428,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString25() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonTarot(Games.initAppliTr(en_), MessagesTarot.en());
-        Games.appendCommonTarot(Games.initAppliTr(fr_), MessagesTarot.fr());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(en_), MessagesTarot.en());
+        MessagesCardGames.appendCommonTarot(MessagesCardGames.initAppliTr(fr_), MessagesTarot.fr());
         assertFalse(Games.toString(BonusTarot.SLAM, en_).isEmpty());
         assertFalse(Games.toString(BonusTarot.SLAM,fr_).isEmpty());
         assertFalse(Games.toString(BonusTarot.SMALL_BOUND, en_).isEmpty());
@@ -440,8 +439,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString26() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonFile(Games.initAppliTr(en_), MessagesCommonFile.en());
-        Games.appendCommonFile(Games.initAppliTr(fr_), MessagesCommonFile.fr());
+        MessagesCardGames.appendCommonFile(MessagesCardGames.initAppliTr(en_), MessagesCommonFile.en());
+        MessagesCardGames.appendCommonFile(MessagesCardGames.initAppliTr(fr_), MessagesCommonFile.fr());
         assertFalse(Games.toString(Role.TAKER, en_).isEmpty());
         assertFalse(Games.toString(Role.TAKER,fr_).isEmpty());
     }
@@ -449,8 +448,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString27() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonMix(Games.initAppliTr(en_), MessagesCommonMix.en());
-        Games.appendCommonMix(Games.initAppliTr(fr_), MessagesCommonMix.fr());
+        MessagesCardGames.appendCommonMix(MessagesCardGames.initAppliTr(en_), MessagesCommonMix.en());
+        MessagesCardGames.appendCommonMix(MessagesCardGames.initAppliTr(fr_), MessagesCommonMix.fr());
         assertFalse(Games.toString(MixCardsChoice.EACH_LAUNCHING, en_).isEmpty());
         assertFalse(Games.toString(MixCardsChoice.EACH_LAUNCHING,fr_).isEmpty());
     }
@@ -458,8 +457,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void toString28() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonBelote(Games.initAppliTr(en_), MessagesBelote.en());
-        Games.appendCommonBelote(Games.initAppliTr(fr_), MessagesBelote.fr());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(en_), MessagesBelote.en());
+        MessagesCardGames.appendCommonBelote(MessagesCardGames.initAppliTr(fr_), MessagesBelote.fr());
         assertFalse(Games.toString(DealingBelote.COINCHE_2_VS_2,en_).isEmpty());
         assertFalse(Games.toString(DealingBelote.COINCHE_2_VS_2,fr_).isEmpty());
     }
@@ -539,32 +538,32 @@ public final class GamesTest extends EquallableCardsFileUtil {
         update(pr_);
         TranslationsLg en_ = pr_.getTranslations().getMapping().getVal("en");
         TranslationsLg fr_ = pr_.getTranslations().getMapping().getVal("fr");
-        assertFalse(Games.getAppliTr(en_).getMapping().isEmpty());
-        assertFalse(Games.getEditorTr(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogBeloteTr(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogPresidentTr(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogTarotTr(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogNicknameTr(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogSoftTr(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogDisplayTr(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogHelpTr(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getMainGame(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getSimuGame(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getMenus(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getMulti(Games.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(Games.getAppliTr(fr_).getMapping().isEmpty());
-        assertFalse(Games.getEditorTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogBeloteTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogPresidentTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogTarotTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogNicknameTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogSoftTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogDisplayTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getDialogHelpTr(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getMainGame(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getSimuGame(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getMenus(Games.getAppliTr(fr_)).getMapping().isEmpty());
-        assertFalse(Games.getMulti(Games.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getAppliTr(en_).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getEditorTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogBeloteTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogPresidentTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogTarotTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogNicknameTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogSoftTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogDisplayTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogHelpTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getMainGame(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getSimuGame(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getMenus(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getMulti(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getAppliTr(fr_).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getEditorTr(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogBeloteTr(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogPresidentTr(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogTarotTr(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogNicknameTr(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogSoftTr(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogDisplayTr(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getDialogHelpTr(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getMainGame(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getSimuGame(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getMenus(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+        assertFalse(MessagesCardGames.getMulti(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
     }
 
     private CardGamesStream saveFile(Games _n) {

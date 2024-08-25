@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 
 import cards.consts.MixCardsChoice;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.tarot.RulesTarot;
@@ -84,7 +84,7 @@ public abstract class DialogTarot extends DialogHelpCards {
         return translates().getVal(_k);
     }
     public StringMap<String> translates() {
-        return Games.getDialogTarotTr(Games.getAppliTr(getFrames().currentLg())).getMapping();
+        return MessagesCardGames.getDialogTarotTr(MessagesCardGames.getAppliTr(getFrames().currentLg())).getMapping();
     }
 
     /**Met en place le contenu de la boite de dialogue

@@ -57,7 +57,7 @@ public final class FileInfos {
         _lgs.getMapping().addEntry(KEYWORDS, KeyWords.en());
         _lgs.getMapping().addEntry(TYPES, CustAliases.en());
         _lgs.getMapping().addEntry(TYPES_GUI, GuiAliases.en());
-        ExecutingOptions.updateEn(_lgs);
+        MessagesExecutingOptions.updateEn(_lgs);
         return _lgs;
     }
     public static TranslationsAppli frTr(TranslationsAppli _lgs) {
@@ -65,7 +65,7 @@ public final class FileInfos {
         _lgs.getMapping().addEntry(KEYWORDS, KeyWords.fr());
         _lgs.getMapping().addEntry(TYPES, CustAliases.fr());
         _lgs.getMapping().addEntry(TYPES_GUI, GuiAliases.fr());
-        ExecutingOptions.updateFr(_lgs);
+        MessagesExecutingOptions.updateFr(_lgs);
         return _lgs;
     }
 

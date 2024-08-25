@@ -36,7 +36,7 @@ public final class OpenSavePostFileFrameEvent implements AbsPostFileDialogEvent 
 
     @Override
     public String visible(AbsPanel _panel) {
-        tabs.add(FileFrame.getAppliTr(fileFrame.getPrInfos().currentLg()).getMapping().getVal(transFile).getMapping().getVal(key),_panel);
+        tabs.add(MessagesGuiFct.getAppliTr(fileFrame.getPrInfos().currentLg()).getMapping().getVal(transFile).getMapping().getVal(key),_panel);
         return "";
     }
 }

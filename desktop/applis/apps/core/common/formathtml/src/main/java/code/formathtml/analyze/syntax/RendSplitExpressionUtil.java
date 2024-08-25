@@ -13,6 +13,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.blocks.*;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -386,7 +387,7 @@ public final class RendSplitExpressionUtil {
 
     private static void lk(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, IntermediaryResults _int, AccessedBlock _method, AnaRendElement _s, StringMap<ResultExpression> _results) {
         String attr_ = _s.getRead().getAttribute(StringUtil.concat(_analyzingDoc.getPrefix(), _analyzingDoc.getRendKeyWords().getAttrCommand()));
-        if (attr_.startsWith("$")) {
+        if (attr_.startsWith(BeanLgNames.CALL_METHOD)) {
             for (String a: _s.params(_analyzingDoc)) {
                 ResultExpression r_ = new ResultExpression();
                 _results.addEntry(a,r_);

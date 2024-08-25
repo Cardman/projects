@@ -14,8 +14,7 @@ import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.threads.*;
-import code.util.CustList;
-import code.util.StringMap;
+import code.util.*;
 
 
 
@@ -24,14 +23,14 @@ import code.util.StringMap;
 
 public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
-    public static final String MOUSE_ARROW_FILE = "resources_rts/mouse_arrow.txt";
+//    public static final String MOUSE_ARROW_FILE = "resources_rts/mouse_arrow.txt";
 
-    public static final String NOTE_FILE = "resources_rts/note.txt";
+//    public static final String NOTE_FILE = "resources_rts/note.txt";
 
-    public static final String FOLDER = "rts_imgs";
+//    public static final String FOLDER = "rts_imgs";
     public static final String APPS_RTS = "rts";
 
-    private final StringMap<String> messagesFiles = MessPlayerGr.ms();
+//    private final StringMap<String> messagesFiles = MessPlayerGr.ms();
 
 //    private final Cursor currentCursor = Cursor.getDefaultCursor();
 
@@ -128,7 +127,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         stop.setEnabled(false);
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
-        String note_ = messagesFiles.getVal("resources_player/player.txt");
+        String note_ = MessPlayerGr.resourcesPlayerPlayer();
 //        noteFile = note_;
         AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(note_));
         int wCurs_ = or_.getWidth();

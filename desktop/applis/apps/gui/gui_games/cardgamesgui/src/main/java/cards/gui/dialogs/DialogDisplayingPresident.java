@@ -6,7 +6,7 @@ package cards.gui.dialogs;
 
 import cards.consts.Suit;
 import cards.facade.FacadeCards;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.president.DisplayingPresident;
@@ -51,7 +51,7 @@ public final class DialogDisplayingPresident extends DialogHelpCards implements 
     }
 
     public void setDialogue(WindowCardsInt _window) {
-        StringMap<String> mess_ = Games.getDialogDisplayTr(Games.getAppliTr(_window.getFrames().currentLg())).getMapping();
+        StringMap<String> mess_ = MessagesCardGames.getDialogDisplayTr(MessagesCardGames.getAppliTr(_window.getFrames().currentLg())).getMapping();
         AbsPanel panel_ = dialogDisplayingContent.setDialogue(_window, this, displayingPresident.getDisplaying());
         //Panneau Tri avant enchere (Atout)
         AbsPanel sousPanneau_=_window.getCompoFactory().newPageBox();

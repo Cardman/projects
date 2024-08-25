@@ -17,7 +17,7 @@ public final class HelpCaller {
         properties = _props;
     }
 
-    public static MetaDocument text(Document _uniq, TranslationsAppli _ms, StringMap<int[][]> _imgs, StringMap<String> _props, String _pref) {
+    public static MetaDocument text(Document _uniq, TranslationsAppli _ms, StringMap<int[][]> _imgs, StringMap<String> _props) {
         HelpCaller ins_ = new HelpCaller(_props);
         StringMap<TranslationsFile> files_ = files(_ms, _props);
 //        for (String a : _contextConf.getAddedFiles()) {
@@ -38,7 +38,7 @@ public final class HelpCaller {
         Node current_ = root_;
         while (current_ != null) {
             Node child_ = current_.getFirstChild();
-            write_ = complete(write_, child_, ins_.proc(current_, _pref, dest_, files_, rend_));
+            write_ = complete(write_, child_, ins_.proc(current_, dest_, files_, rend_));
             if (child_ != null) {
                 current_ = child_;
                 continue;
@@ -60,10 +60,10 @@ public final class HelpCaller {
         }
         return MetaDocument.newInstance(dest_, rend_,"",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(_imgs));
     }
-    private Node proc(Node _current, String _prefix, Document _doc, StringMap<TranslationsFile> _files, RendKeyWordsGroup _rend) {
+    private Node proc(Node _current, Document _doc, StringMap<TranslationsFile> _files, RendKeyWordsGroup _rend) {
         if (_current instanceof Element) {
             String tagName_ = ((Element)_current).getTagName();
-            if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rend.getKeyWordsTags().getKeyWordMessage()))) {
+            if (StringUtil.quickEq(tagName_, _rend.getKeyWordsTags().getKeyWordMessage())) {
                 StringList objects_ = new StringList();
                 String value_ = ((Element)_current).getAttribute(_rend.getKeyWordsAttrs().getAttrValue());
                 String preRend_ = StringUtil.simpleStringsFormat(getPre(value_, properties, _files), objects_);

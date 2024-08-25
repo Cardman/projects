@@ -496,8 +496,8 @@ public abstract class EquallableElUtUtil {
         return new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()).gene(getForwards(_definedLgNames, _opt));
     }
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
-        ExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("en")));
-        ExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("fr")));
+        MessagesExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("en")));
+        MessagesExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("fr")));
         ((MockProgramInfos)_p).setLanguage("en");
         return new ExecutingOptions(_p);
     }

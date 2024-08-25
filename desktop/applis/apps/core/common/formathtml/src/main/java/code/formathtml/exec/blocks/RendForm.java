@@ -38,7 +38,7 @@ public final class RendForm extends RendElement implements RendElem {
         DefFormParts formParts_ = _rendStack.getFormParts();
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
-        if (!href_.startsWith(CALL_METHOD)) {
+        if (!href_.startsWith(BeanLgNames.CALL_METHOD)) {
             formParts_.getContainersMapStack().add(new LongTreeMap<DefNodeContainer>());
             formParts_.getCallsFormExps().add(new AnchorCall(opForm.getGeneLink(),new CustList<AbstractWrapper>()));
             incrForm(formParts_);
@@ -62,7 +62,7 @@ public final class RendForm extends RendElement implements RendElem {
         formParts_.getCallsFormExps().add(new AnchorCall(opForm.getGeneLink(),values_));
         incrForm(formParts_);
         String beanName_ = _rendStack.getLastPage().getBeanName();
-        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
+        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(BeanLgNames.CALL_METHOD,beanName_));
         elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         long currentForm_ = _rendStack.getFormParts().getCurrentForm();

@@ -31,7 +31,7 @@ import code.util.core.StringUtil;
 public abstract class RendBlock {
     public static final String SPACE = " ";
     public static final String RETURN_LINE = "\n";
-    public static final String CALL_METHOD = "$";
+//    public static final String CALL_METHOD = "$";
     public static final String EMPTY_STRING = "";
     public static final String TMP_BLOCK_TAG = "_";
     public static final String LT_END_TAG = "</";
@@ -165,7 +165,7 @@ public abstract class RendBlock {
 
     public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringMap<CustList<RendDynOperationNode>> _textPart, RendGeneLinkTypes _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        if (!href_.startsWith(CALL_METHOD)) {
+        if (!href_.startsWith(BeanLgNames.CALL_METHOD)) {
             _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc.getGeneLink(),new CustList<AbstractWrapper>()));
             procCstAnc(_cont, _nextWrite, _rendStackCall.getFormParts());
             return;
@@ -185,7 +185,7 @@ public abstract class RendBlock {
         }
         _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc.getGeneLink(),values_));
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
-        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
+        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(BeanLgNames.CALL_METHOD,beanName_));
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNb(_cont.getRend(), _nextWrite, _rendStackCall.getFormParts().getIndexes(), _cont.getRendKeyWords().group());

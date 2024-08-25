@@ -5,7 +5,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.listeners.HidePkDetailContentEvent;
 import aiki.gui.dialogs.FrameHtmlData;
 import aiki.main.AikiNatLgNamesNavigation;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkGameDetail;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -88,6 +88,6 @@ public final class PkDetailContent {
     }
 
     public static StringMap<String> file(TranslationsLg _lg) {
-        return GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
 }

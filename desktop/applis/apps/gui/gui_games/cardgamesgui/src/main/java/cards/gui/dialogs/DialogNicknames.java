@@ -4,7 +4,7 @@ package cards.gui.dialogs;
 
 
 
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
@@ -59,7 +59,7 @@ public final class DialogNicknames extends DialogHelpCards {
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public void setDialogue(WindowCards _fenetre) {
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
-        StringMap<String> nicknamesMessages_ = Games.getDialogNicknameTr(Games.getAppliTr(lg_)).getMapping();
+        StringMap<String> nicknamesMessages_ = MessagesCardGames.getDialogNicknameTr(MessagesCardGames.getAppliTr(lg_)).getMapping();
         AbsTabbedPane jt_ = _fenetre.getCompoFactory().newAbsTabbedPane();
         jt_.removeAll();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();

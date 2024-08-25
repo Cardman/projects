@@ -7,6 +7,7 @@ import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCardsCore;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
@@ -205,7 +206,7 @@ public final class DialogBeloteContent implements DialogVaryingPlayerNumber {
         return translates().getVal(_k);
     }
     public StringMap<String> translates() {
-        return Games.getDialogBeloteTr(Games.getAppliTr(getFrames().currentLg())).getMapping();
+        return MessagesCardGames.getDialogBeloteTr(MessagesCardGames.getAppliTr(getFrames().currentLg())).getMapping();
     }
 
     public AbsCompoFactory getCompoFactory() {

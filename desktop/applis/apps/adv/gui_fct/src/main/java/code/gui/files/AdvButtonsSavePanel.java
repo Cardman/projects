@@ -14,7 +14,7 @@ public final class AdvButtonsSavePanel implements AbsButtonsSavePanel {
 
     @Override
     public void build(FileSaveDialogContent _content) {
-        StringMap<String> messages_ = FileFrame.getAppliTr(_content.getProgramInfos().currentLg()).getMapping().getVal(FileFrame.CONFIRM).getMapping();
+        StringMap<String> messages_ = MessagesGuiFct.getAppliTr(_content.getProgramInfos().currentLg()).getMapping().getVal(MessagesGuiFct.CONFIRM).getMapping();
         AbsButton button_ = _content.getProgramInfos().getCompoFactory().newPlainButton(messages_.getVal(MessagesConfirmDialog.YES));
         button_.addActionListener(new SaveSelectFileEvent(saveFile,continueFile,_content));
         _content.getButtons().add(button_);

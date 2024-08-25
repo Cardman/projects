@@ -5,10 +5,7 @@ import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.CommentsUtil;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.utilcompo.AbsResultContextNext;
-import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.events.AlwaysActionListenerAct;
@@ -392,8 +389,8 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         if (!getManageOptions().getEx().getSrcFolder().isEmpty()) {
             getFrames().getFileCoreStream().newFile(currentFolder_+AbsEditorTabList.SLASH+ getManageOptions().getEx().getSrcFolder()).mkdirs();
         } else {
-            StringMap<String> mesKeys_ = ExecutingOptions.valExecOptionsKeys(getFrames().currentLg());
-            String src_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_SRC);
+            StringMap<String> mesKeys_ = MessagesExecutingOptions.valExecOptionsKeys(getFrames().currentLg());
+            String src_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_SRC);
             getFrames().getFileCoreStream().newFile(currentFolder_+AbsEditorTabList.SLASH+src_).mkdirs();
         }
         StreamFolderFile.makeParent(softParams.getExecConf(), getFrames().getFileCoreStream());
@@ -404,13 +401,13 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         return StringUtil.join(linesConf(_manage),LINE_RETURN_CH);
     }
     static StringList linesConf(ManageOptions _manage) {
-        StringMap<String> mesKeys_ = ExecutingOptions.valExecOptionsKeys(_manage.getEx().getLightProgramInfos().currentLg());
-        String src_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_SRC);
-        String tabWidth_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_TABWIDTH);
-        String als_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_ALIASES);
-        String mess_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_MESSAGES);
-        String kw_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_KEYWORDS);
-        String com_ = mesKeys_.getVal(ExecutingOptions.EXEC_OPTIONS_KEY_COMMENTS);
+        StringMap<String> mesKeys_ = MessagesExecutingOptions.valExecOptionsKeys(_manage.getEx().getLightProgramInfos().currentLg());
+        String src_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_SRC);
+        String tabWidth_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_TABWIDTH);
+        String als_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_ALIASES);
+        String mess_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_MESSAGES);
+        String kw_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_KEYWORDS);
+        String com_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_COMMENTS);
         StringList lines_ = new StringList();
         lines_.add(_manage.getEx().getAccess());
         lines_.add(StringUtil.nullToEmpty(_manage.getEx().getLg()));

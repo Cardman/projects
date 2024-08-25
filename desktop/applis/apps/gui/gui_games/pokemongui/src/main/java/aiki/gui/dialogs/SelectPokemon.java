@@ -8,7 +8,7 @@ import aiki.gui.components.PkDetailContent;
 import aiki.gui.components.walk.events.ConsultPokemonEvent;
 import aiki.gui.dialogs.events.ClosingSelectPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorPk;
 import code.gui.AbsButton;
 import code.gui.AbsPanel;
@@ -98,7 +98,7 @@ public final class SelectPokemon extends SelectDialog {
     }
 
     public static StringMap<String> filePk(TranslationsLg _lg) {
-        return GamesPk.getPaginatorSelPkContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getPaginatorSelPkContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
     public void seePkDetail() {
 //        AbstractThread thread_ = window.getPreparedPkThread();

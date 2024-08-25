@@ -4,7 +4,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicBoolean;
 
 public final class FolderOpenFrame extends FileFrame implements FileFrameInt {
-    public static final String FOLDER_OPEN_DIAL = "folder_open";
     private final FolderOpenDialogContent folderOpenDialogContent;
     public FolderOpenFrame(AbstractProgramInfos _frameFact, AbstractAtomicBoolean _m) {
         super(_frameFact, _m);

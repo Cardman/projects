@@ -13,7 +13,7 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
-import code.gui.files.FileFrame;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
@@ -799,8 +799,8 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static void updateDialog(MockProgramInfos _pr) {
-        FileFrame.enTr(FileFrame.initAppliTr(_pr.getTranslations().getMapping().getVal(FileInfos.EN)));
-        FileFrame.frTr(FileFrame.initAppliTr(_pr.getTranslations().getMapping().getVal(FileInfos.FR)));
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(_pr.getTranslations().getMapping().getVal(FileInfos.EN)));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(_pr.getTranslations().getMapping().getVal(FileInfos.FR)));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);

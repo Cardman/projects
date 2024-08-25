@@ -120,19 +120,19 @@ public abstract class EquallableAikiGuiUtil {
     }
     public static void gameTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
-        TranslationsAppli app_ = GamesPk.initAppliTr(en_);
-        GamesPk.appendHerosContent(app_, MessagesRenderHeros.en());
+        TranslationsAppli app_ = MessagesPkGame.initAppliTr(en_);
+        MessagesPkGame.appendHerosContent(app_, MessagesRenderHeros.en());
         windowPk(app_);
     }
 
     public static void progTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
-        pkGameDetail(GamesPk.initAppliTr(en_));
+        pkGameDetail(MessagesPkGame.initAppliTr(en_));
     }
 
     public static void fightTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
-        TranslationsAppli appli_ = GamesPk.initAppliTr(en_);
+        TranslationsAppli appli_ = MessagesPkGame.initAppliTr(en_);
         windowPk(appli_);
         fightAction(appli_);
         searchMode(appli_);
@@ -140,65 +140,65 @@ public abstract class EquallableAikiGuiUtil {
     }
     private static void pkGameDetail(TranslationsAppli _appli) {
         windowPk(_appli);
-        GamesPk.appendPkGameDetailContent(_appli, MessagesRenderPkGameDetail.en());
+        MessagesPkGame.appendPkGameDetailContent(_appli, MessagesRenderPkGameDetail.en());
     }
     public static void windowPk(TranslationsAppli _appli) {
-        GamesPk.appendWindowPkContent(_appli, MessagesRenderWindowPk.en());
-        GamesPk.appendScenePanelContent(_appli, MessagesRenderScenePanel.en());
-        GamesPk.appendBattleContent(_appli, MessagesRenderBattle.en());
+        MessagesPkGame.appendWindowPkContent(_appli, MessagesRenderWindowPk.en());
+        MessagesPkGame.appendScenePanelContent(_appli, MessagesRenderScenePanel.en());
+        MessagesPkGame.appendBattleContent(_appli, MessagesRenderBattle.en());
     }
     private static void fightAction(TranslationsAppli _appli) {
-        GamesPk.appendFightActionContent(_appli, MessagesRenderActionType.en());
+        MessagesPkGame.appendFightActionContent(_appli, MessagesRenderActionType.en());
     }
 
     public static TranslationsAppli commonSel(MockProgramInfos _pr) {
-        TranslationsAppli app_ = GamesPk.initAppliTr(_pr.lg(EN));
+        TranslationsAppli app_ = MessagesPkGame.initAppliTr(_pr.lg(EN));
         searchMode(app_);
         windowPk(app_);
         return app_;
     }
 
     public static void searchMode(TranslationsAppli _appli) {
-        GamesPk.appendPaginatorContent(_appli, MessagesRenderPaginatorSearchMode.en());
-        GamesPk.appendPaginatorButtonsContent(_appli, MessagesRenderPaginatorButtons.en());
-        GamesPk.appendSelectDialogContent(_appli, MessagesRenderPaginatorButtons.enSel());
+        MessagesPkGame.appendPaginatorContent(_appli, MessagesRenderPaginatorSearchMode.en());
+        MessagesPkGame.appendPaginatorButtonsContent(_appli, MessagesRenderPaginatorButtons.en());
+        MessagesPkGame.appendSelectDialogContent(_appli, MessagesRenderPaginatorButtons.enSel());
     }
 
     public static TranslationsAppli pagEgg(TranslationsAppli _appli) {
-        GamesPk.appendPaginatorEggContent(_appli, MessagesRenderPaginatorEgg.en());
-        GamesPk.appendPaginatorSelEggContent(_appli, MessagesRenderPaginatorEgg.enTitle());
+        MessagesPkGame.appendPaginatorEggContent(_appli, MessagesRenderPaginatorEgg.en());
+        MessagesPkGame.appendPaginatorSelEggContent(_appli, MessagesRenderPaginatorEgg.enTitle());
         return _appli;
     }
 
     public static TranslationsAppli pagPk(TranslationsAppli _appli) {
-        GamesPk.appendPaginatorPkContent(_appli, MessagesRenderPaginatorPk.en());
-        GamesPk.appendPaginatorSelPkContent(_appli, MessagesRenderPaginatorPk.enTitle());
+        MessagesPkGame.appendPaginatorPkContent(_appli, MessagesRenderPaginatorPk.en());
+        MessagesPkGame.appendPaginatorSelPkContent(_appli, MessagesRenderPaginatorPk.enTitle());
         return _appli;
     }
 
     public static TranslationsAppli pagMv(TranslationsAppli _appli) {
-        GamesPk.appendPaginatorMvContent(_appli, MessagesRenderPaginatorMove.en());
-        GamesPk.appendPaginatorSelMvContent(_appli, MessagesRenderPaginatorMove.enTitle());
+        MessagesPkGame.appendPaginatorMvContent(_appli, MessagesRenderPaginatorMove.en());
+        MessagesPkGame.appendPaginatorSelMvContent(_appli, MessagesRenderPaginatorMove.enTitle());
         return _appli;
     }
 
     public static TranslationsAppli pagIt(TranslationsAppli _appli) {
-        GamesPk.appendPaginatorItContent(_appli, MessagesRenderPaginatorItem.en());
-        GamesPk.appendPaginatorSelItContent(_appli, MessagesRenderPaginatorItem.enTitle());
+        MessagesPkGame.appendPaginatorItContent(_appli, MessagesRenderPaginatorItem.en());
+        MessagesPkGame.appendPaginatorSelItContent(_appli, MessagesRenderPaginatorItem.enTitle());
         return _appli;
     }
 
     public static TranslationsAppli pagHealIt(TranslationsAppli _appli) {
-        GamesPk.appendPaginatorHealItContent(_appli, MessagesRenderPaginatorHealingItem.en());
-        GamesPk.appendPaginatorSelHealItContent(_appli, MessagesRenderPaginatorHealingItem.enTitle());
+        MessagesPkGame.appendPaginatorHealItContent(_appli, MessagesRenderPaginatorHealingItem.en());
+        MessagesPkGame.appendPaginatorSelHealItContent(_appli, MessagesRenderPaginatorHealingItem.enTitle());
         return _appli;
     }
 
     public static void consHostTr(MockProgramInfos _pr) {
-        TranslationsAppli app_ = GamesPk.initAppliTr(_pr.lg(EN));
+        TranslationsAppli app_ = MessagesPkGame.initAppliTr(_pr.lg(EN));
         pkGameDetail(app_);
         windowPk(app_);
-        GamesPk.appendConsultHostContent(app_,MessagesRenderConsultHost.en());
+        MessagesPkGame.appendConsultHostContent(app_,MessagesRenderConsultHost.en());
     }
     public static void loadGame(WindowAiki _window, Game _game) {
         _window.getFacade().load(_game);

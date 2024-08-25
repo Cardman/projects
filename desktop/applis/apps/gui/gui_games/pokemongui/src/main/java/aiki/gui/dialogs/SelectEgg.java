@@ -5,7 +5,7 @@ package aiki.gui.dialogs;
 
 import aiki.gui.components.walk.events.ConsultEggEvent;
 import aiki.gui.dialogs.events.ClosingSelectEgg;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorEgg;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
@@ -76,7 +76,7 @@ public final class SelectEgg extends SelectDialog {
     }
 
     public static StringMap<String> fileEgg(TranslationsLg _lg) {
-        return GamesPk.getPaginatorSelEggContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getPaginatorSelEggContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
     @Override
     public void validateChoice() {

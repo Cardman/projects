@@ -14,7 +14,6 @@ import code.util.core.StringUtil;
 
 public final class FileTable {
 
-    public static final String FILE_TAB = "file_table";
     static final int NAME_INDEX = 0;
 
     static final int DATE_INDEX = 1;
@@ -30,8 +29,6 @@ public final class FileTable {
     private static final String END_ALPH = " \u2193";
 
     private static final String BEGIN_ALPH = " \u2191";
-
-    private static final String DATE_FORMAT = "dd-MM-yyyy HH-mm-ss";
 
     private static final String EMPTY_STRING = "";
 
@@ -54,7 +51,7 @@ public final class FileTable {
 
     public FileTable(TranslationsLg _lg, AbstractThreadFactory _threadFactory, AbsCompoFactory _compoFactory) {
         threadFactory = _threadFactory;
-        messages = FileFrame.getAppliTr(_lg).getMapping().getVal(FILE_TAB).getMapping();
+        messages = MessagesGuiFct.getAppliTr(_lg).getMapping().getVal(MessagesGuiFct.FILE_TAB).getMapping();
         String[] cols_ = new String[NB_COLS];
         for (int i = 0; i < NB_COLS; i++) {
             cols_[i] = getColumnName(i);
@@ -126,7 +123,7 @@ public final class FileTable {
         } else if(_columnIndex == DATE_INDEX) {
             AbstractDateFactory dateFactory_ = threadFactory.getDateFactory();
             AbstractDate date_ = dateFactory_.newDate(currentFile_.lastModified());
-            return date_.format(dateFactory_,DATE_FORMAT);
+            return date_.format(dateFactory_, MessagesGuiFct.DATE_FORMAT);
         } else if(_columnIndex == SIZE_INDEX) {
             return Long.toString(currentFile_.length());
         } else {

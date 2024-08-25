@@ -2,7 +2,7 @@ package cards.gui.containers;
 
 import cards.consts.GameType;
 import cards.consts.ResultsGame;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.StopDemo;
@@ -200,13 +200,13 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         return file(getOwner().getFrames().currentLg());
     }
     public static StringMap<String> file(TranslationsLg _lg) {
-        return Games.getMainGame(Games.getAppliTr(_lg)).getMapping();
+        return MessagesCardGames.getMainGame(MessagesCardGames.getAppliTr(_lg)).getMapping();
     }
     public StringMap<String> fileSimu() {
         return fileSimu(getOwner().getFrames().currentLg());
     }
     public static StringMap<String> fileSimu(TranslationsLg _lg) {
-        return Games.getSimuGame(Games.getAppliTr(_lg)).getMapping();
+        return MessagesCardGames.getSimuGame(MessagesCardGames.getAppliTr(_lg)).getMapping();
     }
     protected long getMaxAbsoluScore() {
         return maxAbsoluScore;
@@ -236,7 +236,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     }
 
     public TranslationsAppli readResourceAppli() {
-        return Games.getAppliTr(getOwner().getFrames().currentLg());
+        return MessagesCardGames.getAppliTr(getOwner().getFrames().currentLg());
     }
 
     public AbsPanel buildDeclHands(int _nbPlayers, CustList<String> _pseudos) {
@@ -345,12 +345,12 @@ public abstract class ContainerSingleImpl extends ContainerGame {
 //    }
 
     public StringMap<String> readCoreResourceSuit() {
-        return Games.getCommonFileTr(readResourceAppli()).getMapping();
+        return MessagesCardGames.getCommonFileTr(readResourceAppli()).getMapping();
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
 
     public StringMap<String> readCoreResourceCards() {
-        return Games.getCommonCardsTr(readResourceAppli()).getMapping();
+        return MessagesCardGames.getCommonCardsTr(readResourceAppli()).getMapping();
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
 

@@ -1,6 +1,8 @@
 package code.netw;
 
+import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 
 public final class MessagesNetWork {
     public static final String CANCEL = "0";
@@ -19,6 +21,9 @@ public final class MessagesNetWork {
     public static final String NOT_CONNECTED = "13";
     public static final String BUG = "14";
     public static final String USED_PORT = "15";
+    public static final String APPS_NETWORK = "network";
+    public static final String COMMON = "common";
+
     private MessagesNetWork() {
     }
     public static TranslationsFile en(){
@@ -61,5 +66,31 @@ public final class MessagesNetWork {
         f_.add(BUG,"Problème");
         f_.add(USED_PORT,"Le numéro de port {0} est utilisé. Vous pouvez changer le numéro de port ou vous pouvez essayer de rejoindre un serveur avec une IP différente.");
         return f_;
+    }
+
+    public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getMapping().addEntry(APPS_NETWORK, a_);
+        return a_;
+    }
+
+    public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
+        return _lgs.getMapping().getVal(APPS_NETWORK);
+    }
+
+    public static void enTr(TranslationsAppli _lgs) {
+        append(_lgs, en());
+    }
+
+    public static void frTr(TranslationsAppli _lgs) {
+        append(_lgs, fr());
+    }
+
+    public static void append(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(COMMON,_f);
+    }
+
+    public static TranslationsFile getMessages(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(COMMON);
     }
 }

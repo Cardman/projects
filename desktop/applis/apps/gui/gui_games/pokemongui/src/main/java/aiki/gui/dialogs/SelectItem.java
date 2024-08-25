@@ -5,7 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorItem;
 import aiki.gui.dialogs.events.ClosingSelectItem;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorItem;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
@@ -95,7 +95,7 @@ public final class SelectItem extends SelectDialog {
     }
 
     public static StringMap<String> fileIt(TranslationsLg _lg) {
-        return GamesPk.getPaginatorSelItContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getPaginatorSelItContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
 //    @Override
     public void closeWindow() {

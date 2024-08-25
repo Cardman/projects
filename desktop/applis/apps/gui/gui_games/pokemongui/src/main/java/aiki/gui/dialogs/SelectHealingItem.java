@@ -7,7 +7,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorHealingItem;
 import aiki.gui.components.walk.HealedMoveEvent;
 import aiki.gui.dialogs.events.ClosingSelectHealingItem;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorHealingItem;
 import code.gui.AbsButton;
 import code.gui.AbsPanel;
@@ -85,7 +85,7 @@ public final class SelectHealingItem extends SelectDialog {
     }
 
     public static StringMap<String> fileHealIt(TranslationsLg _lg) {
-        return GamesPk.getPaginatorSelHealItContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getPaginatorSelHealItContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
     @Override
     public void validateChoice() {

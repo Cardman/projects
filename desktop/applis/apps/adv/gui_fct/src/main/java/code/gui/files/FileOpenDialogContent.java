@@ -51,7 +51,7 @@ public final class FileOpenDialogContent extends FileDialogContent {
     }
 
     private void common() {
-        StringMap<String> messages_ = FileFrame.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenFrame.FILE_OPEN_DIAL).getMapping();
+        StringMap<String> messages_ = MessagesGuiFct.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(MessagesGuiFct.FILE_OPEN_DIAL).getMapping();
         AbsPlainLabel label_;
         label_ = getCompoFactory().newPlainLabel(messages_.getVal(MessagesFileOpenDialog.TYPE_TEXT));
         searchButton = getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.SEARCH));
@@ -163,7 +163,7 @@ public final class FileOpenDialogContent extends FileDialogContent {
             return;
         }
         String selectedPath_ = getSelectedAbsolutePath();
-        StringMap<String> messages_ = FileFrame.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenFrame.FILE_OPEN_DIAL).getMapping();
+        StringMap<String> messages_ = MessagesGuiFct.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(MessagesGuiFct.FILE_OPEN_DIAL).getMapping();
         if (!selectedPath_.isEmpty()) {
             selectedPath_ = StringUtil.replaceBackSlash(selectedPath_);
             proc(selectedPath_, messages_);
@@ -202,7 +202,7 @@ public final class FileOpenDialogContent extends FileDialogContent {
     }
 
     public void setInformations(long _s, long _f) {
-        StringMap<String> messages_ = FileFrame.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileOpenFrame.FILE_OPEN_DIAL).getMapping();
+        StringMap<String> messages_ = MessagesGuiFct.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(MessagesGuiFct.FILE_OPEN_DIAL).getMapping();
         searchedFiles.setText(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.FILE_COUNT), _s));
         foundFiles.setText(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.RESULT_COUNT), _f));
     }

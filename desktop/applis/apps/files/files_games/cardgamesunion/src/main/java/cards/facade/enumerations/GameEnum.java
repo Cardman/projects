@@ -1,5 +1,5 @@
 package cards.facade.enumerations;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -40,6 +40,6 @@ public enum GameEnum {
     }
 
     public String toString(TranslationsLg _locale) {
-        return StringUtil.nullToEmpty(Games.getAppliTr(_locale).getMapping().getVal(Games.GAMES_NAMES).getMapping().getVal(getNumber()));
+        return StringUtil.nullToEmpty(MessagesCardGames.getAppliTr(_locale).getMapping().getVal(MessagesCardGames.GAMES_NAMES).getMapping().getVal(getNumber()));
     }
 }

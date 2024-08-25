@@ -3,6 +3,7 @@ package cards.gui.dialogs;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.dialogs.events.ListenerEqualityPlaying;
@@ -172,7 +173,7 @@ public final class DialogPresidentContent implements DialogVaryingPlayerNumber,D
         return translates().getVal(_k);
     }
     public StringMap<String> translates() {
-        return Games.getDialogPresidentTr(Games.getAppliTr(getFrames().currentLg())).getMapping();
+        return MessagesCardGames.getDialogPresidentTr(MessagesCardGames.getAppliTr(getFrames().currentLg())).getMapping();
     }
     public void validateRules() {
 //        getReglesPresident().setMixedCards((MixCardsChoice)listeChoix.getSelectedItem());

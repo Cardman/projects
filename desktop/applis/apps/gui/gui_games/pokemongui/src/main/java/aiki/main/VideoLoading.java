@@ -18,9 +18,10 @@ import code.util.core.StringUtil;
 
 public final class VideoLoading {
 
+    public static final String IMG_FILES_RES_EXT = ".png";
     /**IMAGES does not contain any null BufferedImage*/
     private static final String VIDEO = "video";
-    private static final String VIDEO_DEFAULT = "resources_pk/gui/video/";
+//    private static final String VIDEO_DEFAULT = "resources_pk/gui/video/";
     private static final String FILE = "link_";
     private final CustList<CustList<AbstractImage>> images = new CustList<CustList<AbstractImage>>();
     private boolean initialized;
@@ -53,9 +54,9 @@ public final class VideoLoading {
     private CustList<AbstractImage> imgsByRes(AbstractProgramInfos _abInfo) {
         CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
         for (EntryCust<String, String> e: MessPkVideoGr.ms().entryList()) {
-            if (!e.getKey().startsWith(VIDEO_DEFAULT)) {
-                continue;
-            }
+//            if (!e.getKey().startsWith(VIDEO_DEFAULT)) {
+//                continue;
+//            }
             int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
                     e.getValue());
             AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(_abInfo.getImageFactory(),txtFile_);
@@ -69,7 +70,7 @@ public final class VideoLoading {
         int len_ = _files.getNames().length;
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String fi_ = StringUtil.concat(_path, DataBase.SEPARATOR_FILES, _folder.getName(),
-                    DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT);
+                    DataBase.SEPARATOR_FILES, FILE, Long.toString(i), IMG_FILES_RES_EXT);
             AbstractImage img_ = _abInfo.getImageFactory().newImageFromBytes(
                     StreamBinaryFile.loadFile(fi_, _abInfo.getStreams()).getBytes());
             if (img_ != null) {

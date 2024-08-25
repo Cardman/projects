@@ -27,8 +27,8 @@ public abstract class EquallableSoundPlayerUtil {
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new CustomSeedGene(_dbs), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.setLanguage(EN);
-        SongRenderer.updateEn(SongRenderer.initAppliTr(pr_.lg(EN)));
-        SongRenderer.updateFr(SongRenderer.initAppliTr(pr_.lg(FR)));
+        MessagesSongs.updateEn(MessagesSongs.initAppliTr(pr_.lg(EN)));
+        MessagesSongs.updateFr(MessagesSongs.initAppliTr(pr_.lg(FR)));
         return pr_;
     }
     public static AbstractThread tryAn(MockThreadFactory _g) {

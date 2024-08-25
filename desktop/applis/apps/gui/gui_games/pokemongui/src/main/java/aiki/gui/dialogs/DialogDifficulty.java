@@ -6,7 +6,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ClosingDialogDifficulty;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import aiki.main.AikiNatLgNamesNavigation;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkGameDetail;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -43,7 +43,7 @@ public final class DialogDifficulty {
         facade = _facade;
         window = _window;
         //super(_window, true);
-        StringMap<String> messages_ = GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(_window.getFrames().currentLg())).getMapping();
+        StringMap<String> messages_ = MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(_window.getFrames().currentLg())).getMapping();
 //        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
 //        absDialog.setModal(true);
         absDialog.setTitle(_title);

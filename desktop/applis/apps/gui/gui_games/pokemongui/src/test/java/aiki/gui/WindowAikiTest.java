@@ -9,7 +9,7 @@ import aiki.instances.Instances;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.DataWebInit;
 import aiki.main.PkNonModalEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkGameDetail;
 import aiki.sml.MessagesRenderPkSoftParams;
 import code.bean.nat.FixCharacterCaseConverter;
@@ -102,7 +102,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void params1() {
         WindowAiki window_ = newFight();
-        GamesPk.appendSoftParamsContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkSoftParams.en());
+        MessagesPkGame.appendSoftParamsContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkSoftParams.en());
         window_.getLoadingConf().setEnableAnimation(false);
         window_.getLoadingConf().setClickButtonsPad(false);
         window_.getLoadingConf().setEnabledKeyPad(false);
@@ -128,7 +128,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void params2() {
         WindowAiki window_ = newFight();
-        GamesPk.appendSoftParamsContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkSoftParams.en());
+        MessagesPkGame.appendSoftParamsContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkSoftParams.en());
         window_.getLoadingConf().setEnableAnimation(true);
         window_.getLoadingConf().setClickButtonsPad(true);
         window_.getLoadingConf().setEnabledKeyPad(true);
@@ -154,7 +154,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void lgs() {
         WindowAiki window_ = newFight();
-        GamesPk.appendPkGameDetailContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
+        MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         prepareWebTask(window_);
         window_.getCore().getAikiFactory().getTaskNavData().attendreResultat();
@@ -195,7 +195,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void diff() {
         WindowAiki window_ = newFight();
-        GamesPk.appendPkGameDetailContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
+        MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         window_.getFacade().setGame(Instances.newGame());
         prepareDiffTask(window_);
         window_.getDifficulty().setEnabled(true);

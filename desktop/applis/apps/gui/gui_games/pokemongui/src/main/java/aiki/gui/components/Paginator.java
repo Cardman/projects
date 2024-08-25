@@ -1,7 +1,7 @@
 package aiki.gui.components;
 
 import aiki.gui.components.listeners.*;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorButtons;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
@@ -150,7 +150,7 @@ public abstract class Paginator {
     }
 
     protected void initMessages() {
-        messages = GamesPk.getPaginatorButtonsContentTr(GamesPk.getAppliTr(main.getFrames().currentLg())).getMapping();
+        messages = MessagesPkGame.getPaginatorButtonsContentTr(MessagesPkGame.getAppliTr(main.getFrames().currentLg())).getMapping();
         messagesSpec = messagesInitSpec();
 //        messages.putAllMap(WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
 //        StringMap<String> map_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
@@ -163,7 +163,7 @@ public abstract class Paginator {
     protected abstract StringMap<String> messagesInitSpec();
 
     public static StringMap<String> file(TranslationsLg _lg) {
-        return GamesPk.getPaginatorContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getPaginatorContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
     protected static String convertStringField(String _text) {
         if (_text.isEmpty()) {

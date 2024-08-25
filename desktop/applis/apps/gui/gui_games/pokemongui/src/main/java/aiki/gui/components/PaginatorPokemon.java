@@ -10,7 +10,7 @@ import aiki.gui.components.labels.PokemonLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.map.pokemon.enums.Gender;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorPk;
 import aiki.util.SortingPokemonPlayer;
 import code.gui.*;
@@ -448,7 +448,7 @@ public final class PaginatorPokemon extends Paginator {
 
     @Override
     protected StringMap<String> messagesInitSpec() {
-        return GamesPk.getPaginatorPkContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
+        return MessagesPkGame.getPaginatorPkContentTr(MessagesPkGame.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override

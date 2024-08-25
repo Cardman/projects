@@ -19,8 +19,8 @@ public final class FileOpenSaveFrame extends AbsOpenSaveFrame {
         FileOpenDialogContent o_ = _fileSave.getFileOpenDialogContent();
         FileSaveDialogContent s_ = _fileSave.getFileSaveDialogContent();
         _fileSave.common();
-        s_.setFileSaveContentDialogByFrame(_currentFolderRoot,_folderSave, new OpenSavePostFileFrameEvent(_fileSave, s_, FileSaveFrame.FILE_SAVE_DIAL, MessagesFileSaveDialog.SAVE, _fileSave.getTabs(), _fileSave.getLabSave()));
-        o_.setFileOpenDialogPart(_currentFolderRoot,_folderOpen, new OpenSavePostFileFrameEvent(_fileSave, o_, FileOpenFrame.FILE_OPEN_DIAL, MessagesFileOpenDialog.OPEN, _fileSave.getTabs(), _fileSave.getLabOpen()));
+        s_.setFileSaveContentDialogByFrame(_currentFolderRoot,_folderSave, new OpenSavePostFileFrameEvent(_fileSave, s_, MessagesGuiFct.FILE_SAVE_DIAL, MessagesFileSaveDialog.SAVE, _fileSave.getTabs(), _fileSave.getLabSave()));
+        o_.setFileOpenDialogPart(_currentFolderRoot,_folderOpen, new OpenSavePostFileFrameEvent(_fileSave, o_, MessagesGuiFct.FILE_OPEN_DIAL, MessagesFileOpenDialog.OPEN, _fileSave.getTabs(), _fileSave.getLabOpen()));
         _fileSave.common(_s,_c,o_,s_);
     }
 

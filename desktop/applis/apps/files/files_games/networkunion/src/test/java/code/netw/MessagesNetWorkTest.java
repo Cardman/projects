@@ -8,9 +8,9 @@ public final class MessagesNetWorkTest extends EquallableNetWorkMesUtil {
     public void test() {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        NetWork.enTr(NetWork.initAppliTr(en_));
-        NetWork.frTr(NetWork.initAppliTr(fr_));
-        assertFalse(NetWork.getMessages(NetWork.getAppliTr(en_)).getMapping().isEmpty());
-        assertFalse(NetWork.getMessages(NetWork.getAppliTr(fr_)).getMapping().isEmpty());
+        MessagesNetWork.enTr(MessagesNetWork.initAppliTr(en_));
+        MessagesNetWork.frTr(MessagesNetWork.initAppliTr(fr_));
+        assertFalse(MessagesNetWork.getMessages(MessagesNetWork.getAppliTr(en_)).getMapping().isEmpty());
+        assertFalse(MessagesNetWork.getMessages(MessagesNetWork.getAppliTr(fr_)).getMapping().isEmpty());
     }
 }

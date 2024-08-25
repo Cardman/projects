@@ -151,10 +151,10 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(h_);
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        Games.appendCommonCards(Games.initAppliTr(en_), MessagesCommonCards.en());
-        Games.appendGamePresident(Games.getAppliTr(en_), MessagesPresident.enGame());
-        Games.appendCommonCards(Games.initAppliTr(fr_), MessagesCommonCards.fr());
-        Games.appendGamePresident(Games.getAppliTr(fr_), MessagesPresident.frGame());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(en_), MessagesCommonCards.en());
+        MessagesCardGames.appendGamePresident(MessagesCardGames.getAppliTr(en_), MessagesPresident.enGame());
+        MessagesCardGames.appendCommonCards(MessagesCardGames.initAppliTr(fr_), MessagesCommonCards.fr());
+        MessagesCardGames.appendGamePresident(MessagesCardGames.getAppliTr(fr_), MessagesPresident.frGame());
         assertFalse(StringUtil.nullToEmpty(" "+ Games.canPassMess(p_, en_)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ Games.canPassMess(p_, fr_)).isEmpty());
     }
@@ -174,14 +174,14 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
     private StringBuilder autorisePresident(GamePresident _p, CardPresident _card, byte _nb, String _loc) {
         TranslationsLg en_ = new TranslationsLg();
         TranslationsLg fr_ = new TranslationsLg();
-        TranslationsAppli enApp_ = Games.initAppliTr(en_);
-        Games.appendCommonCards(enApp_, MessagesCommonCards.en());
-        Games.appendCommonFile(enApp_, MessagesCommonFile.en());
-        Games.appendGamePresident(enApp_, MessagesPresident.enGame());
-        TranslationsAppli frApp_ = Games.initAppliTr(fr_);
-        Games.appendCommonCards(frApp_, MessagesCommonCards.fr());
-        Games.appendCommonFile(frApp_, MessagesCommonFile.fr());
-        Games.appendGamePresident(frApp_, MessagesPresident.frGame());
+        TranslationsAppli enApp_ = MessagesCardGames.initAppliTr(en_);
+        MessagesCardGames.appendCommonCards(enApp_, MessagesCommonCards.en());
+        MessagesCardGames.appendCommonFile(enApp_, MessagesCommonFile.en());
+        MessagesCardGames.appendGamePresident(enApp_, MessagesPresident.enGame());
+        TranslationsAppli frApp_ = MessagesCardGames.initAppliTr(fr_);
+        MessagesCardGames.appendCommonCards(frApp_, MessagesCommonCards.fr());
+        MessagesCardGames.appendCommonFile(frApp_, MessagesCommonFile.fr());
+        MessagesCardGames.appendGamePresident(frApp_, MessagesPresident.frGame());
         Translations trs_ = new Translations();
         trs_.getMapping().addEntry("en",en_);
         trs_.getMapping().addEntry("fr",fr_);

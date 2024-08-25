@@ -5,7 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.ItemLabel;
 import aiki.gui.listeners.PaginatorEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorItem;
 import aiki.util.SortingItem;
 import code.gui.*;
@@ -355,7 +355,7 @@ public final class PaginatorItem extends PaginatorCommonItem {
 
     @Override
     protected StringMap<String> messagesInitSpec() {
-        return GamesPk.getPaginatorItContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
+        return MessagesPkGame.getPaginatorItContentTr(MessagesPkGame.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override

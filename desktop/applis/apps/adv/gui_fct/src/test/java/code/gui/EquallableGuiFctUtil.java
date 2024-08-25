@@ -13,84 +13,84 @@ import org.junit.Assert;
 public abstract class EquallableGuiFctUtil {
 
     public static void update(MockProgramInfosSecSample _pr) {
-        FileFrame.enTr(FileFrame.initAppliTr(lg(_pr, "")));
-        FileFrame.frTr(FileFrame.initAppliTr(lg(_pr, "fr")));
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(lg(_pr, "")));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(lg(_pr, "fr")));
     }
 
     public static void updateBase(MockProgramInfosSecSample _pr) {
-        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(lg(_pr, "en")).getMapping();
-        en_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
-        StringMap<TranslationsFile> fr_ = FileFrame.initAppliTr(lg(_pr, "fr")).getMapping();
-        fr_.addEntry(FileFrame.FILE_DIAL,MessagesFileDialog.fr());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(lg(_pr, "en")).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_DIAL, MessagesFileDialog.en());
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.initAppliTr(lg(_pr, "fr")).getMapping();
+        fr_.addEntry(MessagesGuiFct.FILE_DIAL,MessagesFileDialog.fr());
         _pr.setLanguage("en");
     }
 
     public static void updateConfirm(MockProgramInfosSecSample _pr) {
-        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(lg(_pr, "en")).getMapping();
-        en_.addEntry(FileFrame.CONFIRM, MessagesConfirmDialog.en());
-        StringMap<TranslationsFile> fr_ = FileFrame.initAppliTr(lg(_pr, "fr")).getMapping();
-        fr_.addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.fr());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(lg(_pr, "en")).getMapping();
+        en_.addEntry(MessagesGuiFct.CONFIRM, MessagesConfirmDialog.en());
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.initAppliTr(lg(_pr, "fr")).getMapping();
+        fr_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         _pr.setLanguage("en");
     }
 
     public static void updateFolderOpen(MockProgramInfosSecSample _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
-        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL, MessagesFolderOpenDialog.en());
-        StringMap<TranslationsFile> fr_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
-        fr_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.fr());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL, MessagesFolderOpenDialog.en());
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.fr());
         updateFileTable(_pr);
     }
 
     public static void updateFileOpen(MockProgramInfosSecSample _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
-        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        StringMap<TranslationsFile> fr_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
-        fr_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
         updateFileTable(_pr);
     }
 
     public static void updateFileSave(MockProgramInfosSecSample _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
-        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
-        StringMap<TranslationsFile> fr_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
-        fr_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
         updateFileTable(_pr);
     }
 
     public static void updateFileOpenSave(MockProgramInfosSecSample _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
-        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
-        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        en_.addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.en());
-        StringMap<TranslationsFile> fr_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
-        fr_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
-        fr_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
-        fr_.addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.fr());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
+        fr_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
+        fr_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         updateFileTable(_pr);
     }
 
     public static void updateFolderOpenSave(MockProgramInfosSecSample _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
-        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
-        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
-        en_.addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.en());
-        StringMap<TranslationsFile> fr_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
-        fr_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
-        fr_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.fr());
-        fr_.addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.fr());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
+        fr_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.fr());
+        fr_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         updateFileTable(_pr);
     }
 
     public static void updateFileTable(MockProgramInfosSecSample _pr) {
-        StringMap<TranslationsFile> en_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
-        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
-        StringMap<TranslationsFile> fr_ = FileFrame.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
-        fr_.addEntry(FileTable.FILE_TAB,MessagesFileTable.fr());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.en());
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        fr_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.fr());
     }
     public static TranslationsLg lg(MockProgramInfosSecSample _pr, String _key) {
         return _pr.lg(_key);

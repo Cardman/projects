@@ -30,7 +30,7 @@ public abstract class AbsOpenSaveFrame extends FileFrame {
         buttons_.add(labSave);
         buttons_.add(labOpen);
 
-        StringMap<String> messages_ = FileFrame.getAppliTr(getPrInfos().currentLg()).getMapping().getVal(FileFrame.CONFIRM).getMapping();
+        StringMap<String> messages_ = MessagesGuiFct.getAppliTr(getPrInfos().currentLg()).getMapping().getVal(MessagesGuiFct.CONFIRM).getMapping();
         AbsButton button_ = compoFactory_.newPlainButton(messages_.getVal(MessagesConfirmDialog.YES));
         mainAction = button_;
         button_.addActionListener(new SaveOpenSelectFileEvent(this, _save, _c, _s, _o));

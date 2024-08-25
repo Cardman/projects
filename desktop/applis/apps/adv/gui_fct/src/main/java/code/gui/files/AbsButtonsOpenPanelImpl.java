@@ -8,7 +8,7 @@ public abstract class AbsButtonsOpenPanelImpl implements AbsButtonsOpenPanel {
     protected AbsButtonsOpenPanelImpl(){}
     @Override
     public void build(FileOpenDialogContent _content) {
-        StringMap<String> messages_ = FileFrame.getAppliTr(_content.getProgramInfos().currentLg()).getMapping().getVal(FileOpenFrame.FILE_OPEN_DIAL).getMapping();
+        StringMap<String> messages_ = MessagesGuiFct.getAppliTr(_content.getProgramInfos().currentLg()).getMapping().getVal(MessagesGuiFct.FILE_OPEN_DIAL).getMapping();
         AbsButton action_ = _content.getCompoFactory().newPlainButton(messages_.getVal(MessagesFileOpenDialog.OPEN));
         action_.addActionListener(buildEvent(_content));
         _content.getButtons().add(action_);

@@ -30,7 +30,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
         super(_list);
         mainButton = _pair.getMainButton();
         GuiBaseUtil.choose(this, _list);
-        StringMap<String> mes_ = SongRenderer.valRecorderMessages(_list.currentLg());
+        StringMap<String> mes_ = MessagesSongs.valRecorderMessages(_list.currentLg());
         setTitle(mes_.getVal(MessagesRecorder.TITLE));
         soundRecord = _list.newSoundPattern();
         AbsPanel container_ = _list.getCompoFactory().newPageBox();
@@ -114,7 +114,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public String getApplicationName() {
-        return "recorder";
+        return MessagesSongs.LOC_REC;
     }
 
 //    @Override
@@ -128,7 +128,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     }
     public void eventRecord() {
         String fileTxt_ = fileSave.getText().trim();
-        StringMap<String> mes_ = SongRenderer.valRecorderMessages(getFrames().currentLg());
+        StringMap<String> mes_ = MessagesSongs.valRecorderMessages(getFrames().currentLg());
         if (fileTxt_.isEmpty()){
             status.setText(mes_.getVal(MessagesRecorder.BAD_NAME));
             pack();
@@ -143,7 +143,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
         playSong.setEnabled(false);
         stopSong.setEnabled(true);
         byte[] bytes_ = soundRecord.recordSong();
-        StringMap<String> mes_ = SongRenderer.valRecorderMessages(getFrames().currentLg());
+        StringMap<String> mes_ = MessagesSongs.valRecorderMessages(getFrames().currentLg());
         setTitle(StringUtil.simpleStringsFormat(mes_.getVal(MessagesRecorder.RECORDING),Long.toString(soundRecord.millis())));
         if (bytes_.length > 0) {
             StreamBinaryFile.writeFile(_file,bytes_,getStreams());
@@ -153,7 +153,7 @@ public final class WindowRecorder extends GroupFrame implements AbsOpenQuit {
     }
     public void error() {
         setState();
-        StringMap<String> mes_ = SongRenderer.valRecorderMessages(getFrames().currentLg());
+        StringMap<String> mes_ = MessagesSongs.valRecorderMessages(getFrames().currentLg());
         status.setText(mes_.getVal(MessagesRecorder.BAD_RECORD));
         pack();
     }

@@ -48,7 +48,7 @@ public final class FileSaveDialogContent extends FileDialogContent {
     }
 
     private void initSaveDialog(String _homePath) {
-        StringMap<String> messages_ = FileFrame.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileSaveFrame.FILE_SAVE_DIAL).getMapping();
+        StringMap<String> messages_ = MessagesGuiFct.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(MessagesGuiFct.FILE_SAVE_DIAL).getMapping();
         if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
             AbsPlainLabel label_;
@@ -102,7 +102,7 @@ public final class FileSaveDialogContent extends FileDialogContent {
 
     public void submit() {
         getErrors().setText("");
-        StringMap<String> messages_ = FileFrame.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(FileSaveFrame.FILE_SAVE_DIAL).getMapping();
+        StringMap<String> messages_ = MessagesGuiFct.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(MessagesGuiFct.FILE_SAVE_DIAL).getMapping();
         String text_ = getFileName().getText();
         if (text_.trim().isEmpty()) {
             String errorContent_ = messages_.getVal(MessagesFileSaveDialog.FORBIDDEN_SPACES);

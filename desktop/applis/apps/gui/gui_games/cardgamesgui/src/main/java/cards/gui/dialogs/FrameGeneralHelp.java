@@ -3,7 +3,7 @@ package cards.gui.dialogs;
 
 
 
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.gui.animations.PreparedRenderPagesCards;
 import cards.gui.dialogs.events.ListenerClickTree;
@@ -28,7 +28,6 @@ import code.util.core.IndexConstants;
 
 public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame {
     public static final String PORT_INI = "cards_port.ini";
-    public static final String SUITS_TXT = "suits.txt";
     public static final String COORDS="cards.coords";
 //    public static final String FOLDER_MESSAGES_GUI = "resources_cards/gui/messages";
     public static final String RESOURCES_HTML_FILES_RULES_BELOTE = "0";
@@ -207,7 +206,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 //            search = _w.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
 //            editor.addFinder(field,search);
 //        }
-        search.setText(Games.getDialogHelpTr(Games.getAppliTr(lg_)).getMapping().getVal(MessagesGuiCards.DIAL_HELP_SEARCH_LABEL));
+        search.setText(MessagesCardGames.getDialogHelpTr(MessagesCardGames.getAppliTr(lg_)).getMapping().getVal(MessagesGuiCards.DIAL_HELP_SEARCH_LABEL));
         scrollPaneTree.setViewportView(arbre_);
 //        if (wasNull_) {
 //            separateur = _w.getCompoFactory().newHorizontalSplitPane(

@@ -7,9 +7,8 @@ import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.sml.IntDataBaseStream;
-import cards.facade.Games;
 import cards.facade.IntArtCardGames;
-import cards.facade.Nicknames;
+import cards.facade.MessagesCardGames;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
@@ -23,7 +22,6 @@ import code.network.enums.IpType;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
-import code.util.StringMap;
 import org.junit.Test;
 
 public final class NetGroupFrameTest extends EquallableNetworkUtil {
@@ -63,7 +61,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
     public void launch() {
         MockProgramInfos api_ = updateSingle(build());
         api_.setLanguages(new StringList(EN,FR));
-        Games.appendNickNames(Games.getAppliTr(api_.currentLg()), Nicknames.en());
+        MessagesCardGames.appendNickNames(MessagesCardGames.getAppliTr(api_.currentLg()), MessagesCardGames.en());
         AikiFactory ai_ = new AikiFactory(api_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
         CardFactories cf_ = new CardFactories(api_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
         LaunchNetwork l_ = new LaunchNetwork(api_, ai_, cf_, new LanguagesButtonsPair(api_.getCompoFactory().newMenuItem(),null,null));

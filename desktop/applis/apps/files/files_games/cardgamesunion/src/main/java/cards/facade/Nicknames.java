@@ -2,7 +2,6 @@ package cards.facade;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
-import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
@@ -14,10 +13,6 @@ import code.util.core.StringUtil;
 
 public final class Nicknames {
 
-//    public static final String USER_DEF = "_";
-//    public static final String NICKNAME_DEF = "_{0}";
-    public static final String NICKNAME = "0";
-    public static final String USER = "1";
     private String pseudo;
     private StringList pseudosBelote=new StringList();
     private StringList pseudosTarot=new StringList();
@@ -28,10 +23,10 @@ public final class Nicknames {
     }
 
     public Nicknames(TranslationsLg _loc){
-        this(Games.getAppliTr(_loc).getMapping().getVal(Games.NICK_NAMES).getMapping());
+        this(MessagesCardGames.getAppliTr(_loc).getMapping().getVal(MessagesCardGames.NICK_NAMES).getMapping());
     }
     public Nicknames(StringMap<String> _messages){
-        this(_messages.getVal(USER),_messages.getVal(NICKNAME));
+        this(_messages.getVal(MessagesCardGames.USER),_messages.getVal(MessagesCardGames.NICKNAME));
     }
     public Nicknames(String _user, String _nickname){
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESSOURCES_CLASSES, _loc, NICKNAMES);
@@ -61,18 +56,7 @@ public final class Nicknames {
         pseudosTarot = new StringList(_pseudos.pseudosTarot);
         pseudosPresident = new StringList(_pseudos.pseudosPresident);
     }
-    public static TranslationsFile en() {
-        TranslationsFile e_ = new TranslationsFile();
-        e_.add(USER,"Your_nickname");
-        e_.add(NICKNAME,"Player {0}");
-        return e_;
-    }
-    public static TranslationsFile fr() {
-        TranslationsFile f_ = new TranslationsFile();
-        f_.add(USER,"Votre_pseudo");
-        f_.add(NICKNAME,"Joueur {0}");
-        return f_;
-    }
+
     public boolean isValidNicknames() {
         int nBots_ = 4;
         nBots_--;

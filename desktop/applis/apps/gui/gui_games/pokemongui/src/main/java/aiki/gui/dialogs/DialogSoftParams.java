@@ -3,7 +3,7 @@ package aiki.gui.dialogs;
 
 
 import aiki.main.PkNonModalEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkSoftParams;
 import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
@@ -59,7 +59,7 @@ public final class DialogSoftParams {
 
     private void init(WindowAiki _window, LoadingGame _loading) {
         absDialog.setIconImage(_window.getCommonFrame().getImageIconFrame());
-        StringMap<String> messages_ = GamesPk.getSoftParamsContentTr(GamesPk.getAppliTr(_window.getFrames().currentLg())).getMapping();
+        StringMap<String> messages_ = MessagesPkGame.getSoftParamsContentTr(MessagesPkGame.getAppliTr(_window.getFrames().currentLg())).getMapping();
 //        StringMap<String> messages_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
 //        ok = false;
         absDialog.setTitle(messages_.getVal(MessagesRenderPkSoftParams.TITLE));

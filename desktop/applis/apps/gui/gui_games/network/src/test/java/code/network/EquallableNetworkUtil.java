@@ -368,13 +368,13 @@ public abstract class EquallableNetworkUtil {
     }
 
     public static void updateBase(TranslationsLg _en) {
-        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(_en).getMapping();
-        en_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
-        en_.addEntry(FileFrame.CONFIRM, MessagesConfirmDialog.en());
-        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
-        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
-        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(_en).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(MessagesGuiFct.CONFIRM, MessagesConfirmDialog.en());
+        en_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.en());
     }
     private static void belote(CardFactories _cf, WindowNetWork _w) {
         _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
@@ -428,8 +428,8 @@ public abstract class EquallableNetworkUtil {
         return _pr;
     }
     public static MockProgramInfos updateDialogDisplay(MockProgramInfos _pr) {
-        Games.appendCommonFile(appendDialogDisplay(baseCardsEn(_pr),MessagesGuiCards.enDisplay()),MessagesCommonFile.en());
-        Games.appendCommonFile(appendDialogDisplay(baseCardsFr(_pr),MessagesGuiCards.frDisplay()),MessagesCommonFile.fr());
+        MessagesCardGames.appendCommonFile(appendDialogDisplay(baseCardsEn(_pr),MessagesGuiCards.enDisplay()),MessagesCommonFile.en());
+        MessagesCardGames.appendCommonFile(appendDialogDisplay(baseCardsFr(_pr),MessagesGuiCards.frDisplay()),MessagesCommonFile.fr());
         return _pr;
     }
 
@@ -440,107 +440,107 @@ public abstract class EquallableNetworkUtil {
     }
     private static TranslationsAppli baseCardsFr(MockProgramInfos _pr) {
         TranslationsLg lg_ = lg(_pr, FR);
-        TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
-        NetWork.frTr(appNet_);
-        TranslationsAppli appPk_ = GamesPk.initAppliTr(lg_);
-        GamesPk.appendWindowPkContent(appPk_, MessagesRenderWindowPk.fr());
-        return appendMulti(appendDialogNicknames(appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.fr()), MessagesGuiCards.frMenu()),MessagesGuiCards.frNickname()),MessagesGuiCards.frMulti());
+        TranslationsAppli appNet_ = MessagesNetWork.initAppliTr(lg_);
+        MessagesNetWork.frTr(appNet_);
+        TranslationsAppli appPk_ = MessagesPkGame.initAppliTr(lg_);
+        MessagesPkGame.appendWindowPkContent(appPk_, MessagesRenderWindowPk.fr());
+        return appendMulti(appendDialogNicknames(appendMenus(appendGamesNames(MessagesCardGames.initAppliTr(lg_), MessagesGamesGames.fr()), MessagesGuiCards.frMenu()),MessagesGuiCards.frNickname()),MessagesGuiCards.frMulti());
     }
     private static TranslationsAppli baseCardsEn(MockProgramInfos _pr) {
         TranslationsLg lg_ = lg(_pr, EN);
-        TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
-        NetWork.enTr(appNet_);
-        TranslationsAppli appPk_ = GamesPk.initAppliTr(lg_);
-        GamesPk.appendWindowPkContent(appPk_, MessagesRenderWindowPk.en());
-        return appendMulti(appendDialogNicknames(appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.en()),MessagesGuiCards.enMenu()),MessagesGuiCards.enNickname()),MessagesGuiCards.enMulti());
+        TranslationsAppli appNet_ = MessagesNetWork.initAppliTr(lg_);
+        MessagesNetWork.enTr(appNet_);
+        TranslationsAppli appPk_ = MessagesPkGame.initAppliTr(lg_);
+        MessagesPkGame.appendWindowPkContent(appPk_, MessagesRenderWindowPk.en());
+        return appendMulti(appendDialogNicknames(appendMenus(appendGamesNames(MessagesCardGames.initAppliTr(lg_), MessagesGamesGames.en()),MessagesGuiCards.enMenu()),MessagesGuiCards.enNickname()),MessagesGuiCards.enMulti());
     }
     private static TranslationsAppli baseCardsFrPk(MockProgramInfos _pr) {
         TranslationsLg lg_ = lg(_pr, FR);
-        TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
-        NetWork.frTr(appNet_);
-        TranslationsAppli appPk_ = GamesPk.initAppliTr(lg_);
-        GamesPk.appendWindowPkContent(appPk_, MessagesRenderWindowPk.fr());
-        GamesPk.appendScenePanelContent(appPk_, MessagesRenderScenePanel.fr());
-        return appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.fr()), MessagesGuiCards.frMenu());
+        TranslationsAppli appNet_ = MessagesNetWork.initAppliTr(lg_);
+        MessagesNetWork.frTr(appNet_);
+        TranslationsAppli appPk_ = MessagesPkGame.initAppliTr(lg_);
+        MessagesPkGame.appendWindowPkContent(appPk_, MessagesRenderWindowPk.fr());
+        MessagesPkGame.appendScenePanelContent(appPk_, MessagesRenderScenePanel.fr());
+        return appendMenus(appendGamesNames(MessagesCardGames.initAppliTr(lg_), MessagesGamesGames.fr()), MessagesGuiCards.frMenu());
     }
     private static TranslationsAppli baseCardsEnPk(MockProgramInfos _pr) {
         TranslationsLg lg_ = lg(_pr, EN);
-        TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
-        NetWork.enTr(appNet_);
-        TranslationsAppli appPk_ = GamesPk.initAppliTr(lg_);
-        GamesPk.appendWindowPkContent(appPk_, MessagesRenderWindowPk.en());
-        GamesPk.appendScenePanelContent(appPk_, MessagesRenderScenePanel.en());
-        return appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.en()),MessagesGuiCards.enMenu());
+        TranslationsAppli appNet_ = MessagesNetWork.initAppliTr(lg_);
+        MessagesNetWork.enTr(appNet_);
+        TranslationsAppli appPk_ = MessagesPkGame.initAppliTr(lg_);
+        MessagesPkGame.appendWindowPkContent(appPk_, MessagesRenderWindowPk.en());
+        MessagesPkGame.appendScenePanelContent(appPk_, MessagesRenderScenePanel.en());
+        return appendMenus(appendGamesNames(MessagesCardGames.initAppliTr(lg_), MessagesGamesGames.en()),MessagesGuiCards.enMenu());
     }
     public static TranslationsAppli appendMulti(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.NETWORK,_f);
+        _app.getMapping().addEntry(MessagesCardGames.NETWORK,_f);
         return _app;
     }
     public static TranslationsAppli appendDialogNicknames(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.DIALOG_NICKNAME,_f);
+        _app.getMapping().addEntry(MessagesCardGames.DIALOG_NICKNAME,_f);
         return _app;
     }
     private static TranslationsAppli baseFr(MockProgramInfos _pr) {
         TranslationsLg lg_ = lg(_pr, FR);
-        TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
-        NetWork.frTr(appNet_);
-        return appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.fr()), MessagesGuiCards.frMenu());
+        TranslationsAppli appNet_ = MessagesNetWork.initAppliTr(lg_);
+        MessagesNetWork.frTr(appNet_);
+        return appendMenus(appendGamesNames(MessagesCardGames.initAppliTr(lg_), MessagesGamesGames.fr()), MessagesGuiCards.frMenu());
     }
     private static TranslationsAppli baseEn(MockProgramInfos _pr) {
         TranslationsLg lg_ = lg(_pr, EN);
-        TranslationsAppli appNet_ = NetWork.initAppliTr(lg_);
-        NetWork.enTr(appNet_);
-        return appendMenus(appendGamesNames(Games.initAppliTr(lg_), MessagesGamesGames.en()),MessagesGuiCards.enMenu());
+        TranslationsAppli appNet_ = MessagesNetWork.initAppliTr(lg_);
+        MessagesNetWork.enTr(appNet_);
+        return appendMenus(appendGamesNames(MessagesCardGames.initAppliTr(lg_), MessagesGamesGames.en()),MessagesGuiCards.enMenu());
     }
     public static TranslationsAppli appendBelote(TranslationsAppli _app, TranslationsFile _f, TranslationsFile _g, TranslationsFile _h) {
-        _app.getMapping().addEntry(Games.COMMON_BELOTE,_f);
-        _app.getMapping().addEntry(Games.GAME_BELOTE,_g);
-        _app.getMapping().addEntry(Games.DIALOG_BELOTE,_h);
+        _app.getMapping().addEntry(MessagesCardGames.COMMON_BELOTE,_f);
+        _app.getMapping().addEntry(MessagesCardGames.GAME_BELOTE,_g);
+        _app.getMapping().addEntry(MessagesCardGames.DIALOG_BELOTE,_h);
         return _app;
     }
     public static TranslationsAppli appendPresident(TranslationsAppli _app, TranslationsFile _f, TranslationsFile _g, TranslationsFile _h) {
-        _app.getMapping().addEntry(Games.COMMON_PRESIDENT,_f);
-        _app.getMapping().addEntry(Games.GAME_PRESIDENT,_g);
-        _app.getMapping().addEntry(Games.DIALOG_PRESIDENT,_h);
+        _app.getMapping().addEntry(MessagesCardGames.COMMON_PRESIDENT,_f);
+        _app.getMapping().addEntry(MessagesCardGames.GAME_PRESIDENT,_g);
+        _app.getMapping().addEntry(MessagesCardGames.DIALOG_PRESIDENT,_h);
         return _app;
     }
     public static TranslationsAppli appendTarot(TranslationsAppli _app, TranslationsFile _f, TranslationsFile _g, TranslationsFile _h) {
-        _app.getMapping().addEntry(Games.COMMON_TAROT,_f);
-        _app.getMapping().addEntry(Games.GAME_TAROT,_g);
-        _app.getMapping().addEntry(Games.DIALOG_TAROT,_h);
+        _app.getMapping().addEntry(MessagesCardGames.COMMON_TAROT,_f);
+        _app.getMapping().addEntry(MessagesCardGames.GAME_TAROT,_g);
+        _app.getMapping().addEntry(MessagesCardGames.DIALOG_TAROT,_h);
         return _app;
     }
     public static TranslationsAppli appendGamesNames(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.GAMES_NAMES,_f);
+        _app.getMapping().addEntry(MessagesCardGames.GAMES_NAMES,_f);
         return _app;
     }
 
     public static TranslationsAppli appendMenus(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.MENUS,_f);
+        _app.getMapping().addEntry(MessagesCardGames.MENUS,_f);
         return _app;
     }
     public static TranslationsAppli appendMix(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.COMMON_MIX,_f);
+        _app.getMapping().addEntry(MessagesCardGames.COMMON_MIX,_f);
         return _app;
     }
 
     public static TranslationsAppli appendCommon(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.COMMON_FILE,_f);
+        _app.getMapping().addEntry(MessagesCardGames.COMMON_FILE,_f);
         return _app;
     }
 
     public static TranslationsAppli appendCards(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.COMMON_CARDS,_f);
+        _app.getMapping().addEntry(MessagesCardGames.COMMON_CARDS,_f);
         return _app;
     }
 
     public static TranslationsAppli appendMainGame(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.MAIN_GAME,_f);
+        _app.getMapping().addEntry(MessagesCardGames.MAIN_GAME,_f);
         return _app;
     }
 
     public static TranslationsAppli appendDialogDisplay(TranslationsAppli _app, TranslationsFile _f) {
-        _app.getMapping().addEntry(Games.DIALOG_DISPLAY,_f);
+        _app.getMapping().addEntry(MessagesCardGames.DIALOG_DISPLAY,_f);
         return _app;
     }
 

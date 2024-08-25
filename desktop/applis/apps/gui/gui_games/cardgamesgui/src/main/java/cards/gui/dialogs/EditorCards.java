@@ -1,6 +1,6 @@
 package cards.gui.dialogs;
 
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
@@ -49,7 +49,7 @@ public final class EditorCards {
     }
 
     public static StringMap<String> translate(AbstractProgramInfos _pr) {
-        return Games.getEditorTr(Games.getAppliTr(_pr.currentLg())).getMapping();
+        return MessagesCardGames.getEditorTr(MessagesCardGames.getAppliTr(_pr.currentLg())).getMapping();
     }
 
     public AbsPlainLabel buildLabelSelectCard(AbsCompoFactory _compo) {

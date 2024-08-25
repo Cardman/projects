@@ -60,7 +60,7 @@ return m;
 //f+="cannotReadMessageWav=Fichier WAV invalide\n";
 //return f;
 //}
-static String resourcesPlayerPlayer(){
+public static String resourcesPlayerPlayer(){
 String i=ADD_IMG_2_0;
 i+=ADD_IMG_2_1;
 i+=ADD_IMG_2_2;

@@ -17,18 +17,6 @@ public abstract class AbsMetaLabelCard {
         fact = _compoFactory;
         paintableLabel = _compoFactory.newAbsPaintableLabel();
     }
-    public static StringMap<StringMap<int[][]>> defs() {
-        StringMap<StringMap<int[][]>> out_ = new StringMap<StringMap<int[][]>>(new CollCapacity(2));
-        out_.addEntry("en",enDef());
-        out_.addEntry("fr",frDef());
-        return out_;
-    }
-    public static StringMap<StringMap<int[][]>> sels() {
-        StringMap<StringMap<int[][]>> out_ = new StringMap<StringMap<int[][]>>(new CollCapacity(2));
-        out_.addEntry("en",enSel());
-        out_.addEntry("fr",frSel());
-        return out_;
-    }
     public static StringMap<int[][]> enDef(){
         StringMap<int[][]> out_ = new StringMap<int[][]>(new CollCapacity(78));
         defTrs(out_);

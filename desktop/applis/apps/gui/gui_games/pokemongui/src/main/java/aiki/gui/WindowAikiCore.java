@@ -10,10 +10,7 @@ import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.SaveGameEventAiki;
 import aiki.main.AikiFactory;
 import aiki.main.VideoLoading;
-import aiki.sml.DefGameChecker;
-import aiki.sml.GamesPk;
-import aiki.sml.IntGameChecker;
-import aiki.sml.MessagesRenderWindowPk;
+import aiki.sml.*;
 import code.gui.*;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.initialize.AbstractProgramInfos;
@@ -73,7 +70,7 @@ public final class WindowAikiCore {
         game_.setZippedRom(facade.getZipName());
         getAikiFactory().getGamePkStream().save(_fileName,game_);
         dateLastSaved = Clock.getDateTimeText(api.getThreadFactory());
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(api.currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(MessagesPkGame.getWindowPkContentTr(MessagesPkGame.getAppliTr(api.currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved));
     }
     public AikiFactory getAikiFactory() {
         return aikiFactory;

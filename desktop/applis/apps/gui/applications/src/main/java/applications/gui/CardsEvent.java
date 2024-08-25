@@ -1,6 +1,6 @@
 package applications.gui;
 
-import cards.gui.WindowCards;
+import cards.facade.MessagesCardGames;
 import applications.main.LaunchingCards;
 import code.gui.AbsButton;
 import code.gui.LanguagesButtonsPair;
@@ -8,7 +8,7 @@ import code.gui.LanguagesButtonsPair;
 public final class CardsEvent extends AbstractEvent {
 
     CardsEvent(WindowApps _window, AbsButton _but, LanguagesButtonsPair _p) {
-        super(_window, _but, WindowCards.APP_CARDS, _p);
+        super(_window, _but, MessagesCardGames.CARDS, _p);
     }
 
     @Override

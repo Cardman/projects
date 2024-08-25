@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.blocks.AnaRendBlock;
+import code.formathtml.util.BeanLgNames;
 import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.util.*;
@@ -19,7 +20,6 @@ public final class ResultText {
     public static final char ESCAPED = '\\';
     public static final char RIGHT_EL = '}';
     public static final char LEFT_EL = '{';
-    private static final String CALL_METHOD = "$";
     private CustList<OperationNode> opExpRoot;
     private ClassMethodIdReturn resultAnc;
 
@@ -123,7 +123,7 @@ public final class ResultText {
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         _res.opExpRoot = new CustList<OperationNode>();
         _res.texts = new StringList();
-        if (href_.startsWith(CALL_METHOD)) {
+        if (href_.startsWith(BeanLgNames.CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int colsGrId_ = _r.getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             for (EntryCust<String,ResultExpression> e: _res.getResults().entryList()) {

@@ -7,7 +7,6 @@ import code.gui.files.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
-import code.renders.utilcompo.LgNamesRenderUtils;
 import code.sml.util.*;
 import code.stream.core.*;
 import code.threads.*;
@@ -30,13 +29,13 @@ public abstract class EquallableRendersGuiUtil {
         updateBase(_pr.currentLg());
     }
     public static void updateBase(TranslationsLg _en) {
-        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(_en).getMapping();
-        en_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
-        en_.addEntry(FileFrame.CONFIRM, MessagesConfirmDialog.en());
-        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL, MessagesFolderOpenDialog.en());
-        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
-        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(_en).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(MessagesGuiFct.CONFIRM, MessagesConfirmDialog.en());
+        en_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL, MessagesFolderOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.en());
     }
     public static CreateMainWindowRenders create(MockProgramInfos _pr,String..._args) {
         update(_pr);

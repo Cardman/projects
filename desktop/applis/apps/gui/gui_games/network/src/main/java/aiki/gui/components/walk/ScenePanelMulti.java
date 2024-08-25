@@ -7,8 +7,8 @@ import aiki.gui.listeners.*;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import aiki.sml.GamesPk;
 import aiki.sml.LoadingGame;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderScenePanel;
 import cards.facade.enumerations.GameEnum;
 import code.bean.nat.FixCharacterCaseConverter;
@@ -321,7 +321,7 @@ public class ScenePanelMulti {
 //    }
 
     public void initMessages() {
-        messages = GamesPk.getScenePanelContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping();
+        messages = MessagesPkGame.getScenePanelContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping();
 //        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
 //        messagesTeamPanel = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
     }

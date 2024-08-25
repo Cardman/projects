@@ -153,10 +153,11 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         String lg_ = getFrames().getLanguage();
         StringList lgs_ = getFrames().getLanguages();
         Options opt_ = new Options();
+        String db_ = MessagesExecutingOptions.valExecOptionsKeys(getFrames().currentLg()).getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_INIT_DB)+ExecutingOptions.EXEC_OPTIONS_SEP;
         if (linesFiles_.size() > 2) {
             String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
-            if (line_.startsWith("initDb=")) {
-                String subLine_ = line_.substring("initDb=".length());
+            if (line_.startsWith(db_)) {
+                String subLine_ = line_.substring(db_.length());
                 int last_ = subLine_.lastIndexOf('.');
                 if (last_ > -1) {
                     clName_ = subLine_.substring(0,last_);

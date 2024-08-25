@@ -7,7 +7,7 @@ import aiki.beans.BeanNatCommonLgNamesForm;
 import aiki.facade.FacadeGame;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.VideoLoading;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkGameDetail;
 import aiki.gui.WindowAiki;
 import code.bean.nat.FixCharacterCaseConverter;
@@ -121,7 +121,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     public void initSessionLg(FacadeGame _dataBase, AikiNatLgNamesNavigation _pr, String _lg) {
         setVisible(true);
         menuItem.setEnabled(false);
-        search.setText(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
+        search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
         _pr.getBeanNatLgNames().setDataBase(_dataBase);
         session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
         initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
@@ -135,7 +135,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 //        String key_ = _window.getLanguageKey();
 //        setLanguageKey(key_);
 //        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
-        search.setText(GamesPk.getPkGameDetailContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
+        search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
         session.setLanguage(window.getFrames().getLanguage(),getFrames().getLanguages());
 //        session.refresh();
     }

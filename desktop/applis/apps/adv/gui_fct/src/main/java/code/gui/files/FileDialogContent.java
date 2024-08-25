@@ -65,7 +65,7 @@ public abstract class FileDialogContent {
         }
         TranslationsLg trs_ = programInfos.currentLg();
         fileModel = new FileTable(trs_, programInfos.getThreadFactory(),programInfos.getCompoFactory());
-        StringMap<String> appTr_ = FileFrame.getAppliTr(trs_).getMapping().getVal(FileFrame.FILE_DIAL).getMapping();
+        StringMap<String> appTr_ = MessagesGuiFct.getAppliTr(trs_).getMapping().getVal(MessagesGuiFct.FILE_DIAL).getMapping();
         currentTitle = appTr_.getVal(MessagesFileDialog.FILES);
         if (currentFolderRoot) {
             currentTitle = StringUtil.concat(currentTitle, SPACE, currentFolder);
@@ -161,7 +161,7 @@ public abstract class FileDialogContent {
     public void applyTreeChange() {
         String str_ = getFolder();
         currentFolder = str_;
-        StringMap<String> appTr_ = FileFrame.getAppliTr(programInfos.currentLg()).getMapping().getVal(FileFrame.FILE_DIAL).getMapping();
+        StringMap<String> appTr_ = MessagesGuiFct.getAppliTr(programInfos.currentLg()).getMapping().getVal(MessagesGuiFct.FILE_DIAL).getMapping();
         currentTitle = StringUtil.simpleStringsFormat(appTr_.getVal(MessagesFileDialog.FILES_PARAM), currentFolder);
         postFileDialogEvent.title(currentTitle);
         AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);
@@ -193,7 +193,7 @@ public abstract class FileDialogContent {
         }
         String str_ = buildPath(sel_);
         currentFolder = str_;
-        StringMap<String> appTr_ = FileFrame.getAppliTr(programInfos.currentLg()).getMapping().getVal(FileFrame.FILE_DIAL).getMapping();
+        StringMap<String> appTr_ = MessagesGuiFct.getAppliTr(programInfos.currentLg()).getMapping().getVal(MessagesGuiFct.FILE_DIAL).getMapping();
         currentTitle = StringUtil.simpleStringsFormat(appTr_.getVal(MessagesFileDialog.FILES_PARAM), currentFolder);
         postFileDialogEvent.title(currentTitle);
         AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_);

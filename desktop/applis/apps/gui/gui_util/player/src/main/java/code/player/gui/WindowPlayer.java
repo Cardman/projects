@@ -35,11 +35,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     public static final String CST_KEY_PAUSE = "pause";
     public static final String CST_KEY_RANDOM = "random";
     public static final String CST_ATTR_VALUE = "value";
-    public static final String APPS_MUSICPLAYER = "musicplayer";
 
-    private static final String CST_START = "Start";
+//    private static final String CST_START = "Start";
 //    private static final String CST_CLOSE = "Close";
-    private static final String CST_STOP_EVT = "Stop";
+//    private static final String CST_STOP_EVT = "Stop";
     private static final String REL_SEP = " / ";
     private static final String CST_PAUSE = "||";
 //    private static final String CST_STOP = "[]";
@@ -49,8 +48,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private static final String EMPTY = "";
     private static final String LINE_RETURN = "\n";
 
-    private static final String RESOURCES_FOLDER = "resources_player";
-    private static final String ICON = "player.txt";
+//    private static final String RESOURCES_FOLDER = "resources_player";
+//    private static final String ICON = "player.txt";
     private final ReportingFrame resultFile = ReportingFrame.newInstance(getFrames());
 //    private final StringMap<String> messagesFiles = new StringMap<String>();
     private StringMap<String> messages = new StringMap<String>();
@@ -140,7 +139,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     }
 
     public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return FileDialog.getImage(MessPlayerGr.ms().getVal(StringUtil.concat(RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, ICON)), _fact);
+        return FileDialog.getImage(MessPlayerGr.resourcesPlayerPlayer(), _fact);
     }
 
     //    @Override
@@ -163,7 +162,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         setLanguageKey(_lg);
 //        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(CST_RESOURCES_FOLDER, _lg, ACCESS);
 //        String loadedResourcesMessages_ = messagesFiles.getVal(fileName_);
-        messages = SongRenderer.valPlayerMessages(getFrames().currentLg());
+        messages = MessagesSongs.valPlayerMessages(getFrames().currentLg());
     }
 
     public void playOrPause(boolean _click) {
@@ -473,9 +472,9 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 //    }
 
     private void events(String _ev) {
-        if (StringUtil.quickEq(_ev, CST_START)) {
+        if (StringUtil.quickEq(_ev, MessagesSongs.START)) {
             play.setText(CST_PAUSE);
-        } else if (StringUtil.quickEq(_ev, CST_STOP_EVT)) {
+        } else if (StringUtil.quickEq(_ev, MessagesSongs.STOP)) {
             //LineEvent.Type.STOP
             //The end of a song pass here
             play.setText(CST_PLAY);
@@ -540,7 +539,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     @Override
     public String getApplicationName() {
-        return APPS_MUSICPLAYER;
+        return MessagesSongs.APPS_MUSICPLAYER;
     }
 
     public AbsButton getPlay() {

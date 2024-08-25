@@ -17,7 +17,7 @@ import aiki.gui.listeners.*;
 import aiki.gui.threads.*;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.PkNonModalEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderBattle;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
@@ -271,7 +271,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
     public void initMessages() {
 //        String lg_ = window.getLanguageKey();
-        messages = GamesPk.getBattleContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping();
+        messages = MessagesPkGame.getBattleContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping();
 //        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
     }
 
@@ -1539,7 +1539,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
 
     public static StringMap<String> file(TranslationsLg _lg) {
-        return GamesPk.getFightActionContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getFightActionContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
 
     public void changeAction(ActionType _action) {

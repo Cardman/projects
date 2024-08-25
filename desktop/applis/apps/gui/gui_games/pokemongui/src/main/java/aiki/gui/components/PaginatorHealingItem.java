@@ -9,7 +9,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.HealingItemLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.listeners.PaginatorEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorHealingItem;
 import aiki.util.SortingHealingItem;
 import code.gui.*;
@@ -717,7 +717,7 @@ public final class PaginatorHealingItem extends PaginatorCommonItem {
 
     @Override
     protected StringMap<String> messagesInitSpec() {
-        return GamesPk.getPaginatorHealItContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
+        return MessagesPkGame.getPaginatorHealItContentTr(MessagesPkGame.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override

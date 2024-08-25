@@ -82,7 +82,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
 //    public static final String WAIT_TURN = "waitTurn";
 
-    public static final String APP_CARDS = "cards";
+//    public static final String APP_CARDS = "cards";
     public static final String TEMP_FOLDER = "cards";
 
 //    private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
@@ -346,7 +346,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    }
 
     public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return FileDialog.getImage(MessCardVideoGr.ms().getVal(StringUtil.concat("resources_cards/images/", FrameGeneralHelp.SUITS_TXT)), _fact);
+        return FileDialog.getImage(MessCardVideoGr.resourcesCardsImagesSuits(), _fact);
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
@@ -412,7 +412,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     @Override
     public StringMap<String> getMenusMessages() {
-        return Games.getMenus(Games.getAppliTr(getFrames().currentLg())).getMapping();
+        return MessagesCardGames.getMenus(MessagesCardGames.getAppliTr(getFrames().currentLg())).getMapping();
     }
 
     public AbsPlainLabel getLastSavedGameDate() {
@@ -2044,7 +2044,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     @Override
     public String getApplicationName() {
-        return APP_CARDS;
+        return MessagesCardGames.CARDS;
     }
 
 //    @Override

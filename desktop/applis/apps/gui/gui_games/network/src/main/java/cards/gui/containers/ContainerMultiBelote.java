@@ -10,6 +10,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
 import cards.consts.Role;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
 import cards.gui.containers.events.*;
@@ -77,7 +78,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
     public ContainerMultiBelote(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
         containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
-        containerMultiContent.setMessages(Games.getMulti(Games.getAppliTr(_window.getFrames().currentLg())).getMapping());
+        containerMultiContent.setMessages(MessagesCardGames.getMulti(MessagesCardGames.getAppliTr(_window.getFrames().currentLg())).getMapping());
         _window.update(this);
 //        win = _window;
 //        hasCreatedServer = _hasCreatedServer;

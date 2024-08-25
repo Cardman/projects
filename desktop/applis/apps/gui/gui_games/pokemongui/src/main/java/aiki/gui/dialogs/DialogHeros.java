@@ -10,7 +10,7 @@ import aiki.gui.dialogs.events.ClosingDialogHerosEvent;
 import aiki.gui.events.ConfirmNewGameEvent;
 import aiki.gui.listeners.HeroSelect;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderHeros;
 import code.gui.*;
 import code.gui.images.MetaDimension;
@@ -77,7 +77,7 @@ public final class DialogHeros {
     }
 
     public static StringMap<String> file(TranslationsLg _lg) {
-        return GamesPk.getHerosContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getHerosContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
     public void changeSex(Sex _sex) {
         window.setChosenSex(_sex);

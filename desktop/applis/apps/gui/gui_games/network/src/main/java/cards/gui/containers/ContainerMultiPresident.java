@@ -7,6 +7,7 @@ package cards.gui.containers;
 
 import cards.consts.GameType;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.events.GiveCardsEvent;
 import cards.gui.containers.events.NoPlayPresidentEvent;
@@ -71,7 +72,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     public ContainerMultiPresident(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
         containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
-        containerMultiContent.setMessages(Games.getMulti(Games.getAppliTr(_window.getFrames().currentLg())).getMapping());
+        containerMultiContent.setMessages(MessagesCardGames.getMulti(MessagesCardGames.getAppliTr(_window.getFrames().currentLg())).getMapping());
         _window.update(this);
 //        win = _window;
 //        hasCreatedServer = _hasCreatedServer;
@@ -815,7 +816,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     }
 
     public StringMap<String> readResource() {
-        return Games.getCommonPresidentTr(readResourceAppli()).getMapping();
+        return MessagesCardGames.getCommonPresidentTr(readResourceAppli()).getMapping();
 //        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", PresidentResoucesAccess.NOM_FICHIER));
     }
 

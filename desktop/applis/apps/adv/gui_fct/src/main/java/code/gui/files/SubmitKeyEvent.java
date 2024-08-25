@@ -46,7 +46,7 @@ public class SubmitKeyEvent implements AbsActionListener,AfterValidateText {
         dialog.getErrors().setText("");
         if (existFile(_look)) {
             String path_ = StringUtil.concat(dialog.getCurrentFolder(), _look);
-            StringMap<String> messages_ = FileFrame.getAppliTr(dialog.getProgramInfos().currentLg()).getMapping().getVal(FileSaveFrame.FILE_SAVE_DIAL).getMapping();
+            StringMap<String> messages_ = MessagesGuiFct.getAppliTr(dialog.getProgramInfos().currentLg()).getMapping().getVal(MessagesGuiFct.FILE_SAVE_DIAL).getMapping();
             dialog.getErrors().setText(StringUtil.simpleStringsFormat(messages_.getVal(MessagesFileSaveDialog.BODY_CONF), path_));
         }
     }

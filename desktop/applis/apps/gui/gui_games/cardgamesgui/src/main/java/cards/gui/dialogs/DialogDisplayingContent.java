@@ -3,6 +3,7 @@ package cards.gui.dialogs;
 import cards.consts.DisplayingCommon;
 import cards.consts.Suit;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
@@ -36,7 +37,7 @@ public final class DialogDisplayingContent {
         displayingCommon = _d;
         AbsCompoFactory compoFactory_ = _window.getCompoFactory();
         TranslationsLg lg_ = _window.getFrames().currentLg();
-        StringMap<String> messDis_ = Games.getDialogDisplayTr(Games.getAppliTr(lg_)).getMapping();
+        StringMap<String> messDis_ = MessagesCardGames.getDialogDisplayTr(MessagesCardGames.getAppliTr(lg_)).getMapping();
         AbsPanel container_= compoFactory_.newBorder();
         AbsPanel panneau_= compoFactory_.newGrid(0,2);
         //Sous - panneau Battre les cartes

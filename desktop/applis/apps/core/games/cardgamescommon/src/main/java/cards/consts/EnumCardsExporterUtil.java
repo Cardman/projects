@@ -14,21 +14,21 @@ public final class EnumCardsExporterUtil {
     }
     public static String fromCardChar(CardChar _role) {
         if (_role == CardChar.EXCUSE) {
-            return "EXCUSE";
+            return "0";
         }
         if (_role == CardChar.KING) {
-            return "KING";
+            return "1";
         }
         if (_role == CardChar.QUEEN) {
-            return "QUEEN";
+            return "2";
         }
         if (_role == CardChar.KNIGHT) {
-            return "KNIGHT";
+            return "3";
         }
         if (_role == CardChar.JACK) {
-            return "JACK";
+            return "4";
         }
-        return "UNDEFINED";
+        return "5";
     }
     public static String fromGameType(GameType _role) {
         return _role.getGameTypeSt();

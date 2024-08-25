@@ -1,30 +1,29 @@
 package applications.main;
 
-import aiki.facade.SexListImpl;
-import aiki.game.Game;
-import applications.code.gui.SoftApplicationCore;
-import applications.code.gui.WithAppFactories;
-import aiki.sml.DocumentReaderAikiCoreUtil;
-import aiki.sml.LoadingGame;
-import applications.gui.WindowApps;
-import cards.facade.sml.DocumentReaderCardsUnionUtil;
-import code.converterimages.gui.DocumentImagesUtil;
-import applications.code.converterimages.main.LaunchingConverter;
-import code.expressionlanguage.common.StringExpUtil;
-import applications.code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
-import applications.code.expressionlanguage.guicompos.LaunchingFull;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
+import aiki.facade.*;
+import aiki.game.*;
+import applications.code.gui.*;
+import aiki.sml.*;
+import applications.gui.*;
+import cards.facade.sml.*;
+import code.converterimages.gui.*;
+import applications.code.converterimages.main.*;
+import code.expressionlanguage.common.*;
+import applications.code.expressionlanguage.gui.unit.*;
+import applications.code.expressionlanguage.guicompos.*;
+import code.expressionlanguage.utilcompo.*;
 import code.gui.*;
-import code.gui.files.FileDialog;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.files.*;
+import code.gui.initialize.*;
 //import code.gui.initialize.LoadLanguageUtil;
-import applications.code.minirts.LaunchingDemo;
-import applications.code.player.main.LaunchingPlayer;
-import applications.code.renders.LaunchingRenders;
-import code.sml.Document;
+import applications.code.minirts.*;
+import applications.code.player.main.*;
+import applications.code.renders.*;
+import code.player.gui.*;
+import code.sml.*;
 import code.stream.*;
-import code.util.StringList;
-import code.util.core.StringUtil;
+import code.util.*;
+import code.util.core.*;
 
 public class LaunchingApplications extends SoftApplicationCore {
 
@@ -89,7 +88,7 @@ public class LaunchingApplications extends SoftApplicationCore {
         }
         Document doc_ = _args.getDocument();
         if (doc_ != null) {
-            if (StringUtil.quickEq("smil", doc_.getDocumentElement().getTagName())) {
+            if (StringUtil.quickEq(WindowPlayer.SMIL, doc_.getDocumentElement().getTagName())) {
                 AbsButton bu_ = launchWindow(getFactories()).getButtonPlayer();
                 LaunchingPlayer launch_ = new LaunchingPlayer(getFactories());
                 launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
@@ -118,13 +117,15 @@ public class LaunchingApplications extends SoftApplicationCore {
             return;
         }
         String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
-        if (possibleMethod_.startsWith("initDb=")) {
+        String ma_ = MessagesExecutingOptions.valExecOptionsKeys(getFrames().currentLg()).getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_MAIN)+ExecutingOptions.EXEC_OPTIONS_SEP;
+        String db_ = MessagesExecutingOptions.valExecOptionsKeys(getFrames().currentLg()).getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_INIT_DB)+ExecutingOptions.EXEC_OPTIONS_SEP;
+        if (possibleMethod_.startsWith(db_)) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonRenders();
             LaunchingRenders launch_ = new LaunchingRenders(getFactories());
             launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
-        if (possibleMethod_.startsWith("main=")) {
+        if (possibleMethod_.startsWith(ma_)) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonApps();
             LaunchingFull launch_ = new LaunchingFull(getFactories());
             launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));

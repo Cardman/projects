@@ -141,7 +141,7 @@ public static StringMap<String> ms(){
 StringMap<String> m = new StringMap<String>();
 m.addEntry("resources_pk/gui/video/0.txt",resourcesPkGuiVideo0());
 m.addEntry("resources_pk/gui/video/1.txt",resourcesPkGuiVideo1());
-m.addEntry("resources_pk/pokemon.txt",resourcesPkPokemon());
+//m.addEntry("resources_pk/pokemon.txt",resourcesPkPokemon());
 return m;
 }
 static String resourcesPkGuiVideo0(){
@@ -252,7 +252,7 @@ i+=ADD_IMG_1_100;
 i+=ADD_IMG_1_101;
 return i;
 }
-static String resourcesPkPokemon(){
+public static String resourcesPkPokemon(){
 String i=ADD_IMG_1_102;
 i+=ADD_IMG_1_103;
 i+=ADD_IMG_1_104;

@@ -2,7 +2,7 @@ package code.network;
 
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.DealingBelote;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.gui.containers.ContainerMultiPresident;
@@ -20,7 +20,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractServerSocket;
 import code.gui.initialize.AbstractSocket;
 import code.netw.MessagesNetWork;
-import code.netw.NetWork;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -83,7 +82,7 @@ public final class DialogServerContent implements AbstractDialogServer {
 //        create = false;
 //        join = false;
         TranslationsLg lg_ = frames.currentLg();
-        StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(lg_)).getMapping();
+        StringMap<String> mapping_ = MessagesNetWork.getMessages(MessagesNetWork.getAppliTr(lg_)).getMapping();
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
 //        messages = WindowNetWork.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), getCardDialog().getAccessFile());
         //    private StringMap<String> messages;
@@ -154,7 +153,7 @@ public final class DialogServerContent implements AbstractDialogServer {
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
         if (_game != GameEnum.NONE) {
-            StringMap<String> nicknamesMessages_ = Games.getDialogNicknameTr(Games.getAppliTr(lg_)).getMapping();
+            StringMap<String> nicknamesMessages_ = MessagesCardGames.getDialogNicknameTr(MessagesCardGames.getAppliTr(lg_)).getMapping();
             panel_.add(getCompoFactory().newPlainLabel(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_CST_NICKNAME)));
             panel_.add(nickname);
         }
@@ -203,7 +202,7 @@ public final class DialogServerContent implements AbstractDialogServer {
 //        String ip_ = NetCreate.getHostAddress(frames.getSocketFactory(),ipType.getCurrent(), adjust(ipOrHostName.getText()));
         AbstractServerSocket serverSocket_ = frames.getSocketFactory().newServerSocket(portChoice.getValue());
         if (!serverSocket_.isOk()) {
-            StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(frames.currentLg())).getMapping();
+            StringMap<String> mapping_ = MessagesNetWork.getMessages(MessagesNetWork.getAppliTr(frames.currentLg())).getMapping();
             String message_ = mapping_.getVal(MessagesNetWork.USED_PORT);
             message_ = StringUtil.simpleNumberFormat(message_, portChoice.getValue());
             errors.setText(message_);
@@ -257,7 +256,7 @@ public final class DialogServerContent implements AbstractDialogServer {
 //            if (chosen != GameEnum.NONE) {
 //                window.getNetg().setContainerGame(window.noGame());
 //            }
-            StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping();
+            StringMap<String> mapping_ = MessagesNetWork.getMessages(MessagesNetWork.getAppliTr(getFrames().currentLg())).getMapping();
             String formatted_ = mapping_.getVal(MessagesNetWork.UNKNOWN_HOST);
             formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
             errors.setText(formatted_);

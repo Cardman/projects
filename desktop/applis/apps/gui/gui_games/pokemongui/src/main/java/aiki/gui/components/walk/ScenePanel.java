@@ -10,7 +10,7 @@ import aiki.gui.components.walk.events.*;
 import aiki.gui.dialogs.*;
 import aiki.gui.listeners.*;
 import aiki.main.PkNonModalEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderScenePanel;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
@@ -369,7 +369,7 @@ public class ScenePanel {
     }
 
     public void initMessages() {
-        messages = GamesPk.getScenePanelContentTr(GamesPk.getAppliTr(window.getFrames().currentLg())).getMapping();
+        messages = MessagesPkGame.getScenePanelContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping();
 //        messagesTeamPanel = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
     }
 

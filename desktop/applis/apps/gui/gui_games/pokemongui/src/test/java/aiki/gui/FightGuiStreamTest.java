@@ -798,7 +798,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void menuGame7() {
         WindowAiki window_ = newGame();
-        GamesPk.appendPkGameDetailContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
+        MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
@@ -918,7 +918,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void menuRomOpened1() {
         WindowAiki window_ = newGame();
-        GamesPk.appendPkGameDetailContent(GamesPk.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
+        MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         prepareWebTask(window_);
         window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);
@@ -955,13 +955,13 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     }
 
     public static void updateBase(TranslationsLg _en) {
-        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(_en).getMapping();
-        en_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
-        en_.addEntry(FileFrame.CONFIRM, MessagesConfirmDialog.en());
-        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
-        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
-        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(_en).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(MessagesGuiFct.CONFIRM, MessagesConfirmDialog.en());
+        en_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.en());
     }
 
     private void run(CreateMainWindowAiki _runner) {
@@ -1668,7 +1668,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
 
     private static CreateMainWindowAiki launcher(MockProgramInfos _pr, AikiFactory _fact, LoadingGame _conf) {
         TranslationsLg en_ = _pr.lg(EN);
-        TranslationsAppli app_ = GamesPk.initAppliTr(en_);
+        TranslationsAppli app_ = MessagesPkGame.initAppliTr(en_);
         windowPk(app_);
         return new CreateMainWindowAiki(_conf, new StringList(), _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
     }
@@ -1681,7 +1681,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         StringList path_ = new StringList();
         path_.add(_file);
         TranslationsLg en_ = _pr.lg(EN);
-        TranslationsAppli app_ = GamesPk.initAppliTr(en_);
+        TranslationsAppli app_ = MessagesPkGame.initAppliTr(en_);
         windowPk(app_);
         return new CreateMainWindowAiki(_conf, path_, _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
     }

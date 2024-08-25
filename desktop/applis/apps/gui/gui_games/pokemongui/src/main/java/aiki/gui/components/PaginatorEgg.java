@@ -8,7 +8,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.EggLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.listeners.PaginatorEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorEgg;
 import aiki.util.SortingEgg;
 import code.gui.*;
@@ -190,7 +190,7 @@ public final class PaginatorEgg extends Paginator {
 
     @Override
     protected StringMap<String> messagesInitSpec() {
-        return GamesPk.getPaginatorEggContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
+        return MessagesPkGame.getPaginatorEggContentTr(MessagesPkGame.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override

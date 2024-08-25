@@ -13,7 +13,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
-import code.gui.TextAnswerValue;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
@@ -55,14 +54,14 @@ public abstract class EquallableCardsFileUtil {
 
     public TranslationsLg nicknames(MockProgramInfos _pr) {
         TranslationsLg lg_ = _pr.lg("");
-        TranslationsAppli app_ = Games.initAppliTr(lg_);
-        Games.appendNickNames(app_,new TranslationsFile());
+        TranslationsAppli app_ = MessagesCardGames.initAppliTr(lg_);
+        MessagesCardGames.appendNickNames(app_,new TranslationsFile());
         return lg_;
     }
 
     public static void update(MockProgramInfos _pr) {
-        Games.enTr(Games.initAppliTr(lg(_pr,"en")));
-        Games.frTr(Games.initAppliTr(lg(_pr,"fr")));
+        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(lg(_pr,"en")));
+        MessagesCardGames.frTr(MessagesCardGames.initAppliTr(lg(_pr,"fr")));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);

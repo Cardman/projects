@@ -9,7 +9,7 @@ import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.Order;
 import cards.consts.Suit;
 import cards.facade.FacadeCards;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import code.gui.*;
@@ -53,7 +53,7 @@ public final class DialogDisplayingBelote extends DialogHelpCards implements Dia
 
     public void setDialogue(WindowCardsInt _window) {
         AbsPanel panel_ = dialogDisplayingContent.setDialogue(_window, this, displayingBelote.getDisplaying());
-        StringMap<String> mess_ = Games.getDialogDisplayTr(Games.getAppliTr(_window.getFrames().currentLg())).getMapping();
+        StringMap<String> mess_ = MessagesCardGames.getDialogDisplayTr(MessagesCardGames.getAppliTr(_window.getFrames().currentLg())).getMapping();
         //Panneau Tri avant enchere (Atout)
         AbsPanel sousPanneau_=_window.getCompoFactory().newPageBox();
         sousPanneau_.add(getCompoFactory().newPlainLabel(mess_.getVal(MessagesGuiCards.DIAL_DISPLAY_SORTING_BEFORE_PLAYING_CARDS)));

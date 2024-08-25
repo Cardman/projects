@@ -31,15 +31,15 @@ public final class PreparedRenderPagesCards {
 
     public void run() {
         navigation= new NatNavigation();
-        session.setPrefix("c:");
+//        session.setPrefix("c:");
         getNavigation().setSession(session);
         getNavigation().setLanguage("");
         getNavigation().setLanguages(new StringList(""));
-        metaDocument = textSt(contextConf, getNavigation(), document, ms,images);
+        metaDocument = textSt(contextConf, document, ms,images);
     }
 
-    private MetaDocument textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, Document _val, TranslationsAppli _ms, StringMap<int[][]> _imgs) {
-        return HelpCaller.text(_val, _ms, _imgs, _contextConf.getProperties(), _navigation.getSession().getNat().getPrefix());
+    private MetaDocument textSt(NatDualConfigurationContext _contextConf, Document _val, TranslationsAppli _ms, StringMap<int[][]> _imgs) {
+        return HelpCaller.text(_val, _ms, _imgs, _contextConf.getProperties());
     }
 
     public NatNavigation getNavigation() {

@@ -4,7 +4,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicBoolean;
 
 public final class FileSaveFrame extends FileFrame implements FileFrameInt {
-    public static final String FILE_SAVE_DIAL = "file_save";
     private final FileSaveDialogContent fileDialogContent;
     public FileSaveFrame(AbstractProgramInfos _frameFact, AbstractAtomicBoolean _m) {
         super(_frameFact, _m);

@@ -16,20 +16,20 @@ public final class EnumCardsRetrieverUtil {
     }
     public static PossibleTrickWinner toPossibleTrickWinner(String _role) {
         String r_ = StringUtil.nullToEmpty(_role);
-        if (StringUtil.quickEq(r_,"TEAM")) {
+        if (StringUtil.quickEq(r_,"0")) {
             return PossibleTrickWinner.TEAM;
         }
-        if (StringUtil.quickEq(r_,"FOE_TEAM")) {
+        if (StringUtil.quickEq(r_,"1")) {
             return PossibleTrickWinner.FOE_TEAM;
         }
         return PossibleTrickWinner.UNKNOWN;
     }
     public static EndGameState toEndGameState(String _role) {
         String r_ = StringUtil.nullToEmpty(_role);
-        if (StringUtil.quickEq(r_,"WIN")) {
+        if (StringUtil.quickEq(r_,"0")) {
             return EndGameState.WIN;
         }
-        if (StringUtil.quickEq(r_,"EQUALLITY")) {
+        if (StringUtil.quickEq(r_,"1")) {
             return EndGameState.EQUALLITY;
         }
         return EndGameState.LOOSE;

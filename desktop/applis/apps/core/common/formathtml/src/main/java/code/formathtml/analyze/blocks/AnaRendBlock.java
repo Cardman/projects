@@ -23,7 +23,7 @@ public abstract class AnaRendBlock {
     public static final String AND_ERR = "&";
     public static final String LEFT_PAR = "(";
     public static final String RIGHT_PAR = ")";
-    static final String CALL_METHOD = "$";
+//    static final String CALL_METHOD = "$";
     static final char RIGHT_EL = '}';
     static final char LEFT_EL = '{';
     static final char QUOTE = 39;

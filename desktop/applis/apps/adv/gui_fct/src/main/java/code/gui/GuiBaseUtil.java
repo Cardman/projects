@@ -1,6 +1,7 @@
 package code.gui;
 
 import code.gui.events.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
@@ -250,21 +251,13 @@ public final class GuiBaseUtil {
     }
 
     public static String getTime(AbstractThreadFactory _fact, String _format) {
-        return getTimeText(_fact,time(_format));
+        return getTimeText(_fact, MessagesGuiFct.time(_format));
     }
 
     public static String getTimeText(AbstractThreadFactory _fact, String _separatorDate, String _sep, String _separatorTime) {
         AbstractDateFactory dateFactory_ = _fact.getDateFactory();
         AbstractDate date_ = dateFactory_.newDate(_fact.millis());
-        return date_.format(dateFactory_,date(_separatorDate) + _sep + time(_separatorTime));
-    }
-
-    private static String date(String _separatorDate) {
-        return "yyyy" + _separatorDate + "MM" + _separatorDate + "dd";
-    }
-
-    private static String time(String _separator) {
-        return "HH" + _separator + "mm" + _separator + "ss";
+        return date_.format(dateFactory_, MessagesGuiFct.date(_separatorDate) + _sep + MessagesGuiFct.time(_separatorTime));
     }
 
     public static void removeAllListeners(AbsCommonFrame _com) {

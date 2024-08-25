@@ -9,7 +9,6 @@ import aiki.main.*;
 import aiki.sml.*;
 import applications.code.expressionlanguage.adv.LaunchingCdmEditor;
 import applications.code.gui.*;
-import applications.code.player.main.LaunchRecord;
 import applications.gui.*;
 import applications.main.*;
 import cards.belote.*;
@@ -144,7 +143,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         p_.setLanguage(EN);
-        GamesPk.enTr(GamesPk.initAppliTr(en_));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         DataBase res_ = InitDbValidApp.initDb();
@@ -187,7 +186,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         p_.setLanguage(EN);
-        GamesPk.enTr(GamesPk.initAppliTr(en_));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         DataBase res_ = InitDbValidApp.initDb();
@@ -368,7 +367,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void c1() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        Games.enTr(Games.initAppliTr(en_));
+        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
         maxiImgs(p_);
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -401,7 +400,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void c2() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        Games.enTr(Games.initAppliTr(en_));
+        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
         maxiImgs(p_);
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -427,7 +426,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void c3() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        Games.enTr(Games.initAppliTr(en_));
+        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
         maxiImgs(p_);
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -500,7 +499,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
-        SongRenderer.updateEn(SongRenderer.initAppliTr(p_.lg(EN)));
+        MessagesSongs.updateEn(MessagesSongs.initAppliTr(p_.lg(EN)));
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element r_ = d_.createElement(WindowPlayer.SMIL);
         Element s1_ = d_.createElement(WindowPlayer.CST_MEDIA);
@@ -530,7 +529,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
-        SongRenderer.updateEn(SongRenderer.initAppliTr(p_.lg(EN)));
+        MessagesSongs.updateEn(MessagesSongs.initAppliTr(p_.lg(EN)));
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element r_ = d_.createElement(WindowPlayer.SMIL);
         Element s1_ = d_.createElement(WindowPlayer.CST_MEDIA);
@@ -618,7 +617,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         p_.setLanguage(EN);
-        GamesPk.enTr(GamesPk.initAppliTr(en_));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         DataBase res_ = InitDbValidApp.initDb();
@@ -774,7 +773,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void cBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        Games.enTr(Games.initAppliTr(en_));
+        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
         maxiImgs(p_);
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -836,7 +835,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
-        SongRenderer.updateEn(SongRenderer.initAppliTr(p_.lg(EN)));
+        MessagesSongs.updateEn(MessagesSongs.initAppliTr(p_.lg(EN)));
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element r_ = d_.createElement(WindowPlayer.SMIL);
         Element s1_ = d_.createElement(WindowPlayer.CST_MEDIA);
@@ -867,9 +866,9 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void netBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        Games.enTr(Games.initAppliTr(en_));
-        GamesPk.enTr(GamesPk.initAppliTr(en_));
-        NetWork.enTr(NetWork.initAppliTr(en_));
+        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));
+        MessagesNetWork.enTr(MessagesNetWork.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         updateBase(p_.currentLg());
@@ -1296,13 +1295,13 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         return _all;
     }
     public static void updateBase(TranslationsLg _en) {
-        StringMap<TranslationsFile> en_ = FileFrame.initAppliTr(_en).getMapping();
-        en_.addEntry(FileFrame.FILE_DIAL, MessagesFileDialog.en());
-        en_.addEntry(FileFrame.CONFIRM, MessagesConfirmDialog.en());
-        en_.addEntry(FolderOpenFrame.FOLDER_OPEN_DIAL, MessagesFolderOpenDialog.en());
-        en_.addEntry(FileOpenFrame.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        en_.addEntry(FileSaveFrame.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
-        en_.addEntry(FileTable.FILE_TAB,MessagesFileTable.en());
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(_en).getMapping();
+        en_.addEntry(MessagesGuiFct.FILE_DIAL, MessagesFileDialog.en());
+        en_.addEntry(MessagesGuiFct.CONFIRM, MessagesConfirmDialog.en());
+        en_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL, MessagesFolderOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
+        en_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.en());
     }
 
 }

@@ -151,8 +151,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                                             Element _tag, String _beanName) {
         if (StringUtil.quickEq(_tag.getTagName(),_conf.getRendKeyWords().getKeyWordAnchor())) {
             String href_ = _tag.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()));
-            if (href_.startsWith(CALL_METHOD)) {
-                _tag.setAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD, _beanName,DOT,href_.substring(1)));
+            if (href_.startsWith(BeanLgNames.CALL_METHOD)) {
+                _tag.setAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringUtil.concat(BeanLgNames.CALL_METHOD, _beanName,DOT,href_.substring(1)));
             }
             if (_tag.hasAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
                 _tag.setAttribute(_conf.getRendKeyWords().getAttrHref(), EMPTY_STRING);

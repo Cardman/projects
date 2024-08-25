@@ -12,31 +12,6 @@ import code.util.*;
 import code.util.core.*;
 
 public final class Games {
-    public static final String CARDS = "cards";
-    public static final String EDITOR_CARDS = "editor";
-    public static final String DIALOG_BELOTE = "dialog_belote";
-    public static final String DIALOG_PRESIDENT = "dialog_president";
-    public static final String DIALOG_TAROT = "dialog_tarot";
-    public static final String DIALOG_NICKNAME = "dialog_nickname";
-    public static final String DIALOG_SOFT = "dialog_soft";
-    public static final String DIALOG_DISPLAY = "dialog_display";
-    public static final String DIALOG_HELP = "dialog_help";
-    public static final String MAIN_GAME = "main_game";
-    public static final String SIMU_GAME = "simu_game";
-    public static final String MENUS = "menus";
-    public static final String NETWORK = "network";
-    public static final String GAMES_NAMES = "games_names";
-    public static final String NICK_NAMES = "nick_names";
-    public static final String COMMON_BELOTE = "com_belote";
-    public static final String COMMON_PRESIDENT = "com_president";
-    public static final String COMMON_TAROT = "com_tarot";
-    public static final String GAME_BELOTE = "game_belote";
-    public static final String GAME_PRESIDENT = "game_president";
-    public static final String GAME_TAROT = "game_tarot";
-    public static final String CHOICE_TAROT = "com_ch_tarot";
-    public static final String COMMON_CARDS = "common_cards";
-    public static final String COMMON_FILE = "common_file";
-    public static final String COMMON_MIX = "common_mix";
     private static final String SEPARATOR = " - ";
 
     private static final String EMPTY = "";
@@ -55,188 +30,11 @@ public final class Games {
 
     private RulesPresident rulesPresident;
 
-    public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
-        TranslationsAppli a_ = new TranslationsAppli();
-        _lgs.getMapping().addEntry(CARDS, a_);
-        return a_;
-    }
-
-    public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
-        return _lgs.getMapping().getVal(CARDS);
-    }
-    public static void enTr(TranslationsAppli _lgs) {
-        _lgs.getMapping().addEntry(EDITOR_CARDS,MessagesEditorCards.en());
-        _lgs.getMapping().addEntry(DIALOG_BELOTE,MessagesDialogBelote.en());
-        _lgs.getMapping().addEntry(DIALOG_PRESIDENT,MessagesDialogPresident.en());
-        _lgs.getMapping().addEntry(DIALOG_TAROT,MessagesDialogTarot.en());
-        _lgs.getMapping().addEntry(DIALOG_NICKNAME,MessagesGuiCards.enNickname());
-        _lgs.getMapping().addEntry(DIALOG_SOFT,MessagesGuiCards.enSoft());
-        _lgs.getMapping().addEntry(DIALOG_DISPLAY,MessagesGuiCards.enDisplay());
-        _lgs.getMapping().addEntry(DIALOG_HELP,MessagesGuiCards.enHelp());
-        _lgs.getMapping().addEntry(MAIN_GAME,MessagesGuiCards.enGame());
-        _lgs.getMapping().addEntry(SIMU_GAME,MessagesGuiCards.enSimu());
-        _lgs.getMapping().addEntry(MENUS,MessagesGuiCards.enMenu());
-        _lgs.getMapping().addEntry(NETWORK,MessagesGuiCards.enMulti());
-        appendCommonCards(_lgs, MessagesCommonCards.en());
-        appendCommonFile(_lgs, MessagesCommonFile.en());
-        appendCommonMix(_lgs, MessagesCommonMix.en());
-        appendCommonBelote(_lgs, MessagesBelote.en());
-        appendGameBelote(_lgs, MessagesBelote.enGame());
-        appendCommonPresident(_lgs, MessagesPresident.en());
-        appendGamePresident(_lgs, MessagesPresident.enGame());
-        appendCommonTarot(_lgs, MessagesTarot.en());
-        appendGameTarot(_lgs, MessagesTarot.enGame());
-        appendCommonChTarot(_lgs, MessagesChoiceTarot.en());
-        appendGamesNames(_lgs, MessagesGamesGames.en());
-        appendNickNames(_lgs, Nicknames.en());
-    }
-
-    public static void frTr(TranslationsAppli _lgs) {
-        _lgs.getMapping().addEntry(EDITOR_CARDS,MessagesEditorCards.fr());
-        _lgs.getMapping().addEntry(DIALOG_BELOTE,MessagesDialogBelote.fr());
-        _lgs.getMapping().addEntry(DIALOG_PRESIDENT,MessagesDialogPresident.fr());
-        _lgs.getMapping().addEntry(DIALOG_TAROT,MessagesDialogTarot.fr());
-        _lgs.getMapping().addEntry(DIALOG_NICKNAME,MessagesGuiCards.frNickname());
-        _lgs.getMapping().addEntry(DIALOG_SOFT,MessagesGuiCards.frSoft());
-        _lgs.getMapping().addEntry(DIALOG_DISPLAY,MessagesGuiCards.frDisplay());
-        _lgs.getMapping().addEntry(DIALOG_HELP,MessagesGuiCards.frHelp());
-        _lgs.getMapping().addEntry(MAIN_GAME,MessagesGuiCards.frGame());
-        _lgs.getMapping().addEntry(SIMU_GAME,MessagesGuiCards.frSimu());
-        _lgs.getMapping().addEntry(MENUS,MessagesGuiCards.frMenu());
-        _lgs.getMapping().addEntry(NETWORK,MessagesGuiCards.frMulti());
-        appendCommonCards(_lgs, MessagesCommonCards.fr());
-        appendCommonFile(_lgs, MessagesCommonFile.fr());
-        appendCommonMix(_lgs, MessagesCommonMix.fr());
-        appendCommonBelote(_lgs, MessagesBelote.fr());
-        appendGameBelote(_lgs, MessagesBelote.frGame());
-        appendCommonPresident(_lgs, MessagesPresident.fr());
-        appendGamePresident(_lgs, MessagesPresident.frGame());
-        appendCommonTarot(_lgs, MessagesTarot.fr());
-        appendGameTarot(_lgs, MessagesTarot.frGame());
-        appendCommonChTarot(_lgs, MessagesChoiceTarot.fr());
-        appendGamesNames(_lgs, MessagesGamesGames.fr());
-        appendNickNames(_lgs, Nicknames.fr());
-    }
-
-    public static void appendCommonCards(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(COMMON_CARDS, _f);
-    }
-
-    public static void appendCommonFile(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(COMMON_FILE, _f);
-    }
-
-    public static void appendCommonMix(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(COMMON_MIX, _f);
-    }
-
-    public static void appendCommonBelote(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(COMMON_BELOTE, _f);
-    }
-
-    public static void appendGameBelote(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(GAME_BELOTE, _f);
-    }
-
-    public static void appendCommonPresident(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(COMMON_PRESIDENT, _f);
-    }
-
-    public static void appendGamePresident(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(GAME_PRESIDENT, _f);
-    }
-    public static void appendCommonTarot(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(COMMON_TAROT, _f);
-    }
-
-    public static void appendGameTarot(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(GAME_TAROT, _f);
-    }
-
-    public static void appendCommonChTarot(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(CHOICE_TAROT, _f);
-    }
-
-    public static void appendGamesNames(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(GAMES_NAMES, _f);
-    }
-
-    public static void appendNickNames(TranslationsAppli _lgs, TranslationsFile _f) {
-        _lgs.getMapping().addEntry(NICK_NAMES, _f);
-    }
-
-    public static TranslationsFile getEditorTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(EDITOR_CARDS);
-    }
-
-    public static TranslationsFile getDialogBeloteTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(DIALOG_BELOTE);
-    }
-
-    public static TranslationsFile getDialogPresidentTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(DIALOG_PRESIDENT);
-    }
-
-    public static TranslationsFile getDialogTarotTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(DIALOG_TAROT);
-    }
-
-    public static TranslationsFile getDialogNicknameTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(DIALOG_NICKNAME);
-    }
-
-    public static TranslationsFile getDialogSoftTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(DIALOG_SOFT);
-    }
-
-    public static TranslationsFile getDialogDisplayTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(DIALOG_DISPLAY);
-    }
-
-    public static TranslationsFile getDialogHelpTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(DIALOG_HELP);
-    }
-
-    public static TranslationsFile getMainGame(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(MAIN_GAME);
-    }
-
-    public static TranslationsFile getSimuGame(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(SIMU_GAME);
-    }
-
-    public static TranslationsFile getMenus(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(MENUS);
-    }
-    public static TranslationsFile getMulti(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(NETWORK);
-    }
-    public static TranslationsFile getCommonBeloteTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(COMMON_BELOTE);
-    }
-
-    public static TranslationsFile getCommonPresidentTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(COMMON_PRESIDENT);
-    }
-
-    public static TranslationsFile getCommonTarotTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(COMMON_TAROT);
-    }
     public static String toCardString(int _b, TranslationsLg _locale){
-        return getCommonCardsTr(getAppliTr(_locale)).getMapping().getVal(Integer.toString(_b));
+        return MessagesCardGames.getCommonCardsTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(Integer.toString(_b));
 //        String fichier_ = tarotCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
-    }
-    public static TranslationsFile getCommonCardsTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(COMMON_CARDS);
-    }
-    public static TranslationsFile getCommonFileTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(COMMON_FILE);
-    }
-
-    public static TranslationsFile getCommonMixTr(TranslationsAppli _lgs) {
-        return _lgs.getMapping().getVal(COMMON_MIX);
     }
 
     /**@see getConstante
@@ -250,7 +48,7 @@ public final class Games {
 
     public static void setMessages(ResultsGame _r, TranslationsLg _loc) {
 //        _r.setLoc(_loc.getKey());
-        StringMap<String> mapping_ = getCommonFileTr(getAppliTr(_loc)).getMapping();
+        StringMap<String> mapping_ = MessagesCardGames.getCommonFileTr(MessagesCardGames.getAppliTr(_loc)).getMapping();
 //        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
         _r.setGlobalResultsPageTitle(mapping_.getVal(MessagesCommonFile.RESULT_PAGE));
         _r.setDetailResultsTitle(mapping_.getVal(MessagesCommonFile.DET_RESULT_PAGE));
@@ -330,7 +128,7 @@ public final class Games {
         }
     }
     public static StringBuilder autoriseMessEcartDe(ReasonDiscard _r, CardTarot _c, TranslationsLg _tr) {
-        StringMap<String> ms_ = getAppliTr(_tr).getMapping().getVal(GAME_TAROT).getMapping();
+        StringMap<String> ms_ = MessagesCardGames.getAppliTr(_tr).getMapping().getVal(MessagesCardGames.GAME_TAROT).getMapping();
         if(_r == ReasonDiscard.TOO_MUCH) {
             return new StringBuilder(formatter(ms_, MessagesTarot.TAROT_TOO_MANY_CARDS));
         }
@@ -357,7 +155,7 @@ public final class Games {
     }
 
     public static String isValidHandfulMessage(RulesTarot _g,Handfuls _h, HandTarot _hand,HandTarot _excludedCards, TranslationsLg _loc) {
-        StringMap<String> ms_ = getAppliTr(_loc).getMapping().getVal(GAME_TAROT).getMapping();
+        StringMap<String> ms_ = MessagesCardGames.getAppliTr(_loc).getMapping().getVal(MessagesCardGames.GAME_TAROT).getMapping();
         int nbTrumps_ = _g.getAllowedHandfuls().getVal(_h);
         if (GameTarot.isValidHandful(_g, _h, _hand, _excludedCards)) {
             return EMPTY;
@@ -376,7 +174,7 @@ public final class Games {
         Suit couleurAtout_=_g.couleurAtout();
         byte ramasseurVirtuel_= _g.getProgressingTrick().getRamasseurPliEnCours(_g.getNombreDeJoueurs(), _g.getBid());
         CardBelote carteForte_= _g.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,_g.getNombreDeJoueurs());
-        StringMap<String> ms_ = getAppliTr(_tr).getMapping().getVal(GAME_BELOTE).getMapping();
+        StringMap<String> ms_ = MessagesCardGames.getAppliTr(_tr).getMapping().getVal(MessagesCardGames.GAME_BELOTE).getMapping();
 //        String file_ = ms_.getVal(beloteFileName(_loc));
         ReasonPlayBelote r_ = _g.getReason();
         if (r_ == ReasonPlayBelote.FOLLOW_SUIT) {
@@ -402,7 +200,7 @@ public final class Games {
 
     public static StringBuilder autorisePresident(GamePresident _g, CardPresident _card, byte _nb, TranslationsLg _tr) {
         Playing playing_ = _g.getStatus();
-        StringMap<String> ms_ = getAppliTr(_tr).getMapping().getVal(GAME_PRESIDENT).getMapping();
+        StringMap<String> ms_ = MessagesCardGames.getAppliTr(_tr).getMapping().getVal(MessagesCardGames.GAME_PRESIDENT).getMapping();
         if (playing_ == Playing.PASS) {
             return new StringBuilder(formatter(ms_, MessagesPresident.PRESIDENT_HAVE_PASSED));
         }
@@ -435,14 +233,14 @@ public final class Games {
     }
 
     public static String canPassMess(GamePresident _g, TranslationsLg _tr) {
-        StringMap<String> ms_ = getAppliTr(_tr).getMapping().getVal(GAME_PRESIDENT).getMapping();
+        StringMap<String> ms_ = MessagesCardGames.getAppliTr(_tr).getMapping().getVal(MessagesCardGames.GAME_PRESIDENT).getMapping();
         HandPresident b_ = _g.getProgressingTrick().getBestCards();
         return formatter(ms_, MessagesPresident.PRESIDENT_CANNOT_PASS,
                 toString(b_.premiereCarte(),_tr));
     }
 
     public static String autoriseTarot(GameTarot _g, TranslationsLg _tr) {
-        StringMap<String> ms_ = getAppliTr(_tr).getMapping().getVal(GAME_TAROT).getMapping();
+        StringMap<String> ms_ = MessagesCardGames.getAppliTr(_tr).getMapping().getVal(MessagesCardGames.GAME_TAROT).getMapping();
         Suit couleurDemandee_ = _g.getProgressingTrick().couleurDemandee();
         if (_g.getReason() == ReasonPlayTarot.FOLLOW_SUIT) {
             return formatter(ms_,MessagesTarot.TAROT_PLAY_SUIT, toString(couleurDemandee_,_tr));
@@ -511,7 +309,7 @@ public final class Games {
 //    }
 
     public static String toString(BeloteTrumpPartner _b, TranslationsLg _locale){
-        return getCommonBeloteTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.TRUMPING+BeloteCardsExporterUtil.fromBeloteTrumpPartner(_b));
+        return MessagesCardGames.getCommonBeloteTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.TRUMPING+BeloteCardsExporterUtil.fromBeloteTrumpPartner(_b));
 //        String fichier_ = beloteCoreFileNameContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
@@ -519,8 +317,8 @@ public final class Games {
 
     public static String toString(BidBeloteSuit _b, TranslationsLg _tr) {
 //        String specific_ =beloteCoreFileNameContent(_loc);
-        StringMap<String> core_ = getCommonFileTr(getAppliTr(_tr)).getMapping();
-        StringMap<String> belote_ = getCommonBeloteTr(getAppliTr(_tr)).getMapping();
+        StringMap<String> core_ = MessagesCardGames.getCommonFileTr(MessagesCardGames.getAppliTr(_tr)).getMapping();
+        StringMap<String> belote_ = MessagesCardGames.getCommonBeloteTr(MessagesCardGames.getAppliTr(_tr)).getMapping();
         return BidBeloteSuit.toString(_b, EnumCardsExporterUtil.SUITS, core_,BeloteCardsExporterUtil.BID,belote_);
 //        StringBuilder pts_ = new StringBuilder();
 //        if (_b.getPoints() > 0) {
@@ -538,63 +336,63 @@ public final class Games {
     }
 
     public static String toString(BidBelote _b, TranslationsLg _locale){
-        return getCommonBeloteTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.BID+BeloteCardsExporterUtil.fromBidBelote(_b));
+        return MessagesCardGames.getCommonBeloteTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.BID+BeloteCardsExporterUtil.fromBidBelote(_b));
 //        String fichier_ = beloteCoreFileNameContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
 
     public static String toString(DeclaresBelote _b, TranslationsLg _locale){
-        return getCommonBeloteTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.DECLARE+BeloteCardsExporterUtil.fromDeclaresBelote(_b));
+        return MessagesCardGames.getCommonBeloteTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.DECLARE+BeloteCardsExporterUtil.fromDeclaresBelote(_b));
 //        String fichier_ = beloteCoreFileNameContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
     public static String toString(CardBelote _b, TranslationsLg _locale){
-        return getCommonCardsTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.fromCardBelote(_b));
+        return MessagesCardGames.getCommonCardsTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.fromCardBelote(_b));
 //        String fichier_ = beloteCoreFileNameContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(BeloteResoucesAccess.key(_b), fichier_);
     }
 
     public static String toString(DealingBelote _b, TranslationsLg _locale){
-        return getCommonBeloteTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(_b));
+        return MessagesCardGames.getCommonBeloteTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.DEAL+BeloteCardsExporterUtil.fromDealingBelote(_b));
 //        String fichier_ = tarotCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toStringBeloteReb(TranslationsLg _locale){
-        return getCommonBeloteTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.DECLARE_PAIR);
+        return MessagesCardGames.getCommonBeloteTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.DECLARE_PAIR);
     }
     public static String toStringBonusBelote(TranslationsLg _locale){
-        return getCommonBeloteTr(getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.LAST_TRICK);
+        return MessagesCardGames.getCommonBeloteTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(BeloteCardsExporterUtil.LAST_TRICK);
     }
     public static String toString(CardPresident _b, TranslationsLg _locale){
-        return getCommonCardsTr(getAppliTr(_locale)).getMapping().getVal(PresidentCardsExporterUtil.fromCardPresident(_b));
+        return MessagesCardGames.getCommonCardsTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(PresidentCardsExporterUtil.fromCardPresident(_b));
 //        String fichier_ = presidentCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(PresidentResoucesAccess.key(_b), fichier_);
     }
 
     public static String toString(Playing _b, TranslationsLg _locale){
-        return getCommonPresidentTr(getAppliTr(_locale)).getMapping().getVal(PresidentCardsExporterUtil.PLAYING+_b.getPlay());
+        return MessagesCardGames.getCommonPresidentTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(PresidentCardsExporterUtil.PLAYING+_b.getPlay());
 //        return getConstanteLangue(presidentCoreFileName(_locale), PresidentResoucesAccess.PRESIDENT_PLAY,_b.getPlay());
     }
     public static String toString(EqualtyPlaying _b, TranslationsLg _locale){
-        return getCommonPresidentTr(getAppliTr(_locale)).getMapping().getVal(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(_b));
+        return MessagesCardGames.getCommonPresidentTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(PresidentCardsExporterUtil.EQUALTY+PresidentCardsExporterUtil.fromEqualtyPlaying(_b));
 //        String fichier_ = presidentCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(PresidentResoucesAccess.key(_b), fichier_);
     }
 
     public static String toString(ModeTarot _b, TranslationsLg _locale){
-        return getCommonTarotTr(getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.MODE+TarotCardsExporterUtil.fromModeTarot(_b));
+        return MessagesCardGames.getCommonTarotTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.MODE+TarotCardsExporterUtil.fromModeTarot(_b));
 //        String fichier_ = tarotCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(ChoiceTarot _b, TranslationsLg _locale){
-        StringMap<String> mapping_ = getAppliTr(_locale).getMapping().getVal(CHOICE_TAROT).getMapping();
+        StringMap<String> mapping_ = MessagesCardGames.getAppliTr(_locale).getMapping().getVal(MessagesCardGames.CHOICE_TAROT).getMapping();
         if (_b == ChoiceTarot.HUNT_SMALL) {
             return mapping_.getVal(TarotCardsExporterUtil.HUNT_SMALL);
         }
@@ -605,32 +403,32 @@ public final class Games {
     }
 
     public static String toString(BidTarot _b, TranslationsLg _locale){
-        return getCommonTarotTr(getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.toFirstBid(_b)));
+        return MessagesCardGames.getCommonTarotTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.toFirstBid(_b)));
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
 
     public static String toString(CardTarot _b, TranslationsLg _locale){
-        return getCommonCardsTr(getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.fromCardTarot(_b));
+        return MessagesCardGames.getCommonCardsTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.fromCardTarot(_b));
 //        String fichier_ = tarotCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(Handfuls _b, TranslationsLg _locale){
-        return getAppliTr(_locale).getMapping().getVal(COMMON_TAROT).getMapping().getVal(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(_b));
+        return MessagesCardGames.getAppliTr(_locale).getMapping().getVal(MessagesCardGames.COMMON_TAROT).getMapping().getVal(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(_b));
 //        String fichier_ = tarotCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
     public static String toString(Miseres _b, TranslationsLg _locale){
-        return getCommonTarotTr(getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.MISERES+TarotCardsExporterUtil.fromMiseres(_b));
+        return MessagesCardGames.getCommonTarotTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.MISERES+TarotCardsExporterUtil.fromMiseres(_b));
 //        String fichier_ = tarotCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
     }
 
     public static String toString(DealingTarot _b, TranslationsLg _locale){
-        return getCommonTarotTr(getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(_b));
+        return MessagesCardGames.getCommonTarotTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(_b));
 //        String fichier_ = tarotCoreFileContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
@@ -641,10 +439,10 @@ public final class Games {
 //        return Format.getConstanteLangue(TarotResoucesAccess.key(_b), fichier_);
 //    }
     public static String toString(EndDealTarot _b, TranslationsLg _locale){
-        return getCommonTarotTr(getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.END_DEAL+TarotCardsExporterUtil.fromEndDealTarot(_b));
+        return MessagesCardGames.getCommonTarotTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(TarotCardsExporterUtil.END_DEAL+TarotCardsExporterUtil.fromEndDealTarot(_b));
     }
     public static String toString(BonusTarot _b, TranslationsLg _locale){
-        StringMap<String> mapping_ = getCommonTarotTr(getAppliTr(_locale)).getMapping();
+        StringMap<String> mapping_ = MessagesCardGames.getCommonTarotTr(MessagesCardGames.getAppliTr(_locale)).getMapping();
         if (_b == BonusTarot.SLAM) {
             return mapping_.getVal(TarotCardsExporterUtil.SLAM);
         }
@@ -652,20 +450,20 @@ public final class Games {
     }
 
     public static String toString(Suit _b, TranslationsLg _locale) {
-        return getCommonFileTr(getAppliTr(_locale)).getMapping().getVal(EnumCardsExporterUtil.SUITS+EnumCardsExporterUtil.fromSuit(_b));
+        return MessagesCardGames.getCommonFileTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(EnumCardsExporterUtil.SUITS+EnumCardsExporterUtil.fromSuit(_b));
 //        String fichier_ = coreFileNameContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), fichier_);
     }
 
     public static String toString(Role _b, TranslationsLg _locale) {
-        return getCommonFileTr(getAppliTr(_locale)).getMapping().getVal(EnumCardsExporterUtil.ROLE+EnumCardsExporterUtil.fromRole(_b));
+        return MessagesCardGames.getCommonFileTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(EnumCardsExporterUtil.ROLE+EnumCardsExporterUtil.fromRole(_b));
 //        String fichier_ = coreFileNameContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), fichier_);
     }
     public static String toString(MixCardsChoice _b, TranslationsLg _locale) {
-        return getCommonMixTr(getAppliTr(_locale)).getMapping().getVal(EnumCardsExporterUtil.fromMixCardsChoice(_b));
+        return MessagesCardGames.getCommonMixTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(EnumCardsExporterUtil.fromMixCardsChoice(_b));
 //        String fichier_ = coreFileNameContent(_locale);
 //        String fichier_ = ResourceFiles.ressourceFichier(_file);
 //        return Format.getConstanteLangue(CoreResourcesAccess.key(_b), fichier_);

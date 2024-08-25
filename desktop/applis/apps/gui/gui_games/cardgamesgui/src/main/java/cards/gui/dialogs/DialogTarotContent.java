@@ -2,6 +2,7 @@ package cards.gui.dialogs;
 
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.dialogs.events.ListenerDealing;
@@ -261,7 +262,7 @@ public final class DialogTarotContent implements DialogVaryingPlayerNumber,Dialo
         return translates().getVal(_k);
     }
     public StringMap<String> translates() {
-        return Games.getDialogTarotTr(Games.getAppliTr(getFrames().currentLg())).getMapping();
+        return MessagesCardGames.getDialogTarotTr(MessagesCardGames.getAppliTr(getFrames().currentLg())).getMapping();
     }
     public static EndDealTarot[] allEndDealTarot() {
         return new EndDealTarot[]{EndDealTarot.ATTACK_LOOSE,EndDealTarot.ATTACK_WIN,EndDealTarot.ZERO};

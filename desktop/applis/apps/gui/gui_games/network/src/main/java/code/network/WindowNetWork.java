@@ -238,7 +238,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    public static final String RECEIVED_CARDS = "receivedCards";
 
 //    public static final String GIVEN_CARDS = "givenCards";
-    public static final String APPS_NETWORK = "network";
+//    public static final String APPS_NETWORK = "network";
 
 //    static final String ACCESSIBLE = "accessible";
 
@@ -541,7 +541,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getFileCoreStream(),getStreams()));
 //        parametres.setDelays();
 //        parametres.setLocale(_locale);
-        aiki.getLastSavedGameDate().setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), aiki.getDateLastSaved()));
+        aiki.getLastSavedGameDate().setText(StringUtil.simpleStringsFormat(MessagesPkGame.getWindowPkContentTr(MessagesPkGame.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), aiki.getDateLastSaved()));
 
 //        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
 //        if (!pseudosJoueurs.isValidNicknames()) {
@@ -583,7 +583,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
 //    }
     public String getTooManyString() {
-        StringMap<String> mapping_ = NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping();
+        StringMap<String> mapping_ = MessagesNetWork.getMessages(MessagesNetWork.getAppliTr(getFrames().currentLg())).getMapping();
         return mapping_.getVal(MessagesNetWork.TOO_MANY);
     }
 
@@ -634,7 +634,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public StringMap<String> getMenusMessages() {
-        return Games.getMenus(Games.getAppliTr(getFrames().currentLg())).getMapping();
+        return MessagesCardGames.getMenus(MessagesCardGames.getAppliTr(getFrames().currentLg())).getMapping();
     }
     public AbsPlainLabel getLastSavedGameDate() {
         return aiki.getLastSavedGameDate();
@@ -994,7 +994,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
 
     public String getNoTradeString() {
-        return GamesPk.getScenePanelContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderScenePanel.NO_TRADE);
+        return MessagesPkGame.getScenePanelContentTr(MessagesPkGame.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderScenePanel.NO_TRADE);
     }
 
 //    public boolean isForceBye() {
@@ -1143,7 +1143,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
     private void initFileMenu() {
         /* Fichier */
-        file=getCompoFactory().newMenu(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.CST_FILE));
+        file=getCompoFactory().newMenu(MessagesPkGame.getWindowPkContentTr(MessagesPkGame.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.CST_FILE));
         aiki.fileMenu(file,this,this, new AlwaysActionListenerAct());
 //        zipLoad = getCompoFactory().newMenuItem();
 //        zipLoad.addActionListener(new LoadZipEvent(this,false));
@@ -1412,7 +1412,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            trainingTarot.put(ct_, sousMenu_);
 //        }
 //        deal.addMenuItem(training);
-        multiStop = getCompoFactory().newMenuItem(NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesNetWork.CST_MULTI_STOP));
+        multiStop = getCompoFactory().newMenuItem(MessagesNetWork.getMessages(MessagesNetWork.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesNetWork.CST_MULTI_STOP));
         multiStop.addActionListener(new QuitMultiEvent(this));
         deal.addMenuItem(multiStop);
         getJMenuBar().add(deal);
@@ -2006,7 +2006,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     private void translate() {
         TranslationsLg lg_ = getFrames().currentLg();
-        StringMap<String> fileMenu_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+        StringMap<String> fileMenu_ = MessagesPkGame.getWindowPkContentTr(MessagesPkGame.getAppliTr(getFrames().currentLg())).getMapping();
         aiki.getZipLoad().setText(fileMenu_.getVal(MessagesRenderWindowPk.ZIP_LOAD));
         aiki.getFolderLoad().setText(fileMenu_.getVal(MessagesRenderWindowPk.FOLDER_LOAD));
         aiki.getGameLoad().setText(fileMenu_.getVal(MessagesRenderWindowPk.GAME_LOAD));
@@ -2034,7 +2034,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        for (ChoiceTarot c: ChoiceTarot.values()) {
 //            trainingTarot.getVal(c).setText(Games.toString(c,lg_));
 //        }
-        multiStop.setText(NetWork.getMessages(NetWork.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesNetWork.CST_MULTI_STOP));
+        multiStop.setText(MessagesNetWork.getMessages(MessagesNetWork.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesNetWork.CST_MULTI_STOP));
         parameters.setText(getMenusMessages().getVal(MessagesGuiCards.CST_PARAMETERS));
 //        for (GameEnum g: GameEnum.values()) {
 //            rulesGames.getVal(g).setText(g.toString(lg_));
@@ -2064,7 +2064,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            goHelpMenu.setText(getMessages().getVal(CST_GO_HELP_MENU));
 //        }
         //StringUtil.simpleStringsFormat(messages.getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), dateLastSaved)
-        aiki.getLastSavedGameDate().setText(StringUtil.simpleStringsFormat(GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), aiki.getDateLastSaved()));
+        aiki.getLastSavedGameDate().setText(StringUtil.simpleStringsFormat(MessagesPkGame.getWindowPkContentTr(MessagesPkGame.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), aiki.getDateLastSaved()));
     }
 
     @Override
@@ -2191,7 +2191,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
 
     public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
-        StringMap<String> mapping_ = GamesPk.getWindowPkContentTr(GamesPk.getAppliTr(getFrames().currentLg())).getMapping();
+        StringMap<String> mapping_ = MessagesPkGame.getWindowPkContentTr(MessagesPkGame.getAppliTr(getFrames().currentLg())).getMapping();
         errorsFile.display(mapping_.getVal(MessagesRenderWindowPk.SUCCESSFUL_LOADING),_fileName);
 //        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(SUCCESSFUL_LOADING), GuiConstants.INFORMATION_MESSAGE);
 //        availableHelps.setText(messages.getVal(MessagesRenderWindowPk.AVAILAIBLE_HELPS));
@@ -2454,7 +2454,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public String getApplicationName() {
-        return APPS_NETWORK;
+        return MessagesNetWork.APPS_NETWORK;
     }
 
     public Net getNet() {
@@ -2703,7 +2703,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
 
     public static StringMap<String> readCoreResourceMix(ContainerSingleImpl _cs) {
-        return Games.getCommonMixTr(_cs.readResourceAppli()).getMapping();
+        return MessagesCardGames.getCommonMixTr(_cs.readResourceAppli()).getMapping();
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
     @Override

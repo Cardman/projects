@@ -7,6 +7,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCardsCore;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.*;
@@ -399,7 +400,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         suit = _suit;
     }
     public StringMap<String> readResource() {
-        return Games.getCommonBeloteTr(readResourceAppli()).getMapping();
+        return MessagesCardGames.getCommonBeloteTr(readResourceAppli()).getMapping();
 //        return MessagesBeloteBelote.ms().getVal(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", BeloteResoucesAccess.NOM_FICHIER));
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, BeloteResoucesAccess.NOM_FICHIER));
     }

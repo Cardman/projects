@@ -10,7 +10,7 @@ import aiki.main.PkNonModalEvent;
 import aiki.map.Condition;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderConsultHost;
 import aiki.util.Coords;
 import code.gui.*;
@@ -109,7 +109,7 @@ public final class ConsultHosts {
     }
 
     public static StringMap<String> file(TranslationsLg _lg) {
-        return GamesPk.getConsultHostContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getConsultHostContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
     public AbsCommonFrame getAbsDialog() {
         return absDialog;

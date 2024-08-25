@@ -65,7 +65,7 @@ public final class GuiProcess implements GuiRunnable {
         if (!StringUtil.contains(_infos.getLanguages(),lg_)){
             lg_ = "";
         }
-        String ma_ = ExecutingOptions.valExecOptionsKeys(_infos.currentLg()).getVal(ExecutingOptions.EXEC_OPTIONS_KEY_MAIN)+ExecutingOptions.EXEC_OPTIONS_SEP;
+        String ma_ = MessagesExecutingOptions.valExecOptionsKeys(_infos.currentLg()).getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_MAIN)+ExecutingOptions.EXEC_OPTIONS_SEP;
         String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
         if (line_.startsWith(ma_)) {
             String subLine_ = line_.substring(ma_.length());

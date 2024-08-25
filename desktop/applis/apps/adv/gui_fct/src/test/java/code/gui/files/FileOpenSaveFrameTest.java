@@ -176,8 +176,8 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
     public void inputFrame1() {
         MockProgramInfosSecSample pr_ = init();
         updateFileSave(pr_);
-        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(FileFrame.GUI).getMapping().addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.en());
-        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(FileFrame.GUI).getMapping().addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.fr());
+        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
+        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -193,8 +193,8 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
     public void inputFrame2() {
         MockProgramInfosSecSample pr_ = init();
         updateFileSave(pr_);
-        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(FileFrame.GUI).getMapping().addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.en());
-        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(FileFrame.GUI).getMapping().addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.fr());
+        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
+        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -210,8 +210,8 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
     public void inputFrame3() {
         MockProgramInfosSecSample pr_ = init();
         updateFileSave(pr_);
-        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(FileFrame.GUI).getMapping().addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.en());
-        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(FileFrame.GUI).getMapping().addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.fr());
+        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
+        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);
@@ -227,8 +227,8 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
     public void inputFrame4() {
         MockProgramInfosSecSample pr_ = init();
         updateFileSave(pr_);
-        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(FileFrame.GUI).getMapping().addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.en());
-        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(FileFrame.GUI).getMapping().addEntry(FileFrame.CONFIRM,MessagesConfirmDialog.fr());
+        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
+        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);

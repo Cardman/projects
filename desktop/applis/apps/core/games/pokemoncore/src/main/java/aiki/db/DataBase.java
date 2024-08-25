@@ -428,7 +428,6 @@ public class DataBase {
     public static final String BALL_DEF = "_2";
 
     public static final String SEP_BETWEEN_KEYS = "__";
-    public static final String IMG_FILES_RES_EXT = ".png";
 
     public static final String DEF_STAT_HP= "0";
     public static final String DEF_STAT_ATTACK= "1";

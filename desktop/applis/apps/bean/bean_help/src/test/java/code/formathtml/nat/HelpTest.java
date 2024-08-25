@@ -76,7 +76,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message";
-        String html_ = "<html><body><ul><c:message value='msg_example,one'/></ul></body></html>";
+        String html_ = "<html><body><ul><message value='msg_example,one'/></ul></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(relative_, content_);
@@ -104,7 +104,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message\ntwo=Two";
-        String html_ = "<html><body><ul><c:message value='msg_example,one'/><br/><c:message value='msg_example,two'/></ul></body></html>";
+        String html_ = "<html><body><ul><message value='msg_example,one'/><br/><message value='msg_example,two'/></ul></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(relative_, content_);
@@ -220,7 +220,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
     public static MetaDocument text(String _uniq, StringList _add, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties, StringMap<int[][]> _imgs) {
         NatNavigation navigation_= new NatNavigation();
         NatConfigurationCore session_ = new NatConfigurationCore();
-        session_.setPrefix("c:");
+//        session_.setPrefix("c:");
         navigation_.setSession(session_);
         navigation_.setLanguage("en");
         navigation_.setLanguages(new StringList("en"));
@@ -230,7 +230,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         contextConf_.setAddedFiles(_add);
         TranslationsAppli ta_ = new TranslationsAppli();
         ta_.getMapping().addEntry(_ms.getKey(0), AnaRendBlockHelp.file(_ms.getValue(0)));
-        return HelpCaller.text(DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), ta_, _imgs, contextConf_.getProperties(), navigation_.getSession().getNat().getPrefix());
+        return HelpCaller.text(DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), ta_, _imgs, contextConf_.getProperties());
 //        return text_.export();
     }
 

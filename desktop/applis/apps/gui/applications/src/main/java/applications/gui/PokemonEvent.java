@@ -1,6 +1,6 @@
 package applications.gui;
 
-import aiki.gui.WindowAiki;
+import aiki.sml.MessagesPkGame;
 import applications.main.LaunchingPokemon;
 import code.gui.AbsButton;
 import code.gui.LanguagesButtonsPair;
@@ -8,7 +8,7 @@ import code.gui.LanguagesButtonsPair;
 public final class PokemonEvent extends AbstractEvent {
 
     PokemonEvent(WindowApps _window, AbsButton _but, LanguagesButtonsPair _p) {
-        super(_window, _but, WindowAiki.APPS_AIKI, _p);
+        super(_window, _but, MessagesPkGame.PK, _p);
     }
 
     @Override

@@ -4,7 +4,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ClosingSelectButtonEvt;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorButtons;
 import code.gui.AbsButton;
 import code.gui.AbsCommonFrame;
@@ -46,7 +46,7 @@ public abstract class SelectDialog {
     }
 
     public static StringMap<String> file(TranslationsLg _lg) {
-        return GamesPk.getSelectDialogContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getSelectDialogContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
     public AbsButton getOkButton() {
         return okButton;

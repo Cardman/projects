@@ -6,6 +6,7 @@ package cards.gui.containers;
 import cards.consts.GameType;
 import cards.consts.Role;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.*;
 import cards.gui.containers.events.SlamEvent;
@@ -72,7 +73,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     public ContainerMultiTarot(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
         containerMultiContent = new ContainerMultiContent(_hasCreatedServer, _window);
-        containerMultiContent.setMessages(Games.getMulti(Games.getAppliTr(_window.getFrames().currentLg())).getMapping());
+        containerMultiContent.setMessages(MessagesCardGames.getMulti(MessagesCardGames.getAppliTr(_window.getFrames().currentLg())).getMapping());
         _window.update(this);
         initButtonValidateDogTarotMulti();
         initBoutonJeuChelemTarotMulti();

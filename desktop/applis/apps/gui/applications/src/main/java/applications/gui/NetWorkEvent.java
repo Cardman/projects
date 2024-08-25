@@ -3,14 +3,14 @@ package applications.gui;
 import code.gui.AbsButton;
 import code.gui.LanguagesButtonsPair;
 import applications.code.network.LaunchingNetwork;
-import code.network.WindowNetWork;
+import code.netw.MessagesNetWork;
 
 public final class NetWorkEvent extends AbstractEvent {
 
 //    private final AbstractBaseExecutorService launcher;
 
     NetWorkEvent(WindowApps _window, AbsButton _b, LanguagesButtonsPair _p) {
-        super(_window, _b, WindowNetWork.APPS_NETWORK, _p);
+        super(_window, _b, MessagesNetWork.APPS_NETWORK, _p);
 //        launcher = _window.getFrames().getThreadFactory().newExecutorService();
     }
 

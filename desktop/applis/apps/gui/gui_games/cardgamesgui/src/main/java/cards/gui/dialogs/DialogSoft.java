@@ -3,7 +3,7 @@ package cards.gui.dialogs;
 
 
 import cards.facade.FacadeCards;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
@@ -59,7 +59,7 @@ public final class DialogSoft extends DialogHelpCards {
     private void setDialogue(WindowCards _fenetre) {
         associated.setEnabled(false);
         TranslationsLg lg_ = _fenetre.getFrames().currentLg();
-        StringMap<String> messSoft_ = Games.getDialogSoftTr(Games.getAppliTr(lg_)).getMapping();
+        StringMap<String> messSoft_ = MessagesCardGames.getDialogSoftTr(MessagesCardGames.getAppliTr(lg_)).getMapping();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();
         if(StringUtil.quickEq(menu, MessagesGuiCards.CST_LAUNCHING)) {
             //Lancement du logiciel

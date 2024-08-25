@@ -1,5 +1,4 @@
 package code.scripts.messages.gui;
-import code.util.*;
 public final class MessCardVideoGr{
 private static final String ADD_IMG_0_0="AAAi";
 private static final String ADD_IMG_0_10="////////////////////////////////AAAAAAAA////////////////////////////////////////////ZKn3pmrM///3ZKn3xIrM////////////////////////////////";
@@ -44,12 +43,7 @@ private static final String ADD_IMG_0_7="////////////////////////////////AAAAAAA
 private static final String ADD_IMG_0_8="////////////////////AAAAAAAA////AAAAAAAA////AAAAAAAA////////////////////////////puP/ZEjV/+Pm////4f//P2rm4anV////////////////////////////";
 private static final String ADD_IMG_0_9="////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////////////////////////////4f//P2rm4anV////puP/ZEjV/+Pm////////////////////////////";
 private MessCardVideoGr(){}
-public static StringMap<String> ms(){
-StringMap<String> m = new StringMap<String>();
-m.addEntry("resources_cards/images/suits.txt",resourcesCardsImagesSuits());
-return m;
-}
-static String resourcesCardsImagesSuits(){
+public static String resourcesCardsImagesSuits(){
 String i=ADD_IMG_0_0;
 i+=ADD_IMG_0_1;
 i+=ADD_IMG_0_2;

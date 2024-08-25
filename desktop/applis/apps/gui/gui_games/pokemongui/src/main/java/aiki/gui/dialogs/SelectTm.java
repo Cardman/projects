@@ -5,7 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorMove;
 import aiki.gui.dialogs.events.ClosingSelectTm;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorMove;
 import code.gui.AbsPanel;
 import code.gui.GuiConstants;
@@ -73,7 +73,7 @@ public final class SelectTm extends SelectDialog {
     }
 
     public static StringMap<String> fileMv(TranslationsLg _lg) {
-        return GamesPk.getPaginatorSelMvContentTr(GamesPk.getAppliTr(_lg)).getMapping();
+        return MessagesPkGame.getPaginatorSelMvContentTr(MessagesPkGame.getAppliTr(_lg)).getMapping();
     }
 //    @Override
     public void closeWindow() {

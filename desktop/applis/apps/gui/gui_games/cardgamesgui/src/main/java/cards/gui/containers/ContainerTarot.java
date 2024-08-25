@@ -3,6 +3,7 @@ package cards.gui.containers;
 
 import cards.consts.Role;
 import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.HandfulThread;
@@ -474,7 +475,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     }
 
     public StringMap<String> readResource() {
-        return Games.getCommonTarotTr(readResourceAppli()).getMapping();
+        return MessagesCardGames.getCommonTarotTr(readResourceAppli()).getMapping();
     }
 
     public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {

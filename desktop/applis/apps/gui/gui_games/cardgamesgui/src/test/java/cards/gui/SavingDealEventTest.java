@@ -1,7 +1,7 @@
 package cards.gui;
 
 import cards.belote.enumerations.*;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import cards.facade.enumerations.*;
 import cards.gui.panels.*;
 import cards.president.enumerations.*;
@@ -15,8 +15,8 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
     @Test
     public void belote() {
         WindowCards fr_ = frameMiniBelote("/__/","/_/");
-        appendMainGame(Games.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
-        appendMainGame(Games.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         BeloteCardsScrollableList stack_ = fr_.getEditorBelote().getStack();
@@ -48,8 +48,8 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
     @Test
     public void president() {
         WindowCards fr_ = frameMiniPresident("/__/","/_/");
-        appendMainGame(Games.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
-        appendMainGame(Games.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
         tryClick(fr_.getEditGames().getVal(GameEnum.PRESIDENT));
         fr_.getEditorPresident().getNbJoueurs().setValue(5);
         tryClick(fr_.getEditorPresident().getEditorCards().getValidateRules());
@@ -83,8 +83,8 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
     @Test
     public void tarot() {
         WindowCards fr_ = frameMiniTarot("/__/","/_/");
-        appendMainGame(Games.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
-        appendMainGame(Games.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
         tryClick(fr_.getEditGames().getVal(GameEnum.TAROT));
         fr_.getEditorTarot().getNbJoueurs().setValue(6);
         tryClick(fr_.getEditorTarot().getEditorCards().getValidateRules());

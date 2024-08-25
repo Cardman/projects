@@ -11,7 +11,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.TmLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.listeners.PaginatorEvent;
-import aiki.sml.GamesPk;
+import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorMove;
 import aiki.util.SortingMove;
 import code.gui.*;
@@ -423,7 +423,7 @@ public final class PaginatorMove extends Paginator {
 
     @Override
     protected StringMap<String> messagesInitSpec() {
-        return GamesPk.getPaginatorMvContentTr(GamesPk.getAppliTr(getMain().getFrames().currentLg())).getMapping();
+        return MessagesPkGame.getPaginatorMvContentTr(MessagesPkGame.getAppliTr(getMain().getFrames().currentLg())).getMapping();
     }
 
     @Override

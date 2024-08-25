@@ -3,7 +3,6 @@ import cards.consts.*;
 import code.scripts.imgs.cards.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 public abstract class HelpCardsCommon{
 protected static final String BODY="body";
 protected static final String BORDER="border";
@@ -1268,7 +1267,7 @@ static CustList<Attr> al(int _len){
 return new CustList<Attr>(new CollCapacity(_len));
 }
 static Element tx(Document _doc,String _value){
-Element elt_=el(_doc,"c:message");
+Element elt_=el(_doc,"message");
 CustList<Attr> as_=al(1);
 as_.add(at("value","msg,"+_value));
 at(elt_,as_);

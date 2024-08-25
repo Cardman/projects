@@ -1,5 +1,5 @@
 package cards.enumerations;
-import cards.facade.Games;
+import cards.facade.MessagesCardGames;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.core.StringUtil;
@@ -14,6 +14,6 @@ public enum Launching {
 //    }
 
     public String toString(TranslationsLg _locale) {
-        return StringUtil.nullToEmpty(Games.getMenus(Games.getAppliTr(_locale)).getMapping().getVal(MessagesGuiCards.WELCOME));
+        return StringUtil.nullToEmpty(MessagesCardGames.getMenus(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(MessagesGuiCards.WELCOME));
     }
 }
