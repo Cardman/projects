@@ -3047,7 +3047,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -3077,7 +3077,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -3102,7 +3102,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;

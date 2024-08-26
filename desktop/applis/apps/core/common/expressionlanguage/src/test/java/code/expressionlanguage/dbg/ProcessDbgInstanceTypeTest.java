@@ -23,7 +23,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         updateInstType(cont_, "pkg/Ex",13, true);
         updateStaType(cont_, "pkg/Ex",13, false);
@@ -46,7 +46,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         updateInstType(cont_, "pkg/Ex",13, true);
         updateStaType(cont_, "pkg/Ex",13, false);
@@ -67,7 +67,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         updateInstType(cont_, "pkg/Ex",13, true);
         updateStaType(cont_, "pkg/Ex",13, false);
@@ -92,7 +92,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         updateInstType(cont_, "pkg/Ex",13, true);
         updateStaType(cont_, "pkg/Ex",13, false);
@@ -120,7 +120,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         updateInstType(cont_, "pkg/Ex",13, true);
         updateStaType(cont_, "pkg/Ex",13, false);
@@ -154,7 +154,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         updateInstType(cont_, "pkg/Ex",13, true);
         updateStaType(cont_, "pkg/Ex",13, false);
@@ -177,7 +177,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",18);
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -202,7 +202,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",18);
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -222,7 +222,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",14);
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -246,7 +246,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",14);
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -269,7 +269,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",18);
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -296,7 +296,7 @@ public final class ProcessDbgInstanceTypeTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",18);
         MethodId id_ = getMethodId("catching");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);

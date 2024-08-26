@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.MessagesPkGame;
+import aiki.sml.trs.Trs;
 import applications.code.gui.AppFactories;
 import applications.code.gui.WithAppFactories;
 import cards.facade.MessagesCardGames;
@@ -12,7 +13,7 @@ import cards.gui.labels.AbsMetaLabelCard;
 import cards.main.CardFactories;
 import cards.main.CardNatLgNamesNavigation;
 import code.expressionlanguage.filenames.DefaultNameValidating;
-import code.expressionlanguage.gui.unit.ProgTestBar;
+import code.expressionlanguage.gui.unit.MessagesCdmFullGui;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.formathtml.util.DefaultBeanAliases;
 import code.gui.*;
@@ -48,8 +49,6 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 
 public abstract class ProgramInfos extends ProgramInfosBase implements AbstractProgramInfos {
-    public static final String EN = "en";
-    public static final String FR = "fr";
 
     private static final String SEPARATEUR = "/";
 
@@ -91,13 +90,13 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     }
 
     public static void locales(ProgramInfosBase _pr) {
-        _pr.setLanguages(new StringList(EN,FR));
+        _pr.setLanguages(new StringList(Trs.EN,Trs.FR));
         StringMap<String> m_ = new StringMap<String>();
-        m_.addEntry(EN,"English");
-        m_.addEntry(FR,"Français");
+        m_.addEntry(Trs.EN,"English");
+        m_.addEntry(Trs.FR,"Français");
         _pr.setDisplayLanguages(m_);
-        TranslationsLg en_ = _pr.lg(EN);
-        TranslationsLg fr_ = _pr.lg(FR);
+        TranslationsLg en_ = _pr.lg(Trs.EN);
+        TranslationsLg fr_ = _pr.lg(Trs.FR);
         en_.getMaxiCards().addAllEntries(CardsInit.en());
         fr_.getMaxiCards().addAllEntries(CardsInit.fr());
         en_.getMiniCardsDef().addAllEntries(AbsMetaLabelCard.enDef());
@@ -106,8 +105,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMiniCardsSel().addAllEntries(AbsMetaLabelCard.frSel());
 //        en_.setTreeCards(HelpScriptConfPages.info());
 //        fr_.setTreeCards(HelpScriptConfPages.info());
-        DefaultBeanAliases.enTr(FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_))));
-        DefaultBeanAliases.frTr(FileInfos.frTr(ProgTestBar.updateFr(FileInfos.initComments(fr_))));
+        DefaultBeanAliases.enTr(FileInfos.enTr(MessagesCdmFullGui.updateEn(FileInfos.initComments(en_))));
+        DefaultBeanAliases.frTr(FileInfos.frTr(MessagesCdmFullGui.updateFr(FileInfos.initComments(fr_))));
         MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
         MessagesCardGames.frTr(MessagesCardGames.initAppliTr(fr_));
         MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));

@@ -28,6 +28,7 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class DbgActTest extends EquallableElAdvUtil {
@@ -8750,7 +8751,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
 //        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
 
         CdmParameterSoftModel c_ = new CdmParameterSoftModel();
@@ -8761,8 +8762,8 @@ public final class DbgActTest extends EquallableElAdvUtil {
 
 
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
-        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        pr_.setLanguage(FileInfos.EN);
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        pr_.setLanguage(StringUtil.EN);
         update(pr_);
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();

@@ -11,11 +11,12 @@ import code.gui.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class ScenePanelMultiTest extends EquallableNetworkUtil {
-    public static final String FR = "fr";
-    public static final String EN = "en";
+    public static final String FR = StringUtil.FR;
+    public static final String EN = StringUtil.EN;
     public static final String LANGUAGE = EN;
     public static final String ELECTRICK = "ELECTRICK";
     @Test

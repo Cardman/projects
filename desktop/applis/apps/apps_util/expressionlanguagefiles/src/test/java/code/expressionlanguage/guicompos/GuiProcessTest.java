@@ -10,6 +10,7 @@ import code.mock.MockProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.stream.StreamBinaryFile;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class GuiProcessTest extends EquallableElUtFilesUtil {
@@ -26,7 +27,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\nen\nmain=pkg.Sample.m\ncover=", f_, pr_);
+        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\n"+StringUtil.EN+"\nmain=pkg.Sample.m\ncover=", f_, pr_);
         b_.run();
         assertFalse(b_.getContext().getInterrupt().get());
         new CoveringCodeTask(b_.getContext(),b_.getExecutingOptions()).run();
@@ -39,7 +40,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){throw 1/0;}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\nen\nmain=pkg.Sample.m\ncover=", f_, pr_);
+        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\n"+StringUtil.EN+"\nmain=pkg.Sample.m\ncover=", f_, pr_);
         b_.run();
         assertTrue(b_.getContext().getInterrupt().get());
         new CoveringCodeTask(b_.getContext(),b_.getExecutingOptions()).run();
@@ -52,7 +53,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}static{throw 1/0;}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\nen\nmain=pkg.Sample.m", f_, pr_);
+        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\n"+StringUtil.EN+"\nmain=pkg.Sample.m", f_, pr_);
         b_.run();
         assertTrue(b_.getContext().getInterrupt().get());
         new CoveringCodeTask(b_.getContext(),b_.getExecutingOptions()).run();
@@ -65,7 +66,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}static{throw 1/0;}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\nen\nmain=pkg.Sample.", f_, pr_);
+        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\n"+StringUtil.EN+"\nmain=pkg.Sample.", f_, pr_);
         b_.run();
         assertTrue(b_.getContext().getInterrupt().get());
     }
@@ -76,7 +77,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}static{throw 1/0;}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\nen\nmain=", f_, pr_);
+        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\n"+StringUtil.EN+"\nmain=", f_, pr_);
         b_.run();
         assertTrue(b_.getContext().getInterrupt().get());
     }
@@ -87,7 +88,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\nen\nmain=pkg.Sample.m\ncover=\nargs=", f_, pr_);
+        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\n"+StringUtil.EN+"\nmain=pkg.Sample.m\ncover=\nargs=", f_, pr_);
         b_.run();
         assertFalse(b_.getContext().getInterrupt().get());
         new CoveringCodeTask(b_.getContext(),b_.getExecutingOptions()).run();
@@ -100,7 +101,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        assertNull(GuiProcess.build("/_.zip","/_.zip\nen\n_\nlog=a:b>c:d#",f_,pr_));
+        assertNull(GuiProcess.build("/_.zip","/_.zip\n"+StringUtil.EN+"\n_\nlog=a:b>c:d#",f_,pr_));
     }
     @Test
     public void run9() {
@@ -109,7 +110,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        assertNull(GuiProcess.build("/_.zip","/_.zip\nen\n_\nerr=",f_,pr_));
+        assertNull(GuiProcess.build("/_.zip","/_.zip\n"+StringUtil.EN+"\n_\nerr=",f_,pr_));
     }
     @Test
     public void run10() {
@@ -118,7 +119,7 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
-        assertNull(GuiProcess.build("/_.zip","/_.zip\nen\n_",f_,pr_));
+        assertNull(GuiProcess.build("/_.zip","/_.zip\n"+StringUtil.EN+"\n_",f_,pr_));
     }
     @Test
     public void run11() {
@@ -139,10 +140,10 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         assertNull(GuiProcess.build("/_.zip","/__.zip\n_\n_",f_,pr_));
     }
     public static void update(MockProgramInfos _pr) {
-        _pr.setLanguages(new StringList("en","fr"));
-        _pr.setLanguage(FileInfos.EN);
-        FileInfos.enTr(FileInfos.initComments(lg(_pr,FileInfos.EN)));
-        FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
+        FileInfos.enTr(FileInfos.initComments(lg(_pr,StringUtil.EN)));
+        FileInfos.frTr(FileInfos.initComments(lg(_pr,StringUtil.FR)));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);

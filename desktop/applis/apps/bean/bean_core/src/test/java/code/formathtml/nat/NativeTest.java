@@ -25,6 +25,7 @@ import code.sml.*;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class NativeTest extends EquallableBeanCoreUtil {
@@ -159,7 +160,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process0Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -176,7 +177,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process0elTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -192,7 +193,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process0el_Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -208,7 +209,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process0elIfTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -223,7 +224,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process0elIf_Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -238,7 +239,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process0elIf__Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -253,7 +254,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process0elIf___Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -268,7 +269,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process00Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -281,7 +282,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process1Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -296,7 +297,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process_1_Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -311,7 +312,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process1SecTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -326,7 +327,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process1Sec2Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -341,7 +342,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process1IndTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -356,7 +357,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process1Ind2Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -371,7 +372,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process1_Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -387,7 +388,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process2Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -403,7 +404,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process2_Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -419,7 +420,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process2_3Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=<a c:command=''$composite.sum({0},{0},{0})''>{0}</a>";
@@ -451,7 +452,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //    }
     @Test
     public void process2_3_0Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=<a c:command=''$validateStrings()''>{0}</a>";
@@ -467,7 +468,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process2_3_Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=<a c:command=''composite''>{0}</a>";
@@ -482,7 +483,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process__2Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -497,7 +498,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process2__Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one={0}";
@@ -544,7 +545,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //    }
     @Test
     public void process2_Id_quote2_Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one={0}";
@@ -671,7 +672,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //    }
     @Test
     public void process1ImgTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Click";
@@ -687,7 +688,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process2ImgTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Click";
@@ -702,7 +703,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process2LkTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Click";
@@ -717,7 +718,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process3LkTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Click";
@@ -732,7 +733,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void process2SpTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Click";
@@ -764,7 +765,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process3Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -782,7 +783,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process5Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -800,7 +801,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void process6Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1284,7 +1285,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void processNav2Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1326,7 +1327,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void processNav3Test() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1371,7 +1372,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     @Test
     public void processNav3QuickTest() {
-        String locale_ = "en";
+        String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2744,14 +2745,14 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static void setLocalFiles(NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing, NatConfigurationCore _configuration, NatDualConfigurationContext _dual) {
-        _configuration.setCurrentLanguage("en");
+        _configuration.setCurrentLanguage(StringUtil.EN);
         _analyzingDoc.setRendKeyWords(_configuration.getRendKeyWords());
         _analyzingDoc.setupCommon(_configuration.getNat(), _dual.getProperties(), _dual.getMessagesFolder());
         setInnerLocalFiles(_analyzingDoc, _analyzing);
     }
 
     private static void setInnerLocalFiles(NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing) {
-        _analyzingDoc.setLanguages(new StringList("en"));
+        _analyzingDoc.setLanguages(new StringList(StringUtil.EN));
 
     }
     private static StringMap<NatAnaRendDocumentBlock> analyze(NatConfigurationCore _conf, NatAnalyzingDoc _analyzingDoc, StringMap<String> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual, DefNatBlockBuilder _b, String... _html) {

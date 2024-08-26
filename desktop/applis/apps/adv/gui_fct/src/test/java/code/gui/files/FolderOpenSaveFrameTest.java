@@ -4,6 +4,7 @@ import code.gui.*;
 import code.gui.events.MockProgramInfosSecSample;
 import code.mock.*;
 import code.threads.ConcreteBoolean;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class FolderOpenSaveFrameTest extends EquallableGuiFctUtil {
@@ -115,8 +116,8 @@ public final class FolderOpenSaveFrameTest extends EquallableGuiFctUtil {
     public void inputFrame3() {
         MockProgramInfosSecSample pr_ = init();
         updateFolderOpen(pr_);
-        pr_.getTranslations().getMapping().getVal("en").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
-        pr_.getTranslations().getMapping().getVal("fr").getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
+        pr_.getTranslations().getMapping().getVal(StringUtil.EN).getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
+        pr_.getTranslations().getMapping().getVal(StringUtil.FR).getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","inner",false);

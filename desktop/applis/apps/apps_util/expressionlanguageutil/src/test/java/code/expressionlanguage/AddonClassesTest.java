@@ -29,6 +29,7 @@ import code.threads.ConcreteBoolean;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class AddonClassesTest extends EquallableElUtUtil {
@@ -522,7 +523,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
         return buildMockDbg(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
     }
@@ -535,7 +536,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(), StringUtil.EN);
         Options opt_ = new Options();
         return buildMockDbgRun(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
     }
@@ -548,7 +549,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
         return buildMockDbgRunSch(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
     }
@@ -572,7 +573,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
         return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
@@ -732,7 +733,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
     public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(exOpt(_light));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),StringUtil.EN);
         return stds_;
     }
 }

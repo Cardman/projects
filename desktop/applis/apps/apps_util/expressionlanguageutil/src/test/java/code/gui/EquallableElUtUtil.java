@@ -112,7 +112,7 @@ public abstract class EquallableElUtUtil {
     public static LgNamesGui newLgNamesGuiSampleFull(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(exOpt(_light));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),StringUtil.EN);
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
         return stds_;
@@ -120,7 +120,7 @@ public abstract class EquallableElUtUtil {
     public static LgNamesGui newLgNamesGuiSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGuiLight(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(exOpt(_light));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),StringUtil.EN);
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
         return stds_;
@@ -135,7 +135,7 @@ public abstract class EquallableElUtUtil {
         stds_.getContent().build(TranslationsFile.extractMap(en_),new StringMap<String>(), TranslationsFile.extractKeys(en_));
         stds_.getStrAlias().build(TranslationsFile.extractMap(en_),new StringMap<String>(), TranslationsFile.extractKeys(en_));
 //        stds_.getExecContent().setExecutingOptions(new ExecutingOptions());
-//        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+//        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),StringUtil.EN);
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
         return stds_;
@@ -143,7 +143,7 @@ public abstract class EquallableElUtUtil {
     public static LgNamesUtils newLgNamesUtSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesUtils stds_ = newLgNamesUt(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(exOpt(_light));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),StringUtil.EN);
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
         return stds_;
@@ -152,7 +152,7 @@ public abstract class EquallableElUtUtil {
     public static LgNamesUtils newLgNamesUtSampleLight(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesUtils stds_ = newLgNamesUtLight(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(exOpt(_light));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),StringUtil.EN);
 //        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
 //        basicStandards(stds_);
         return stds_;
@@ -348,9 +348,9 @@ public abstract class EquallableElUtUtil {
         return new MockProgramInfos("", "", _s, _set);
     }
     public static void update(MockProgramInfos _pr) {
-        FileInfos.enTr(FileInfos.initComments(lg(_pr,FileInfos.EN)));
-        FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
-        _pr.setLanguage("en");
+        FileInfos.enTr(FileInfos.initComments(lg(_pr,StringUtil.EN)));
+        FileInfos.frTr(FileInfos.initComments(lg(_pr,StringUtil.FR)));
+        _pr.setLanguage(StringUtil.EN);
     }
     public static TranslationsLg lg(MockProgramInfos _pr,String _key) {
         return _pr.lg(_key);
@@ -399,7 +399,7 @@ public abstract class EquallableElUtUtil {
     }
 
     public static void preBuild(LgNamesGui _definedLgNames, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw) {
-        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(), _exec.getLightProgramInfos().getLanguage(),"en");
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(), _exec.getLightProgramInfos().getLanguage(),StringUtil.EN);
         _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
         _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
         _definedKw.initSupplDigits();
@@ -411,7 +411,7 @@ public abstract class EquallableElUtUtil {
     }
 
     public static void preBuild(LgNamesUtils _definedLgNames, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw) {
-        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(), _exec.getLightProgramInfos().getLanguage(),"en");
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(), _exec.getLightProgramInfos().getLanguage(),StringUtil.EN);
         _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
         _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
         _definedKw.initSupplDigits();
@@ -496,9 +496,9 @@ public abstract class EquallableElUtUtil {
         return new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()).gene(getForwards(_definedLgNames, _opt));
     }
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
-        MessagesExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("en")));
-        MessagesExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("fr")));
-        ((MockProgramInfos)_p).setLanguage("en");
+        MessagesExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.EN)));
+        MessagesExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.FR)));
+        ((MockProgramInfos)_p).setLanguage(StringUtil.EN);
         return new ExecutingOptions(_p);
     }
     public static ExecutingOptions exOptInit(AbstractLightProgramInfos _p) {

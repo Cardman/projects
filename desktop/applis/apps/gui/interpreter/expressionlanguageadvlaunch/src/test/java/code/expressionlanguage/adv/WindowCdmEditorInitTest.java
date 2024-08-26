@@ -458,7 +458,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq(1,result_.size());
         assertEq("\\*",result_.get(0).getBegin());
         assertEq("*\\",result_.get(0).getEnd().get(0));
-        assertEq("en",w2_.getUsedLg());
+        assertEq(EN,w2_.getUsedLg());
     }
     @Test
     public void fileConf7() {
@@ -486,7 +486,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq(1,result_.size());
         assertEq("\\*",result_.get(0).getBegin());
         assertEq("*\\",result_.get(0).getEnd().get(0));
-        assertEq("en",w2_.getUsedLg());
+        assertEq(EN,w2_.getUsedLg());
     }
     @Test
     public void fileConf8() {
@@ -510,7 +510,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq(chooseConf_,w2_.getExecConf());
         CustList<CommentDelimiters> result_ = w2_.getComments();
         assertEq(0,result_.size());
-        assertEq("en",w2_.getUsedLg());
+        assertEq(EN,w2_.getUsedLg());
     }
     @Test
     public void fileConf9() {
@@ -627,16 +627,16 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
 //        w_.getSetterLanguage().setLanguage("");
         w_.getLanguageDialogButtons().init(w_.getDialogFolderExpression(),w_.getFrames(),"",w_);
 //        w_.getLanguageEvent().action();
-        assertEq("en",w_.getFrames().getLanguage());
+        assertEq(EN,w_.getFrames().getLanguage());
     }
     @Test
     public void lg2() {
         WindowCdmEditor w_ =newWindowLoadDef();
-//        w_.getSetterLanguage().setLanguage("fr");
+//        w_.getSetterLanguage().setLanguage(FR);
         w_.getLanguageDialogButtons().init(w_.getDialogFolderExpression(),w_.getFrames(),"",w_);
         w_.getLanguageDialogButtons().getContent().getGroupe().get(1).getActionListeners().get(0).action();
 //        w_.getLanguageEvent().action();
-        assertEq("fr",w_.getFrames().getLanguage());
+        assertEq(FR,w_.getFrames().getLanguage());
     }
     @Test
     public void closeMain() {

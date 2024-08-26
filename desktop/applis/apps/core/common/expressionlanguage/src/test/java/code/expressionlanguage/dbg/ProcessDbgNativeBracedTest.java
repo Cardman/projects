@@ -20,7 +20,7 @@ public final class ProcessDbgNativeBracedTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         Forwards fwd_ = cont_.getForwards();
         String enums_ = ((LgNames) fwd_.getGenerator()).getCoreNames().getAliasEnums();
         String ordEn_ = ((LgNames) fwd_.getGenerator()).getPredefTypes().getAliasEnumOrdinal();
@@ -43,7 +43,7 @@ public final class ProcessDbgNativeBracedTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         Forwards fwd_ = cont_.getForwards();
         String enums_ = ((LgNames) fwd_.getGenerator()).getCoreNames().getAliasEnums();
         String ordEn_ = ((LgNames) fwd_.getGenerator()).getPredefTypes().getAliasEnumOrdinal();

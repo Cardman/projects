@@ -8,11 +8,12 @@ import code.mock.*;
 import code.stream.AbsClipStream;
 import code.threads.AbstractThread;
 import code.util.Ints;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableSoundPlayerUtil {
-    public static final String EN = "en";
-    public static final String FR = "fr";
+    public static final String EN = StringUtil.EN;
+    public static final String FR = StringUtil.FR;
     public static WindowPlayer windowPlayer() {
         MockProgramInfos pr_ = build();
         return new WindowPlayer(EN,pr_, new LanguagesButtonsPair(null,null,null));

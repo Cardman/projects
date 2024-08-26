@@ -47,8 +47,8 @@ public abstract class EquallableCardsGuiUtil {
     public static final int SAVE_THEN_PLAY = 1;
     public static final int PLAY_WITHOUT_SAVING = 2;
     public static final int SAVE_THEN_CLOSE = 3;
-    public static final String FR = "fr";
-    public static final String EN = "en";
+    public static final String FR = StringUtil.FR;
+    public static final String EN = StringUtil.EN;
 
     protected WindowCards frameRulesBelote() {
         MockProgramInfos pr_ = updateRulesBelote(build());

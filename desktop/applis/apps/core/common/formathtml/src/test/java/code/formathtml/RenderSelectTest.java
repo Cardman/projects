@@ -12,7 +12,7 @@ public final class RenderSelectTest extends CommonRender {
     private static final String CUST_TABLE_PATH = "pkg/CustTable";
     @Test
     public void process0Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -51,7 +51,7 @@ public final class RenderSelectTest extends CommonRender {
 
     @Test
     public void process1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -89,7 +89,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process100Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -127,7 +127,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process101Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -165,7 +165,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process102Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -206,7 +206,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process103Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -247,7 +247,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -294,7 +294,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process200Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -344,7 +344,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process201Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -394,7 +394,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process202Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -441,7 +441,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process203Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -488,7 +488,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -529,7 +529,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process_3_Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -570,7 +570,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process4Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -624,7 +624,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process5Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -671,7 +671,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process6Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -718,7 +718,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process7Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -762,7 +762,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process700Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -806,7 +806,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process8Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -854,7 +854,7 @@ public final class RenderSelectTest extends CommonRender {
 
     @Test
     public void process9Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -901,7 +901,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process10Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -948,7 +948,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process11Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -995,7 +995,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process12Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1042,7 +1042,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process13Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1084,7 +1084,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process14Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1132,7 +1132,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process15Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1174,7 +1174,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process16Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1219,7 +1219,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process17Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1258,7 +1258,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process18Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1296,7 +1296,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process19Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1337,7 +1337,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process20Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1379,7 +1379,7 @@ public final class RenderSelectTest extends CommonRender {
 
     @Test
     public void process21Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1408,7 +1408,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process22Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1437,7 +1437,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process23Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1484,7 +1484,7 @@ public final class RenderSelectTest extends CommonRender {
 
     @Test
     public void process1FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1521,7 +1521,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process2FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1562,7 +1562,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process3FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1603,7 +1603,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process4FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1644,7 +1644,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process41FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1685,7 +1685,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process5FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1726,7 +1726,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process6FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
@@ -1771,7 +1771,7 @@ public final class RenderSelectTest extends CommonRender {
 
     @Test
     public void process7FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
@@ -1815,7 +1815,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process8FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
@@ -1860,7 +1860,7 @@ public final class RenderSelectTest extends CommonRender {
 
     @Test
     public void process9FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1901,7 +1901,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process10FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1942,7 +1942,7 @@ public final class RenderSelectTest extends CommonRender {
     }
     @Test
     public void process11FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";

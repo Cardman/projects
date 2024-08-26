@@ -22,8 +22,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.setPreneur((byte) 0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.HEART_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.HEART_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.HEART_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.HEART_7)).isEmpty());
     }
     @Test
     public void autoriseBelote2() {
@@ -38,8 +38,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.SPADE_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.SPADE_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.SPADE_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.SPADE_7)).isEmpty());
     }
     @Test
     public void autoriseBelote3() {
@@ -55,8 +55,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.SPADE_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.SPADE_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.SPADE_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.SPADE_7)).isEmpty());
     }
     @Test
     public void autoriseBelote4() {
@@ -72,8 +72,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote5() {
@@ -89,8 +89,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote6() {
@@ -107,8 +107,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote7() {
@@ -125,8 +125,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote8() {
@@ -143,8 +143,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote9() {
@@ -160,8 +160,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote10() {
@@ -177,8 +177,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote11() {
@@ -194,8 +194,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote12() {
@@ -211,8 +211,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void autoriseBelote13() {
@@ -227,8 +227,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.SPADE_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.SPADE_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.SPADE_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.SPADE_7)).isEmpty());
     }
     @Test
     public void autoriseBelote14() {
@@ -243,8 +243,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.SPADE_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.SPADE_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.SPADE_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.SPADE_7)).isEmpty());
     }
     @Test
     public void autoriseBelote15() {
@@ -259,8 +259,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.SPADE_1)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.SPADE_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.SPADE_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.SPADE_1)).isEmpty());
     }
     @Test
     public void autoriseBelote16() {
@@ -276,8 +276,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.SPADE_1)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.SPADE_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.SPADE_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.SPADE_1)).isEmpty());
     }
     @Test
     public void autoriseBelote17() {
@@ -292,8 +292,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.SPADE_1)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.SPADE_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.SPADE_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.SPADE_1)).isEmpty());
     }
     @Test
     public void autoriseBelote18() {
@@ -308,8 +308,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.HEART_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.HEART_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.HEART_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.HEART_7)).isEmpty());
     }
     @Test
     public void autoriseBelote19() {
@@ -323,8 +323,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.SPADE_1)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.SPADE_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.SPADE_1)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.SPADE_1)).isEmpty());
     }
     @Test
     public void autoriseBelote20() {
@@ -338,8 +338,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.HEART_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.HEART_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.HEART_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.HEART_7)).isEmpty());
     }
     @Test
     public void autoriseBelote21() {
@@ -355,8 +355,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_1);
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "en",CardBelote.DIAMOND_7)).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, "fr",CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.DIAMOND_7)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.FR,CardBelote.DIAMOND_7)).isEmpty());
     }
     @Test
     public void isSameTeam1() {
@@ -397,8 +397,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         MessagesCardGames.appendCommonFile(frApp_, MessagesCommonFile.fr());
         MessagesCardGames.appendGameBelote(frApp_, MessagesBelote.frGame());
         Translations trs_ = new Translations();
-        trs_.getMapping().addEntry("en",en_);
-        trs_.getMapping().addEntry("fr",fr_);
+        trs_.getMapping().addEntry(StringUtil.EN,en_);
+        trs_.getMapping().addEntry(StringUtil.FR,fr_);
         return Games.autoriseBelote(_b, trs_.getMapping().getVal(_lg));
     }
 

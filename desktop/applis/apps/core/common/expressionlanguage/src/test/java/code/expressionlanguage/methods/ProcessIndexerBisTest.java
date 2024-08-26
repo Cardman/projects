@@ -104,7 +104,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -134,7 +134,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -164,7 +164,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -194,7 +194,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -224,7 +224,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -254,7 +254,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -284,7 +284,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -314,7 +314,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -354,7 +354,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -394,7 +394,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculate1FailTest() {
@@ -408,7 +408,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateFail1Test() {
@@ -420,7 +420,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" public Object inst3=0b1;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateFail2Test() {
@@ -471,7 +471,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" protected abstract void this(int p);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculate3FailTest() {
@@ -497,7 +497,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculate4FailTest() {
@@ -523,7 +523,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculate5FailTest() {
@@ -558,7 +558,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculate6FailTest() {
@@ -593,6 +593,6 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
 }

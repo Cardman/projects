@@ -460,7 +460,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "outOne"));
         assertEq("$core.Integer", str_.getClassName(cont_));

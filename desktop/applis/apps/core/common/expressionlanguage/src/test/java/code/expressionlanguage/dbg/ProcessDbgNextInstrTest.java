@@ -11,7 +11,7 @@ public final class ProcessDbgNextInstrTest extends ProcessDbgCommon {
     public void test1() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return Math.mod(t,u);}}");
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",52);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -23,7 +23,7 @@ public final class ProcessDbgNextInstrTest extends ProcessDbgCommon {
     public void test2() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return Math.mod(t,u);}}");
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",52);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -36,7 +36,7 @@ public final class ProcessDbgNextInstrTest extends ProcessDbgCommon {
     public void test3() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return Math.mod(t,u);}}");
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",52);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -48,7 +48,7 @@ public final class ProcessDbgNextInstrTest extends ProcessDbgCommon {
     public void test4() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return Math.mod(t,u);}}");
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",52);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);

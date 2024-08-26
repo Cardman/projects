@@ -5,6 +5,7 @@ import code.gui.initialize.*;
 import code.mock.*;
 import code.stream.*;
 import code.threads.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
@@ -16,7 +17,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
-        w_.getConf().setText("/_.zip\nen");
+        w_.getConf().setText("/_.zip\n"+StringUtil.EN);
         tryClick(w_.getLaunch());
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
         assertEq(2,w_.getResultsTable().getRowCount());
@@ -31,7 +32,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
-        w_.getConf().setText("/_.zip\nen");
+        w_.getConf().setText("/_.zip\n"+StringUtil.EN);
         w_.getMemory().setSelected(true);
         tryClick(w_.getLaunch());
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
@@ -43,7 +44,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
         tryClick(w_.getStop());
@@ -64,7 +65,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
-        w_.getConf().setText("/_.zip\nen");
+        w_.getConf().setText("/_.zip\n"+StringUtil.EN);
         tryClick(w_.getLaunch());
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
         assertEq(0,w_.getResultsTable().getRowCount());
@@ -80,7 +81,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         StreamBinaryFile.writeFile("",zipped_,pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
-        w_.getConf().setText("/_.zip\nen");
+        w_.getConf().setText("/_.zip\n"+StringUtil.EN);
         tryClick(w_.getLaunch());
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
         assertEq(0,w_.getResultsTable().getRowCount());
@@ -95,7 +96,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
-        w_.getConf().setText("/_.zip\nen");
+        w_.getConf().setText("/_.zip\n"+StringUtil.EN);
         tryClick(w_.getLogErr());
         tryClick(w_.getLogErr());
 //        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
@@ -109,7 +110,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
         tryClick(w_.getSimpleFrame());
@@ -135,7 +136,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
         tryClick(w_.getSimpleFrame());
@@ -160,7 +161,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         byte[] folder_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
         StreamBinaryFile.writeFile("/__.zip",folder_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
         tryClick(w_.getSimpleFrame());
@@ -191,7 +192,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
         byte[] folder_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
         StreamBinaryFile.writeFile("/__.zip",folder_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
         tryClick(w_.getSimpleFrame());
@@ -229,7 +230,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         WindowUnit w_ = cr_.getWindow();
         tryClick(w_.getSimpleFrame());
         SimpleFilesFrame s_ = w_.getFilesFrame();
-        s_.getConf().setText("/_.zip\nen");
+        s_.getConf().setText("/_.zip\n"+StringUtil.EN);
         tryClick(s_.getLaunch());
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
         assertEq(0,w_.getResultsTable().getRowCount());
@@ -243,7 +244,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowUnit w_ = cr_.getWindow();
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();

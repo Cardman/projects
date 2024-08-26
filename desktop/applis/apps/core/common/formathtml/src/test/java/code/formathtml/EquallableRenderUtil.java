@@ -13,6 +13,7 @@ import org.junit.Assert;
 import code.util.StringList;
 
 public abstract class EquallableRenderUtil {
+    protected static final String EN = StringUtil.EN;
 
     public static void assertNotNull(OperationNode _value) {
         Assert.assertNotNull(_value);

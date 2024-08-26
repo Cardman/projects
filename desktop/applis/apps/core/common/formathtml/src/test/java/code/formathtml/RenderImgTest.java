@@ -7,7 +7,7 @@ import org.junit.Test;
 public final class RenderImgTest extends CommonRender {
     @Test
     public void process0Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -31,7 +31,7 @@ public final class RenderImgTest extends CommonRender {
     }
     @Test
     public void process1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -57,7 +57,7 @@ public final class RenderImgTest extends CommonRender {
 
     @Test
     public void process2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -82,7 +82,7 @@ public final class RenderImgTest extends CommonRender {
     }
     @Test
     public void process3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -107,7 +107,7 @@ public final class RenderImgTest extends CommonRender {
     }
     @Test
     public void process4Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -132,7 +132,7 @@ public final class RenderImgTest extends CommonRender {
     }
     @Test
     public void process5Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";

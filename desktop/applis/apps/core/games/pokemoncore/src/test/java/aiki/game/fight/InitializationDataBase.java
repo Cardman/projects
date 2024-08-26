@@ -38,7 +38,7 @@ public class InitializationDataBase extends EquallablePkUtil {
 
     protected static final String PIKA = "PIKA";
 
-    protected static final String LANGUAGE = "en";
+    protected static final String LANGUAGE = StringUtil.EN;
     //or LANGUAGE == fr?
 
     protected static final String INVALID_DATA_KEY = "NOT_FOUND_DATA";

@@ -7,7 +7,7 @@ import org.junit.Test;
 public final class RenderStyleTest extends CommonRender {
     @Test
     public void process1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();

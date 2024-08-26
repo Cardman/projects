@@ -21,7 +21,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
     }
 
@@ -38,7 +38,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",34);
         assertTrue(isWatch(cont_, cf("pkg.Ex","f")));
     }
@@ -56,7 +56,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",34);
         cont_.toggleWatchPoint("pkg/Ex",34);
         assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
@@ -75,7 +75,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",36);
         assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
         assertTrue(isWatch(cont_, cf("pkg.Ex", "s")));
@@ -93,7 +93,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",-1);
         assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
     }
@@ -111,7 +111,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",34);
         cont_.toggleWatchPointEnabled("pkg/Ex",34);
         assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
@@ -130,7 +130,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",34);
         cont_.toggleWatchPointEnabled("pkg/Ex",34);
         cont_.toggleWatchPointEnabled("pkg/Ex",34);
@@ -150,7 +150,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPointEnabled("pkg/Ex",34);
         assertTrue(isWatch(cont_, cf("pkg.Ex","f")));
     }
@@ -168,7 +168,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPointEnabled("pkg/Ex",-1);
         assertFalse(isWatch(cont_, cf("pkg.Ex","f")));
     }
@@ -186,7 +186,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",34);
         cont_.toggleWatchPoint("pkg/Ex",36);
         assertTrue(isWatch(cont_, cf("pkg.Ex","f")));
@@ -206,7 +206,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",34);
         cont_.toggleWatchPoint("pkg/Ex",36);
         cont_.toggleWatchPointEnabled("pkg/Ex",34);
@@ -226,7 +226,7 @@ public final class ProcessDbgWatchPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPointEnabled("pkg/Ex",34);
         cont_.toggleWatchPointEnabled("pkg/Ex",36);
         assertTrue(isWatch(cont_, cf("pkg.Ex","f")));

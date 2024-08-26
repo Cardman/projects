@@ -144,7 +144,7 @@ public final class RenderTextTest extends CommonRender {
 
     @Test
     public void process11Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -167,7 +167,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process12Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -194,7 +194,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process13Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -223,7 +223,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process14Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -252,7 +252,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process15Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -281,7 +281,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process16Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -311,7 +311,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process17Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -346,7 +346,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process17_extTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -381,7 +381,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process17_ext2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -416,7 +416,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process17_expTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -451,7 +451,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process17_exp2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -486,7 +486,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process18Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -523,7 +523,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process19Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -551,7 +551,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process20Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -579,7 +579,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process21Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -608,7 +608,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process22Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -637,7 +637,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process23Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -665,7 +665,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process24Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -693,7 +693,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process25Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -721,7 +721,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process26Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -749,7 +749,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process27Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -786,7 +786,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process_27_Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -823,7 +823,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process28Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -860,7 +860,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process29Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -888,7 +888,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process30Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -916,7 +916,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process31Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -944,7 +944,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process32Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -973,7 +973,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process33Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1001,7 +1001,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process34Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1029,7 +1029,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process35Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1066,7 +1066,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process36Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1094,7 +1094,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process37Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1133,7 +1133,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process38Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1172,7 +1172,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process39Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1216,7 +1216,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process40Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1260,7 +1260,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process41Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1304,7 +1304,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process42Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1349,7 +1349,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process43Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1398,7 +1398,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process44Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1447,7 +1447,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process45Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1473,7 +1473,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process46Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1499,7 +1499,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process47Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1538,7 +1538,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process48Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1577,7 +1577,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process49Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1616,7 +1616,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process50Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1637,7 +1637,7 @@ public final class RenderTextTest extends CommonRender {
 
     @Test
     public void process52Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1658,7 +1658,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process53Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1678,7 +1678,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process54Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1698,7 +1698,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process55Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1721,7 +1721,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process56Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1746,7 +1746,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process57Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1771,7 +1771,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process58Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1796,7 +1796,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process59Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1821,7 +1821,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process60Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1846,7 +1846,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process61Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1876,7 +1876,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process62Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1896,7 +1896,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process63Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1945,7 +1945,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process64Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1966,7 +1966,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process65Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1987,7 +1987,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process66Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2008,7 +2008,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process67Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2029,7 +2029,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process68Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2050,7 +2050,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process69Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2071,7 +2071,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process70Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2093,7 +2093,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process71Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2115,7 +2115,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process72Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2132,7 +2132,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process73Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2149,7 +2149,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process74Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2166,7 +2166,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process75Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2183,7 +2183,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process76Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2200,7 +2200,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process77Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2217,7 +2217,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process78Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2243,7 +2243,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process79Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2269,7 +2269,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process80Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2295,7 +2295,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process81Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2316,7 +2316,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process82Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2337,7 +2337,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process83Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2358,7 +2358,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process84Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2379,7 +2379,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process85Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2400,7 +2400,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process86Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2430,7 +2430,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process87Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2460,7 +2460,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process88Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2490,7 +2490,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process89Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2511,7 +2511,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process90Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2532,7 +2532,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process91Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2553,7 +2553,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process92Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2574,7 +2574,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process93Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2594,7 +2594,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process94Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2614,7 +2614,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process95Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2635,7 +2635,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process96Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2656,7 +2656,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process97Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2676,7 +2676,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process98Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2696,7 +2696,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process99Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2725,7 +2725,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process100Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2754,7 +2754,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process101Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2783,7 +2783,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process102Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2812,7 +2812,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process103Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2829,7 +2829,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process104Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2846,7 +2846,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process105Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2863,7 +2863,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process106Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2880,7 +2880,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process107Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2897,7 +2897,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process108Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2914,7 +2914,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process109Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2931,7 +2931,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process110Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2948,7 +2948,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process111Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2965,7 +2965,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process112Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2982,7 +2982,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process113Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2999,7 +2999,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process114Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3016,7 +3016,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process115Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3033,7 +3033,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process116Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3050,7 +3050,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process117Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3076,7 +3076,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process118Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3102,7 +3102,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process119Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3128,7 +3128,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process120Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3154,7 +3154,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process121Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3180,7 +3180,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process122Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3206,7 +3206,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process123Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3232,7 +3232,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process124Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3258,7 +3258,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process125Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3284,7 +3284,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process126Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3310,7 +3310,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process127Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3336,7 +3336,7 @@ public final class RenderTextTest extends CommonRender {
     }
     @Test
     public void process128Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3796,7 +3796,7 @@ public final class RenderTextTest extends CommonRender {
 
     @Test
     public void process0FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";

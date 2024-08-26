@@ -14,8 +14,6 @@ import code.threads.AbstractThreadFactory;
 import code.util.core.DefaultUniformingString;
 
 public final class FileInfos {
-    public static final String EN = "en";
-    public static final String FR = "fr";
     public static final String CDM = "cdm";
     public static final String COMMENTS = "comments";
     public static final String COMMENTS_V1 = "html";

@@ -1,13 +1,11 @@
 package code.expressionlanguage.dbg;
 
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StackCallReturnValue;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ResultContext;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Test;
@@ -28,7 +26,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",79);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -51,7 +49,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",79);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -75,7 +73,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",84);
         MethodId id_ = getMethodIdRetRef("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -98,7 +96,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en", files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",84);
         MethodId id_ = getMethodIdRetRef("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);

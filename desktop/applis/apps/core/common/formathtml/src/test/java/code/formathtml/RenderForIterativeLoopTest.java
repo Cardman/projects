@@ -7,7 +7,7 @@ import org.junit.Test;
 public final class RenderForIterativeLoopTest extends CommonRender {
     @Test
     public void process1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -18,7 +18,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -29,7 +29,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -40,7 +40,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process4Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -51,7 +51,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process5Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -62,7 +62,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process6Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -74,7 +74,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
 
     @Test
     public void process7Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -85,7 +85,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process8Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -96,7 +96,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process9Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -107,7 +107,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process10Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -118,7 +118,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process11Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -129,7 +129,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process12Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -140,7 +140,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process13Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -151,7 +151,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process14Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -162,7 +162,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process15Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -173,7 +173,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process16Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -184,7 +184,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process17Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -195,7 +195,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process18Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -211,7 +211,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
 
     @Test
     public void process19Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -222,7 +222,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process20Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -233,7 +233,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process21Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -244,7 +244,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process22Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -255,7 +255,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process23Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -266,7 +266,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process24Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -281,7 +281,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process25Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -304,7 +304,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process26Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -315,7 +315,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process27Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -326,7 +326,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process28Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -337,7 +337,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process29Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -348,7 +348,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process1FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -359,7 +359,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process2FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -370,7 +370,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process3FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -381,7 +381,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process4FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -392,7 +392,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process5FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -403,7 +403,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
     }
     @Test
     public void process6FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";

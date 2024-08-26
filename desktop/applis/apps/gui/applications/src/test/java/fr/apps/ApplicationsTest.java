@@ -279,7 +279,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         StringMap<ContentTime> contents_ = with(p_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nconf.xml\ninitDb=cl.Init.init\nen", p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);
@@ -298,12 +298,12 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wu1() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
+        FileInfos.enTr(MessagesCdmFullGui.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nen\ntabWidth=4", p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\n"+StringUtil.EN+"\ntabWidth=4", p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);
@@ -322,12 +322,12 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wu2() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
+        FileInfos.enTr(MessagesCdmFullGui.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nen", p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\n"+StringUtil.EN, p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);
@@ -345,12 +345,12 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wf() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
+        FileInfos.enTr(MessagesCdmFullGui.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nen\nmain=pkg.Sample.m\ncover=\nargs=", p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\n"+StringUtil.EN+"\nmain=pkg.Sample.m\ncover=\nargs=", p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);
@@ -708,7 +708,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         StringMap<ContentTime> contents_ = with(p_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nconf.xml\ninitDb=cl.Init.init\nen", p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);
@@ -727,12 +727,12 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wuBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
+        FileInfos.enTr(MessagesCdmFullGui.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nen\ntabWidth=4", p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\n"+StringUtil.EN+"\ntabWidth=4", p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);
@@ -750,12 +750,12 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void wfBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(en_)));
+        FileInfos.enTr(MessagesCdmFullGui.updateEn(FileInfos.initComments(en_)));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(with(p_,  with(p_,with(p_,with(p_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nen\nmain=pkg.Sample.m\ncover=\nargs=", p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\n"+StringUtil.EN+"\nmain=pkg.Sample.m\ncover=\nargs=", p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);

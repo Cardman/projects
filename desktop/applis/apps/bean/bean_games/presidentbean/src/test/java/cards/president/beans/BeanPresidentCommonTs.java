@@ -7,10 +7,11 @@ import code.bean.nat.*;
 import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.Longs;
+import code.util.core.StringUtil;
 
 public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil {
-    public static final String EN = "en";
-    public static final String FR = "fr";
+    public static final String EN = StringUtil.EN;
+    public static final String FR = StringUtil.FR;
     public static NaSt beanResults(String _language, ResultsPresident _dataBase) {
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
         stds_.setDataBase(_dataBase);

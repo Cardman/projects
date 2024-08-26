@@ -27,7 +27,7 @@ public abstract class EquallableGuiInterpreterUtil {
     public static void update(MockProgramInfos _pr) {
         _pr.setLanguages(new StringList(""));
         _pr.setLanguage("");
-        MessagesCdmFullGui.updateEn(FileInfos.enTr(FileInfos.initComments(lg(_pr,""))));
+        MessagesCdmFullGui.updateEnGui(FileInfos.enTr(FileInfos.initComments(lg(_pr,""))));
         updateBase(_pr.currentLg());
     }
 

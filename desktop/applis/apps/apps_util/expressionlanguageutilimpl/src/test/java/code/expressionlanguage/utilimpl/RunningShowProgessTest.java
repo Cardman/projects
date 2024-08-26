@@ -38,7 +38,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
         ExecutingOptions exec_ = exOpt(pr_);
-        exec_.setLg("en");
+        exec_.setLg(StringUtil.EN);
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
@@ -78,7 +78,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(fram_);
         exec_.setListGenerator(progTest_.getFactory());
         stds_.getExecContent().setExecutingOptions(exec_);
-        stds_.getExecContent().updateTranslations(pr_.getTranslations(),pr_.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(pr_.getTranslations(),pr_.getLanguage(),StringUtil.EN);
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) > new Sample2(new(\"1\"));}}");
         files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");

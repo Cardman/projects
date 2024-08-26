@@ -30,7 +30,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -65,7 +65,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -93,7 +93,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -125,7 +125,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -156,7 +156,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -187,7 +187,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -218,7 +218,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -249,7 +249,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -280,7 +280,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -311,7 +311,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -343,7 +343,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -375,7 +375,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -411,7 +411,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -450,7 +450,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -478,7 +478,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -506,7 +506,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -538,7 +538,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -570,7 +570,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -604,7 +604,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -638,7 +638,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -672,7 +672,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -709,7 +709,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -754,7 +754,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -800,7 +800,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -865,7 +865,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -886,7 +886,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -916,7 +916,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -944,7 +944,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -975,7 +975,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1006,7 +1006,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1037,7 +1037,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1068,7 +1068,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1107,7 +1107,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1146,7 +1146,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1186,7 +1186,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1226,7 +1226,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1261,7 +1261,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1292,7 +1292,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1327,7 +1327,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1358,7 +1358,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1393,7 +1393,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1437,7 +1437,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1481,7 +1481,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1534,7 +1534,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1587,7 +1587,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1650,7 +1650,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1713,7 +1713,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1786,7 +1786,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1859,7 +1859,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1898,7 +1898,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1928,7 +1928,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1958,7 +1958,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -1991,7 +1991,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2024,7 +2024,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2057,7 +2057,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2090,7 +2090,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2129,7 +2129,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2171,7 +2171,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2214,7 +2214,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2248,7 +2248,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2282,7 +2282,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2325,7 +2325,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2357,7 +2357,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
@@ -2388,7 +2388,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void fail2() {
@@ -2414,7 +2414,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void fail3() {
@@ -2440,7 +2440,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void fail4() {
@@ -2471,7 +2471,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void fail5() {
@@ -2499,7 +2499,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void fail6() {
@@ -2527,7 +2527,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
 
     @Test
@@ -2551,6 +2551,6 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLgReadOnly("en", files_));
+        assertTrue(hasErrLgReadOnly(files_));
     }
 }

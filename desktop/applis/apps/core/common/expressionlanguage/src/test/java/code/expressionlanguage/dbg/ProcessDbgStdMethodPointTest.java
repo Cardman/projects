@@ -1,8 +1,6 @@
 package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.DefContextGenerator;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
-import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StopDbgEnum;
@@ -23,7 +21,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(is(cont_, fct(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false))));
     }
 
@@ -33,7 +31,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertTrue(is(cont_, toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false))));
     }
 
@@ -43,7 +41,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         assertFalse(is(cont_, fct(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false))));
@@ -55,7 +53,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         assertFalse(is(cont_, fct(cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject()))));
     }
@@ -66,7 +64,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         toggledEnabled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         assertFalse(is(cont_, fct(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false))));
@@ -78,7 +76,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         toggledEnabled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         assertFalse(is(cont_, fct(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false))));
@@ -90,7 +88,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         toggledEnabled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         assertTrue(is(cont_, toggledEnabled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false))));
@@ -102,7 +100,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertTrue(is(cont_, toggledEnabled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false))));
     }
 
@@ -112,7 +110,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         toggled(cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         assertTrue(is(cont_, fct(cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject()))));
@@ -124,7 +122,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         toggled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         toggled(cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         toggledEnabled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
@@ -137,7 +135,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return 1;}public static int exmeth2(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         toggledEnabled(cont_,cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         toggledEnabled(cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         assertTrue(is(cont_, fct(cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject()))));
@@ -149,7 +147,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -163,7 +161,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -176,7 +174,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -191,7 +189,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a==2&&b==4",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -206,7 +204,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a==3",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -219,7 +217,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("b==5",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -232,7 +230,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("length()==4",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -247,7 +245,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -261,7 +259,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -274,7 +272,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -289,7 +287,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a==2&&b==4&&a+b==6",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -304,7 +302,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a==3",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -317,7 +315,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("b==5",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -330,7 +328,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("length()==4",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -345,7 +343,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().append(\"56\").length();}public static StringBuilder exmeth2(){return new StringBuilder(\"1234\");}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringExitingCondition("length()==4","length()==6",cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasAppend(),false, cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -364,7 +362,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return f.call(4).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==1&&a[0]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -379,7 +377,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int,int);return f.call(3,4).substring(b:4,a:2).length();}public static String exmeth2(int a,int b){return \"12\"+a+b;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==2&&a[0]==3&&a[1]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -394,7 +392,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return f.call(4).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==2",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -407,7 +405,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int,int);return f.call(3,4).substring(b:4,a:2).length();}public static String exmeth2(int a,int b){return \"12\"+a+b;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==3",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -420,7 +418,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return f.call(4).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==1&&a[0]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -435,7 +433,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int,int);return f.call(3,4).substring(b:4,a:2).length();}public static String exmeth2(int a,int b){return \"12\"+a+b;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==2&&a[0]==3&&a[1]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -450,7 +448,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return f.call(4).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==2",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -463,7 +461,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int,int);return f.call(3,4).substring(b:4,a:2).length();}public static String exmeth2(int a,int b){return \"12\"+a+b;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==3",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -476,7 +474,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -489,7 +487,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return f.call(a:{4}).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==1&&a[0]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -504,7 +502,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int,int);return f.call(a:{3,4}).substring(b:4,a:2).length();}public static String exmeth2(int a,int b){return \"12\"+a+b;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==2&&a[0]==3&&a[1]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -519,7 +517,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return f.call(a:{4}).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==2",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -532,7 +530,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int,int);return f.call(a:{3,4}).substring(b:4,a:2).length();}public static String exmeth2(int a,int b){return \"12\"+a+b;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==3",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -545,7 +543,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return f.call(a:{4}).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==1&&a[0]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -560,7 +558,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int,int);return f.call(a:{3,4}).substring(b:4,a:2).length();}public static String exmeth2(int a,int b){return \"12\"+a+b;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==2&&a[0]==3&&a[1]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -575,7 +573,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return f.call(a:{4}).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==2",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -588,7 +586,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int,int);return f.call(a:{3,4}).substring(b:4,a:2).length();}public static String exmeth2(int a,int b){return \"12\"+a+b;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==3",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true, cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -601,7 +599,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return ((String)((Method)f.metaInfo()).invoke(null,4)).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasMetaInfo(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -616,7 +614,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return ((String)((Method)f.metaInfo()).invoke(null,4)).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasMetaInfo(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -631,7 +629,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=$lambda(int[],new,int);return f.call(4).length;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==1&&a[0]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -646,7 +644,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=$lambda(int[],new,int);return f.call(4).length;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==1&&a[0]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasFct(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasCall(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -661,7 +659,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return new StringBuilder(\"1\").length();}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a==\"1\"",cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -676,7 +674,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return new StringBuilder(\"1\").length();}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a==\"1\"",cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -691,7 +689,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return \"1,2;3,4\".splitChars(',',';').length;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a.length==2&&a[0]==','&&a[1]==';'",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSplitChars(),true,cont_.getContext().getStandards().getPrimTypes().getAliasPrimChar()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -706,7 +704,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return \"1,2;3,4\".splitChars(',',';').length;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a.length==2&&a[0]==','&&a[1]==';'",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasSplitChars(),true,cont_.getContext().getStandards().getPrimTypes().getAliasPrimChar()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -721,7 +719,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return ((String)((Method)f.metaInfo()).invoke(null,4)).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a==null&&b.length==1&&b[0]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasMethod(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasInvoke(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject(),cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -736,7 +734,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=static().$lambda(Ex,exmeth2,int);return ((String)((Method)f.metaInfo()).invoke(null,4)).substring(b:4,a:2).length();}public static String exmeth2(int a){return \"123\"+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("a==null&&b.length==1&&b[0]==4",cont_,cont_.getContext().getStandards().getReflect().getAliasMethod(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getReflect().getAliasInvoke(),true,cont_.getContext().getStandards().getCoreNames().getAliasObject(),cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -751,7 +749,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){Ex e=exmeth2().length();return e.t;}public static String exmeth2(){return \"1\";}public int t;public(int t){this.t=t;}public static Ex $(int u){return new(u);}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -766,7 +764,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){Ex e=exmeth2().length();return e.t;}public static String exmeth2(){return \"1\";}public int t;public(int t){this.t=t;}public static Ex $(int u){return new(u);}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         entering(cont_,"pkg/Ex",166);
         MethodId id_ = getMethodId("exmeth");
@@ -784,7 +782,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static boolean exmeth(){var s=\"\";return s.isEmpty()||s.charAt(0)==' ';}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasIsEmpty(),false));
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasCharAt(),false,cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
@@ -800,7 +798,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static String exmeth(){return StringUtil.valueOf(new Ex());}public String $toString(){return \"123\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("Class.getClass(a)==class(pkg.Ex)",cont_,cont_.getContext().getStandards().getCoreNames().getAliasStringUtil(),getMethodId(MethodAccessKind.STATIC,cont_.getContext().getStandards().getCoreNames().getAliasStringUtilValueOf(),false,cont_.getContext().getStandards().getCoreNames().getAliasObject()));
         cont_.toggleBreakPoint("pkg/Ex",121);
         MethodId id_ = getMethodId("exmeth");
@@ -819,7 +817,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return (int)class(CharSequence).getDeclaredMethods(\"length\",false,false)[0].invoke(exmeth2());}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -834,7 +832,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return (int)class(CharSequence).getDeclaredMethods(\"length\",false,false)[0].invoke(exmeth2());}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -849,7 +847,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=exmeth2().$lambda(CharSequence,length);return f.call();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -864,7 +862,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=exmeth2().$lambda(CharSequence,length);return f.call();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -879,7 +877,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return (int)class(CharSequence).getDeclaredMethods(\"length\",false,false)[0].invoke(0);}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -892,7 +890,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return (int)class(CharSequence).getDeclaredMethods(\"length\",false,false)[0].invoke(null);}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -905,7 +903,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return ((StringBuilder)class(StringBuilder).getDeclaredConstructors(false,class(String))[0].newInstance(exmeth2())).length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -920,7 +918,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return ((StringBuilder)class(StringBuilder).getDeclaredConstructors(false,class(String))[0].newInstance(exmeth2())).length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -935,7 +933,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=$lambda(StringBuilder,new,String);return f.call(exmeth2()).length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -950,7 +948,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var f=$lambda(StringBuilder,new,String);return f.call(exmeth2()).length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exiting(cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -965,7 +963,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return ((StringBuilder)class(StringBuilder).getDeclaredConstructors(false,class(String))[0].newInstance(null,exmeth2())).length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -978,7 +976,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return ((StringBuilder)class(StringBuilder).getDeclaredConstructors(false,class(String))[0].newInstance(0)).length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -991,7 +989,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return ((StringBuilder)class(StringBuilder).getDeclaredConstructors(false,class(String))[0].newInstance((Object[])null)).length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         entering(cont_,cont_.getContext().getStandards().getCharSeq().getAliasStringBuilder(),getConstructorId(false,cont_.getContext().getStandards().getCharSeq().getAliasString()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1004,7 +1002,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}public class pkg.Ex2{public int condition=-1;public int cond(){return condition;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("((pkg.Ex2)new pkg.Ex2(){public int cond(){return 1;}}).cond()==length()",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1019,7 +1017,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}public class pkg.Ex2{public int condition=-1;public int cond(){return condition;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("((pkg.Ex2)new pkg.Ex2(){public int cond(){return 1;}}).cond()==length()",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1034,7 +1032,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return Math.abs(exmeth2());}public static int exmeth2(){return 1;}}public class pkg.Ex2{public int condition=-1;public int cond(){return condition;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("((pkg.Ex2)new pkg.Ex2(){public int cond(){return 1;}}).cond()==1",cont_,cont_.getContext().getStandards().getMathRef().getAliasMath(),getMethodId(MethodAccessKind.STATIC,cont_.getContext().getStandards().getMathRef().getAliasAbs(),false,cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1049,7 +1047,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return Math.abs(exmeth2());}public static int exmeth2(){return 1;}}public class pkg.Ex2{public int condition=-1;public int cond(){return condition;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("((pkg.Ex2)new pkg.Ex2(){public int cond(){return 1;}}).cond()==1",cont_,cont_.getContext().getStandards().getMathRef().getAliasMath(),getMethodId(MethodAccessKind.STATIC,cont_.getContext().getStandards().getMathRef().getAliasAbs(),false,cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1064,7 +1062,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("{static class Ex2{public int condition=-1;public int cond(){return 1;}}return ((Ex2)new Ex2(){public int cond(){return 1;}}).cond()==length();}",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1079,7 +1077,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().length();}public static String exmeth2(){return \"1\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("{static class Ex2{public int condition=-1;public int cond(){return condition;}}return ((Ex2)new Ex2(){public int cond(){return 1;}}).cond()==length();}",cont_,cont_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,cont_.getContext().getStandards().getCharSeq().getAliasLength(),false));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1094,7 +1092,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return Math.abs(exmeth2());}public static int exmeth2(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("{static class Ex2{public int condition=-1;public int cond(){return condition;}}return ((Ex2)new Ex2(){public int cond(){return 1;}}).cond()==1;}",cont_,cont_.getContext().getStandards().getMathRef().getAliasMath(),getMethodId(MethodAccessKind.STATIC,cont_.getContext().getStandards().getMathRef().getAliasAbs(),false,cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1109,7 +1107,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return Math.abs(exmeth2());}public static int exmeth2(){return 1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         exitingCondition("{static class Ex2{public int condition=-1;public int cond(){return condition;}}return ((Ex2)new Ex2(){public int cond(){return 1;}}).cond()==1;}",cont_,cont_.getContext().getStandards().getMathRef().getAliasMath(),getMethodId(MethodAccessKind.STATIC,cont_.getContext().getStandards().getMathRef().getAliasAbs(),false,cont_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -1123,7 +1121,7 @@ public final class ProcessDbgStdMethodPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public int f;public static int exmeth(){return new Ex().exmeth2()+=2;}public that int exmeth2(){return that(f);}{f=f;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         StandardNamedFunction e_ = exiting(cont_, cont_.getContext().getStandards().getCoreNames().getAliasObject(), getConstructorId(false));
         StdMethodPointBlockPair wp_ = cont_.getPair(e_);
         assertFalse(new StdMethodKeyString().keyString(wp_).isEmpty());

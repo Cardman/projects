@@ -37,7 +37,8 @@ import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableElAdvUtil {
-    public static final String EN = FileInfos.EN;
+    public static final String EN = StringUtil.EN;
+    public static final String FR = StringUtil.FR;
     protected static MethodId getMethodId(String _name, String..._classNames) {
         return getMethodId(MethodAccessKind.STATIC, _name, false, _classNames);
     }
@@ -115,11 +116,11 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
-        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        pr_.setLanguage(FileInfos.EN);
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        pr_.setLanguage(StringUtil.EN);
         update(pr_);
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
@@ -134,11 +135,11 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
-        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        pr_.setLanguage(FileInfos.EN);
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        pr_.setLanguage(StringUtil.EN);
         update(pr_);
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
@@ -157,11 +158,11 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
-        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        pr_.setLanguage(FileInfos.EN);
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        pr_.setLanguage(StringUtil.EN);
         update(pr_);
         return pr_;
     }
@@ -606,7 +607,7 @@ public abstract class EquallableElAdvUtil {
         AbstractProgramInfos frs_ = _pr.getFrames();
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         lines_.add("src=//");
         return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
     }
@@ -614,7 +615,7 @@ public abstract class EquallableElAdvUtil {
         AbstractProgramInfos frs_ = _pr.getFrames();
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         lines_.add("keyWords=If=;");
         return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
     }
@@ -639,15 +640,15 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor quickCreate(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         return window(_pr);
     }
 
     public static WindowCdmEditor windowLoadDefTwice(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
@@ -664,8 +665,8 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor windowLoadDefTwiceOtherPlace(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
@@ -680,8 +681,8 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor windowLoadDefTwiceRefresh(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         _pr.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
@@ -696,8 +697,8 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefTwiceRefreshDelete(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         _pr.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
@@ -710,8 +711,8 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefTwiceRefreshDeleteExceptRoot(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         _pr.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
@@ -725,8 +726,8 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefNoTab(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
@@ -738,8 +739,8 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefNoTabQuick(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
@@ -749,22 +750,22 @@ public abstract class EquallableElAdvUtil {
     }
     public static WindowCdmEditor windowLoadDefInit(WindowCdmEditor _first) {
         AbstractProgramInfos pr_ = _first.getFrames();
-        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        pr_.setLanguage(FileInfos.EN);
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        pr_.setLanguage(StringUtil.EN);
         update((MockProgramInfos) pr_);
         return window(pr_);
     }
 
     public static WindowCdmEditor windowLoadDefInit(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         updateChoose((MockProgramInfos) _pr);
         return window(_pr);
     }
 
     public static WindowCdmEditor createWindowCdm(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        _pr.setLanguage(FileInfos.EN);
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
         update((MockProgramInfos) _pr);
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
 //        _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
@@ -794,13 +795,13 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static void updateChoose(MockProgramInfos _pr) {
-        FileInfos.enTr(MessagesIde.updateEn(FileInfos.initComments(lg(_pr,FileInfos.EN))));
-        FileInfos.frTr(MessagesIde.updateFr(FileInfos.initComments(lg(_pr,FileInfos.FR))));
+        FileInfos.enTr(MessagesIde.updateEn(FileInfos.initComments(lg(_pr,StringUtil.EN))));
+        FileInfos.frTr(MessagesIde.updateFr(FileInfos.initComments(lg(_pr,StringUtil.FR))));
     }
 
     public static void updateDialog(MockProgramInfos _pr) {
-        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(_pr.getTranslations().getMapping().getVal(FileInfos.EN)));
-        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(_pr.getTranslations().getMapping().getVal(FileInfos.FR)));
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(_pr.getTranslations().getMapping().getVal(StringUtil.EN)));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(_pr.getTranslations().getMapping().getVal(StringUtil.FR)));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);
@@ -971,7 +972,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
@@ -983,7 +984,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
@@ -996,12 +997,12 @@ public abstract class EquallableElAdvUtil {
         c_.setFolderExpression(_folder);
         c_.getOpenedFiles().add("file.txt");
         c_.getOpenedFilesToInit().add(_sec);
-        c_.setLines(new StringList(_folder,"en"));
+        c_.setLines(new StringList(_folder,StringUtil.EN));
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(c_),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
@@ -1013,7 +1014,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         lines_.add("messages=VoidType=void\\u0020type?");
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
@@ -1026,7 +1027,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         lines_.add("aliases=Runnable=$core.Runner");
         lines_.add("keyWords=If=even");
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
@@ -1040,7 +1041,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         StreamTextFile.saveTextFile("/project/sources/src/file.txt","TEXT",pr_.getStreams());
@@ -1053,7 +1054,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         StreamTextFile.saveTextFile("/project/sources/other_file.txt", "",pr_.getStreams());
@@ -1066,7 +1067,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
@@ -1078,7 +1079,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
@@ -1090,7 +1091,7 @@ public abstract class EquallableElAdvUtil {
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         return pr_;
     }
@@ -1102,7 +1103,7 @@ public abstract class EquallableElAdvUtil {
         StreamTextFile.saveTextFile("/editor/conf.xml",WindowCdmEditor.buildDefConfFile(chooseConf_,new StringList()),pr_.getStreams());
         StringList lines_ = new StringList();
         lines_.add("/folder/sources");
-        lines_.add("en");
+        lines_.add(StringUtil.EN);
         StreamTextFile.saveTextFile(chooseConf_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         return pr_;
     }
@@ -1152,8 +1153,8 @@ public abstract class EquallableElAdvUtil {
     }
     public static MockProgramInfos buildTrs(String _h, String _t) {
         MockProgramInfos pr_ = build(_h, _t);
-        TranslationsAppli en_ = FileInfos.initComments(lg(pr_, FileInfos.EN));
-        TranslationsAppli fr_ = FileInfos.initComments(lg(pr_, FileInfos.FR));
+        TranslationsAppli en_ = FileInfos.initComments(lg(pr_, StringUtil.EN));
+        TranslationsAppli fr_ = FileInfos.initComments(lg(pr_, StringUtil.FR));
         MessagesIde.appendFindText(en_, MessagesIde.enFindText());
         MessagesIde.appendFindText(fr_, MessagesIde.frFindText());
         FileInfos.enTr(en_);

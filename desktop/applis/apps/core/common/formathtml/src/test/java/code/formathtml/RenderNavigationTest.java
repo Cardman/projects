@@ -24,7 +24,7 @@ public final class RenderNavigationTest extends CommonRender {
     private static final String CUST_TABLE_PATH = "pkg/CustTable";
     @Test
     public void noBeanTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -58,7 +58,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void noCustBeanTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -90,7 +90,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void emptyLinkTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -156,7 +156,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void beanInitTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -183,7 +183,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void validatorInitTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -239,7 +239,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void titleTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -260,7 +260,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void anchorFailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -317,7 +317,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void anchorFail2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -374,7 +374,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void anchor1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -429,7 +429,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void anchor2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -483,7 +483,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void anchor3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -537,7 +537,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void anchor4Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -592,7 +592,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void anchor5Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -646,7 +646,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void anchor6Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -706,7 +706,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void anchor7Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -761,7 +761,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void anchor8Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -817,7 +817,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form0Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -888,7 +888,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -965,7 +965,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1055,7 +1055,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1137,7 +1137,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form4Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1219,7 +1219,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form5Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1303,7 +1303,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form6Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1379,7 +1379,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form7Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1455,7 +1455,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form8Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1533,7 +1533,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form9Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -1610,7 +1610,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form10Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1673,7 +1673,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form11Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1754,7 +1754,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form12Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1836,7 +1836,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form13Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1918,7 +1918,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form14Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
@@ -2009,7 +2009,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form15Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2091,7 +2091,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form16Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2182,7 +2182,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form17Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2273,7 +2273,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form18Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -2353,7 +2353,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form19Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2464,7 +2464,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form20Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2547,7 +2547,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form21Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2629,7 +2629,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form22Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2711,7 +2711,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form23Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2793,7 +2793,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form24Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2848,7 +2848,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form25Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2942,7 +2942,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form26Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3036,7 +3036,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form27Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3093,7 +3093,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form28Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3151,7 +3151,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form29Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3209,7 +3209,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form30Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3260,7 +3260,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form31Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3318,7 +3318,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form32Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3400,7 +3400,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form33Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3482,7 +3482,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form34Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3545,7 +3545,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form35Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3608,7 +3608,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form36Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3671,7 +3671,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form37Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3706,7 +3706,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form38Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3772,7 +3772,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form39Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3823,7 +3823,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form40Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3873,7 +3873,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form41Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3923,7 +3923,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form42Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -3973,7 +3973,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form43Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4034,7 +4034,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form44Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4097,7 +4097,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form45Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4159,7 +4159,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form46Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4256,7 +4256,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form47Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4310,7 +4310,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form48Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4368,7 +4368,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form49Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4463,7 +4463,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form50Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4557,7 +4557,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form51Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4616,7 +4616,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form52Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4672,7 +4672,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form53Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4730,7 +4730,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form54Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4812,7 +4812,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form55Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4897,7 +4897,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form56Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4978,7 +4978,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form57Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5065,7 +5065,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5152,7 +5152,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58_Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5239,7 +5239,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58__Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5326,7 +5326,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58___Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5413,7 +5413,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58____Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5487,7 +5487,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58_____Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5561,7 +5561,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58______Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5635,7 +5635,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58_0Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5709,7 +5709,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58_1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5783,7 +5783,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58_2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5857,7 +5857,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form58_3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -5931,7 +5931,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form59Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5994,7 +5994,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form60Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -6053,7 +6053,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form61Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -6124,7 +6124,7 @@ public final class RenderNavigationTest extends CommonRender {
 
     @Test
     public void form1FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -6154,7 +6154,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
 //    @Test
 //    public void form2FailTest() {
-//        String locale_ = "en";
+//        String locale_ = EN;
 //        String folder_ = "messages";
 //        String relative_ = "sample/file";
 //        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -6184,7 +6184,7 @@ public final class RenderNavigationTest extends CommonRender {
 //    }
     @Test
     public void form3FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -6202,7 +6202,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     @Test
     public void form4FailTest() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";

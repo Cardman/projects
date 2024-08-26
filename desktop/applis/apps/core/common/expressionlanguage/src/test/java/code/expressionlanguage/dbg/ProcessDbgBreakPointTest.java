@@ -24,7 +24,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(cont_.is(file(cont_),71));
     }
 
@@ -40,7 +40,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         assertTrue(cont_.is(file(cont_),70));
     }
@@ -57,7 +57,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex",71);
         assertFalse(cont_.is(file(cont_),70));
@@ -75,7 +75,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         assertFalse(cont_.is(file(cont_),80));
     }
@@ -92,7 +92,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",-1);
         assertFalse(cont_.is(file(cont_),80));
     }
@@ -109,7 +109,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         assertFalse(cont_.is(file(cont_),70));
@@ -127,7 +127,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
@@ -146,7 +146,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         assertTrue(cont_.is(file(cont_),70));
     }
@@ -163,7 +163,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",-1);
         assertFalse(cont_.is(file(cont_),70));
     }
@@ -180,7 +180,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex",58);
         assertTrue(cont_.is(file(cont_),57));
@@ -198,7 +198,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex",58);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
@@ -217,7 +217,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",58);
         assertTrue(cont_.is(file(cont_),57));
@@ -244,7 +244,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex2",58);
         assertTrue(cont_.is(file(cont_),70));
@@ -261,7 +261,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",62);
         assertFalse(cont_.is(file(cont_),71));
     }
@@ -278,7 +278,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         assertFalse(cont_.is(file(cont_),70));
@@ -296,7 +296,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
@@ -315,7 +315,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",58);
@@ -334,7 +334,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",-1);
@@ -367,7 +367,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",1);
         assertTrue(ResultExpressionOperationNode.enabledTypeBp(13,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex")));
@@ -399,7 +399,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",1);
         assertFalse(ResultExpressionOperationNode.enabledTypeBp(1,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex2")));
@@ -431,7 +431,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",42);
         cont_.toggleBreakPoint("pkg/Ex2",1);
         assertFalse(ResultExpressionOperationNode.enabledTypeBp(42,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex")));
@@ -457,7 +457,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",13);
         updateInstType(cont_, "pkg/Ex",13, true);
@@ -487,7 +487,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",13);
         updateStaType(cont_, "pkg/Ex",13, false);
@@ -516,7 +516,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",59);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex2",59);
@@ -550,7 +550,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertEq("pkg.Ex.static exmeth()",ResultExpressionOperationNode.beginPartFct(53,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
     }
     @Test
@@ -579,7 +579,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertEq("",ResultExpressionOperationNode.beginPartFct(22,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
         assertEq("",ResultExpressionOperationNode.beginPartFctKey(22,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex")));
     }
@@ -607,7 +607,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertEq("pkg.Ex.static .1(int,int)",ResultExpressionOperationNode.beginPartFct(80,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
     }
     @Test
@@ -634,7 +634,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertEq("pkg.Ex.static .1(int)",ResultExpressionOperationNode.beginPartFct(86,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
     }
     @Test
@@ -659,7 +659,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertEq("static +(pkg.Ex2).static .1(int,int)",ResultExpressionOperationNode.beginPartFct(51,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
     }
     @Test
@@ -684,7 +684,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
         files_.put("pkg/Ex3", xml3_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertEq("static +(pkg.Ex2).static .1(int)",ResultExpressionOperationNode.beginPartFct(58,cont_.getPageEl().getPreviousFilesBodies().getVal("pkg/Ex"),cont_.getPageEl().getDisplayedStrings()));
     }
     @Test
@@ -708,7 +708,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",13);
         cont_.toggleBreakPointEnabled("pkg/Ex2",13);
         updateInstType(cont_, "pkg/Ex",13, true);
@@ -738,7 +738,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",13);
         cont_.toggleBreakPointEnabled("pkg/Ex",13);
         assertFalse(cont_.getPairType(file(cont_,"pkg/Ex"),13).getValue().isEnabled());
@@ -765,7 +765,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",13);
         cont_.toggleBreakPointEnabled("pkg/Ex",13);
         cont_.toggleBreakPointEnabled("pkg/Ex",13);
@@ -792,7 +792,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex2",13);
         updateInstType(cont_, "pkg/Ex",13, true);
@@ -821,7 +821,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex",13);
         assertFalse(cont_.tpList().elts().iterator().hasNext());
@@ -849,7 +849,7 @@ public final class ProcessDbgBreakPointTest extends ProcessDbgCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         files_.put("pkg/Ex2", xml2_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex",13);
         cont_.toggleBreakPoint("pkg/Ex",13);

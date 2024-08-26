@@ -576,7 +576,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append(" public int v = (];\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(hasErrLgReadOnly("en", files_));
+        assertTrue(hasErrLgReadOnly(files_));
     }
     @Test
     public void validateEl27FailTest() {
@@ -878,7 +878,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void validateEl176FailTest() {
@@ -895,7 +895,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void validateEl177FailTest() {
@@ -907,7 +907,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void validateEl178FailTest() {
@@ -919,7 +919,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void validateEl179FailTest() {
@@ -931,7 +931,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void validateEl180FailTest() {
@@ -942,7 +942,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("  case 1;\n");
         xml_.append("  default\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void validateEl181FailTest() {
@@ -953,7 +953,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("  case 1;\n");
         xml_.append("  default");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_, "en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void validateEl5__FailTest() {

@@ -8,13 +8,14 @@ import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
 import code.util.Longs;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static final String AUTRE = "AUTRE";
 //    public static final String ACCESS_TO_DEFAULT_FILES = "";
-    public static final String EN = "en";
-    public static final String FR = "fr";
+    public static final String EN = StringUtil.EN;
+    public static final String FR = StringUtil.FR;
 //    protected static final char NAV_SEP='.';
 
     public static void transit(PokemonStandards _stds, NatCaller _caller, NaSt _first, NaSt _second, long... _args) {

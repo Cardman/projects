@@ -21,7 +21,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     @Test
     public void redirect1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
@@ -57,7 +57,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
     @Test
     public void process2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -90,7 +90,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     @Test
     public void redirect3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
@@ -126,7 +126,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
     @Test
     public void process4Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
@@ -159,7 +159,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     @Test
     public void redirect5Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
@@ -201,7 +201,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
     @Test
     public void process6Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a><a c:command=\"$click2\">four</a>After\nfour=''asp''";
@@ -236,7 +236,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
     @Test
     public void redirect7Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
@@ -278,7 +278,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
     @Test
     public void process8Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a><a c:command=\"$click2({1})\">four</a>After\nfour=''asp''";
@@ -314,7 +314,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     @Test
     public void redirect9Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
@@ -354,7 +354,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     @Test
     public void process10Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -386,7 +386,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
     @Test
     public void process11Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -420,7 +420,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     @Test
     public void setRendObject1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -466,7 +466,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     @Test
     public void setRendObject2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
@@ -509,7 +509,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
     @Test
     public void setRendObject3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -557,7 +557,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
     @Test
     public void setRendObject4Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";

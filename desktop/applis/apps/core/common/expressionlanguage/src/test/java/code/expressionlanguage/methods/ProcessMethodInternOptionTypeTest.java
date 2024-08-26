@@ -31,7 +31,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -79,7 +79,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -130,7 +130,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -184,7 +184,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -236,7 +236,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -290,7 +290,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -345,7 +345,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -401,7 +401,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -459,7 +459,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -520,7 +520,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -572,7 +572,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -625,7 +625,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -673,7 +673,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -729,7 +729,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -787,7 +787,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -844,7 +844,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -901,7 +901,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -953,7 +953,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1015,7 +1015,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1073,7 +1073,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1132,7 +1132,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1166,7 +1166,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1217,7 +1217,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1268,7 +1268,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1319,7 +1319,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1370,7 +1370,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1421,7 +1421,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1472,7 +1472,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1523,7 +1523,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1574,7 +1574,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1630,7 +1630,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1686,7 +1686,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1744,7 +1744,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1802,7 +1802,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1863,7 +1863,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1921,7 +1921,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -1979,7 +1979,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2033,7 +2033,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2093,7 +2093,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2135,7 +2135,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2179,7 +2179,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2221,7 +2221,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2267,7 +2267,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2313,7 +2313,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2367,7 +2367,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2421,7 +2421,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2475,7 +2475,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2502,7 +2502,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("isEq");
         Argument ret_ = calculateNormal("pkgtwo.OuterThree", id_, args_, cont_);
@@ -2545,7 +2545,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2591,7 +2591,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2627,7 +2627,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -2687,7 +2687,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2746,7 +2746,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2801,7 +2801,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2837,7 +2837,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -2867,7 +2867,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -2892,7 +2892,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        ContextEl cont_ = ctxLgReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -2918,7 +2918,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2951,7 +2951,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -2984,7 +2984,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -3017,7 +3017,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -3050,7 +3050,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -3083,7 +3083,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -3109,7 +3109,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgumentFailTest() {
@@ -3150,7 +3150,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
@@ -3197,7 +3197,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
@@ -3252,7 +3252,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument3FailTest() {
@@ -3266,7 +3266,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" public static Inner field = new Inner();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument4FailTest() {
@@ -3284,7 +3284,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument5FailTest() {
@@ -3304,7 +3304,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument6FailTest() {
@@ -3360,7 +3360,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
@@ -3418,7 +3418,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
@@ -3439,7 +3439,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument9FailTest() {
@@ -3456,7 +3456,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument10FailTest() {
@@ -3473,7 +3473,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument11FailTest() {
@@ -3488,7 +3488,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument12FailTest() {
@@ -3505,7 +3505,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument13FailTest() {
@@ -3551,7 +3551,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
@@ -3601,7 +3601,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
@@ -3624,7 +3624,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument16FailTest() {
@@ -3638,7 +3638,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument17FailTest() {
@@ -3679,7 +3679,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
@@ -3698,7 +3698,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument19FailTest() {
@@ -3718,7 +3718,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour2", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument20FailTest() {
@@ -3738,7 +3738,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour2", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument21FailTest() {
@@ -3765,7 +3765,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour2", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("meth");
         Argument ret_ = new Argument();
@@ -3793,7 +3793,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("meth");
         Argument ret_ = new Argument();
@@ -3818,7 +3818,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour2", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
 
     }
     @Test
@@ -3857,7 +3857,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument23FailTest() {
@@ -3895,7 +3895,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument24FailTest() {
@@ -3933,7 +3933,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument25FailTest() {
@@ -3950,7 +3950,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument26FailTest() {
@@ -3991,6 +3991,6 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" Object v = new OuterThree<App>().new InnerFive<Inex>();\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
 }

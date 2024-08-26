@@ -577,8 +577,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         DualConfigurationContext dual_ = new DualConfigurationContext();
         Navigation nav_ = new Navigation();
         nav_.setSession(_conf);
-        nav_.setLanguage("en");
-        nav_.setLanguages(new StringList("en"));
+        nav_.setLanguage(EN);
+        nav_.setLanguages(new StringList(EN));
         FileBlock file_ = new FileBlock(0, false, "", new AdvFileEscapedCalc(new IntTreeMap<Integer>()));
         file_.metrics("");
         return new DualNavigationContext(nav_,new DualAnalyzedContext(forwards_,page_,lgNames_,dual_, file_));

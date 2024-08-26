@@ -182,12 +182,11 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         int nf_ = _cont.getFiles().getKey(index_).getNumberFile();
         _cont.getContext().tmpList().add(new BreakPointBlockKey(_stack.getLastPage().getFile(), nf_, _caret));
     }
-    protected static ResultContext ctxLgReadOnlyOkQuick(String _lg, StringMap<String> _files, String... _types) {
+    protected static ResultContext ctxLgReadOnlyOkQuick(StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
         CustLgNames lgName_ = getLgNames();
-        assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
         ResultContext res_ = validateAndRetWithoutInit(opt_, lgName_, kwl_, _files, new StringMap<String>(), new DbgStackStopper(new DefLogDbg()));
         res_.getContext().setExiting(new NoExiting());
@@ -217,26 +216,26 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected static ResultContext resCtx(String _class, int _caret, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(), _caret);
         return res_;
     }
 
     protected ArrayStruct valueDbgExc(String _dyn, String _class, String _meth, int _caret, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(),_caret);
         return endExc(_dyn, _class, _meth, res_);
     }
     protected Struct valueDbg(String _dyn, String _class, String _meth, String _file, int _caret, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         res_.toggleBreakPoint(_file,_caret);
         return end(_dyn, _class, _meth, res_);
     }
 
     protected Struct valueDbgStatic(String _dyn, String _class, String _meth, StringMap<String> _files, String... _types) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files, _types);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files, _types);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(),ana_.getIdRowCol());
         updateInstType(res_, ana_.getFile().getFileName(),ana_.getIdRowCol(),false);
@@ -245,7 +244,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected Struct valueDbgInst(String _dyn, String _class, String _meth, StringMap<String> _files, String... _types) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files, _types);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files, _types);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(),ana_.getIdRowCol());
         updateInstType(res_, ana_.getFile().getFileName(),ana_.getIdRowCol(),true);
@@ -254,7 +253,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected ReportedMessages valueDbgKo(String _dyn, String _class, String _meth, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(),ana_.getIdRowCol());
         updateInstType(res_, ana_.getFile().getFileName(),ana_.getIdRowCol(),false);
@@ -263,7 +262,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected ReportedMessages valueDbgKoStType(String _dyn, String _class, String _meth, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(),ana_.getIdRowCol());
         updateInstType(res_, ana_.getFile().getFileName(),ana_.getIdRowCol(),false);
@@ -314,7 +313,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected ResultContext ctxSt(String _class, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(),ana_.getIdRowCol());
         updateInstType(res_, ana_.getFile().getFileName(),ana_.getIdRowCol(),false);
@@ -415,7 +414,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected ResultContext ctxInst(String _class, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(),ana_.getIdRowCol());
         updateInstType(res_, ana_.getFile().getFileName(),ana_.getIdRowCol(),true);
@@ -460,14 +459,14 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return countStdView(_dyn, _class, _meth, _caret, _files, res_);
     }
     protected ResultContext ctxStd(String _class, int _caret, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(), _caret);
         return res_;
     }
 
     protected CustList<String> conditionalStdViewLogs(String _exp, String _log, String _file, int _caret, String _class, String _meth, StringMap<String> _files, boolean _st, int _mod, boolean _d, boolean _en) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         res_.toggleBreakPoint(_file, _caret);
         BreakPointBlockPair pair_ = res_.getPair(res_.getFiles().getVal(res_.getPageEl().getPreviousFilesBodies().getVal(_file)), _caret);
         BreakPointCondition std_ = pair_.getValue().getResultStd();
@@ -485,13 +484,13 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected CustList<String> conditionalStdViewLogs(String _class, String _meth, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         CustomFoundMethod state_ = state(res_,_class, _meth);
         StackCallReturnValue v_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getPageEl().getOptions(), null, state_, null, false);
         return ((DefLogDbg) v_.getStack().getStopper().getLogger()).getList();
     }
     protected BreakPointOutputInfo conditionalStdViewLogsWacthes(String _exp, String _watch, String _file, int _caret, String _class, String _meth, StringMap<String> _files, boolean _st, int _mod, boolean _d, boolean _en) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         res_.toggleBreakPoint(_file, _caret);
         BreakPointBlockPair pair_ = res_.getPair(res_.getFiles().getVal(res_.getPageEl().getPreviousFilesBodies().getVal(_file)), _caret);
         BreakPointCondition std_ = pair_.getValue().getResultStd();
@@ -650,7 +649,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected ReportedMessages conditionalStdViewBad(String _dyn, String _class, int _caret, StringMap<String> _files) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files);
         RootBlock ana_ = res_.getPageEl().getAnaClassBody(_class);
         res_.toggleBreakPoint(ana_.getFile().getFileName(), _caret);
         ExecRootBlock classBody_ = res_.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
@@ -666,7 +665,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     }
 
     protected ResultContext firstAna(StringMap<String> _files) {
-        return ctxLgReadOnlyOkQuick("en", _files);
+        return ctxLgReadOnlyOkQuick(_files);
     }
 
     protected static Struct end(String _dyn, String _class, String _meth, ResultContext _res) {
@@ -726,7 +725,7 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         return WatchResults.dynamicAnalyze(_dyn,_res,new DefContextGenerator(),page_).getReportedMessages();
     }
     protected AnalyzedPageEl scope(StringMap<String> _files, String _fileName, int _caret, String... _types) {
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en", _files, _types);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(_files, _types);
         return ResultExpressionOperationNode.prepare(_fileName,_caret,res_.getPageEl(),BreakPoint.BPC_STD);
     }
 

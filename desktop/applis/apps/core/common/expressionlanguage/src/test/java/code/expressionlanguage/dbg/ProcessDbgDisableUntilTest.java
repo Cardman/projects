@@ -12,7 +12,7 @@ public final class ProcessDbgDisableUntilTest extends ProcessDbgCommon {
     public void test1() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){dep(1);int t = 0;dep(2);return t;}public static int dep(int p){return p;}}");
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         StackCallReturnValue first_ = disableHitUntilStdView("pkg.Ex", "exmeth", 118,59, cont_);
         assertEq(1,first_.getStack().nbPages());
         assertEq(59,now(first_.getStack()));
@@ -24,7 +24,7 @@ public final class ProcessDbgDisableUntilTest extends ProcessDbgCommon {
     public void test2() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){dep(1);int t = 0;dep(2);return t;}public static int dep(int p){return p;}}");
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         StackCallReturnValue first_ = disableHitUntilStdView("pkg.Ex", "exmeth", 118,59, cont_);
         assertEq(0,dbgContinueNormal(dbgContinueNormal(first_.getStack(),cont_.getContext()),cont_.getContext()).nbPages());
     }
@@ -32,7 +32,7 @@ public final class ProcessDbgDisableUntilTest extends ProcessDbgCommon {
     public void test3() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t = 0;iter(int i=0;4;1){iter(int j=0;4;1){t++;}t++;}return t;}}");
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         CustList<String> first_ = disableHitUntilStdViewLog("pkg.Ex", "exmeth", 94,99, "i", "i+\",\"+j", cont_, true);
         assertEq(7, first_.size());
         assertEq("0", first_.get(0));
@@ -47,7 +47,7 @@ public final class ProcessDbgDisableUntilTest extends ProcessDbgCommon {
     public void test4() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int t = 0;iter(int i=0;4;1){iter(int j=0;4;1){t++;}t++;}return t;}}");
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         CustList<String> first_ = disableHitUntilStdViewLog("pkg.Ex", "exmeth", 94,99, "i", "i+\",\"+j", cont_, false);
         assertEq(16, first_.size());
         assertEq("0", first_.get(0));

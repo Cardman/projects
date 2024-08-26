@@ -23,9 +23,9 @@ public abstract class EquallableRendersGuiUtil {
         return create(pr_,_args);
     }
     public static void update(MockProgramInfos _pr) {
-        _pr.setLanguages(new StringList("en"));
-        _pr.setLanguage("en");
-        DefaultBeanAliases.enTr(FileInfos.enTr(FileInfos.initComments(lg(_pr,"en"))));
+        _pr.setLanguages(new StringList(StringUtil.EN));
+        _pr.setLanguage(StringUtil.EN);
+        DefaultBeanAliases.enTr(FileInfos.enTr(FileInfos.initComments(lg(_pr,StringUtil.EN))));
         updateBase(_pr.currentLg());
     }
     public static void updateBase(TranslationsLg _en) {

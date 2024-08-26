@@ -22,7 +22,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(cont_.isExc("pkg.Ex", ExcPointBlockKey.SAME));
     }
 
@@ -39,7 +39,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         assertTrue(cont_.isExc("pkg.Ex",ExcPointBlockKey.SAME));
     }
@@ -57,7 +57,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         assertFalse(cont_.isExc("pkg.Ex",ExcPointBlockKey.SAME));
@@ -78,7 +78,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         assertFalse(cont_.isExc("pkg.Ex",ExcPointBlockKey.SAME));
         assertTrue(cont_.isExc("pkg.Ex2",ExcPointBlockKey.SAME));
@@ -96,7 +96,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex3",ExcPointBlockKey.SAME);
         assertFalse(cont_.isExc("pkg.Ex3",ExcPointBlockKey.SAME));
     }
@@ -114,7 +114,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         assertFalse(cont_.isExc("pkg.Ex",ExcPointBlockKey.SAME));
@@ -133,7 +133,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
@@ -153,7 +153,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         assertTrue(cont_.isExc("pkg.Ex",ExcPointBlockKey.SAME));
     }
@@ -171,7 +171,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPointEnabled("pkg.Ex3",ExcPointBlockKey.SAME);
         assertFalse(cont_.isExc("pkg.Ex3",ExcPointBlockKey.SAME));
     }
@@ -191,7 +191,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         assertTrue(cont_.isExc("pkg.Ex",ExcPointBlockKey.SAME));
@@ -213,7 +213,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
@@ -235,7 +235,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPointEnabled("pkg.Ex2",ExcPointBlockKey.SAME);
         assertTrue(cont_.isExc("pkg.Ex",ExcPointBlockKey.SAME));
@@ -255,7 +255,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("",ExcPointBlockKey.SAME);
         assertTrue(cont_.isExc("",ExcPointBlockKey.SAME));
     }
@@ -272,7 +272,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPoint("pkg.Ex",ExcPointBlockKey.SAME);
@@ -291,7 +291,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleExcPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
@@ -313,7 +313,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         assertFalse(cont_.isExc("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY));
         assertTrue(cont_.isExc("pkg.Ex2",ExcPointBlockKey.SAME));
@@ -334,7 +334,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY);
         cont_.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         assertTrue(cont_.isExc("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY));
@@ -356,7 +356,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY);
         cont_.toggleExcPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         cont_.toggleExcPointEnabled("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY);
@@ -378,7 +378,7 @@ public final class ProcessDbgExcPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleExcPointEnabled("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY);
         cont_.toggleExcPointEnabled("pkg.Ex2",ExcPointBlockKey.SAME);
         assertTrue(cont_.isExc("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY));

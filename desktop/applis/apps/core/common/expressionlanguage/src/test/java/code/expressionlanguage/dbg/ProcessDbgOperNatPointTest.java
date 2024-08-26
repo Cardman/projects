@@ -17,7 +17,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(asSingle(cont_, "", "", "").getValue().isEnabled());
     }
     @Test
@@ -26,7 +26,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(asSingle(cont_, "~", "float", "").getValue().isEnabled());
     }
     @Test
@@ -35,7 +35,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(asSingle(cont_, "+", "int", "Ex").getValue().isEnabled());
     }
     @Test
@@ -44,7 +44,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(asSingle(cont_, "", "", "").getValue().isEnabled());
     }
     @Test
@@ -53,7 +53,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"%","int","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -67,7 +67,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"%","int","int",false,true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -79,7 +79,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         OperNatPointBlockPair o_ = asCompoEnable(cont_, "%", "int", "int");
         assertTrue(o_.getValue().isEnabled());
         assertEq("%",o_.getSymbol());
@@ -90,7 +90,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         asCompoEnable(cont_, "%", "int", "int");
         assertFalse(asCompoEnable(cont_, "%", "int", "int").getValue().isEnabled());
     }
@@ -100,7 +100,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         asCompoEnable(cont_, "%", "int", "int");
         asCompoEnable(cont_, "%", "int", "int");
         assertTrue(asCompoEnable(cont_, "%", "int", "int").getValue().isEnabled());
@@ -111,7 +111,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"+","int","int",true,true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -123,7 +123,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"+","int","int",true,true);
         std(cont_,"%","int","int",true,true);
         MethodId id_ = getMethodId("exmeth");
@@ -138,7 +138,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleOperNatPoint("%","int","int");
         assertFalse(asSingle(cont_, "%", "int", "int").getValue().isEnabled());
     }
@@ -148,7 +148,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleOperNatPoint("%","int","int");
         cont_.toggleOperNatPoint("%","int","int");
         assertTrue(asCompo(cont_, "%", "int", "int").getValue().isEnabled());
@@ -159,7 +159,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;t%=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"%","int","int",false,true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -173,7 +173,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;t%=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdCompoundCondition(cont_,"value+0==8&&#value+0==3","%","int","int",false,true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -187,7 +187,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;t%=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdCompoundCondition(cont_,"value+0==9","%","int","int",false,true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -199,7 +199,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;t%=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdCompoundCondition(cont_,"#value+0==4","%","int","int",false,true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -211,7 +211,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"value+0==8&&#value+0==3","%","int","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -225,7 +225,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"value+0==9","%","int","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -237,7 +237,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"#value+0==4","%","int","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -249,7 +249,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static boolean exmeth(){int t = 8;int u = 3;return t==u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSingle(cont_,"==","int","int",true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -263,7 +263,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;return -t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSingle(cont_,"-","int","",true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -277,7 +277,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;return -t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleConditionEmpty(cont_,"value+0==8","-","int",true, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -291,7 +291,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;return -t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleConditionEmpty(cont_,"value+0==9","-","int",true, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -303,7 +303,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static boolean exmeth(){int t = 8;int u = 3;return t==u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"value==8&&#value==3","==","int","int", true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -317,7 +317,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static boolean exmeth(){int t = 8;int u = 3;return t==u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"value==9","==","int","int", true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -329,7 +329,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static boolean exmeth(){int t = 8;int u = 3;return t==u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"#value==4","==","int","int", true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -341,7 +341,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static boolean exmeth(){var t = false;var u = false;return t&&u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"&&","boolean","boolean", true, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -353,7 +353,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static boolean exmeth(){var t = false;var u = false;return t&&=u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"&&","boolean","boolean", false, true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -365,7 +365,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;t<<=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"<<","int","int",false,true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -379,7 +379,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;t&=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"&","int","int",false,true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -393,7 +393,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static boolean exmeth(){var t = true;var u = false;t&&=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"&&","boolean","boolean", false, true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -407,7 +407,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static Object exmeth(){var t = (Object)null;var u = false;t??=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"??","$core.Object","boolean", false, true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -421,7 +421,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static Object exmeth(){var t = \"\";var u = false;t+=u;return t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"+","$core.String","boolean", false, true);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -435,7 +435,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static Object exmeth(){var t = \"\";var u = false;return t+u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"+","$core.String","boolean", true, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -449,7 +449,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static Object exmeth(){var u = false;var t = \"\";return t+u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"+","boolean","$core.String", true, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -463,7 +463,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public int v;public static int exmeth(){return new Ex().v+=1;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleWatchPoint("pkg/Ex",32);
         compoundWrite(cont_,cf("pkg.Ex","v"));
         std(cont_);
@@ -487,7 +487,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u+t;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"%","int","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -501,7 +501,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         asCompoEnable(cont_, "%", "int", "int");
         assertTrue(asCompoEnable(cont_, "+", "int", "int").getValue().isEnabled());
     }
@@ -511,7 +511,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,%,int);int u = 3;return t.call(u);}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         std(cont_,"%","int","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -525,7 +525,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,-);return t.call();}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdEmpty(cont_,"-","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -539,7 +539,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,%,int);int u = 3;return t.call(u);}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"value+0==8&&#value+0==3","%","int","int",true, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -553,7 +553,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,%,int);int u = 3;return t.call(u);}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"value+0==9","%","int","int",true, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -565,7 +565,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,%,int);int u = 3;return t.call(u);}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(cont_,"#value+0==4","%","int","int",true, false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -577,7 +577,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,-);return t.call();}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleConditionEmpty(cont_,"value+0==8","-","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -591,7 +591,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){var t = 8.$lambda(operator,int,-);return t.call();}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleConditionEmpty(cont_,"value+0==9","-","int",true,false);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormalCheck("pkg.Ex", id_, cont_);
@@ -603,7 +603,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         OperNatPointBlockPair o_ = asSingleEnable(cont_, "-", "int", "");
         assertTrue(o_.getValue().isEnabled());
         assertEq("-",o_.getSymbol());
@@ -614,7 +614,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         OperNatPointBlockPair o_ = asSingleEnable(cont_, "-", "", "");
         assertFalse(o_.getValue().isEnabled());
     }
@@ -624,7 +624,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         asSingleEnable(cont_, "-", "int", "");
         OperNatPointBlockPair r_ = asSingleEnable(cont_, "-", "int", "");
         assertFalse(r_.getValue().isEnabled());
@@ -635,7 +635,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         asCompoEnable(cont_, "-", "int", "int");
         OperNatPointBlockPair r_ = asCompoEnable(cont_, "-", "int", "int");
         assertFalse(r_.getValue().isEnabled());
@@ -646,7 +646,7 @@ public final class ProcessDbgOperNatPointTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         asSingleEnable(cont_, "-", "int", "");
         asSingleEnable(cont_, "-", "int", "");
         OperNatPointBlockPair r_ = asSingleEnable(cont_, "-", "int", "");

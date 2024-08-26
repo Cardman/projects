@@ -1,8 +1,6 @@
 package code.expressionlanguage.dbg;
 
 import code.expressionlanguage.DefContextGenerator;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
-import code.expressionlanguage.analyze.syntax.ResultExpressionOperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StackCallReturnValue;
@@ -35,7 +33,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return new Ex[2].length;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         std(res_);
         Struct cont_ = endOper("this.length+1", "pkg.Ex", "exmeth", res_);
         assertEq(3,((NumberStruct)cont_).intStruct());
@@ -46,7 +44,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){try{return 1/0;} catch (Object e) {return 1;}}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         divThrown(res_);
         Struct cont_ = endOper("this!=null", "pkg.Ex", "exmeth", res_);
         assertTrue(BooleanStruct.isTrue(cont_));
@@ -64,7 +62,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleWatchPoint("pkg/Ex",27);
         compoundReadWrite(res_, cf("pkg.Ex", "v"));
         Struct cont_ = endOper("v+1", "pkg.Ex", "catching", res_);
@@ -76,7 +74,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public int f=3;public static int exmeth(){return new Ex().exmeth2(5);}public int exmeth2(int a){return f+a;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a==5&&f==3",res_,"pkg/Ex",91);
         Struct cont_ = endOper("a+f", "pkg.Ex", "exmeth", res_);
         assertEq(8, ((NumberStruct)cont_).intStruct());
@@ -87,7 +85,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return t%u;}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         stdSimpleCondition(res_,"value+0==8&&#value+0==3","%","int","int",true,false);
         Struct cont_ = endOper("value+#value", "pkg.Ex", "exmeth", res_);
         assertEq(11, ((NumberStruct)cont_).intStruct());
@@ -98,7 +96,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public int v=2;public class Inner{}public static int exmeth(){return new Ex().new Inner().v;}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         stdThrownConditionInner(res_,"value==1&&Class.getClass($parent)==class(Ex)&&$parent.v==2");
         Struct cont_ = endOper("value+$parent.v", "pkg.Ex", "exmeth", res_);
         assertEq(3,((NumberStruct)cont_).intStruct());
@@ -110,7 +108,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){return exmeth2().substring(b:4,a:2).length();}public static String exmeth2(){return \"1234\";}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         enteringCondition("a==2&&b==4",res_,res_.getContext().getStandards().getCharSeq().getAliasCharSequence(),getMethodId(MethodAccessKind.INSTANCE,res_.getContext().getStandards().getCharSeq().getAliasSubstring(),false, res_.getContext().getStandards().getPrimTypes().getAliasPrimInteger(), res_.getContext().getStandards().getPrimTypes().getAliasPrimInteger()));
         Struct cont_ = endOper("a+b", "pkg.Ex", "exmeth", res_);
         assertEq(6,((NumberStruct)cont_).intStruct());
@@ -121,7 +119,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){try{throw 1;} catch (Object e) {return 1;}}}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         intThrown(res_);
         Struct cont_ = endOper("this+2", "pkg.Ex", "exmeth", res_);
         assertEq(3,((NumberStruct)cont_).intStruct());
@@ -130,7 +128,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
     public void test10() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",114);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, res_);
@@ -141,7 +139,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
     public void test11() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return end(v);}public static int end(int i){return i+1;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",114);
         StackCallReturnValue stVal_ = goLoop(res_, "pkg.Ex", "exmeth", null);
         Struct cont1_ = WatchResults.dynamicAnalyze("v", res_, new DefContextGenerator(), stVal_.getStack().getCall(0)).getWatchedObject();
@@ -155,7 +153,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {static int m(){int res=5;for(int e:{1,2,3}){res+=e;}return res;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",55);
         StackCallReturnValue stVal_ = goLoop(res_, "pkg.Ex", "m", null);
         Struct cont1_ = WatchResults.dynamicAnalyze("res", res_, new DefContextGenerator(), stVal_.getStack().getLastPage()).getWatchedObject();
@@ -167,7 +165,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {static int m(){int res=5;for(int e:{0}){res+=e;}return res;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",55);
         StackCallReturnValue first_ = goLoop(res_, "pkg.Ex", "m", null);
         Struct cont1_ = WatchResults.dynamicAnalyze("res", res_, new DefContextGenerator(), dbgContinueNormal(first_.getStack(),res_.getContext()).getLastPage()).getWatchedObject();
@@ -179,7 +177,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {static int m(){return (int)class(Ex).getDeclaredMethods(null,null,null,class(int))[0].invoke(null,2);}static int m(int v){return 5+v;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",150);
         StackCallReturnValue first_ = goLoop(res_, "pkg.Ex", "m", null);
         assertNull(WatchResults.dynamicAnalyze("", res_, new DefContextGenerator(),first_.getStack().getCall(1)).getWatchedObject());
@@ -188,7 +186,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
     public void test15() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",114);
         StackCallReturnValue first_ = goLoop(res_, "pkg.Ex", "exmeth", null);
         StackCall stack_ = first_.getStack();
@@ -200,7 +198,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
     public void test16() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return v;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",114);
         StackCallReturnValue first_ = goLoop(res_, "pkg.Ex", "exmeth", null);
         StackCall stack_ = first_.getStack();
@@ -212,7 +210,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
     public void test17() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){int v=maelle();return end(v);}public static int end(int i){return i+1;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",62);
         StackCallReturnValue stVal_ = goLoop(res_, "pkg.Ex", "exmeth", null);
         Struct cont1_ = WatchResults.dynamicAnalyze("v", res_, new DefContextGenerator(), stVal_.getStack().getCall(0)).getWatchedObject();
@@ -222,7 +220,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
     public void test18() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){var f=(int a:int)->2*a;return 0;}}");
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",70);
         StackCallReturnValue stVal_ = goLoop(res_, "pkg.Ex", "exmeth", null);
         Struct cont1_ = WatchResults.dynamicAnalyze("f!=null", res_, new DefContextGenerator(), stVal_.getStack().getCall(0)).getWatchedObject();
@@ -232,7 +230,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
     public void test19() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", "public class pkg.Ex {public static int exmeth(){new Ex();return 0;}public static int maelle(){int t = 8;int u = toutesLesMachinesOntUnCoeur();return Math.mod(t,u);}public static int toutesLesMachinesOntUnCoeur(){return 3;}}");
-        ResultContext res_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         res_.toggleBreakPoint("pkg/Ex",13);
         ((TypePointBlockPair)res_.tryGetPair("pkg/Ex",13)).getValue().setStaticType(false);
         ((TypePointBlockPair)res_.tryGetPair("pkg/Ex",13)).getValue().setInstanceType(true);

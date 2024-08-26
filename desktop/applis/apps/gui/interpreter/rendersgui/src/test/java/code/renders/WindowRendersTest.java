@@ -14,6 +14,7 @@ import code.stream.core.ContentTime;
 import code.threads.AbstractThread;
 import code.threads.ConcreteInteger;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class WindowRendersTest extends EquallableRendersGuiUtil {
@@ -67,10 +68,10 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -125,7 +126,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText("");
@@ -190,10 +191,10 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -255,10 +256,10 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -318,10 +319,10 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\nen\nlgs=en", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN+"\nlgs="+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -377,10 +378,10 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n_\nlgs=en", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n_\nlgs="+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -439,7 +440,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -498,7 +499,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=_", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -557,7 +558,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\n_", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -616,7 +617,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
@@ -676,7 +677,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StreamTextFile.saveTextFile("/conf.txt","_\nconf.xml", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         assertEq(0, ((MockThreadFactory) pr_.getThreadFactory()).getAllThreads().size());
     }
@@ -733,7 +734,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StreamTextFile.saveTextFile("/conf.txt","_", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.loadRenderConf("/conf.txt");
         assertEq(0, ((MockThreadFactory) pr_.getThreadFactory()).getAllThreads().size());
     }
@@ -787,10 +788,10 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         w_.getPath().setText("/conf.txt");
         tryClick(w_.getOpen());
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
@@ -847,10 +848,10 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\nen", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
-        w_.getLgCode().setText("en");
+        w_.getLgCode().setText(StringUtil.EN);
         tryClick(w_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
         tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));

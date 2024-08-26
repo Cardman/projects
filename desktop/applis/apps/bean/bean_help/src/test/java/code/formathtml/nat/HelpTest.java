@@ -16,13 +16,14 @@ import code.sml.util.TranslationsAppli;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class HelpTest extends EquallableBeanHelpUtil {
 
     @Test
     public void process___1Test() {
-        String locale_ = "en";
+        //String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message\ntwo=Two";
@@ -44,7 +45,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
     }
     @Test
     public void process___2Test() {
-        String locale_ = "en";
+        //String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message";
@@ -72,7 +73,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
     }
     @Test
     public void process___3Test() {
-        String locale_ = "en";
+        //String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message";
@@ -100,7 +101,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
     }
     @Test
     public void process___4Test() {
-        String locale_ = "en";
+        //String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message\ntwo=Two";
@@ -132,7 +133,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
     }
     @Test
     public void process___5Test() {
-        String locale_ = "en";
+        //String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message\ntwo=Two";
@@ -158,7 +159,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
 
     @Test
     public void process___6Test() {
-        String locale_ = "en";
+        //String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message\ntwo=Two";
@@ -179,7 +180,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
     }
     @Test
     public void process___7Test() {
-        String locale_ = "en";
+        //String locale_ = StringUtil.EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message\ntwo=Two";
@@ -222,8 +223,8 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         NatConfigurationCore session_ = new NatConfigurationCore();
 //        session_.setPrefix("c:");
         navigation_.setSession(session_);
-        navigation_.setLanguage("en");
-        navigation_.setLanguages(new StringList("en"));
+        navigation_.setLanguage(StringUtil.EN);
+        navigation_.setLanguages(new StringList(StringUtil.EN));
         NatDualConfigurationContext contextConf_ = new NatDualConfigurationContext();
         contextConf_.setMessagesFolder(_messagesFolder);
         contextConf_.setProperties(_properties);

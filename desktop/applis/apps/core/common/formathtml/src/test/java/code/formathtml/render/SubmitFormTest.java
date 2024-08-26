@@ -27,7 +27,7 @@ public final class SubmitFormTest extends CommonRender {
     private static final String CUST_TABLE_PATH = "pkg/CustTable";
     @Test
     public void form1Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -102,7 +102,7 @@ public final class SubmitFormTest extends CommonRender {
 
     @Test
     public void form2Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -190,7 +190,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     @Test
     public void form3Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -259,7 +259,7 @@ public final class SubmitFormTest extends CommonRender {
 
     @Test
     public void form4Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -338,7 +338,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     @Test
     public void form5Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -418,7 +418,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     @Test
     public void form6Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -499,7 +499,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     @Test
     public void form7Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -583,7 +583,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     @Test
     public void form8Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -645,7 +645,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     @Test
     public void form9Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -739,7 +739,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     @Test
     public void form10Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -828,7 +828,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     @Test
     public void form11Test() {
-        String locale_ = "en";
+        String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";

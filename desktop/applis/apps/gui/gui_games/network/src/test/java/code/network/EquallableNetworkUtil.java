@@ -43,8 +43,8 @@ import code.util.core.*;
 import org.junit.Assert;
 
 public abstract class EquallableNetworkUtil {
-    public static final String FR = "fr";
-    public static final String EN = "en";
+    public static final String FR = StringUtil.FR;
+    public static final String EN = StringUtil.EN;
     protected static MockSocket retrievedSocket(WindowNetWork _server, WindowNetWork _client, int _i) {
         MockSocket socket_ = prepare(_server, _client, _i);
         loopClient(_server.getSockets(),_client);

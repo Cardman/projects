@@ -524,8 +524,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return ResultContext.afterDef(r_, _all, ResultContext.defFilter(page_, _all, _files),_s);
     }
 
-    protected static ContextEl ctxLgOk(String _lg,StringMap<String> _files, String... _types) {
-        assertEq("en",_lg);
+    protected static ContextEl ctxLgOk(StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         addTypesInit(opt_, _types);
         CustLgNames lgName_ = getLgNames();
@@ -576,23 +575,21 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return inval(_files,opt_,lgName_,kw_);
     }
 
-    protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> _files, String... _types) {
+    protected static ContextEl ctxLgReadOnlyOk(StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
         CustLgNames lgName_ = getLgNames();
-        assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
 
         return getContextEl(_files, opt_, lgName_, kwl_);
     }
 
-    protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> _files) {
+    protected static boolean hasErrLgReadOnly(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_);
         CustLgNames lgName_ = getLgNames();
-        assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
 
         return inval(_files,opt_,lgName_,kwl_);
@@ -874,11 +871,10 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return inval(_files, opt_, lgName_, kw_);
     }
 
-    protected static boolean hasErrLg(StringMap<String> _files, String _lg) {
+    protected static boolean hasErrLg(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
         CustLgNames lgName_ = getLgNames();
-        assertEq("en",_lg);
         KeyWords kwl_ = en(lgName_);
 
         return inval(_files,opt_,lgName_,kwl_);

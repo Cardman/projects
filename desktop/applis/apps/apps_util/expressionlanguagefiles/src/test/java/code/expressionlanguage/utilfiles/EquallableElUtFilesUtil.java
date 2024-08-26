@@ -233,7 +233,7 @@ public abstract class EquallableElUtFilesUtil {
 
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", _s, _set);
-        pr_.setLanguages(new StringList("en","fr"));
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         return pr_;
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
@@ -258,9 +258,9 @@ public abstract class EquallableElUtFilesUtil {
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
 //        ExecutingOptions.updateEn(FileInfos.getAppliTr(_p.getTranslations().getMapping().getVal("en")));
 //        ExecutingOptions.updateFr(FileInfos.getAppliTr(_p.getTranslations().getMapping().getVal("fr")));
-        MessagesExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("en")));
-        MessagesExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg("fr")));
-        ((MockProgramInfos)_p).setLanguage("en");
+        MessagesExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.EN)));
+        MessagesExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.FR)));
+        ((MockProgramInfos)_p).setLanguage(StringUtil.EN);
         return new ExecutingOptions(_p);
     }
     public static ExecutingOptions exOptInit(AbstractLightProgramInfos _p) {

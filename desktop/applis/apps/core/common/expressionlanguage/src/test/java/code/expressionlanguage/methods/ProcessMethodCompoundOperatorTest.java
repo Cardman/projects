@@ -35,7 +35,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -66,7 +66,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -97,7 +97,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -131,7 +131,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -164,7 +164,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -196,7 +196,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -231,7 +231,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -264,7 +264,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -296,7 +296,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -331,7 +331,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -363,7 +363,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -397,7 +397,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -431,7 +431,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -460,7 +460,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -504,7 +504,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -545,7 +545,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -577,7 +577,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -609,7 +609,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -652,7 +652,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -693,7 +693,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -731,7 +731,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Struct exc_ = calculateNormal("pkg.Apply", id_, args_, cont_).getStruct();
@@ -761,7 +761,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -790,7 +790,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -829,7 +829,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Struct exc_ = calculateNormal("pkg.Apply", id_, args_, cont_).getStruct();
@@ -869,7 +869,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Apply");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Struct exc_ = calculateNormal("pkg.Apply", id_, args_, cont_).getStruct();
@@ -1040,7 +1040,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_);
+        ContextEl cont_ = ctxLgOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -1073,7 +1073,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument2FailTest() {
@@ -1109,7 +1109,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument3FailTest() {
@@ -1147,7 +1147,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
     @Test
     public void calculateArgument4FailTest() {
@@ -1172,7 +1172,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
 
     @Test
@@ -1194,6 +1194,6 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErrLg(files_,"en"));
+        assertTrue(hasErrLg(files_));
     }
 }

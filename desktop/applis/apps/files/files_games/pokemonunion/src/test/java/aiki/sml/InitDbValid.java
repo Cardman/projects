@@ -41,7 +41,7 @@ public abstract class InitDbValid {
     public static final String MINI = "mini";
     public static final String PIKACHU ="PIKACHU";
     public static final String PROG_PK2="PK_2";
-    public static final String LANGUAGE = "en";
+    public static final String LANGUAGE = StringUtil.EN;
     public static final String ECLAIR = "ECLAIR";
     public static final String ECLAIR_2 = "ECLAIR2";
     public static final String ECLAIR_3 = "ECLAIR3";

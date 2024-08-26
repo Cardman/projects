@@ -23,7 +23,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -42,7 +42,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",70);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -70,7 +70,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex2",71);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -100,7 +100,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex2",71);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -119,7 +119,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPoint("pkg/Ex",71);
         MethodId id_ = getMethodId("exmeth");
@@ -138,7 +138,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         MethodId id_ = getMethodId("exmeth");
@@ -157,7 +157,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
@@ -178,7 +178,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",58);
         cont_.toggleBreakPoint("pkg/Ex",71);
         MethodId id_ = getMethodId("exmeth");
@@ -198,7 +198,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",58);
         cont_.toggleBreakPoint("pkg/Ex",71);
         MethodId id_ = getMethodId("exmeth");
@@ -219,7 +219,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",58);
         cont_.toggleBreakPoint("pkg/Ex",71);
         MethodId id_ = getMethodId("exmeth");
@@ -239,7 +239,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",-1);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -257,7 +257,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",-1);
         MethodId id_ = getMethodId("exmeth");
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
@@ -275,7 +275,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPointEnabled("pkg/Ex",58);
         cont_.toggleBreakPoint("pkg/Ex",71);
         cont_.toggleBreakPointEnabled("pkg/Ex",71);
@@ -290,7 +290,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return Math.mod(t,u);}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",57);
         analyze(cont_,"t==8", "pkg/Ex", 57);
         MethodId id_ = getMethodId("exmeth");
@@ -306,7 +306,7 @@ public final class ProcessDbgLineTest extends ProcessDbgCommon {
         xml_.append("public class pkg.Ex {public static int exmeth(){int t = 8;int u = 3;return Math.mod(t,u);}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",57);
         analyze(cont_,"t==7", "pkg/Ex", 57);
         MethodId id_ = getMethodId("exmeth");

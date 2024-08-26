@@ -68,14 +68,14 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
     }
     public static void defs() {
         StringMap<StringMap<int[][]>> out_ = new StringMap<StringMap<int[][]>>(new CollCapacity(2));
-        out_.addEntry("en", AbsMetaLabelCard.enDef());
-        out_.addEntry("fr", AbsMetaLabelCard.frDef());
+        out_.addEntry(EN, AbsMetaLabelCard.enDef());
+        out_.addEntry(FR, AbsMetaLabelCard.frDef());
     }
 
     public static void sels() {
         StringMap<StringMap<int[][]>> out_ = new StringMap<StringMap<int[][]>>(new CollCapacity(2));
-        out_.addEntry("en", AbsMetaLabelCard.enSel());
-        out_.addEntry("fr", AbsMetaLabelCard.frSel());
+        out_.addEntry(EN, AbsMetaLabelCard.enSel());
+        out_.addEntry(FR, AbsMetaLabelCard.frSel());
     }
 
     private WindowCards loadBeloteOtherDisplay(StringList _ls) {

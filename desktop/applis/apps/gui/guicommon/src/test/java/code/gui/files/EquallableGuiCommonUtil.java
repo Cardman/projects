@@ -9,65 +9,66 @@ import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractThread;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableGuiCommonUtil {
 
     public static void update(MockProgramInfos _pr) {
         MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(lg(_pr, "")));
-        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(lg(_pr, "fr")));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(lg(_pr, StringUtil.FR)));
     }
 
     public static void updateBase(MockProgramInfos _pr) {
-        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(lg(_pr, "en")).getMapping();
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(lg(_pr, StringUtil.EN)).getMapping();
         en_.addEntry(MessagesGuiFct.FILE_DIAL,MessagesFileDialog.en());
-        StringMap<TranslationsFile> fr_ = MessagesGuiFct.initAppliTr(lg(_pr, "fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.initAppliTr(lg(_pr, StringUtil.FR)).getMapping();
         fr_.addEntry(MessagesGuiFct.FILE_DIAL,MessagesFileDialog.fr());
-        _pr.setLanguage("en");
+        _pr.setLanguage(StringUtil.EN);
     }
 
     public static void updateConfirm(MockProgramInfos _pr) {
-        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(lg(_pr, "en")).getMapping();
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(lg(_pr, StringUtil.EN)).getMapping();
         en_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
-        StringMap<TranslationsFile> fr_ = MessagesGuiFct.initAppliTr(lg(_pr, "fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.initAppliTr(lg(_pr, StringUtil.FR)).getMapping();
         fr_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
-        _pr.setLanguage("en");
+        _pr.setLanguage(StringUtil.EN);
     }
 
     public static void updateFolderOpen(MockProgramInfos _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal(StringUtil.EN)).getMapping();
         en_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
-        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( StringUtil.FR)).getMapping();
         fr_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.fr());
         updateFileTable(_pr);
     }
 
     public static void updateFileOpen(MockProgramInfos _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal(StringUtil.EN)).getMapping();
         en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
-        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( StringUtil.FR)).getMapping();
         fr_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
         updateFileTable(_pr);
     }
 
     public static void updateFileSave(MockProgramInfos _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal(StringUtil.EN)).getMapping();
         en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
-        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( StringUtil.FR)).getMapping();
         fr_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
         updateFileTable(_pr);
     }
 
     public static void updateFileOpenSave(MockProgramInfos _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal(StringUtil.EN)).getMapping();
         en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
         en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
         en_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
-        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( StringUtil.FR)).getMapping();
         fr_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
         fr_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.fr());
         fr_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
@@ -76,11 +77,11 @@ public abstract class EquallableGuiCommonUtil {
 
     public static void updateFolderOpenSave(MockProgramInfos _pr) {
         updateBase(_pr);
-        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal(StringUtil.EN)).getMapping();
         en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
         en_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.en());
         en_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.en());
-        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( StringUtil.FR)).getMapping();
         fr_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.fr());
         fr_.addEntry(MessagesGuiFct.FOLDER_OPEN_DIAL,MessagesFolderOpenDialog.fr());
         fr_.addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
@@ -88,9 +89,9 @@ public abstract class EquallableGuiCommonUtil {
     }
 
     public static void updateFileTable(MockProgramInfos _pr) {
-        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal("en")).getMapping();
+        StringMap<TranslationsFile> en_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal(StringUtil.EN)).getMapping();
         en_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.en());
-        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( "fr")).getMapping();
+        StringMap<TranslationsFile> fr_ = MessagesGuiFct.getAppliTr(_pr.getTranslations().getMapping().getVal( StringUtil.FR)).getMapping();
         fr_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.fr());
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {

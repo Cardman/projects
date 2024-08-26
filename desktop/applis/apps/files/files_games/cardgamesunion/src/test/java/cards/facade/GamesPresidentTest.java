@@ -19,8 +19,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(t_);
         p_.getRules().setEqualty(EqualtyPlaying.NO_SKIP);
         p_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_1, (byte) 1, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_1, (byte) 1, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_1, (byte) 1, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_1, (byte) 1, StringUtil.FR)).isEmpty());
     }
     @Test
     public void autorisePresident2() {
@@ -31,8 +31,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(t_);
         p_.getRules().setEqualty(EqualtyPlaying.NO_SKIP);
         p_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_3, (byte) 1, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_3, (byte) 1, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_3, (byte) 1, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_3, (byte) 1, StringUtil.FR)).isEmpty());
     }
     @Test
     public void autorisePresident3() {
@@ -43,8 +43,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(t_);
         p_.getRules().setEqualty(EqualtyPlaying.FORBIDDEN);
         p_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_1, (byte) 1, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_1, (byte) 1, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_1, (byte) 1, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_1, (byte) 1, StringUtil.FR)).isEmpty());
     }
     @Test
     public void autorisePresident4() {
@@ -55,8 +55,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(t_);
         p_.getRules().setEqualty(EqualtyPlaying.FORBIDDEN);
         p_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_3, (byte) 1, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_3, (byte) 1, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_3, (byte) 1, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_3, (byte) 1, StringUtil.FR)).isEmpty());
     }
     @Test
     public void autorisePresident5() {
@@ -72,8 +72,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(h2_);
         p_.getRules().setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
         p_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.DIAMOND_4, (byte) 1, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.DIAMOND_4, (byte) 1, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.DIAMOND_4, (byte) 1, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.DIAMOND_4, (byte) 1, StringUtil.FR)).isEmpty());
     }
     @Test
     public void autorisePresident6() {
@@ -89,8 +89,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(h2_);
         p_.getRules().setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
         p_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 1, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 1, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 1, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 1, StringUtil.FR)).isEmpty());
     }
     @Test
     public void autorisePresident7() {
@@ -106,8 +106,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(h2_);
         p_.getRules().setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
         p_.getLastStatus().put((byte)0,Playing.CAN_PLAY);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, StringUtil.FR)).isEmpty());
     }
     @Test
     public void autorisePresident8() {
@@ -123,8 +123,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(h2_);
         p_.getRules().setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
         p_.getLastStatus().put((byte)0,Playing.SKIPPED);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, StringUtil.FR)).isEmpty());
     }
     @Test
     public void autorisePresident9() {
@@ -140,8 +140,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         p_.getProgressingTrick().getCards().add(h2_);
         p_.getRules().setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
         p_.getLastStatus().put((byte)0,Playing.PASS);
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, "en")).isEmpty());
-        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, "fr")).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, StringUtil.EN)).isEmpty());
+        assertFalse(StringUtil.nullToEmpty(" "+ autorisePresident(p_, CardPresident.HEART_5, (byte) 2, StringUtil.FR)).isEmpty());
     }
     @Test
     public void canPassMess() {
@@ -183,8 +183,8 @@ public final class GamesPresidentTest extends EquallableCardsFileUtil {
         MessagesCardGames.appendCommonFile(frApp_, MessagesCommonFile.fr());
         MessagesCardGames.appendGamePresident(frApp_, MessagesPresident.frGame());
         Translations trs_ = new Translations();
-        trs_.getMapping().addEntry("en",en_);
-        trs_.getMapping().addEntry("fr",fr_);
+        trs_.getMapping().addEntry(StringUtil.EN,en_);
+        trs_.getMapping().addEntry(StringUtil.FR,fr_);
         return Games.autorisePresident(_p, _card, _nb, trs_.getMapping().getVal(_loc));
     }
 

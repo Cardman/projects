@@ -19,7 +19,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         assertFalse(cont_.isPar("pkg.Ex", ExcPointBlockKey.SAME));
     }
 
@@ -36,7 +36,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         assertTrue(cont_.isPar("pkg.Ex",ExcPointBlockKey.SAME));
     }
@@ -54,7 +54,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         assertFalse(cont_.isPar("pkg.Ex",ExcPointBlockKey.SAME));
@@ -75,7 +75,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         assertFalse(cont_.isPar("pkg.Ex",ExcPointBlockKey.SAME));
         assertTrue(cont_.isPar("pkg.Ex2",ExcPointBlockKey.SAME));
@@ -93,7 +93,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex3",ExcPointBlockKey.SAME);
         assertFalse(cont_.isPar("pkg.Ex3",ExcPointBlockKey.SAME));
     }
@@ -111,7 +111,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         assertFalse(cont_.isPar("pkg.Ex",ExcPointBlockKey.SAME));
@@ -130,7 +130,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
@@ -150,7 +150,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         assertTrue(cont_.isPar("pkg.Ex",ExcPointBlockKey.SAME));
     }
@@ -168,7 +168,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPointEnabled("pkg.Ex3",ExcPointBlockKey.SAME);
         assertFalse(cont_.isPar("pkg.Ex3",ExcPointBlockKey.SAME));
     }
@@ -188,7 +188,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         assertTrue(cont_.isPar("pkg.Ex",ExcPointBlockKey.SAME));
@@ -210,7 +210,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
@@ -232,7 +232,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPointEnabled("pkg.Ex2",ExcPointBlockKey.SAME);
         assertTrue(cont_.isPar("pkg.Ex",ExcPointBlockKey.SAME));
@@ -252,7 +252,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("",ExcPointBlockKey.SAME);
         assertTrue(cont_.isPar("",ExcPointBlockKey.SAME));
     }
@@ -269,7 +269,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPoint("pkg.Ex",ExcPointBlockKey.SAME);
@@ -288,7 +288,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
         cont_.toggleParPointEnabled("pkg.Ex",ExcPointBlockKey.SAME);
@@ -310,7 +310,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         assertFalse(cont_.isPar("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY));
         assertTrue(cont_.isPar("pkg.Ex2",ExcPointBlockKey.SAME));
@@ -331,7 +331,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY);
         cont_.toggleParPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         assertTrue(cont_.isPar("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY));
@@ -353,7 +353,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPoint("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY);
         cont_.toggleParPoint("pkg.Ex2",ExcPointBlockKey.SAME);
         cont_.toggleParPointEnabled("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY);
@@ -375,7 +375,7 @@ public final class ProcessDbgParPointTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleParPointEnabled("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY);
         cont_.toggleParPointEnabled("pkg.Ex2",ExcPointBlockKey.SAME);
         assertTrue(cont_.isPar("pkg.Ex2",ExcPointBlockKey.SAME_FAMILY));

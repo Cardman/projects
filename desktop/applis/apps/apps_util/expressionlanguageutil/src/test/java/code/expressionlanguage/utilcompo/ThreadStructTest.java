@@ -23,6 +23,7 @@ import code.maths.montecarlo.*;
 import code.mock.*;
 import code.threads.*;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class ThreadStructTest extends EquallableElUtUtil {
@@ -573,7 +574,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(), StringUtil.EN);
         Options opt_ = new Options();
         return buildMockFormat(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
     }
@@ -641,7 +642,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
         return buildMockDbgRun(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files);
     }
@@ -680,7 +681,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
     public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(exOpt(_light));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),StringUtil.EN);
         return stds_;
     }
 }

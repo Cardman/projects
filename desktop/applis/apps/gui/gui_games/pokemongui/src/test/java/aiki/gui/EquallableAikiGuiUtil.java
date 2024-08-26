@@ -19,12 +19,13 @@ import code.sml.util.TranslationsLg;
 import code.threads.AbstractThread;
 import code.util.IdList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableAikiGuiUtil {
     public static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
-    public static final String FR = "fr";
-    public static final String EN = "en";
+    public static final String FR = StringUtil.FR;
+    public static final String EN = StringUtil.EN;
     public static final String LANGUAGE = EN;
 
 

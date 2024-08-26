@@ -22,6 +22,7 @@ import code.sml.util.TranslationsLg;
 import code.stream.core.TechStreams;
 import code.util.Bytes;
 import code.util.IdList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class GamesTest extends EquallableCardsFileUtil {
@@ -255,33 +256,33 @@ public final class GamesTest extends EquallableCardsFileUtil {
     }
 //    @Test
 //    public void toString4() {
-//        assertFalse(Games.getSymbol(CardBelote.HEART_1,"en").isEmpty());
-//        assertFalse(Games.getSymbol(CardBelote.HEART_1,"fr").isEmpty());
+//        assertFalse(Games.getSymbol(CardBelote.HEART_1,StringUtil.EN).isEmpty());
+//        assertFalse(Games.getSymbol(CardBelote.HEART_1,StringUtil.FR).isEmpty());
 //    }
 //    @Test
 //    public void toString5() {
-//        assertFalse(Games.getSymbol(CardPresident.HEART_1,"en").isEmpty());
-//        assertFalse(Games.getSymbol(CardPresident.HEART_1,"fr").isEmpty());
+//        assertFalse(Games.getSymbol(CardPresident.HEART_1,StringUtil.EN).isEmpty());
+//        assertFalse(Games.getSymbol(CardPresident.HEART_1,StringUtil.FR).isEmpty());
 //    }
 //    @Test
 //    public void toString6() {
-//        assertFalse(Games.getSymbol(CardTarot.HEART_1,"en").isEmpty());
-//        assertFalse(Games.getSymbol(CardTarot.HEART_1,"fr").isEmpty());
+//        assertFalse(Games.getSymbol(CardTarot.HEART_1,StringUtil.EN).isEmpty());
+//        assertFalse(Games.getSymbol(CardTarot.HEART_1,StringUtil.FR).isEmpty());
 //    }
 //    @Test
 //    public void toString7() {
-//        assertFalse(Games.getSymbol(CardBelote.HEART_QUEEN,"en").isEmpty());
-//        assertFalse(Games.getSymbol(CardBelote.HEART_QUEEN,"fr").isEmpty());
+//        assertFalse(Games.getSymbol(CardBelote.HEART_QUEEN,StringUtil.EN).isEmpty());
+//        assertFalse(Games.getSymbol(CardBelote.HEART_QUEEN,StringUtil.FR).isEmpty());
 //    }
 //    @Test
 //    public void toString8() {
-//        assertFalse(Games.getSymbol(CardPresident.HEART_QUEEN,"en").isEmpty());
-//        assertFalse(Games.getSymbol(CardPresident.HEART_QUEEN,"fr").isEmpty());
+//        assertFalse(Games.getSymbol(CardPresident.HEART_QUEEN,StringUtil.EN).isEmpty());
+//        assertFalse(Games.getSymbol(CardPresident.HEART_QUEEN,StringUtil.FR).isEmpty());
 //    }
 //    @Test
 //    public void toString9() {
-//        assertFalse(Games.getSymbol(CardTarot.HEART_QUEEN,"en").isEmpty());
-//        assertFalse(Games.getSymbol(CardTarot.HEART_QUEEN,"fr").isEmpty());
+//        assertFalse(Games.getSymbol(CardTarot.HEART_QUEEN,StringUtil.EN).isEmpty());
+//        assertFalse(Games.getSymbol(CardTarot.HEART_QUEEN,StringUtil.FR).isEmpty());
 //    }
     @Test
     public void toString10() {
@@ -536,8 +537,8 @@ public final class GamesTest extends EquallableCardsFileUtil {
     public void messagesLoad() {
         MockProgramInfos pr_ = pr(0,0);
         update(pr_);
-        TranslationsLg en_ = pr_.getTranslations().getMapping().getVal("en");
-        TranslationsLg fr_ = pr_.getTranslations().getMapping().getVal("fr");
+        TranslationsLg en_ = pr_.getTranslations().getMapping().getVal(StringUtil.EN);
+        TranslationsLg fr_ = pr_.getTranslations().getMapping().getVal(StringUtil.FR);
         assertFalse(MessagesCardGames.getAppliTr(en_).getMapping().isEmpty());
         assertFalse(MessagesCardGames.getEditorTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());
         assertFalse(MessagesCardGames.getDialogBeloteTr(MessagesCardGames.getAppliTr(en_)).getMapping().isEmpty());

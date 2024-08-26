@@ -10,6 +10,8 @@ public final class StringUtil {
     public static final char RIGHT_BRACE = '}';
     public static final String POINT = ".";
     public static final String EMPTY_STRING = "";
+    public static final String EN = "0";
+    public static final String FR = "1";
     private static final char BACK_SLASH_CHAR = '\\';
     private static final char SLASH = '/';
     private static final char DOT = '.';

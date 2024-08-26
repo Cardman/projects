@@ -20,13 +20,13 @@ public final class NatDualConfigurationContextTest extends EquallableBeanCoreUti
         d_.setProperties(props_);
         d_.setMessagesFolder("sample");
         NatNavigation nav_ = new NatNavigation();
-        nav_.setLanguages(new StringList("en","fr"));
+        nav_.setLanguages(new StringList("0","1"));
         StringMap<String> other_ = new StringMap<String>();
         other_.addEntry("elt.css","*{}");
-        other_.addEntry("sample/en/prop","a=b1\nc=d1");
-        other_.addEntry("sample/fr/prop","a=b2\nc=d2");
-        other_.addEntry("sample/en/prop2","e=b1\nf=d1");
-        other_.addEntry("sample/fr/prop2","e=b2\nf=d2");
+        other_.addEntry("sample/0/prop","a=b1\nc=d1");
+        other_.addEntry("sample/1/prop","a=b2\nc=d2");
+        other_.addEntry("sample/0/prop2","e=b1\nf=d1");
+        other_.addEntry("sample/1/prop2","e=b2\nf=d2");
         StringMap<String> files_ = NatDualConfigurationContext.files(d_, other_);
         assertEq(1,files_.size());
         assertEq("*{}",files_.getVal("elt.css"));

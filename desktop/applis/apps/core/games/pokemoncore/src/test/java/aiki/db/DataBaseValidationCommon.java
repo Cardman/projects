@@ -11,9 +11,10 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.util.core.StringUtil;
 
 public abstract class DataBaseValidationCommon extends EquallablePkUtil {
-    protected static final String LANGUAGE = "en";
+    protected static final String LANGUAGE = StringUtil.EN;
     protected static final String NULL_REF = DataBase.EMPTY_STRING;
     protected static final String PIKACHU = "PIKACHU";
     protected static final String PIKACHU2 = "PIKACHU2";

@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.gui.unit.MessagesCdmFullGui;
-import code.expressionlanguage.gui.unit.ProgTestBar;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.stds.DfInstancer;
 import code.expressionlanguage.stds.StdCaller;
@@ -247,14 +246,14 @@ public abstract class EquallableElUtImplUtil {
 
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", _s, _set);
-        pr_.setLanguages(new StringList("en","fr"));
-        pr_.setLanguage(FileInfos.EN);
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        pr_.setLanguage(StringUtil.EN);
         update(pr_);
         return pr_;
     }
     public static void update(MockProgramInfos _pr) {
-        FileInfos.enTr(ProgTestBar.updateEn(FileInfos.initComments(lg(_pr,FileInfos.EN))));
-        FileInfos.frTr(ProgTestBar.updateFr(FileInfos.initComments(lg(_pr,FileInfos.FR))));
+        FileInfos.enTr(MessagesCdmFullGui.updateEn(FileInfos.initComments(lg(_pr,StringUtil.EN))));
+        FileInfos.frTr(MessagesCdmFullGui.updateFr(FileInfos.initComments(lg(_pr,StringUtil.FR))));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);
@@ -284,11 +283,11 @@ public abstract class EquallableElUtImplUtil {
 
     public static StringMap<String> messages(AbstractLightProgramInfos _p) {
         TranslationsLg lg_ = _p.currentLg();
-        ProgTestBar.valExecOptionsMain(lg_);
-        ProgTestBar.valExecOptionsSimpleMes(lg_);
-        ProgTestBar.valExecOptionsSimple(lg_);
+        MessagesCdmFullGui.valExecOptionsMain(lg_);
+        MessagesCdmFullGui.valExecOptionsSimpleMes(lg_);
+        MessagesCdmFullGui.valExecOptionsSimple(lg_);
         MessagesCdmFullGui.valMessages(lg_);
-        return ProgTestBar.valExecOptionsTable(lg_);
+        return MessagesCdmFullGui.valExecOptionsTable(lg_);
     }
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
         return new ExecutingOptions(_p);

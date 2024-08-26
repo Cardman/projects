@@ -8,10 +8,11 @@ import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.confs.EquallableTarotBeanUtil;
 import code.util.Longs;
+import code.util.core.StringUtil;
 
 public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
-    public static final String EN = "en";
-    public static final String FR = "fr";
+    public static final String EN = StringUtil.EN;
+    public static final String FR = StringUtil.FR;
 
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";

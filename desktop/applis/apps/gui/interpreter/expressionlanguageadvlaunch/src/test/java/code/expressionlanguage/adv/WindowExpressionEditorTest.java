@@ -131,7 +131,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         assertEq("/folder/exp",((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getFolderExp());
         ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getCreateEnv()).getActionListeners().get(0).action();
         ((MockMenuItem)w_.getExpressionEditors().get(0).getLanguageMenu()).getActionListeners().get(0).action();
-        w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getChosenLanguage().select(StringUtil.indexOf(w_.getFrames().getLanguages(),"fr"));
+        w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getChosenLanguage().select(StringUtil.indexOf(w_.getFrames().getLanguages(),FR));
         ((MockPlainButton)w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getVal()).getActionListeners().get(0).action();
         WindowCdmEditor w2_=quickCreate(newMockProgramInfosInitConfExpFolder("/folder/exp"));
         String name_ = w_.getConfGlobal();
@@ -139,8 +139,8 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getFrames().getFileCoreStream(),w_.getFrames().getStreams()),w2_.getFrames().getStreams());
         StreamTextFile.saveTextFile(name2_,StreamTextFile.contentsOfFile(name2_,w_.getFrames().getFileCoreStream(),w_.getFrames().getStreams()),w2_.getFrames().getStreams());
         w2_.updateEnv(name_);
-        assertEq("fr",w2_.manage(w2_.getSoftParams().getLines()).getEx().getLg());
-        assertEq("en",w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getFrames().getFileCoreStream(),w2_.getFrames().getStreams()))).getEx().getLg());
+        assertEq(FR,w2_.manage(w2_.getSoftParams().getLines()).getEx().getLg());
+        assertEq(EN,w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getFrames().getFileCoreStream(),w2_.getFrames().getStreams()))).getEx().getLg());
     }
 
     private void loadConfFolder(WindowCdmEditor _w) {

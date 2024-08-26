@@ -28,6 +28,7 @@ import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.util.*;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class EventStructTest extends EquallableElUtUtil {
@@ -493,7 +494,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(), StringUtil.EN);
         Options opt_ = new Options();
         return buildMock(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
@@ -506,7 +507,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
         return buildMockRunnable(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
@@ -520,7 +521,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
 //        new CustFileBuilder(stds_.getContent(), stds_.getExecContent().getCustAliases(), new CustAliasGroups(stds_.getExecContent().getCustAliases(),stds_.getContent())).getDefaultAliasGroups().allMergeTableTypeMethodNames(new StringMap<String>());
         return buildMockRunnable(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
@@ -534,7 +535,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
         return buildMockAction(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
@@ -548,7 +549,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
         return buildMockAllInts(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
@@ -561,7 +562,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         e_.setListGenerator(cdm_);
         e_.getInterceptor().newMapStringStruct();
         stds_.getExecContent().setExecutingOptions(e_);
-        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_p.getTranslations(),_p.getLanguage(),StringUtil.EN);
         Options opt_ = new Options();
         return buildMockThreadRunnable(opt_,e_,new AnalysisMessages(),new KeyWords(),stds_,_files).getContext();
     }
@@ -675,14 +676,14 @@ public final class EventStructTest extends EquallableElUtUtil {
     public static LgNamesGui newLgNamesGuiSampleGr(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(exOpt(_light));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),StringUtil.EN);
         return stds_;
     }
 
     public static LgNamesUtils newLgNamesGuiSampleUt(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesUtils stds_ = newLgNamesUt(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(exOpt(_light));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),"en");
+        stds_.getExecContent().updateTranslations(_light.getTranslations(), _light.getLanguage(),StringUtil.EN);
         return stds_;
     }
 }

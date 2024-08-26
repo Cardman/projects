@@ -4787,7 +4787,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Ex");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
@@ -4846,7 +4846,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctxLgOk("en", files_,"pkg.Ex");
+        ContextEl cont_ = ctxLgOk(files_,"pkg.Ex");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;

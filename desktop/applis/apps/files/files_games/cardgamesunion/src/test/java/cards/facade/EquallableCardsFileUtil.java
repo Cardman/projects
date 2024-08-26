@@ -23,6 +23,7 @@ import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.util.core.BoolVal;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableCardsFileUtil {
@@ -60,8 +61,8 @@ public abstract class EquallableCardsFileUtil {
     }
 
     public static void update(MockProgramInfos _pr) {
-        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(lg(_pr,"en")));
-        MessagesCardGames.frTr(MessagesCardGames.initAppliTr(lg(_pr,"fr")));
+        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(lg(_pr, StringUtil.EN)));
+        MessagesCardGames.frTr(MessagesCardGames.initAppliTr(lg(_pr,StringUtil.FR)));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         return _pr.lg(_key);

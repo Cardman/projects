@@ -1,6 +1,5 @@
 package code.expressionlanguage.dbg;
 
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.StackCallReturnValue;
 import code.expressionlanguage.exec.variables.ViewVariable;
@@ -23,7 +22,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",87);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
@@ -67,7 +66,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",164);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
@@ -124,7 +123,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",184);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
@@ -192,7 +191,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",88);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
@@ -237,7 +236,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",155);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgNormalInfoInit("pkg.Ex", id_, cont_);
@@ -306,7 +305,7 @@ public final class ProcessDbgViewVariablesTest extends ProcessDbgCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ResultContext cont_ = ctxLgReadOnlyOkQuick("en",files_);
+        ResultContext cont_ = ctxLgReadOnlyOkQuick(files_);
         cont_.toggleBreakPoint("pkg/Ex",155);
         MethodId id_ = getMethodId("exmeth");
         StackCallReturnValue i_ = dbgContinueNormalValue(dbgNormal("pkg.Ex", id_, cont_), cont_.getContext());
