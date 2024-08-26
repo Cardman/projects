@@ -158,7 +158,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         filesFrame = new SimpleFilesFrame(this,getTitle());
-        commonExecution = new CommonExecution(new ProgTestBar(getFrames(),doneTestsCalls,doneTestsCount,currentMethod,resultsTable,results,progressBar));
+        commonExecution = new CommonExecution(new ProgTestBar(doneTestsCalls,doneTestsCount,currentMethod,resultsTable,results,progressBar));
     }
 
     @Override

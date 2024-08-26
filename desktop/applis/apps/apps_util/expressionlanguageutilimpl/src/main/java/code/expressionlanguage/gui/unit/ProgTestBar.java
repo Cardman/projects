@@ -6,7 +6,6 @@ import code.gui.AbsPlainLabel;
 import code.gui.AbsProgressBar;
 import code.gui.AbsTableGui;
 import code.gui.AbsTextArea;
-import code.gui.initialize.AbstractLightProgramInfos;
 import code.sml.util.*;
 import code.util.CustList;
 import code.util.StringMap;
@@ -15,8 +14,8 @@ import code.util.core.NumberUtil;
 public final class ProgTestBar implements ProgTestBarInt{
     public static final String EXEC_OPTIONS_TABLE="exec_options_4";
     public static final String EXEC_OPTIONS_TABLE_SUCCESS="0";
-    public static final String EXEC_OPTIONS_TABLE_FAIL="1";
-    public static final String EXEC_OPTIONS_TABLE_MS="2";
+//    public static final String EXEC_OPTIONS_TABLE_FAIL="1";
+//    public static final String EXEC_OPTIONS_TABLE_MS="2";
     public static final String EXEC_OPTIONS_TABLE_NUMBER="3";
     public static final String EXEC_OPTIONS_TABLE_METHOD="4";
     public static final String EXEC_OPTIONS_TABLE_PARAMS="5";
@@ -41,7 +40,8 @@ public final class ProgTestBar implements ProgTestBarInt{
     public static final String EXEC_OPTIONS_MAIN_ARCHIVE="0";
     public static final String EXEC_OPTIONS_MAIN_MEMORY="1";
     public static final String LINE_RETURN = "\n";
-    private final AbstractLightProgramInfos messages;
+    public static final String FLAG_SUCCESS = "\u2713";
+    public static final String FLAG_FAIL = "\u274C";
     private final AbsPlainLabel doneTestsCalls;
     private final AbsPlainLabel doneTestsCount;
 
@@ -51,9 +51,8 @@ public final class ProgTestBar implements ProgTestBarInt{
     private final CustList<ResTestRow> results;
     private final AbsProgressBar progressBar;
 
-    public ProgTestBar(AbstractLightProgramInfos _messages, AbsPlainLabel _doneTestsCalls, AbsPlainLabel _doneTestsCount, AbsPlainLabel _currentMethod,
+    public ProgTestBar(AbsPlainLabel _doneTestsCalls, AbsPlainLabel _doneTestsCount, AbsPlainLabel _currentMethod,
                        AbsTableGui _resultsTable, AbsTextArea _results, AbsProgressBar _progressBar) {
-        this.messages = _messages;
         this.doneTestsCalls = _doneTestsCalls;
         this.doneTestsCount = _doneTestsCount;
         this.resultsArea = _results;
@@ -91,8 +90,8 @@ public final class ProgTestBar implements ProgTestBarInt{
     public static TranslationsFile enExecOptionsTable(){
         TranslationsFile e_ = new TranslationsFile();
         e_.add(EXEC_OPTIONS_TABLE_SUCCESS,"Success");
-        e_.add(EXEC_OPTIONS_TABLE_FAIL,"Fail");
-        e_.add(EXEC_OPTIONS_TABLE_MS,"ms");
+//        e_.add(EXEC_OPTIONS_TABLE_FAIL,"Fail");
+//        e_.add(EXEC_OPTIONS_TABLE_MS,"ms");
         e_.add(EXEC_OPTIONS_TABLE_NUMBER,"Number");
         e_.add(EXEC_OPTIONS_TABLE_METHOD,"Method");
         e_.add(EXEC_OPTIONS_TABLE_PARAMS,"Parameters");
@@ -109,8 +108,8 @@ public final class ProgTestBar implements ProgTestBarInt{
     public static TranslationsFile frExecOptionsTable(){
         TranslationsFile f_ = new TranslationsFile();
         f_.add(EXEC_OPTIONS_TABLE_SUCCESS,"Succès");
-        f_.add(EXEC_OPTIONS_TABLE_FAIL,"Échec");
-        f_.add(EXEC_OPTIONS_TABLE_MS,"ms");
+//        f_.add(EXEC_OPTIONS_TABLE_FAIL,"Échec");
+//        f_.add(EXEC_OPTIONS_TABLE_MS,"ms");
         f_.add(EXEC_OPTIONS_TABLE_NUMBER,"Numéro");
         f_.add(EXEC_OPTIONS_TABLE_METHOD,"Méthode");
         f_.add(EXEC_OPTIONS_TABLE_PARAMS,"Paramètres");
@@ -166,9 +165,9 @@ public final class ProgTestBar implements ProgTestBarInt{
         f_.add(EXEC_OPTIONS_MAIN_MEMORY,"Mémoire");
         return f_;
     }
-    public StringMap<String> getMessages() {
-        return valExecOptionsTable(messages.currentLg());
-    }
+//    public StringMap<String> getMessages() {
+//        return valExecOptionsTable(messages.currentLg());
+//    }
 
     @Override
     public void achieve() {
@@ -243,10 +242,27 @@ public final class ProgTestBar implements ProgTestBarInt{
         build_.append(_res.getResultSuccessLong()).append(LINE_RETURN);
         build_.append(_res.getErrMess()+ LINE_RETURN);
         build_.append(_res.getMethodParams()+ LINE_RETURN);
-        build_.append(LINE_RETURN +"="+_res.getTime()+" "+valExecOptionsTable(messages.currentLg()).getVal(EXEC_OPTIONS_TABLE_MS)+ LINE_RETURN);
+        build_.append(LINE_RETURN +"="+formatSecond(_res.getTime())+ LINE_RETURN);
         resultsArea.append(build_.toString());
     }
 
+    public static String formatSecond(long _millis) {
+        if (_millis <= 0) {
+            return "0";
+        }
+        if (_millis <= 9) {
+            return "0.00"+_millis;
+        }
+        if (_millis <= 99) {
+            return "0.0"+_millis;
+        }
+        if (_millis <= 999) {
+            return "0."+_millis;
+        }
+        StringBuilder str_ = new StringBuilder(Long.toString(_millis));
+        str_.insert(str_.length()-3,".");
+        return str_.toString();
+    }
     @Override
     public void setValueAt(String _v, int _i, int _j) {
         resultsTable.setValueAt(_v, _i, _j);
@@ -254,12 +270,12 @@ public final class ProgTestBar implements ProgTestBarInt{
 
     @Override
     public String success() {
-        return valExecOptionsTable(messages.currentLg()).getVal(EXEC_OPTIONS_TABLE_SUCCESS);
+        return FLAG_SUCCESS;
     }
 
     @Override
     public String fail() {
-        return valExecOptionsTable(messages.currentLg()).getVal(EXEC_OPTIONS_TABLE_FAIL);
+        return FLAG_FAIL;
     }
 
 }

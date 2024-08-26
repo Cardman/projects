@@ -11,8 +11,6 @@ import code.gui.GuiBaseUtil;
 import code.threads.AbstractThreadFactory;
 
 public final class CommonExecution {
-    public static final String CROSS_SUCCESS = "\u2613";
-    public static final String CROSS_FAIL = "";
     private final ProgTestBarInt progTestBar;
 
     public CommonExecution(ProgTestBarInt _prog) {
@@ -81,10 +79,10 @@ public final class CommonExecution {
                 Struct failMessage_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasFailMessage_)).getStruct();
                 if (BooleanStruct.isTrue(success_)) {
                     resultRow_.setResultSuccessLong(progTestBar.success());
-                    resultRow_.setResultSuccess(CROSS_SUCCESS);
+                    resultRow_.setResultSuccess(ProgTestBar.FLAG_SUCCESS);
                 } else {
                     resultRow_.setResultSuccessLong(progTestBar.fail());
-                    resultRow_.setResultSuccess(CROSS_FAIL);
+                    resultRow_.setResultSuccess(ProgTestBar.FLAG_FAIL);
                 }
                 resultRow_.setErrMess(((StringStruct)failMessage_).getInstance());
                 resultRow_.setTime(((NumberStruct)time_).longStruct());

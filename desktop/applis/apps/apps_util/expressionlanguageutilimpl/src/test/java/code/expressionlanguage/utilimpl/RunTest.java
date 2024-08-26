@@ -1,6 +1,5 @@
 package code.expressionlanguage.utilimpl;
 
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.gui.unit.*;
 import code.expressionlanguage.options.DefBuildLightResultContextNext;
 import code.expressionlanguage.options.ResultContext;
@@ -31,7 +30,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertEq("__",RunningTest.newFromContent(new StringList("en","fr"),"",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()).retrieve());
     }
@@ -42,7 +41,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertEq("__",RunningTest.newFromFile(new StringList("en","fr"),"",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()).retrieve());
     }
@@ -65,7 +64,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertFalse(RunningTest.launchByConfContent(new StringList(),";\n;\nout=//",progTest_,infos_, new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
     }
@@ -76,7 +75,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertTrue(RunningTest.launchByConfContent(new StringList(),";\n;",progTest_,infos_, new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
     }
@@ -87,7 +86,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertTrue(RunningTest.launchByConfContent(new StringList("en"),";\nen\nerr=",progTest_,infos_, new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
         StringMap<ContentTime> reported_ = pr_.getZipFact().zippedBinaryFiles(progTest_.getExportedReport());
@@ -101,7 +100,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         AbsTableGui t_ = compo_.newTableGui("0", "1", "2", "3");
         t_.setRowCount(2);
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), t_, compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), t_, compo_.newTextArea(), compo_.newAbsProgressBar());
         AbsTestableFrame fr_ = new LightTestableFrame(pr_, null, new MockInterceptor(), mem_, bar_);
 //        fr_.ok("");
         fr_.getTxtConf();
@@ -110,12 +109,13 @@ public final class RunTest extends EquallableElUtImplUtil {
         running_.run();
         StringMap<ContentTime> reported_ = pr_.getZipFact().zippedBinaryFiles(running_.getProgressingTests().getExportedReport());
         assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Sample</a>{<span class=\"f2\">@Test</span> public void <a name=\"m42\">err</a>(){<span class=\"n\"><span class=\"n\">Assert</span>.<span class=\"n\">assert(<span class=\"n\">0</span>,<span class=\"n\">1</span>)</span></span>;}<span class=\"f2\">@Test</span> public void <a name=\"m86\">success</a>(){<span class=\"f\"><span class=\"f\">Assert</span>.<span class=\"f\">assert(<span class=\"f\">1</span>,<span class=\"f\">1</span>)</span></span>;}}</span></pre></body></html>",StringUtil.decode(reported_.getVal("coverage/src/folder/file.txt.html").getContent()));
-        assertFalse(bar_.getMessages().isEmpty());
+//        assertFalse(bar_.getMessages().isEmpty());
+        messages(pr_);
         assertEq(2, bar_.getResults().size());
-        assertEq(messages(pr_).getVal(ProgTestBar.EXEC_OPTIONS_TABLE_FAIL), bar_.getResults().get(0).getResultSuccessLong());
-        assertEq(messages(pr_).getVal(ProgTestBar.EXEC_OPTIONS_TABLE_SUCCESS), bar_.getResults().get(1).getResultSuccessLong());
-        assertEq(CommonExecution.CROSS_FAIL, bar_.getResults().get(0).getResultSuccess());
-        assertEq(CommonExecution.CROSS_SUCCESS, bar_.getResults().get(1).getResultSuccess());
+        assertEq(ProgTestBar.FLAG_FAIL, bar_.getResults().get(0).getResultSuccessLong());
+        assertEq(ProgTestBar.FLAG_SUCCESS, bar_.getResults().get(1).getResultSuccessLong());
+        assertEq(ProgTestBar.FLAG_FAIL, bar_.getResults().get(0).getResultSuccess());
+        assertEq(ProgTestBar.FLAG_SUCCESS, bar_.getResults().get(1).getResultSuccess());
         assertFalse(bar_.getResults().get(0).isSuccess());
         assertTrue(bar_.getResults().get(1).isSuccess());
         assertFalse(progTest_.getStop().get());
@@ -127,7 +127,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertTrue(RunningTest.launchByConfContent(new StringList("en"),";\nen\nerr=",progTest_,infos_,new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
     }

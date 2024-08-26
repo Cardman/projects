@@ -1,6 +1,5 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.options.DefBuildLightResultContextNext;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.*;
@@ -17,9 +16,7 @@ import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.BytesInfo;
-import code.threads.AbstractThreadFactory;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -33,7 +30,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         ProgressingTestsImpl progTest_ = new ProgressingTestsImpl(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_),pr_.getStreams(),pr_.getFileCoreStream());
         assertFalse(RunningTest.launchByConfContent(new StringList(),";\n;\nout=//",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
     }
@@ -45,7 +42,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         ProgressingTestsImpl progTest_ = new ProgressingTestsImpl(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_),pr_.getStreams(),pr_.getFileCoreStream());
         assertTrue(RunningTest.launchByConfContent(new StringList(),";\n;",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
     }
@@ -57,7 +54,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         ProgressingTestsImpl progTest_ = new ProgressingTestsImpl(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_),pr_.getStreams(),pr_.getFileCoreStream());
         assertTrue(RunningTest.launchByConfContent(new StringList("en"),";\nen\nerr=",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
         assertTrue(progTest_.getExportedReport().isNul());
@@ -73,7 +70,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         AbsTableGui t_ = compo_.newTableGui("0", "1", "2", "3");
         t_.setRowCount(2);
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), t_, compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), t_, compo_.newTextArea(), compo_.newAbsProgressBar());
         AbsTestableFrame fr_ = new LightTestableFrame(pr_, null, new MockInterceptor(), mem_, bar_);
 //        fr_.ok("");
         fr_.getTxtConf();
@@ -84,10 +81,10 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
 //        assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Sample</a>{<span class=\"f2\">@Test</span> public void <a name=\"m42\">err</a>(){<span class=\"n\"><span class=\"n\">Assert</span>.<span class=\"n\">assert(<span class=\"n\">0</span>,<span class=\"n\">1</span>)</span></span>;}<span class=\"f2\">@Test</span> public void <a name=\"m86\">success</a>(){<span class=\"f\"><span class=\"f\">Assert</span>.<span class=\"f\">assert(<span class=\"f\">1</span>,<span class=\"f\">1</span>)</span></span>;}}</span></pre></body></html>",StringUtil.decode(reported_.getVal("coverage/src/folder/file.txt.html").getContent()));
 //        assertEq(2, bar_.getMessages().size());
         assertEq(2, bar_.getResults().size());
-        assertEq("0", bar_.getResults().get(0).getResultSuccessLong());
-        assertEq("1", bar_.getResults().get(1).getResultSuccessLong());
-        assertEq(CommonExecution.CROSS_FAIL, bar_.getResults().get(0).getResultSuccess());
-        assertEq(CommonExecution.CROSS_SUCCESS, bar_.getResults().get(1).getResultSuccess());
+        assertEq(ProgTestBar.FLAG_FAIL, bar_.getResults().get(0).getResultSuccessLong());
+        assertEq(ProgTestBar.FLAG_SUCCESS, bar_.getResults().get(1).getResultSuccessLong());
+        assertEq(ProgTestBar.FLAG_FAIL, bar_.getResults().get(0).getResultSuccess());
+        assertEq(ProgTestBar.FLAG_SUCCESS, bar_.getResults().get(1).getResultSuccess());
         assertFalse(bar_.getResults().get(0).isSuccess());
         assertTrue(bar_.getResults().get(1).isSuccess());
         assertFalse(progTest_.getStop().get());
@@ -100,7 +97,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         ProgressingTestsImpl progTest_ = new ProgressingTestsImpl(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_),pr_.getStreams(),pr_.getFileCoreStream());
         assertTrue(RunningTest.launchByConfContent(new StringList("en"),";\nen\nerr=",progTest_,infos_,new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
     }
@@ -113,7 +110,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         AbsTableGui t_ = compo_.newTableGui("0", "1", "2", "3");
         t_.setRowCount(2);
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), t_, compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), t_, compo_.newTextArea(), compo_.newAbsProgressBar());
         AbsTestableFrame fr_ = new LightTestableFrame(pr_, null, new MockInterceptor(), mem_, bar_);
 //        fr_.ok("");
         fr_.getTxtConf();
@@ -124,10 +121,10 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
 //        assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Sample</a>{<span class=\"f2\">@Test</span> public void <a name=\"m42\">err</a>(){<span class=\"n\"><span class=\"n\">Assert</span>.<span class=\"n\">assert(<span class=\"n\">0</span>,<span class=\"n\">1</span>)</span></span>;}<span class=\"f2\">@Test</span> public void <a name=\"m86\">success</a>(){<span class=\"f\"><span class=\"f\">Assert</span>.<span class=\"f\">assert(<span class=\"f\">1</span>,<span class=\"f\">1</span>)</span></span>;}}</span></pre></body></html>",StringUtil.decode(reported_.getVal("coverage/src/folder/file.txt.html").getContent()));
 //        assertEq(2, bar_.getMessages().size());
         assertEq(2, bar_.getResults().size());
-        assertEq("0", bar_.getResults().get(0).getResultSuccessLong());
-        assertEq("1", bar_.getResults().get(1).getResultSuccessLong());
-        assertEq(CommonExecution.CROSS_FAIL, bar_.getResults().get(0).getResultSuccess());
-        assertEq(CommonExecution.CROSS_SUCCESS, bar_.getResults().get(1).getResultSuccess());
+        assertEq(ProgTestBar.FLAG_FAIL, bar_.getResults().get(0).getResultSuccessLong());
+        assertEq(ProgTestBar.FLAG_SUCCESS, bar_.getResults().get(1).getResultSuccessLong());
+        assertEq(ProgTestBar.FLAG_FAIL, bar_.getResults().get(0).getResultSuccess());
+        assertEq(ProgTestBar.FLAG_SUCCESS, bar_.getResults().get(1).getResultSuccess());
         assertFalse(bar_.getResults().get(0).isSuccess());
         assertTrue(bar_.getResults().get(1).isSuccess());
         assertFalse(progTest_.getStop().get());
@@ -141,7 +138,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         DefaultUniformingString uniformingString_ = new DefaultUniformingString();
         FileInfos infos_ = new FileInfos(new DefaultLogger(null, pr_.getFileCoreStream(),pr_.getStreams()), new MemoryFileSystem(pr_.getValidator(), pr_.getThreadFactory()), new MemoryReporter(pr_, mem_.getConf(), mem_.getSrc(), mem_.getFiles(), pr_.getValidator(), uniformingString_), pr_.getGenerator(), pr_.getZipFact(), pr_.getThreadFactory());
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         ProgressingTestsImpl progTest_ = new ProgressingTestsImpl(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_),pr_.getStreams(),pr_.getFileCoreStream());
         assertTrue(RunningTest.launchByConfContent(new StringList("en"),";\nen",progTest_,infos_,new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
     }
@@ -155,10 +152,10 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         return _pr.lg(_key);
     }
     public static TranslationsAppli updateMes(TranslationsAppli _a) {
-        TranslationsFile t_ = new TranslationsFile();
-        t_.add(ProgTestBar.EXEC_OPTIONS_TABLE_FAIL,"0");
-        t_.add(ProgTestBar.EXEC_OPTIONS_TABLE_SUCCESS,"1");
-        _a.getMapping().addEntry(ProgTestBar.EXEC_OPTIONS_TABLE, t_);
+//        TranslationsFile t_ = new TranslationsFile();
+//        t_.add(ProgTestBar.EXEC_OPTIONS_TABLE_FAIL,"0");
+//        t_.add(ProgTestBar.EXEC_OPTIONS_TABLE_SUCCESS,"1");
+//        _a.getMapping().addEntry(ProgTestBar.EXEC_OPTIONS_TABLE, t_);
         return _a;
     }
 }

@@ -152,7 +152,7 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
         addWindowListener(new ClosingChildFrameEvent(this));
 //        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         pack();
-        commonExecution = new CommonExecution(new ProgTestBar(getFrames(),doneTestsCalls,doneTestsCount,currentMethod,resultsTable,results,progressBar));
+        commonExecution = new CommonExecution(new ProgTestBar(doneTestsCalls,doneTestsCount,currentMethod,resultsTable,results,progressBar));
     }
 
     @Override

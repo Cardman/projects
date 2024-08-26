@@ -40,7 +40,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         ExecutingOptions exec_ = exOpt(pr_);
         exec_.setLg("en");
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         exec_.setListGenerator(progTest_.getFactory());
         stds_.getExecContent().setExecutingOptions(exec_);
@@ -73,7 +73,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
         ExecutingOptions exec_ = exOpt(pr_);
         AbsCompoFactory compo_ = pr_.getCompoFactory();
-        ProgTestBar bar_ = new ProgTestBar(pr_, compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         LightTestableFrame fram_ = new LightTestableFrame(pr_, null, new MockInterceptor(), mem_, bar_);
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(fram_);
         exec_.setListGenerator(progTest_.getFactory());
@@ -92,5 +92,25 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         assertEq("", bar_.getDoneTestsCount());
         assertEq("", bar_.getCurrentMethod());
         assertEq("", bar_.calls());
+    }
+    @Test
+    public void f1() {
+        assertEq("0",ProgTestBar.formatSecond(0));
+    }
+    @Test
+    public void f2() {
+        assertEq("0.001",ProgTestBar.formatSecond(1));
+    }
+    @Test
+    public void f3() {
+        assertEq("0.010",ProgTestBar.formatSecond(10));
+    }
+    @Test
+    public void f4() {
+        assertEq("0.100",ProgTestBar.formatSecond(100));
+    }
+    @Test
+    public void f5() {
+        assertEq("1.000",ProgTestBar.formatSecond(1000));
     }
 }
