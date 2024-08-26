@@ -7,6 +7,8 @@ import code.maths.montecarlo.*;
 import code.minirts.events.*;
 import code.mock.*;
 import code.threads.*;
+import code.util.StringList;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableRtsUtil {
@@ -74,7 +76,10 @@ public abstract class EquallableRtsUtil {
     }
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new CustomSeedGene(_dbs), new MockFileSet(0, new long[1], new String[]{"/"}));
-        pr_.setLanguage("");
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        MessagesRts.updateEn(MessagesRts.initAppliTr(pr_.lg(StringUtil.EN)));
+        MessagesRts.updateFr(MessagesRts.initAppliTr(pr_.lg(StringUtil.FR)));
+        pr_.setLanguage(StringUtil.EN);
         return pr_;
     }
 

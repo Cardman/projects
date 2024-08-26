@@ -12,11 +12,11 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.stream.*;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 
-    public static final String APPS_CONVERTER = "converter";
     private static final String EMPTY_STRING = "";
 
 //    private static final String DOT = ".";
@@ -27,13 +27,13 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 //    private static final String JPG_EXT = "jpg";
 //    private static final String PNG_EXT = "png";
 
-    private static final String OK = "ok";
+//    private static final String OK = "ok";
 
-    private static final String READ = "read";
+//    private static final String READ = "read";
 
 //    private static final String READ_IMAGES = "read images";
 
-    private static final String CONVERT_IMAGE = "convert image";
+//    private static final String CONVERT_IMAGE = "convert image";
 
 //    private final AbsCustCheckBox readImages;
 
@@ -52,7 +52,8 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 //        atomicBoolean = _list.getThreadFactory().newAtomicBoolean();
         folderOpenFrame = new FolderOpenFrame(_list,_list.getThreadFactory().newAtomicBoolean());
         GuiBaseUtil.choose(this, _list);
-        setTitle(CONVERT_IMAGE);
+        StringMap<String> mes_ = MessagesConverter.valMessages(_list.currentLg());
+        setTitle(mes_.getVal(MessagesConverter.CONVERT));
         AbsPanel content_ = _list.getCompoFactory().newPageBox();
 //        readImages = getCompoFactory().newCustCheckBox(READ_IMAGES);
 //        readImages.setSelected(true);
@@ -64,11 +65,11 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
         pathExport = getCompoFactory().newTextField(50);
         pathExport.setText(EMPTY_STRING);
         content_.add(pathExport);
-        readButton = getCompoFactory().newPlainButton(READ);
+        readButton = getCompoFactory().newPlainButton(mes_.getVal(MessagesConverter.READ));
         AbsButton read_ = readButton;
         read_.addActionListener(new ReadEvent(this));
         content_.add(read_);
-        okButton = getCompoFactory().newPlainButton(OK);
+        okButton = getCompoFactory().newPlainButton(mes_.getVal(MessagesConverter.OK));
         AbsButton ok_ = okButton;
         ok_.addActionListener(new ExportEvent(this));
         content_.add(ok_);
@@ -205,7 +206,7 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public String getApplicationName() {
-        return APPS_CONVERTER;
+        return MessagesConverter.APPS_CONVERTER;
     }
 
     public AbsTextField getPathExport() {

@@ -1,6 +1,6 @@
 package applications.gui;
 
-import code.converterimages.gui.WindowConverter;
+import code.converterimages.gui.MessagesConverter;
 import applications.code.converterimages.main.LaunchingConverter;
 import code.gui.AbsButton;
 import code.gui.LanguagesButtonsPair;
@@ -8,7 +8,7 @@ import code.gui.LanguagesButtonsPair;
 public final class ConverterEvent extends AbstractEvent {
 
     ConverterEvent(WindowApps _window, AbsButton _but, LanguagesButtonsPair _p) {
-        super(_window, _but, WindowConverter.APPS_CONVERTER, _p);
+        super(_window, _but, MessagesConverter.APPS_CONVERTER, _p);
     }
 
     @Override

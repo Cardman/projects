@@ -27,18 +27,15 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
 //    public static final String NOTE_FILE = "resources_rts/note.txt";
 
-//    public static final String FOLDER = "rts_imgs";
-    public static final String APPS_RTS = "rts";
-
 //    private final StringMap<String> messagesFiles = MessPlayerGr.ms();
 
 //    private final Cursor currentCursor = Cursor.getDefaultCursor();
 
-    private final AbsButton animate = getCompoFactory().newPlainButton("Animate");
+    private final AbsButton animate = getCompoFactory().newPlainButton("");
 
-    private final AbsCustCheckBox pause = getCompoFactory().newCustCheckBox("Pause");
+    private final AbsCustCheckBox pause = getCompoFactory().newCustCheckBox("");
 
-    private final AbsButton stop = getCompoFactory().newPlainButton("Stop");
+    private final AbsButton stop = getCompoFactory().newPlainButton("");
 
     private final Facade facade = new Facade();
 
@@ -54,7 +51,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
     private AbstractScheduledExecutorService sch;
     private AbstractFuture fut;
 
-    private final AbsCustCheckBox addSoldier = getCompoFactory().newCustCheckBox("Add soldier");
+    private final AbsCustCheckBox addSoldier = getCompoFactory().newCustCheckBox("");
     private final AbsPlainLabel currentCoords = getCompoFactory().newPlainLabel("");
 
     private final AbstractAtomicBoolean dragged;
@@ -67,6 +64,11 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
     private final LanguagesButtonsPair mainButton;
     public WindowRts(AbstractProgramInfos _list, LanguagesButtonsPair _pair) {
         super(_list);
+        StringMap<String> mes_ = MessagesRts.valMessages(_list.currentLg());
+        animate.setText(mes_.getVal(MessagesRts.ANIMATE));
+        pause.setText(mes_.getVal(MessagesRts.PAUSE));
+        stop.setText(mes_.getVal(MessagesRts.STOP));
+        addSoldier.setText(mes_.getVal(MessagesRts.ADD_SOLDIER));
         mainButton = _pair;
         setTaskEnabled(new DefRtsTaskEnabled());
         GuiBaseUtil.choose(this, _list);
@@ -339,7 +341,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public String getApplicationName() {
-        return APPS_RTS;
+        return MessagesRts.APPS_RTS;
     }
 
 //    @Override

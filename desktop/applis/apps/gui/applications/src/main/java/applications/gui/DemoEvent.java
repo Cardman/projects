@@ -3,12 +3,12 @@ package applications.gui;
 import code.gui.AbsButton;
 import code.gui.LanguagesButtonsPair;
 import applications.code.minirts.LaunchingDemo;
-import code.minirts.WindowRts;
+import code.minirts.MessagesRts;
 
 public final class DemoEvent extends AbstractEvent {
 
     DemoEvent(WindowApps _window, AbsButton _but, LanguagesButtonsPair _p) {
-        super(_window, _but, WindowRts.APPS_RTS, _p);
+        super(_window, _but, MessagesRts.APPS_RTS, _p);
     }
 
     @Override

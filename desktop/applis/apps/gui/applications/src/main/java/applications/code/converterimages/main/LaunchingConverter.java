@@ -7,7 +7,7 @@ import code.gui.*;
 
 public class LaunchingConverter extends AdvSoftApplicationCore {
 
-    public static final String TEMP_FOLDER = WindowConverter.APPS_CONVERTER;
+    public static final String TEMP_FOLDER = MessagesConverter.APPS_CONVERTER;
 
     public LaunchingConverter(WithAppFactories _infos){
         super(_infos);

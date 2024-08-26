@@ -35,7 +35,6 @@ import code.util.ints.UniformingString;
 
 
 public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
-    public static final String APPS_RENDERS_SITES = "renders_sites";
     private final EnabledMenu menu;
     private final EnabledMenu open;
     private final AbsTextField lgCode;
@@ -55,14 +54,15 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         fileOpenFrame = new FileOpenFrame(_programInfos,atomicBoolean);
         GuiBaseUtil.choose(this, _programInfos);
         interceptor = _list;
+        StringMap<String> mes_ = MessagesRenders.valMessages(_programInfos.currentLg());
         setJMenuBar(getCompoFactory().newMenuBar());
-        menu = getCompoFactory().newMenu("file");
-        open = getCompoFactory().newMenuItem("open");
+        menu = getCompoFactory().newMenu(mes_.getVal(MessagesRenders.FILE));
+        open = getCompoFactory().newMenuItem(mes_.getVal(MessagesRenders.OPEN));
         open.addActionListener(new OpenArchive(this));
         open.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         getJMenuBar().add(menu);
-        setTitle("Local sites");
+        setTitle(mes_.getVal(MessagesRenders.TITLE));
         AbsPanel pane_ = getCompoFactory().newPageBox();
         lgCode = getCompoFactory().newTextField(20);
         pane_.add(lgCode);
@@ -74,7 +74,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         session.setLanguage(_lg,_programInfos.getLanguages());
         session.setFrame(getCommonFrame());
         AbsTextField field_;
-        AbsButton search_ = getCompoFactory().newPlainButton("search");
+        AbsButton search_ = getCompoFactory().newPlainButton(mes_.getVal(MessagesRenders.SEARCH));
         field_ = getCompoFactory().newTextField(20);
         AbsTextArea t_ = getCompoFactory().newTextArea(8, 32);
         session.setArea(t_);
@@ -224,7 +224,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public String getApplicationName() {
-        return APPS_RENDERS_SITES;
+        return MessagesRenders.APPS_RENDERS_SITES;
     }
 
 //    @Override

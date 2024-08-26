@@ -152,8 +152,8 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
     @Test
     public void r3() {
         MockProgramInfos pr_ = build();
-        pr_.lg("");
-        pr_.setLanguage("");
+//        pr_.lg("");
+//        pr_.setLanguage("");
         updateBase(pr_.currentLg());
         pr_.getFileCoreStream().newFile("/from").mkdirs();
         StreamBinaryFile.writeFile("/from/_",new byte[0],pr_.getStreams());
@@ -173,8 +173,8 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
     @Test
     public void r4() {
         MockProgramInfos pr_ = build();
-        pr_.lg("");
-        pr_.setLanguage("");
+//        pr_.lg("");
+//        pr_.setLanguage("");
         updateBase(pr_.currentLg());
         pr_.getFileCoreStream().newFile("/from").mkdirs();
         StreamBinaryFile.writeFile("/from/_",new byte[0],pr_.getStreams());
@@ -187,8 +187,8 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
     @Test
     public void r5() {
         MockProgramInfos pr_ = build();
-        pr_.lg("");
-        pr_.setLanguage("");
+//        pr_.lg("");
+//        pr_.setLanguage("");
         updateBase(pr_.currentLg());
         pr_.getFileCoreStream().newFile("/from").mkdirs();
         FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
@@ -203,8 +203,8 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
     @Test
     public void r6() {
         MockProgramInfos pr_ = build();
-        pr_.lg("");
-        pr_.setLanguage("");
+//        pr_.lg("");
+//        pr_.setLanguage("");
         updateBase(pr_.currentLg());
         pr_.getFileCoreStream().newFile("/from/one").mkdirs();
         pr_.getFileCoreStream().newFile("/from/one/sub1").mkdirs();
@@ -278,8 +278,8 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
     @Test
     public void r7() {
         MockProgramInfos pr_ = build();
-        pr_.lg("");
-        pr_.setLanguage("");
+//        pr_.lg("");
+//        pr_.setLanguage("");
         updateBase(pr_.currentLg());
         pr_.getFileCoreStream().newFile("/from/one").mkdirs();
         pr_.getFileCoreStream().newFile("/from/one/sub1").mkdirs();

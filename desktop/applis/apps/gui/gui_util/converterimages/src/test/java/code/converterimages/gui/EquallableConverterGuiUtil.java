@@ -7,6 +7,8 @@ import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.threads.AbstractThread;
 import code.util.Ints;
+import code.util.StringList;
+import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableConverterGuiUtil {
@@ -19,7 +21,10 @@ public abstract class EquallableConverterGuiUtil {
     }
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new CustomSeedGene(_dbs), new MockFileSet(0, new long[1], new String[]{"/"}));
-        pr_.setLanguage("");
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        MessagesConverter.updateEn(MessagesConverter.initAppliTr(pr_.lg(StringUtil.EN)));
+        MessagesConverter.updateFr(MessagesConverter.initAppliTr(pr_.lg(StringUtil.FR)));
+        pr_.setLanguage(StringUtil.EN);
         return pr_;
     }
     public static AbstractThread tryAn(MockThreadFactory _g) {

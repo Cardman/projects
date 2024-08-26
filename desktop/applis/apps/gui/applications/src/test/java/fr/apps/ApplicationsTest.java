@@ -33,10 +33,12 @@ import code.gui.*;
 import code.gui.files.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
+import code.minirts.MessagesRts;
 import code.minirts.WindowRts;
 import code.mock.*;
 import code.netw.*;
 import code.player.gui.*;
+import code.renders.MessagesRenders;
 import code.sml.*;
 import code.sml.util.*;
 import code.stream.*;
@@ -59,6 +61,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
+        MessagesRts.updateEn(MessagesRts.initAppliTr(p_.lg(StringUtil.EN)));
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
         fullDocument_.appendChild(fullDocument_.createElement("_"));
         StreamTextFile.saveTextFile(ARG, fullDocument_.export(),p_.getStreams());
@@ -92,6 +95,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void rts3() {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
+        MessagesRts.updateEn(MessagesRts.initAppliTr(p_.lg(StringUtil.EN)));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
         fullDocument_.appendChild(fullDocument_.createElement("_"));
@@ -230,7 +234,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void rend() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        DefaultBeanAliases.enTr(FileInfos.enTr(FileInfos.initComments(en_)));
+        DefaultBeanAliases.enTr(MessagesRenders.updateEn(FileInfos.enTr(FileInfos.initComments(en_))));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         String xmlConf_ = "<cfg>\n" +
@@ -459,6 +463,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void imgs() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
+        MessagesConverter.updateEn(MessagesConverter.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         updateBase(p_.currentLg());
@@ -594,6 +599,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void rtsBut() {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
+        MessagesRts.updateEn(MessagesRts.initAppliTr(p_.lg(StringUtil.EN)));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
         fullDocument_.appendChild(fullDocument_.createElement("_"));
@@ -659,7 +665,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void rendBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
-        DefaultBeanAliases.enTr(FileInfos.enTr(FileInfos.initComments(en_)));
+        DefaultBeanAliases.enTr(MessagesRenders.updateEn(FileInfos.enTr(FileInfos.initComments(en_))));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         String xmlConf_ = "<cfg>\n" +
@@ -794,6 +800,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void imgsBut() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
+        MessagesConverter.updateEn(MessagesConverter.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         updateBase(p_.currentLg());
@@ -892,6 +899,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void rtsLg1() {
         MockProgramInfos p_ = build();
         p_.setLanguages(new StringList(EN));
+        MessagesRts.updateEn(MessagesRts.initAppliTr(p_.lg(StringUtil.EN)));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
         fullDocument_.appendChild(fullDocument_.createElement("_"));
