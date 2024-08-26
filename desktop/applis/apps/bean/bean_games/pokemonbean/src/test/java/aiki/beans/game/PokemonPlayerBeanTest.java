@@ -450,7 +450,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkInd pk_ = new PkInd();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_);
+        NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_);
         nav_.setLanguage(EN);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);

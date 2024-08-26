@@ -121,7 +121,7 @@ public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
         mes_.addEntry(EN,MessPresidentPage.enPresident());
         mes_.addEntry(FR,MessPresidentPage.frPresident());
         PresidentStandardsRules stds_ = new PresidentStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesPresidentLoader(),PagesPresidents.buildRules(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new RulesPresidentLoader(),PagesPresidents.buildRules(),other_,mes_);
         nav_.setLanguage(EN);
         stds_.setDataBaseRules(rules(true, true, true, true, true, 4, 1));
         stds_.initializeRendSessionDoc(nav_);
@@ -139,7 +139,7 @@ public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
         mes_.addEntry(EN,MessPresidentPage.enPresident());
         mes_.addEntry(FR,MessPresidentPage.frPresident());
         PresidentStandardsRules stds_ = new PresidentStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesPresidentLoader(),PagesPresidents.buildRules(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new RulesPresidentLoader(),PagesPresidents.buildRules(),other_,mes_);
         nav_.setLanguage(FR);
         stds_.setDataBaseRules(rules(true, true, true, true, true, 4, 1));
         stds_.initializeRendSessionDoc(nav_);

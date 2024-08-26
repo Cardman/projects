@@ -110,7 +110,7 @@ public final class FightBeanTest extends InitDbFight {
         builtMessages_.addEntry(FR,MessagesInit.frFight());
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_);
+        NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_);
         nav_.setLanguage(EN);
         pk_.setDataBase(facadeCalculation5(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
@@ -146,7 +146,7 @@ public final class FightBeanTest extends InitDbFight {
         builtMessages_.addEntry(FR,MessagesInit.frFight());
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_);
+        NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_);
         nav_.setLanguage(EN);
         pk_.setDataBase(facadeCalculation7(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);

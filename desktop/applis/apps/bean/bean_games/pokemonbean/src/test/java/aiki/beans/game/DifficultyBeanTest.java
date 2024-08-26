@@ -503,7 +503,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_);
+        NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_);
         nav_.setLanguage(EN);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
@@ -542,7 +542,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         builtMessages_.addEntry(FR,MessagesInit.fr());
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_);
+        NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_);
         nav_.setLanguage(EN);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);

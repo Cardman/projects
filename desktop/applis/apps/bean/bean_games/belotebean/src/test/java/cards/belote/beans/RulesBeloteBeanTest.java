@@ -97,7 +97,7 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
         mes_.addEntry(EN,MessBelotePage.enBelote());
         mes_.addEntry(FR,MessBelotePage.frBelote());
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,mes_);
         nav_.setLanguage(EN);
         stds_.setDataBaseRules(rules(DealingBelote.CLASSIC_2_VS_2, true, true));
         stds_.initializeRendSessionDoc(nav_);
@@ -115,7 +115,7 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
         mes_.addEntry(EN,MessBelotePage.enBelote());
         mes_.addEntry(FR,MessBelotePage.frBelote());
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,mes_);
         nav_.setLanguage(FR);
         stds_.setDataBaseRules(rules(DealingBelote.CLASSIC_2_VS_2, true, true));
         stds_.initializeRendSessionDoc(nav_);

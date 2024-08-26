@@ -103,7 +103,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsRules stds_ = new TarotStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_);
         nav_.setLanguage(EN);
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
@@ -124,7 +124,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsRules stds_ = new TarotStandardsRules();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new RulesTarotLoader(), PagesTarots.buildRules(),other_,mes_);
         nav_.setLanguage(FR);
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);

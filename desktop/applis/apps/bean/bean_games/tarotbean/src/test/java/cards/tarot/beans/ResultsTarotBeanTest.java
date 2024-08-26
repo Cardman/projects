@@ -270,7 +270,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
         nav_.setLanguage(EN);
         stds_.setDataBase(resultsFive(game4(), 0));
         stds_.initializeRendSessionDoc(nav_);
@@ -291,7 +291,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
         nav_.setLanguage(EN);
         stds_.setDataBase(resultsFive(game7(), 0));
         stds_.initializeRendSessionDoc(nav_);
@@ -312,7 +312,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         mes_.addEntry(EN,MessTarotPage.enTarot());
         mes_.addEntry(FR,MessTarotPage.frTarot());
         TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
         nav_.setLanguage(EN);
         stds_.setDataBase(resultsFive(game8(), 0));
         stds_.initializeRendSessionDoc(nav_);

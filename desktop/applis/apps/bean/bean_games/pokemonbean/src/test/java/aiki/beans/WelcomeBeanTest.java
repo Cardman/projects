@@ -130,7 +130,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         StringMap<String> builtOther_ = CssInit.ms();
         PkData pk_ = new PkData();
         StringMap<Document> b_ = PagesInit.build();
-        NatNavigation nav_ = pk_.nav(new StringList("en","fr"), new DataGameInit(), b_,builtOther_,builtMessages_);
+        NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new DataGameInit(), b_,builtOther_,builtMessages_);
         nav_.setLanguage(EN);
         pk_.setDataBase(f_);
         pk_.initializeRendSessionDoc(nav_);

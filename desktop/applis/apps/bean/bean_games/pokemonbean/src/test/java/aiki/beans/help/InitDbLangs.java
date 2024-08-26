@@ -14,7 +14,6 @@ import code.bean.nat.*;
 import code.util.*;
 
 public abstract class InitDbLangs extends InitDbConstr {
-    public static final String FR = "fr";
     public static final String C_CA = "C_CA";
     public static final String T_T = "T_T";
 

@@ -206,7 +206,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         mes_.addEntry(EN,MessBelotePage.enBelote());
         mes_.addEntry(FR,MessBelotePage.frBelote());
         BeloteStandardsResults stds_ = new BeloteStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList("en","fr"), new ResultsBeloteLoader(), PagesBelotes.build(),other_,mes_);
+        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsBeloteLoader(), PagesBelotes.build(),other_,mes_);
         nav_.setLanguage(EN);
         stds_.setDataBase(results(game1(), 0));
         stds_.initializeRendSessionDoc(nav_);
