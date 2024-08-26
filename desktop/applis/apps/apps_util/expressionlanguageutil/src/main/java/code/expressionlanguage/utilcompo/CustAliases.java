@@ -5,10 +5,7 @@ import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.MessagesCdmBase;
-import code.expressionlanguage.common.ParseLinesArgUtil;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -3727,10 +3724,13 @@ public final class CustAliases implements AbsAliasFileBuilder {
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.COMMENTS);
         StringMap<String> mes_ = MessagesCdmBase.valMessages(app_);
-        String comments_ = "\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c*,*\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c;\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c,\\"+mes_.getVal(MessagesCdmBase.NEW_LINE)+";\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c<"
+        char low_ = StringDataUtil.toLowerCase(mes_.getVal(MessagesCdmBase.DIGITS_SUPP)).charAt(2);
+        String un_ = mes_.getVal(MessagesCdmBase.UNICODE);
+        String nl_ = mes_.getVal(MessagesCdmBase.NEW_LINE);
+        String comments_ = "\\"+ un_ +"005"+low_+"*,*\\"+ un_ +"005"+low_+";\\"+ un_ +"005"+low_+"\\"+ un_ +"005"+low_+",\\"+ nl_ +";\\"+ un_ +"005"+low_+"<"
                 +com_.getMapping().getVal(FileInfos.COMM_BEGIN)
                 +">,</"+com_.getMapping().getVal(FileInfos.COMM_END)
-                +">;\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c>,\\"+mes_.getVal(MessagesCdmBase.NEW_LINE)+"\n";
+                +">;\\"+ un_ +"005"+low_+">,\\"+ nl_ +"\n";
         return ParseLinesArgUtil.buildComments(mes_,comments_);
     }
 
