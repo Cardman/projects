@@ -13,7 +13,7 @@ public class ThrowerDamageLawsTest extends InitializationDataBase {
 
     @Test
     public void min1Test() {
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ThrowerDamageLaws thrower_ = new ThrowerDamageLaws();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("1/2"), new LgInt("1"));
@@ -37,7 +37,7 @@ public class ThrowerDamageLawsTest extends InitializationDataBase {
 
     @Test
     public void max1Test() {
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ThrowerDamageLaws thrower_ = new ThrowerDamageLaws();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("1/2"), new LgInt("1"));
@@ -61,7 +61,7 @@ public class ThrowerDamageLawsTest extends InitializationDataBase {
 
     @Test
     public void avg1Test() {
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ThrowerDamageLaws thrower_ = new ThrowerDamageLaws();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("1/2"), new LgInt("1"));
@@ -90,7 +90,7 @@ public class ThrowerDamageLawsTest extends InitializationDataBase {
 
     @Test
     public void var1Test() {
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ThrowerDamageLaws thrower_ = new ThrowerDamageLaws();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("1/2"), new LgInt("1"));

@@ -1508,7 +1508,7 @@ public class TeamTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
         Fighter fighter_ = team_.getMembers().getVal((byte) 0);
-        fighter_.setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_ = team_.getMembers().getVal((byte) 1);
         fighter_.setFirstChosenMove(OEIL_MIRACLE);
         team_.chooseMoves();
@@ -1549,7 +1549,7 @@ public class TeamTest extends InitializationDataBase {
         team_.setNbKoRound((byte) 2);
         team_.setNbKoPreviousRound((byte) 4);
         Fighter fighter_ = team_.getMembers().getVal((byte) 0);
-        fighter_.setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_ = team_.getMembers().getVal((byte) 1);
         fighter_.setFirstChosenMove(OEIL_MIRACLE);
         team_.initRoundTeam();

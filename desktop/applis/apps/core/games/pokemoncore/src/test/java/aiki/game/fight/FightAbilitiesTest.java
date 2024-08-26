@@ -45,10 +45,10 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(PEUR);
-        FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, NULL_REF, data_);
+        FightAbilities.disableAllStatusByEnabledWeather(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
         assertEq(1, fighter_.getStatusNbRound(PEUR));
     }
 
@@ -73,11 +73,11 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.setCurrentAbility(NULL_REF);
-        fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
-        FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, NULL_REF, data_);
-        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_PLAYER_FIGHTER_ZERO)));
+        fighter_.affecterPseudoStatut(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
+        FightAbilities.disableAllStatusByEnabledWeather(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
+        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO))));
     }
 
     @Test
@@ -101,9 +101,9 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affecterStatut(PEUR);
-        FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, ORAGE, data_);
+        FightAbilities.disableAllStatusByEnabledWeather(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), ORAGE, data_);
         assertEq(1, fighter_.getStatusNbRound(PEUR));
     }
 
@@ -128,9 +128,9 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affecterStatut(PEUR);
-        FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, NULL_REF, data_);
+        FightAbilities.disableAllStatusByEnabledWeather(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
         assertEq(0, fighter_.getStatusNbRound(PEUR));
     }
 
@@ -155,10 +155,10 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
-        FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, ZENITH, data_);
-        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_PLAYER_FIGHTER_ZERO)));
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        fighter_.affecterPseudoStatut(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
+        FightAbilities.disableAllStatusByEnabledWeather(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), ZENITH, data_);
+        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO))));
     }
 
     @Test
@@ -182,10 +182,10 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterStatut(PEUR);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertEq(1, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusNbRound(PEUR));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterStatut(PEUR);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        FightAbilities.enableAbilityByWeather(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(1, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getStatusNbRound(PEUR));
     }
 
     @Test
@@ -209,9 +209,9 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterStatut(PEUR);
-        FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusNbRound(PEUR));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterStatut(PEUR);
+        FightAbilities.enableAbilityByWeather(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getStatusNbRound(PEUR));
     }
 
     @Test
@@ -235,10 +235,10 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.enableGlobalMove(ZENITH);
-        FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, data_);
-        StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
+        FightAbilities.enableAbilityByWeather(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
+        StringList list_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, ELECTRIQUE));
     }
@@ -265,8 +265,8 @@ public class FightAbilitiesTest extends InitializationDataBase {
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
         fight_.enableGlobalMove(ZENITH);
-        FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, data_);
-        StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
+        FightAbilities.enableAbilityByWeather(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
+        StringList list_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, FEU));
     }
@@ -292,11 +292,11 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAbility(AIR_LOCK);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(AIR_LOCK);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setAbility(AIR_LOCK);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(AIR_LOCK);
         fight_.enableGlobalMove(ZENITH);
-        FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, data_);
-        StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
+        FightAbilities.enableAbilityByWeather(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
+        StringList list_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, ELECTRIQUE));
     }
@@ -375,17 +375,17 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void ignoreTargetAbility1Test() {
         DataBase data_ = initDb();
         Fight fight_ = ignoreTargetAbility(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(METEO);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(METEO);
-        assertTrue(!FightAbilities.ignoreTargetAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_));
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertTrue(FightAbilities.ignoreTargetAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(METEO);
-        assertTrue(!FightAbilities.ignoreTargetAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(TERA_VOLTAGE);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(ATTENTION);
-        assertTrue(FightAbilities.ignoreTargetAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(METEO);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(METEO);
+        assertTrue(!FightAbilities.ignoreTargetAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        assertTrue(FightAbilities.ignoreTargetAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(METEO);
+        assertTrue(!FightAbilities.ignoreTargetAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(TERA_VOLTAGE);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(ATTENTION);
+        assertTrue(FightAbilities.ignoreTargetAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
     }
 
     private static Fight enableAbility(String _firstAbility, String _secondAbility, byte _mult, DataBase _data) {
@@ -441,47 +441,47 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbility1Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(HYPER_CUTTER, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) -2);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) -2);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
     }
 
     @Test
     public void enableAbility2Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(PARALYSIE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
     }
 
     @Test
     public void enableAbility3Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(MATINAL, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).incrementRoundsStatus(PARALYSIE);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(PARALYSIE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).incrementRoundsStatus(PARALYSIE);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
     }
 
     @Test
     public void enableAbility4Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(FEUILLE_GARDE, SECHERESSE, (byte) 2, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PEUR);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PEUR));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(PEUR);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatusNbRound(PEUR));
     }
 
     @Test
     public void enableAbility5Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(METEO, SECHERESSE, (byte) 2, data_);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        StringList list_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        StringList list_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, FEU));
     }
@@ -490,73 +490,73 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbility6Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(MATINAL, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(PARALYSIE);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
     }
 
     @Test
     public void enableAbility7Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) 2);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(PARALYSIE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) 2);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(2, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
 
     @Test
     public void enableAbility8Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).supprimerStatut(PARALYSIE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(-1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).supprimerStatut(PARALYSIE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(-1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
 
     @Test
     public void enableAbility9Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(BRULURE);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
 
     @Test
     public void enableAbility10Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(BRULURE);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertEq(-1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(-1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
 
     @Test
     public void enableAbility11Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(HYPER_CUTTER, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) 2);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) 2);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(2, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
     }
 
     @Test
     public void enableAbility12Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(ATTENTION, MULTITYPE, (byte) 1, data_);
-        StringList typesThrower_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
+        StringList typesThrower_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, typesThrower_.size());
         assertTrue(StringUtil.contains(typesThrower_, ELECTRIQUE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(MULTITYPE);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        typesThrower_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(MULTITYPE);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        typesThrower_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, typesThrower_.size());
         assertTrue(StringUtil.contains(typesThrower_, DRAGON));
     }
@@ -565,9 +565,9 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbility13Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(MATINAL, MULTITYPE, (byte) 1, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
-        FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(POISON_GRAVE));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
+        FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatusNbRound(POISON_GRAVE));
     }
 
     private static Fight disableAbility(String _firstAbility, String _secondAbility, byte _mult, DataBase _data) {
@@ -623,31 +623,31 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAbility1Test() {
         DataBase data_ = initDb();
         Fight fight_ = disableAbility(ATTENTION, ATTENTION, (byte)2, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(AIR_LOCK);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(AIR_LOCK);
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
-        String ability_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAbility();
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, ability_, data_);
+        String ability_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAbility();
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), ability_, data_);
         assertTrue(!FightMoves.existenceAntiClimatActif(fight_, data_));
-        assertEq(ATTENTION,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getCurrentAbility());
+        assertEq(ATTENTION,fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getCurrentAbility());
     }
 
     @Test
     public void disableAbility2Test() {
         DataBase data_ = initDb();
         Fight fight_ = disableAbility(AIR_LOCK, ATTENTION, (byte)2, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ATTENTION);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ATTENTION);
         fight_.enableGlobalMove(ZENITH);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(!FightMoves.existenceAntiClimatActif(fight_, data_));
         assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
-        String ability_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAbility();
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, ability_, data_);
+        String ability_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAbility();
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), ability_, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
         assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
-        assertEq(AIR_LOCK,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getCurrentAbility());
+        assertEq(AIR_LOCK,fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getCurrentAbility());
     }
 
     @Test
@@ -658,7 +658,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
         assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(!FightMoves.existenceAntiClimatActif(fight_, data_));
@@ -673,7 +673,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
         assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
@@ -688,7 +688,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
         assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
@@ -703,8 +703,8 @@ public class FightAbilitiesTest extends InitializationDataBase {
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
         assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
-        String ability_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAbility();
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, ability_, data_);
+        String ability_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAbility();
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), ability_, data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, data_));
@@ -715,12 +715,12 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAbility7Test() {
         DataBase data_ = initDb();
         Fight fight_ = disableAbility(METEO, SECHERESSE, (byte)2, data_);
-        FightAbilities.enableAbilityByWeather(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        StringList types_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
+        FightAbilities.enableAbilityByWeather(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        StringList types_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, types_.size());
         assertTrue(StringUtil.contains(types_, FEU));
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
-        types_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
+        types_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, types_.size());
         assertTrue(StringUtil.contains(types_, ELECTRIQUE));
     }
@@ -729,9 +729,9 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAbility8Test() {
         DataBase data_ = initDb();
         Fight fight_ = disableAbility(DEGUISEMENT, SECHERESSE, (byte)2, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(VOL);
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
-        StringList types_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTypes();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(VOL);
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
+        StringList types_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getTypes();
         assertEq(1, types_.size());
         assertTrue(StringUtil.contains(types_, ELECTRIQUE));
     }
@@ -740,13 +740,13 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAbility9Test() {
         DataBase data_ = initDb();
         Fight fight_ = disableAbility(MULTITYPE, SECHERESSE, (byte)2, data_);
-        FightSending.effectPlate(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        FightSending.effectPlate(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringList typesThrower_ = fighter_.getTypes();
         assertEq(1, typesThrower_.size());
         assertTrue(StringUtil.contains(typesThrower_, DRAGON));
-        FightAbilities.disableAbility(fight_, POKEMON_PLAYER_FIGHTER_ZERO, NULL_REF, data_);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        FightAbilities.disableAbility(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), NULL_REF, data_);
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(NULL_REF, fighter_.getCurrentAbility());
         assertEq(1, types_.size());

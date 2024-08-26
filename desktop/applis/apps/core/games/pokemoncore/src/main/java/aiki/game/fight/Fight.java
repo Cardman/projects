@@ -456,6 +456,9 @@ public final class Fight {
         return new FighterId(f_,_teamPosition);
     }
 
+    public Fighter getFighter(int _t, int _f) {
+        return getFighter(new TeamPosition((byte) _t,(byte) _f));
+    }
     public Fighter getFighter(TeamPosition _teamPosition) {
         return teams.getVal(_teamPosition.getTeam()).getMembers().getVal(_teamPosition.getPosition());
     }

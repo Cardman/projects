@@ -53,10 +53,10 @@ public final class FacadeGameFightKoFourTest extends InitializationDataBase {
         facadeGame_.chooseMove(CHARGE);
         facadeGame_.setFirstChosenMovePlayerTarget((byte) 1);
         AbstractAction action_;
-        action_ = facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = facadeGame_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, facadeGame_.getFight().getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, facadeGame_.getFight().getTemp().getChosableFoeTargets().get(0).getChosable());

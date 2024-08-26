@@ -542,8 +542,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         assertTrue(game_.getFight().getFightType().isExisting());
         assertEq(FightType.DRESSEUR, game_.getFight().getFightType());
         assertEq(2, game_.getFight().getFoeTeam().getMembers().size());
-        assertEq(3, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO).getLevel());
-        assertEq(4, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE).getLevel());
+        assertEq(3, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getLevel());
+        assertEq(4, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getLevel());
         assertTrue(!game_.isDualFight());
     }
 
@@ -560,8 +560,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         assertTrue(game_.getFight().getFightType().isExisting());
         assertEq(FightType.DRESSEUR, game_.getFight().getFightType());
         assertEq(2, game_.getFight().getFoeTeam().getMembers().size());
-        assertEq(13, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO).getLevel());
-        assertEq(14, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE).getLevel());
+        assertEq(13, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getLevel());
+        assertEq(14, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getLevel());
         assertTrue(!game_.isDualFight());
     }
 
@@ -579,8 +579,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         assertTrue(game_.getFight().getFightType().isExisting());
         assertEq(FightType.DRESSEUR, game_.getFight().getFightType());
         assertEq(2, game_.getFight().getFoeTeam().getMembers().size());
-        assertEq(13, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO).getLevel());
-        assertEq(14, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE).getLevel());
+        assertEq(13, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getLevel());
+        assertEq(14, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getLevel());
         assertTrue(!game_.isDualFight());
     }
 
@@ -596,8 +596,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         assertTrue(game_.getFight().getFightType().isExisting());
         assertEq(FightType.DRESSEUR, game_.getFight().getFightType());
         assertEq(2, game_.getFight().getFoeTeam().getMembers().size());
-        assertEq(3, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO).getLevel());
-        assertEq(4, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE).getLevel());
+        assertEq(3, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getLevel());
+        assertEq(4, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getLevel());
         assertTrue(!game_.isDualFight());
     }
 
@@ -615,8 +615,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         assertTrue(game_.getFight().getFightType().isExisting());
         assertEq(FightType.DRESSEUR, game_.getFight().getFightType());
         assertEq(2, game_.getFight().getFoeTeam().getMembers().size());
-        assertEq(3, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO).getLevel());
-        assertEq(4, game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE).getLevel());
+        assertEq(3, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getLevel());
+        assertEq(4, game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getLevel());
         assertTrue(!game_.isDualFight());
     }
 

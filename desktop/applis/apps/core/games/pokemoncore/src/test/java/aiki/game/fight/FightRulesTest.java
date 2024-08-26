@@ -54,7 +54,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable2(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
@@ -83,7 +83,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable2(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte)0);
@@ -118,7 +118,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte)1);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte)0);
@@ -153,7 +153,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte)1);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte)0);
@@ -188,7 +188,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte)0);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte)0);
@@ -223,7 +223,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte) 1);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
@@ -257,7 +257,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
@@ -290,7 +290,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
@@ -328,7 +328,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
         fight_.getFirstPositPlayerFighters().put((byte) 2, (byte) 1);
@@ -368,7 +368,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
         fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
@@ -404,7 +404,7 @@ public class FightRulesTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
         fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
@@ -444,7 +444,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte) 0);
         fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
@@ -477,7 +477,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte)0, (byte)0);
         fight_.getFirstPositPlayerFighters().put((byte)1, Fighter.BACK);
@@ -508,7 +508,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
@@ -541,7 +541,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
@@ -574,7 +574,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getFirstPositPlayerFighters().put((byte)1, Fighter.BACK);
         fight_.getFirstPositPlayerFighters().put((byte)2, (byte)1);
@@ -741,8 +741,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable5(data_, diff_, player_, new StringList(INTERVERSION), new StringList(INTERVERSION), new StringList(DETECTION));
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_THREE;
-        fight_.getFighter(thrower_).setFirstChosenMoveTarget(INTERVERSION, POKEMON_PLAYER_TARGET_ZERO);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
+        fight_.getFighter(thrower_).setFirstChosenMoveTarget(INTERVERSION, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getFighter(thrower_).isSuccessfulMove());
@@ -780,8 +780,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable5(data_, diff_, player_, new StringList(INTERVERSION), new StringList(INTERVERSION), new StringList(DETECTION));
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_THREE;
-        fight_.getFighter(thrower_).setFirstChosenMoveTarget(INTERVERSION, POKEMON_PLAYER_TARGET_ZERO);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
+        fight_.getFighter(thrower_).setFirstChosenMoveTarget(INTERVERSION, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getFighter(thrower_).isSuccessfulMove());
@@ -817,7 +817,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable6(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
@@ -848,17 +848,17 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getItem(RAPPEL);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable7(data_, diff_, player_, new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
-        FightRound.roundThrowerHealing(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightRound.roundThrowerHealing(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        Fighter fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -898,7 +898,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable1(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DETECTION));
         FightRound.initRound(fight_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 1,(byte) 1);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
@@ -930,7 +930,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable1(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DETECTION));
         FightRound.initRound(fight_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
@@ -954,7 +954,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        StringList moves_ = FightRules.allowedMoves(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
+        StringList moves_ = FightRules.allowedMoves(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(4, moves_.size());
         assertTrue(StringUtil.contains(moves_, ECUME));
         assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
@@ -981,7 +981,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1010,9 +1010,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.setLastUsedMove();
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(4, moves_.size());
@@ -1041,9 +1041,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.setLastUsedMove();
         fighter_.setNeedingToRecharge(true);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1070,9 +1070,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.setLastUsedMove();
         fighter_.setNbPrepaRound((short) 1);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1099,8 +1099,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foe_);
         fighter_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE,f_)).setMove(PISTOLET_A_O);
         fighter_.getTrackingMoves().getVal(new MoveTeamPosition(ENCORE,f_)).getActivity().enable();
@@ -1128,8 +1128,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foe_);
         fighter_.getTrackingMoves().getVal(new MoveTeamPosition(ENTRAVE,f_)).setMove(PISTOLET_A_O);
         fighter_.getTrackingMoves().getVal(new MoveTeamPosition(ENTRAVE,f_)).getActivity().enable();
@@ -1159,8 +1159,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foe_);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON,f_)).enable();
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1190,8 +1190,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foe_);
         fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,f_)).add(ECUME);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1223,9 +1223,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(ROULADE, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(ROULADE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.setLastUsedMove();
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(2, moves_.size());
@@ -1255,9 +1255,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(ROULADE, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(ROULADE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.setLastUsedMove();
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1288,7 +1288,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
         fight_.getFoeTeam().activerEffetEquipe(ANTI_SOIN);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(1, moves_.size());
         assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
@@ -1313,7 +1313,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.activerAttaque(EMBARGO);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1343,7 +1343,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.activerAttaque(TOURMENTE);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1373,7 +1373,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.activerAttaque(PROVOC);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
@@ -1406,7 +1406,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
         fight_.enableGlobalMove(GRAVITE);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(1, moves_.size());
         assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
@@ -1434,13 +1434,13 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(2, moves_.size());
         assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
         assertTrue(StringUtil.contains(moves_, PRESCIENCE));
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(PRESCIENCE, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PRESCIENCE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.roundAllThrowers(fight_, diff_, player_, data_);
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
@@ -1471,7 +1471,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(1, moves_.size());
         assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
@@ -1503,7 +1503,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(2, moves_.size());
         assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
@@ -1531,7 +1531,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(0, moves_.size());
@@ -1561,10 +1561,10 @@ public class FightRulesTest extends InitializationDataBase {
         fight_.enableGlobalMove(BROUHAHA);
         fight_.getFoeTeam().activerEffetEquipe(TOUR_RAPIDE);
         fight_.getUserTeam().activerEffetEquipe(TOUR_RAPIDE);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         fight_.getFighter(f_).activerAttaque(CYCLE_V);
-        AffectedMove attaqueViseeActif_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).refPartAttaquesSurCombatAtt(new MoveTeamPosition(CHANT,f_));
+        AffectedMove attaqueViseeActif_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).refPartAttaquesSurCombatAtt(new MoveTeamPosition(CHANT,f_));
         attaqueViseeActif_.getActivity().enable();
         attaqueViseeActif_.setMove(CHARGE);
         //fight_.getFighter(f_).a
@@ -1591,7 +1591,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setFirstChosenMove(ECUME);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
@@ -1616,9 +1616,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -1644,9 +1644,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(INTERVERSION, POKEMON_PLAYER_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(INTERVERSION, tc(KEY_PLAYER, POKEMON_TARGET_ONE));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -1672,9 +1672,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -1700,9 +1700,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(BERCEUSE, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(BERCEUSE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -1732,9 +1732,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SEISME, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SEISME, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -1764,7 +1764,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setFirstChosenMove(SEISME);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
@@ -1796,7 +1796,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setSubstitute((byte) 1);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
@@ -1829,7 +1829,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
@@ -1863,7 +1863,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_.setChosenHealingObject(TOTAL_SOIN, data_);
@@ -1898,7 +1898,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(RAPPEL, data_);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
@@ -1931,7 +1931,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObject(MAX_ELIXIR, data_);
@@ -1965,7 +1965,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObjectMove(ELIXIR, SEISME);
@@ -1999,7 +1999,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObjectMove(HUILE, SEISME);
@@ -2033,7 +2033,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObjectMove(HUILE_MAX, SEISME);
@@ -2067,7 +2067,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         fighter_.setChosenHealingObject(BAIE_ORAN, data_);
@@ -2101,7 +2101,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         fighter_.setChosenHealingObject(BAIE_ENIGMA, data_);
@@ -2135,7 +2135,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         fighter_.setChosenHealingObject(BAIE_GOWAV, data_);
@@ -2169,7 +2169,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObjectMove(BAIE_MEPO, SEISME);
@@ -2203,7 +2203,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(PARALYSIE);
         fighter_.setChosenHealingObject(BAIE_CERIZ, data_);
@@ -2237,7 +2237,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(BAIE_PITAYE, data_);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
@@ -2262,10 +2262,10 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
-        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2291,9 +2291,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(INTERVERSION, POKEMON_PLAYER_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(INTERVERSION, tc(KEY_PLAYER, POKEMON_TARGET_ONE));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2319,9 +2319,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(INTERVERSION, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(INTERVERSION, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2355,13 +2355,13 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending7(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_TWO);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_TWO));
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ONE));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2395,13 +2395,13 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending7(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_TWO);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_TWO));
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ONE));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2427,9 +2427,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ONE));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2455,9 +2455,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(BERCEUSE, POKEMON_PLAYER_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(BERCEUSE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2483,9 +2483,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(BATAILLE, POKEMON_PLAYER_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(BATAILLE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2511,9 +2511,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(BERCEUSE, POKEMON_PLAYER_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(BERCEUSE, tc(KEY_PLAYER, POKEMON_TARGET_ONE));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2539,9 +2539,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(BATAILLE, POKEMON_PLAYER_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(BATAILLE, tc(KEY_PLAYER, POKEMON_TARGET_ONE));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2567,9 +2567,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(BATAILLE, POKEMON_FOE_TARGET_TWO);
+        fighter_.setFirstChosenMoveTarget(BATAILLE, tc(KEY_FOE, POKEMON_TARGET_TWO));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2600,7 +2600,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setSubstitute((byte) 1);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -2632,7 +2632,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setSubstitute((byte) 2);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -2664,10 +2664,10 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending6(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setSubstitute((byte) 1);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_.setFirstChosenMove(SEISME);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -2698,7 +2698,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
@@ -2732,7 +2732,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -2765,7 +2765,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(TOTAL_SOIN, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -2798,7 +2798,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(REVEIL, data_);
         fighter_.affecterStatut(PARALYSIE);
@@ -2832,7 +2832,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(RAPPEL, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -2865,7 +2865,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(MAX_ELIXIR, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -2898,7 +2898,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObjectMove(ELIXIR, SEISME);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -2931,7 +2931,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObjectMove(HUILE, DANSE_LUNE);
@@ -2965,7 +2965,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObjectMove(HUILE_MAX, DANSE_LUNE);
@@ -2999,7 +2999,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObject(HUILE, data_);
@@ -3033,7 +3033,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
         fighter_.setChosenHealingObject(HUILE_MAX, data_);
@@ -3067,7 +3067,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(BAIE_ORAN, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -3100,7 +3100,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(BAIE_ENIGMA, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -3133,7 +3133,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(BAIE_GOWAV, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -3166,7 +3166,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObjectMove(BAIE_MEPO, SEISME);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -3199,7 +3199,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(BAIE_CERIZ, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -3254,7 +3254,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(BAIE_PITAYE, data_);
         fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 6);
@@ -3287,7 +3287,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending6(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setFirstChosenMove(SEISME);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -3324,12 +3324,12 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending6(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setFirstChosenMove(SEISME);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_.setFirstChosenMove(SEISME);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.setRemainedHp(Rate.one());
         fighter_.setChosenHealingObject(BAIE_ORAN, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -3371,10 +3371,10 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending6(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.setRemainedHp(Rate.one());
         fighter_.setChosenHealingObject(BAIE_ORAN, data_);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         fighter_.setRemainedHp(Rate.one());
         fighter_.setChosenHealingObject(BAIE_ORAN, data_);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
@@ -3401,9 +3401,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
-        fight_.getFighter(f_).setFirstChosenMoveTarget(LUTTE, POKEMON_FOE_TARGET_ZERO);
+        fight_.getFighter(f_).setFirstChosenMoveTarget(LUTTE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3441,15 +3441,15 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending6(data_, diff_, player_, new StringList(DETECTION, CHARGE), 4);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3475,9 +3475,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3503,9 +3503,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ONE));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3531,9 +3531,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_TWO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_TWO));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3559,9 +3559,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_THREE);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_THREE));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3596,10 +3596,10 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending6(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setSubstitute((byte) 2);
-        f_ = POKEMON_PLAYER_FIGHTER_ONE;
+        f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_ = fight_.getFighter(f_);
         fighter_.setSubstitute((byte) 2);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -3632,7 +3632,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_.setChosenHealingObject(BAIE_CERIZ, data_);
@@ -3666,7 +3666,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_.setChosenHealingObject(PETIT_RAPPEL, data_);
@@ -3700,7 +3700,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_.setChosenHealingObject(NULL_REF, data_);
@@ -3734,7 +3734,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_.setFirstChosenMove(SEISME);
@@ -3768,7 +3768,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_.setSubstitute((byte) 0);
@@ -3802,7 +3802,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_.setSubstitute(Fighter.BACK);
@@ -3835,9 +3835,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setFirstChosenMoveTarget(INTERVERSION, POKEMON_PLAYER_TARGET_ONE);
+        fighter_.setFirstChosenMoveTarget(INTERVERSION, tc(KEY_PLAYER, POKEMON_TARGET_ONE));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3867,7 +3867,7 @@ public class FightRulesTest extends InitializationDataBase {
         StringList foeMoves_ = new StringList(DETECTION,CHARGE);
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = playable(partnersMoves_, foesMoves_, player_, diff_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }*/
 
@@ -3897,7 +3897,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3927,8 +3927,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3958,8 +3958,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstituteForMove((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 2);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3989,8 +3989,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstituteForMove((byte) 3);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 3);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4024,9 +4024,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp().affectZero();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4056,7 +4056,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4086,8 +4086,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4117,8 +4117,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstituteForMove((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 2);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4148,8 +4148,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstituteForMove((byte) 3);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 3);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4179,9 +4179,9 @@ public class FightRulesTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp().affectZero();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 

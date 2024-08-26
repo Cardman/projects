@@ -293,7 +293,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         game_.chooseFrontFighter((byte) 0, data_);
         AbstractAction action_;
-        action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
         assertEq(0, game_.getFight().getTemp().getChosenIndexFront());
@@ -323,7 +323,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseFrontFighter((byte) 0, data_);
         game_.chooseMove(SEISME, data_);
         AbstractAction action_;
-        action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(SEISME, ((ActionMove)action_).getFirstChosenMove());
         assertEq(0, ((ActionMove)action_).getChosenTargets().size());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
@@ -354,10 +354,10 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(CHARGE, data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         AbstractAction action_;
-        action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, game_.getFight().getTemp().getChosableFoeTargets().size());
         assertEq(PIKACHU,getName(game_.getFight().getTemp().getChosableFoeTargets(), 0));
@@ -403,10 +403,10 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(CHARGE, data_);
         game_.setFirstChosenMovePlayerTarget((byte) 1);
         AbstractAction action_;
-        action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, game_.getFight().getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, game_.getFight().getTemp().getChosableFoeTargets().get(0).getChosable());
@@ -438,7 +438,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseFrontFighter((byte) 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
         AbstractAction action_;
-        action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
         assertEq(0, game_.getFight().getTemp().getChosenIndexFront());
@@ -470,7 +470,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.changeAction(ActionType.SWITCH, data_);
         game_.chooseSubstituteFighter((byte) 0, data_);
         AbstractAction action_;
-        action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(1, ((ActionSwitch) action_).getSubstitute());
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
         assertEq(0, game_.getFight().getTemp().getChosenIndexFront());
@@ -500,7 +500,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         game_.deselect();
         AbstractAction action_;
-        action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexFront());
@@ -533,7 +533,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         //game_.deselect();
         AbstractAction action_;
-        action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
         assertEq(0, game_.getFight().getTemp().getChosenIndexFront());
         assertEq(ActionType.HEALING, game_.getFight().getTemp().getSelectedActionCurFighter());
@@ -618,64 +618,64 @@ public class GameFightTest extends InitializationDataBase {
         TeamPositionsStringMapTeamPositionsRate map_;
         map_ = game_.remainingThrowersTargetsHp(data_);
         assertEq(2, map_.size());
-        assertEq(3, map_.getVal(POKEMON_PLAYER_FIGHTER_ZERO).size());
-        assertEq(1, map_.getVal(POKEMON_PLAYER_FIGHTER_ONE).size());
+        assertEq(3, map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).size());
+        assertEq(1, map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).size());
         StringMap<TeamPositionsPairRatesPair> mapMoves_;
-        mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ZERO);
+        mapMoves_ = map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
         assertEq(2, mapMoves_.getVal(SEISME).getFoe().size());
         assertEq(2, mapMoves_.getVal(SEISME).getPlayer().size());
         assertEq(2, mapMoves_.getVal(PLAIE_CROIX).getFoe().size());
         assertEq(2, mapMoves_.getVal(PLAIE_CROIX).getPlayer().size());
         assertEq(2, mapMoves_.getVal(GIGA_SANGSUE).getFoe().size());
         assertEq(2, mapMoves_.getVal(GIGA_SANGSUE).getPlayer().size());
-        mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ONE);
+        mapMoves_ = map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE));
         assertEq(2, mapMoves_.getVal(JACKPOT).getFoe().size());
         assertEq(2, mapMoves_.getVal(JACKPOT).getPlayer().size());
         TeamPositionsPairRatesPair mapFighters_;
-        mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ZERO);
+        mapMoves_ = map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
         mapFighters_ = mapMoves_.getVal(SEISME);
         assertEq(2, mapFighters_.getFoe().size());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getFront());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getBack());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getBack());
         assertEq(2, mapFighters_.getPlayer().size());
-        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(Rate.zero(), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
+        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(Rate.zero(), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
         mapFighters_ = mapMoves_.getVal(PLAIE_CROIX);
         assertEq(2, mapFighters_.getFoe().size());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getFront());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getBack());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getBack());
         assertEq(2, mapFighters_.getPlayer().size());
-        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
+        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
         mapFighters_ = mapMoves_.getVal(GIGA_SANGSUE);
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getFront());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getBack());
-        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
-        mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ONE);
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getBack());
+        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
+        mapMoves_ = map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE));
         mapFighters_ = mapMoves_.getVal(JACKPOT);
         assertEq(2, mapFighters_.getFoe().size());
-        assertEq(new Rate("76457/1875"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getFront());
-        assertEq(new Rate("76457/1875"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("516992/11875"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ONE).getBack());
+        assertEq(new Rate("76457/1875"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("232/5"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("76457/1875"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("516992/11875"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getBack());
         assertEq(2, mapFighters_.getPlayer().size());
-        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
+        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("263"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("3037/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
     }
     @Test
     public void sortedFightersBeginRoundWildFight1(){
@@ -695,7 +695,7 @@ public class GameFightTest extends InitializationDataBase {
 //        assertEq(1, map_.getVal(JACKPOT).size());
 //        TeamPositionList mapMoves_;
 //        mapMoves_ = map_.getVal(JACKPOT);
-//        assertEq(POKEMON_FOE_FIGHTER_ZERO, mapMoves_.first());
+//        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, mapMoves_.first());
     }
     @Test
     public void sortedFightersBeginRoundWildFight2(){
@@ -717,8 +717,8 @@ public class GameFightTest extends InitializationDataBase {
 //        assertEq(2, map_.getVal(JACKPOT).size());
 //        TeamPositionList mapMoves_;
 //        mapMoves_ = map_.getVal(JACKPOT);
-//        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, mapMoves_.first());
-//        assertEq(POKEMON_FOE_FIGHTER_ZERO, mapMoves_.last());
+//        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, mapMoves_.first());
+//        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, mapMoves_.last());
     }
     @Test
     public void sortedFightersBeginRound1(){
@@ -745,8 +745,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, data_);
         TeamPositionList tree_;
         tree_ = game_.sortedFightersBeginRound(data_);
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, tree_.first());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, tree_.last());
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, tree_.first());
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, tree_.last());
     }
     @Test
     public void getPlayerTeam1(){
@@ -771,8 +771,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         CustList< FighterPosition> team_ = game_.getPlayerTeam();
         assertEq(2, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(team_.get((byte) 1).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 1).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
     }
     @Test
     public void getFoeFrontTeam1(){
@@ -797,7 +797,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         ByteTreeMap< FighterPosition> team_ = game_.getFoeFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO));
+        assertSame(team_.getVal((byte) 0).getFighter(), game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO));
     }
     @Test
     public void getUnionFrontTeam1(){
@@ -822,7 +822,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         ByteTreeMap< FighterPosition> team_ = game_.getUnionFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.getVal((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerFrontTeam1(){
@@ -847,7 +847,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         CustList< FighterPosition> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerBackTeam1(){
@@ -872,7 +872,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         CustList< FighterPosition> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
     }
     @Test
     public void getPlayerFrontTeamForSubstituting1(){
@@ -901,7 +901,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.deselect();
         CustList< FighterPosition> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerBackTeamForSubstituting1(){
@@ -930,7 +930,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.deselect();
         CustList< FighterPosition> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
     }
     @Test
     public void isChosableForLearningAndEvolving1Test(){

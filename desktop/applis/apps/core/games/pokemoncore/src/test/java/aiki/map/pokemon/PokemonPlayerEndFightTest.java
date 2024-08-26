@@ -63,7 +63,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         UsablePokemon usable_ = player_.getTeam().first();
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
@@ -112,7 +112,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         fighter_.affecterStatut(CONFUSION);
         UsablePokemon usable_ = player_.getTeam().first();
@@ -161,7 +161,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         fighter_.affecterStatut(CONFUSION);
         UsablePokemon usable_ = player_.getTeam().first();
@@ -209,7 +209,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         UsablePokemon usable_ = player_.getTeam().first();
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
@@ -268,7 +268,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightFacade.learnAndEvolveAttack(fight_, diff_, data_);
         assertTrue(FightFacade.win(fight_));
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         UsablePokemon usable_ = player_.getTeam().first();
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
@@ -334,7 +334,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightFacade.learnAndEvolveAttack(fight_, diff_, data_);
         assertTrue(FightFacade.win(fight_));
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         UsablePokemon usable_ = player_.getTeam().get(1);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);

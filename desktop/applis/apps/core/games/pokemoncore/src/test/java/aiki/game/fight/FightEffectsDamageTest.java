@@ -41,14 +41,14 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fight fight_ = criticalHitCanHappen(data_);
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("2"), LgInt.one());
-        assertEq(new Rate("2"),FightEffects.randomRate(fight_, data_,law_, POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(new Rate("2"),FightEffects.randomRate(fight_, data_,law_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO)));
     }
 
     @Test
     public void randomRate2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        assertTrue(FightEffects.randomRate(fight_, data_, new Rate("1"), POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(FightEffects.randomRate(fight_, data_, new Rate("1"), tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("1"), LgInt.one());
         law_.addQuickEvent(new Rate("2"), LgInt.one());
-        assertEq(new Rate("1"),FightEffects.randomRate(fight_, data_,law_, POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(new Rate("1"),FightEffects.randomRate(fight_, data_,law_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO)));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("1"), LgInt.one());
         law_.addQuickEvent(new Rate("2"), LgInt.one());
-        assertEq(new Rate("2"),FightEffects.randomRate(fight_, data_,law_, POKEMON_PLAYER_FIGHTER_ZERO));
+        assertEq(new Rate("2"),FightEffects.randomRate(fight_, data_,law_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         fight_.getTemp().setSimulation(true);
-        assertTrue(FightEffects.randomRate(fight_, data_, new Rate("1"), POKEMON_FOE_FIGHTER_ZERO));
+        assertTrue(FightEffects.randomRate(fight_, data_, new Rate("1"), tp(KEY_FOE, POKEMON_FIGHTER_ZERO)));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         fight_.getTemp().setSimulation(true);
-        assertTrue(FightEffects.randomRate(fight_, data_, new Rate("1"), POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(FightEffects.randomRate(fight_, data_, new Rate("1"), tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         fight_.getTemp().setSimulation(true);
-        assertTrue(!FightEffects.randomRate(fight_, data_, new Rate("1/2"), POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(!FightEffects.randomRate(fight_, data_, new Rate("1/2"), tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
     }
 
     @Test
@@ -137,8 +137,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateObjectPower1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(NULL_REF);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("20"), data_);
@@ -149,8 +149,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateObjectPower2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BOUE_NOIRE);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("20"), data_);
@@ -161,8 +161,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateObjectPower3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(ENCENS_VAGUE);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("20"), data_);
@@ -173,8 +173,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateObjectPower4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(ENCENS_VAGUE);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, EBULLITION, new Rate("20"), data_);
@@ -185,8 +185,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateObjectPower5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("20"), data_);
@@ -197,8 +197,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateAbilityPower1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("20"), data_);
@@ -209,8 +209,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateAbilityPower2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("20"), data_);
@@ -221,8 +221,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateAbilityPower3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(SANS_LIMITE);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("20"), data_);
@@ -233,8 +233,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateAbilityPower4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PEAU_FEERIQUE);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, COMBO_GRIFFE, new Rate("20"), data_);
@@ -245,8 +245,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateAbilityPower5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, COMBO_GRIFFE, new Rate("20"), data_);
@@ -257,8 +257,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateAbilityPower6Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PEAU_FEERIQUE);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, PISTOLET_A_O, new Rate("20"), data_);
@@ -269,8 +269,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateTypesPower1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(new Rate("1"), FightEffects.rateTypesPower(fight_, thrower_, target_, new StringList(EAU)));
     }
 
@@ -278,8 +278,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateTypesPower2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(new Rate("1"), FightEffects.rateTypesPower(fight_, thrower_, target_, new StringList(ELECTRIQUE)));
     }
 
@@ -287,8 +287,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateTypesPower3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.getDamageRateInflictedByType().getVal(ELECTRIQUE).multiplyBy(new Rate("2"));
         assertEq(new Rate("2"), FightEffects.rateTypesPower(fight_, thrower_, target_, new StringList(ELECTRIQUE)));
@@ -298,8 +298,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateTypesPower4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.getDamageRateSufferedByType().getVal(FEU).multiplyBy(new Rate("1/2"));
         assertEq(new Rate("1/2"), FightEffects.rateTypesPower(fight_, thrower_, target_, new StringList(FEU)));
@@ -309,8 +309,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateTypesPower5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.getDamageRateInflictedByType().getVal(ELECTRIQUE).multiplyBy(new Rate("2"));
         fighter_ = fight_.getFighter(target_);
@@ -322,8 +322,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void attack1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, PARADOXE, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -341,8 +341,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void attack2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -360,8 +360,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void attack3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -379,8 +379,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void attack4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -398,8 +398,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void attack5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, BATAILLE, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -417,8 +417,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void attack6Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, BATAILLE, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -436,8 +436,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void attack7Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, BATAILLE, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -455,8 +455,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void defense1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, PARADOXE, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -474,8 +474,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void defense2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
@@ -493,8 +493,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void defense3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(INCONSCIENT);
@@ -512,8 +512,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void defense4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -531,8 +531,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void defense5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, ATTRITION, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -550,8 +550,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void defense6Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, ATTRITION, new Rate("60"), data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -569,7 +569,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void ratePartnerMove1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         assertEq(new Rate("1"),FightEffects.ratePartnerMove(fighter_, data_));
     }
 
@@ -577,7 +577,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void ratePartnerMove2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
         assertEq(new Rate("3/2"),FightEffects.ratePartnerMove(fighter_, data_));
     }
@@ -586,7 +586,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void ratePartnerMove3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.getEnabledMovesForAlly().put(AIDE, BoolVal.TRUE);
         assertEq(new Rate("1"),FightEffects.ratePartnerMove(fighter_, data_));
     }
@@ -595,7 +595,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void ratePartnerMove4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN_2, BoolVal.TRUE);
         assertEq(new Rate("3/2"),FightEffects.ratePartnerMove(fighter_, data_));
     }
@@ -604,8 +604,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetAbility1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -619,8 +619,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetAbility2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -634,8 +634,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetAbility3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -649,8 +649,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetAbility4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -664,8 +664,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetAbility5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -679,8 +679,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetTeamMoves1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -695,8 +695,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetTeamMoves2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         fighter_.backUpObject(NULL_REF);
@@ -711,8 +711,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetTeamMoves3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(INFILTRATION);
         fighter_.backUpObject(NULL_REF);
@@ -727,8 +727,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetTeamMoves4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(INFILTRATION);
         fighter_.backUpObject(NULL_REF);
@@ -743,7 +743,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageGlobalAbilities1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         StringList types_ = new StringList();
         types_.add(EAU);
         assertEq(new Rate("1"), FightEffects.rateDamageGlobalAbilities(fight_, types_, data_));
@@ -753,7 +753,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageGlobalAbilities2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
         StringList types_ = new StringList();
         types_.add(EAU);
         assertEq(new Rate("1"), FightEffects.rateDamageGlobalAbilities(fight_, types_, data_));
@@ -763,7 +763,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageGlobalAbilities3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
         StringList types_ = new StringList();
         types_.add(TENEBRE);
         assertEq(new Rate("3/2"), FightEffects.rateDamageGlobalAbilities(fight_, types_, data_));
@@ -773,7 +773,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageGlobalAbilities4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(AURA_INVERSEE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_INVERSEE);
         StringList types_ = new StringList();
         types_.add(TENEBRE);
         assertEq(new Rate("1"), FightEffects.rateDamageGlobalAbilities(fight_, types_, data_));
@@ -783,8 +783,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageGlobalAbilities5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(AURA_INVERSEE);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_INVERSEE);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
         StringList types_ = new StringList();
         types_.add(EAU);
         assertEq(new Rate("1"), FightEffects.rateDamageGlobalAbilities(fight_, types_, data_));
@@ -794,8 +794,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageGlobalAbilities6Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(AURA_INVERSEE);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_INVERSEE);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
         StringList types_ = new StringList();
         types_.add(TENEBRE);
         assertEq(new Rate("2/3"), FightEffects.rateDamageGlobalAbilities(fight_, types_, data_));
@@ -805,8 +805,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageGlobalAbilities7Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(AURA_INVERSEE);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_INVERSEE);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(AURA_TENEBREUSE);
         StringList types_ = new StringList();
         types_.add(VOL);
         assertEq(new Rate("1"), FightEffects.rateDamageGlobalAbilities(fight_, types_, data_));
@@ -836,8 +836,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerObject1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -849,8 +849,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerObject2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BOUE_NOIRE);
@@ -862,8 +862,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerObject3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(CEINTURE_PRO);
@@ -875,8 +875,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerObject4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(CEINTURE_PRO);
@@ -888,8 +888,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerObject5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BAIE_MEPO);
@@ -901,8 +901,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerAbility1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -914,8 +914,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerAbility2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         fighter_.backUpObject(NULL_REF);
@@ -927,8 +927,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerAbility3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(LENTITEINTEE);
         fighter_.backUpObject(NULL_REF);
@@ -940,8 +940,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerAbility4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(LENTITEINTEE);
         fighter_.backUpObject(NULL_REF);
@@ -1015,12 +1015,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Fight fight_ = rateDamageInvokedMove(diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(MOI_D_ABORD, POKEMON_FOE_TARGET_ZERO);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(MOI_D_ABORD, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setActed(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(true);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
@@ -1032,12 +1032,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Fight fight_ = rateDamageInvokedMove(diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(MOI_D_ABORD, POKEMON_FOE_TARGET_ZERO);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(MOI_D_ABORD, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setActed(false);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(false);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("3/2"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
@@ -1049,12 +1049,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Fight fight_ = rateDamageInvokedMove(diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(SEISME);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setActed(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(true);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
@@ -1066,12 +1066,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Fight fight_ = rateDamageInvokedMove(diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(SEISME);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setActed(false);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(false);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
@@ -1083,12 +1083,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Fight fight_ = rateDamageInvokedMove(diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(FORCE_NATURE, POKEMON_FOE_TARGET_ZERO);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, POKEMON_PLAYER_TARGET_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(FORCE_NATURE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setActed(false);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(false);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
@@ -1098,8 +1098,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetBerry1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         assertEq(new Rate("1"), FightEffects.rateDamageTargetBerry(fight_, thrower_, target_, new StringList(EAU), data_));
@@ -1109,8 +1109,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetBerry2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(BAIE_MEPO);
         assertEq(new Rate("1"), FightEffects.rateDamageTargetBerry(fight_, thrower_, target_, new StringList(EAU), data_));
@@ -1120,8 +1120,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetBerry3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(ACIER);
         fighter_.backUpObject(BAIE_LAMPOU);
@@ -1132,8 +1132,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetBerry4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(PSY);
         fighter_.backUpObject(BAIE_LAMPOU);
@@ -1144,7 +1144,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetBeforeUsingMove1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affectNoRoundBeforeUsingMove();
         assertEq(new Rate("1"), FightEffects.rateDamageTargetBeforeUsingMove(fight_, target_, new StringList(EAU), data_));
@@ -1154,7 +1154,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageTargetBeforeUsingMove2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.incrementRoundBeforeUsingMove();
@@ -1166,9 +1166,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         fight_.enableGlobalMove(ORAGE);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.setFirstChosenMoveTarget(PLANNEUR,POKEMON_PLAYER_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PLANNEUR,tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.incrementRoundBeforeUsingMove();
@@ -1180,9 +1180,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         fight_.enableGlobalMove(ORAGE);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.setFirstChosenMoveTarget(PLANNEUR,POKEMON_PLAYER_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PLANNEUR,tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.incrementRoundBeforeUsingMove();
@@ -1193,8 +1193,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTarget1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
     }
 
@@ -1202,8 +1202,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTarget2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterPseudoStatut(target_, VAMPIGRAINE);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
@@ -1213,8 +1213,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTarget3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterPseudoStatut(target_, AMOUR);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
@@ -1224,10 +1224,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTarget4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ONE, AMOUR);
+        fighter_.affecterPseudoStatut(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), AMOUR);
         assertEq(new Rate("2"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
     }
 
@@ -1235,10 +1235,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTarget5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ONE, AMOUR);
+        fighter_.affecterPseudoStatut(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), AMOUR);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
     }
 
@@ -1247,10 +1247,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
         fight_.enableGlobalMove(ORAGE);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ONE, AMOUR);
+        fighter_.affecterPseudoStatut(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), AMOUR);
         assertEq(new Rate("4"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
     }
 
@@ -1258,8 +1258,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTarget7Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterPseudoStatut(target_, VAMPIGRAINE);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
@@ -1269,8 +1269,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTarget8Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterPseudoStatut(target_, AMOUR_TRES_MOU);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
@@ -1280,7 +1280,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageBoostedTypes1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(SOL);
         assertEq(new Rate("1"),FightEffects.rateDamageBoostedTypes(fight_, thrower_, TONNERRE, data_));
@@ -1290,7 +1290,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageBoostedTypes2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setCurrentAbility(NULL_REF);
@@ -1301,7 +1301,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageBoostedTypes3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setCurrentAbility(METEO);
@@ -1312,7 +1312,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageBoostedTypes4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setCurrentAbility(ADAPTABILITE);
@@ -1323,8 +1323,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTargetAbility1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTargetAbility(fight_, thrower_, target_, data_));
     }
 
@@ -1332,8 +1332,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTargetAbility2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(GARDE_AMIE);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTargetAbility(fight_, thrower_, target_, data_));
@@ -1343,8 +1343,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTargetAbility3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTargetAbility(fight_, thrower_, target_, data_));
     }
 
@@ -1352,8 +1352,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTargetAbility4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(GARDE_AMIE);
         assertEq(new Rate("3/4"), FightEffects.rateDamageThrowerTargetAbility(fight_, thrower_, target_, data_));
@@ -1363,8 +1363,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void rateDamageThrowerTargetAbility5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTargetAbility(fight_, thrower_, target_, data_));
@@ -1374,11 +1374,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void calculateDamageBaseWithoutRandom1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = DRACO_RAGE;
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         assertEq(new Rate("40"), FightEffects.calculateDamageBaseWithoutRandom(fight_, thrower_, target_, move_, data_));
     }
@@ -1387,11 +1387,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void calculateDamageBaseWithoutRandom2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = CROC_FATAL;
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         assertEq(new Rate("1"), FightEffects.calculateDamageBaseWithoutRandom(fight_, thrower_, target_, move_, data_));
     }
@@ -1400,11 +1400,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void calculateDamageBaseWithoutRandom3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String move_ = FULMIFER;
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, new Rate("1"));
         fighter_.getDamageSufferedCateg().put(SPECIALE, new Rate("2"));
@@ -1415,8 +1415,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void calculateDamageBaseWithoutRandom4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String move_ = TONNERRE;
         fighter_.affecterTypes(ELECTRIQUE);
@@ -1439,12 +1439,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void calculateDamageBaseWithoutRandom5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String move_ = RIPOSTE;
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         fighter_.getDamageSufferedCateg().put(SPECIALE, new Rate("20"));
         fighter_ = fight_.getFighter(target_);
@@ -1470,8 +1470,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertTrue(FightEffects.criticalHitCanHappen(fight_, thrower_, target_, data_));
     }
 
@@ -1479,8 +1479,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -1491,8 +1491,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(INFILTRATION);
 //        fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -1504,8 +1504,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(INFILTRATION);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -1517,8 +1517,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen5Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(INFILTRATION);
         fighter_ = fight_.getFighter(target_);
@@ -1530,8 +1530,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen6Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
@@ -1543,8 +1543,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen7Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -1556,8 +1556,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen8Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
@@ -1569,8 +1569,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitCanHappen9Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fight_.getFoeTeam().activerEffetEquipe(TOUR_RAPIDE);
@@ -1581,10 +1581,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitEvent1Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_ = fight_.getFighter(partner_);
         fighter_.setCurrentAbility(NULL_REF);
         assertEq(new Rate("2"),FightEffects.criticalHitEvent(fight_, thrower_, new Rate("2"), data_));
@@ -1594,10 +1594,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitEvent2Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_ = fight_.getFighter(partner_);
         fighter_.setCurrentAbility(NULL_REF);
         assertEq(new Rate("2"),FightEffects.criticalHitEvent(fight_, thrower_, new Rate("2"), data_));
@@ -1607,10 +1607,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitEvent3Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(SNIPER);
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_ = fight_.getFighter(partner_);
         fighter_.setCurrentAbility(NULL_REF);
         assertEq(new Rate("3"),FightEffects.criticalHitEvent(fight_, thrower_, new Rate("2"), data_));
@@ -1620,10 +1620,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void criticalHitEvent4Test() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(SNIPER);
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_ = fight_.getFighter(partner_);
         fighter_.setCurrentAbility(TIRS);
         assertEq(new Rate("6"),FightEffects.criticalHitEvent(fight_, thrower_, new Rate("2"), data_));
@@ -1636,12 +1636,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = DRACO_RAGE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, data_);
         assertEq(1, laws_.getBase().size());
@@ -1670,12 +1670,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = CROC_FATAL;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, data_);
         assertEq(1, laws_.getBase().size());
@@ -1705,12 +1705,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = LOTO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, data_);
         assertEq(1, laws_.getBase().size());
@@ -1742,12 +1742,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = FULMIFER;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, new Rate("1"));
         fighter_.getDamageSufferedCateg().put(SPECIALE, new Rate("2"));
@@ -1778,8 +1778,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = TONNERRE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -1818,8 +1818,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = TONNERRE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -1856,8 +1856,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = TONNERRE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -1895,13 +1895,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = RELACHE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_.getNbUsesMoves().put(STOCKAGE, 1);
         fighter_ = fight_.getFighter(target_);
@@ -1935,13 +1935,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = COMBO_GRIFFE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_.getNbUsesMoves().put(STOCKAGE, 1);
         fighter_ = fight_.getFighter(target_);
@@ -1982,13 +1982,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = COMBO_GRIFFE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(MULTI_COUPS);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_.getNbUsesMoves().put(STOCKAGE, 1);
         fighter_ = fight_.getFighter(target_);
@@ -2023,8 +2023,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = TONNERRE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -2062,13 +2062,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = BASTON;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
@@ -2092,7 +2092,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         law_ = laws_.getNumberHits().getVal(thrower_);
         assertEq(1, law_.nbEvents());
         assertTrue(law_.containsEvent(new Rate("1")));
-        TeamPosition partnerOne_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition partnerOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         law_ = laws_.getBase().getVal(partnerOne_);
         assertEq(1, law_.nbEvents());
         assertTrue(law_.containsEvent(new Rate("7144/13375")));
@@ -2102,7 +2102,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         law_ = laws_.getNumberHits().getVal(partnerOne_);
         assertEq(1, law_.nbEvents());
         assertTrue(law_.containsEvent(new Rate("1")));
-        TeamPosition partnerTwo_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition partnerTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         law_ = laws_.getBase().getVal(partnerTwo_);
         assertEq(1, law_.nbEvents());
         assertTrue(law_.containsEvent(new Rate("7144/13375")));
@@ -2121,13 +2121,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = BASTON;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
@@ -2147,13 +2147,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = BASTON;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fighter_.backUpObject(NULL_REF);
@@ -2170,13 +2170,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = BASTON;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fighter_.backUpObject(BAIE_MEPO);
@@ -2193,13 +2193,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = BASTON;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fighter_.backUpObject(BAIE_LAMPOU);
@@ -2216,13 +2216,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = BASTON;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(PSY);
         fighter_.backUpObject(BAIE_LAMPOU);
@@ -2239,13 +2239,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = DRACO_RAGE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
@@ -2266,8 +2266,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = TONNERRE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -2295,7 +2295,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         law_.setNumberHits(new TeamPositionsMonteCarloNumber());
         law_.setRandomRate(new MonteCarloNumber());
         law_.getRandomRate().addQuickEvent(Rate.one(), LgInt.one());
-        TeamPosition fighterOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighterOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         law_.getBase().put(fighterOne_, new MonteCarloNumber());
         law_.getBase().getVal(fighterOne_).addQuickEvent(new Rate("4"), LgInt.one());
         law_.getBase().getVal(fighterOne_).addQuickEvent(new Rate("8"), LgInt.one());
@@ -2307,7 +2307,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         law_.getNumberHits().getVal(fighterOne_).addQuickEvent(new Rate("3"), LgInt.one());
         law_.getNumberHits().getVal(fighterOne_).addQuickEvent(new Rate("4"), LgInt.one());
         law_.getNumberHits().getVal(fighterOne_).addQuickEvent(new Rate("5"), LgInt.one());
-        TeamPosition fighterTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition fighterTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         law_.getBase().put(fighterTwo_, new MonteCarloNumber());
         law_.getBase().getVal(fighterTwo_).addQuickEvent(new Rate("4"), LgInt.one());
         law_.getBase().getVal(fighterTwo_).addQuickEvent(new Rate("8"), LgInt.one());
@@ -2389,13 +2389,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = DRACO_RAGE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
-        fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
@@ -2410,8 +2410,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         assertTrue(!FightEffects.canReverseAbsorb(fight_, thrower_, target_, data_));
@@ -2424,8 +2424,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(METEO);
         assertTrue(!FightEffects.canReverseAbsorb(fight_, thrower_, target_, data_));
@@ -2438,8 +2438,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(SUINTEMENT);
         assertTrue(FightEffects.canReverseAbsorb(fight_, thrower_, target_, data_));
@@ -2518,7 +2518,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         assertEq(new Rate("0"), remainingHp(target_, fight_, data_, DRACO_RAGE));
@@ -2531,7 +2531,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         fighter_.setFirstChosenMove(TENACITE);
@@ -2546,7 +2546,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         fighter_.setFirstChosenMove(TENACITE);
@@ -2563,7 +2563,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         fighter_.setFirstChosenMove(TENACITE);
@@ -2580,7 +2580,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(BAIE_MEPO);
         assertEq(new Rate("0"), remainingHp(target_, fight_, data_, DRACO_RAGE));
@@ -2593,7 +2593,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         assertEq(new Rate("1"), remainingHp(target_, fight_, data_, FAUX_CHAGE));
@@ -2606,7 +2606,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(BOUE_NOIRE);
         assertEq(new Rate("0"), remainingHp(target_, fight_, data_, DRACO_RAGE));
@@ -2619,7 +2619,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(BANDEAU);
         assertEq(new Rate("1"), remainingHp(target_, fight_, data_, DRACO_RAGE));
@@ -2632,7 +2632,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(CEINT_FORCE);
         assertEq(new Rate("1"), remainingHp(target_, fight_, data_, DRACO_RAGE));
@@ -2645,7 +2645,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = remainingHp(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(CEINT_FORCE);
         fighter_.setRemainedHp(new Rate("18"));
@@ -2668,8 +2668,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
@@ -2704,8 +2704,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
@@ -2740,8 +2740,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
@@ -2775,8 +2775,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
@@ -2810,8 +2810,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
@@ -2848,8 +2848,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
@@ -2886,8 +2886,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
@@ -2924,8 +2924,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
@@ -2941,7 +2941,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         law_.getCriticalHit().getVal(thrower_).addQuickEvent(new Rate("1"), LgInt.one());
         law_.getNumberHits().put(thrower_, new MonteCarloNumber());
         law_.getNumberHits().getVal(thrower_).addQuickEvent(new Rate("3"), LgInt.one());
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         law_.getBase().put(partner_, new MonteCarloNumber());
         law_.getBase().getVal(partner_).addQuickEvent(new Rate("4"), LgInt.one());
         law_.getCriticalHit().put(partner_, new MonteCarloNumber());
@@ -2970,8 +2970,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         fighter_.creerClone(new Rate("1/2"));
@@ -2987,7 +2987,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         law_.getCriticalHit().getVal(thrower_).addQuickEvent(new Rate("1"), LgInt.one());
         law_.getNumberHits().put(thrower_, new MonteCarloNumber());
         law_.getNumberHits().getVal(thrower_).addQuickEvent(new Rate("3"), LgInt.one());
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         law_.getBase().put(partner_, new MonteCarloNumber());
         law_.getBase().getVal(partner_).addQuickEvent(new Rate("4"), LgInt.one());
         law_.getCriticalHit().put(partner_, new MonteCarloNumber());
@@ -3016,8 +3016,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(NULL_REF);
         ThrowerDamageLaws law_ = new ThrowerDamageLaws();
@@ -3032,7 +3032,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         law_.getCriticalHit().getVal(thrower_).addQuickEvent(new Rate("2"), LgInt.one());
         law_.getNumberHits().put(thrower_, new MonteCarloNumber());
         law_.getNumberHits().getVal(thrower_).addQuickEvent(new Rate("3"), LgInt.one());
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         law_.getBase().put(partner_, new MonteCarloNumber());
         law_.getBase().getVal(partner_).addQuickEvent(new Rate("4"), LgInt.one());
         law_.getCriticalHit().put(partner_, new MonteCarloNumber());
@@ -3059,7 +3059,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
         assertEq(new Rate("92/5"), fight_.getTemp().getDamageKo());
@@ -3073,7 +3073,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, FAUX_CHAGE, "1", diff_, data_);
         assertEq(new Rate("87/5"), fight_.getTemp().getDamageKo());
@@ -3087,7 +3087,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.setFirstChosenMove(TENACITE);
         FightRound.initRound(fight_);
@@ -3106,7 +3106,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.setFirstChosenMove(TENACITE);
         FightRound.initRound(fight_);
@@ -3125,7 +3125,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
         assertEq(new Rate("1873/100"), fight_.getTemp().getDamageKo());
@@ -3140,7 +3140,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
         assertEq(new Rate("1873/100"), fight_.getTemp().getDamageKo());
@@ -3154,7 +3154,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(NULL_REF);
         assertEq(new Rate("0"), FightEffects.rateAbsorb(fight_, thrower_, data_));
@@ -3167,7 +3167,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
         assertEq(new Rate("0"), FightEffects.rateAbsorb(fight_, thrower_, data_));
@@ -3180,7 +3180,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(GRELOT_COQUE);
         assertEq(new Rate("1/8"), FightEffects.rateAbsorb(fight_, thrower_, data_));
@@ -3193,7 +3193,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(GRELOT_COQUE);
         fight_.getFoeTeam().activerEffetEquipe(ANTI_SOIN);
@@ -3207,7 +3207,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(NULL_REF);
         assertEq(new Rate("0"), FightEffects.healedLostHp(fight_, thrower_, new Rate("2"), false, new Rate("1"), data_));
@@ -3220,7 +3220,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(GRELOT_COQUE);
         assertEq(new Rate("1/8"), FightEffects.healedLostHp(fight_, thrower_, new Rate("1"), false, new Rate("2"), data_));
@@ -3233,7 +3233,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(GRELOT_COQUE);
         assertEq(new Rate("1/8"), FightEffects.healedLostHp(fight_, thrower_, new Rate("2"), false, new Rate("1"), data_));
@@ -3246,7 +3246,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(GRELOT_COQUE);
         assertEq(new Rate("-1/8"), FightEffects.healedLostHp(fight_, thrower_, new Rate("2"), true, new Rate("1"), data_));
@@ -3259,7 +3259,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(GRELOT_COQUE);
         assertEq(new Rate("1/8"), FightEffects.healedLostHp(fight_, thrower_, new Rate("1"), true, new Rate("2"), data_));
@@ -3273,8 +3273,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         String move_ = BASTON;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(DEGUISEMENT);
@@ -3301,8 +3301,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         String move_ = BASTON;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(COLERIQUE);
@@ -3329,8 +3329,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         String move_ = BASTON;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(COLERIQUE);
@@ -3357,8 +3357,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         String move_ = BASTON;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(COEUR_NOBLE);
@@ -3385,8 +3385,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         String move_ = BASTON;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(ARMUROUILLEE);
@@ -3413,8 +3413,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
@@ -3433,8 +3433,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
@@ -3453,8 +3453,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
@@ -3473,8 +3473,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
@@ -3493,8 +3493,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
@@ -3511,8 +3511,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
@@ -3529,8 +3529,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         fighter_ = fight_.getFighter(target_);
@@ -3547,8 +3547,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
@@ -3565,8 +3565,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_ = fight_.getFighter(target_);
@@ -3583,8 +3583,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(JOLI_SOURIRE);
         fighter_.setCurrentGender(Gender.MALE);
@@ -3604,9 +3604,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(JOLI_SOURIRE);
         fighter_.affecterPseudoStatut(partner_, AMOUR);
@@ -3626,8 +3626,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(JOLI_SOURIRE);
         fighter_ = fight_.getFighter(target_);
@@ -3645,8 +3645,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(JOLI_SOURIRE);
         fighter_ = fight_.getFighter(target_);
@@ -3664,8 +3664,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(JOLI_SOURIRE);
         fighter_ = fight_.getFighter(target_);
@@ -3683,8 +3683,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(MAGICIEN);
         fighter_.setItem(BAIE_MEPO);
@@ -3707,8 +3707,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(MAGICIEN);
         fighter_.setItem(BAIE_MEPO);
@@ -3731,8 +3731,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(MAGICIEN);
         fighter_.setItem(NULL_REF);
@@ -3755,8 +3755,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(POISSEUX);
         fighter_ = fight_.getFighter(target_);
@@ -3772,8 +3772,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(POISSEUX);
         fighter_ = fight_.getFighter(target_);
@@ -3789,8 +3789,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PYROMANE);
         fighter_ = fight_.getFighter(target_);
@@ -3810,8 +3810,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_ = fight_.getFighter(target_);
@@ -3830,8 +3830,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -3851,8 +3851,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         fighter_.backUpObject(NULL_REF);
@@ -3872,8 +3872,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PEAU_DURE);
         fighter_.backUpObject(NULL_REF);
@@ -3893,8 +3893,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PEAU_DURE);
         fighter_.backUpObject(NULL_REF);
@@ -3914,8 +3914,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BAIE_JABOCA);
@@ -3935,8 +3935,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
@@ -3956,8 +3956,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BAIE_JABOCA);
@@ -3977,8 +3977,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
@@ -3998,8 +3998,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BOUE_NOIRE);
@@ -4019,8 +4019,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
@@ -4043,8 +4043,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
@@ -4066,8 +4066,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BAIE_JABOCA);
@@ -4090,15 +4090,15 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BAIE_JABOCA);
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("22/10"));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
         assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
@@ -4116,8 +4116,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PEAU_DURE);
         fighter_.backUpObject(BAIE_JABOCA);
@@ -4140,8 +4140,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
@@ -4164,8 +4164,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
@@ -4188,8 +4188,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
@@ -4269,7 +4269,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         FightEffects.enableBoostEffectWhileKoTarget(fight_, thrower_, PISTOLET_A_O, data_);
@@ -4291,7 +4291,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         FightEffects.enableBoostEffectWhileKoTarget(fight_, thrower_, DARD_MORTEL, data_);
@@ -4313,7 +4313,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         FightEffects.enableAbilityWhileKoTarget(fight_, thrower_, data_);
@@ -4335,7 +4335,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(METEO);
         FightEffects.enableAbilityWhileKoTarget(fight_, thrower_, data_);
@@ -4357,7 +4357,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         FightEffects.enableAbilityWhileKoTarget(fight_, thrower_, data_);
@@ -4379,8 +4379,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String move_ = PRESCIENCE;
         Effect effect_ = data_.getMove(move_).getEffet(0);
@@ -4399,8 +4399,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(Rate.zero(), animation_.getDamage());
         assertEq(0, animation_.getTypes().size());
         assertTrue(!animation_.isKoFromFighter());
@@ -4416,8 +4416,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -4434,8 +4434,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("92/5"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(DRAGON, animation_.getTypes().first());
@@ -4450,8 +4450,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -4471,8 +4471,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -4487,8 +4487,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("15"));
@@ -4507,8 +4507,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("92/5"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(DRAGON, animation_.getTypes().first());
@@ -4523,8 +4523,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.setRemainedHp(new Rate("15"));
@@ -4543,8 +4543,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("92/5"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(DRAGON, animation_.getTypes().first());
@@ -4559,8 +4559,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.setRemainedHp(new Rate("15"));
@@ -4581,8 +4581,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("92/5"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(DRAGON, animation_.getTypes().first());
@@ -4597,8 +4597,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.setRemainedHp(new Rate("15"));
@@ -4621,8 +4621,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -4637,8 +4637,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("1/2"));
@@ -4663,8 +4663,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -4679,8 +4679,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(GRELOT_COQUE);
@@ -4704,8 +4704,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -4720,8 +4720,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(GRELOT_COQUE);
@@ -4744,8 +4744,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -4760,8 +4760,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.setRemainedHp(new Rate("1"));
@@ -4786,8 +4786,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -4802,8 +4802,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.setRemainedHp(new Rate("1"));
@@ -4829,8 +4829,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -4845,8 +4845,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         //fighter_.setRemainedHp(new Rate("1"));
@@ -4874,8 +4874,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("42864/13375"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ROCHE, animation_.getTypes().first());
@@ -4890,8 +4890,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(BAIE_ORAN);
@@ -4918,8 +4918,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("42864/13375"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ROCHE, animation_.getTypes().first());
@@ -4934,8 +4934,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
@@ -4964,8 +4964,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("85728/13375"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ROCHE, animation_.getTypes().first());
@@ -4980,8 +4980,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(BAIE_ORAN);
@@ -4989,7 +4989,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         String move_ = DRACO_RAGE;
         Effect effect_ = data_.getMove(move_).getEffet(0);
         fight_.addEffect(thrower_, target_, effect_);
@@ -5003,9 +5003,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-//        assertEq(POKEMON_FOE_TARGET_ONE, animation_.getToFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+//        assertEq(POKEMON_FOE_TARGET_ONE_STR, animation_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("92/5"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(DRAGON, animation_.getTypes().first());
@@ -5020,8 +5020,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(BAIE_ORAN);
@@ -5029,8 +5029,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
         String move_ = DRACO_RAGE;
         Effect effect_ = data_.getMove(move_).getEffet(0);
         fight_.addEffect(thrower_, target_, effect_);
@@ -5044,9 +5044,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-//        assertEq(POKEMON_FOE_TARGET_ONE, animation_.getToFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+//        assertEq(POKEMON_FOE_TARGET_ONE_STR, animation_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("92/5"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(DRAGON, animation_.getTypes().first());
@@ -5061,8 +5061,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PEAU_DURE);
         fighter_.backUpObject(BAIE_ORAN);
@@ -5074,8 +5074,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.successUsingMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
         String move_ = ROULADE;
         Effect effect_ = data_.getMove(move_).getEffet(0);
         fight_.addEffect(thrower_, target_, effect_);
@@ -5089,9 +5089,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-//        assertEq(POKEMON_FOE_TARGET_ONE, animation_.getToFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+//        assertEq(POKEMON_FOE_TARGET_ONE_STR, animation_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("1"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ROCHE, animation_.getTypes().first());
@@ -5106,15 +5106,15 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("1/2"));
         fighter_.backUpObject(GRELOT_COQUE);
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(SUINTEMENT);
         String move_ = TONNERRE;
@@ -5132,9 +5132,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-//        assertEq(POKEMON_PLAYER_TARGET_ONE, animation_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+//        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, animation_.getFromFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -5149,8 +5149,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -5170,8 +5170,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("2679/1300"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(EAU, animation_.getTypes().first());
@@ -5186,8 +5186,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -5210,8 +5210,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("21432/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -5226,8 +5226,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -5251,8 +5251,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("42864/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -5267,8 +5267,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -5291,8 +5291,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("42864/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -5307,8 +5307,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -5331,8 +5331,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("42864/2675"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(ELECTRIQUE, animation_.getTypes().first());
@@ -5347,8 +5347,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -5371,8 +5371,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("42864/13375"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(COMBAT, animation_.getTypes().first());
@@ -5387,8 +5387,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -5411,8 +5411,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("42864/13375"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(COMBAT, animation_.getTypes().first());
@@ -5427,8 +5427,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
@@ -5465,8 +5465,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertEq(new Rate("3/4"), animation_.getDamage());
         assertEq(1, animation_.getTypes().size());
         assertEq(COMBAT, animation_.getTypes().first());
@@ -5482,8 +5482,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = DRACO_RAGE;
         FightEffects.effectDamage(fight_, thrower_, target_, move_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(target_);
@@ -5499,8 +5499,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(PEAU_DURE);
         fighter_ = fight_.getFighter(target_);
@@ -5525,8 +5525,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("1/2"));
@@ -5555,8 +5555,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("1/2"));

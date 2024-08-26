@@ -5309,12 +5309,12 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.addMove(2, OMBRE_PORTEE);
         fightSimulation_.addMove(2, GRIFFE_ACIER);
         fightSimulation_.validateAllMoves(data_);
-        fightSimulation_.chooseMove(1, 0, 1, BULLES_D_O, POKEMON_FOE_TARGET_ZERO, data_);
+        fightSimulation_.chooseMove(1, 0, 1, BULLES_D_O, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
         ActionMove action_;
         action_ = fightSimulation_.getActionsBeforeRound().get(1).first().first();
         assertEq(BULLES_D_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, action_.getChosenTargets().first());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, action_.getChosenTargets().first());
     }
 
     @Test
@@ -5388,12 +5388,12 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.addMove(2, OMBRE_PORTEE);
         fightSimulation_.addMove(2, GRIFFE_ACIER);
         fightSimulation_.validateAllMoves(data_);
-        fightSimulation_.chooseMove(1, 0, 1, BULLES_D_O, POKEMON_FOE_TARGET_ZERO, data_);
+        fightSimulation_.chooseMove(1, 0, 1, BULLES_D_O, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
         ActionMove action_;
         action_ = fightSimulation_.getActionsBeforeRound().get(1).first().first();
         assertEq(BULLES_D_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, action_.getChosenTargets().first());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, action_.getChosenTargets().first());
     }
 
     @Test
@@ -5468,12 +5468,12 @@ public class FightSimulationTest extends InitializationDataBase {
 //        fightSimulation_.addMove(2, OMBRE_PORTEE);
 //        fightSimulation_.addMove(2, GRIFFE_ACIER);
         fightSimulation_.validateAllMoves(data_);
-        fightSimulation_.chooseMove(0, 0, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, data_);
+        fightSimulation_.chooseMove(0, 0, 0, BROUHAHA, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
         ActionMove action_;
         action_ = fightSimulation_.getActionsBeforeRound().get(0).first().first();
         assertEq(BROUHAHA, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
-        //assertEq(POKEMON_FOE_TARGET_ZERO, action_.getChosenTargets().first());
+        //assertEq(POKEMON_FOE_TARGET_ZERO_STR, action_.getChosenTargets().first());
     }
 
     @Test
@@ -5548,12 +5548,12 @@ public class FightSimulationTest extends InitializationDataBase {
 //        fightSimulation_.addMove(2, OMBRE_PORTEE);
 //        fightSimulation_.addMove(2, GRIFFE_ACIER);
         fightSimulation_.validateAllMoves(data_);
-        fightSimulation_.chooseMove(0, 0, 0, BULLES_D_O, POKEMON_FOE_TARGET_ZERO, data_);
+        fightSimulation_.chooseMove(0, 0, 0, BULLES_D_O, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
         ActionMove action_;
         action_ = fightSimulation_.getActionsBeforeRound().get(0).first().first();
         assertEq(BULLES_D_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, action_.getChosenTargets().first());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, action_.getChosenTargets().first());
     }
 
     @Test
@@ -5632,7 +5632,7 @@ public class FightSimulationTest extends InitializationDataBase {
         action_ = fightSimulation_.getActionsBeforeRound().get(0).first().first();
         assertEq(BULLES_D_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, action_.getChosenTargets().first());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, action_.getChosenTargets().first());
     }
 
     @Test
@@ -5711,7 +5711,7 @@ public class FightSimulationTest extends InitializationDataBase {
         action_ = fightSimulation_.getActionsBeforeRound().get(0).first().first();
         assertEq(BULLES_D_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, action_.getChosenTargets().first());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, action_.getChosenTargets().first());
     }
     @Test
     public void cancelAllMovesOneFight1Test() {
@@ -5934,10 +5934,10 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.addMove(2, OMBRE_PORTEE);
         fightSimulation_.addMove(2, GRIFFE_ACIER);
         fightSimulation_.validateAllMoves(data_);
-        fightSimulation_.chooseMove(0, 0, 0, CHARGE, POKEMON_FOE_TARGET_ZERO, data_);
-        fightSimulation_.chooseMove(0, 1, 0, PLAQUAGE, POKEMON_FOE_TARGET_ZERO, data_);
-        fightSimulation_.chooseMove(1, 0, 1, BULLES_D_O, POKEMON_FOE_TARGET_ZERO, data_);
-        fightSimulation_.chooseMove(1, 1, 2, BALL_OMBRE, POKEMON_FOE_TARGET_ZERO, data_);
+        fightSimulation_.chooseMove(0, 0, 0, CHARGE, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
+        fightSimulation_.chooseMove(0, 1, 0, PLAQUAGE, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
+        fightSimulation_.chooseMove(1, 0, 1, BULLES_D_O, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
+        fightSimulation_.chooseMove(1, 1, 2, BALL_OMBRE, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
         assertTrue(fightSimulation_.validChoicesMoves());
     }
 

@@ -945,7 +945,7 @@ public class GameTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         game_.chooseFrontFighter((byte) 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, false);
@@ -980,7 +980,7 @@ public class GameTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         game_.chooseFrontFighter((byte) 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, false);
@@ -1017,7 +1017,7 @@ public class GameTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         game_.chooseFrontFighter((byte) 0, data_);
         game_.chooseMove(BULLES_D_O, data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
@@ -1055,7 +1055,7 @@ public class GameTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         game_.chooseFrontFighter((byte) 0, data_);
         game_.chooseMove(BOUE_BOMBE, data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
@@ -1339,7 +1339,7 @@ public class GameTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         game_.chooseFrontFighter((byte) 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, true);
@@ -1377,7 +1377,7 @@ public class GameTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         game_.chooseFrontFighter((byte) 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, true);
@@ -1417,7 +1417,7 @@ public class GameTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         game_.chooseFrontFighter((byte) 0, data_);
         game_.chooseMove(BOUE_BOMBE, data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
@@ -1518,7 +1518,7 @@ public class GameTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         game_.chooseFrontFighter((byte) 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, false);
@@ -1626,7 +1626,7 @@ public class GameTest extends InitializationDataBase {
         game_.chooseMove(BULLES_D_O, data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS).increment();
-        game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(Rate.one());
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
         game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
@@ -1665,7 +1665,7 @@ public class GameTest extends InitializationDataBase {
         game_.chooseMove(BOUE_BOMBE, data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS).increment();
-        game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(Rate.one());
+        game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(Rate.one());
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.SWITCH_PROPOSE, game_.getFight().getState());
         game_.sendSubstitutes(data_);

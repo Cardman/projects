@@ -6,7 +6,7 @@ import code.util.core.StringUtil;
 
 public final class TargetCoords {
 
-    private static final char SEPARATOR=';';
+    public static final char SEPARATOR=';';
 
     private static final int DISABLED = -1;
     private final short team;

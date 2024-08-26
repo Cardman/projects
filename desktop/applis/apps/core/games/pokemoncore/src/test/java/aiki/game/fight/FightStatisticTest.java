@@ -67,57 +67,57 @@ public class FightStatisticTest extends InitializationDataBase {
     public void bonusBoost1Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, POKEMON_PLAYER_FIGHTER_ZERO, data_));
+        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
     }
 
     @Test
     public void bonusBoost2Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, POKEMON_PLAYER_FIGHTER_ZERO, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
     }
 
     @Test
     public void bonusBoost3Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(HYPER_BALL);
-        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, POKEMON_PLAYER_FIGHTER_ZERO, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(HYPER_BALL);
+        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
     }
 
     @Test
     public void bonusBoost4Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(LENTILSCOPE);
-        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, POKEMON_PLAYER_FIGHTER_ZERO, data_));
-        assertEq(1, FightStatistic.bonusBoost(fight_,Statistic.CRITICAL_HIT, POKEMON_PLAYER_FIGHTER_ZERO, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(LENTILSCOPE);
+        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertEq(1, FightStatistic.bonusBoost(fight_,Statistic.CRITICAL_HIT, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
     }
 
     @Test
     public void bonusBoost5Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentName(CARAPUCE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BATON);
-        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, POKEMON_PLAYER_FIGHTER_ZERO, data_));
-        assertEq(2, FightStatistic.bonusBoost(fight_,Statistic.CRITICAL_HIT, POKEMON_PLAYER_FIGHTER_ZERO, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentName(CARAPUCE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(BATON);
+        assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.ATTACK, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertEq(2, FightStatistic.bonusBoost(fight_,Statistic.CRITICAL_HIT, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
     }
 
     @Test
     public void bonusBoost6Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(PEAU_MIRACLE_QUATER);
-        assertEq(1, FightStatistic.bonusBoost(fight_,Statistic.ACCURACY, POKEMON_PLAYER_FIGHTER_ZERO, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(PEAU_MIRACLE_QUATER);
+        assertEq(1, FightStatistic.bonusBoost(fight_,Statistic.ACCURACY, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
     }
 
     @Test
     public void bonusBoost7Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(fighter_);
         f_.backUpObject(NULL_REF);
         assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.CRITICAL_HIT, fighter_, data_));
@@ -127,7 +127,7 @@ public class FightStatisticTest extends InitializationDataBase {
     public void bonusBoost8Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(fighter_);
         f_.backUpObject(BAIE_MEPO);
         assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.CRITICAL_HIT, fighter_, data_));
@@ -137,7 +137,7 @@ public class FightStatisticTest extends InitializationDataBase {
     public void bonusBoost9Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(fighter_);
         f_.backUpObject(BAIE_LANSAT);
         assertEq(0, FightStatistic.bonusBoost(fight_,Statistic.CRITICAL_HIT, fighter_, data_));
@@ -147,7 +147,7 @@ public class FightStatisticTest extends InitializationDataBase {
     public void bonusBoost10Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(fighter_);
         f_.backUpObject(BAIE_LANSAT);
         f_.setRemainedHp(Rate.one());
@@ -236,12 +236,12 @@ public class FightStatisticTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(BROUHAHA);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(BROUHAHA);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        assertEq(new Rate("2"), FightStatistic.multiplyStringFighter(fight_,"2", POKEMON_PLAYER_FIGHTER_ZERO, data_));
-        assertEq(Rate.one(), FightStatistic.multiplyStringFighter(fight_,NULL_REF, POKEMON_PLAYER_FIGHTER_ZERO, data_));
+        assertEq(new Rate("2"), FightStatistic.multiplyStringFighter(fight_,"2", tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertEq(Rate.one(), FightStatistic.multiplyStringFighter(fight_,NULL_REF, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
     }
 
     @Test
@@ -300,9 +300,9 @@ public class FightStatisticTest extends InitializationDataBase {
         fight_.setEnvType(EnvironmentType.ROAD);
         FightRound.initRound(fight_);
         assertEq(Rate.one(),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         assertEq(Rate.one(),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(MAGNEPIEGE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(MAGNEPIEGE);
         assertEq(new Rate("2"),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data_));
     }
 
@@ -485,22 +485,22 @@ public class FightStatisticTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightRound.initRound(fight_);
-        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ATTACK, data_));
-        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.DEFENSE, data_));
-        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ATTACK, data_));
-        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.DEFENSE, data_));
-        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(BRULURE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
-        assertEq(new Rate("1/2"),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ATTACK, data_));
-        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.DEFENSE, data_));
-        assertEq(new Rate("1/2"),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(PIED_VELOCE);
-        assertEq(new Rate("1/2"),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ATTACK, data_));
-        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.DEFENSE, data_));
-        assertEq(new Rate("2"),FightStatistic.coeffStatisticStatusImmu(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, data_));
+        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, data_));
+        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.DEFENSE, data_));
+        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, data_));
+        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.DEFENSE, data_));
+        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(PARALYSIE);
+        assertEq(new Rate("1/2"),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, data_));
+        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.DEFENSE, data_));
+        assertEq(new Rate("1/2"),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(PIED_VELOCE);
+        assertEq(new Rate("1/2"),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, data_));
+        assertEq(Rate.one(),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.DEFENSE, data_));
+        assertEq(new Rate("2"),FightStatistic.coeffStatisticStatusImmu(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, data_));
     }
 
     @Test
@@ -558,29 +558,29 @@ public class FightStatisticTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightRound.initRound(fight_);
-        StringMap<String> map_ = FightValues.calculateValuesFighter(fight_,POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ACCURACY, map_, data_));
-        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, map_, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(POUDRE_ATTAQUE);
-        assertEq(new Rate("2"), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ATTACK, map_, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(POUDRE_VITE);
-        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, map_, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BOUE_NOIRE);
-        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, map_, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(HYPER_BALL);
-        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, map_, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(PIED_VELOCE);
-        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, map_, data_));
+        StringMap<String> map_ = FightValues.calculateValuesFighter(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ACCURACY, map_, data_));
+        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, map_, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(POUDRE_ATTAQUE);
+        assertEq(new Rate("2"), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, map_, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(POUDRE_VITE);
+        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, map_, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(BOUE_NOIRE);
+        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, map_, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(HYPER_BALL);
+        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, map_, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(PIED_VELOCE);
+        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, map_, data_));
         fight_.getFoeTeam().addSuccessfulMoveRound(AIRE_D_EAU);
         fight_.getFoeTeam().addSuccessfulMoveRound(AIRE_D_HERBE);
-        assertEq(new Rate("4/5"), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ACCURACY, map_, data_));
+        assertEq(new Rate("4/5"), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ACCURACY, map_, data_));
         fight_.getFoeTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
-        assertEq(new Rate("4/5"), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ACCURACY, map_, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(new StringList(ROCHE,SOL,EAU));
+        assertEq(new Rate("4/5"), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ACCURACY, map_, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(new StringList(ROCHE,SOL,EAU));
         fight_.enableGlobalMove(TEMPETESABLE);
-        assertEq(new Rate("3/2"), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPECIAL_DEFENSE, map_, data_));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.SPEED, map_, data_));
+        assertEq(new Rate("3/2"), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPECIAL_DEFENSE, map_, data_));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
+        assertEq(Rate.one(), FightStatistic.statisticWithoutBase(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.SPEED, map_, data_));
         //BASE SPEED == 1893/25
         //BASE SPE DEF == 1093/25 * 3/2 = 3279/50
     }
@@ -661,7 +661,7 @@ public class FightStatisticTest extends InitializationDataBase {
     public void criticalHit1Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(fighter_);
         f_.backUpObject(NULL_REF);
         assertEq(0, FightStatistic.criticalHit(fight_, fighter_, 0, data_));
@@ -671,7 +671,7 @@ public class FightStatisticTest extends InitializationDataBase {
     public void criticalHit2Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(fighter_);
         f_.backUpObject(BAIE_MEPO);
         assertEq(0, FightStatistic.criticalHit(fight_, fighter_, 0, data_));
@@ -681,7 +681,7 @@ public class FightStatisticTest extends InitializationDataBase {
     public void criticalHit3Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(fighter_);
         f_.backUpObject(BAIE_LANSAT);
         assertEq(0, FightStatistic.criticalHit(fight_, fighter_, 0, data_));
@@ -691,7 +691,7 @@ public class FightStatisticTest extends InitializationDataBase {
     public void criticalHit4Test() {
         DataBase data_ = initDb();
         Fight fight_ = bonusBoost(data_);
-        TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(fighter_);
         f_.backUpObject(BAIE_LANSAT);
         f_.setRemainedHp(Rate.one());

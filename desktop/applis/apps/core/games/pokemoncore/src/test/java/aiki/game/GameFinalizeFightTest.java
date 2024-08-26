@@ -916,7 +916,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.getFight().getCatchingBalls().first().setNickname(NICKNAME_SAMPLE);
         game_.getFight().getCatchingBalls().first().setCaught(true);
         game_.getFight().getCatchingBalls().first().setTeam(true);
@@ -945,7 +945,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.getFight().getCatchingBalls().first().setCaught(true);
         game_.getFight().getCatchingBalls().first().setNickname(NICKNAME_SAMPLE);
         game_.getFight().getCatchingBalls().first().setTeam(true);
@@ -977,7 +977,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.getFight().getCatchingBalls().first().setCaught(true);
         game_.getFight().getCatchingBalls().first().setTeam(true);
         game_.catchWildPokemon(data_);
@@ -1007,7 +1007,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.getFight().getCatchingBalls().first().setCaught(true);
         game_.getFight().getCatchingBalls().first().setNickname(NICKNAME_SAMPLE);
         game_.getFight().getCatchingBalls().first().setTeam(true);
@@ -1043,7 +1043,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.getFight().getCatchingBalls().first().setNickname(NICKNAME_SAMPLE);
         game_.getFight().getCatchingBalls().first().setCaught(true);
         game_.getFight().getCatchingBalls().first().setTeam(false);
@@ -1098,7 +1098,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.getFight().getCatchingBalls().first().setNickname(NICKNAME_SAMPLE);
         game_.catchKoWildPokemon(data_);
         assertEq(2, game_.getPlayer().getTeam().size());
@@ -1157,7 +1157,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.newIndex(true, 0, area_, data_);
         assertTrue(game_.getFight().getFightType().isWild());
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, false);
         assertEq(LgInt.zero(), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
         assertTrue(!game_.getFight().getFightType().isExisting());
@@ -1188,7 +1188,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         assertTrue(game_.getFight().getFightType().isWild());
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, false);
         assertEq(LgInt.zero(), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
         assertTrue(game_.getFight().getFightType().isWild());
@@ -1221,7 +1221,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         assertTrue(game_.getFight().getFightType().isWild());
         game_.getFight().wildPokemon().setRemainedHp(Rate.one());
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, false);
         assertEq(LgInt.zero(), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
         assertTrue(game_.getFight().getFightType().isWild());
@@ -1254,7 +1254,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         assertTrue(game_.getFight().getFightType().isWild());
         game_.getFight().wildPokemon().setRemainedHp(Rate.one());
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         assertEq(LgInt.zero(), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
         assertTrue(game_.getFight().getFightType().isWild());
@@ -1286,7 +1286,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.newIndex(true, 0, area_, data_);
         assertTrue(game_.getFight().getFightType().isWild());
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         game_.roundUser(data_);
         game_.endRoundFightBall(data_);
@@ -1319,7 +1319,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         assertTrue(game_.getFight().getFightType().isWild());
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         game_.roundUser(data_);
         game_.endRoundFightBall(data_);
@@ -1354,7 +1354,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         assertTrue(game_.getFight().getFightType().isWild());
         game_.getFight().wildPokemon().setRemainedHp(Rate.one());
         game_.getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        game_.getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        game_.getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         game_.endRoundFightSuccessBall(data_);
         assertEq(LgInt.zero(), game_.getPlayer().getInventory().getNumber(HYPER_BALL));

@@ -55,11 +55,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = choiceForSubstituing1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         //assertEq(1, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
         assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 1));
@@ -88,13 +88,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = choiceForSubstituing2(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         //assertEq(1, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
         assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 1));
@@ -124,15 +124,15 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = choiceForSubstituing3(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         //assertEq(2, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_THREE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
         assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
@@ -163,11 +163,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = choiceForSubstituing4(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
         assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
@@ -196,12 +196,12 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = choiceForSubstituing5(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         //assertEq(3, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
         assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
@@ -232,11 +232,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing6(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        //Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         //assertEq(3, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
+        //fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
@@ -266,13 +266,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        //Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         //assertEq(3, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
+        //fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR);
+        //fighter_ = fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR));
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
@@ -303,14 +303,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_THREE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_THREE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        //Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         //assertEq(4, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
+        //fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR);
+        //fighter_ = fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR));
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
@@ -341,13 +341,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_THREE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_THREE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        //Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
+        //fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR);
+        //fighter_ = fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR));
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
@@ -378,9 +378,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing8(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        //Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
@@ -409,12 +409,12 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing9(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         //assertEq(2, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 1));
@@ -443,13 +443,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing10(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
-        fullHeal(fight_, POKEMON_FOE_FIGHTER_ONE, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
+        fullHeal(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0));
         assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
@@ -479,14 +479,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing10(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
-        fullHeal(fight_, POKEMON_FOE_FIGHTER_ONE, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
+        fullHeal(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), data_);
         fight_.getFirstPositFoeFighters().put((byte) 1, Fighter.BACK);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        //fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0));
         assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
@@ -515,16 +515,16 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).exitFrontBattleForBeingSubstitued();
-        fullHeal(fight_, POKEMON_PLAYER_FIGHTER_TWO, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).exitFrontBattleForBeingSubstitued();
+        fullHeal(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), data_);
         fight_.getFirstPositPlayerFighters().put((byte) 2, Fighter.BACK);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        //Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
+        //fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR);
+        //fighter_ = fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR));
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
@@ -555,17 +555,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = choiceForSubstituing6(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setGroundPlaceSubst((byte) 0);
         fight_.getFirstPositPlayerFighters().put((byte) 2, (byte) 0);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        //Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         //assertEq(3, fighter_.getSubstistute());
-        //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
+        //fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
@@ -596,12 +596,12 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DETECTION));
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, POKEMON_PLAYER_FIGHTER_TWO, INTERVERSION, POKEMON_PLAYER_TARGET_ZERO, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), INTERVERSION, tc(KEY_PLAYER, POKEMON_TARGET_ZERO), data_);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(INTERVERSION, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -628,8 +628,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(SEISME), new StringList(DETECTION));
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, POKEMON_PLAYER_FIGHTER_TWO, SEISME, POKEMON_FOE_TARGET_ZERO, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), SEISME, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(SEISME, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
@@ -659,14 +659,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DETECTION));
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, INTERVERSION, POKEMON_PLAYER_TARGET_ZERO, data_);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, INTERVERSION, tc(KEY_PLAYER, POKEMON_TARGET_ZERO), data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, INTERVERSION, data_);
         Fighter fighter_ = fight_.getFighter(ally_);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(INTERVERSION, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -693,8 +693,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(SEISME), new StringList(DETECTION));
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, SEISME, POKEMON_PLAYER_TARGET_ZERO, data_);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, SEISME, tc(KEY_PLAYER, POKEMON_TARGET_ZERO), data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, SEISME, data_);
         Fighter fighter_ = fight_.getFighter(ally_);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -726,14 +726,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(BERCEUSE), new StringList(DETECTION));
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, BERCEUSE, POKEMON_FOE_TARGET_ZERO, data_);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, BERCEUSE, tc(KEY_FOE, POKEMON_TARGET_ZERO), data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, BERCEUSE, data_);
         Fighter fighter_ = fight_.getFighter(ally_);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(BERCEUSE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -760,9 +760,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(RELAIS), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_THREE, diff_, data_);
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, RELAIS, POKEMON_PLAYER_TARGET_ZERO, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_THREE), diff_, data_);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, RELAIS, tc(KEY_PLAYER, POKEMON_TARGET_ZERO), data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, RELAIS, data_);
         Fighter fighter_ = fight_.getFighter(ally_);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -794,9 +794,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_FOUR, diff_, data_);
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, DANSE_LUNE, POKEMON_PLAYER_TARGET_ZERO, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR), diff_, data_);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, DANSE_LUNE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO), data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, DANSE_LUNE, data_);
         Fighter fighter_ = fight_.getFighter(ally_);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -824,9 +824,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION));
-        //FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_FOUR, diff_, data_);
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, DANSE_LUNE, POKEMON_PLAYER_TARGET_ZERO, data_);
+        //FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR), diff_, data_);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, DANSE_LUNE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO), data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, DANSE_LUNE, data_);
         Fighter fighter_ = fight_.getFighter(ally_);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -854,8 +854,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(RELAIS), new StringList(DETECTION));
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
-        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, RELAIS, POKEMON_PLAYER_TARGET_ZERO, data_);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
+        FightArtificialIntelligence.setFirstChosenMoveAlly(fight_, ally_, RELAIS, tc(KEY_PLAYER, POKEMON_TARGET_ZERO), data_);
         FightArtificialIntelligence.setBatonPassAlly(fight_, ally_, RELAIS, data_);
         Fighter fighter_ = fight_.getFighter(ally_);
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -889,8 +889,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SACRIFICE));
     }
 
@@ -919,8 +919,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SIPHON));
     }
 
@@ -949,8 +949,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertTrue(reachable(data_, diff_, fight_, thrower_, target_, SEISME));
     }
 
@@ -979,8 +979,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_TWO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_TWO);
         assertTrue(!reachable(data_, diff_, fight_, thrower_, target_, SIPHON));
     }
 
@@ -1009,8 +1009,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_TWO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_TWO);
         assertTrue(!reachable(data_, diff_, fight_, thrower_, target_, COUPE_VENT));
     }
 
@@ -1039,13 +1039,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
         TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(2, damages_.size());
-        assertEq(new Rate("92/5"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
-        assertEq(Rate.zero(), damages_.getVal(POKEMON_FOE_TARGET_ONE));
+        assertEq(new Rate("92/5"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        assertEq(Rate.zero(), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ONE)));
     }
 
     @Test
@@ -1073,14 +1073,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterTypes(SOL);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_VOLT);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(SOL);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(ABSORB_VOLT);
         TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(2, damages_.size());
-        assertEq(new Rate("92/5"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
-        assertEq(new Rate("92/5"), damages_.getVal(POKEMON_FOE_TARGET_ONE));
+        assertEq(new Rate("92/5"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        assertEq(new Rate("92/5"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ONE)));
     }
 
     @Test
@@ -1112,15 +1112,15 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterTypes(SOL);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_VOLT);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(SOL);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(ABSORB_VOLT);
         TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(3, damages_.size());
-        assertEq(new Rate("52"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
-        assertEq(new Rate("52"), damages_.getVal(POKEMON_FOE_TARGET_ONE));
-        assertEq(new Rate("375506/8375"), damages_.getVal(POKEMON_FOE_TARGET_TWO));
+        assertEq(new Rate("52"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        assertEq(new Rate("52"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        assertEq(new Rate("375506/8375"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_TWO)));
     }
 
     @Test
@@ -1152,13 +1152,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(3, damages_.size());
-        assertEq(new Rate("52"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
-        assertEq(new Rate("52"), damages_.getVal(POKEMON_FOE_TARGET_ONE));
-        assertEq(new Rate("52"), damages_.getVal(POKEMON_FOE_TARGET_TWO));
+        assertEq(new Rate("52"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        assertEq(new Rate("52"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        assertEq(new Rate("52"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_TWO)));
     }
 
     @Test
@@ -1190,14 +1190,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
         TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(3, damages_.size());
-        assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
-        assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ONE));
-        assertEq(new Rate("52"), damages_.getVal(POKEMON_FOE_TARGET_TWO));
+        assertEq(new Rate("7768603/160000"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        assertEq(new Rate("7768603/160000"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        assertEq(new Rate("52"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_TWO)));
     }
 
     @Test
@@ -1229,14 +1229,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
         TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(3, damages_.size());
-        assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
-        assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ONE));
-        assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_TWO));
+        assertEq(new Rate("7768603/160000"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        assertEq(new Rate("7768603/160000"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        assertEq(new Rate("7768603/160000"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_TWO)));
     }
 
     @Test
@@ -1268,13 +1268,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove7(data_, diff_, player_, new StringList(DETECTION));
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
         TargetCoordssRate damages_;
         damages_ = FightArtificialIntelligence.remainingFoeTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(2, damages_.size());
-        assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
-        assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ONE));
+        assertEq(new Rate("7768603/160000"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        assertEq(new Rate("7768603/160000"), damages_.getVal(tc(KEY_FOE, POKEMON_TARGET_ONE)));
     }
 
     @Test
@@ -1302,14 +1302,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, SACRIFICE);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_THREE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)));
     }
 
     @Test
@@ -1337,13 +1337,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, TONNERRE);
         assertEq(4, list_.size());
         assertTrue(list_.containsObj(thrower_));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_THREE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)));
     }
 
     @Test
@@ -1371,14 +1371,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, SIPHON);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_THREE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)));
     }
 
     @Test
@@ -1406,14 +1406,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, COUPE_VENT);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_THREE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)));
     }
 
     @Test
@@ -1441,14 +1441,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, BROUHAHA);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_THREE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)));
     }
 
     @Test
@@ -1480,11 +1480,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, PICORE);
         assertEq(2, list_.size());
         assertTrue(list_.containsObj(thrower_));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)));
     }
 
     @Test
@@ -1512,7 +1512,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(DETECTION), 15);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, PICORE);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(thrower_));
@@ -1543,15 +1543,15 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).affecterTypes(SOL);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).affecterTypes(SOL);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, TONNERRE);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_THREE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)));
     }
 
     @Test
@@ -1579,15 +1579,15 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
         TeamPositionList list_ = untouchablePartners(data_, diff_, fight_, thrower_, TONNERRE);
         assertEq(5, list_.size());
         assertTrue(list_.containsObj(thrower_));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_THREE));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)));
     }
 
     @Test
@@ -1615,20 +1615,20 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionsPairRates damages_;
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, SIPHON, diff_, data_);
         assertEq(5, damages_.size());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getFront());
-        assertEq(new Rate("4587/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getFront());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getFront());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getFront());
+        assertEq(new Rate("4587/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getFront());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getFront());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getFront());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getBack());
-        assertEq(new Rate("4587/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getBack());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getBack());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getBack());
+        assertEq(new Rate("4587/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getBack());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getBack());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getBack());
     }
 
     @Test
@@ -1656,21 +1656,21 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionsPairRates damages_;
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(5, damages_.size());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getFront());
-        assertEq(new Rate("4587/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getFront());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getFront());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getFront());
+        assertEq(new Rate("4587/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getFront());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getFront());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getFront());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getBack());
-        assertEq(new Rate("0"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getBack());
-        assertEq(new Rate("0"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getBack());
-        assertEq(new Rate("0"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getBack());
+        assertEq(new Rate("0"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getBack());
+        assertEq(new Rate("0"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getBack());
+        assertEq(new Rate("0"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getBack());
     }
 
     @Test
@@ -1698,21 +1698,21 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 3, 18, 18, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionsPairRates damages_;
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setCurrentAbility(ABSORB_VOLT);
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, TONNERRE, diff_, data_);
         assertEq(5, damages_.size());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getFront());
-        assertEq(new Rate("4587/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getFront());
-        assertEq(new Rate("3299/50"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getFront());
-        assertEq(new Rate("3299/50"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getFront());
+        assertEq(new Rate("4587/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getFront());
+        assertEq(new Rate("3299/50"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getFront());
+        assertEq(new Rate("3299/50"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getFront());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getBack());
-        assertEq(new Rate("0"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
-        assertEq(new Rate("1933/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getBack());
-        assertEq(new Rate("2586941/111950"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getBack());
-        assertEq(new Rate("2586941/111950"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getBack());
+        assertEq(new Rate("0"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
+        assertEq(new Rate("1933/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getBack());
+        assertEq(new Rate("2586941/111950"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getBack());
+        assertEq(new Rate("2586941/111950"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getBack());
     }
 
     @Test
@@ -1740,20 +1740,20 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 1, 18, 17, 1, 4);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionsPairRates damages_;
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, ABIME, diff_, data_);
         assertEq(5, damages_.size());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getFront());
-        assertEq(new Rate("4587/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("1311/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getFront());
-        assertEq(new Rate("3299/50"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getFront());
-        assertEq(new Rate("6287/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getFront());
+        assertEq(new Rate("4587/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("1311/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getFront());
+        assertEq(new Rate("3299/50"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getFront());
+        assertEq(new Rate("6287/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getFront());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getBack());
-        assertEq(new Rate("4587/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
-        assertEq(new Rate("1311/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getBack());
-        assertEq(new Rate("3299/50"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getBack());
-        assertEq(new Rate("6287/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getBack());
+        assertEq(new Rate("4587/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
+        assertEq(new Rate("1311/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getBack());
+        assertEq(new Rate("3299/50"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getBack());
+        assertEq(new Rate("6287/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getBack());
     }
 
     @Test
@@ -1781,20 +1781,20 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(DANSE_LUNE), new StringList(DETECTION), 1, 18, 17, 1, 4);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPositionsPairRates damages_;
         damages_ = FightArtificialIntelligence.remainingPartnerTargetHp(fight_, thrower_, SEISME, diff_, data_);
         assertEq(5, damages_.size());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getFront());
-        assertEq(new Rate("4587/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(Rate.zero(),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getFront());
-        assertEq(new Rate("3299/50"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getFront());
-        assertEq(new Rate("6287/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getFront());
+        assertEq(new Rate("4587/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(Rate.zero(),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getFront());
+        assertEq(new Rate("3299/50"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getFront());
+        assertEq(new Rate("6287/100"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getFront());
         assertEq(new Rate("4587/100"),damages_.getVal(thrower_).getBack());
-        assertEq(new Rate("122739/21700"),damages_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
-        assertEq(Rate.zero(),damages_.getVal(POKEMON_PLAYER_FIGHTER_TWO).getBack());
-        assertEq(new Rate("4986701/111950"),damages_.getVal(POKEMON_PLAYER_FIGHTER_THREE).getBack());
-        assertEq(new Rate("173381/4300"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getBack());
+        assertEq(new Rate("122739/21700"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
+        assertEq(Rate.zero(),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)).getBack());
+        assertEq(new Rate("4986701/111950"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)).getBack());
+        assertEq(new Rate("173381/4300"),damages_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getBack());
     }
 
     @Test
@@ -1822,8 +1822,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         assertTrue(FightArtificialIntelligence.usableMove(fight_, thrower_, target_, true, SIPHON, diff_, data_));
     }
 
@@ -1852,8 +1852,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         assertTrue(!FightArtificialIntelligence.usableMove(fight_, thrower_, target_, false, SIPHON, diff_, data_));
     }
 
@@ -1882,8 +1882,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(target_).affecterTypes(SOL);
         assertTrue(FightArtificialIntelligence.usableMove(fight_, thrower_, target_, true, TONNERRE, diff_, data_));
     }
@@ -1913,8 +1913,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 3, 3, 3, 3, 3);
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         assertTrue(!FightArtificialIntelligence.usableMove(fight_, thrower_, target_, true, TONNERRE, diff_, data_));
     }
 
@@ -1943,8 +1943,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertTrue(FightArtificialIntelligence.koFoeFighter(fight_, thrower_, TONNERRE, target_, diff_, data_));
     }
 
@@ -1973,8 +1973,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 12, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertTrue(!FightArtificialIntelligence.koFoeFighter(fight_, thrower_, TONNERRE, target_, diff_, data_));
     }
 
@@ -2003,8 +2003,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(target_).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
         assertTrue(!FightArtificialIntelligence.koFoeFighter(fight_, thrower_, TONNERRE, target_, diff_, data_));
     }
@@ -2034,8 +2034,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(target_).setCurrentAbility(ABSORB_VOLT);
         assertTrue(!FightArtificialIntelligence.koFoeFighter(fight_, thrower_, TONNERRE, target_, diff_, data_));
     }
@@ -2065,8 +2065,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 3, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(target_).affecterTypes(SOL);
         assertTrue(!FightArtificialIntelligence.koFoeFighter(fight_, thrower_, TONNERRE, target_, diff_, data_));
     }
@@ -2096,13 +2096,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 17, 3);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         StringMap<TargetCoordsList> mapTargets_;
         mapTargets_ = new StringMap<TargetCoordsList>();
-        mapTargets_.put(TONNERRE, TargetCoordsList.newList(POKEMON_PLAYER_TARGET_ZERO,POKEMON_PLAYER_TARGET_ONE));
+        mapTargets_.put(TONNERRE, TargetCoordsList.newList(tc(KEY_PLAYER, POKEMON_TARGET_ZERO),tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         TargetCoordsList kos_ = FightArtificialIntelligence.koFoeFighters(fight_, thrower_, TONNERRE, mapTargets_, diff_, data_);
         assertEq(1, kos_.size());
-        assertTrue(kos_.containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(kos_.containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
     }
 
     @Test
@@ -2128,20 +2128,20 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
-//        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("3"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
+//        FightKo.setFighterKo(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(new Rate("3"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
-        targets_.put(COUPE_VENT, TargetCoordsList.newList(POKEMON_FOE_TARGET_ZERO,POKEMON_FOE_TARGET_ONE));
-        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
+        targets_.put(COUPE_VENT, TargetCoordsList.newList(tc(KEY_FOE, POKEMON_TARGET_ZERO),tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), targets_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2167,21 +2167,21 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
-//        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        //fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("3"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) -2);
+//        FightKo.setFighterKo(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        //fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(new Rate("3"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) -2);
         StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
-        targets_.put(COUPE_VENT, TargetCoordsList.newList(POKEMON_FOE_TARGET_ZERO,POKEMON_FOE_TARGET_ONE));
-        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
+        targets_.put(COUPE_VENT, TargetCoordsList.newList(tc(KEY_FOE, POKEMON_TARGET_ZERO),tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), targets_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2207,21 +2207,21 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3);
-//        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        //fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("3"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) -2);
+//        FightKo.setFighterKo(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        //fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(new Rate("3"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) -2);
         StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
-        targets_.put(SIPHON, TargetCoordsList.newList(POKEMON_FOE_TARGET_ZERO));
-        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
+        targets_.put(SIPHON, TargetCoordsList.newList(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), targets_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(SIPHON,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2247,20 +2247,20 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3);
-//        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("2"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
+//        FightKo.setFighterKo(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(new Rate("2"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
-        targets_.put(SIPHON, TargetCoordsList.newList(POKEMON_FOE_TARGET_ONE));
-        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
+        targets_.put(SIPHON, TargetCoordsList.newList(tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), targets_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(SIPHON,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ONE,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(POKEMON_FOE_TARGET_ONE_STR,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2286,14 +2286,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3);
-//        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("2"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
+//        FightKo.setFighterKo(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(new Rate("2"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getStatisBoost().put(Statistic.SPECIAL_DEFENSE, (byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         StringMap<TargetCoordsList> targets_ = new StringMap<TargetCoordsList>();
-        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, POKEMON_PLAYER_FIGHTER_ONE, targets_, diff_, data_);
+        FightArtificialIntelligence.choiceAllyArtificialIntelligenceWithoutUser(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), targets_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(0, choices_.size());
@@ -2326,14 +2326,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
     }
 
     @Test
@@ -2359,21 +2359,21 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 17, 3);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(SOL);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(SOL);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
     }
 
     @Test
@@ -2403,14 +2403,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
     }
 
     @Test
@@ -2436,23 +2436,23 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove1(data_, diff_, player_, new StringList(TONNERRE), new StringList(DETECTION), 17, 3, 3, 17, 12);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(SOL);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(SOL);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(TONNERRE,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(TONNERRE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2482,18 +2482,18 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2523,14 +2523,14 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ONE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ONE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
+        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ONE_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ONE_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
     }
 
     @Test
@@ -2560,18 +2560,18 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getTarget());
+        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2601,18 +2601,18 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2642,18 +2642,18 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2683,18 +2683,18 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ZERO)).getTarget().getPosition());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(ECUME,POKEMON_FOE_TARGET_ONE)).getTarget().getPosition());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getTarget().getPosition());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ONE)).getTarget().getPosition());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getTarget().getPosition());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ONE)).getTarget().getPosition());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget().getPosition());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget().getPosition());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget().getPosition());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget().getPosition());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget().getPosition());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget().getPosition());
     }
 
     @Test
@@ -2721,12 +2721,12 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(3, choices_.size());
-        assertEq(JACKPOT,choices_.getVal(new MoveTarget(PLAQUAGE,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PLAQUAGE,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(JACKPOT,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(JACKPOT,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO)).getTarget());
+        assertEq(JACKPOT,choices_.getVal(new MoveTarget(PLAQUAGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PLAQUAGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(JACKPOT,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(JACKPOT,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
     }
 
     @Test
@@ -2753,15 +2753,15 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(CHARGE), new StringList(DETECTION), 12);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setCurrentAbility(ABSORB_EAU);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(ABSORB_EAU);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(2, choices_.size());
-        assertEq(CHARGE,choices_.getVal(new MoveTarget(SIPHON,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(SIPHON,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(CHARGE,choices_.getVal(new MoveTarget(SIPHON,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(SIPHON,POKEMON_FOE_TARGET_ONE)).getTarget());
+        assertEq(CHARGE,choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(CHARGE,choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2787,19 +2787,19 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(SIPHON), new StringList(DETECTION), 3);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("1"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().put(Statistic.ATTACK, (byte) -1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(new Rate("1"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().put(Statistic.ATTACK, (byte) -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(2, choices_.size());
-        assertEq(NULL_REF,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO)).getTarget().getPosition());
-        assertEq(SIPHON,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ONE)).getTarget());
+        assertEq(NULL_REF,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget().getPosition());
+        assertEq(SIPHON,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2825,20 +2825,20 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(ABSORB_EAU);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("3"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().put(Statistic.ATTACK, (byte) -1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ABSORB_EAU);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(new Rate("3"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().put(Statistic.ATTACK, (byte) -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(2, choices_.size());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO)).getTarget());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ONE)).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ONE)).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2864,18 +2864,18 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
-//        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setRemainedHp(new Rate("3"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
+//        FightKo.setFighterKo(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setRemainedHp(new Rate("2"));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(new Rate("3"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(ANNULE_GARDE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getStatisBoost().put(Statistic.SPECIAL_ATTACK, (byte) 2);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2901,8 +2901,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(COUPE_VENT), new StringList(DETECTION), 3);
-//        FightKo.setFighterKo(fight_, POKEMON_PLAYER_FIGHTER_ONE, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+//        FightKo.setFighterKo(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceAllyArtificialIntelligence(fight_, diff_, data_);
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
@@ -2932,12 +2932,12 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(INTERVERSION));
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, INTERVERSION, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), INTERVERSION, diff_, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(INTERVERSION, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -2964,8 +2964,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(SEISME), new StringList(SEISME));
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, SEISME, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), SEISME, diff_, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(SEISME, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
@@ -2995,12 +2995,12 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(SEISME), new StringList(PISTOLET_A_O));
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, PISTOLET_A_O, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), PISTOLET_A_O, diff_, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(PISTOLET_A_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3027,12 +3027,12 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove9(data_, diff_, player_, new StringList(INTERVERSION));
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, INTERVERSION, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), INTERVERSION, diff_, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(INTERVERSION, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
-        //assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ONE));
+        //assertTrue(action_.getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3059,13 +3059,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(INTERVERSION));
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, INTERVERSION, diff_, data_);
-        FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, INTERVERSION, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), INTERVERSION, diff_, data_);
+        FightArtificialIntelligence.setBatonPass(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), INTERVERSION, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(INTERVERSION, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3092,9 +3092,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(INTERVERSION), new StringList(RELAIS), 3);
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, RELAIS, diff_, data_);
-        FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, RELAIS, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), RELAIS, diff_, data_);
+        FightArtificialIntelligence.setBatonPass(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), RELAIS, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(RELAIS, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
@@ -3124,10 +3124,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove8(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DANSE_LUNE));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, DANSE_LUNE, diff_, data_);
-        FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, DANSE_LUNE, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), DANSE_LUNE, diff_, data_);
+        FightArtificialIntelligence.setBatonPass(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), DANSE_LUNE, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(DANSE_LUNE, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
@@ -3157,13 +3157,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove3(data_, diff_, player_, new StringList(INTERVERSION), new StringList(BERCEUSE), 3);
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, BERCEUSE, diff_, data_);
-        FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, BERCEUSE, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), BERCEUSE, diff_, data_);
+        FightArtificialIntelligence.setBatonPass(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), BERCEUSE, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(BERCEUSE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3190,10 +3190,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(DANSE_LUNE));
-        //FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, DANSE_LUNE, diff_, data_);
-        FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, DANSE_LUNE, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        //FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), DANSE_LUNE, diff_, data_);
+        FightArtificialIntelligence.setBatonPass(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), DANSE_LUNE, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(DANSE_LUNE, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
@@ -3223,9 +3223,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(RELAIS));
-        FightArtificialIntelligence.setFirstChosenMove(fight_, POKEMON_FOE_FIGHTER_ZERO, RELAIS, diff_, data_);
-        FightArtificialIntelligence.setBatonPass(fight_, POKEMON_FOE_FIGHTER_ZERO, RELAIS, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightArtificialIntelligence.setFirstChosenMove(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), RELAIS, diff_, data_);
+        FightArtificialIntelligence.setBatonPass(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), RELAIS, data_);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(RELAIS, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
@@ -3256,17 +3256,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(INTERVERSION));
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(INTERVERSION, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(INTERVERSION, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3294,17 +3294,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(BERCEUSE));
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(BERCEUSE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(BERCEUSE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3332,17 +3332,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove4(data_, diff_, player_, new StringList(INTERVERSION), new StringList(SIPHON, BERCEUSE));
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(SIPHON, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(SIPHON, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3374,23 +3374,23 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(PISTOLET_A_O, SIPHON), 3);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(PISTOLET_A_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(PISTOLET_A_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(PISTOLET_A_O, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_TWO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_TWO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3422,23 +3422,23 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(PISTOLET_A_O, CHARGE), 3);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(CHARGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(CHARGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(CHARGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_TWO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_TWO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3466,23 +3466,23 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(PISTOLET_A_O, CHARGE), 3);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(CHARGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(CHARGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(CHARGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3509,18 +3509,18 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove6(data_, diff_, player_, new StringList(PISTOLET_A_O, CHARGE));
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, CHARGE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, CHARGE, (short) 50);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(LUTTE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         assertNull(fighter_.getAction());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         assertNull(fighter_.getAction());
     }
 
@@ -3556,11 +3556,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(JACKPOT, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3592,23 +3592,23 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(EMPAL_KORNE, SIPHON), 3);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(SIPHON, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(SIPHON, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(SIPHON, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_TWO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_TWO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3640,23 +3640,23 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(EMPAL_KORNE, GLACIATION), 18);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(EMPAL_KORNE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(EMPAL_KORNE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(EMPAL_KORNE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_TWO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_TWO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3688,23 +3688,23 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(GUILLOTINE, GLACIATION), 18);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(GUILLOTINE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(GUILLOTINE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(GUILLOTINE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_TWO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_TWO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3736,23 +3736,23 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(GUILLOTINE, RISQUE), 18);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(RISQUE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(RISQUE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(RISQUE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_TWO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_TWO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3783,27 +3783,27 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = setFirstChosenMove5(data_, diff_, player_, new StringList(ONDE_VIDE, STOCKAGE), 18);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterTypes(SOL);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).affecterTypes(SOL);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).affecterTypes(SOL);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(SOL);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).affecterTypes(SOL);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).affecterTypes(SOL);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(STOCKAGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(STOCKAGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ONE));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ONE)));
         assertEq(Fighter.BACK, action_.getSubstitute());
-        fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
+        fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         action_ = (ActionMove) fighter_.getAction();
         assertEq(STOCKAGE, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_TWO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_TWO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
@@ -3846,11 +3846,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
         fight_.getCatchingBalls().get(1).setCaught(true);
         FightArtificialIntelligence.choiceFoeArtificialIntelligence(fight_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(JACKPOT, action_.getFirstChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
     private Fight setFirstChosenMove9(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {

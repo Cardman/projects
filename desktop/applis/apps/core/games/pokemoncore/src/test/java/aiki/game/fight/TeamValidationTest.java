@@ -785,7 +785,7 @@ public class TeamValidationTest extends InitializationDataBase {
         ByteMap<Anticipation> map_;
         map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
-        map_.getVal((byte) 0).setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        map_.getVal((byte) 0).setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
         assertTrue(team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
@@ -797,7 +797,7 @@ public class TeamValidationTest extends InitializationDataBase {
         ByteMap<Anticipation> map_;
         map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
-        map_.getVal((byte) 0).setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        map_.getVal((byte) 0).setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
         assertTrue(team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
@@ -809,7 +809,7 @@ public class TeamValidationTest extends InitializationDataBase {
         ByteMap<Anticipation> map_;
         map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
-        map_.getVal((byte) 0).setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
+        map_.getVal((byte) 0).setTargetPosition(tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
         assertTrue(team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
@@ -821,7 +821,7 @@ public class TeamValidationTest extends InitializationDataBase {
         ByteMap<Anticipation> map_;
         map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
-        map_.getVal((byte) 0).setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
+        map_.getVal((byte) 0).setTargetPosition(tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
         assertTrue(team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }

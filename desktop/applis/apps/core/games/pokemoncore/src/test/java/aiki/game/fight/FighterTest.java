@@ -2384,9 +2384,9 @@ public class FighterTest extends InitializationDataBase {
         TeamPositionList fightersCoords_ = new TeamPositionList();
         fightersCoords_.add(fighterCoordsOne_);
         fighter_.initCreatureRelationsAutre(fightersCoords_, data_);
-        fighter_.affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO, VAMPIGRAINE);
+        fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
         fighter_.disableAllStatusByEnabledWeather(ZENITH, data_);
-        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_FOE_FIGHTER_ZERO)));
+        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, tp(KEY_FOE, POKEMON_FIGHTER_ZERO))));
     }
 
     @Test
@@ -2509,13 +2509,13 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
-        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(PISTOLET_A_O, action_.getFirstChosenMove());
         assertEq(NULL_REF, action_.getFinalChosenMove());
         assertEq(1, action_.getChosenTargets().size());
         assertEq(Fighter.BACK, action_.getSubstitute());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
     }
 
     @Test
@@ -2540,12 +2540,12 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_FOE_TARGET_ZERO, (byte) 1);
+        fighter_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ZERO), (byte) 1);
         AbstractAction action_ = fighter_.getAction();
         assertEq(DEMI_TOUR,((ActionMove)action_).getFirstChosenMove());
         assertEq(NULL_REF, ((ActionMove)action_).getFinalChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertTrue(((ActionMove)action_).getChosenTargets().containsObj(POKEMON_FOE_TARGET_ZERO));
+        assertTrue(((ActionMove)action_).getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertEq(1, ((ActionMove)action_).getSubstitute());
     }
 
@@ -3137,10 +3137,10 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
-        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         TargetCoordsList list_ = fighter_.getChosenTargets();
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(POKEMON_FOE_TARGET_ZERO));
+        assertTrue(list_.containsObj(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
     }
 
     @Test
@@ -3401,13 +3401,13 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
-        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.choisirAttaqueFin();
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(PISTOLET_A_O, action_.getFirstChosenMove());
         assertEq(PISTOLET_A_O, action_.getFinalChosenMove());
         assertEq(1, action_.getChosenTargets().size());
-        assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ZERO));
+        assertTrue(action_.getChosenTargets().containsObj(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
     }
 
     @Test
@@ -4010,7 +4010,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.setFirstChosenMoveTarget(MIMIQUE, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(MIMIQUE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.choisirAttaqueFin();
         fighter_.ajouterAttaquesDejaInvoqueesTour(SEISME);
         fighter_.invokeMove();
@@ -5239,8 +5239,8 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
         Fighter partner_ = new Fighter(pokemonUser_, data_, Fighter.BACK);
-        fighter_.initCreatureRelationsAutre(TeamPositionList.newList(POKEMON_FOE_FIGHTER_ZERO),data_);
-        partner_.initCreatureRelationsAutre(TeamPositionList.newList(POKEMON_FOE_FIGHTER_ZERO),data_);
+        fighter_.initCreatureRelationsAutre(TeamPositionList.newList(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)),data_);
+        partner_.initCreatureRelationsAutre(TeamPositionList.newList(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)),data_);
         fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
@@ -5256,8 +5256,8 @@ public class FighterTest extends InitializationDataBase {
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
         fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, BoolVal.TRUE);
-        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
-        fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, tp(KEY_FOE, POKEMON_FIGHTER_ZERO)), BoolVal.TRUE);
+        fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, tp(KEY_FOE, POKEMON_FIGHTER_ZERO))).enable();
         partner_.effectBatonPass(fighter_);
         assertEq(1, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
         assertEq(Rate.one(), partner_.getDamageSufferedCateg().getVal(PHYSIQUE));
@@ -5288,10 +5288,10 @@ public class FighterTest extends InitializationDataBase {
         activity_ = partner_.getEnabledMovesEndRound().getVal(RACINES);
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        activity_ = partner_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO));
+        activity_ = partner_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, tp(KEY_FOE, POKEMON_FIGHTER_ZERO)));
         assertEq(0, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
-        assertSame(BoolVal.TRUE,partner_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO)));
+        assertSame(BoolVal.TRUE,partner_.getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT, tp(KEY_FOE, POKEMON_FIGHTER_ZERO))));
         assertSame(BoolVal.FALSE,partner_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
     }
 
@@ -6295,7 +6295,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.ajouterRelationAutre(POKEMON_FOE_FIGHTER_ZERO, data_);
+        fighter_.ajouterRelationAutre(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
         fighter_.setRemainingHp(new Rate("813/20"));
         fighter_.getMoves().getVal(MORPHING).setCurrent((short) 0);
         fighter_.getMoves().getVal(BROUHAHA).setCurrent((short) 5);
@@ -7447,7 +7447,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.patch(data_);
         assertEq(BULLES_D_O,fighter_.getFirstChosenMove());
         assertEq(1,fighter_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ONE,fighter_.getChosenTargets().get(0));
+        assertEq(POKEMON_FOE_TARGET_ONE_STR,fighter_.getChosenTargets().get(0));
     }
 
     @Test

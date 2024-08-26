@@ -55,7 +55,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMoves().getVal(EMBARGO);
         fight_.getTemp().setCurrentActivity(activity_);
         FightEndRound.processActivity(fight_, thrower_, EMBARGO, thrower_, false, data_);
@@ -74,7 +74,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMoves().getVal(EMBARGO);
         activity_.enable();
         fight_.getTemp().setCurrentActivity(activity_);
@@ -95,7 +95,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesEndRound().getVal(ANNEAU_HYDRO);
         activity_.enable();
         fight_.getTemp().setCurrentActivity(activity_);
@@ -116,7 +116,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(RACINES);
         activity_.enable();
         fight_.getTemp().setCurrentActivity(activity_);
@@ -137,7 +137,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueImmu(VOL_MAGNETIK, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesProt().getVal(VOL_MAGNETIK);
         fight_.getTemp().setCurrentActivity(activity_);
@@ -160,7 +160,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueImmu(VOL_MAGNETIK, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesProt().getVal(VOL_MAGNETIK);
         fight_.getTemp().setCurrentActivity(activity_);
@@ -187,7 +187,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueImmu(TROU, data_);
         fight_.getFighter(thrower_).activerAttaqueAntiImmu(RACINES);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(RACINES);
@@ -221,7 +221,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueBlocantLanceur(ROULADE);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesConstChoices().getVal(ROULADE);
         fight_.getTemp().setCurrentActivity(activity_);
@@ -241,7 +241,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).enableCounteringMoves(NUEE_DE_POUDRE);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledCounteringMoves().getVal(NUEE_DE_POUDRE);
         fight_.getTemp().setCurrentActivity(activity_);
@@ -261,7 +261,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).enableChangingMovesTypes(ELECTRISATION);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledChangingTypesMoves().getVal(ELECTRISATION);
         fight_.getTemp().setCurrentActivity(activity_);
@@ -281,17 +281,17 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
         affected_.setMove(SEISME);
         affected_.getActivity().enableReset();
         fight_.getTemp().setCurrentActivity(affected_.getActivity());
-        FightEndRound.processActivity(fight_, thrower_, ENCORE, POKEMON_PLAYER_FIGHTER_ZERO, true, data_);
-        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO)).getActivity();
+        FightEndRound.processActivity(fight_, thrower_, ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), true, data_);
+        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO))).getActivity();
         assertEq(1, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
-        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ONE)).getActivity();
+        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE))).getActivity();
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
@@ -307,18 +307,18 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
         affected_.setMove(SEISME);
         affected_.getActivity().enableReset();
         fight_.getTemp().setCurrentActivity(affected_.getActivity());
         affected_.getActivity().setNbTurn((short)8);
-        FightEndRound.processActivity(fight_, thrower_, ENCORE, POKEMON_PLAYER_FIGHTER_ZERO, true, data_);
-        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO)).getActivity();
+        FightEndRound.processActivity(fight_, thrower_, ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), true, data_);
+        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO))).getActivity();
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
-        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ONE)).getActivity();
+        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE))).getActivity();
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
@@ -334,18 +334,18 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
         affected_.setMove(SEISME);
         affected_.getActivity().enableReset();
         fight_.getTemp().setCurrentActivity(affected_.getActivity());
         affected_.getActivity().setNbTurn((short)7);
-        FightEndRound.processActivity(fight_, thrower_, ENCORE, POKEMON_PLAYER_FIGHTER_ZERO, true, data_);
-        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO)).getActivity();
+        FightEndRound.processActivity(fight_, thrower_, ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), true, data_);
+        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO))).getActivity();
         assertEq(8, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
-        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ONE)).getActivity();
+        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE))).getActivity();
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
@@ -362,7 +362,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(DANSE_PLUIE);
-        FightEndRound.incrementNumberRounds(fight_, POKEMON_PLAYER_FIGHTER_ZERO, DANSE_PLUIE, data_);
+        FightEndRound.incrementNumberRounds(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), DANSE_PLUIE, data_);
         assertEq(0, fight_.getEnabledMoves().getVal(DANSE_PLUIE).getNbTurn());
     }
 
@@ -376,7 +376,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightEndRound.incrementNumberRounds(fight_, thrower_, EMBARGO, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMoves().getVal(EMBARGO);
         assertEq(0, activity_.getNbTurn());
@@ -394,7 +394,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMoves().getVal(EMBARGO);
         activity_.enable();
         FightEndRound.incrementNumberRounds(fight_, thrower_, EMBARGO, data_);
@@ -414,7 +414,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesEndRound().getVal(ANNEAU_HYDRO);
         activity_.enable();
         FightEndRound.incrementNumberRounds(fight_, thrower_, ANNEAU_HYDRO, data_);
@@ -434,7 +434,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(RACINES);
         activity_.enable();
         FightEndRound.incrementNumberRounds(fight_, thrower_, RACINES, data_);
@@ -454,7 +454,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueImmu(VOL_MAGNETIK, data_);
         FightEndRound.incrementNumberRounds(fight_, thrower_, VOL_MAGNETIK, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesProt().getVal(VOL_MAGNETIK);
@@ -476,7 +476,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueImmu(VOL_MAGNETIK, data_);
         FightEndRound.incrementNumberRounds(fight_, thrower_, VOL_MAGNETIK, data_);
         FightEndRound.incrementNumberRounds(fight_, thrower_, VOL_MAGNETIK, data_);
@@ -502,7 +502,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueImmu(TROU, data_);
         fight_.getFighter(thrower_).activerAttaqueAntiImmu(RACINES);
         FightEndRound.incrementNumberRounds(fight_, thrower_, RACINES, data_);
@@ -534,7 +534,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueBlocantLanceur(ROULADE);
         FightEndRound.incrementNumberRounds(fight_, thrower_, ROULADE, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesConstChoices().getVal(ROULADE);
@@ -553,7 +553,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).enableCounteringMoves(NUEE_DE_POUDRE);
         FightEndRound.incrementNumberRounds(fight_, thrower_, NUEE_DE_POUDRE, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledCounteringMoves().getVal(NUEE_DE_POUDRE);
@@ -572,7 +572,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).enableChangingMovesTypes(ELECTRISATION);
         FightEndRound.incrementNumberRounds(fight_, thrower_, ELECTRISATION, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledChangingTypesMoves().getVal(ELECTRISATION);
@@ -591,16 +591,16 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
         affected_.setMove(SEISME);
         affected_.getActivity().enableReset();
         FightEndRound.incrementNumberRounds(fight_, thrower_, ENCORE, data_);
-        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO)).getActivity();
+        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO))).getActivity();
         assertEq(1, activity_.getNbTurn());
         assertTrue(activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
-        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ONE)).getActivity();
+        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE))).getActivity();
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
@@ -617,7 +617,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueBlocantLanceur(ROULADE);
         FightEndRound.incrementNumberRounds(fight_, thrower_, ROULADE, data_);
         ActivityOfMove activity_ = fight_.getFighter(thrower_).getEnabledMovesConstChoices().getVal(ROULADE);
@@ -637,7 +637,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueAntiImmu(ANTI_CROISEUR);
         fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(ANTI_CROISEUR).increment();
         fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(ANTI_CROISEUR).increment();
@@ -661,7 +661,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(thrower_).activerAttaqueAntiImmu(ANTI_CROISEUR);
         fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(ANTI_CROISEUR).increment();
         fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(ANTI_CROISEUR).increment();
@@ -760,7 +760,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) 5);
-        TeamPosition teamPosition_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.backUpObject(NULL_REF);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, MUR_LUMIERE, data_);
@@ -782,7 +782,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) 5);
-        TeamPosition teamPosition_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.backUpObject(BAIE_MEPO);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, MUR_LUMIERE, data_);
@@ -804,7 +804,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) 5);
-        TeamPosition teamPosition_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.backUpObject(LUMARGILE);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, MUR_LUMIERE, data_);
@@ -826,7 +826,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE).setNbTurn((short) 8);
-        TeamPosition teamPosition_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.backUpObject(LUMARGILE);
         FightEndRound.incrementNumberRoundsTeam(fight_, Fight.CST_PLAYER, MUR_LUMIERE, data_);
@@ -1070,11 +1070,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setAbility(SECHERESSE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setCurrentAbility(SECHERESSE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setAbility(SECHERESSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setCurrentAbility(SECHERESSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 1);
         FightRound.initRound(fight_);
-        FightRound.roundThrowerSwitch(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightRound.roundThrowerSwitch(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertSame(BoolVal.TRUE,fight_.getStillEnabledMoves().getVal(ZENITH));
         FightEndRound.incrementNumberRoundsGlobal(fight_, ZENITH, data_);
         ActivityOfMove activity_ = fight_.getEnabledMoves().getVal(ZENITH);
@@ -1114,9 +1114,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).backUpObject(BAIE_MEPO);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(ROCHE_LISSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).backUpObject(BAIE_MEPO);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(ROCHE_LISSE);
         fight_.getEnabledMoves().getVal(TEMPETESABLE).setNbTurn((short) 5);
         FightEndRound.incrementNumberRoundsGlobal(fight_, TEMPETESABLE, data_);
         ActivityOfMove activity_ = fight_.getEnabledMoves().getVal(TEMPETESABLE);
@@ -1137,9 +1137,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).backUpObject(BAIE_MEPO);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(ROCHE_LISSE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).backUpObject(BAIE_MEPO);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(ROCHE_LISSE);
         fight_.getEnabledMoves().getVal(TEMPETESABLE).setNbTurn((short) 8);
         FightEndRound.incrementNumberRoundsGlobal(fight_, TEMPETESABLE, data_);
         ActivityOfMove activity_ = fight_.getEnabledMoves().getVal(TEMPETESABLE);
@@ -1160,9 +1160,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).backUpObject(NULL_REF);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).backUpObject(NULL_REF);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getEnabledMoves().getVal(TEMPETESABLE).setNbTurn((short) 5);
         FightEndRound.incrementNumberRoundsGlobal(fight_, TEMPETESABLE, data_);
         ActivityOfMove activity_ = fight_.getEnabledMoves().getVal(TEMPETESABLE);
@@ -1184,9 +1184,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
         fight_.enableGlobalMove(ORAGE_BIS);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).backUpObject(NULL_REF);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).backUpObject(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).backUpObject(NULL_REF);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getEnabledMoves().getVal(ORAGE_BIS).setNbTurn((short)4);
         FightEndRound.incrementNumberRoundsGlobal(fight_, ORAGE_BIS, data_);
         assertTrue(!fight_.getTemp().getAcceptableChoices());
@@ -1202,7 +1202,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
         fighter_.setCurrentAbility(NULL_REF);
@@ -1220,7 +1220,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
         fighter_.setCurrentAbility(NULL_REF);
@@ -1238,7 +1238,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
         fighter_.setCurrentAbility(NULL_REF);
@@ -1257,7 +1257,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
         fighter_.setCurrentAbility(NULL_REF);
@@ -1276,7 +1276,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
         fighter_.affecterStatut(SOMMEIL);
@@ -1295,10 +1295,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(TIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(TIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(TIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1326,7 +1326,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1340,10 +1340,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1371,7 +1371,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1385,10 +1385,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1427,10 +1427,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1469,11 +1469,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(ACCRO_GRIFFE);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1503,7 +1503,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1517,11 +1517,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(ACCRO_GRIFFE);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1564,11 +1564,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BANDEAU_ETREINTE);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1596,7 +1596,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1610,11 +1610,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1642,7 +1642,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1656,11 +1656,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(NULL_REF);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1688,7 +1688,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1702,11 +1702,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(NULL_REF);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fighter_ = fight_.getFighter(target_);
@@ -1737,7 +1737,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1751,10 +1751,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1794,10 +1794,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -1837,10 +1837,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom2(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
@@ -1871,7 +1871,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -1885,10 +1885,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
@@ -1914,7 +1914,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -1928,10 +1928,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("46/5"));
@@ -1964,7 +1964,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1979,10 +1979,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom3(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_PLAYER_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
@@ -2014,7 +2014,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -2028,10 +2028,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(CHARGE, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("46/5"));
@@ -2074,10 +2074,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -2114,10 +2114,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
@@ -2157,10 +2157,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom2(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
@@ -2201,10 +2201,10 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom3(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setFirstChosenMoveTarget(SIPHON, POKEMON_PLAYER_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(SIPHON, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
         fighter_ = fight_.getFighter(target_);
@@ -2244,7 +2244,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = PEUR;
         fighter_.affecterStatut(st_);
@@ -2263,7 +2263,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2282,7 +2282,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = PEUR;
         Status status_ = data_.getStatus(st_);
@@ -2300,7 +2300,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = TROUILLE;
         fighter_.affecterStatut(st_);
@@ -2319,7 +2319,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = TROUILLE;
         fighter_.affecterStatut(st_);
@@ -2338,7 +2338,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = TROUILLE;
         fighter_.affecterStatut(st_);
@@ -2357,7 +2357,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = CRAME_BIS;
         fighter_.affecterStatut(st_);
@@ -2377,7 +2377,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = PEUR;
         fighter_.affecterStatut(st_);
@@ -2397,7 +2397,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = TROUILLE;
         fighter_.affecterStatut(st_);
@@ -2417,7 +2417,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = CRAME;
         fighter_.affecterStatut(st_);
@@ -2438,7 +2438,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = CRAME;
         fighter_.affecterStatut(st_);
@@ -2458,7 +2458,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         Status status_ = data_.getStatus(st_);
@@ -2478,7 +2478,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2489,7 +2489,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2503,7 +2503,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2515,7 +2515,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -2529,7 +2529,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2541,7 +2541,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2555,7 +2555,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2567,7 +2567,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
     }
 
 
@@ -2581,7 +2581,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2594,7 +2594,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
     }
 
     @Test
@@ -2607,7 +2607,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2629,7 +2629,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(POISON_ST);
         fighter_.setCurrentAbility(IGNIFUGE);
@@ -2640,7 +2640,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2654,7 +2654,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2666,7 +2666,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -2680,7 +2680,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = POISON_GRAVE;
         fighter_.affecterStatut(st_);
@@ -2693,7 +2693,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2707,7 +2707,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(POISON_ST);
         fighter_.incrementRoundsStatus(POISON_ST);
@@ -2719,7 +2719,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2733,7 +2733,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = POISON_GRAVE;
         fighter_.affecterStatut(st_);
@@ -2745,7 +2745,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2759,7 +2759,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(POISON_ST);
         fighter_.setCurrentAbility(IGNIFUGE);
@@ -2770,7 +2770,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2785,7 +2785,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2807,7 +2807,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String st_ = BRULURE;
         fighter_.affecterStatut(st_);
@@ -2828,8 +2828,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = CAUCHEMAR;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -2847,8 +2847,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = VAMPIGRAINE;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -2866,8 +2866,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = CAUCHEMAR;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -2886,8 +2886,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_BLANCHE;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -2906,8 +2906,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_BLANCHE;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -2929,8 +2929,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_BLANCHE;
         fighter_.affecterStatut(SOMMEIL);
@@ -2948,8 +2948,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_BLANCHE_BIS;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -2968,8 +2968,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_NOIRE;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -2988,8 +2988,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_NOIRE;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3008,8 +3008,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_BLANCHE;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3029,8 +3029,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_BLANCHE_BIS;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3053,8 +3053,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_BLANCHE_BIS;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3076,8 +3076,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = CAUCHEMAR;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3097,8 +3097,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_ = fight_.getFighter(target_);
@@ -3113,8 +3113,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3129,8 +3129,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = CAUCHEMAR;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3142,7 +3142,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3156,8 +3156,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_ = fight_.getFighter(target_);
         String st_ = VAMPIGRAINE;
@@ -3171,8 +3171,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3187,8 +3187,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_ = fight_.getFighter(target_);
         String st_ = VAMPIGRAINE;
@@ -3211,8 +3211,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_ = fight_.getFighter(target_);
@@ -3228,7 +3228,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3242,8 +3242,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(GROSSERACINE);
         fighter_.setRemainedHp(new Rate("1"));
@@ -3259,8 +3259,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3275,8 +3275,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.backUpObject(NULL_REF);
@@ -3292,8 +3292,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3308,8 +3308,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.backUpObject(BAIE_MEPO);
@@ -3326,8 +3326,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3342,8 +3342,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.backUpObject(BAIE_MEPO);
@@ -3360,11 +3360,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3378,8 +3378,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
         fighter_ = fight_.getFighter(target_);
@@ -3395,11 +3395,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3413,8 +3413,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
         fighter_ = fight_.getFighter(target_);
@@ -3431,7 +3431,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3445,8 +3445,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom2(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
         fighter_ = fight_.getFighter(target_);
@@ -3463,8 +3463,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
         assertTrue(anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3479,8 +3479,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = CAUCHEMAR;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3493,7 +3493,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3507,8 +3507,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.backUpObject(BAIE_MEPO);
@@ -3525,11 +3525,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3543,8 +3543,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
         fighter_ = fight_.getFighter(target_);
@@ -3561,8 +3561,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getToFighter());
         assertTrue(anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3577,8 +3577,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom2(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
         fighter_ = fight_.getFighter(target_);
@@ -3595,8 +3595,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getToFighter());
         assertTrue(anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3611,8 +3611,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = CAUCHEMAR;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3625,7 +3625,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3639,8 +3639,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = NUIT_GRISE;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3663,8 +3663,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(BAIE_MEPO);
         fighter_ = fight_.getFighter(target_);
@@ -3691,8 +3691,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.backUpObject(BAIE_MEPO);
@@ -3719,8 +3719,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         String st_ = CAUCHEMAR;
         fighter_.affecterPseudoStatut(thrower_, st_);
@@ -3742,7 +3742,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(Rate.one());
         String object_ = RESTES;
@@ -3756,7 +3756,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
     }
 
     @Test
@@ -3769,7 +3769,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = BOUE_NOIRE;
         fighter_.backUpObject(object_);
@@ -3784,7 +3784,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3798,7 +3798,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = BOUE_BLANCHE;
         fighter_.backUpObject(object_);
@@ -3824,7 +3824,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = BOUE_NOIRE;
         fighter_.backUpObject(object_);
@@ -3839,7 +3839,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
     }
 
     @Test
@@ -3852,7 +3852,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = MUE;
         fighter_.backUpObject(NULL_REF);
@@ -3880,7 +3880,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = IGNIFUGE;
         fighter_.backUpObject(NULL_REF);
@@ -3908,7 +3908,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setRemainedHp(Rate.one());
         String object_ = ANNEAU_HYDRO;
@@ -3921,7 +3921,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
     }
 
     @Test
@@ -3934,7 +3934,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
         fighter_.backUpObject(object_);
@@ -3949,7 +3949,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3963,7 +3963,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
         fighter_.backUpObject(object_);
@@ -3978,7 +3978,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3992,7 +3992,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
         fighter_.backUpObject(object_);
@@ -4017,7 +4017,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
         fighter_.backUpObject(object_);
@@ -4033,11 +4033,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -4051,7 +4051,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(NORMAL);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4077,7 +4077,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterTypes(FEU);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4103,7 +4103,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
         fighter_.backUpObject(object_);
@@ -4119,11 +4119,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -4138,7 +4138,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = MUE;
         fighter_.backUpObject(NULL_REF);
@@ -4166,7 +4166,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = MUE;
         fighter_.backUpObject(NULL_REF);
@@ -4194,7 +4194,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
         fighter_.backUpObject(object_);
@@ -4220,7 +4220,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         String object_ = ORBE_VIE;
         fighter_.backUpObject(object_);
@@ -4245,8 +4245,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_ = fight_.getFighter(partner_);
@@ -4273,8 +4273,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_ = fight_.getFighter(partner_);
@@ -4302,8 +4302,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_ = fight_.getFighter(partner_);
@@ -4331,8 +4331,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition partner_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_ = fight_.getFighter(partner_);
@@ -4360,8 +4360,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom2(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition partner_ = POKEMON_FOE_FIGHTER_ONE;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition partner_ = tp(KEY_FOE, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_ = fight_.getFighter(partner_);
@@ -4389,8 +4389,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = processActivityCom2(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition partner_ = POKEMON_FOE_FIGHTER_ONE;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition partner_ = tp(KEY_FOE, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.affecterStatut(SOMMEIL);
         fighter_ = fight_.getFighter(partner_);
@@ -4420,7 +4420,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
         EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
-        TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         FightEndRound.effectEndRoundFoe(fight_, f_, effetFinTour_, movesGroup_, diff_, data_);
         assertEq(new Rate("161/10"), fighter_.getRemainingHp());
@@ -4428,7 +4428,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         assertTrue(!anim_.isPlayer());
     }
@@ -4446,7 +4446,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
         EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
-        TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         FightEndRound.effectEndRoundFoe(fight_, f_, effetFinTour_, movesGroup_, diff_, data_);
@@ -4455,7 +4455,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -4472,7 +4472,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
         EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         FightEndRound.effectEndRoundFoe(fight_, f_, effetFinTour_, movesGroup_, diff_, data_);
@@ -4481,7 +4481,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -4499,7 +4499,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
         EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
-        TeamPosition f_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         FightEndRound.effectEndRoundFoe(fight_, f_, effetFinTour_, movesGroup_, diff_, data_);
@@ -4521,7 +4521,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         StringList movesGroup_ = new StringList(AIRE_DE_FEU,AIRE_D_HERBE);
         EffectCombo effet_ = data_.getCombos().getEffects().getVal(movesGroup_);
         EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(Rate.one());
         FightEndRound.effectEndRoundFoe(fight_, f_, effetFinTour_, movesGroup_, diff_, data_);
@@ -4543,7 +4543,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         MoveData dataMove_ = data_.getMove(move_);
         EffectEndRoundPositionRelation eff_;
         eff_ = (EffectEndRoundPositionRelation) dataMove_.getEffects().last();
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(new Rate("1873/200"));
         FightEndRound.effectEndRoundPositionRelation(fight_, f_, eff_, move_, data_);
@@ -4568,7 +4568,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         MoveData dataMove_ = data_.getMove(move_);
         EffectEndRoundPositionRelation eff_;
         eff_ = (EffectEndRoundPositionRelation) dataMove_.getEffects().last();
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(new Rate("1873/200"));
         fighter_.setFirstChosenMove(move_);
@@ -4603,7 +4603,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         MoveData dataMove_ = data_.getMove(move_);
         EffectEndRoundPositionRelation eff_;
         eff_ = (EffectEndRoundPositionRelation) dataMove_.getEffects().last();
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(new Rate("1873/200"));
         fighter_.setFirstChosenMove(move_);
@@ -4628,7 +4628,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
     }
 
     @Test
@@ -4645,7 +4645,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         MoveData dataMove_ = data_.getMove(move_);
         EffectEndRoundPositionRelation eff_;
         eff_ = (EffectEndRoundPositionRelation) dataMove_.getEffects().last();
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(new Rate("1873/200"));
         fighter_.setFirstChosenMove(move_);
@@ -4676,7 +4676,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getUserTeam().getHealAfter().getVal(move_).getVal((byte) 0).isFirstStacked());
         assertTrue(!fight_.getUserTeam().getHealAfter().getVal(move_).getVal((byte) 0).isLastStacked());
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
-        fighter_.setFirstChosenMoveTarget(COUD_BOUE, POKEMON_FOE_TARGET_ZERO);
+        fighter_.setFirstChosenMoveTarget(COUD_BOUE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, f_, diff_, data_);
@@ -4695,7 +4695,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, soinApres_.getNbRounds());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
     }
 
     @Test
@@ -4712,7 +4712,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         MoveData dataMove_ = data_.getMove(move_);
         EffectEndRoundPositionRelation eff_;
         eff_ = (EffectEndRoundPositionRelation) dataMove_.getEffects().last();
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.setFirstChosenMove(move_);
@@ -4743,7 +4743,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
     }
 
     @Test
@@ -4760,7 +4760,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         MoveData dataMove_ = data_.getMove(move_);
         EffectEndRoundPositionRelation eff_;
         eff_ = (EffectEndRoundPositionRelation) dataMove_.getEffects().last();
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setRemainedHp(new Rate("1873/200"));
         StacksOfUses st_;
@@ -4785,13 +4785,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getUserTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         assertEq(Fighter.BACK,attaqueAnticipe_.getTargetPosition().getPosition());
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
         assertTrue(fight_.getTemp().getAcceptableChoices());
@@ -4808,20 +4808,20 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getUserTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        assertEq(POKEMON_FOE_TARGET_ZERO,attaqueAnticipe_.getTargetPosition());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,attaqueAnticipe_.getTargetPosition());
         assertTrue(attaqueAnticipe_.isIncrementing());
         assertEq(1, attaqueAnticipe_.getNbRounds());
         assertEq(new Rate("2"), attaqueAnticipe_.getDamage());
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
         assertTrue(fight_.getTemp().getAcceptableChoices());
@@ -4838,22 +4838,22 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getUserTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         fight_.getEffects().clear();
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        assertEq(POKEMON_FOE_TARGET_ZERO,attaqueAnticipe_.getTargetPosition());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR,attaqueAnticipe_.getTargetPosition());
         assertTrue(attaqueAnticipe_.isIncrementing());
         assertEq(2, attaqueAnticipe_.getNbRounds());
         assertEq(new Rate("2"), attaqueAnticipe_.getDamage());
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
         assertTrue(fight_.getTemp().getAcceptableChoices());
@@ -4870,14 +4870,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getUserTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         fight_.getEffects().clear();
@@ -4886,15 +4886,15 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, attaqueAnticipe_.getNbRounds());
         assertEq(Fighter.BACK,attaqueAnticipe_.getTargetPosition().getPosition());
         assertEq(Rate.zero(), attaqueAnticipe_.getDamage());
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("82/5"),fighter_.getRemainingHp());
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(!animation_.isKoToFighter());
     }
@@ -4909,17 +4909,17 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getUserTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.creerClone(new Rate("1/2"));
         fight_.getEffects().clear();
@@ -4934,8 +4934,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(!animation_.isKoToFighter());
     }
@@ -4950,17 +4950,17 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom3(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getUserTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(Rate.one());
         fight_.getEffects().clear();
@@ -4974,8 +4974,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(animation_.isKoToFighter());
     }
@@ -4990,17 +4990,17 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getUserTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(Rate.one());
         fight_.getEffects().clear();
@@ -5013,8 +5013,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(animation_.isKoToFighter());
     }
@@ -5029,17 +5029,17 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom3(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getFoeTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(Rate.one());
         fight_.getEffects().clear();
@@ -5053,8 +5053,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getToFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getFromFighter());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(animation_.isKoToFighter());
     }
@@ -5070,17 +5070,17 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom3(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getUserTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_FOE_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(Rate.one());
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
@@ -5103,17 +5103,17 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom3(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String move_ = PRESCIENCE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         Anticipation attaqueAnticipe_ = fight_.getFoeTeam().getMovesAnticipation().getVal(move_).getVal(fighter_.getGroundPlace());
         attaqueAnticipe_.setDamage(new Rate("2"));
         attaqueAnticipe_.setNbRounds((byte) 0);
         attaqueAnticipe_.setIncrementing(true);
-        attaqueAnticipe_.setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
+        attaqueAnticipe_.setTargetPosition(tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(Rate.one());
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
@@ -5135,14 +5135,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterStatut(BRULURE);
         FightEndRound.effectEndRoundMultiRelation(fight_, thrower_, eff_, ability_, diff_, data_);
@@ -5161,14 +5161,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         FightEndRound.effectEndRoundMultiRelation(fight_, thrower_, eff_, ability_, diff_, data_);
@@ -5187,14 +5187,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
         fighter_.affecterStatut(SOMMEIL);
@@ -5214,14 +5214,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(SOMMEIL);
@@ -5231,7 +5231,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animRecoil_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
     }
 
@@ -5245,14 +5245,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom3(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(SOMMEIL);
@@ -5263,11 +5263,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animRecoil_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5281,14 +5281,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(SOMMEIL);
@@ -5300,11 +5300,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animRecoil_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5318,14 +5318,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom3(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(SOMMEIL);
@@ -5336,11 +5336,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animRecoil_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5354,14 +5354,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLT);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
         fighter_.affecterStatut(SOMMEIL);
@@ -5371,7 +5371,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animRecoil_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
     }
 
@@ -5386,14 +5386,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom3(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(SOMMEIL);
@@ -5414,14 +5414,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom3(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         String ability_ = MAUVAIS_REVE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(ability_);
         AbilityData ab_ = data_.getAbility(ability_);
         EffectEndRoundMultiRelation eff_;
         eff_ = (EffectEndRoundMultiRelation) ab_.getEffectEndRound().last();
-        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(SOMMEIL);
@@ -5442,9 +5442,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(GRAVITE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         FightEndRound.effectEndRoundGlobal(fight_, GRAVITE, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
@@ -5467,9 +5467,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         FightEndRound.effectEndRoundGlobal(fight_, TEMPETESABLE, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
@@ -5493,9 +5493,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(ORAGE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -5517,13 +5517,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(3, fight_.getEffects().size());
         AnimationHealing animHealing_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animHealing_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animHealing_.getHealed());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         animHealing_ = (AnimationHealing) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ONE, animHealing_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, animHealing_.getHealed());
     }
 
     @Test
@@ -5537,9 +5537,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(ORAGE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -5561,13 +5561,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(3, fight_.getEffects().size());
         AnimationHealing animHealing_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, animHealing_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animHealing_.getHealed());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         animHealing_ = (AnimationHealing) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ONE, animHealing_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, animHealing_.getHealed());
     }
 
     @Test
@@ -5581,9 +5581,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -5606,7 +5606,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -5621,9 +5621,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -5648,11 +5648,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5667,15 +5667,15 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom4(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(DRAGON);
         fighter_.setRemainedHp(new Rate("1"));
-        foe_ = POKEMON_FOE_FIGHTER_ONE;
+        foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(DRAGON);
@@ -5698,19 +5698,19 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(4, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ONE, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ONE_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ONE, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ONE_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().get(2);
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5725,9 +5725,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
@@ -5752,11 +5752,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ONE, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ONE, animKo_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5771,9 +5771,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(BROUHAHA);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
@@ -5809,9 +5809,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(CHAMP_BRUMEUX);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(foe_).setRemainedHp(Rate.one());
         fight_.getFighter(ally_).setRemainedHp(Rate.one());
         fight_.getFighter(ally_).setDisappeared(true);
@@ -5826,9 +5826,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(2, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
         anim_ = (AnimationHealing) fight_.getEffects().get(1);
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getHealed());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getHealed());
     }
 
     @Test
@@ -5842,9 +5842,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(TEMPETESABLE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(ally_).setItem(LUNETTES_FILTRE);
         fight_.getFighter(foe_).setItem(BAIE_MEPO);
         fight_.getFighter(player_).setItem(NULL_REF);
@@ -5860,11 +5860,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -5879,9 +5879,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.enableGlobalMove(REQUIEM);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(ally_).setItem(LUNETTES_FILTRE);
         fight_.getFighter(foe_).setItem(BAIE_MEPO);
         fight_.getFighter(player_).setItem(NULL_REF);
@@ -5911,9 +5911,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(ally_).setCurrentAbility(ANTI_BRUIT);
         fight_.getFighter(foe_).setItem(BAIE_MEPO);
         fight_.getFighter(player_).setItem(NULL_REF);
@@ -5929,11 +5929,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5951,9 +5951,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(ally_).setCurrentAbility(ANTI_BRUIT);
         fight_.getFighter(foe_).setCurrentAbility(ANTI_BRUIT);
         fight_.getFighter(player_).setItem(NULL_REF);
@@ -5969,7 +5969,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -5986,9 +5986,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         fight_.enableGlobalMove(REQUIEM);
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(ally_).setCurrentAbility(ANTI_BRUIT);
         fight_.getFighter(foe_).setItem(BAIE_MEPO);
         fight_.getFighter(player_).setItem(NULL_REF);
@@ -6018,9 +6018,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(ally_).setCurrentAbility(ANTI_BRUIT);
         fight_.getFighter(foe_).setItem(BAIE_MEPO);
         fight_.getFighter(player_).setCurrentAbility(NULL_REF);
@@ -6036,11 +6036,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -6058,9 +6058,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(ally_).setCurrentAbility(ANTI_BRUIT);
         fight_.getFighter(foe_).setItem(BAIE_MEPO);
         fight_.getFighter(player_).setCurrentAbility(PRESSION);
@@ -6076,11 +6076,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
         assertTrue(anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO, animKo_.getUser());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
     @Test
@@ -6095,9 +6095,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
         fight_.enableGlobalMove(TEMPETESABLE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -6133,9 +6133,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
         fight_.enableGlobalMove(TEMPETESABLE);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(foe_);
         fighter_.setCurrentAbility(GARDE_MAGIK);
@@ -6174,9 +6174,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
         fight_.getEnabledMoves().getVal(REQUIEM).increment();
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(ally_).setCurrentAbility(ANTI_BRUIT);
         fight_.getFighter(foe_).setCurrentAbility(ANTI_BRUIT);
         fight_.getFighter(player_).setItem(NULL_REF);
@@ -6201,9 +6201,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         FightEndRound.processEndRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(foe_);
@@ -6228,9 +6228,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.creerClone(new Rate("1/16"));
@@ -6258,9 +6258,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.creerClone(new Rate("1/16"));
@@ -6288,9 +6288,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.creerClone(new Rate("1/16"));
@@ -6319,9 +6319,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.creerClone(new Rate("1/16"));
@@ -6350,9 +6350,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.creerClone(new Rate("1/16"));
@@ -6381,9 +6381,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.creerClone(new Rate("1/16"));
@@ -6417,9 +6417,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.activerAttaqueFinTourIndividuel(ANNEAU_HYDRO);
@@ -6455,9 +6455,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.creerClone(new Rate("1/16"));
@@ -6489,9 +6489,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setCurrentAbility(MAUVAIS_REVE);
@@ -6520,9 +6520,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.creerClone(new Rate("1/16"));
@@ -6553,8 +6553,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6581,8 +6581,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6610,8 +6610,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6638,8 +6638,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6666,8 +6666,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6675,7 +6675,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         Anticipation ant_;
         ant_ = fight_.getFoeTeam().getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
         ant_.setDamage(Rate.one());
-        ant_.setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
+        ant_.setTargetPosition(tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         ant_.setNbRounds((byte) 2);
         ant_.setIncrementing(true);
         FightEndRound.processEndRound(fight_, diff_, data_);
@@ -6698,8 +6698,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6727,8 +6727,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6756,8 +6756,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6786,8 +6786,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6814,8 +6814,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(SIPHON, (short) 10);
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom2(data_, diff_, moves_);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6843,9 +6843,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6880,9 +6880,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6916,9 +6916,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6952,9 +6952,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -6988,9 +6988,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -7002,7 +7002,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         Anticipation ant_;
         ant_ = fight_.getFoeTeam().getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
         ant_.setDamage(Rate.one());
-        ant_.setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
+        ant_.setTargetPosition(tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         ant_.setNbRounds((byte) 2);
         ant_.setIncrementing(true);
         FightEndRound.processEndRound(fight_, diff_, data_);
@@ -7029,9 +7029,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -7065,9 +7065,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -7101,9 +7101,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -7155,9 +7155,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -7191,9 +7191,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         moves_.put(DEMI_TOUR, (short) 10);
         Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
-        TeamPosition player_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_TWO;
-        TeamPosition foe_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_;
         fighter_ = fight_.getFighter(player_);
         fighter_.setRemainedHp(Rate.one());
@@ -7237,7 +7237,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
         FightEndRound.calculateNewLevel(fight_, player_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringMap<MovesAbilities> map_;
         map_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, map_.size());
@@ -7265,9 +7265,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.calculateNewLevel(fight_, player_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringMap<MovesAbilities> map_;
         map_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, map_.size());
@@ -7297,9 +7297,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.calculateNewLevel(fight_, player_, diff_, data_);
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringMap<MovesAbilities> map_;
         map_ = fighter_.getMovesAbilitiesEvos();
         assertEq(1, map_.size());
@@ -7367,7 +7367,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertEq(FightState.APPRENDRE_EVOLUER, fight_.getState());
     }
@@ -7469,7 +7469,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_FOE));
     }
 
@@ -7496,7 +7496,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightEndRound.missingFighterInTeam(fight_, Fight.CST_PLAYER));
     }
 
@@ -7525,9 +7525,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
         FightRound.initRound(fight_);
-        FightRound.roundThrowerHealing(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightRound.roundThrowerHealing(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightEndRound.missingFighterInTeam(fight_, Fight.CST_PLAYER));
     }
 
@@ -7657,7 +7657,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightEndRound.proponedSwitch(fight_));
     }
 
@@ -7684,7 +7684,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(FightEndRound.proponedSwitch(fight_));
     }
 
@@ -7713,9 +7713,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
         FightRound.initRound(fight_);
-        FightRound.roundThrowerHealing(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightRound.roundThrowerHealing(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightEndRound.proponedSwitch(fight_));
     }
 
@@ -7771,9 +7771,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
-        fullHeal(fight_, POKEMON_FOE_FIGHTER_ZERO, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
+        fullHeal(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
         assertTrue(FightEndRound.proponedSwitch(fight_));
     }
 
@@ -7800,9 +7800,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom4(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
-        fullHeal(fight_, POKEMON_FOE_FIGHTER_ZERO, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
+        fullHeal(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
         assertTrue(FightEndRound.proponedSwitch(fight_));
     }
 
@@ -7877,7 +7877,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(FightEndRound.existSubstitute(fight_));
     }
 
@@ -7905,14 +7905,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 1);
         FightEndRound.setPlacesForFighters(fight_, true);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
     }
 
     @Test
@@ -7942,21 +7942,21 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom4(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         FightEndRound.setPlacesForFighters(fight_, true);
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_TWO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_TWO).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).getGroundPlaceSubst());
     }
 
     @Test
@@ -7982,20 +7982,20 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom3(data_, diff_, player_, 2);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         //After a switch, ko pokemon have their place for substituting set to back
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst(Fighter.BACK);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
         FightEndRound.setPlacesForFighters(fight_, true);
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
     }
 
     @Test
@@ -8017,21 +8017,21 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom5(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         //After a switch, ko pokemon have their place for substituting set to back
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst(Fighter.BACK);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
         fight_.setState(FightState.SWITCH_WHILE_KO_USER);
         FightEndRound.setPlacesForFighters(fight_, true);
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
     }
 
     @Test
@@ -8053,21 +8053,21 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom5(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         //After a switch, ko pokemon have their place for substituting set to back
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst(Fighter.BACK);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
         fight_.setState(FightState.SWITCH_WHILE_KO_USER);
         FightEndRound.setPlacesForFighters(fight_, false);
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
     }
 
     @Test
@@ -8089,25 +8089,25 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom6(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         //After a switch, ko pokemon have their place for substituting set to back
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst(Fighter.BACK);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setGroundPlaceSubst(Fighter.BACK);
         fight_.setState(FightState.SWITCH_WHILE_KO_USER);
         FightEndRound.setPlacesForFighters(fight_, true);
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlaceSubst());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlaceSubst());
     }
 
     @Test
@@ -8135,11 +8135,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightEndRound.learnAndEvolve(fight_, data_);
         assertEq(0, fight_.getChoices().size());
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         assertEq(PTITARD, fighter_.getName());
         assertEq(PTITARD, fighter_.getCurrentName());
         assertEq(METEO, fighter_.getAbility());
@@ -8182,14 +8182,14 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         StringUtil.removeObj(fight_.getChoices().getVal((byte) 0).getKeptMoves(), HYPNOSE);
         fight_.getChoices().getVal((byte) 0).getKeptMoves().add(DANSE_PLUIE);
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightEndRound.learnAndEvolve(fight_, data_);
         assertEq(0, fight_.getChoices().size());
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         assertEq(PTITARD, fighter_.getName());
         assertEq(PTITARD, fighter_.getCurrentName());
         assertEq(METEO, fighter_.getAbility());
@@ -8228,7 +8228,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
         choice_.setName(TETARTE);
@@ -8241,7 +8241,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightEndRound.learnAndEvolve(fight_, data_);
         assertEq(0, fight_.getChoices().size());
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         assertEq(TETARTE, fighter_.getName());
         assertEq(TETARTE, fighter_.getCurrentName());
         assertEq(ABSORB_EAU, fighter_.getAbility());
@@ -8281,7 +8281,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom(data_, diff_, player_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
         choice_.setName(MUNJA);
@@ -8293,7 +8293,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightEndRound.learnAndEvolve(fight_, data_);
         assertEq(0, fight_.getChoices().size());
-        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         assertEq(MUNJA, fighter_.getName());
         assertEq(MUNJA, fighter_.getCurrentName());
         assertEq(GARDE_MYSTIK, fighter_.getAbility());
@@ -8357,7 +8357,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_PLAYER, fight_.getMult() - fight_.getPlayerMaxNumberFrontFighters()));
     }
 
@@ -8382,7 +8382,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = proponedSwitchWhileKoPlayerCom3(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_PLAYER, fight_.getMult() - fight_.getPlayerMaxNumberFrontFighters()));
     }
 
@@ -8407,7 +8407,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = proponedSwitchWhileKoPlayerCom4(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_FOE, fight_.getMult()));
     }
 
@@ -8432,7 +8432,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = proponedSwitchWhileKoPlayerCom4(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_));
     }
 
@@ -8457,7 +8457,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_FOE, fight_.getMult()));
     }
 
@@ -8482,7 +8482,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightEndRound.proponedSwitchWhileKoPlayer(fight_));
     }
 
@@ -8507,7 +8507,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightEndRound.proponedSwitchWhileKoPlayer(fight_));
     }
 
@@ -8532,9 +8532,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = proponedSwitchWhileKoPlayerCom2(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
-        fullHeal(fight_, POKEMON_FOE_FIGHTER_ONE, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
+        fullHeal(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), data_);
         assertTrue(FightEndRound.proponedSwitchWhileKoPlayer(fight_, Fight.CST_FOE, fight_.getMult()));
     }
 
@@ -8559,9 +8559,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = calculateNewLevelCom7(data_, diff_, player_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.exitKoFighters(fight_);
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
     }
 
     private Fight proponedSwitchWhileKoPlayerCom4(DataBase _data, Difficulty _diff, Player _player) {

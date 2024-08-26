@@ -54,7 +54,7 @@ public final class FacadeGameBallTest extends InitializationDataBase {
         facadeGame_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         assertTrue(facadeGame_.getFight().getFightType().isWild());
         facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         facadeGame_.attemptCatchingWildPokemon(true);
         facadeGame_.roundUser();
         facadeGame_.endRoundFightBall();

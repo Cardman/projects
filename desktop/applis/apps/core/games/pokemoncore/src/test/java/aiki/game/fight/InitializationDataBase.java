@@ -48,27 +48,39 @@ public class InitializationDataBase extends EquallablePkUtil {
     /*back to NICKNAME value*/
     protected static final String NICKNAME = "CARDTEAM";
 
-    protected static final TeamPosition POKEMON_PLAYER_FIGHTER_ZERO = Fight.toUserFighter((byte) 0);
-    protected static final TeamPosition POKEMON_PLAYER_FIGHTER_ONE = Fight.toUserFighter((byte) 1);
-    protected static final TeamPosition POKEMON_PLAYER_FIGHTER_TWO = Fight.toUserFighter((byte) 2);
-    protected static final TeamPosition POKEMON_PLAYER_FIGHTER_THREE = Fight.toUserFighter((byte) 3);
-    protected static final TeamPosition POKEMON_PLAYER_FIGHTER_FOUR = Fight.toUserFighter((byte) 4);
+    protected static final int KEY_PLAYER = Fight.CST_PLAYER;
+    protected static final int KEY_FOE = Fight.CST_FOE;
 
-    protected static final TeamPosition POKEMON_FOE_FIGHTER_ZERO = Fight.toFoeFighter((byte) 0);
-    protected static final TeamPosition POKEMON_FOE_FIGHTER_ONE = Fight.toFoeFighter((byte) 1);
-    protected static final TeamPosition POKEMON_FOE_FIGHTER_TWO = Fight.toFoeFighter((byte) 2);
-    protected static final TeamPosition POKEMON_FOE_FIGHTER_THREE = Fight.toFoeFighter((byte) 3);
-    protected static final TeamPosition POKEMON_FOE_FIGHTER_FOUR = Fight.toFoeFighter((byte) 4);
+    protected static final int POKEMON_FIGHTER_ZERO = 0;
+    protected static final int POKEMON_FIGHTER_ONE = 1;
+    protected static final int POKEMON_FIGHTER_TWO = 2;
+    protected static final int POKEMON_FIGHTER_THREE = 3;
+    protected static final int POKEMON_FIGHTER_FOUR = 4;
 
-    protected static final TargetCoords POKEMON_PLAYER_TARGET_ZERO = TargetCoords.toUserTarget((byte) 0);
-    protected static final TargetCoords POKEMON_PLAYER_TARGET_ONE = TargetCoords.toUserTarget((byte) 1);
-    protected static final TargetCoords POKEMON_PLAYER_TARGET_TWO = TargetCoords.toUserTarget((byte) 2);
-    protected static final TargetCoords POKEMON_PLAYER_TARGET_THREE = TargetCoords.toUserTarget((byte) 3);
+    protected static final int POKEMON_TARGET_ZERO = 0;
+    protected static final int POKEMON_TARGET_ONE = 1;
+    protected static final int POKEMON_TARGET_TWO = 2;
+    protected static final int POKEMON_TARGET_THREE = 3;
+    protected static final int POKEMON_TARGET_FOUR = 4;
 
-    protected static final TargetCoords POKEMON_FOE_TARGET_ZERO = TargetCoords.toFoeTarget((byte) 0);
-    protected static final TargetCoords POKEMON_FOE_TARGET_ONE = TargetCoords.toFoeTarget((byte) 1);
-    protected static final TargetCoords POKEMON_FOE_TARGET_TWO = TargetCoords.toFoeTarget((byte) 2);
-    protected static final TargetCoords POKEMON_FOE_TARGET_THREE = TargetCoords.toFoeTarget((byte) 3);
+
+    protected static final String POKEMON_PLAYER_FIGHTER_ZERO_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+0;
+    protected static final String POKEMON_PLAYER_FIGHTER_ONE_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+1;
+    protected static final String POKEMON_PLAYER_FIGHTER_TWO_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+2;
+    protected static final String POKEMON_PLAYER_FIGHTER_THREE_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+3;
+    protected static final String POKEMON_PLAYER_FIGHTER_FOUR_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+4;
+
+    protected static final String POKEMON_FOE_FIGHTER_ZERO_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+0;
+    protected static final String POKEMON_FOE_FIGHTER_ONE_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+1;
+    protected static final String POKEMON_FOE_FIGHTER_TWO_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+2;
+    protected static final String POKEMON_FOE_FIGHTER_THREE_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+3;
+    protected static final String POKEMON_FOE_FIGHTER_FOUR_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+4;
+
+    protected static final String POKEMON_PLAYER_TARGET_ZERO_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TargetCoords.SEPARATOR+0;
+    protected static final String POKEMON_PLAYER_TARGET_ONE_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TargetCoords.SEPARATOR+1;
+
+    protected static final String POKEMON_FOE_TARGET_ZERO_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TargetCoords.SEPARATOR+0;
+    protected static final String POKEMON_FOE_TARGET_ONE_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TargetCoords.SEPARATOR+1;
 
     protected static final String F = MbOperationNode.FALSE_STRING;
 

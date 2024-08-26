@@ -354,15 +354,13 @@ public abstract class EquallablePkUtil {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringUtil.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
     }
-    public static void assertEq(TeamPosition _expected, TeamPosition _result) {
+    public static void assertEq(String _expected, TeamPosition _result) {
         Assert.assertNotNull(_result);
-        Assert.assertEquals(_expected.getTeam(),_result.getTeam());
-        Assert.assertEquals(_expected.getPosition(),_result.getPosition());
+        Assert.assertEquals(_expected,_result.display());
     }
-    public static void assertEq(TargetCoords _expected, TargetCoords _result) {
+    public static void assertEq(String _expected, TargetCoords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertEquals(_expected.getTeam(),_result.getTeam());
-        Assert.assertEquals(_expected.getPosition(),_result.getPosition());
+        Assert.assertEquals(_expected,_result.display());
     }
     public static void assertEq(Coords _expected, Coords _result) {
         Assert.assertNotNull(_result);
@@ -451,6 +449,13 @@ public abstract class EquallablePkUtil {
         Assert.assertSame(_expected, _result);
     }
 
+    public static TeamPosition tp(int _t, int _p) {
+        return new TeamPosition((byte) _t,(byte) _p);
+    }
+
+    public static TargetCoords tc(int _t, int _p) {
+        return new TargetCoords((byte) _t,(byte) _p);
+    }
     public static void initDefaultConsts(String _ballDef, String _rateCatching,
                                   String _rateFleeing, String _rateBoost,
                                   String _rateBoostCriticalHit, String _damageFormula,

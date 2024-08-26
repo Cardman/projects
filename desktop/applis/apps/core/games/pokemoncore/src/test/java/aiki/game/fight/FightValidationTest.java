@@ -40,7 +40,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -49,7 +49,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -58,7 +58,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(NULL_REF, POKEMON_FOE_TARGET_ZERO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(NULL_REF, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -67,7 +67,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(NULL_REF, POKEMON_FOE_TARGET_ZERO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(NULL_REF, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -76,8 +76,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -86,8 +86,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -96,8 +96,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -106,8 +106,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -116,8 +116,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -126,8 +126,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -136,8 +136,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_TWO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_TWO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -146,8 +146,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_TWO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_TWO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -156,8 +156,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_TWO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_TWO)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -166,8 +166,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_TWO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_TWO)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -176,8 +176,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -186,8 +186,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -196,8 +196,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -206,8 +206,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -216,8 +216,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,Fighter.BACK)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,Fighter.BACK)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -226,8 +226,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,Fighter.BACK)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,Fighter.BACK)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -236,8 +236,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,Fighter.BACK)), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,Fighter.BACK)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -246,8 +246,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,Fighter.BACK)), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,Fighter.BACK)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -256,8 +256,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -266,8 +266,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -276,8 +276,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -286,8 +286,8 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))), new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ONE));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -296,7 +296,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(BROUHAHA, POKEMON_FOE_TARGET_ZERO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(BROUHAHA, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -305,7 +305,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO), new MoveTarget(BROUHAHA, POKEMON_FOE_TARGET_ZERO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(BROUHAHA, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -314,7 +314,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(NULL_REF, POKEMON_FOE_TARGET_ZERO), new MoveTarget(BROUHAHA, POKEMON_FOE_TARGET_ZERO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(NULL_REF, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(BROUHAHA, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -323,7 +323,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
-        game_.getFight().getAllyChoice().put(new MoveTarget(NULL_REF, POKEMON_FOE_TARGET_ZERO), new MoveTarget(BROUHAHA, POKEMON_FOE_TARGET_ZERO));
+        game_.getFight().getAllyChoice().put(new MoveTarget(NULL_REF, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(BROUHAHA, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -364,7 +364,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, true));
     }
     @Test
@@ -373,7 +373,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, true));
     }
     @Test
@@ -382,7 +382,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, true));
     }
     @Test
@@ -391,7 +391,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, true));
     }
     @Test
@@ -400,7 +400,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, false));
     }
     @Test
@@ -409,7 +409,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).exitFrontBattleForBeingSubstitued();
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, false));
     }
     @Test
@@ -450,7 +450,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
         assertTrue(!FightFacade.validPlaces(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -459,7 +459,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
         assertTrue(!FightFacade.validPlaces(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -468,7 +468,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
         assertTrue(!FightFacade.validPlaces(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -477,7 +477,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
         assertTrue(!FightFacade.validPlaces(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -519,8 +519,8 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer4(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
         assertTrue(!FightFacade.validSwitchTeam(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -530,8 +530,8 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer4(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
         assertTrue(!FightFacade.validSwitchTeam(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -812,13 +812,13 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
-        Fighter fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -860,13 +860,13 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
-        Fighter fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -908,13 +908,13 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
-        Fighter fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -956,13 +956,13 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
-        Fighter fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -985,21 +985,21 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.setActed(true);
         fight_.getFoeTeam().addSuccessfulMoveRound(JACKPOT);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
@@ -1014,21 +1014,21 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.setActed(true);
         fight_.getFoeTeam().addSuccessfulMoveRound(JACKPOT);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
@@ -1043,21 +1043,21 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.setActed(true);
         fight_.getFoeTeam().addSuccessfulMoveRound(JACKPOT);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
     }
@@ -1072,21 +1072,21 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.setActed(true);
         fight_.getFoeTeam().addSuccessfulMoveRound(JACKPOT);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
     }
@@ -1113,26 +1113,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -1140,7 +1140,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
@@ -1168,26 +1168,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -1195,7 +1195,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
@@ -1223,26 +1223,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -1250,7 +1250,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
@@ -1278,26 +1278,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -1305,7 +1305,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
@@ -1333,26 +1333,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -1360,8 +1360,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
@@ -1389,26 +1389,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -1416,8 +1416,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
@@ -1445,26 +1445,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -1472,8 +1472,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
@@ -1501,26 +1501,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -1528,8 +1528,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validSubstitutingTeam(game_.getFight(), FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
@@ -1774,7 +1774,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, true);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, game_.getPlayer(), data_);
         //invalid data_
         fight_.getFirstPositFoeFighters().put((byte)3, Fighter.BACK);
@@ -1804,7 +1804,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, true);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, game_.getPlayer(), data_);
         //invalid data_
         fight_.getFirstPositFoeFighters().put((byte)3, Fighter.BACK);
@@ -1820,7 +1820,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, true);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, game_.getPlayer(), data_);
         //invalid data_
         fight_.getFirstPositPlayerFighters().put((byte)3, Fighter.BACK);
@@ -1836,7 +1836,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, true);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, game_.getPlayer(), data_);
         //invalid data_
         fight_.getFirstPositPlayerFighters().put((byte)3, Fighter.BACK);
@@ -1973,7 +1973,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesFoe_.add(new StringMap<Short>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -1991,7 +1991,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesFoe_.add(new StringMap<Short>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -2653,26 +2653,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -2680,7 +2680,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2708,26 +2708,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -2735,7 +2735,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2820,13 +2820,13 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
-        Fighter fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -2870,13 +2870,13 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
-        Fighter fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -2913,26 +2913,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -2940,8 +2940,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2969,26 +2969,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -2996,8 +2996,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -3078,7 +3078,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -3090,7 +3090,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -3133,7 +3133,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(data_, false);
         //Never mind for the nickname
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         fight_.getCatchingBalls().first().setNickname(NICKNAME);
         game_.catchKoWildPokemon(data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -3151,7 +3151,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(data_, false);
         //Never mind for the nickname
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         fight_.getCatchingBalls().first().setNickname(NICKNAME);
         game_.catchKoWildPokemon(data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -3167,21 +3167,21 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.setActed(true);
         fight_.getFoeTeam().addSuccessfulMoveRound(JACKPOT);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -3196,21 +3196,21 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
         fighter_.setActed(true);
         fight_.getFoeTeam().addSuccessfulMoveRound(JACKPOT);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -3231,7 +3231,7 @@ public class FightValidationTest extends InitializationDataBase {
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(SEISME);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3251,7 +3251,7 @@ public class FightValidationTest extends InitializationDataBase {
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(SEISME);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3271,7 +3271,7 @@ public class FightValidationTest extends InitializationDataBase {
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) 2));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) 2));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3291,7 +3291,7 @@ public class FightValidationTest extends InitializationDataBase {
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) 2));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) 2));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3311,7 +3311,7 @@ public class FightValidationTest extends InitializationDataBase {
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) -1));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) -1));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3331,7 +3331,7 @@ public class FightValidationTest extends InitializationDataBase {
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) -1));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) -1));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3359,7 +3359,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesFoe_.add(new StringMap<Short>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3387,7 +3387,7 @@ public class FightValidationTest extends InitializationDataBase {
         movesFoe_.add(new StringMap<Short>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3419,7 +3419,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).exitFrontBattle();
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).exitFrontBattle();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3429,7 +3429,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).exitFrontBattle();
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).exitFrontBattle();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3438,7 +3438,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setFirstChosenMoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         Player player_ = game_.getPlayer();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
@@ -3448,7 +3448,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMoveTarget(JACKPOT, POKEMON_FOE_TARGET_ZERO);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setFirstChosenMoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         Player player_ = game_.getPlayer();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
@@ -3484,7 +3484,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.SWITCH, data_);
         game_.chooseSubstituteFighter((byte) 0, data_);
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp().affectZero();
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3497,7 +3497,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.SWITCH, data_);
         game_.chooseSubstituteFighter((byte) 0, data_);
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp().affectZero();
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3510,7 +3510,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.SWITCH, data_);
         game_.chooseSubstituteFighter((byte) 0, data_);
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3523,7 +3523,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.changeAction(ActionType.SWITCH, data_);
         game_.chooseSubstituteFighter((byte) 0, data_);
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3549,7 +3549,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.initTrainerFight(data_);
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 1);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, game_.getPlayer(), game_.getDifficulty()));
     }
     @Test
@@ -3575,7 +3575,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.initTrainerFight(data_);
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 1);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, game_.getPlayer(), game_.getDifficulty()));
     }
     @Test
@@ -3585,7 +3585,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO).exitFrontBattle();
+        game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).exitFrontBattle();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3595,7 +3595,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO).exitFrontBattle();
+        game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).exitFrontBattle();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3921,7 +3921,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setWeight(new Rate("-1"));
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setWeight(new Rate("-1"));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3931,7 +3931,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setWeight(new Rate("-1"));
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setWeight(new Rate("-1"));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4140,8 +4140,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4152,8 +4152,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4164,8 +4164,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4176,8 +4176,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4196,8 +4196,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4216,8 +4216,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4228,8 +4228,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4240,8 +4240,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4252,8 +4252,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        //fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4264,8 +4264,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        //fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4276,8 +4276,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        //fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        //fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4288,8 +4288,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        //fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        //fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4300,7 +4300,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4311,7 +4311,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4322,7 +4322,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4333,7 +4333,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4359,7 +4359,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.setCurrentUser(POKEMON_FOE_FIGHTER_ZERO);
+        fight_.setCurrentUser(tp(KEY_FOE, POKEMON_FIGHTER_ZERO));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
         //invalid data_
     }
@@ -4386,7 +4386,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.setCurrentUser(POKEMON_FOE_FIGHTER_ZERO);
+        fight_.setCurrentUser(tp(KEY_FOE, POKEMON_FIGHTER_ZERO));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
         //invalid data_
     }
@@ -4413,7 +4413,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        ActionMove actionMove_ = (ActionMove) fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        ActionMove actionMove_ = (ActionMove) fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         actionMove_.setFinalChosenMove(CHARGE);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
@@ -4440,7 +4440,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        ActionMove actionMove_ = (ActionMove) fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        ActionMove actionMove_ = (ActionMove) fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         actionMove_.setFinalChosenMove(CHARGE);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
@@ -4467,7 +4467,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setActed(false);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setActed(false);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4493,7 +4493,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setActed(false);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setActed(false);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4519,10 +4519,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setFirstChosenMoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ONE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).choisirAttaqueFin();
-        fight_.setCurrentUser(POKEMON_PLAYER_FIGHTER_TWO);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setActed(true);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setFirstChosenMoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).choisirAttaqueFin();
+        fight_.setCurrentUser(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setActed(true);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4548,10 +4548,10 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setFirstChosenMoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ONE);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).choisirAttaqueFin();
-        fight_.setCurrentUser(POKEMON_PLAYER_FIGHTER_TWO);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setActed(true);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setFirstChosenMoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).choisirAttaqueFin();
+        fight_.setCurrentUser(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setActed(true);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4577,7 +4577,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ONE), new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ONE));
+        fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
         //invalid data_
     }
@@ -4604,7 +4604,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ONE), new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ONE));
+        fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
         //invalid data_
     }
@@ -4630,7 +4630,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(DEMI_TOUR, data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //invalid data_
-        fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ONE), new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ONE));
+        fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
         //invalid data_
     }
@@ -4656,7 +4656,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(DEMI_TOUR, data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //invalid data_
-        fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, POKEMON_FOE_TARGET_ONE), new MoveTarget(INVALID_DATA_KEY, POKEMON_FOE_TARGET_ONE));
+        fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
         //invalid data_
     }
@@ -4738,8 +4738,8 @@ public class FightValidationTest extends InitializationDataBase {
         game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getMovesAbilitiesEvos().clear();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getMovesToBeLearnt().clear();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMovesAbilitiesEvos().clear();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMovesToBeLearnt().clear();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4766,8 +4766,8 @@ public class FightValidationTest extends InitializationDataBase {
         game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getMovesAbilitiesEvos().clear();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getMovesToBeLearnt().clear();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMovesAbilitiesEvos().clear();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMovesToBeLearnt().clear();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -5035,7 +5035,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseFrontFighter((byte) 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
         fight_.setState(FightState.ATTAQUES);
@@ -5060,7 +5060,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseFrontFighter((byte) 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
         fight_.setState(FightState.ATTAQUES);
@@ -5157,26 +5157,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -5184,7 +5184,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -5214,26 +5214,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -5241,7 +5241,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -5271,26 +5271,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -5298,7 +5298,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -5328,26 +5328,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -5355,7 +5355,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -5385,26 +5385,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -5412,8 +5412,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -5444,26 +5444,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -5471,8 +5471,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -5503,26 +5503,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -5530,8 +5530,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -5561,26 +5561,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -5588,8 +5588,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -5759,7 +5759,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
         //fight_.setState(FightState.SWITCH_APRES_ATTAQUE);
 //        game_.chooseFrontFighter((byte) 0, data_);
@@ -5792,7 +5792,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
         //fight_.setState(FightState.SWITCH_APRES_ATTAQUE);
 //        game_.chooseFrontFighter((byte) 0, data_);
@@ -5810,7 +5810,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().first().setCatchingBall(INVALID_DATA_KEY);
@@ -5824,7 +5824,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().first().setCatchingBall(INVALID_DATA_KEY);
@@ -5838,7 +5838,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().first().setCatchingBall(BAIE_ORAN);
@@ -5852,7 +5852,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().first().setCatchingBall(BAIE_ORAN);
@@ -5866,7 +5866,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
@@ -5880,7 +5880,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
@@ -5894,7 +5894,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.setFightType(FightType.DRESSEUR);
@@ -5908,7 +5908,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.setFightType(FightType.DRESSEUR);
@@ -6103,7 +6103,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAction(null);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setAction(null);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6129,7 +6129,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAction(null);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setAction(null);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6207,26 +6207,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -6234,8 +6234,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -6266,26 +6266,26 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
+        fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(BROUHAHA);
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -6293,8 +6293,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
@@ -6414,7 +6414,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().clear();
@@ -6428,7 +6428,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().clear();
@@ -6442,7 +6442,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().clear();
@@ -6457,7 +6457,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().clear();
@@ -6472,11 +6472,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         fight_.getCatchingBalls().first().setPlayer((byte) -1);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO.getPosition(),fight_.getCatchingBalls().first().getPlayer());
+        assertEq((byte)POKEMON_FIGHTER_ZERO,fight_.getCatchingBalls().first().getPlayer());
     }
     @Test
     public void validate236Test(){
@@ -6486,11 +6486,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         fight_.getCatchingBalls().first().setPlayer((byte) -1);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO.getPosition(),fight_.getCatchingBalls().first().getPlayer());
+        assertEq((byte)POKEMON_FIGHTER_ZERO,fight_.getCatchingBalls().first().getPlayer());
     }
     private static void addBackFoeFighter(PkTrainer _pk, Game _game, DataBase _data) {
         Fight fight_ = _game.getFight();

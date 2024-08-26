@@ -107,8 +107,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(1, fight_.getMult());
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
     }
 
     @Test
@@ -153,8 +153,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(1, fight_.getMult());
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
     }
 
     @Test
@@ -201,8 +201,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(1, fight_.getMult());
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
         assertEq(0,FightFacade.getFoeToBeCaught(fight_,false).size());
         assertEq(0,FightFacade.getFoeToBeCaught(fight_,true).size());
     }
@@ -249,8 +249,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(1, fight_.getMult());
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
     }
 
     @Test
@@ -318,8 +318,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(4, fight_.getUserTeam().getMembers().size());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
-        assertEq(1, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(1, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getGroundPlace());
     }
 
     @Test
@@ -349,8 +349,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_, player_, diff_, foePokemon_, data_);
         assertEq(2, fight_.getUserTeam().getMembers().size());
         assertEq(1, fight_.getFoeTeam().getMembers().size());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
         assertEq(1, fight_.getMult());
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
     }
@@ -420,12 +420,12 @@ public class FightFacadeTest extends InitializationDataBase {
         FightInitialization.initEquipeTmpTrainer(fight_,player_, diff_, dual_, data_);
         TeamPositionList list_ = FightFacade.fightersBelongingToUser(fight_,true);
         assertEq(2, list_.size());
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ONE));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)));
         list_ = FightFacade.fightersBelongingToUser(fight_,false);
         assertEq(2, list_.size());
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
-        assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_THREE));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_TWO)));
+        assertTrue(list_.containsObj(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
     }
 
     private static Fight koTeam(Difficulty _diff, DataBase _data) {
@@ -481,9 +481,9 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = koTeam(diff_, data_);
-        FightKo.setKoMoveTeams(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightFacade.koTeam(fight_));
-        FightKo.setKoMoveTeams(fight_,POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightFacade.koTeam(fight_));
     }
 
@@ -492,10 +492,10 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = koTeam(diff_, data_);
-        FightKo.setKoMoveTeams(fight_,POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(FightFacade.koTeam(fight_));
-        FightKo.setKoMoveTeams(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_,POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightFacade.koTeam(fight_));
     }
 
@@ -552,9 +552,9 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightFacade.win(fight_));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightFacade.win(fight_));
     }
 
@@ -563,9 +563,9 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightFacade.win(fight_));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightFacade.win(fight_));
     }
 
@@ -574,10 +574,10 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightFacade.win(fight_));
     }
 
@@ -594,9 +594,9 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightFacade.loose(fight_));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightFacade.loose(fight_));
     }
 
@@ -605,9 +605,9 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightFacade.loose(fight_));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightFacade.loose(fight_));
     }
 
@@ -616,10 +616,10 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightFacade.loose(fight_));
     }
 
@@ -636,9 +636,9 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightFacade.equality(fight_));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightFacade.equality(fight_));
     }
 
@@ -647,9 +647,9 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(!FightFacade.equality(fight_));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(!FightFacade.equality(fight_));
     }
 
@@ -658,10 +658,10 @@ public class FightFacadeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = win(diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         assertTrue(FightFacade.equality(fight_));
     }
 
@@ -716,7 +716,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.calculateNewLevel(fight_, player_, diff_, data_);
         ByteMap<ChoiceOfEvolutionAndMoves> map_;
         map_ = FightFacade.defaultChoices(fight_);
@@ -752,7 +752,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.calculateNewLevel(fight_, player_, diff_, data_);
         ByteMap<ChoiceOfEvolutionAndMoves> map_;
         map_ = FightFacade.defaultChoices(fight_);
@@ -791,7 +791,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         assertTrue(!fight_.isError());
@@ -822,7 +822,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         StringList moves_ = fight_.getChoices().getVal((byte) 0).getKeptMoves();
         StringUtil.removeObj(moves_, HYPNOSE);
@@ -856,7 +856,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_,diff_, data_);
         StringList moves_ = fight_.getChoices().getVal((byte) 0).getKeptMoves();
         StringUtil.removeObj(moves_, HYPNOSE);
@@ -889,7 +889,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         StringList moves_ = fight_.getChoices().getVal((byte) 0).getKeptMoves();
         moves_.add(DANSE_PLUIE);
@@ -918,7 +918,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         assertTrue(!fight_.isError());
@@ -945,7 +945,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
         choice_.setName(TETARTE);
@@ -979,7 +979,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
         choice_.setName(TETARTE);
@@ -1015,7 +1015,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
         choice_.setName(TETARTE);
@@ -1048,7 +1048,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defaultChoices1(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
         choice_.setName(MUNJA);
@@ -1080,9 +1080,9 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
         NatStringTreeMap< ChosenMoveInfos> moves_;
-        moves_ = FightFacade.fighterMoves(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
+        moves_ = FightFacade.fighterMoves(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
         infos_ = moves_.getVal(ECUME);
@@ -1135,7 +1135,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
         NatStringTreeMap< ChosenMoveInfos> moves_;
-        moves_ = FightFacade.fighterMoves(fight_, POKEMON_PLAYER_FIGHTER_ONE, data_);
+        moves_ = FightFacade.fighterMoves(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), data_);
         assertEq(0, moves_.size());
     }
 
@@ -1160,7 +1160,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(ECUME, CHARGE), 3);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.fighterMoves(fight_, f_, data_);
@@ -1194,7 +1194,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
         NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.frontFighterMoves(fight_, (byte) 0, data_);
         ChosenMoveInfos infos_;
@@ -1300,7 +1300,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).usePowerPointsByMove(diff_, ECUME, (short) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).usePowerPointsByMove(diff_, ECUME, (short) 25);
         NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.backFighterMoves(fight_, (byte) 0, data_);
         ChosenMoveInfos infos_;
@@ -1442,7 +1442,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
         initChosableTargets(fight_, 0, PISTOLET_A_O, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(2, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -1475,7 +1475,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
         initChosableTargets(fight_, 0, RISQUE, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(2, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -1516,7 +1516,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending8(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, 3, 3);
         initChosableTargets(fight_, 0, SIPHON, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(3, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -1563,7 +1563,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending9(data_, diff_, player_, new StringList(DETECTION, CHARGE));
         initChosableTargets(fight_, 0, SIPHON, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(3, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -1638,7 +1638,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending9(data_, diff_, player_, new StringList(DETECTION, CHARGE));
         initChosableTargets(fight_, 0, ACUPRESSION, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(3, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -1715,7 +1715,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending12(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3);
         initChosableTargets(fight_, 2, SIPHON, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getAction();
         assertNull(action_);
         assertEq(3, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.FALSE,  fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -1763,7 +1763,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
         FightFacade.chooseFrontFighter(fight_,(byte) 0, diff_, data_);
         assertEq(0, fight_.getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexBack());
@@ -1839,7 +1839,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -1899,8 +1899,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightFacade.chooseFrontFighter(fight_,(byte) 0, diff_, data_);
         assertEq(0, fight_.getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexBack());
@@ -1954,7 +1954,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(NULL_REF, fight_.getTemp().getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenSubstitute());
         assertEq(1, fight_.getTemp().getTargetCoords().size());
-        assertTrue(TargetCoords.eq(POKEMON_FOE_TARGET_ZERO,fight_.getTemp().getTargetCoords().get(0)));
+        assertTrue(TargetCoords.eq(tc(KEY_FOE, POKEMON_TARGET_ZERO),fight_.getTemp().getTargetCoords().get(0)));
     }
 
     @Test
@@ -1997,8 +1997,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_PLAYER_TARGET_ONE);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_PLAYER, POKEMON_TARGET_ONE));
         FightFacade.chooseFrontFighter(fight_,(byte) 0, diff_, data_);
         assertEq(0, fight_.getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexBack());
@@ -2052,7 +2052,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(NULL_REF, fight_.getTemp().getChosenHealingMove());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenSubstitute());
         assertEq(1, fight_.getTemp().getTargetCoords().size());
-        assertTrue(TargetCoords.eq(POKEMON_PLAYER_TARGET_ONE,fight_.getTemp().getTargetCoords().get(0)));
+        assertTrue(TargetCoords.eq(tc(KEY_PLAYER, POKEMON_TARGET_ONE),fight_.getTemp().getTargetCoords().get(0)));
     }
 
     @Test
@@ -2097,7 +2097,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         FightFacade.chooseFrontFighter(fight_,(byte) 0, diff_, data_);
         assertEq(0, fight_.getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexBack());
@@ -2170,7 +2170,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSubstitute((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 1);
         FightFacade.chooseFrontFighter(fight_,(byte) 0, diff_, data_);
         assertEq(0, fight_.getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexBack());
@@ -2235,8 +2235,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setChosenHealingObject(EAU_FRAICHE, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setChosenHealingObject(EAU_FRAICHE, data_);
         FightFacade.chooseFrontFighter(fight_,(byte) 0, diff_, data_);
         assertEq(0, fight_.getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexBack());
@@ -2299,8 +2299,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setChosenHealingObjectMove(HUILE, ECUME);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setChosenHealingObjectMove(HUILE, ECUME);
         FightFacade.chooseFrontFighter(fight_,(byte) 0, diff_, data_);
         assertEq(0, fight_.getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexBack());
@@ -2865,8 +2865,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -2952,7 +2952,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.changeAction(fight_, ActionType.MOVE, data_, diff_);
         assertEq(SEISME, fight_.getTemp().getChosenMoveFront());
         assertEq(1, fight_.getTemp().getCurrentFighterMoves().size());
-        assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(SEISME, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
     }
 
     @Test
@@ -2982,8 +2982,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3030,8 +3030,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3076,8 +3076,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3124,8 +3124,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3169,8 +3169,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3218,8 +3218,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3268,14 +3268,14 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         fight_.getFighter(userOne_).setFirstChosenMove(ECUME);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getRemainingHp().affectZero();
         fight_.getTemp().setChosenIndexFront((byte) 1);
         chooseBackFighterAddon(fight_, 0, data_);
         assertTrue(fight_.isError());
@@ -3319,14 +3319,14 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         fight_.getFighter(userOne_).setFirstChosenMove(ECUME);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getRemainingHp().affectZero();
         fight_.getTemp().setChosenIndexFront((byte) 1);
         chooseBackFighterAddon(fight_, -1, data_);
         assertTrue(!fight_.isError());
@@ -3370,8 +3370,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending3(data_, diff_, player_, new StringList(CHARGE), new StringList(CHARGE), new StringList(CHARGE), new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3408,8 +3408,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3458,8 +3458,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3508,15 +3508,15 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         fight_.getFighter(userOne_).setFirstChosenMove(ECUME);
         fight_.setCurrentUser(userOne_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getRemainingHp().affectZero();
         chooseBackFighterWhileRound(fight_, 0, data_);
         assertTrue(fight_.isError());
         Fighter fighter_ = fight_.getFighter(userOne_);
@@ -3559,8 +3559,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3610,8 +3610,8 @@ public class FightFacadeTest extends InitializationDataBase {
 //        player_.getTeam().add(lasPk_);
 //        player_.recupererOeufPensions(new Egg(PTITARD));
 //        Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-//        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-//        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+//        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+//        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
 //        fight_.getFighter(userOne_).setGroundPlace((byte) 1);
 //        fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
 //        fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3663,8 +3663,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -3773,7 +3773,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
@@ -3832,8 +3832,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainedHp(Rate.one());
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(EAU_FRAICHE, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setRemainedHp(Rate.one());
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setChosenHealingObject(EAU_FRAICHE, data_);
         FightFacade.chooseBackFighter(fight_,(byte) 0, data_);
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexFront());
         assertEq(0, fight_.getTemp().getChosenIndexBack());
@@ -3893,8 +3893,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).usePowerPointsByMove(diff_, ECUME, (byte) 25);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObjectMove(HUILE, ECUME);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).usePowerPointsByMove(diff_, ECUME, (byte) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setChosenHealingObjectMove(HUILE, ECUME);
         FightFacade.chooseBackFighter(fight_,(byte) 0, data_);
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexFront());
         assertEq(0, fight_.getTemp().getChosenIndexBack());
@@ -3970,8 +3970,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4021,15 +4021,15 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         fight_.getFighter(userOne_).setFirstChosenMove(ECUME);
         fight_.setCurrentUser(userOne_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getRemainingHp().affectZero();
         fight_.setState(FightState.SWITCH_APRES_ATTAQUE);
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         assertTrue(fight_.isError());
@@ -4075,8 +4075,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4131,8 +4131,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4309,8 +4309,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, dual_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).usePowerPointsByMove(diff_, ECUME, (byte) 25);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObjectMove(HUILE, ECUME);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).usePowerPointsByMove(diff_, ECUME, (byte) 25);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setChosenHealingObjectMove(HUILE, ECUME);
         FightFacade.chooseBackFighter(fight_,(byte) 0, data_);
         FightFacade.chooseBackFighter(fight_,(byte) -1, data_);
         assertEq(Fighter.BACK, fight_.getTemp().getChosenIndexFront());
@@ -4356,8 +4356,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4414,13 +4414,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getRemainingHp().affectZero();
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).getRemainingHp().affectZero();
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, RELAIS, diff_, data_);
         assertTrue(FightFacade.requiredSwitch(fight_, data_));
@@ -4471,8 +4471,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4517,8 +4517,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4563,8 +4563,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4618,8 +4618,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4672,8 +4672,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4725,8 +4725,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4778,8 +4778,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4831,8 +4831,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4887,8 +4887,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -4939,7 +4939,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).setRemainedHp(Rate.one());
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -4988,7 +4988,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).setRemainedHp(Rate.one());
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -5037,7 +5037,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).setRemainedHp(Rate.one());
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -5086,7 +5086,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).setRemainedHp(Rate.one());
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -5134,7 +5134,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).setRemainedHp(Rate.one());
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -5182,7 +5182,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).setRemainedHp(Rate.one());
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -5232,7 +5232,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).setRemainedHp(Rate.one());
         fight_.getTemp().setChosenIndexBack((byte) 2);
         FightFacade.setChosenHealingItemBack(fight_, HUILE_MAX, data_);
@@ -5277,8 +5277,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -5332,7 +5332,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).setRemainedHp(Rate.one());
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -5382,8 +5382,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -5465,7 +5465,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).usePowerPointsByMove(diff_, ECUME, (short) 2);
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -5543,8 +5543,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -5592,7 +5592,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition user_ = POKEMON_PLAYER_FIGHTER_TWO;
+        TeamPosition user_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fight_.getFighter(user_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 1);
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.changeAction(fight_, ActionType.HEALING, data_, diff_);
@@ -5633,7 +5633,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, SEISME, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertTrue(action_ instanceof ActionMove);
         assertEq(SEISME, ((ActionMove)action_).getFirstChosenMove());
         assertEq(0, ((ActionMove)action_).getChosenTargets().size());
@@ -5666,11 +5666,11 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, INTERVERSION, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertTrue(action_ instanceof ActionMove);
         assertEq(INTERVERSION, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(0, fight_.getTemp().getChosableFoeTargets().size());
         assertEq(0, fight_.getTemp().getChosablePlayerTargets().size());
@@ -5706,7 +5706,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(2, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -5740,11 +5740,11 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, RISQUE, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertTrue(action_ instanceof ActionMove);
         assertEq(RISQUE, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(0, fight_.getTemp().getChosableFoeTargets().size());
         assertEq(0, fight_.getTemp().getChosablePlayerTargets().size());
@@ -5788,7 +5788,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, SIPHON, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(3, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -5836,7 +5836,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, SIPHON, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(3, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -5872,11 +5872,11 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertTrue(action_ instanceof ActionMove);
         assertEq(PISTOLET_A_O, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(0, fight_.getTemp().getChosableFoeTargets().size());
         assertEq(0, fight_.getTemp().getChosablePlayerTargets().size());
@@ -5922,7 +5922,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, ACUPRESSION, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
         assertEq(3, fight_.getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, fight_.getTemp().getChosableFoeTargets().first().getChosable());
@@ -5958,7 +5958,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, INTERVERSION, diff_, data_);
         AbstractAction action_;
-        action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertTrue(action_ instanceof ActionMove);
         assertEq(INTERVERSION, ((ActionMove)action_).getFirstChosenMove());
         assertEq(0, ((ActionMove)action_).getChosenTargets().size());
@@ -5998,8 +5998,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -6083,8 +6083,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -6136,8 +6136,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -6183,7 +6183,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
-        StringList moves_ = FightFacade.allowedMovesNotEmpty(fight_, POKEMON_PLAYER_FIGHTER_ZERO, data_);
+        StringList moves_ = FightFacade.allowedMovesNotEmpty(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(4, moves_.size());
         assertTrue(StringUtil.contains(moves_, ECUME));
         assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
@@ -6212,7 +6212,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(ECUME, CHARGE), 3);
-        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         StringList moves_ = FightFacade.allowedMovesNotEmpty(fight_, f_, data_);
         assertEq(1, moves_.size());
@@ -6245,17 +6245,17 @@ public class FightFacadeTest extends InitializationDataBase {
         TeamPositionsStringMapTeamPositionsRate map_;
         map_ = FightFacade.remainingThrowersTargetsHp(fight_, diff_, data_);
         assertEq(2, map_.size());
-        assertEq(3, map_.getVal(POKEMON_PLAYER_FIGHTER_ZERO).size());
-        assertEq(3, map_.getVal(POKEMON_PLAYER_FIGHTER_ONE).size());
+        assertEq(3, map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).size());
+        assertEq(3, map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).size());
         StringMap<TeamPositionsPairRatesPair> mapMoves_;
-        mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ZERO);
+        mapMoves_ = map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
         assertEq(1, mapMoves_.getVal(PISTOLET_A_O).getFoe().size());
         assertEq(2, mapMoves_.getVal(PISTOLET_A_O).getPlayer().size());
         assertEq(1, mapMoves_.getVal(ECUME).getFoe().size());
         assertEq(2, mapMoves_.getVal(ECUME).getPlayer().size());
         assertEq(1, mapMoves_.getVal(TORGNOLES).getFoe().size());
         assertEq(2, mapMoves_.getVal(TORGNOLES).getPlayer().size());
-        mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ONE);
+        mapMoves_ = map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE));
         assertEq(1, mapMoves_.getVal(PISTOLET_A_O).getFoe().size());
         assertEq(2, mapMoves_.getVal(PISTOLET_A_O).getPlayer().size());
         assertEq(1, mapMoves_.getVal(ECUME).getFoe().size());
@@ -6263,58 +6263,58 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(1, mapMoves_.getVal(TORGNOLES).getFoe().size());
         assertEq(2, mapMoves_.getVal(TORGNOLES).getPlayer().size());
         TeamPositionsPairRatesPair mapFighters_;
-        mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ZERO);
+        mapMoves_ = map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
         mapFighters_ = mapMoves_.getVal(PISTOLET_A_O);
         assertEq(1, mapFighters_.getFoe().size());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
         assertEq(2, mapFighters_.getPlayer().size());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
         mapFighters_ = mapMoves_.getVal(ECUME);
         assertEq(1, mapFighters_.getFoe().size());
-        assertEq(new Rate("16909/5200"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("16909/5200"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
+        assertEq(new Rate("16909/5200"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("16909/5200"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
         assertEq(2, mapFighters_.getPlayer().size());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
         mapFighters_ = mapMoves_.getVal(TORGNOLES);
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
-        mapMoves_ = map_.getVal(POKEMON_PLAYER_FIGHTER_ONE);
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
+        mapMoves_ = map_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE));
         mapFighters_ = mapMoves_.getVal(PISTOLET_A_O);
         assertEq(1, mapFighters_.getFoe().size());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
         assertEq(2, mapFighters_.getPlayer().size());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
         mapFighters_ = mapMoves_.getVal(ECUME);
         assertEq(1, mapFighters_.getFoe().size());
-        assertEq(new Rate("16909/5200"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("16909/5200"), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
+        assertEq(new Rate("16909/5200"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("16909/5200"), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
         assertEq(2, mapFighters_.getPlayer().size());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
         mapFighters_ = mapMoves_.getVal(TORGNOLES);
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getFront());
-        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(POKEMON_FOE_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getFront());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ZERO).getBack());
-        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(POKEMON_PLAYER_FIGHTER_ONE).getBack());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(Rate.zero(), mapFighters_.getFoe().getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFront());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getBack());
+        assertEq(new Rate("4587/100"), mapFighters_.getPlayer().getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getBack());
     }
 
     @Test
@@ -6344,8 +6344,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
@@ -6360,7 +6360,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         TargetCoordsList targets_ = fighter_.getChosenTargets();
         assertEq(1, targets_.size());
-        assertTrue(targets_.containsObj(POKEMON_FOE_TARGET_ZERO));
+        assertTrue(targets_.containsObj(tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, fighter_.getSubstistute());
     }
 
@@ -6393,7 +6393,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending8(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, 3, 3);
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, data_);
         FightFacade.chooseMove(fight_, INTERVERSION, diff_, data_);
         FightFacade.setFirstChosenMovePlayerTarget(fight_, (byte) 0);
@@ -6404,7 +6404,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         TargetCoordsList targets_ = fighter_.getChosenTargets();
         assertEq(1, targets_.size());
-        assertTrue(targets_.containsObj(POKEMON_PLAYER_TARGET_ZERO));
+        assertTrue(targets_.containsObj(tc(KEY_PLAYER, POKEMON_TARGET_ZERO)));
         assertEq(Fighter.BACK, fighter_.getSubstistute());
     }
 
@@ -6438,33 +6438,33 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending8(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 4, 3, 2);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setFirstChosenMove(DETECTION);
         setFirstChosenMove(fight_, 0);
         setFirstChosenMove(fight_, 1);
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
-        assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.getKey(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO,tree_.getKey(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO,tree_.getKey(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ONE,tree_.getKey(3));
-        assertEq(DETECTION, tree_.getVal(POKEMON_FOE_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(DETECTION, tree_.getVal(POKEMON_FOE_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(SEISME, tree_.getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(SEISME, tree_.getVal(POKEMON_PLAYER_FIGHTER_ONE).getFirstChosenMove());
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getAction() instanceof ActionMove);
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getFinalChosenMove());
+        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.getKey(0));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.getKey(1));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.getKey(2));
+        assertEq(POKEMON_PLAYER_FIGHTER_ONE_STR,tree_.getKey(3));
+        assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
+        assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFirstChosenMove());
+        assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
+        assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE)).getFirstChosenMove());
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFirstChosenMove());
+        assertEq(SEISME, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(SEISME, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getFirstChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getFinalChosenMove());
     }
 
     @Test
@@ -6497,31 +6497,31 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(SEISME), 18, 15, new StringList(DETECTION, CHARGE), 3, 4, 3);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setFirstChosenMove(DETECTION);
         setFirstChosenMove(fight_, 0);
         fight_.getAllyChoice().put(new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)), new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)));
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
-        assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.getKey(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO,tree_.getKey(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_FOUR,tree_.getKey(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO,tree_.getKey(3));
-        assertEq(DETECTION, tree_.getVal(POKEMON_FOE_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(DETECTION, tree_.getVal(POKEMON_FOE_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(SEISME, tree_.getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(SEISME, tree_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getFirstChosenMove());
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertNull(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction());
+        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.getKey(0));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.getKey(1));
+        assertEq(POKEMON_PLAYER_FIGHTER_FOUR_STR,tree_.getKey(2));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.getKey(3));
+        assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
+        assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFirstChosenMove());
+        assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
+        assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getFirstChosenMove());
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFirstChosenMove());
+        assertEq(SEISME, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertNull(fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getAction());
     }
 
     @Test
@@ -6554,28 +6554,28 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending8(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 4, 3, 2);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setFirstChosenMove(DETECTION);
         setFirstChosenMove(fight_, 0);
         setFirstChosenMove(fight_, 1);
         TeamPositionList tree_;
         tree_ = FightFacade.sortedFightersBeginRound(fight_, data_);
-        assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.get(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO,tree_.get(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO,tree_.get(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ONE,tree_.get(3));
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getAction() instanceof ActionMove);
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getFinalChosenMove());
+        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.get(0));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.get(1));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.get(2));
+        assertEq(POKEMON_PLAYER_FIGHTER_ONE_STR,tree_.get(3));
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFirstChosenMove());
+        assertEq(SEISME, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(SEISME, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getFirstChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getFinalChosenMove());
     }
 
     @Test
@@ -6608,27 +6608,27 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(SEISME), 18, 15, new StringList(DETECTION, CHARGE), 3, 4, 3);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setFirstChosenMove(DETECTION);
         setFirstChosenMove(fight_, 0);
         fight_.getAllyChoice().put(new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)), new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)));
         TeamPositionList tree_;
         tree_ = FightFacade.sortedFightersBeginRound(fight_, data_);
         assertEq(4,tree_.size());
-        assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.get(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO,tree_.get(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_FOUR,tree_.get(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO,tree_.get(3));
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertNull(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction());
+        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.get(0));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.get(1));
+        assertEq(POKEMON_PLAYER_FIGHTER_FOUR_STR,tree_.get(2));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.get(3));
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFirstChosenMove());
+        assertEq(SEISME, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertNull(fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getAction());
     }
 
     @Test
@@ -6661,31 +6661,31 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(SEISME), 18, 15, new StringList(DETECTION, CHARGE), 3, 4, 3);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DETECTION);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setFirstChosenMove(DETECTION);
         setFirstChosenMove(fight_, 0);
         fight_.getAllyChoice().put(new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)), new MoveTarget(SEISME, new TargetCoords(Fighter.BACK,Fighter.BACK)));
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
-        assertEq(POKEMON_FOE_FIGHTER_ONE,tree_.getKey(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO,tree_.getKey(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_FOUR,tree_.getKey(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO,tree_.getKey(3));
-        assertEq(DETECTION, tree_.getVal(POKEMON_FOE_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(DETECTION, tree_.getVal(POKEMON_FOE_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(SEISME, tree_.getVal(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(SEISME, tree_.getVal(POKEMON_PLAYER_FIGHTER_FOUR).getFirstChosenMove());
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getAction() instanceof ActionMove);
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction() instanceof ActionMove);
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(DETECTION, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFirstChosenMove());
-        assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFirstChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFinalChosenMove());
-        assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertNull(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction());
+        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.getKey(0));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.getKey(1));
+        assertEq(POKEMON_PLAYER_FIGHTER_FOUR_STR,tree_.getKey(2));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.getKey(3));
+        assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
+        assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFirstChosenMove());
+        assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
+        assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getFirstChosenMove());
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(DETECTION, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFirstChosenMove());
+        assertEq(SEISME, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFirstChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getFinalChosenMove());
+        assertEq(NULL_REF, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getFinalChosenMove());
+        assertNull(fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)).getAction());
     }
 
     @Test
@@ -6712,7 +6712,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -6745,7 +6745,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending7(data_, diff_, player_, new StringList(DETECTION), new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -6786,7 +6786,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending12(data_, diff_, player_, new StringList(DETECTION), 2);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, data_);
@@ -6829,7 +6829,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending12(data_, diff_, player_, new StringList(DETECTION), 2);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -6872,13 +6872,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending12(data_, diff_, player_, new StringList(DETECTION), 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte) 1);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte) 0);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -6923,13 +6923,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending12(data_, diff_, player_, new StringList(DETECTION), 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte) 1);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte) 0);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, data_);
@@ -6974,13 +6974,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending12(data_, diff_, player_, new StringList(DETECTION), 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte) 1);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte) 0);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, data_);
@@ -7024,13 +7024,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending12(data_, diff_, player_, new StringList(DETECTION), 2);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
         fight_.getFirstPositPlayerFighters().put((byte) 0, (byte) 1);
         fight_.getFirstPositPlayerFighters().put((byte) 1, (byte) 0);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getTemp().setChosenIndexFront((byte) 2);
@@ -7065,7 +7065,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
@@ -7098,7 +7098,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         fight_.getTemp().setChosenIndexBack((byte) 2);
@@ -7131,7 +7131,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -7165,7 +7165,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
@@ -7202,7 +7202,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         NatStringTreeMap<BoolVal> map_ = getMoves(fight_);
         assertEq(12, map_.size());
@@ -7247,7 +7247,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         EvolutionChoiceMap map_ = getEvolutions(data_, fight_);
         assertEq(2, map_.size());
@@ -7282,7 +7282,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         StringList list_ = getAbilities(fight_);
         assertEq(2, list_.size());
@@ -7317,7 +7317,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertTrue(FightFacade.isChosableForLearningAndEvolving(fight_, (byte) 0));
     }
@@ -7349,7 +7349,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertTrue(!FightFacade.isChosableForLearningAndEvolving(fight_, (byte) -1));
     }
@@ -7381,7 +7381,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         assertTrue(!FightFacade.isChosableForLearningAndEvolving(fight_, (byte) -1));
     }
@@ -7413,7 +7413,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         assertEq(0, fight_.getTemp().getChosenIndex());
@@ -7446,7 +7446,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) -1, data_);
         assertEq(-1, fight_.getTemp().getChosenIndex());
@@ -7485,7 +7485,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 1, data_);
         assertEq(-1, fight_.getTemp().getChosenIndex());
@@ -7518,7 +7518,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TARINORME);
@@ -7561,7 +7561,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TARINORME);
@@ -7605,7 +7605,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TARINORME);
@@ -7655,7 +7655,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TARINORME);
@@ -7691,7 +7691,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TARINORME);
@@ -7734,7 +7734,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.setWonExpSinceLastLevel(new Rate("1"));
         player_.getTeam().add(lasPk_);
         Fight fight_ = defChoicesSending1(data_, diff_, player_, new StringList(DETECTION));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TARINORME);
@@ -7781,16 +7781,16 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
 
     @Test
@@ -7822,15 +7822,15 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_THREE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
 
     @Test
@@ -7862,15 +7862,15 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_THREE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         ByteTreeMap< Fighter> mapFighters_ = FightFacade.getAllyFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE));
+        assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE));
     }
 
     @Test
@@ -7902,16 +7902,16 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        TeamPosition userOne_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_PLAYER_FIGHTER_THREE;
+        TeamPosition userOne_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         ByteTreeMap< FighterPosition> mapFighters_ = FightFacade.getUnionFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE));
-        assertSame(mapFighters_.getVal((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE));
+        assertSame(mapFighters_.getVal((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
         assertEq(1,FightFacade.retrieve((byte) 0,mapFighters_));
         assertEq(Fighter.BACK,FightFacade.retrieve((byte) 1,mapFighters_));
         assertEq(Fighter.BACK,FightFacade.retrieve((byte) 2,mapFighters_));
@@ -7949,8 +7949,8 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending10(data_, diff_, player_, new StringList(DETECTION, CHARGE));
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO));
     }
 
     @Test
@@ -7989,8 +7989,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(!fight_.isError());
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO));
     }
 
     @Test
@@ -8024,8 +8024,8 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO));
     }
 
     @Test
@@ -8064,9 +8064,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(!fight_.isError());
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerTeam(fight_);
         assertEq(3, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 2).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 2).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO));
     }
 
     @Test
@@ -8100,7 +8100,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
         ByteTreeMap< FighterPosition> mapFighters_ = FightFacade.getAllyBackTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR));
+        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR)));
     }
 
     @Test
@@ -8132,16 +8132,16 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        TeamPosition userOne_ = POKEMON_FOE_FIGHTER_ZERO;
-        TeamPosition userTwo_ = POKEMON_FOE_FIGHTER_ONE;
+        TeamPosition userOne_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        TeamPosition userTwo_ = tp(KEY_FOE, POKEMON_FIGHTER_ONE);
         fight_.getFighter(userOne_).setGroundPlace((byte) 1);
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
         ByteTreeMap< FighterPosition> mapFighters_ = FightFacade.getFoeFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(POKEMON_FOE_FIGHTER_ONE));
-        assertSame(mapFighters_.getVal((byte) 1).getFighter(), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO));
+        assertSame(mapFighters_.getVal((byte) 0).getFighter(), fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE));
+        assertSame(mapFighters_.getVal((byte) 1).getFighter(), fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO));
         assertEq(1,FightFacade.retrieve((byte) 0,mapFighters_));
         assertEq(0,FightFacade.retrieve((byte) 1,mapFighters_));
         assertEq(Fighter.BACK,FightFacade.retrieve((byte) 2,mapFighters_));
@@ -8413,12 +8413,12 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
 
     @Test
@@ -8450,12 +8450,12 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending10(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
 
     @Test
@@ -8487,13 +8487,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
     }
 
     @Test
@@ -8525,13 +8525,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
     }
 
     @Test
@@ -8563,12 +8563,12 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
 
     @Test
@@ -8600,13 +8600,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO));
     }
 
     @Test
@@ -8638,12 +8638,12 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO));
     }
 
     @Test
@@ -8675,13 +8675,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
-        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(mapFighters_.get((byte) 1).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO));
     }
 
     @Test
@@ -8713,12 +8713,12 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         CustList< FighterPosition> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(1, mapFighters_.size());
-        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
+        assertSame(mapFighters_.get((byte) 0).getFighter(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO));
     }
 
     @Test
@@ -8822,7 +8822,7 @@ public class FightFacadeTest extends InitializationDataBase {
 //        FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data_);
 //        FightFacade.setFirstChosenMoveFoeTarget(fight_,(byte) 0);
 //        FightFacade.frontFighterChoiceFleeingCatching(fight_);
-//        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+//        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
 //        AbstractAction action_ = fighter_.getAction();
 //        assertNull(action_);
 //        assertEq(NULL_REF,fighter_.getFirstChosenMove());
@@ -8902,10 +8902,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.changeAction(fight_, ActionType.SWITCH, data_, diff_);
         setSubstituteSwitch(fight_, 0, data_);
@@ -8946,10 +8946,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -8957,7 +8957,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.roundUser(fight_, diff_, data_);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
-        fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightFacade.chooseFrontFighter(fight_,fighter_.getGroundPlace(), diff_, data_);
         FightFacade.changeAction(fight_, ActionType.SWITCH, data_, diff_);
         setSubstituteSwitch(fight_, 0, data_);
@@ -9036,10 +9036,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.changeAction(fight_, ActionType.SWITCH, data_, diff_);
         setSubstituteSwitch(fight_, 0, data_);
@@ -9081,9 +9081,9 @@ public class FightFacadeTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 15);
         Fight fight_ = fihtRoadSending(pokemon_, player_, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, OEIL_MIRACLE, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, PASSE_PASSE, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, ORAGE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, OEIL_MIRACLE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, PASSE_PASSE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ORAGE, (short) 50);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -9123,10 +9123,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9167,17 +9167,17 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
         FightFacade.roundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
-        fighter_ = fight_.getFighter( POKEMON_PLAYER_FIGHTER_ZERO);
+        fighter_ = fight_.getFighter( tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
         FightFacade.chooseFrontFighter(fight_,fighter_.getGroundPlace(), diff_, data_);
         FightFacade.changeAction(fight_, ActionType.SWITCH, data_, diff_);
         setSubstituteSwitch(fight_, 0, data_);
@@ -9217,10 +9217,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9266,10 +9266,10 @@ public class FightFacadeTest extends InitializationDataBase {
         pokemon_.setLevel((short) 15);
         Fight fight_ = fihtRoadSending(pokemon_, player_, diff_, data_);
         fight_.getTemp().setSimulation(true);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, OEIL_MIRACLE, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, PASSE_PASSE, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, ORAGE, (short) 50);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, OEIL_MIRACLE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, PASSE_PASSE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ORAGE, (short) 50);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         FightFacade.roundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_);
@@ -9359,10 +9359,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.changeAction(fight_, ActionType.SWITCH, data_, diff_);
         setSubstituteSwitch(fight_, 0, data_);
@@ -9406,10 +9406,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9452,10 +9452,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9464,7 +9464,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.endRoundFightBasic(fight_, diff_, player_, data_);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
-        fighter_ = fight_.getFighter( POKEMON_PLAYER_FIGHTER_ZERO);
+        fighter_ = fight_.getFighter( tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
         FightFacade.chooseFrontFighter(fight_,fighter_.getGroundPlace(), diff_, data_);
         FightFacade.changeAction(fight_, ActionType.SWITCH, data_, diff_);
         setSubstituteSwitch(fight_, 0, data_);
@@ -9509,9 +9509,9 @@ public class FightFacadeTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 15);
         Fight fight_ = fihtRoadSending(pokemon_, player_, diff_, data_);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, OEIL_MIRACLE, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, PASSE_PASSE, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, ORAGE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, OEIL_MIRACLE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, PASSE_PASSE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ORAGE, (short) 50);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -9559,10 +9559,10 @@ public class FightFacadeTest extends InitializationDataBase {
         pokemon_.setLevel((short) 15);
         Fight fight_ = fihtRoadSending(pokemon_, player_, diff_, data_);
         fight_.getTemp().setSimulation(true);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, OEIL_MIRACLE, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, PASSE_PASSE, (short) 50);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).usePowerPointsByMove(diff_, ORAGE, (short) 50);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, OEIL_MIRACLE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, PASSE_PASSE, (short) 50);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(diff_, ORAGE, (short) 50);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         FightFacade.beginRound(fight_, diff_, data_);
@@ -9601,10 +9601,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
         assertTrue(fight_.getBeginRound());
         assertTrue(fight_.isError());
@@ -9639,10 +9639,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9681,10 +9681,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9693,9 +9693,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
 
@@ -9730,10 +9730,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9741,9 +9741,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
 
@@ -9779,10 +9779,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9793,9 +9793,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(fight_.isError());
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
         assertTrue(fight_.isError());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
     }
 
@@ -9828,10 +9828,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, true);
         assertTrue(fight_.getBeginRound());
         assertTrue(fight_.isError());
@@ -9866,10 +9866,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 3, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9910,10 +9910,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, DEMI_TOUR, diff_, data_);
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
@@ -9924,9 +9924,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(!fight_.isError());
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
         assertTrue(!fight_.isError());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
 
@@ -9962,10 +9962,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(DETECTION, CHARGE), 3, new StringList(DETECTION, CHARGE), 12, 3, 3);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
-        TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition foePk_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(foePk_);
-        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
-        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fighter_.setFirstChosenMoveTarget(CHARGE, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO)));
         assertTrue(!fight_.isError());
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
         assertTrue(fight_.isError());
@@ -9999,8 +9999,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(JACKPOT), 3, new StringList(DETECTION), 3);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
@@ -10074,8 +10074,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(JACKPOT), 3, new StringList(DETECTION), 3, 3, 3);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
@@ -10152,8 +10152,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
@@ -10191,9 +10191,9 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
@@ -10202,10 +10202,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setAbility(fight_, ABSORB_EAU);
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightFacade.learnAndEvolveAttack(fight_, diff_, data_);
-        assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
+        assertTrue(!fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).estKo());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
 //        assertEq(FightState.ATTAQUES, fight_.getState());
         assertEq(FightState.SWITCH_PROPOSE, fight_.getState());
     }
@@ -10235,13 +10235,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setGroundPlaceSubst((byte) 0);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        //FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setGroundPlaceSubst((byte) 0);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        //FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
@@ -10250,10 +10250,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setAbility(fight_, ABSORB_EAU);
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightFacade.learnAndEvolveAttack(fight_, diff_, data_);
-        assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
+        assertTrue(!fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).estKo());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
 //        assertEq(FightState.ATTAQUES, fight_.getState());
         assertEq(FightState.SWITCH_PROPOSE, fight_.getState());
     }
@@ -10283,13 +10283,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setGroundPlaceSubst((byte) 0);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setGroundPlaceSubst((byte) 0);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
@@ -10298,10 +10298,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setAbility(fight_, ABSORB_EAU);
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightFacade.learnAndEvolveAttack(fight_, diff_, data_);
-        assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
+        assertTrue(!fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).estKo());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
 //        assertEq(FightState.ATTAQUES, fight_.getState());
         assertEq(FightState.SWITCH_PROPOSE, fight_.getState());
     }
@@ -10332,13 +10332,13 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
-        //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("50"));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setGroundPlace((byte) 0);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).setGroundPlaceSubst((byte) 0);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        //fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp().affect(new Rate("50"));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setGroundPlaceSubst((byte) 0);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
@@ -10347,10 +10347,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setAbility(fight_, ABSORB_EAU);
         assertTrue(FightFacade.possibleChoices(fight_, data_));
         FightFacade.learnAndEvolveAttack(fight_, diff_, data_);
-        assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
-        assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getGroundPlace());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getGroundPlace());
+        assertTrue(!fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).estKo());
+        assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
+        assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
+        assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getGroundPlace());
 //        assertEq(FightState.ATTAQUES, fight_.getState());
         assertEq(FightState.SWITCH_PROPOSE, fight_.getState());
     }
@@ -10375,7 +10375,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending11(data_, diff_, player_, new StringList(JACKPOT), 3, new StringList(DETECTION), 3, 3, 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.sendSubstitutesChooseActions(fight_, diff_, player_, data_);
@@ -10403,8 +10403,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending14(data_, diff_, player_, new StringList(JACKPOT), 3, new StringList(DETECTION), 3);
         fight_.getUserTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
-        fight_.getFighter(POKEMON_FOE_FIGHTER_TWO).setRemainedHp(Rate.one());
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).setRemainedHp(Rate.one());
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
@@ -10440,7 +10440,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initFight(fight_, player_, diff_, pokemon_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
@@ -10477,16 +10477,16 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getItem(RAPPEL);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending2(data_, diff_, player_, new StringList(DETECTION));
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setChosenHealingObject(RAPPEL, data_);
         FightFacade.beginRound(fight_, diff_, data_);
-        FightRound.roundThrowerHealing(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        Fighter fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        FightRound.roundThrowerHealing(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        Fighter fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
         fighter_.setActed(true);
-        fighter_ =fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
+        fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
@@ -10495,7 +10495,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFoeTeam().addSuccessfulMoveRound(fighter_.getFinalChosenMove());
         fighter_.incrementConsecutiveUsesMove();
         fighter_.setActed(true);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         FightFacade.chooseBackFighter(fight_, (byte) 0, data_);
@@ -10753,7 +10753,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
         assertEq(NULL_REF,fight_.getCatchingBalls().first().getCatchingBall());
         assertTrue(FightKo.endedFight(fight_, diff_));
@@ -10780,7 +10780,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.ATTAQUES, fight_.getState());
@@ -10808,7 +10808,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.wildPokemon().setRemainedHp(Rate.one());
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
         assertTrue(FightKo.endedFight(fight_, diff_));
         assertTrue(fight_.getFightType().isExisting());
@@ -10840,7 +10840,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         FightFacade.attemptCatching(fight_, diff_, player_, data_, true);
         assertEq(NULL_REF,fight_.getCatchingBalls().first().getCatchingBall());
         assertTrue(!FightKo.endedFight(fight_, diff_));
@@ -10868,7 +10868,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         FightFacade.attemptCatching(fight_, diff_, player_, data_, true);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(FightState.ATTAQUES, fight_.getState());
@@ -10897,7 +10897,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.wildPokemon().setRemainedHp(Rate.one());
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         FightFacade.attemptCatching(fight_, diff_, player_, data_, true);
         assertTrue(FightKo.endedFight(fight_, diff_));
         assertTrue(fight_.getFightType().isExisting());
@@ -10930,7 +10930,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         fight_.getCatchingBalls().first().setCaught(true);
         FightFacade.attemptCatching(fight_, diff_, player_, data_, false);
         assertEq(HYPER_BALL,fight_.getCatchingBalls().first().getCatchingBall());
@@ -11220,7 +11220,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.getItem(HYPER_BALL);
         Fight fight_ = fightRoad(player_, PTITARD, (short) 1, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(ECUME);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(ECUME);
         CustList<MovesListTeamPositionsList> map_;
         map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, diff_, data_);
         assertEq(1, map_.size());
@@ -11230,8 +11230,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(PTITARD, map_.get(0).getKeyPks().get(0).getNamePk());
         assertEq(0, map_.get(0).getKeyPks().get(0).getNumber());
         assertEq(2, map_.get(0).getTeamPositions().size());
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.get(0).getTeamPositions().get(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.get(0).getTeamPositions().get(1));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, map_.get(0).getTeamPositions().get(0));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, map_.get(0).getTeamPositions().get(1));
     }
 
     @Test
@@ -11254,7 +11254,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.getItem(HYPER_BALL);
         Fight fight_ = fightRoad(player_, PTITARD, (short) 10, diff_, data_);
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(ECUME);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(ECUME);
         CustList<MovesListTeamPositionsList> map_;
         map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, diff_, data_);
         assertEq(3, map_.size());
@@ -11264,24 +11264,24 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(PTITARD, map_.get(0).getKeyPks().get(0).getNamePk());
         assertEq(0, map_.get(0).getKeyPks().get(0).getNumber());
         assertEq(2, map_.get(0).getTeamPositions().size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.get(0).getTeamPositions().get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.get(0).getTeamPositions().get(1));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, map_.get(0).getTeamPositions().get(0));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, map_.get(0).getTeamPositions().get(1));
         assertEq(1, map_.get(1).getKeyPks().size());
         assertEq(HYPNOSE, map_.get(1).getKeyPks().get(0).getNameMv());
         assertEq(HYPNOSE, map_.get(1).getKeyPks().get(0).getNameMvTr());
         assertEq(PTITARD, map_.get(1).getKeyPks().get(0).getNamePk());
         assertEq(0, map_.get(1).getKeyPks().get(0).getNumber());
         assertEq(2, map_.get(1).getTeamPositions().size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.get(1).getTeamPositions().get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.get(1).getTeamPositions().get(1));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, map_.get(1).getTeamPositions().get(0));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, map_.get(1).getTeamPositions().get(1));
         assertEq(1, map_.get(2).getKeyPks().size());
         assertEq(TOURNIQUET, map_.get(2).getKeyPks().get(0).getNameMv());
         assertEq(TOURNIQUET, map_.get(2).getKeyPks().get(0).getNameMvTr());
         assertEq(PTITARD, map_.get(2).getKeyPks().get(0).getNamePk());
         assertEq(0, map_.get(2).getKeyPks().get(0).getNumber());
         assertEq(2, map_.get(2).getTeamPositions().size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO, map_.get(2).getTeamPositions().get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, map_.get(2).getTeamPositions().get(1));
+        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, map_.get(2).getTeamPositions().get(0));
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, map_.get(2).getTeamPositions().get(1));
     }
 
     @Test
@@ -11557,7 +11557,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 14, diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        fight_.getCatchingBalls().first().setPlayer(POKEMON_PLAYER_FIGHTER_ZERO.getPosition());
+        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
         FightFacade.attemptFlee(fight_, diff_, player_, data_, false);
         assertEq(FightState.REDESSIN_SCENE,fight_.getState());
         assertEq(1, fight_.getNbFleeAttempt());
@@ -11607,7 +11607,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.FIN_CBT_SAUVAGE, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11631,7 +11631,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.CAPTURE_KO, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11678,7 +11678,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.FIN_CBT_SAUVAGE, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11702,8 +11702,8 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.FIN_CBT_SAUVAGE, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11727,7 +11727,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(JACKPOT), 3, new StringList(DETECTION), 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.REDESSIN_SCENE, FightFacade.fightStatement(fight_,true, diff_));
     }
 
@@ -11751,7 +11751,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending6(data_, diff_, player_, new StringList(DETECTION), 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.REDESSIN_SCENE, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11775,8 +11775,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(JACKPOT), 3, new StringList(DETECTION), 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.REDESSIN_SCENE, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11800,8 +11800,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(JACKPOT), 3, new StringList(DETECTION), 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.REDESSIN_SCENE, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11825,9 +11825,9 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending5(data_, diff_, player_, new StringList(JACKPOT), 3, new StringList(DETECTION), 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ONE, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.RIEN, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11851,8 +11851,8 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = defChoicesSending6(data_, diff_, player_, new StringList(DETECTION), 3);
-        FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.RIEN, FightFacade.fightStatement(fight_, true, diff_));
     }
 
@@ -11876,7 +11876,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
+        FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(FightState.FIN_CBT_SAUVAGE, FightFacade.fightStatement(fight_, false, diff_));
     }
 
@@ -12047,7 +12047,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
         assertEq(1, mapMoves_.size());
         assertEq(15, mapMoves_.getVal(TOURNIQUET).getCurrent());
@@ -12075,7 +12075,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
         assertEq(1, mapMoves_.size());
         assertEq(15, mapMoves_.getVal(TOURNIQUET).getCurrent());
@@ -12103,7 +12103,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(playerPk_).usePowerPointsByMove(diff_, TOURNIQUET, (short) 1);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
         assertEq(1, mapMoves_.size());
@@ -12132,7 +12132,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(playerPk_).usePowerPointsByMove(diff_, TOURNIQUET, (short) 1);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
         assertEq(1, mapMoves_.size());
@@ -12161,7 +12161,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(playerPk_).transformer(fight_.wildPokemon(), (short) 5);
         fight_.getFighter(playerPk_).usePowerPointsByMove(diff_, JACKPOT, (short) 1);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
@@ -12193,7 +12193,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(playerPk_).apprendreAttaqueEcrasant(TOURNIQUET, COPIE, data_);
         fight_.getFighter(playerPk_).usePowerPointsByMove(diff_, TOURNIQUET, (short) 1);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
@@ -12225,7 +12225,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(playerPk_).getMoves().put(TOURNIQUET, new UsesOfMove((short) 15));
         fight_.getFighter(playerPk_).usePowerPointsByMove(diff_, TOURNIQUET, (short) 1);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
@@ -12259,7 +12259,7 @@ public class FightFacadeTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
-        TeamPosition playerPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         fight_.getFighter(playerPk_).getMoves().put(TOURNIQUET, new UsesOfMove((short) 15));
         fight_.getFighter(playerPk_).usePowerPointsByMove(diff_, TOURNIQUET, (short) 1);
         StringMap<UsesOfMove> mapMoves_ = FightFacade.movesAfterFight(fight_, playerPk_, diff_);
@@ -12332,7 +12332,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = initTypeEnv2(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightFacade.initTypeEnv(fight_, data_.getMap().getBegin(), diff_, data_);
         assertEq(EnvironmentType.ROAD, fight_.getEnvType());
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
     }
 
     @Test
@@ -12357,7 +12357,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = initTypeEnv1(data_, diff_, player_, new StringList(DETECTION));
         FightFacade.initTypeEnv(fight_, data_.getMap().getBegin(), diff_, data_);
         assertEq(EnvironmentType.ROAD, fight_.getEnvType());
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
     }
 
     @Test
@@ -12382,7 +12382,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = initTypeEnv1(data_, diff_, player_, new StringList(DETECTION));
         FightFacade.initTypeEnv(fight_, new Coords(), diff_, data_);
         assertEq(EnvironmentType.ROAD, fight_.getEnvType());
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
     }
 
     @Test
@@ -12411,7 +12411,7 @@ public class FightFacadeTest extends InitializationDataBase {
         c_.getLevel().setPoint(new Point((byte)-1,(byte)0));
         FightFacade.initTypeEnv(fight_, c_, diff_, data_);
         assertEq(EnvironmentType.ROAD, fight_.getEnvType());
-        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction() instanceof ActionMove);
+        assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
     }
 
     @Test
@@ -12444,8 +12444,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
         assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
-        Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter playerPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter wildPk_ = loadedFight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
         assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
         assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
@@ -12495,8 +12495,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
         assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
-        Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter playerPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter wildPk_ = loadedFight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
         assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
         assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
@@ -12512,7 +12512,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(PISTOLET_A_O,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, playerPk_.getChosenTargets().get(0));
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, playerPk_.getChosenTargets().get(0));
         assertTrue(loadedFight_.getTemp().getAcceptableChoices());
     }
 
@@ -12542,8 +12542,8 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = initializeFromSavedGame(player_, PIKACHU, (short) 1, diff_, data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
         FightFacade.chooseMove(fight_, SEISME, diff_, data_);
-        ActionMove actionMove_ = (ActionMove) fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        actionMove_.getChosenTargets().add(POKEMON_FOE_TARGET_ZERO);
+        ActionMove actionMove_ = (ActionMove) fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
+        actionMove_.getChosenTargets().add(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
@@ -12552,8 +12552,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
         assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
-        Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter playerPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter wildPk_ = loadedFight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
         assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
         assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
@@ -12599,7 +12599,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
-        ActionMove actionMove_ = (ActionMove) loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        ActionMove actionMove_ = (ActionMove) loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         actionMove_.setFirstChosenMove(NULL_REF);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, data_);
         ByteMap<BoolVal> ko_ = loadedFight_.getTemp().getKos();
@@ -12607,8 +12607,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
         assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
-        Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter playerPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter wildPk_ = loadedFight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
         assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
         assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
@@ -12671,9 +12671,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
         assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
-        Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        Fighter playerBackPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
-        Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter playerPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter playerBackPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
+        Fighter wildPk_ = loadedFight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
         assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
         assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
@@ -12696,11 +12696,11 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(DEMI_TOUR,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, playerPk_.getChosenTargets().get(0));
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, playerPk_.getChosenTargets().get(0));
         assertTrue(wildPk_.getAction() instanceof ActionMove);
         assertEq(JACKPOT,wildPk_.getFirstChosenMove());
         assertEq(1, wildPk_.getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO, wildPk_.getChosenTargets().get(0));
+        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, wildPk_.getChosenTargets().get(0));
         assertEq(POKE_BALL,wildPk_.getUsedBallCatching());
         assertTrue(loadedFight_.getTemp().getAcceptableChoices());
     }
@@ -12741,8 +12741,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
         assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
-        Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter playerPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter wildPk_ = loadedFight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
         assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
         assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
@@ -12758,7 +12758,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(BULLES_D_O,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO, playerPk_.getChosenTargets().get(0));
+        assertEq(POKEMON_FOE_TARGET_ZERO_STR, playerPk_.getChosenTargets().get(0));
         assertTrue(wildPk_.estKo());
         assertTrue(loadedFight_.getTemp().getAcceptableChoices());
     }
@@ -12793,9 +12793,9 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
         assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
-        Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        Fighter playerAllyPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
-        Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter playerPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter playerAllyPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
+        Fighter wildPk_ = loadedFight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
         assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
         assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
@@ -12848,8 +12848,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(2, getNbKoByValue(ko_, BoolVal.FALSE));
         assertEq(0, getNbKoByValue(ko_, BoolVal.TRUE));
         assertEq(0, getNbKoByValue(ko_, null));
-        Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
+        Fighter playerPk_ = loadedFight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter wildPk_ = loadedFight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
         assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
         assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
