@@ -1326,7 +1326,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1371,7 +1371,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1503,7 +1503,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1596,7 +1596,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1642,7 +1642,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1688,7 +1688,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1737,7 +1737,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -1871,7 +1871,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -1914,7 +1914,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -1964,7 +1964,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2014,7 +2014,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -2489,7 +2489,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2515,7 +2515,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -2541,7 +2541,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2567,7 +2567,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getHealed());
     }
 
 
@@ -2594,7 +2594,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
     }
 
     @Test
@@ -2640,7 +2640,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2666,7 +2666,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -2693,7 +2693,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2719,7 +2719,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2745,7 +2745,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -2770,7 +2770,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3113,8 +3113,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getFromFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3142,7 +3142,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3171,8 +3171,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getFromFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3228,7 +3228,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3259,8 +3259,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getFromFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3292,8 +3292,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getFromFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3326,8 +3326,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getFromFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getToFighter());
         assertTrue(!anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3360,11 +3360,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3395,11 +3395,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3431,7 +3431,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3463,8 +3463,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getToFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getFromFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getToFighter());
         assertTrue(anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3493,7 +3493,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3525,11 +3525,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3561,8 +3561,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getToFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getFromFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getToFighter());
         assertTrue(anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3595,8 +3595,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect anim_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.ABSORB,anim_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getToFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getFromFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getToFighter());
         assertTrue(anim_.isKoFromFighter());
         assertTrue(!anim_.isKoToFighter());
     }
@@ -3625,7 +3625,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -3756,7 +3756,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getHealed());
     }
 
     @Test
@@ -3784,7 +3784,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3839,7 +3839,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getHealed());
     }
 
     @Test
@@ -3921,7 +3921,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getHealed());
     }
 
     @Test
@@ -3949,7 +3949,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -3978,7 +3978,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -4033,11 +4033,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -4119,11 +4119,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -4428,7 +4428,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         assertTrue(!anim_.isPlayer());
     }
@@ -4455,7 +4455,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -4481,7 +4481,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -4628,7 +4628,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getHealed());
     }
 
     @Test
@@ -4695,7 +4695,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, soinApres_.getNbRounds());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getHealed());
     }
 
     @Test
@@ -4743,7 +4743,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getHealed());
     }
 
     @Test
@@ -4817,7 +4817,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         attaqueAnticipe_.setIncrementing(true);
         attaqueAnticipe_.setTargetPosition(tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,attaqueAnticipe_.getTargetPosition());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),attaqueAnticipe_.getTargetPosition());
         assertTrue(attaqueAnticipe_.isIncrementing());
         assertEq(1, attaqueAnticipe_.getNbRounds());
         assertEq(new Rate("2"), attaqueAnticipe_.getDamage());
@@ -4849,7 +4849,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
         fight_.getEffects().clear();
         FightEndRound.effectEndRoundPositionTargetRelation(fight_, thrower_, move_, diff_, data_);
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,attaqueAnticipe_.getTargetPosition());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),attaqueAnticipe_.getTargetPosition());
         assertTrue(attaqueAnticipe_.isIncrementing());
         assertEq(2, attaqueAnticipe_.getNbRounds());
         assertEq(new Rate("2"), attaqueAnticipe_.getDamage());
@@ -4893,8 +4893,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animation_.getFromFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(!animation_.isKoToFighter());
     }
@@ -4934,8 +4934,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animation_.getFromFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(!animation_.isKoToFighter());
     }
@@ -4974,8 +4974,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animation_.getFromFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(animation_.isKoToFighter());
     }
@@ -5013,8 +5013,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getFromFighter());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getToFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animation_.getFromFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(animation_.isKoToFighter());
     }
@@ -5053,8 +5053,8 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animation_ = (AnimationEffect) fight_.getEffects().first();
         assertSame(EffectKind.SIMPLE,animation_.getEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animation_.getFromFighter());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animation_.getToFighter());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animation_.getFromFighter());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animation_.getToFighter());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(animation_.isKoToFighter());
     }
@@ -5231,7 +5231,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animRecoil_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
     }
 
@@ -5263,11 +5263,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animRecoil_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5300,11 +5300,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animRecoil_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5336,11 +5336,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animRecoil_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5371,7 +5371,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect animRecoil_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,animRecoil_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animRecoil_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animRecoil_.getUser());
         assertTrue(!animRecoil_.isKoUser());
     }
 
@@ -5517,13 +5517,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(3, fight_.getEffects().size());
         AnimationHealing animHealing_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animHealing_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animHealing_.getHealed());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         animHealing_ = (AnimationHealing) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, animHealing_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ONE), animHealing_.getHealed());
     }
 
     @Test
@@ -5561,13 +5561,13 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(3, fight_.getEffects().size());
         AnimationHealing animHealing_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, animHealing_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), animHealing_.getHealed());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         animHealing_ = (AnimationHealing) fight_.getEffects().last();
-        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, animHealing_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ONE), animHealing_.getHealed());
     }
 
     @Test
@@ -5606,7 +5606,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -5648,11 +5648,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5698,19 +5698,19 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(4, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ONE_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ONE), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ONE_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ONE), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().get(2);
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         animKo_ = (AnimationAutoEffect) fight_.getEffects().last();
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5752,11 +5752,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ONE), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, animKo_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ONE), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5826,9 +5826,9 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(2, fight_.getEffects().size());
         AnimationHealing anim_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getHealed());
         anim_ = (AnimationHealing) fight_.getEffects().get(1);
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getHealed());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getHealed());
     }
 
     @Test
@@ -5860,11 +5860,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
         anim_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(!anim_.isKoUser());
     }
 
@@ -5929,11 +5929,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -5969,7 +5969,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
     }
 
@@ -6036,11 +6036,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
 
@@ -6076,11 +6076,11 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(2, fight_.getEffects().size());
         AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
         assertSame(AutoEffectKind.KO,anim_.getAutoEffectKind());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, anim_.getUser());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), anim_.getUser());
         assertTrue(anim_.isKoUser());
         AnimationAutoEffect animKo_ = (AnimationAutoEffect) fight_.getEffects().get(1);
         assertSame(AutoEffectKind.KO,animKo_.getAutoEffectKind());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, animKo_.getUser());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
     @Test

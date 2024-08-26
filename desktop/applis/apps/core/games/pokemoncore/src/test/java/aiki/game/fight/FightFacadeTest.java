@@ -5670,7 +5670,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(action_ instanceof ActionMove);
         assertEq(INTERVERSION, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ONE), ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(0, fight_.getTemp().getChosableFoeTargets().size());
         assertEq(0, fight_.getTemp().getChosablePlayerTargets().size());
@@ -5744,7 +5744,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(action_ instanceof ActionMove);
         assertEq(RISQUE, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(0, fight_.getTemp().getChosableFoeTargets().size());
         assertEq(0, fight_.getTemp().getChosablePlayerTargets().size());
@@ -5876,7 +5876,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(action_ instanceof ActionMove);
         assertEq(PISTOLET_A_O, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(0, fight_.getTemp().getChosableFoeTargets().size());
         assertEq(0, fight_.getTemp().getChosablePlayerTargets().size());
@@ -6445,10 +6445,10 @@ public class FightFacadeTest extends InitializationDataBase {
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
-        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.getKey(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.getKey(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.getKey(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ONE_STR,tree_.getKey(3));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ONE),tree_.getKey(0));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO),tree_.getKey(1));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),tree_.getKey(2));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE),tree_.getKey(3));
         assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
         assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFirstChosenMove());
         assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
@@ -6504,10 +6504,10 @@ public class FightFacadeTest extends InitializationDataBase {
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
-        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.getKey(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.getKey(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_FOUR_STR,tree_.getKey(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.getKey(3));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ONE),tree_.getKey(0));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO),tree_.getKey(1));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR),tree_.getKey(2));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),tree_.getKey(3));
         assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
         assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFirstChosenMove());
         assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
@@ -6560,10 +6560,10 @@ public class FightFacadeTest extends InitializationDataBase {
         setFirstChosenMove(fight_, 1);
         TeamPositionList tree_;
         tree_ = FightFacade.sortedFightersBeginRound(fight_, data_);
-        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.get(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.get(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.get(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ONE_STR,tree_.get(3));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ONE),tree_.get(0));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO),tree_.get(1));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),tree_.get(2));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE),tree_.get(3));
         assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
         assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
         assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
@@ -6615,10 +6615,10 @@ public class FightFacadeTest extends InitializationDataBase {
         TeamPositionList tree_;
         tree_ = FightFacade.sortedFightersBeginRound(fight_, data_);
         assertEq(4,tree_.size());
-        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.get(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.get(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_FOUR_STR,tree_.get(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.get(3));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ONE),tree_.get(0));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO),tree_.get(1));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR),tree_.get(2));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),tree_.get(3));
         assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
         assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getAction() instanceof ActionMove);
         assertTrue(fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);
@@ -6668,10 +6668,10 @@ public class FightFacadeTest extends InitializationDataBase {
         TeamPositionActionMoveMap tree_;
         tree_ = FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight_, data_);
         assertEq(4, tree_.size());
-        assertEq(POKEMON_FOE_FIGHTER_ONE_STR,tree_.getKey(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR,tree_.getKey(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_FOUR_STR,tree_.getKey(2));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR,tree_.getKey(3));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ONE),tree_.getKey(0));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO),tree_.getKey(1));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR),tree_.getKey(2));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),tree_.getKey(3));
         assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
         assertEq(DETECTION, tree_.getVal(tp(KEY_FOE, POKEMON_FIGHTER_ONE)).getFirstChosenMove());
         assertEq(SEISME, tree_.getVal(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).getFirstChosenMove());
@@ -11230,8 +11230,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(PTITARD, map_.get(0).getKeyPks().get(0).getNamePk());
         assertEq(0, map_.get(0).getKeyPks().get(0).getNumber());
         assertEq(2, map_.get(0).getTeamPositions().size());
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, map_.get(0).getTeamPositions().get(0));
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, map_.get(0).getTeamPositions().get(1));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), map_.get(0).getTeamPositions().get(0));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), map_.get(0).getTeamPositions().get(1));
     }
 
     @Test
@@ -11264,24 +11264,24 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(PTITARD, map_.get(0).getKeyPks().get(0).getNamePk());
         assertEq(0, map_.get(0).getKeyPks().get(0).getNumber());
         assertEq(2, map_.get(0).getTeamPositions().size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, map_.get(0).getTeamPositions().get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, map_.get(0).getTeamPositions().get(1));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), map_.get(0).getTeamPositions().get(0));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), map_.get(0).getTeamPositions().get(1));
         assertEq(1, map_.get(1).getKeyPks().size());
         assertEq(HYPNOSE, map_.get(1).getKeyPks().get(0).getNameMv());
         assertEq(HYPNOSE, map_.get(1).getKeyPks().get(0).getNameMvTr());
         assertEq(PTITARD, map_.get(1).getKeyPks().get(0).getNamePk());
         assertEq(0, map_.get(1).getKeyPks().get(0).getNumber());
         assertEq(2, map_.get(1).getTeamPositions().size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, map_.get(1).getTeamPositions().get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, map_.get(1).getTeamPositions().get(1));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), map_.get(1).getTeamPositions().get(0));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), map_.get(1).getTeamPositions().get(1));
         assertEq(1, map_.get(2).getKeyPks().size());
         assertEq(TOURNIQUET, map_.get(2).getKeyPks().get(0).getNameMv());
         assertEq(TOURNIQUET, map_.get(2).getKeyPks().get(0).getNameMvTr());
         assertEq(PTITARD, map_.get(2).getKeyPks().get(0).getNamePk());
         assertEq(0, map_.get(2).getKeyPks().get(0).getNumber());
         assertEq(2, map_.get(2).getTeamPositions().size());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, map_.get(2).getTeamPositions().get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, map_.get(2).getTeamPositions().get(1));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), map_.get(2).getTeamPositions().get(0));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), map_.get(2).getTeamPositions().get(1));
     }
 
     @Test
@@ -12512,7 +12512,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(PISTOLET_A_O,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, playerPk_.getChosenTargets().get(0));
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), playerPk_.getChosenTargets().get(0));
         assertTrue(loadedFight_.getTemp().getAcceptableChoices());
     }
 
@@ -12696,11 +12696,11 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(DEMI_TOUR,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, playerPk_.getChosenTargets().get(0));
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), playerPk_.getChosenTargets().get(0));
         assertTrue(wildPk_.getAction() instanceof ActionMove);
         assertEq(JACKPOT,wildPk_.getFirstChosenMove());
         assertEq(1, wildPk_.getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ZERO_STR, wildPk_.getChosenTargets().get(0));
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ZERO), wildPk_.getChosenTargets().get(0));
         assertEq(POKE_BALL,wildPk_.getUsedBallCatching());
         assertTrue(loadedFight_.getTemp().getAcceptableChoices());
     }
@@ -12758,7 +12758,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(BULLES_D_O,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, playerPk_.getChosenTargets().get(0));
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), playerPk_.getChosenTargets().get(0));
         assertTrue(wildPk_.estKo());
         assertTrue(loadedFight_.getTemp().getAcceptableChoices());
     }

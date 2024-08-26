@@ -7447,7 +7447,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.patch(data_);
         assertEq(BULLES_D_O,fighter_.getFirstChosenMove());
         assertEq(1,fighter_.getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ONE_STR,fighter_.getChosenTargets().get(0));
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ONE),fighter_.getChosenTargets().get(0));
     }
 
     @Test

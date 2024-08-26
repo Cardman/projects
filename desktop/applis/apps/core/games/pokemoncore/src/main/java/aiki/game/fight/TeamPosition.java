@@ -7,7 +7,7 @@ import code.util.core.StringUtil;
 
 public final class TeamPosition {
 
-    public static final char SEPARATOR=';';
+    private static final char SEPARATOR=';';
     private static final String EMPTY_STRING = "";
     private static final String INVALID=EMPTY_STRING;
 

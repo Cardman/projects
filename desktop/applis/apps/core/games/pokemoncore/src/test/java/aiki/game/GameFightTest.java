@@ -357,7 +357,7 @@ public class GameFightTest extends InitializationDataBase {
         action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, game_.getFight().getTemp().getChosableFoeTargets().size());
         assertEq(PIKACHU,getName(game_.getFight().getTemp().getChosableFoeTargets(), 0));
@@ -406,7 +406,7 @@ public class GameFightTest extends InitializationDataBase {
         action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
-        assertEq(POKEMON_PLAYER_TARGET_ONE_STR, ((ActionMove)action_).getChosenTargets().first());
+        assertEq(tc(KEY_PLAYER, POKEMON_TARGET_ONE), ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, game_.getFight().getTemp().getChosableFoeTargets().size());
         assertSame(BoolVal.TRUE, game_.getFight().getTemp().getChosableFoeTargets().get(0).getChosable());
@@ -695,7 +695,7 @@ public class GameFightTest extends InitializationDataBase {
 //        assertEq(1, map_.getVal(JACKPOT).size());
 //        TeamPositionList mapMoves_;
 //        mapMoves_ = map_.getVal(JACKPOT);
-//        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, mapMoves_.first());
+//        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), mapMoves_.first());
     }
     @Test
     public void sortedFightersBeginRoundWildFight2(){
@@ -717,8 +717,8 @@ public class GameFightTest extends InitializationDataBase {
 //        assertEq(2, map_.getVal(JACKPOT).size());
 //        TeamPositionList mapMoves_;
 //        mapMoves_ = map_.getVal(JACKPOT);
-//        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, mapMoves_.first());
-//        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, mapMoves_.last());
+//        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), mapMoves_.first());
+//        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), mapMoves_.last());
     }
     @Test
     public void sortedFightersBeginRound1(){
@@ -745,8 +745,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, data_);
         TeamPositionList tree_;
         tree_ = game_.sortedFightersBeginRound(data_);
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, tree_.first());
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, tree_.last());
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tree_.first());
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), tree_.last());
     }
     @Test
     public void getPlayerTeam1(){

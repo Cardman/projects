@@ -12,9 +12,7 @@ import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.DataMap;
-import aiki.map.levels.AbsAreaApparition;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.LevelCave;
+import aiki.map.levels.*;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.Place;
@@ -62,25 +60,6 @@ public class InitializationDataBase extends EquallablePkUtil {
     protected static final int POKEMON_TARGET_TWO = 2;
     protected static final int POKEMON_TARGET_THREE = 3;
     protected static final int POKEMON_TARGET_FOUR = 4;
-
-
-    protected static final String POKEMON_PLAYER_FIGHTER_ZERO_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+0;
-    protected static final String POKEMON_PLAYER_FIGHTER_ONE_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+1;
-    protected static final String POKEMON_PLAYER_FIGHTER_TWO_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+2;
-    protected static final String POKEMON_PLAYER_FIGHTER_THREE_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+3;
-    protected static final String POKEMON_PLAYER_FIGHTER_FOUR_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TeamPosition.SEPARATOR+4;
-
-    protected static final String POKEMON_FOE_FIGHTER_ZERO_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+0;
-    protected static final String POKEMON_FOE_FIGHTER_ONE_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+1;
-    protected static final String POKEMON_FOE_FIGHTER_TWO_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+2;
-    protected static final String POKEMON_FOE_FIGHTER_THREE_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+3;
-    protected static final String POKEMON_FOE_FIGHTER_FOUR_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TeamPosition.SEPARATOR+4;
-
-    protected static final String POKEMON_PLAYER_TARGET_ZERO_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TargetCoords.SEPARATOR+0;
-    protected static final String POKEMON_PLAYER_TARGET_ONE_STR = DataBase.EMPTY_STRING+Fight.CST_PLAYER+TargetCoords.SEPARATOR+1;
-
-    protected static final String POKEMON_FOE_TARGET_ZERO_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TargetCoords.SEPARATOR+0;
-    protected static final String POKEMON_FOE_TARGET_ONE_STR = DataBase.EMPTY_STRING+Fight.CST_FOE+TargetCoords.SEPARATOR+1;
 
     protected static final String F = MbOperationNode.FALSE_STRING;
 

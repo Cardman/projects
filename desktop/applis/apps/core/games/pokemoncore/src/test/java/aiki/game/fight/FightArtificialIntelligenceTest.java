@@ -2141,7 +2141,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2181,7 +2181,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2221,7 +2221,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(SIPHON,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2260,7 +2260,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(SIPHON,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ONE_STR,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ONE),choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2327,9 +2327,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
@@ -2365,13 +2365,13 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
     }
@@ -2404,9 +2404,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
@@ -2442,17 +2442,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(TONNERRE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2483,17 +2483,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2524,9 +2524,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ONE_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ONE),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ONE_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ONE),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
@@ -2561,17 +2561,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(DOUBLE_PIED,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2602,17 +2602,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2643,17 +2643,17 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(6, choices_.size());
         assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(ECUME,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(PICORE,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2722,11 +2722,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(3, choices_.size());
         assertEq(JACKPOT,choices_.getVal(new MoveTarget(PLAQUAGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PLAQUAGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PLAQUAGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(JACKPOT,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(PISTOLET_A_O,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(JACKPOT,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(TORGNOLES,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
     }
 
     @Test
@@ -2759,9 +2759,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(2, choices_.size());
         assertEq(CHARGE,choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(CHARGE,choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(SIPHON,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2799,7 +2799,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(NULL_REF,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
         assertEq(Fighter.BACK,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget().getPosition());
         assertEq(SIPHON,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2836,9 +2836,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(2, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ZERO))).getTarget());
         assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(new MoveTarget(CHARGE,tc(KEY_FOE, POKEMON_TARGET_ONE))).getTarget());
     }
 
     @Test
@@ -2875,7 +2875,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
         assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO_STR,choices_.getVal(MoveTarget.def()).getTarget());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO),choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test

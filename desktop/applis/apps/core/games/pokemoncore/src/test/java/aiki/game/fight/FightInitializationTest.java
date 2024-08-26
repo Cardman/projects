@@ -1157,9 +1157,9 @@ public class FightInitializationTest extends InitializationDataBase {
         FightInitialization.initFight(fight_,data_);
         TeamPositionList userTeam_ = fight_.sortedTeamMembersByPosition(Fight.CST_PLAYER);
         assertEq(3, userTeam_.size());
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, userTeam_.get(0));
-        assertEq(POKEMON_PLAYER_FIGHTER_ONE_STR, userTeam_.get(1));
-        assertEq(POKEMON_PLAYER_FIGHTER_THREE_STR, userTeam_.get(2));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), userTeam_.get(0));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), userTeam_.get(1));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_THREE), userTeam_.get(2));
     }
 
     @Test
@@ -1201,7 +1201,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO_STR, fight_.getFighterKey(TargetCoords.toUserTarget((short) 0)));
+        assertEq(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fight_.getFighterKey(TargetCoords.toUserTarget((short) 0)));
     }
 
     @Test
@@ -1243,7 +1243,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
-        assertEq(POKEMON_FOE_FIGHTER_ZERO_STR, fight_.getFighterKey(TargetCoords.toFoeTarget((short) 0)));
+        assertEq(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), fight_.getFighterKey(TargetCoords.toFoeTarget((short) 0)));
     }
     @Test
     public void getFighterKey3Test() {
@@ -1284,7 +1284,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
-        assertEq(NULL_REF, fight_.getFighterKey(TargetCoords.toUserTarget((short) 4)));
+        assertEq(new TeamPosition(), fight_.getFighterKey(TargetCoords.toUserTarget((short) 4)));
     }
     @Test
     public void addComment1Test() {

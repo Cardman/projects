@@ -354,13 +354,13 @@ public abstract class EquallablePkUtil {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringUtil.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
     }
-    public static void assertEq(String _expected, TeamPosition _result) {
+    public static void assertEq(TeamPosition _expected, TeamPosition _result) {
         Assert.assertNotNull(_result);
-        Assert.assertEquals(_expected,_result.display());
+        Assert.assertEquals(_expected.getTeam()+";"+_expected.getPosition(),_result.getTeam()+";"+_result.getPosition());
     }
-    public static void assertEq(String _expected, TargetCoords _result) {
+    public static void assertEq(TargetCoords _expected, TargetCoords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertEquals(_expected,_result.display());
+        Assert.assertEquals(_expected.getTeam()+";"+_expected.getPosition(),_result.getTeam()+";"+_result.getPosition());
     }
     public static void assertEq(Coords _expected, Coords _result) {
         Assert.assertNotNull(_result);
