@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.CommentsUtil;
 import code.expressionlanguage.options.Options;
@@ -412,21 +413,22 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         lines_.add(_manage.getEx().getAccess());
         lines_.add(StringUtil.nullToEmpty(_manage.getEx().getLg()));
         CustList<CommentDelimiters> comments_ = _manage.getOptions().getComments();
+        StringMap<String> parse_ = MessagesCdmBase.valMessages(FileInfos.getAppliTr(_manage.getEx().getLightProgramInfos().currentLg()));
         if (!comments_.isEmpty()) {
-            lines_.add(com_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildCommentsLine(comments_));
+            lines_.add(com_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildCommentsLine(parse_,comments_));
         }
         if (!_manage.getEx().getSrcFolder().isEmpty()) {
             lines_.add(src_+ExecutingOptions.EXEC_OPTIONS_SEP+ _manage.getEx().getSrcFolder());
         }
         lines_.add(tabWidth_+ExecutingOptions.EXEC_OPTIONS_SEP+ _manage.getOptions().getTabWidth());
         if (!_manage.getEx().getMessages().isEmpty()) {
-            lines_.add(mess_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(_manage.getEx().getMessages()));
+            lines_.add(mess_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(parse_,_manage.getEx().getMessages()));
         }
         if (!_manage.getEx().getKeyWords().isEmpty()) {
-            lines_.add(kw_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(_manage.getEx().getKeyWords()));
+            lines_.add(kw_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(parse_,_manage.getEx().getKeyWords()));
         }
         if (!_manage.getEx().getAliases().isEmpty()) {
-            lines_.add(als_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(_manage.getEx().getAliases()));
+            lines_.add(als_+ExecutingOptions.EXEC_OPTIONS_SEP+ParseLinesArgUtil.buildMapLine(parse_,_manage.getEx().getAliases()));
         }
         return lines_;
     }

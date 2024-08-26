@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.Options;
 import code.gui.CdmFactory;
@@ -49,11 +50,11 @@ public final class ExecutingOptions {
     }
 
     public ExecutingOptions(TranslationsLg _lg) {
-        this(MessagesExecutingOptions.valExecOptions(_lg), MessagesExecutingOptions.valExecOptionsFolder(_lg));
+        this(MessagesExecutingOptions.valExecOptions(_lg), MessagesExecutingOptions.valExecOptionsFolder(_lg), MessagesCdmBase.valMessages(FileInfos.getAppliTr(_lg)));
         setOutputTxt(MessagesExecutingOptions.valExecOptionsExts(_lg).getVal(MessagesExecutingOptions.EXEC_OPTIONS_EXT_VAL));
     }
-    public ExecutingOptions(StringMap<String> _prefs, StringMap<String> _folders) {
-        setFileSystemParameterizing(new FileSystemParameterizing(_prefs.getVal(MessagesExecutingOptions.EXEC_OPTIONS_PREF_DIRECTORY),new StringBuilder(),new Ints(), _prefs.getVal(MessagesExecutingOptions.EXEC_OPTIONS_PREF_FILE),new StringBuilder(),new Ints()));
+    public ExecutingOptions(StringMap<String> _prefs, StringMap<String> _folders, StringMap<String> _messages) {
+        setFileSystemParameterizing(new FileSystemParameterizing(_prefs.getVal(MessagesExecutingOptions.EXEC_OPTIONS_PREF_DIRECTORY),new StringBuilder(),new Ints(), _prefs.getVal(MessagesExecutingOptions.EXEC_OPTIONS_PREF_FILE),new StringBuilder(),new Ints(),_messages));
         srcFolder = StringUtil.nullToEmpty(_folders.getVal(MessagesExecutingOptions.EXEC_OPTIONS_FOLDER_SRC));
         logFolder = StringUtil.nullToEmpty(_folders.getVal(MessagesExecutingOptions.EXEC_OPTIONS_FOLDER_LOG));
         mainThread = StringUtil.nullToEmpty(_folders.getVal(MessagesExecutingOptions.EXEC_OPTIONS_FOLDER_MAIN_THREAD));
@@ -123,10 +124,10 @@ public final class ExecutingOptions {
             extractParts(aliasesPart_, l, als_+EXEC_OPTIONS_SEP);
             extractParts(messagesPart_, l, mess_+EXEC_OPTIONS_SEP);
             extractParts(keyWordsPart_, l, kw_+EXEC_OPTIONS_SEP);
-            extractComments(_options, l, com_);
+            extractComments(_exec,_options, l, com_);
         }
         finishArgs(_exec, argParts_);
-        finishInit(_options, classesPart_);
+        finishInit(_exec,_options, classesPart_);
         finishWarns(_exec, warnsPart_);
         finishAlias(_exec, aliasesPart_);
         finishMessages(_exec, messagesPart_);
@@ -136,7 +137,7 @@ public final class ExecutingOptions {
     private static void finishKeywords(ExecutingOptions _exec, StringBuilder _keyWordsPart) {
         if (_keyWordsPart.length() > 0) {
             StringMap<String> kw_ = new StringMap<String>();
-            ParseLinesArgUtil.buildMap(_keyWordsPart,kw_);
+            ParseLinesArgUtil.buildMap(MessagesCdmBase.valMessages(FileInfos.getAppliTr(_exec.lightProgramInfos.currentLg())),_keyWordsPart,kw_);
             _exec.setKeyWords(kw_);
         }
     }
@@ -144,7 +145,7 @@ public final class ExecutingOptions {
     private static void finishMessages(ExecutingOptions _exec, StringBuilder _messagesPart) {
         if (_messagesPart.length() > 0) {
             StringMap<String> kw_ = new StringMap<String>();
-            ParseLinesArgUtil.buildMap(_messagesPart,kw_);
+            ParseLinesArgUtil.buildMap(MessagesCdmBase.valMessages(FileInfos.getAppliTr(_exec.lightProgramInfos.currentLg())),_messagesPart,kw_);
             _exec.setMessages(kw_);
         }
     }
@@ -152,7 +153,7 @@ public final class ExecutingOptions {
     private static void finishAlias(ExecutingOptions _exec, StringBuilder _aliasesPart) {
         if (_aliasesPart.length() > 0) {
             StringMap<String> al_ = new StringMap<String>();
-            ParseLinesArgUtil.buildMap(_aliasesPart,al_);
+            ParseLinesArgUtil.buildMap(MessagesCdmBase.valMessages(FileInfos.getAppliTr(_exec.lightProgramInfos.currentLg())),_aliasesPart,al_);
             _exec.setAliases(al_);
         }
     }
@@ -165,21 +166,21 @@ public final class ExecutingOptions {
         }
     }
 
-    private static void finishInit(Options _options, StringBuilder _classesPart) {
+    private static void finishInit(ExecutingOptions _exec, Options _options, StringBuilder _classesPart) {
         if (_classesPart.length() > 0) {
-            _options.getTypesInit().addAllElts(ParseLinesArgUtil.parseLineArg(_classesPart.toString()));
+            _options.getTypesInit().addAllElts(ParseLinesArgUtil.parseLineArg(MessagesCdmBase.valMessages(FileInfos.getAppliTr(_exec.lightProgramInfos.currentLg())),_classesPart.toString()));
         }
     }
 
     private static void finishArgs(ExecutingOptions _exec, StringBuilder _argParts) {
         if (_exec.isHasArg()) {
-            _exec.setArgs(ParseLinesArgUtil.parseLineArg(_argParts.toString()));
+            _exec.setArgs(ParseLinesArgUtil.parseLineArg(MessagesCdmBase.valMessages(FileInfos.getAppliTr(_exec.lightProgramInfos.currentLg())),_argParts.toString()));
         }
     }
 
-    private static void extractComments(Options _options, String _l, String _pref) {
+    private static void extractComments(ExecutingOptions _exec, Options _options, String _l, String _pref) {
         if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
-            CustList<CommentDelimiters> comments_ = ParseLinesArgUtil.buildComments(_l.substring((_pref +EXEC_OPTIONS_SEP).length()));
+            CustList<CommentDelimiters> comments_ = ParseLinesArgUtil.buildComments(MessagesCdmBase.valMessages(FileInfos.getAppliTr(_exec.lightProgramInfos.currentLg())),_l.substring((_pref +EXEC_OPTIONS_SEP).length()));
             _options.getComments().clear();
             _options.getComments().addAllElts(comments_);
         }

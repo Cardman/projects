@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.DefAliasFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -147,8 +148,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         }
     }
 
-    private static void buildMap(StringBuilder _parts, StringMap<String> _map) {
-        ParseLinesArgUtil.buildMap(_parts, _map);
+    private void buildMap(StringBuilder _parts, StringMap<String> _map) {
+        ParseLinesArgUtil.buildMap(MessagesCdmBase.valMessages(FileInfos.getAppliTr(execContent.getExecutingOptions().getLightProgramInfos().currentLg())), _parts, _map);
     }
 
     private void otherStyleUnits(RendKeyWords _rendKw, StringMap<String> _cust) {

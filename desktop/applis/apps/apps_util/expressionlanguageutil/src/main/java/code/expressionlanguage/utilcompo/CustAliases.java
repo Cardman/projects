@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.CstFieldInfo;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
@@ -3725,11 +3726,12 @@ public final class CustAliases implements AbsAliasFileBuilder {
         TranslationsLg lg_ = lg(_trs, _lg, _language);
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.COMMENTS);
-        String comments_ = "\\u005c*,*\\u005c;\\u005c\\u005c,\\n;\\u005c<"
+        StringMap<String> mes_ = MessagesCdmBase.valMessages(app_);
+        String comments_ = "\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c*,*\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c;\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c,\\"+mes_.getVal(MessagesCdmBase.NEW_LINE)+";\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c<"
                 +com_.getMapping().getVal(FileInfos.COMM_BEGIN)
                 +">,</"+com_.getMapping().getVal(FileInfos.COMM_END)
-                +">;\\u005c>,\\n\n";
-        return ParseLinesArgUtil.buildComments(comments_);
+                +">;\\"+mes_.getVal(MessagesCdmBase.UNICODE)+"005c>,\\"+mes_.getVal(MessagesCdmBase.NEW_LINE)+"\n";
+        return ParseLinesArgUtil.buildComments(mes_,comments_);
     }
 
     public static TranslationsLg lg(Translations _trs, String _one, String _two) {

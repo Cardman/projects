@@ -1,10 +1,12 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.structs.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.sml.*;
+import code.sml.util.TranslationsAppli;
 import code.stream.core.*;
 import code.util.*;
 import code.util.core.*;
@@ -77,6 +79,12 @@ public abstract class EquallableElIntUtil {
         return _files;
     }
     public static FileSystemParameterizing params() {
-        return new FileSystemParameterizing("d",new StringBuilder(),new Ints(),"f",new StringBuilder(),new Ints());
+        return new FileSystemParameterizing("d",new StringBuilder(),new Ints(),"f",new StringBuilder(),new Ints(), app());
+    }
+
+    public static StringMap<String> app() {
+        TranslationsAppli a_ = new TranslationsAppli();
+        MessagesCdmBase.update(a_);
+        return MessagesCdmBase.valMessages(a_);
     }
 }

@@ -7,6 +7,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.CstFieldInfo;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.dbg.DefLogDbg;
@@ -496,8 +497,8 @@ public abstract class EquallableElUtUtil {
         return new AdvContextGenerator(_definedLgNames.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()).gene(getForwards(_definedLgNames, _opt));
     }
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
-        MessagesExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.EN)));
-        MessagesExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.FR)));
+        MessagesCdmBase.update(MessagesExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.EN))));
+        MessagesCdmBase.update(MessagesExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.FR))));
         ((MockProgramInfos)_p).setLanguage(StringUtil.EN);
         return new ExecutingOptions(_p);
     }

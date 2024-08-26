@@ -8,14 +8,14 @@ import code.util.core.StringUtil;
 public final class FileSystemParameterizing {
     private final String folderPrefix;
     private final String filePrefix;
-    public FileSystemParameterizing(String _defFolder,StringBuilder _folder, Ints _folderIndex, String _defFile, StringBuilder _file, Ints _fileIndex) {
+    public FileSystemParameterizing(String _defFolder,StringBuilder _folder, Ints _folderIndex, String _defFile, StringBuilder _file, Ints _fileIndex, StringMap<String> _messages) {
         if (_folderIndex.isEmpty() && _fileIndex.isEmpty()) {
             folderPrefix = feedFirst(_defFolder,_defFile);
             filePrefix = feedFirst(_defFile,_defFolder);
             return;
         }
-        String filPref_ = improve(_file.length(),ParseLinesArgUtil.parseValue(_file.toString()),_defFile);
-        String folPref_ = improve(_folder.length(),ParseLinesArgUtil.parseValue(_folder.toString()),_defFolder);
+        String filPref_ = improve(_file.length(),ParseLinesArgUtil.parseValue(_messages,_file.toString()),_defFile);
+        String folPref_ = improve(_folder.length(),ParseLinesArgUtil.parseValue(_messages,_folder.toString()),_defFolder);
         if (fixFolder(_folderIndex, _fileIndex)) {
             if (StringUtil.quickEq(folPref_, filPref_)) {
                 folderPrefix = distinct(folPref_);
