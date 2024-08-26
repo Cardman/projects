@@ -16,7 +16,6 @@ public final class DefProgramInfos extends ProgramInfosDeps {
         light_.setLanguages(getLanguages());
         light_.setLanguage(getLanguage());
         light_.setTranslations(getTranslations());
-        light_.setCommon(getCommon());
         return light_;
     }
 }

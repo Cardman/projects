@@ -14,8 +14,6 @@ public interface AbstractLightProgramInfos {
     TranslationsLg currentLg();
     Translations getTranslations();
     void setTranslations(Translations _trs);
-    StringMap<String> getCommon();
-    void setCommon(StringMap<String> _c);
     AbsLightFrameFactory getLightFrameFactory();
     AbstractGenerator getGenerator();
     AbstractThreadFactory getThreadFactory();

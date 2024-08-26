@@ -21,7 +21,6 @@ import code.gui.initialize.*;
 import code.netw.MessagesNetWork;
 import code.player.gui.MessagesSongs;
 import code.scripts.imgs.cards.CardsInit;
-import code.scripts.messages.gui.MessGuiGr;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.cards.HelpCards;
 import code.scripts.pages.cards.MessBelotePage;
@@ -133,7 +132,6 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
         en_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.enFight());
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.frFight());
-        _pr.setCommon(MessGuiGr.ms());
     }
 
     public static WithAppFactories build(AbstractProgramInfos _p) {

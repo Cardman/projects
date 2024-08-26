@@ -7,7 +7,6 @@ public final class ScriptsTest extends EquallableScriptsUtil {
     @Test
     public void global(){
         assertNotNull(MessPkVideoGr.ms());
-        assertNotNull(MessGuiGr.ms());
         assertNotNull(MessPlayerGr.ms());
         assertFalse(MessPkVideoGr.resourcesPkPokemon().isEmpty());
         assertFalse(MessPlayerGr.resourcesPlayerPlayer().isEmpty());
