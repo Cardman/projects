@@ -235,6 +235,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     @Override
     public void changeLanguage(String _language) {
         getFrames().setLanguage(_language);
+        interceptor.getProgramInfos().setLanguage(_language);
     }
 
     public RenderedPage getSession() {

@@ -181,6 +181,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
     @Override
     public void changeLanguage(String _language) {
         getFrames().setLanguage(_language);
+        cdmFactory.getProgramInfos().setLanguage(_language);
     }
 
 //    public GuiInterpreterElements getCurrentElements() {

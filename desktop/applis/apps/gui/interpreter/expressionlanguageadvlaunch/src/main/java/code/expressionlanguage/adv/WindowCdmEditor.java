@@ -535,6 +535,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     @Override
     public void changeLanguage(String _language) {
         getFrames().setLanguage(_language);
+        getFactory().getProgramInfos().setLanguage(_language);
     }
 
     @Override

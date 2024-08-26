@@ -96,6 +96,7 @@ public abstract class SoftApplicationCore {
 
     protected void launchFile(String[] _args, String _lg) {
         getFrames().setLanguage(_lg);
+        factories.getAppFactories().getCdmFactory().getProgramInfos().setLanguage(_lg);
         launch(_lg, new InterpretedFile(getFrames(),_args), null, null, new LanguagesButtonsPair(null,null,null));
     }
 

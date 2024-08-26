@@ -212,6 +212,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
     @Override
     public void changeLanguage(String _language) {
         getFrames().setLanguage(_language);
+        getFactory().getProgramInfos().setLanguage(_language);
     }
 
     public void process(TestableFrame _mainWindow) {
