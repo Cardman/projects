@@ -79,7 +79,7 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
     private static final char LEFT_BRACE = '{';
     private static final char LEFT_PAR = '(';
     private static final char RIGHT_PAR = ')';
-    private static final String EMPTY_PARAMS_SGN = ""+LEFT_PAR+RIGHT_PAR+LEFT_BRACE;
+    private static final String EMPTY_PARAMS_SGN = BeanLgNames.EMPTY_STRING+LEFT_PAR+RIGHT_PAR+LEFT_BRACE;
     private static final char RIGHT_BRACE = '}';
     private static final char DOT = '.';
     private static final char AFFECT = '=';
@@ -92,7 +92,7 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
     private static final String LT = "<";
     private static final String INCR = "++";
     private static final String ADD_ONE = "+1";
-    private static final String AFFECT_ZERO = "="+ZERO;
+    private static final String AFFECT_ZERO = BeanLgNames.EMPTY_STRING+AFFECT+ZERO;
     private static final String MINUS_ONE = "-1";
     private static final String EQ = "==";
     private static final String DIFF = "!=";
