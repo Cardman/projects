@@ -30,8 +30,9 @@ public final class DefImageFactory implements AbstractImageFactory {
 
     @Override
     public AbstractImage newImageFromBytes(byte[] _bytes) {
-        MemoryCacheImageInputStream mem_ = new MemoryCacheImageInputStream(new ByteArrayInputStream(_bytes));
+        MemoryCacheImageInputStream mem_ = null;
         try {
+            mem_ = new MemoryCacheImageInputStream(new ByteArrayInputStream(_bytes));
             BufferedImage read_ = ImageIO.read(mem_);
             StreamCoreUtil.close(mem_);
             return new DefImage(read_);
