@@ -1,6 +1,5 @@
 package aiki.main;
 
-import aiki.db.DataBase;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
@@ -13,16 +12,16 @@ import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.*;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.StringList;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public final class VideoLoading {
 
-    public static final String IMG_FILES_RES_EXT = ".png";
+//    public static final String IMG_FILES_RES_EXT = ".png";
     /**IMAGES does not contain any null BufferedImage*/
     private static final String VIDEO = "video";
 //    private static final String VIDEO_DEFAULT = "resources_pk/gui/video/";
-    private static final String FILE = "link_";
+//    private static final String FILE = "link_";
     private final CustList<CustList<AbstractImage>> images = new CustList<CustList<AbstractImage>>();
     private boolean initialized;
     private final LgInt maxRd = LgInt.getMaxLongPlusOne();
@@ -31,8 +30,7 @@ public final class VideoLoading {
         if (initialized) {
             return images(_abs);
         }
-        String path_ = VIDEO;
-        AbstractFile file_ = _list.newFile(path_);
+        AbstractFile file_ = _list.newFile(VIDEO);
         FileListInfo filesLists_ = PathsUtil.abs(file_,_list);
         if (!filesLists_.isNul()) {
             for (AbstractFile folder_: filesLists_.getNames()) {
@@ -40,7 +38,7 @@ public final class VideoLoading {
                 if (files_.isNul()) {
                     continue;
                 }
-                CustList<AbstractImage> imgs_ = imgsByFile(_abInfo, path_, folder_, files_);
+                CustList<AbstractImage> imgs_ = imgsByFile(_abInfo, files_);
                 images.add(imgs_);
             }
         } else {
@@ -65,14 +63,16 @@ public final class VideoLoading {
         return imgs_;
     }
 
-    private CustList<AbstractImage> imgsByFile(AbstractProgramInfos _abInfo, String _path, AbstractFile _folder, FileListInfo _files) {
+    private CustList<AbstractImage> imgsByFile(AbstractProgramInfos _abInfo, FileListInfo _files) {
         CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
-        int len_ = _files.getNames().length;
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            String fi_ = StringUtil.concat(_path, DataBase.SEPARATOR_FILES, _folder.getName(),
-                    DataBase.SEPARATOR_FILES, FILE, Long.toString(i), IMG_FILES_RES_EXT);
+        StringList paths_ = new StringList();
+        for (AbstractFile f: _files.getNames()) {
+            paths_.add(f.getAbsolutePath());
+        }
+        paths_.sort();
+        for (String s: paths_) {
             AbstractImage img_ = _abInfo.getImageFactory().newImageFromBytes(
-                    StreamBinaryFile.loadFile(fi_, _abInfo.getStreams()).getBytes());
+                    StreamBinaryFile.loadFile(s, _abInfo.getStreams()).getBytes());
             if (img_ != null) {
                 imgs_.add(img_);
             }
