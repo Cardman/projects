@@ -5,16 +5,18 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class FullNode implements Node {
-    private static final char QUOT = 34;
-    private static final char APOS = 39;
-    private static final char LT = 60;
-    private static final char GT = 62;
-    private static final char ENCODED = '&';
-    private static final String E_GT = "&gt;";
-    private static final String E_LT = "&lt;";
-    private static final String E_AMP = "&amp;";
-    private static final String E_APOS = "&apos;";
-    private static final String E_QUOT = "&quot;";
+    private static final int QUOT = 34;
+    private static final int AMP = 38;
+    private static final int APOS = 39;
+    private static final int LT = 60;
+    private static final int GT = 62;
+    private static final String ENCODED = "&#";
+    private static final String END = ";";
+    private static final String E_GT = ENCODED+GT+END;
+    private static final String E_LT = ENCODED+LT+END;
+    private static final String E_AMP = ENCODED+AMP+END;
+    private static final String E_APOS = ENCODED+APOS+END;
+    private static final String E_QUOT = ENCODED+QUOT+END;
 
     private static final String BEGIN_TAG = "<";
     private static final String END_LEAF = "/>";
@@ -52,7 +54,7 @@ public abstract class FullNode implements Node {
             _escapedXml.append(E_GT);
             return;
         }
-        if (_c == ENCODED) {
+        if (_c == AMP) {
             _escapedXml.append(E_AMP);
             return;
         }

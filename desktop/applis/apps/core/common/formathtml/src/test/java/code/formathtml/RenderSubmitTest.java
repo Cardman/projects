@@ -16,7 +16,7 @@ public final class RenderSubmitTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", getRes(folder_, relative_, html_, files_));
+        assertEq("<html><body><input value=\"desc &#38;lt;text&#38;gt;\" type=\"submit\"/></body></html>", getRes(folder_, relative_, html_, files_));
     }
 
     @Test
@@ -38,7 +38,7 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><input value=\"desc &amp;lt;TITLE2&amp;gt;\" type=\"submit\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><input value=\"desc &#38;lt;TITLE2&#38;gt;\" type=\"submit\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test

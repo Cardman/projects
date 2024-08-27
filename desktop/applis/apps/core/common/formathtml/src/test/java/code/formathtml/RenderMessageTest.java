@@ -26,7 +26,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process2Test() {
@@ -50,7 +50,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click(2)\" href=\"\" n-a=\"0\">two</a>After</body></html>", getAncOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"$bean_one.click(2)\" href=\"\" n-a=\"0\">two</a>After</body></html>", getAncOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -75,7 +75,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"link\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"link\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process4Test() {
@@ -99,7 +99,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &lt;Text&gt;<br/>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<br/>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process5Test() {
@@ -123,7 +123,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &amp;lt;Text&amp;gt;&lt;br/&gt;After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#38;lt;Text&#38;gt;&#60;br/&#62;After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process6Test() {
@@ -147,7 +147,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &lt;Text&gt;<a name=\"link\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a name=\"link\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process7Test() {
@@ -171,7 +171,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &lt;Text&gt;<a href=\"link\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a href=\"link\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process8Test() {
@@ -267,7 +267,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process12Test() {

@@ -431,7 +431,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><ul>&lt;a c:command='$composite.sum(5,5,5)'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+        assertEq("<html><body><ul>&#60;a c:command='$composite.sum(5,5,5)'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
 
 //    @Test
@@ -463,7 +463,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><ul>&lt;a c:command='$validateStrings()'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+        assertEq("<html><body><ul>&#60;a c:command='$validateStrings()'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
 
     @Test
@@ -479,7 +479,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        getStrings(v_).add("FIRST");
 //        getStrings(v_).add("SECOND");
         //setInteger(v_);
-        assertEq("<html><body><ul>&lt;a c:command='composite'&gt;5&lt;/a&gt;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+        assertEq("<html><body><ul>&#60;a c:command='composite'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
     }
     @Test
     public void process__2Test() {

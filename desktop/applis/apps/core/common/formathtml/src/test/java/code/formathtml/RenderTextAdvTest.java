@@ -129,7 +129,7 @@ public final class RenderTextAdvTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>java.lang.$Fct&lt;$int,[$int&gt;</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+        assertEq("<html><body>java.lang.$Fct&#60;$int,[$int&#62;</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
     }
 
     @Test

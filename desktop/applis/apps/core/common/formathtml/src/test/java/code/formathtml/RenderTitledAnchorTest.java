@@ -14,7 +14,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String html_ = "<html><body><c:a value=\"msg_example,three\" param0='\"TITLE\"'>Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
-        assertEq("<html><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", getRes(folder_, relative_, html_, files_, new StringMap<String>()));
+        assertEq("<html><body><a title=\"desc &#38;lt;TITLE&#38;gt;\">Content</a></body></html>", getRes(folder_, relative_, html_, files_, new StringMap<String>()));
     }
 
     @Test
@@ -51,7 +51,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" title=\"desc &amp;lt;TITLE&amp;gt;\" href=\"\" n-a=\"0\">Content</a></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" title=\"desc &#38;lt;TITLE&#38;gt;\" href=\"\" n-a=\"0\">Content</a></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process1FailTest() {
