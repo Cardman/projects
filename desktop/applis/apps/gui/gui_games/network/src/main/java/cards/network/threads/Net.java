@@ -120,9 +120,9 @@ public final class Net {
     public static final char SEP_2 = ',';
     public static final char SEP_3 = '!';
     public static final char SEP_4 = '*';
-    public static final char SEP_5 = '$';
+    public static final char SEP_5 = '@';
     public static final char SEP_6 = '=';
-    public static final char SEP_7 = '@';
+    public static final char SEP_7 = '^';
     public static final char SEP_8 = '&';
     public static final char SEP_9 = '|';
     public static final String EMPTY_LIST = "-";

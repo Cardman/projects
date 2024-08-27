@@ -37,9 +37,9 @@ public final class NetAiki {
     public static final char AIKI_SEP_2 = ',';
     public static final char AIKI_SEP_3 = '!';
     public static final char AIKI_SEP_4 = '*';
-    public static final char AIKI_SEP_5 = '$';
+    public static final char AIKI_SEP_5 = '@';
     public static final char AIKI_SEP_6 = '=';
-    public static final char AIKI_SEP_7 = '@';
+    public static final char AIKI_SEP_7 = '^';
     public static final char AIKI_SEP_8 = '&';
     public static final char AIKI_SEP_9 = '|';
     /** A used port for connections*/
