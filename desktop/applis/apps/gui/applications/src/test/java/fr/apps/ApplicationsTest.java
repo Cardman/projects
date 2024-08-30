@@ -7,7 +7,7 @@ import aiki.game.player.enums.*;
 import aiki.gui.*;
 import aiki.main.*;
 import aiki.sml.*;
-import applications.code.expressionlanguage.adv.LaunchingCdmEditor;
+import applications.code.expressionlanguage.adv.*;
 import applications.code.gui.*;
 import applications.gui.*;
 import applications.main.*;
@@ -25,20 +25,19 @@ import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.*;
 import code.converterimages.gui.*;
-import code.expressionlanguage.adv.MessagesIde;
+import code.expressionlanguage.adv.*;
 import code.expressionlanguage.gui.unit.*;
 import code.expressionlanguage.utilcompo.*;
-import code.formathtml.util.DefaultBeanAliases;
+import code.formathtml.util.*;
 import code.gui.*;
 import code.gui.files.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
-import code.minirts.MessagesRts;
-import code.minirts.WindowRts;
+import code.minirts.*;
 import code.mock.*;
 import code.netw.*;
 import code.player.gui.*;
-import code.renders.MessagesRenders;
+import code.renders.*;
 import code.sml.*;
 import code.sml.util.*;
 import code.stream.*;
@@ -72,8 +71,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         elt_.appendChild(locale_);
         lg_.appendChild(elt_);
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesRts.APPS_RTS);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(2,p_.getFrames().size());
         ((WindowApps)p_.getFrames().get(0)).getButtons().getGroupe().get(0).getActionListeners().get(0).action();
     }
@@ -85,8 +84,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
         fullDocument_.appendChild(fullDocument_.createElement("_"));
         StreamTextFile.saveTextFile(ARG, fullDocument_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(0,p_.getFrames().size());
 //        ((MockCompoFactory)p_.getCompoFactory()).invoke();
     }
@@ -107,8 +106,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         elt_.appendChild(locale_);
         lg_.appendChild(elt_);
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesRts.APPS_RTS);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(2,p_.getFrames().size());
         ((WindowRts)p_.getFrames().get(1)).getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         ((WindowApps)p_.getFrames().get(0)).getButtons().getGroupe().get(0).getActionListeners().get(0).action();
@@ -119,8 +118,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         p_.setLanguages(new StringList(EN));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(ARG, "",p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(0,p_.getFrames().size());
 //        ((MockCompoFactory)p_.getCompoFactory()).invoke();
     }
@@ -137,8 +136,10 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         elt_.appendChild(locale_);
         lg_.appendChild(elt_);
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        p_.setLanguage(EN);
+        MessagesApplications.tr(MessagesApplications.initAppliTr(p_.lg(EN)));
+        LaunchingApplications la_ = la(p_);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(1,p_.getFrames().size());
 //        ((MockCompoFactory)p_.getCompoFactory()).invoke();
     }
@@ -147,6 +148,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         p_.setLanguage(EN);
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(p_.getTranslations()));
         MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
@@ -179,8 +181,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         elt_.appendChild(locale_);
         lg_.appendChild(elt_);
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesPkGame.PK);
+        la_.loadLanguage(new String[]{ARG});
         ((WindowAiki)p_.getFrames().get(1)).getFacade().setSexList(f_.getSexList());
         ((MockThreadFactory)p_.getThreadFactory()).getAllThreads().get(0).join();
         assertEq(2,p_.getFrames().size());
@@ -190,6 +192,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         p_.setLanguage(EN);
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(p_.getTranslations()));
         MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
@@ -224,8 +227,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         elt_.appendChild(locale_);
         lg_.appendChild(elt_);
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesPkGame.PK);
+        la_.loadLanguage(new String[]{ARG});
         ((WindowAiki)p_.getFrames().get(1)).getFacade().setSexList(f_.getSexList());
         ((MockThreadFactory)p_.getThreadFactory()).getAllThreads().get(0).join();
         assertEq(2,p_.getFrames().size());
@@ -292,8 +295,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, FileInfos.CDM);
+        la_.loadLanguage(new String[]{ARG});
         ((MockThreadFactory)p_.getThreadFactory()).getAllThreads().get(0).join();
         assertEq(2,p_.getFrames().size());
     }
@@ -316,8 +319,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, FileInfos.CDM);
+        la_.loadLanguage(new String[]{ARG});
         ((MockBaseExecutorService)((WindowUnit)p_.getFrames().last()).getExec()).getTasks().lastValue().attendre();
         assertEq(2,p_.getFrames().size());
     }
@@ -340,8 +343,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, FileInfos.CDM);
+        la_.loadLanguage(new String[]{ARG});
         ((MockBaseExecutorService)((WindowUnit)p_.getFrames().last()).getExec()).getTasks().lastValue().attendre();
         assertEq(2,p_.getFrames().size());
     }
@@ -363,8 +366,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, FileInfos.CDM);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(2,p_.getFrames().size());
     }
     @Test
@@ -372,6 +375,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(p_.getTranslations()));
         maxiImgs(p_);
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -396,8 +400,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesCardGames.CARDS);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(2,p_.getFrames().size());
     }
     @Test
@@ -405,6 +409,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(p_.getTranslations()));
         maxiImgs(p_);
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -421,8 +426,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesCardGames.CARDS);
+        la_.loadLanguage(new String[]{ARG});
         tryAn((MockThreadFactory) p_.getThreadFactory());
         assertEq(2,p_.getFrames().size());
     }
@@ -431,6 +436,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(p_.getTranslations()));
         maxiImgs(p_);
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -455,8 +461,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesCardGames.CARDS);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(2,p_.getFrames().size());
     }
     @Test
@@ -495,8 +501,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesConverter.APPS_CONVERTER);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(2,p_.getFrames().size());
     }
     @Test
@@ -525,8 +531,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesSongs.SONGS_APP);
+        la_.loadLanguage(new String[]{ARG});
         assertEq(2,p_.getFrames().size());
     }
     @Test
@@ -556,8 +562,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
         AbsButton main_ = p_.getCompoFactory().newPlainButton();
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, MessagesSongs.SONGS_APP);
+        la_.loadLanguage(new String[]{});
         RecordEvent.rec((WindowApps) p_.getFrames().get(0), main_, new LanguagesButtonsPair(null,main_,null)).action();
         assertEq(2,p_.getFrames().size());
         p_.getFrames().get(0).getCommonFrame().getWindowListenersDef().get(0).windowClosing();
@@ -590,8 +596,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
         AbsButton main_ = p_.getCompoFactory().newPlainButton();
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, FileInfos.CDM);
+        la_.loadLanguage(new String[]{});
         new LaunchingCdmEditor(la_.getFactories()).launch("",main_,new LanguagesButtonsPair(null,main_,null));
         assertEq(2,p_.getFrames().size());
     }
@@ -611,8 +617,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         elt_.appendChild(locale_);
         lg_.appendChild(elt_);
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, MessagesRts.APPS_RTS);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonDemo().getActionListeners().get(0).action();
         p_.getFrames().get(1).getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         ((WindowApps)p_.getFrames().get(0)).getButtonDemo().getActionListeners().get(0).action();
@@ -623,6 +629,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         p_.setLanguage(EN);
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(p_.getTranslations()));
         MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
@@ -655,8 +662,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         elt_.appendChild(locale_);
         lg_.appendChild(elt_);
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, MessagesPkGame.PK);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonPokemon().getActionListeners().get(0).action();
         ((WindowAiki)p_.getFrames().get(1)).getFacade().setSexList(f_.getSexList());
         assertEq(2,p_.getFrames().size());
@@ -723,8 +730,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, FileInfos.CDM);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonRenders().getActionListeners().get(0).action();
         assertEq(2,p_.getFrames().size());
     }
@@ -747,8 +754,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, FileInfos.CDM);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonTests().getActionListeners().get(0).action();
         assertEq(2,p_.getFrames().size());
     }
@@ -770,8 +777,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, FileInfos.CDM);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonApps().getActionListeners().get(0).action();
         assertEq(2,p_.getFrames().size());
     }
@@ -780,6 +787,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
         MessagesCardGames.enTr(MessagesCardGames.initAppliTr(en_));
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(p_.getTranslations()));
         maxiImgs(p_);
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -791,8 +799,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, MessagesCardGames.CARDS);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonCards().getActionListeners().get(0).action();
         assertEq(2,p_.getFrames().size());
     }
@@ -832,8 +840,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, MessagesConverter.APPS_CONVERTER);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonConverter().getActionListeners().get(0).action();
         assertEq(2,p_.getFrames().size());
     }
@@ -863,8 +871,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        LaunchingApplications la_ = la(p_, MessagesSongs.SONGS_APP);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonPlayer().getActionListeners().get(0).action();
         assertEq(2,p_.getFrames().size());
 
@@ -889,8 +897,10 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         lg_.appendChild(elt_);
         p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
         StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{});
+        MessagesApplications.tr(MessagesApplications.initAppliTr(p_.currentLg()));
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(p_.getTranslations()));
+        LaunchingApplications la_ = la(p_);
+        la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonNet().getActionListeners().get(0).action();
         assertEq(2,p_.getFrames().size());
 
@@ -904,8 +914,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
         fullDocument_.appendChild(fullDocument_.createElement("_"));
         StreamTextFile.saveTextFile(ARG, fullDocument_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_, MessagesRts.APPS_RTS);
+        la_.loadLanguage(new String[]{ARG});
         la_.getLanguageFrame().changeLanguage(EN);
         assertEq(2,p_.getFrames().size());
         la_.getLanguageFrame().getLanguage();
@@ -919,8 +929,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
         fullDocument_.appendChild(fullDocument_.createElement("_"));
         StreamTextFile.saveTextFile(ARG, fullDocument_.export(),p_.getStreams());
-        LaunchingApplications la_ = new LaunchingApplications(new WithAppFactories(p_,new AppFactories(new AikiFactory(p_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()),new CardFactories(p_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(p_,new MockInterceptor()))));
-        la_.loadLanguage(TEMP_FOLDER,new String[]{ARG});
+        LaunchingApplications la_ = la(p_);
+        la_.loadLanguage(new String[]{ARG});
         la_.getLanguageFrame().getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         assertEq(0,p_.getFrames().size());
 //        ((MockCompoFactory)p_.getCompoFactory()).invoke();
@@ -1310,6 +1320,22 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         en_.addEntry(MessagesGuiFct.FILE_OPEN_DIAL,MessagesFileOpenDialog.en());
         en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
         en_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.en());
+    }
+
+    private LaunchingApplications la(MockProgramInfos _p, String _app) {
+        TranslationsAppli tmpFold_ = new TranslationsAppli();
+        TranslationsFile tf_ = new TranslationsFile();
+        tf_.add(Translations.TEMP_FOLDER,TEMP_FOLDER);
+        tmpFold_.getMapping().addEntry(Translations.FILES_PATH, tf_);
+        _p.getTranslations().getFiles().addEntry(_app, tmpFold_);
+        MessagesApplications.tr(MessagesApplications.initAppliTr(_p.currentLg()));
+        return la(_p);
+    }
+
+    private LaunchingApplications la(MockProgramInfos _p) {
+        TranslationsAppli tmpFold_ = MessagesApplications.initAppliFilesTr(_p.getTranslations());
+        MessagesApplications.sys(tmpFold_);
+        return new LaunchingApplications(new WithAppFactories(_p, new AppFactories(new AikiFactory(_p, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()), new CardFactories(_p, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()), new CdmFactory(_p, new MockInterceptor()), TEMP_FOLDER)));
     }
 
 }

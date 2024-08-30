@@ -499,6 +499,8 @@ public abstract class EquallableElUtUtil {
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {
         MessagesCdmBase.update(MessagesExecutingOptions.updateEn(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.EN))));
         MessagesCdmBase.update(MessagesExecutingOptions.updateFr(FileInfos.initAppliTr(((MockProgramInfos)_p).lg(StringUtil.FR))));
+        FileInfos.initAppliFilesTr(_p.getTranslations());
+        FileInfos.getAppliFilesTr(_p.getTranslations());
         ((MockProgramInfos)_p).setLanguage(StringUtil.EN);
         return new ExecutingOptions(_p);
     }

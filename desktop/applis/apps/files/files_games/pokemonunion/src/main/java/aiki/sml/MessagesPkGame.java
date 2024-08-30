@@ -1,8 +1,6 @@
 package aiki.sml;
 
-import code.sml.util.TranslationsAppli;
-import code.sml.util.TranslationsFile;
-import code.sml.util.TranslationsLg;
+import code.sml.util.*;
 
 public final class MessagesPkGame {
     public static final String PK = "pk";
@@ -33,7 +31,12 @@ public final class MessagesPkGame {
     public static final String FIGHTER_ACCESS = "aiki.game.fight.fighter";
     public static final String PLAYER_ACCESS = "aiki.game.player.player";
     public static final String POKEMON_PLAYER = "aiki.map.pokemon.pokemonplayer";
-
+    public static final String TEMP_FOLDER = Translations.TEMP_FOLDER;
+    public static final String DEFAULT_SAVE_GAME = "1";
+    public static final String PORT_INI = "2";
+    public static final String LOAD_CONFIG_FILE = "3";
+    public static final String COORDS="4";
+    public static final String VIDEO = "5";
     private MessagesPkGame() {
     }
 
@@ -45,6 +48,16 @@ public final class MessagesPkGame {
 
     public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
         return _lgs.getMapping().getVal(PK);
+    }
+
+    public static TranslationsAppli initAppliFilesTr(Translations _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getFiles().addEntry(PK, a_);
+        return a_;
+    }
+
+    public static TranslationsAppli getAppliFilesTr(Translations _lgs) {
+        return _lgs.getFiles().getVal(PK);
     }
 
     public static void enTr(TranslationsAppli _lgs) {
@@ -106,6 +119,21 @@ public final class MessagesPkGame {
         _lgs.getMapping().addEntry(PLAYER_ACCESS,MessagesCorePk.frPlayer());
         _lgs.getMapping().addEntry(POKEMON_PLAYER,MessagesCorePk.frPokemonPlayer());
     }
+
+    public static void sys(TranslationsAppli _lgs) {
+        _lgs.sys(mes());
+    }
+    public static TranslationsFile mes(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(TEMP_FOLDER,"pokemon");
+        t_.add(DEFAULT_SAVE_GAME,"last_save.pkgame");
+        t_.add(PORT_INI,"pokemon_port.ini");
+        t_.add(LOAD_CONFIG_FILE,"loadconfig.pkconf");
+        t_.add(COORDS,"pk.coords");
+        t_.add(VIDEO,"video");
+        return t_;
+    }
+
 
     public static void appendPkGameDetailContent(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(PK_DETAIL_CONTENT, _f);

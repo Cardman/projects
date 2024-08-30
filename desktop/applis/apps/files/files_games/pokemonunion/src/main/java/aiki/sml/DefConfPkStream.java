@@ -37,7 +37,7 @@ public final class DefConfPkStream implements IntConfPkStream{
 //                    zip_ = DataBase.EMPTY_STRING;
 //                }
                 if (zip_.isEmpty() || programInfos.getFileCoreStream().newFile(zip_).exists()) {
-                    fileConfig_ = StringUtil.concat(_tmpFolder, LoadingGame.LOAD_CONFIG_FILE);
+                    fileConfig_ = StringUtil.concat(_tmpFolder, MessagesPkGame.getAppliFilesTr(programInfos.getTranslations()).val().getMapping().getVal(MessagesPkGame.LOAD_CONFIG_FILE));
                 }
             }
         }
@@ -54,7 +54,7 @@ public final class DefConfPkStream implements IntConfPkStream{
 //                    fileConfig_ = StringUtil.concat(_tmpFolder, Resources.LOAD_CONFIG_FILE);
 //                }
             } else {
-                fileConfig_ = StringUtil.concat(_tmpFolder, LoadingGame.LOAD_CONFIG_FILE);
+                fileConfig_ = StringUtil.concat(_tmpFolder, MessagesPkGame.getAppliFilesTr(programInfos.getTranslations()).val().getMapping().getVal(MessagesPkGame.LOAD_CONFIG_FILE));
             }
         } else {
             String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(programInfos.getFileCoreStream()),fileConfig_), programInfos.getFileCoreStream(), programInfos.getStreams());

@@ -15,7 +15,7 @@ public final class DefNicknamesCrud extends AbsNicknamesCrudImpl {
     @Override
     public Nicknames value() {
         StringMap<String> mess_ = MessagesCardGames.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(MessagesCardGames.NICK_NAMES).getMapping();
-        return DocumentReaderCardsUnionUtil.getNicknames(mess_.getVal(MessagesCardGames.USER),mess_.getVal(MessagesCardGames.NICKNAME),StreamTextFile.contentsOfFile(StringUtil.concat(getTempFolder(),FacadeCards.PLAYERS), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams()));
+        return DocumentReaderCardsUnionUtil.getNicknames(mess_.getVal(MessagesCardGames.USER),mess_.getVal(MessagesCardGames.NICKNAME),StreamTextFile.contentsOfFile(StringUtil.concat(getTempFolder(), MessagesCardGames.getAppliFilesTr(getProgramInfos().getTranslations()).val().getMapping().getVal(MessagesCardGames.PLAYERS)), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams()));
     }
 
     @Override
@@ -31,6 +31,6 @@ public final class DefNicknamesCrud extends AbsNicknamesCrudImpl {
     @Override
     public void value(Nicknames _n) {
         setNicknames(_n);
-        getNicknames().sauvegarder(StringUtil.concat(getTempFolder(),FacadeCards.PLAYERS),getProgramInfos().getStreams());
+        getNicknames().sauvegarder(StringUtil.concat(getTempFolder(), MessagesCardGames.getAppliFilesTr(getProgramInfos().getTranslations()).val().getMapping().getVal(MessagesCardGames.PLAYERS)),getProgramInfos().getStreams());
     }
 }

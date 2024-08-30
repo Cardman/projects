@@ -24,6 +24,8 @@ public abstract class EquallableConverterGuiUtil {
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         MessagesConverter.updateEn(MessagesConverter.initAppliTr(pr_.lg(StringUtil.EN)));
         MessagesConverter.updateFr(MessagesConverter.initAppliTr(pr_.lg(StringUtil.FR)));
+        MessagesConverter.sys(MessagesConverter.initAppliFilesTr(pr_.getTranslations()));
+        MessagesConverter.getAppliFilesTr(pr_.getTranslations());
         pr_.setLanguage(StringUtil.EN);
         return pr_;
     }

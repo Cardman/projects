@@ -46,7 +46,9 @@ public abstract class EquallableCardsFileUtil {
     }
 
     public static MockProgramInfos prTmp(String _tmp,long _init,long..._incrs) {
-        return MockProgramInfos.inst("", _tmp, new CustomSeedGene(new double[]{0.75}), new MockFileSet(_init, _incrs, new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", _tmp, new CustomSeedGene(new double[]{0.75}), new MockFileSet(_init, _incrs, new String[]{"/"}));
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
+        return pr_;
     }
 
     public TranslationsLg nicknames() {

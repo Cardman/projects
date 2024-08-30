@@ -4,12 +4,12 @@ package aiki.sml;
 public final class LoadingGame {
 
 //    public static final String DEFAULT_SAVE_GAME = "last_save"+Resources.GAME_EXT;
-    public static final String DEFAULT_SAVE_GAME = "last_save.pkgame";
-    public static final String PORT_INI = "pokemon_port.ini";
+//    public static final String DEFAULT_SAVE_GAME = "last_save.pkgame";
+//    public static final String PORT_INI = "pokemon_port.ini";
 //    public static final String CONF_EXT = ".pkconf";
-    public static final String LOAD_CONFIG_FILE = "loadconfig.pkconf";
+//    public static final String LOAD_CONFIG_FILE = "loadconfig.pkconf";
 //    public static final String MESSAGES_FOLDER= "resources_pk/gui/messages";
-    public static final String COORDS="pk.coords";
+//    public static final String COORDS="pk.coords";
 
     private String lastRom = "";
 

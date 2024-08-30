@@ -33,7 +33,6 @@ import code.util.ints.UniformingString;
 
 
 public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpenQuit {
-    public static final String APPS_UNIT = "ug";
     private final EnabledMenu menu;
     private final EnabledMenu open;
     private final EnabledMenu logErr;
@@ -201,7 +200,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 
     @Override
     public String getApplicationName() {
-        return APPS_UNIT;
+        return MessagesCdmFullGui.APPS_UNIT;
     }
 
 //    @Override

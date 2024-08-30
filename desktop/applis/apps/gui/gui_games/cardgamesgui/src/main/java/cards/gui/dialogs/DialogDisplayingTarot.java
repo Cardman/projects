@@ -5,7 +5,7 @@ package cards.gui.dialogs;
 
 
 import cards.consts.Suit;
-import cards.facade.FacadeCards;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
 import cards.tarot.DisplayingTarot;
@@ -60,7 +60,7 @@ public final class DialogDisplayingTarot extends DialogHelpCards implements Dial
     public void savePrefs(WindowCardsInt _w) {
         closeWindow();
         _w.baseWindow().getFacadeCards().setDisplayingTarot(displayingTarot);
-        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_w.getFrames()), FacadeCards.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(_w.baseWindow().getFacadeCards().getDisplayingTarot()),_w.getStreams());
+        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_w.getFrames()), MessagesCardGames.getAppliFilesTr(_w.getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.DISPLAY_TAROT)), DocumentWriterTarotUtil.setDisplayingTarot(_w.baseWindow().getFacadeCards().getDisplayingTarot()),_w.getStreams());
         _w.baseWindow().getContainerGame().setDisplayingTarot(_w.baseWindow().getFacadeCards().getDisplayingTarot());
     }
 

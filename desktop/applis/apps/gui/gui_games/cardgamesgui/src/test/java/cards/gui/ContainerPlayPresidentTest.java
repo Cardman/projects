@@ -1279,7 +1279,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
         assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
         assertTrue(tr_.containsObj(csp_.getNextDeal()));
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csp_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csp_.window().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/"+stack(csp_),StringUtil.join(FacadeCards.defInfos(), "\n"),csp_.window().getFrames().getStreams());
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }
@@ -1300,7 +1300,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(csp_.getContent().getReplayButton()));
         assertTrue(tr_.containsObj(csp_.getContent().getStopButton()));
         assertTrue(tr_.containsObj(csp_.getNextDeal()));
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csp_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csp_.window().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/"+stack(csp_),StringUtil.join(FacadeCards.defInfos(), "\n"),csp_.window().getFrames().getStreams());
         tryClick(csp_.getNextDeal());
         assertEq(4,csp_.partiePresident().getDeal().nombreDeMains());
     }

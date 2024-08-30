@@ -36,6 +36,7 @@ import code.maths.montecarlo.*;
 import code.maths.litteral.*;
 import code.mock.*;
 import code.sml.NavigationCore;
+import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
@@ -502,6 +503,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRom1() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
@@ -513,6 +515,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRom2() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
@@ -524,6 +527,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRom3() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
@@ -536,6 +540,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRom4() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
@@ -549,6 +554,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
@@ -561,6 +567,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
@@ -573,6 +580,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
@@ -586,6 +594,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
@@ -598,6 +607,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRom9() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         save(window_);
         tryClick(window_.getCore().getZipLoad());
@@ -611,6 +621,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRom10() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         save(window_);
         tryClick(window_.getCore().getZipLoad());
@@ -624,6 +635,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRom11() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         save(window_);
         tryClick(window_.getCore().getFolderLoad());
@@ -638,6 +650,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRom12() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         save(window_);
         tryClick(window_.getCore().getFolderLoad());
@@ -652,6 +665,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         save(window_);
         tryClick(window_.getCore().getZipLoad());
@@ -666,6 +680,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         save(window_);
         tryClick(window_.getCore().getZipLoad());
@@ -680,6 +695,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         save(window_);
         tryClick(window_.getCore().getFolderLoad());
@@ -695,6 +711,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         window_.getLoadingConf().setLoadHomeFolder(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStreamNoLast());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         save(window_);
         tryClick(window_.getCore().getFolderLoad());
@@ -708,6 +725,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame1() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
         window_.getCore().getGameLoad().setEnabled(true);
@@ -720,6 +738,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame2() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
         save(window_);
@@ -734,6 +753,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame3() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setSexList(new MockLSexList());
         window_.getFacade().setData(initDb());
@@ -751,6 +771,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame4() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setSexList(new MockLSexList());
         window_.getFacade().setData(initDb());
@@ -769,6 +790,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame5() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
         window_.getCore().getGameLoad().setEnabled(true);
@@ -783,6 +805,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame6() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
         window_.getCore().getGameLoad().setEnabled(true);
@@ -801,6 +824,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         DataBase db_ = initDb();
         db_.getMaxiPkBack().addEntry(PIKACHU,new int[][]{new int[1]});
@@ -824,6 +848,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame8() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setSexList(new MockLSexList());
         window_.getFacade().setData(initDb());
@@ -843,6 +868,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
 //        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
         window_.setVisible(false);
@@ -855,6 +881,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
 //        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getLoadingConf().setLastSavedGame("_");
         window_.getFacade().setData(initDb());
@@ -867,6 +894,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
 //        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getLoadingConf().setSaveGameAtExit(false);
         window_.getFacade().setData(initDb());
@@ -879,6 +907,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
 //        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
         Game g_ = game(window_.getFacade().getData());
@@ -892,6 +921,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
 //        window_.getCommonFrame().getFrames().getCounts().put(window_.getApplicationName(),new ConcreteInteger(1));
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getLoadingConf().setLastSavedGame("_");
         window_.getFacade().setData(initDb());
@@ -905,6 +935,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuSave1() {
         WindowAiki window_ = newGame();
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
         window_.getFacade().setData(initDb());
         Game g_ = game(window_.getFacade().getData());
@@ -918,6 +949,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void menuRomOpened1() {
         WindowAiki window_ = newGame();
+        updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         prepareWebTask(window_);
@@ -954,6 +986,9 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         _win.setSavedGame(false);
     }
 
+    public static void updateBase(Translations _en) {
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_en));
+    }
     public static void updateBase(TranslationsLg _en) {
         StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(_en).getMapping();
         en_.addEntry(MessagesGuiFct.FILE_DIAL, MessagesFileDialog.en());
@@ -1670,6 +1705,8 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = MessagesPkGame.initAppliTr(en_);
         windowPk(app_);
+        updateBase(_pr.getTranslations());
+//        app_.getMapping().addEntry(MessagesPkGame.FILES_PATH,MessagesPkGame.mes());
         return new CreateMainWindowAiki(_conf, new StringList(), _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
     }
 
@@ -1683,6 +1720,8 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = MessagesPkGame.initAppliTr(en_);
         windowPk(app_);
+        updateBase(_pr.getTranslations());
+//        app_.getMapping().addEntry(MessagesPkGame.FILES_PATH,MessagesPkGame.mes());
         return new CreateMainWindowAiki(_conf, path_, _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
     }
 }

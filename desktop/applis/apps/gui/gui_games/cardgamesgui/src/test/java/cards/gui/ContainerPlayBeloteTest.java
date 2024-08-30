@@ -2057,7 +2057,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
         assertTrue(tr_.containsObj(csb_.getNextDeal()));
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/"+stack(csb_),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -2077,7 +2077,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
         assertTrue(tr_.containsObj(csb_.getNextDeal()));
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/"+stack(csb_),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -4095,7 +4095,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
         assertTrue(tr_.containsObj(csb_.getNextDeal()));
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/"+stack(csb_),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());
     }
@@ -4153,7 +4153,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getStopButton()));
         assertTrue(tr_.containsObj(csb_.getNextDeal()));
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(csb_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/"+stack(csb_),StringUtil.join(FacadeCards.defInfos(), "\n"),csb_.window().getFrames().getStreams());
         tryClick(csb_.getNextDeal());
         assertEq(4,csb_.partieBelote().getDeal().nombreDeMains());
     }

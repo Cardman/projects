@@ -21,15 +21,16 @@ import applications.code.player.main.*;
 import applications.code.renders.*;
 import code.player.gui.*;
 import code.sml.*;
+import code.sml.util.Translations;
 import code.stream.*;
 import code.util.*;
 import code.util.core.*;
 
 public class LaunchingApplications extends SoftApplicationCore {
 
-    public static final String COORDS = "applications.coords";
+//    public static final String COORDS = "applications.coords";
 
-    public static final String TEMP_FOLDER = "applications";
+//    public static final String TEMP_FOLDER = "applications";
 
 
     public LaunchingApplications(WithAppFactories _infos) {
@@ -137,13 +138,13 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     private WindowApps launchWindow(WithAppFactories _list) {
-        TopLeftFrame topLeft_ = FileDialog.loadCoords(getTempFolder(_list.getProgramInfos()),COORDS, _list.getProgramInfos().getFileCoreStream(), _list.getProgramInfos().getStreams());
+        TopLeftFrame topLeft_ = FileDialog.loadCoords(getTempFolder(_list.getProgramInfos()), MessagesApplications.getAppliFilesTr(_list.getProgramInfos().getTranslations()).val().getMapping().getVal(MessagesApplications.COORDS), _list.getProgramInfos().getFileCoreStream(), _list.getProgramInfos().getStreams());
         WindowApps w_ = getWindow(_list);
         FileDialog.setLocation(w_.getCommonFrame(), topLeft_, _list.getProgramInfos());
         return w_;
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
-        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
+        return StreamFolderFile.getTempFolder(_tmpUserFolderSl, MessagesApplications.getAppliFilesTr(_tmpUserFolderSl.getTranslations()).val().getMapping().getVal(Translations.TEMP_FOLDER));
     }
 
 }

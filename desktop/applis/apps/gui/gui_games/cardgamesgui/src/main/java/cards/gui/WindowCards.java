@@ -83,7 +83,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    public static final String WAIT_TURN = "waitTurn";
 
 //    public static final String APP_CARDS = "cards";
-    public static final String TEMP_FOLDER = "cards";
+//    public static final String TEMP_FOLDER = "cards";
 
 //    private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
 
@@ -354,7 +354,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
-        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
+        return StreamFolderFile.getTempFolder(_tmpUserFolderSl, MessagesCardGames.getAppliFilesTr(_tmpUserFolderSl.getTranslations()).val().getMapping().getVal(MessagesCardGames.TEMP_FOLDER));
     }
 
 //    public String getTooManyString() {
@@ -578,7 +578,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
-        FileDialog.saveCoords(getTempFolder(getFrames()), FrameGeneralHelp.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
+        FileDialog.saveCoords(getTempFolder(getFrames()), MessagesCardGames.getAppliFilesTr(getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.COORDS), point_.getXcoord(),point_.getYcoord(),getStreams());
     }
     /*public int getNoClient() {
         return ((ContainerMulti)containerGame).getNoClient();

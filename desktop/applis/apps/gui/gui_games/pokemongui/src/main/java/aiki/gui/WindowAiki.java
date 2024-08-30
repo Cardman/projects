@@ -53,7 +53,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
 //    public static final String OK = "ok";
 //    public static final String APPS_AIKI = "aiki";
-    public static final String TEMP_FOLDER = "pokemon";
+//    public static final String TEMP_FOLDER = "pokemon";
 //    private static final String DIALOG_ACCESS = "aiki.gui.mainwindow";
 
 //    private static final String TITLE = "title";
@@ -318,7 +318,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
-        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
+        return StreamFolderFile.getTempFolder(_tmpUserFolderSl, MessagesPkGame.getAppliFilesTr(_tmpUserFolderSl.getTranslations()).val().getMapping().getVal(MessagesPkGame.TEMP_FOLDER));
     }
 
     /**server and client
@@ -346,15 +346,17 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        }
         if (loadingConf.isSaveGameAtExit()) {
 //        if (loadingConf != null && loadingConf.isSaveGameAtExit()) {
+            StringMap<String> mes_ = MessagesPkGame.getAppliFilesTr(getFrames().getTranslations()).val().getMapping();
             if (loadingConf.getLastSavedGame().isEmpty()) {
-                String name_ = StringUtil.concat(getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME);
+
+                String name_ = StringUtil.concat(getTempFolderSl(getFrames()), mes_.getVal(MessagesPkGame.DEFAULT_SAVE_GAME));
                 loadingConf.setLastSavedGame(name_);
                 save(name_);
             } else {
                 String path_ = StringUtil.replaceBackSlash(getFileCoreStream().newFile(loadingConf.getLastSavedGame()).getAbsolutePath());
                 save(path_);
             }
-            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), LoadingGame.LOAD_CONFIG_FILE), loadingConf);
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), mes_.getVal(MessagesPkGame.LOAD_CONFIG_FILE)), loadingConf);
         }
 //        LanguageDialogButtons.enable(b_,true);
         LanguageDialogButtons.enable(mainButton.getMainButton(),true);
@@ -897,7 +899,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    }
 
     public boolean updateConf() {
-        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), LoadingGame.LOAD_CONFIG_FILE), loadingConf);
+        StringMap<String> mes_ = MessagesPkGame.getAppliFilesTr(getFrames().getTranslations()).val().getMapping();
+        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), mes_.getVal(MessagesPkGame.LOAD_CONFIG_FILE)), loadingConf);
         return true;
     }
 
@@ -1028,7 +1031,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void afterClickParam() {
         DialogSoftParams.setParams(loadingConf, getSoftParams());
-        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), LoadingGame.LOAD_CONFIG_FILE), loadingConf);
+        StringMap<String> mes_ = MessagesPkGame.getAppliFilesTr(getFrames().getTranslations()).val().getMapping();
+        core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), mes_.getVal(MessagesPkGame.LOAD_CONFIG_FILE)), loadingConf);
 //        if (DialogSoftParams.isOk(getSoftParams())) {
 //            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), loadingConf);
 //        }
@@ -1186,7 +1190,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
-        FileDialog.saveCoords(getTempFolder(getFrames()), LoadingGame.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
+        StringMap<String> mes_ = MessagesPkGame.getAppliFilesTr(getFrames().getTranslations()).val().getMapping();
+        FileDialog.saveCoords(getTempFolder(getFrames()), mes_.getVal(MessagesPkGame.COORDS), point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 
     public static void processLoad(WindowAikiInt _w,String _fileName, AbstractAtomicIntegerCoreAdd _p) {
@@ -1517,7 +1522,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void setLoadingConf(LoadingGame _loadingConf, boolean _save) {
         loadingConf = _loadingConf;
         if (_save) {
-            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()), LoadingGame.LOAD_CONFIG_FILE), loadingConf);
+            StringMap<String> mes_ = MessagesPkGame.getAppliFilesTr(getFrames().getTranslations()).val().getMapping();
+            core.getAikiFactory().getConfPkStream().save(StringUtil.concat(getTempFolderSl(getFrames()),mes_.getVal(MessagesPkGame.LOAD_CONFIG_FILE)), loadingConf);
         }
     }
 

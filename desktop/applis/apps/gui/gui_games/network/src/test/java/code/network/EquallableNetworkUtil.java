@@ -267,6 +267,8 @@ public abstract class EquallableNetworkUtil {
     }
     protected static WindowNetWork frameSingle(IntDataBaseStream _i) {
         MockProgramInfos pr_ = updateSingle(build());
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(pr_.getTranslations()));
         pr_.getSocketFactory().setOkServer(true);
         AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
 //        ai_.setConfPkStream(new MockConfPkStream());
@@ -300,6 +302,8 @@ public abstract class EquallableNetworkUtil {
     }
     protected static WindowNetWork frameSingleMenu(IntDataBaseStream _i, AbsButton _mai) {
         MockProgramInfos pr_ = updateSingle(build());
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(pr_.getTranslations()));
         pr_.getSocketFactory().setOkServer(true);
         AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
 //        ai_.setConfPkStream(new MockConfPkStream());
@@ -335,6 +339,8 @@ public abstract class EquallableNetworkUtil {
     }
     protected static WindowNetWork frameSingleDiff(IntDataBaseStream _i) {
         MockProgramInfos pr_ = updateSingle(build());
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(pr_.getTranslations()));
         pr_.getSocketFactory().setOkServer(true);
         AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
 //        ai_.setConfPkStream(new MockConfPkStream());
@@ -410,24 +416,28 @@ public abstract class EquallableNetworkUtil {
     }
 
     public static MockProgramInfos updateSingleBelote(MockProgramInfos _pr) {
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(_pr.getTranslations()));
         appendMainGame(appendCards(appendCommon(appendMix(appendBelote(baseCardsEn(_pr),MessagesBelote.en(),MessagesBelote.enGame(),MessagesDialogBelote.en()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
         appendMainGame(appendCards(appendCommon(appendMix(appendBelote(baseCardsFr(_pr),MessagesBelote.fr(),MessagesBelote.frGame(),MessagesDialogBelote.fr()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
         maxiImgs(_pr);
         return _pr;
     }
     public static MockProgramInfos updateSinglePresident(MockProgramInfos _pr) {
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(_pr.getTranslations()));
         appendMainGame(appendCards(appendCommon(appendMix(appendPresident(baseCardsEn(_pr),MessagesPresident.en(),MessagesPresident.enGame(),MessagesDialogPresident.en()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
         appendMainGame(appendCards(appendCommon(appendMix(appendPresident(baseCardsFr(_pr),MessagesPresident.fr(),MessagesPresident.frGame(),MessagesDialogPresident.fr()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
         maxiImgs(_pr);
         return _pr;
     }
     public static MockProgramInfos updateSingleTarot(MockProgramInfos _pr) {
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(_pr.getTranslations()));
         appendMainGame(appendCards(appendCommon(appendMix(appendTarot(baseCardsEn(_pr),MessagesTarot.en(),MessagesTarot.enGame(),MessagesDialogTarot.en()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
         appendMainGame(appendCards(appendCommon(appendMix(appendTarot(baseCardsFr(_pr),MessagesTarot.fr(),MessagesTarot.frGame(),MessagesDialogTarot.fr()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
         maxiImgs(_pr);
         return _pr;
     }
     public static MockProgramInfos updateDialogDisplay(MockProgramInfos _pr) {
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(_pr.getTranslations()));
         MessagesCardGames.appendCommonFile(appendDialogDisplay(baseCardsEn(_pr),MessagesGuiCards.enDisplay()),MessagesCommonFile.en());
         MessagesCardGames.appendCommonFile(appendDialogDisplay(baseCardsFr(_pr),MessagesGuiCards.frDisplay()),MessagesCommonFile.fr());
         return _pr;

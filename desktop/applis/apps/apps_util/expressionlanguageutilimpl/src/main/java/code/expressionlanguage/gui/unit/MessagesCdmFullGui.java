@@ -41,6 +41,8 @@ public final class MessagesCdmFullGui {
     public static final String EXEC_OPTIONS_MAIN_ARCHIVE="0";
     public static final String EXEC_OPTIONS_MAIN_MEMORY="1";
     public static final String CONF_VAL = "Configuration";
+    public static final String APPS_UNIT = "ug";
+    public static final String APPS_LAUNCHER = "launcher";
 
     private MessagesCdmFullGui() {
     }
@@ -197,5 +199,14 @@ public final class MessagesCdmFullGui {
         _a.getMapping().addEntry(EXEC_OPTIONS_SIMPLE_MES, frExecOptionsSimpleMes());
         _a.getMapping().addEntry(EXEC_OPTIONS_MAIN, frExecOptionsMain());
         return updateFrGui(_a);
+    }
+
+    public static void sys(TranslationsAppli _lgs) {
+        _lgs.sys(mes());
+    }
+    public static TranslationsFile mes(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(Translations.TEMP_FOLDER,"ug");
+        return t_;
     }
 }

@@ -7,6 +7,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.utilimpl.MessCdmLogs;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
+import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
@@ -51,6 +52,17 @@ public final class FileInfos {
     public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
         return _lgs.getMapping().getVal(CDM);
     }
+
+    public static TranslationsAppli initAppliFilesTr(Translations _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getFiles().addEntry(CDM, a_);
+        return a_;
+    }
+
+    public static TranslationsAppli getAppliFilesTr(Translations _lgs) {
+        return _lgs.getFiles().getVal(CDM);
+    }
+
     public static TranslationsAppli enTr(TranslationsAppli _lgs) {
         MessagesCdmBase.update(_lgs);
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.en());

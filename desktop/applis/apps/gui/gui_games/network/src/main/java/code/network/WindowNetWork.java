@@ -798,7 +798,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
-        FileDialog.saveCoords(WindowCards.getTempFolder(getFrames()), FrameGeneralHelp.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
+        FileDialog.saveCoords(WindowCards.getTempFolder(getFrames()), MessagesCardGames.getAppliFilesTr(getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.COORDS), point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 //    public int getNoClient() {
 //        return ((ContainerMulti) netg.getContainerGame()).getNoClient();
@@ -1942,7 +1942,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             return;
         }
         */
-        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), FrameGeneralHelp.PORT_INI);
+        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), MessagesCardGames.getAppliFilesTr(getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.PORT_INI));
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(),getFileCoreStream(),getStreams());
         DialogServerContent.setDialogServer(this,_jeuBouton,port_);
 //        ResultCardsServer result_ = getResultCardsServerInteract().interact(this, _jeuBouton);

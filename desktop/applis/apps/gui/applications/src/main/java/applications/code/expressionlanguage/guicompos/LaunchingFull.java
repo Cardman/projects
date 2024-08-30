@@ -3,12 +3,11 @@ package applications.code.expressionlanguage.guicompos;
 import applications.code.gui.AdvSoftApplicationCore;
 import applications.code.gui.WithAppFactories;
 import code.expressionlanguage.guicompos.CreateMainWindowFull;
-import code.expressionlanguage.guicompos.WindowFull;
 import code.gui.*;
 
 public class LaunchingFull extends AdvSoftApplicationCore {
 
-    public static final String TEMP_FOLDER = WindowFull.APPS_LAUNCHER;
+//    public static final String TEMP_FOLDER = MessagesCdmFullGui.APPS_LAUNCHER;
 
     public LaunchingFull(WithAppFactories _infos) {
         super(_infos);

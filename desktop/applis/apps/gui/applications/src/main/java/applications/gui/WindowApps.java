@@ -18,7 +18,7 @@ import code.stream.StreamLanguageUtil;
 
 public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
-    private static final String APPLICATIONS = "Applications";
+//    private static final String APPLICATIONS = "Applications";
 
     private final AbsButton buttonPokemon;
 
@@ -42,7 +42,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         withAppFactories = _list;
         GuiBaseUtil.choose(this, _list.getProgramInfos());
         setFocusableWindowState(true);
-        setTitle(APPLICATIONS);
+        setTitle(MessagesApplications.getAppliTr(_list.getProgramInfos().currentLg()).getMapping().getVal(MessagesApplications.MAIN_GAME).getMapping().getVal(MessagesApplications.MAIN_TITLE));
         AbsPanel panel_ = getCompoFactory().newPageBox();
         AbsPanel linePokemon_ = getCompoFactory().newLineBox();
         buttonPokemon = _list.getProgramInfos().getCompoFactory().newImgButton(WindowAiki.getIcon(getImageFactory()));
@@ -200,7 +200,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         MetaPoint point_=getLocation();
         int x_ = point_.getXcoord();
         int y_ = point_.getYcoord();
-        FileDialog.saveCoords(LaunchingApplications.getTempFolder(getFrames()), LaunchingApplications.COORDS, x_, y_,getStreams());
+        FileDialog.saveCoords(LaunchingApplications.getTempFolder(getFrames()), MessagesApplications.getAppliFilesTr(getFrames().getTranslations()).val().getMapping().getVal(MessagesApplications.COORDS), x_, y_,getStreams());
     }
 
     public WithAppFactories getWithAppFactories() {
@@ -249,6 +249,6 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public String getApplicationName() {
-        return "applications";
+        return MessagesApplications.APP;
     }
 }

@@ -30,6 +30,8 @@ public abstract class EquallableSoundPlayerUtil {
         pr_.setLanguage(EN);
         MessagesSongs.updateEn(MessagesSongs.initAppliTr(pr_.lg(EN)));
         MessagesSongs.updateFr(MessagesSongs.initAppliTr(pr_.lg(FR)));
+        MessagesSongs.sys(MessagesSongs.initAppliFilesTr(pr_.getTranslations()));
+        MessagesSongs.getAppliFilesTr(pr_.getTranslations());
         return pr_;
     }
     public static AbstractThread tryAn(MockThreadFactory _g) {

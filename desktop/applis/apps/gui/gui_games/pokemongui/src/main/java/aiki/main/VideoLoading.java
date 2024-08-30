@@ -1,5 +1,6 @@
 package aiki.main;
 
+import aiki.sml.MessagesPkGame;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
@@ -19,7 +20,7 @@ public final class VideoLoading {
 
 //    public static final String IMG_FILES_RES_EXT = ".png";
     /**IMAGES does not contain any null BufferedImage*/
-    private static final String VIDEO = "video";
+//    private static final String VIDEO = "video";
 //    private static final String VIDEO_DEFAULT = "resources_pk/gui/video/";
 //    private static final String FILE = "link_";
     private final CustList<CustList<AbstractImage>> images = new CustList<CustList<AbstractImage>>();
@@ -30,7 +31,7 @@ public final class VideoLoading {
         if (initialized) {
             return images(_abs);
         }
-        AbstractFile file_ = _list.newFile(VIDEO);
+        AbstractFile file_ = _list.newFile(MessagesPkGame.getAppliFilesTr(_abInfo.getTranslations()).val().getMapping().getVal(MessagesPkGame.VIDEO));
         FileListInfo filesLists_ = PathsUtil.abs(file_,_list);
         if (!filesLists_.isNul()) {
             for (AbstractFile folder_: filesLists_.getNames()) {

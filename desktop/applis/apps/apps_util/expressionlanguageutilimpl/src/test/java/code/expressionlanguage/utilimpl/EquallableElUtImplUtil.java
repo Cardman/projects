@@ -287,6 +287,8 @@ public abstract class EquallableElUtImplUtil {
         MessagesCdmFullGui.valExecOptionsSimpleMes(lg_);
         MessagesCdmFullGui.valExecOptionsSimple(lg_);
         MessagesCdmFullGui.valMessages(lg_);
+        MessagesCdmFullGui.sys(FileInfos.initAppliFilesTr(_p.getTranslations()));
+        FileInfos.getAppliFilesTr(_p.getTranslations()).val();
         return MessagesCdmFullGui.valExecOptionsTable(lg_);
     }
     public static ExecutingOptions exOpt(AbstractLightProgramInfos _p) {

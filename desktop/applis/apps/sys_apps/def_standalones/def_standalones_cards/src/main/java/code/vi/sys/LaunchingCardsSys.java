@@ -1,14 +1,14 @@
 package code.vi.sys;
 
-import cards.gui.WindowCards;
+import cards.facade.MessagesCardGames;
 import applications.main.LaunchingCards;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingCardsSys extends LaunchingCards {
     public LaunchingCardsSys() {
-        super(DefProgramInfos.build());
+        super(DefProgramInfos.build(MessagesCardGames.CARDS));
     }
     public static void loadLaungage(String[] _args) {
-        new LaunchingCardsSys().loadLanguage(WindowCards.TEMP_FOLDER,_args);
+        new LaunchingCardsSys().loadLanguage(_args);
     }
 }

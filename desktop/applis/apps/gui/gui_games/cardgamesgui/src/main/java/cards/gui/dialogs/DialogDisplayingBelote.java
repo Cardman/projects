@@ -8,7 +8,6 @@ import cards.belote.DisplayingBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.Order;
 import cards.consts.Suit;
-import cards.facade.FacadeCards;
 import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
@@ -73,7 +72,7 @@ public final class DialogDisplayingBelote extends DialogHelpCards implements Dia
     @Override
     public void savePrefs(WindowCardsInt _w) {
         _w.baseWindow().getFacadeCards().setDisplayingBelote(displayingBelote);
-        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_w.getFrames()), FacadeCards.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(_w.baseWindow().getFacadeCards().getDisplayingBelote()),_w.getStreams());
+        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_w.getFrames()), MessagesCardGames.getAppliFilesTr(_w.getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.DISPLAY_BELOTE)), DocumentWriterBeloteUtil.setDisplayingBelote(_w.baseWindow().getFacadeCards().getDisplayingBelote()),_w.getStreams());
         _w.baseWindow().getContainerGame().setDisplayingBelote( _w.baseWindow().getFacadeCards().getDisplayingBelote());
     }
 

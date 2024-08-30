@@ -11,6 +11,12 @@ public final class TranslationsAppli {
     public TranslationsAppli(int _cap) {
         mapping = new StringMap<TranslationsFile>(new CollCapacity(_cap));
     }
+    public TranslationsFile val() {
+        return getMapping().getVal(Translations.FILES_PATH);
+    }
+    public void sys(TranslationsFile _tf) {
+        getMapping().addEntry(Translations.FILES_PATH,_tf);
+    }
     public StringMap<TranslationsFile> getMapping() {
         return mapping;
     }

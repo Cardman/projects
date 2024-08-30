@@ -7,8 +7,8 @@ import code.vi.sys.impl.deps.ProgramInfosDeps;
 
 public final class DefProgramInfos extends ProgramInfosDeps {
 
-    public static WithAppFactories build() {
-        return build(new DefProgramInfos());
+    public static WithAppFactories build(String _tmp) {
+        return build(new DefProgramInfos(), _tmp);
     }
     @Override
     public AbstractLightProgramInfos light() {

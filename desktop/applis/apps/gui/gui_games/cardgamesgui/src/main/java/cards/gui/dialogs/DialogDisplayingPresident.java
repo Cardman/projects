@@ -5,7 +5,6 @@ package cards.gui.dialogs;
 
 
 import cards.consts.Suit;
-import cards.facade.FacadeCards;
 import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.gui.WindowCardsInt;
@@ -71,7 +70,7 @@ public final class DialogDisplayingPresident extends DialogHelpCards implements 
     @Override
     public void savePrefs(WindowCardsInt _w) {
         _w.baseWindow().getFacadeCards().setDisplayingPresident(displayingPresident);
-        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_w.getFrames()), FacadeCards.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(_w.baseWindow().getFacadeCards().getDisplayingPresident()),_w.getStreams());
+        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(_w.getFrames()), MessagesCardGames.getAppliFilesTr(_w.getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.DISPLAY_PRESIDENT)), DocumentWriterPresidentUtil.setDisplayingPresident(_w.baseWindow().getFacadeCards().getDisplayingPresident()),_w.getStreams());
         _w.baseWindow().getContainerGame().setDisplayingPresident(_w.baseWindow().getFacadeCards().getDisplayingPresident());
     }
 

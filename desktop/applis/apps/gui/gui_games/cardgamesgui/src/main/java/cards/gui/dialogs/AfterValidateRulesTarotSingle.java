@@ -1,6 +1,6 @@
 package cards.gui.dialogs;
 
-import cards.facade.FacadeCards;
+import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import cards.tarot.RulesTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
@@ -17,7 +17,7 @@ public final class AfterValidateRulesTarotSingle implements AfterValidateRulesTa
     @Override
     public void apply(RulesTarot _rules) {
         window.getCore().getFacadeCards().setReglesTarot(_rules);
-        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(window.getFrames()), FacadeCards.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(window.getCore().getFacadeCards().getReglesTarot()), window.getStreams());
+        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(window.getFrames()), MessagesCardGames.getAppliFilesTr(window.getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.RULES_TAROT)), DocumentWriterTarotUtil.setRulesTarot(window.getCore().getFacadeCards().getReglesTarot()), window.getStreams());
         window.getCore().getContainerGame().setRulesTarot(window.getCore().getFacadeCards().getReglesTarot());
     }
 }

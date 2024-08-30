@@ -1,6 +1,8 @@
 package code.player.gui;
 
+import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.util.StringMap;
 
@@ -26,6 +28,17 @@ public final class MessagesSongs {
         return _lgs.getMapping().getVal(SONGS_APP);
     }
 
+    public static TranslationsAppli initAppliFilesTr(Translations _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getFiles().addEntry(SONGS_APP, a_);
+        return a_;
+    }
+
+    public static TranslationsAppli getAppliFilesTr(Translations _lgs) {
+        return _lgs.getFiles().getVal(SONGS_APP);
+    }
+
+
     public static StringMap<String> valPlayerMessages(TranslationsLg _lg) {
         return getAppliTr(_lg).getMapping().getVal(PLAYER_FILE).getMapping();
     }
@@ -44,5 +57,14 @@ public final class MessagesSongs {
         _a.getMapping().addEntry(PLAYER_FILE,MessagesPlayer.fr());
         _a.getMapping().addEntry(RECORDER_FILE,MessagesRecorder.fr());
         return _a;
+    }
+
+    public static void sys(TranslationsAppli _lgs) {
+        _lgs.sys(mes());
+    }
+    public static TranslationsFile mes(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(Translations.TEMP_FOLDER,"playersongs");
+        return t_;
     }
 }

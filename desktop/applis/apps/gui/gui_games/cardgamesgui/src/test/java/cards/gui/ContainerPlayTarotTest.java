@@ -4764,7 +4764,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(cst_.getContentPausable().getReplayButton()));
         assertTrue(tr_.containsObj(cst_.getContentPausable().getStopButton()));
         assertTrue(tr_.containsObj(cst_.getNextDeal()));
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(cst_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),cst_.window().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/"+stack(cst_),StringUtil.join(FacadeCards.defInfos(), "\n"),cst_.window().getFrames().getStreams());
         tryClick(cst_.getNextDeal());
         assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }
@@ -4785,7 +4785,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(cst_.getContentPausable().getReplayButton()));
         assertTrue(tr_.containsObj(cst_.getContentPausable().getStopButton()));
         assertTrue(tr_.containsObj(cst_.getNextDeal()));
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(StringUtil.concat(cst_.window().getFrames().getTmpUserFolder(), WindowCards.TEMP_FOLDER, StreamTextFile.SEPARATEUR)),StringUtil.join(FacadeCards.defInfos(), "\n"),cst_.window().getFrames().getStreams());
+        StreamTextFile.saveTextFile("/"+stack(cst_),StringUtil.join(FacadeCards.defInfos(), "\n"),cst_.window().getFrames().getStreams());
         tryClick(cst_.getNextDeal());
         assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
     }

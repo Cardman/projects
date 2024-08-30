@@ -40,6 +40,13 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         assertEq(0,lg_.getMaxiCards().size());
         assertEq(0,lg_.getMiniCardsDef().size());
         assertEq(0,lg_.getMiniCardsSel().size());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        TranslationsFile tf_ = new TranslationsFile();
+        tf_.add("","");
+        ta_.sys(tf_);
+        tr_.getFiles().addEntry("", ta_);
+        assertEq(1, tr_.getFiles().size());
+        assertEq(1, ta_.val().getMapping().size());
     }
     @Test
     public void byAppl() {

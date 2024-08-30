@@ -2,11 +2,13 @@ package aiki.main;
 
 import aiki.gui.WindowAiki;
 import aiki.sml.LoadingGame;
+import aiki.sml.MessagesPkGame;
 import code.gui.LanguagesButtonsPair;
 import code.gui.files.FileDialog;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamFolderFile;
 import code.util.StringList;
+import code.util.StringMap;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -43,7 +45,8 @@ public final class CreateMainWindowAiki implements Runnable {
 //        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), builtMessages_, builtOther_, new PkProg(), list.getLanguages());
         WindowAiki window_ = new WindowAiki(list,aikiFactory, pair);
 //        window_.getDataWeb().setEnabled(false);
-        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), LoadingGame.COORDS, list.getFileCoreStream(), list.getStreams()), list);
+        StringMap<String> mes_ = MessagesPkGame.getAppliFilesTr(list.getTranslations()).val().getMapping();
+        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), mes_.getVal(MessagesPkGame.COORDS), list.getFileCoreStream(), list.getStreams()), list);
 //        fight_.run();
 //        pk_.run();
 //        pkNet_.run();

@@ -1,9 +1,7 @@
 package cards.facade;
 
 import code.scripts.messages.cards.*;
-import code.sml.util.TranslationsAppli;
-import code.sml.util.TranslationsFile;
-import code.sml.util.TranslationsLg;
+import code.sml.util.*;
 
 public final class MessagesCardGames {
     public static final String CARDS = "cards";
@@ -35,7 +33,19 @@ public final class MessagesCardGames {
     //    public static final String NICKNAME_DEF = "_{0}";
     public static final String NICKNAME = "0";
     public static final String USER = "1";
-
+    public static final String TEMP_FOLDER = Translations.TEMP_FOLDER;
+    public static final String PARAMS = "1";
+    public static final String PLAYERS = "2";
+    public static final String PORT_INI = "3";
+    public static final String COORDS="4";
+    public static final String DECK_FOLDER="5";
+    public static final String DECK_FILE="6";
+    public static final String DISPLAY_BELOTE="7";
+    public static final String DISPLAY_PRESIDENT="8";
+    public static final String DISPLAY_TAROT="9";
+    public static final String RULES_BELOTE="10";
+    public static final String RULES_PRESIDENT="11";
+    public static final String RULES_TAROT="12";
     private MessagesCardGames() {
     }
 
@@ -47,6 +57,16 @@ public final class MessagesCardGames {
 
     public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
         return _lgs.getMapping().getVal(CARDS);
+    }
+
+    public static TranslationsAppli initAppliFilesTr(Translations _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        _lgs.getFiles().addEntry(CARDS, a_);
+        return a_;
+    }
+
+    public static TranslationsAppli getAppliFilesTr(Translations _lgs) {
+        return _lgs.getFiles().getVal(CARDS);
     }
 
     public static void enTr(TranslationsAppli _lgs) {
@@ -103,6 +123,26 @@ public final class MessagesCardGames {
         appendNickNames(_lgs, fr());
     }
 
+    public static void sys(TranslationsAppli _lgs) {
+        _lgs.sys(mes());
+    }
+    public static TranslationsFile mes(){
+        TranslationsFile t_ = new TranslationsFile();
+        t_.add(TEMP_FOLDER,CARDS);
+        t_.add(PARAMS,"parametres.xml");
+        t_.add(PLAYERS,"joueurs.xml");
+        t_.add(PORT_INI,"cards_port.xml");
+        t_.add(COORDS,"cards.coords");
+        t_.add(DECK_FOLDER,"Paquets");
+        t_.add(DECK_FILE,"Paquet.txt");
+        t_.add(DISPLAY_BELOTE,"dbelote.xml");
+        t_.add(DISPLAY_PRESIDENT,"dpresident.xml");
+        t_.add(DISPLAY_TAROT,"dtarot.xml");
+        t_.add(RULES_BELOTE,"belote.xml");
+        t_.add(RULES_PRESIDENT,"president.xml");
+        t_.add(RULES_TAROT,"tarot.xml");
+        return t_;
+    }
     public static void appendCommonCards(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(COMMON_CARDS, _f);
     }

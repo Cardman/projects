@@ -2,7 +2,6 @@ package cards.gui.dialogs;
 
 
 
-import cards.facade.FacadeCards;
 import cards.facade.MessagesCardGames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
@@ -180,7 +179,7 @@ public final class DialogSoft extends DialogHelpCards {
         }
         WindowCardsCore windowCardsCore_ = _window.baseWindow();
         windowCardsCore_.getFacadeCards().setParametres(parametres);
-        windowCardsCore_.getFacadeCards().getParametres().sauvegarder(StringUtil.concat(WindowCards.getTempFolderSl(_window.getFrames()), FacadeCards.PARAMS),_window.getStreams());
+        windowCardsCore_.getFacadeCards().getParametres().sauvegarder(StringUtil.concat(WindowCards.getTempFolderSl(_window.getFrames()), MessagesCardGames.getAppliFilesTr(_window.getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.PARAMS)),_window.getStreams());
         windowCardsCore_.getContainerGame().setSettings(windowCardsCore_.getFacadeCards().getParametres());
     }
 

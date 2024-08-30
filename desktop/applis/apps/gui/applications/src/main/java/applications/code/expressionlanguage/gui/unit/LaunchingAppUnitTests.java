@@ -7,7 +7,7 @@ import code.gui.*;
 
 public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
-    public static final String TEMP_FOLDER = "UG";
+//    public static final String TEMP_FOLDER = "UG";
 
     public LaunchingAppUnitTests(WithAppFactories _infos) {
         super(_infos);

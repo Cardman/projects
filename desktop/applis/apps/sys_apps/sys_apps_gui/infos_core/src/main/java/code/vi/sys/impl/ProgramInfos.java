@@ -7,6 +7,7 @@ import aiki.sml.MessagesPkGame;
 import aiki.sml.trs.Trs;
 import applications.code.gui.AppFactories;
 import applications.code.gui.WithAppFactories;
+import applications.gui.MessagesApplications;
 import cards.facade.MessagesCardGames;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.AbsMetaLabelCard;
@@ -30,6 +31,7 @@ import code.scripts.pages.cards.HelpCards;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.MessTarotPage;
+import code.sml.util.Translations;
 import code.sml.util.TranslationsLg;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
@@ -138,11 +140,19 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
         en_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.enFight());
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.frFight());
+        MessagesApplications.tr(MessagesApplications.initAppliTr(en_));
+        MessagesApplications.tr(MessagesApplications.initAppliTr(fr_));
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_pr.getTranslations()));
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(_pr.getTranslations()));
+        MessagesCdmFullGui.sys(FileInfos.initAppliFilesTr(_pr.getTranslations()));
+        MessagesConverter.sys(MessagesConverter.initAppliFilesTr(_pr.getTranslations()));
+        MessagesSongs.sys(MessagesSongs.initAppliFilesTr(_pr.getTranslations()));
+        MessagesApplications.sys(MessagesApplications.initAppliFilesTr(_pr.getTranslations()));
     }
 
-    public static WithAppFactories build(AbstractProgramInfos _p) {
+    public static WithAppFactories build(AbstractProgramInfos _p, String _tmpApp) {
         return new WithAppFactories(_p,new AppFactories(new AikiFactory(_p,new DefaultExecutorServiceParam<AikiNatLgNamesNavigation>(), new DefaultExecutorServiceParam<DataBase>()),
-                new CardFactories(_p,new DefaultExecutorServiceParam<CardNatLgNamesNavigation>(),new DefaultExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()))));
+                new CardFactories(_p,new DefaultExecutorServiceParam<CardNatLgNamesNavigation>(),new DefaultExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator())), _p.getTranslations().getFiles().getVal(_tmpApp).getMapping().getVal(Translations.FILES_PATH).getMapping().getVal(Translations.TEMP_FOLDER)));
     }
 
     public StringList getExcludedFolders() {

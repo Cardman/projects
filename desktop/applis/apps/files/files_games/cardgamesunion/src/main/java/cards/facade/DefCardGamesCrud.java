@@ -18,56 +18,56 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     @Override
     public HandBelote belote() {
         return sanitize(DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
-                FacadeCards.beloteStack(getTempFolder()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+                FacadeCards.beloteStack(getTempFolder(), getProgramInfos()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
     }
 
     @Override
     public void belote(HandBelote _h) {
         setHandBelote(_h);
         StreamTextFile.saveTextFile(
-                FacadeCards.beloteStack(getTempFolder()),
+                FacadeCards.beloteStack(getTempFolder(), getProgramInfos()),
                 DocumentWriterBeloteUtil.setHandBelote(getHandBelote()), getProgramInfos().getStreams());
     }
 
     @Override
     public HandBelote belote24() {
         return sanitize(DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
-                FacadeCards.beloteStack24(getTempFolder()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+                FacadeCards.beloteStack24(getTempFolder(), getProgramInfos()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
     }
 
     @Override
     public void belote24(HandBelote _h) {
         setHandBeloteShort(_h);
         StreamTextFile.saveTextFile(
-                FacadeCards.beloteStack24(getTempFolder()),
+                FacadeCards.beloteStack24(getTempFolder(), getProgramInfos()),
                 DocumentWriterBeloteUtil.setHandBelote(getHandBeloteShort()), getProgramInfos().getStreams());
     }
 
     @Override
     public HandPresident president(int _nbStack) {
         return sanitize(_nbStack,DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
-          FacadeCards.presidentStack(getTempFolder(),_nbStack),getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+          FacadeCards.presidentStack(getTempFolder(),_nbStack, getProgramInfos()),getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
     }
 
     @Override
     public void president(int _nbStack, HandPresident _h) {
         getHandPresident().put(Integer.toString(_nbStack),_h);
         StreamTextFile.saveTextFile(
-                FacadeCards.presidentStack(getTempFolder(),_nbStack),
+                FacadeCards.presidentStack(getTempFolder(),_nbStack, getProgramInfos()),
                 DocumentWriterPresidentUtil.setHandPresident(_h), getProgramInfos().getStreams());
     }
 
     @Override
     public HandTarot tarot() {
         return sanitize(DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
-                FacadeCards.tarotStack(getTempFolder()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+                FacadeCards.tarotStack(getTempFolder(), getProgramInfos()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
     }
 
     @Override
     public void tarot(HandTarot _h) {
         setHandTarot(_h);
         StreamTextFile.saveTextFile(
-                FacadeCards.tarotStack(getTempFolder()),
+                FacadeCards.tarotStack(getTempFolder(), getProgramInfos()),
                 DocumentWriterTarotUtil.setHandTarot(getHandTarot()), getProgramInfos().getStreams());
     }
 

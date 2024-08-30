@@ -115,7 +115,7 @@ public abstract class EquallableCardsGuiUtil {
         CardGamesStream str_ = streamPseudoBelote(pr_);
         SoftParams sp_ = new SoftParams();
         sp_.getLancement().add(GameEnum.BELOTE);
-        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), FacadeCards.PARAMS),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
+        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), MessagesCardGames.getAppliFilesTr(pr_.getTranslations()).val().getMapping().getVal(MessagesCardGames.PARAMS)),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
         WindowCards wc_ = new WindowCards(str_, pr_, ia_);
         cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
         cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
@@ -202,8 +202,8 @@ public abstract class EquallableCardsGuiUtil {
 
     private String defStack(MockProgramInfos _pr) {
         String tempFolderSl_ = WindowCards.getTempFolderSl(_pr);
-        _pr.getFileCoreStream().newFile(StringUtil.concat("/"+FacadeCards.stack(tempFolderSl_), FacadeCards.DECK_FOLDER, StreamTextFile.SEPARATEUR)).mkdirs();
-        StreamTextFile.saveTextFile("/"+FacadeCards.stack(tempFolderSl_),StringUtil.join(FacadeCards.defInfos(), "\n"), _pr.getStreams());
+        _pr.getFileCoreStream().newFile(StringUtil.concat("/"+FacadeCards.stack(tempFolderSl_, _pr), FacadeCards.deckFolder(_pr), StreamTextFile.SEPARATEUR)).mkdirs();
+        StreamTextFile.saveTextFile("/"+FacadeCards.stack(tempFolderSl_, _pr),StringUtil.join(FacadeCards.defInfos(), "\n"), _pr.getStreams());
         return tempFolderSl_;
     }
 
@@ -722,7 +722,11 @@ public abstract class EquallableCardsGuiUtil {
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new CustomSeedGene(_dbs), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.setLanguage(EN);
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
         return pr_;
+    }
+    public static String stack(ContainerSingleImpl _cs) {
+        return FacadeCards.stack(StringUtil.concat(_cs.getWindow().getFrames().getTmpUserFolder(), MessagesCardGames.getAppliFilesTr(_cs.getWindow().getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.TEMP_FOLDER), StreamTextFile.SEPARATEUR), _cs.getWindow().getFrames());
     }
     public static void tryClick(AbsButton _m) {
         assertTrue(_m.isVisible());

@@ -7,6 +7,7 @@ import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.sml.IntDataBaseStream;
+import aiki.sml.MessagesPkGame;
 import cards.facade.IntArtCardGames;
 import cards.facade.MessagesCardGames;
 import cards.gui.dialogs.help.HelpIndexesTree;
@@ -60,6 +61,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
     @Test
     public void launch() {
         MockProgramInfos api_ = updateSingle(build());
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(api_.getTranslations()));
         api_.setLanguages(new StringList(EN,FR));
         MessagesCardGames.appendNickNames(MessagesCardGames.getAppliTr(api_.currentLg()), MessagesCardGames.en());
         AikiFactory ai_ = new AikiFactory(api_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
@@ -191,6 +193,8 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
 
     public static WindowNetWork frameSingleMenuKo(IntDataBaseStream _i) {
         MockProgramInfos pr_ = updateSingle(build());
+        MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(pr_.getTranslations()));
         pr_.getSocketFactory().setOkServer(false);
         AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
 //        ai_.setConfPkStream(new MockConfPkStream());

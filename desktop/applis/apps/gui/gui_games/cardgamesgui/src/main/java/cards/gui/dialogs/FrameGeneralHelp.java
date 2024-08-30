@@ -27,8 +27,8 @@ import code.util.*;
 import code.util.core.IndexConstants;
 
 public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame {
-    public static final String PORT_INI = "cards_port.ini";
-    public static final String COORDS="cards.coords";
+//    public static final String PORT_INI = "cards_port.ini";
+//    public static final String COORDS="cards.coords";
 //    public static final String FOLDER_MESSAGES_GUI = "resources_cards/gui/messages";
     public static final String RESOURCES_HTML_FILES_RULES_BELOTE = "0";
     public static final String RESOURCES_HTML_FILES_RULES_PRESIDENT = "1";

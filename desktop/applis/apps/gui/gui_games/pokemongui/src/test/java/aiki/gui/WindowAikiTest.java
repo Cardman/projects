@@ -23,6 +23,7 @@ import code.gui.images.AbstractImage;
 import code.images.BaseSixtyFourUtil;
 import code.mock.*;
 import code.sml.*;
+import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.stream.StreamBinaryFile;
 import code.threads.ConcreteBoolean;
@@ -102,6 +103,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void params1() {
         WindowAiki window_ = newFight();
+        updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendSoftParamsContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkSoftParams.en());
         window_.getLoadingConf().setEnableAnimation(false);
         window_.getLoadingConf().setClickButtonsPad(false);
@@ -128,6 +130,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void params2() {
         WindowAiki window_ = newFight();
+        updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendSoftParamsContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkSoftParams.en());
         window_.getLoadingConf().setEnableAnimation(true);
         window_.getLoadingConf().setClickButtonsPad(true);
@@ -154,6 +157,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void lgs() {
         WindowAiki window_ = newFight();
+        updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
         prepareFightTask(window_);
         prepareWebTask(window_);
@@ -229,10 +233,12 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     @Test
     public void video() {
         WindowAiki window_ = newFight();
+        updateBase(window_.getFrames().getTranslations());
         window_.getVideoLoading().getVideo(window_.getGenerator(),window_.getFrames().getFileCoreStream(),window_.getFrames());
         window_.getVideoLoading().getVideo(window_.getGenerator(),window_.getFrames().getFileCoreStream(),window_.getFrames());
         assertFalse(window_.getModal().get());
         WindowAiki window2_ = newFight();
+        updateBase(window2_.getFrames().getTranslations());
         window2_.getFrames().getFileCoreStream().newFile("/video/1").mkdirs();
         StreamBinaryFile.writeFile("/video/1/link_0.png", StringUtil.encode(BaseSixtyFourUtil.getStringByImage(new int[][]{new int[1]})),window2_.getStreams());
         StreamBinaryFile.writeFile("/video/1/2", new byte[0],window2_.getStreams());
@@ -240,9 +246,14 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         window2_.getVideoLoading().getVideo(window2_.getGenerator(),window2_.getFrames().getFileCoreStream(),window2_.getFrames());
         assertFalse(window2_.getModal().get());
         WindowAiki window3_ = newFight();
+        updateBase(window3_.getFrames().getTranslations());
         window3_.getFrames().getFileCoreStream().newFile("/video").mkdirs();
         window3_.getVideoLoading().getVideo(window3_.getGenerator(),window3_.getFrames().getFileCoreStream(),window3_.getFrames());
         assertFalse(window3_.getModal().get());
+    }
+
+    public static void updateBase(Translations _en) {
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_en));
     }
     private static void coreDataBaseFish(WindowAiki _window) {
         loadRom(_window, coreDataBaseFish());

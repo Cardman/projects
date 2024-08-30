@@ -8,7 +8,7 @@ import code.player.gui.CreateMainWindowPlayer;
 
 public class LaunchingPlayer extends AdvSoftApplicationCore {
 
-    public static final String TEMP_FOLDER = "playersongs";
+//    public static final String TEMP_FOLDER = "playersongs";
 
     public LaunchingPlayer(WithAppFactories _infos){
         super(_infos);

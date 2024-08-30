@@ -5,7 +5,10 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class Translations {
+    public static final String FILES_PATH = "0";
+    public static final String TEMP_FOLDER = "0";
     private final StringMap<TranslationsLg> mapping = new StringMap<TranslationsLg>();
+    private final StringMap<TranslationsAppli> files = new StringMap<TranslationsAppli>();
 
     public StringMap<TranslationsAppli> byAppl(String _appl) {
         StringMap<TranslationsAppli> m_ = new StringMap<TranslationsAppli>();
@@ -20,5 +23,9 @@ public final class Translations {
     }
     public StringMap<TranslationsLg> getMapping() {
         return mapping;
+    }
+
+    public StringMap<TranslationsAppli> getFiles() {
+        return files;
     }
 }
