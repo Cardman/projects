@@ -1,25 +1,25 @@
 package code.sml;
 
 public final class RendKeyWordsStyles {
-    private String styleAttrFontFam="font-family";
-    private String styleAttrFontSize="font-size";
-    private String styleAttrColor="color";
-    private String styleAttrBackground="background";
-    private String styleAttrBorder="border";
+    private String styleAttrFontFam;
+    private String styleAttrFontSize;
+    private String styleAttrColor;
+    private String styleAttrBackground;
+    private String styleAttrBorder;
 
-    private String styleValueRgb="rgb";
-    private String styleValueRed="red";
-    private String styleValueGreen="green";
-    private String styleValueBlue="blue";
-    private String styleValueYellow="yellow";
-    private String styleValueCyan="cyan";
-    private String styleValueMagenta="magenta";
-    private String styleValueBlack="black";
-    private String styleValueGrey="grey";
-    private String styleValueWhite="white";
-    private String styleUnitPx="px";
-    private String styleUnitEm="em";
-    private String styleUnitSolid="solid";
+    private String styleValueRgb;
+    private String styleValueRed;
+    private String styleValueGreen;
+    private String styleValueBlue;
+    private String styleValueYellow;
+    private String styleValueCyan;
+    private String styleValueMagenta;
+    private String styleValueBlack;
+    private String styleValueGrey;
+    private String styleValueWhite;
+    private String styleUnitPx;
+    private String styleUnitEm;
+    private String styleUnitSolid;
 
     public String getStyleAttrFontFam() {
         return styleAttrFontFam;

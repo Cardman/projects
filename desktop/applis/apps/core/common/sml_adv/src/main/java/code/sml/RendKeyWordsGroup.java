@@ -6,7 +6,7 @@ public final class RendKeyWordsGroup {
     private final RendKeyWordsValues keyWordsValues;
     private final RendKeyWordsStyles keyWordsStyles;
     public RendKeyWordsGroup(){
-        this(new RendKeyWordsTags(),new RendKeyWordsAttrs(),new RendKeyWordsValues(),new RendKeyWordsStyles());
+        this(MessagesRendKeyWordsTags.init(),MessagesRendKeyWordsAttrs.init(),MessagesRendKeyWordsValues.init(),MessagesRendKeyWordsStyles.init());
     }
     public RendKeyWordsGroup(RendKeyWordsTags _t, RendKeyWordsAttrs _a, RendKeyWordsValues _v, RendKeyWordsStyles _s){
         keyWordsTags = _t;

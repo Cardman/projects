@@ -177,10 +177,10 @@ public final class RendKeyWords {
     public static final String STYLE_UNIT_EM="1";
     public static final String STYLE_UNIT_PX="2";
 
-    private final RendKeyWordsTags rendKeyWordsTags = new RendKeyWordsTags();
-    private final RendKeyWordsAttrs rendKeyWordsAttrs = new RendKeyWordsAttrs();
-    private final RendKeyWordsValues rendKeyWordsValues = new RendKeyWordsValues();
-    private final RendKeyWordsStyles rendKeyWordsStyles = new RendKeyWordsStyles();
+    private final RendKeyWordsTags rendKeyWordsTags = MessagesRendKeyWordsTags.init();
+    private final RendKeyWordsAttrs rendKeyWordsAttrs = MessagesRendKeyWordsAttrs.init();
+    private final RendKeyWordsValues rendKeyWordsValues = MessagesRendKeyWordsValues.init();
+    private final RendKeyWordsStyles rendKeyWordsStyles = MessagesRendKeyWordsStyles.init();
 //    private String keyWordFor = "for";
 //    private String keyWordWhile = "while";
 //    private String keyWordDo = "do";

@@ -104,7 +104,7 @@ public final class NavigationCoreTest extends EquallableSmlAdvUtil {
     @Test
     public void prImg1() {
         Document d_ = doc("<_ src='cont.txt'/>");
-        NavigationCore.prImg(new ConfigurationCore(),new RendKeyWordsAttrs(),d_.getDocumentElement(),"");
+        NavigationCore.prImg(new ConfigurationCore(),MessagesRendKeyWordsAttrs.init(),d_.getDocumentElement(),"");
         assertEq("<_ src=\"cont.txt\"/>",d_.export());
     }
     @Test
@@ -112,7 +112,7 @@ public final class NavigationCoreTest extends EquallableSmlAdvUtil {
         Document d_ = doc("<_ src='cont.txt'/>");
         ConfigurationCore c_ = new ConfigurationCore();
         c_.getFiles().addEntry("repl.txt","inner");
-        NavigationCore.prImg(c_,new RendKeyWordsAttrs(),d_.getDocumentElement(),"repl.txt");
+        NavigationCore.prImg(c_,MessagesRendKeyWordsAttrs.init(),d_.getDocumentElement(),"repl.txt");
         assertEq("<_ src=\"inner\"/>",d_.export());
     }
     @Test

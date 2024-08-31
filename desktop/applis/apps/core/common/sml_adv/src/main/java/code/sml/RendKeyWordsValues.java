@@ -1,24 +1,24 @@
 package code.sml;
 
 public final class RendKeyWordsValues {
-    private String valueText="text";
-    private String valueCheckbox="checkbox";
-    private String valueRadio="radio";
-    private String valueNumber="number";
-    private String valueRange="range";
-    private String valueSubmit="submit";
+    private String valueText;
+    private String valueCheckbox;
+    private String valueRadio;
+    private String valueNumber;
+    private String valueRange;
+    private String valueSubmit;
 
-    private String valueStyle="stylesheet";
+    private String valueStyle;
 
-    private String valueLiNb="1";
-    private String valueLiMinLet="a";
-    private String valueLiMajLet="A";
-    private String valueLiMinLat="i";
-    private String valueLiMajLat="I";
-    private String valueLiCircle="circle";
-    private String valueLiDisk="disc";
-    private String valueLiRect="rect";
-    private String valueLiSquare="square";
+    private String valueLiNb;
+    private String valueLiMinLet;
+    private String valueLiMajLet;
+    private String valueLiMinLat;
+    private String valueLiMajLat;
+    private String valueLiCircle;
+    private String valueLiDisk;
+    private String valueLiRect;
+    private String valueLiSquare;
 
     public String getValueText() {
         return valueText;
