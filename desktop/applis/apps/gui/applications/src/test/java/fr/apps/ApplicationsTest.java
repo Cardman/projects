@@ -955,7 +955,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public static StringMap<int[][]> def(){
         StringMap<int[][]> out_ = new StringMap<int[][]>(new CollCapacity(78));
         defTrs(out_);
-        out_.addEntry(""+ CouleurValeur.HEART_KING,new int[1][1]);
+        out_.addEntry(""+CouleurValeur.HEART_KING,new int[1][1]);
         out_.addEntry(""+CouleurValeur.HEART_QUEEN,new int[1][1]);
         out_.addEntry(""+CouleurValeur.HEART_KNIGHT,new int[1][1]);
         out_.addEntry(""+CouleurValeur.HEART_JACK,new int[1][1]);
