@@ -42,8 +42,8 @@ public abstract class SoftApplicationCore {
         LoadLanguageUtil.loadLaungage(this, factories.getAppFactories().getTmpFolder(), _args);
     }
     protected void loadLaungage(String _dir, String[] _args, AbstractImage _icon) {
-        String lg_ = prepareLanguage(_dir, _args, _icon);
         submitTasks();
+        String lg_ = prepareLanguage(_dir, _args, _icon);
         if (lg_.isEmpty()) {
             return;
         }
