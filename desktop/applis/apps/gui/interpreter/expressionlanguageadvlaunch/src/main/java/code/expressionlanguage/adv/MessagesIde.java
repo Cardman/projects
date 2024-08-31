@@ -191,6 +191,18 @@ public final class MessagesIde {
     public static final String IDE_POINTS_FRAMES_SESSION_EXP = "19";
     public static final String IDE_POINTS_FRAMES_SESSION_SINGLE_MAIN = "20";
     public static final String CDM_EDITOR = "cdm_editor";
+    public static final String BEGIN_ENCODE = "&#";
+    public static final String END_ENCODE = ";";
+    public static final String SPAN = "span";
+    public static final String HTML = "html";
+    public static final String STYLE = "style";
+    public static final String COLOR = "color";
+    public static final String BACKGROUND_COLOR = "background-" + COLOR;
+    public static final String BLACK = "000000";
+    public static final String WHITE = "ffffff";
+    public static final String RED = "ff0000";
+    public static final String CYAN = "00ffff";
+    public static final String EXT_SPACE = "&#160;";
 
     private MessagesIde(){
     }

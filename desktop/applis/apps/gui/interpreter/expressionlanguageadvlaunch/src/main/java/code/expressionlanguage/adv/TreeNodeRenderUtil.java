@@ -32,18 +32,6 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class TreeNodeRenderUtil {
-    public static final String BEGIN_ENCODE = "&#";
-    public static final String END_ENCODE = ";";
-    public static final String SPAN = "span";
-    public static final String HTML = "html";
-    public static final String STYLE = "style";
-    public static final String COLOR = "color";
-    public static final String BACKGROUND_COLOR = "background-" + COLOR;
-    public static final String BLACK = "000000";
-    public static final String WHITE = "ffffff";
-    public static final String RED = "ff0000";
-    public static final String CYAN = "00ffff";
-    public static final String EXT_SPACE = "&#160;";
 
     private TreeNodeRenderUtil() {
     }
@@ -331,22 +319,22 @@ public final class TreeNodeRenderUtil {
     }
 
     static String format(DbgNodeStruct _node, String _value) {
-        return "<" + HTML + "><" + SPAN + " " + STYLE + "='" + BACKGROUND_COLOR + ":#"+BLACK+";'>"
-                + "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+RED+";'>" + transform(_node.str()) + "</" + SPAN + ">"
-                + EXT_SPACE
+        return "<" + MessagesIde.HTML + "><" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.BACKGROUND_COLOR + ":#"+ MessagesIde.BLACK+";'>"
+                + "<" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.COLOR + ":#"+ MessagesIde.RED+";'>" + transform(_node.str()) + "</" + MessagesIde.SPAN + ">"
+                + MessagesIde.EXT_SPACE
                 + wrapTypeDecl(_node.value().getClassName(_node.getResult()))
-                + EXT_SPACE
+                + MessagesIde.EXT_SPACE
                 + _value
-                + "</" + SPAN + ">"
-                + "</" + HTML + ">";
+                + "</" + MessagesIde.SPAN + ">"
+                + "</" + MessagesIde.HTML + ">";
     }
     private static String wrapTypeDecl(String _type) {
-        return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+WHITE+";'>" +transform(_type) + "</" + SPAN + ">";
+        return "<" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.COLOR + ":#"+ MessagesIde.WHITE+";'>" +transform(_type) + "</" + MessagesIde.SPAN + ">";
     }
 
     private static String wrapValue(String _v) {
         if (!_v.isEmpty()) {
-            return "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+CYAN+";'>" + transform(_v) + "</" + SPAN +">";
+            return "<" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.COLOR + ":#"+ MessagesIde.CYAN+";'>" + transform(_v) + "</" + MessagesIde.SPAN +">";
         }
         return AbsEditorTabList.EMPTY_STRING;
     }
@@ -377,14 +365,14 @@ public final class TreeNodeRenderUtil {
         String before_ = transform(content_.substring(min_, locIndex_));
         String occurrence_ = transform(content_.substring(locIndex_,until_));
         String after_ = transform(content_.substring(until_,max_));
-        return "<" + HTML + "><" + SPAN + " " + STYLE + "='" + BACKGROUND_COLOR + ":#"+BLACK+";'>"
-            + "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+RED+";'>" + locIndex_ + "</" + SPAN + ">"
-            + EXT_SPACE
-            + "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+WHITE+";'>" +before_+ "</" + SPAN + ">"
-            + "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+RED+";'>" +occurrence_+ "</" + SPAN + ">"
-            + "<" + SPAN + " " + STYLE + "='" + COLOR + ":#"+WHITE+";'>" +after_+ "</" + SPAN + ">"
-            + "</" + SPAN + ">"
-            + "</" + HTML + ">";
+        return "<" + MessagesIde.HTML + "><" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.BACKGROUND_COLOR + ":#"+ MessagesIde.BLACK+";'>"
+            + "<" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.COLOR + ":#"+ MessagesIde.RED+";'>" + locIndex_ + "</" + MessagesIde.SPAN + ">"
+            + MessagesIde.EXT_SPACE
+            + "<" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.COLOR + ":#"+ MessagesIde.WHITE+";'>" +before_+ "</" + MessagesIde.SPAN + ">"
+            + "<" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.COLOR + ":#"+ MessagesIde.RED+";'>" +occurrence_+ "</" + MessagesIde.SPAN + ">"
+            + "<" + MessagesIde.SPAN + " " + MessagesIde.STYLE + "='" + MessagesIde.COLOR + ":#"+ MessagesIde.WHITE+";'>" +after_+ "</" + MessagesIde.SPAN + ">"
+            + "</" + MessagesIde.SPAN + ">"
+            + "</" + MessagesIde.HTML + ">";
     }
 
     static String resource(FileBlock _res) {
@@ -401,6 +389,6 @@ public final class TreeNodeRenderUtil {
         return str_.toString();
     }
     private static String escapeNum(char _ch) {
-        return BEGIN_ENCODE +(int)_ch+ END_ENCODE;
+        return MessagesIde.BEGIN_ENCODE +(int)_ch+ MessagesIde.END_ENCODE;
     }
 }
