@@ -55,9 +55,9 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
 //        wc_.getFrames().getCounts().put(wc_.getApplicationName(),wc_.getFrames().getThreadFactory().newAtomicInteger());
         wc_.quit();
         MessagesCardGames.appendNickNames(MessagesCardGames.getAppliTr(wc_.getFrames().currentLg()), MessagesCardGames.en());
-        WindowCards.getIcon(wc_.getImageFactory());
+//        WindowCards.getIcon(wc_.getImageFactory());
 //        FacadeCards.install(WindowCards.getTempFolderSl(wc_.getFrames()),wc_.getFrames());
-        LaunchingGame lg_ = new LaunchingGame(new StringList(), wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>()), new LanguagesButtonsPair(null,null,null));
+        LaunchingGame lg_ = new LaunchingGame(new StringList(), wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>()), new LanguagesButtonsPair(null,null,null), null);
         lg_.run();
         sels();
         defs();

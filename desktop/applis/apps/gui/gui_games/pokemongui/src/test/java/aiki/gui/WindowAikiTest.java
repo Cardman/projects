@@ -234,8 +234,8 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     public void video() {
         WindowAiki window_ = newFight();
         updateBase(window_.getFrames().getTranslations());
-        window_.getVideoLoading().getVideo(window_.getGenerator(),window_.getFrames().getFileCoreStream(),window_.getFrames());
-        window_.getVideoLoading().getVideo(window_.getGenerator(),window_.getFrames().getFileCoreStream(),window_.getFrames());
+        window_.getVideoLoading().getVideo(window_.getGenerator(),window_.getFrames().getFileCoreStream(),window_.getFrames(), window_.getVideoBase());
+        window_.getVideoLoading().getVideo(window_.getGenerator(),window_.getFrames().getFileCoreStream(),window_.getFrames(), window_.getVideoBase());
         assertFalse(window_.getModal().get());
         WindowAiki window2_ = newFight();
         updateBase(window2_.getFrames().getTranslations());
@@ -243,12 +243,12 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         StreamBinaryFile.writeFile("/video/1/link_0.png", StringUtil.encode(BaseSixtyFourUtil.getStringByImage(new int[][]{new int[1]})),window2_.getStreams());
         StreamBinaryFile.writeFile("/video/1/2", new byte[0],window2_.getStreams());
         StreamBinaryFile.writeFile("/video/2", new byte[0],window2_.getStreams());
-        window2_.getVideoLoading().getVideo(window2_.getGenerator(),window2_.getFrames().getFileCoreStream(),window2_.getFrames());
+        window2_.getVideoLoading().getVideo(window2_.getGenerator(),window2_.getFrames().getFileCoreStream(),window2_.getFrames(),window2_.getVideoBase());
         assertFalse(window2_.getModal().get());
         WindowAiki window3_ = newFight();
         updateBase(window3_.getFrames().getTranslations());
         window3_.getFrames().getFileCoreStream().newFile("/video").mkdirs();
-        window3_.getVideoLoading().getVideo(window3_.getGenerator(),window3_.getFrames().getFileCoreStream(),window3_.getFrames());
+        window3_.getVideoLoading().getVideo(window3_.getGenerator(),window3_.getFrames().getFileCoreStream(),window3_.getFrames(), window3_.getVideoBase());
         assertFalse(window3_.getModal().get());
     }
 

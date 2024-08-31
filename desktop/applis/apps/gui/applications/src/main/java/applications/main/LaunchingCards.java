@@ -2,10 +2,15 @@ package applications.main;
 
 import applications.code.gui.AdvSoftApplicationCore;
 import applications.code.gui.WithAppFactories;
+import applications.gui.MessagesApplications;
 import cards.facade.FacadeCards;
 import cards.gui.WindowCards;
 import cards.main.LaunchingGame;
-import code.gui.*;
+import code.gui.AbsButton;
+import code.gui.EnabledMenu;
+import code.gui.InterpretedFile;
+import code.gui.LanguagesButtonsPair;
+import code.gui.files.FileDialog;
 
 /**
     le lancement du logiciel*/
@@ -21,7 +26,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main, LanguagesButtonsPair _pair) {
         FacadeCards.coreFolder(WindowCards.getTempFolderSl(getFrames()),getFrames());
 //        TopLeftFrame coordonnees_= FileDialog.loadCoords(WindowCards.getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
-        getFrames().getCompoFactory().invokeNow(new LaunchingGame(_args.getFileNames(), getFrames(),getAppFactories().getCardFactories(), _pair));
+        getFrames().getCompoFactory().invokeNow(new LaunchingGame(_args.getFileNames(), getFrames(),getAppFactories().getCardFactories(), _pair, FileDialog.getImage(MessagesApplications.resourcesCardsImagesSuits(), getFrames().getImageFactory())));
     }
 
 }

@@ -329,7 +329,7 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     @Test
     public void quit() {
         MockProgramInfos pr_ = build();
-        CreateMainWindowRts c_ = new CreateMainWindowRts(pr_, new LanguagesButtonsPair(null,null,null));
+        CreateMainWindowRts c_ = new CreateMainWindowRts(pr_, new LanguagesButtonsPair(null,null,null), "AAABAAAA");
         c_.run();
         WindowRts w_ = c_.getWindowRts();
         w_.changeLanguage("");

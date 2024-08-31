@@ -1707,7 +1707,9 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         windowPk(app_);
         updateBase(_pr.getTranslations());
 //        app_.getMapping().addEntry(MessagesPkGame.FILES_PATH,MessagesPkGame.mes());
-        return new CreateMainWindowAiki(_conf, new StringList(), _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("","AAABAAAA");
+        return new CreateMainWindowAiki(_conf, new StringList(), _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null), mess_, _pr.getImageFactory().newImageRgb(1,1));
     }
 
     private static CreateMainWindowAiki launcher(MockProgramInfos _pr, AikiFactory _fact, String _file) {
@@ -1722,6 +1724,8 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         windowPk(app_);
         updateBase(_pr.getTranslations());
 //        app_.getMapping().addEntry(MessagesPkGame.FILES_PATH,MessagesPkGame.mes());
-        return new CreateMainWindowAiki(_conf, path_, _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null));
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("","AAABAAAA");
+        return new CreateMainWindowAiki(_conf, path_, _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null), mess_, _pr.getImageFactory().newImageRgb(1,1));
     }
 }

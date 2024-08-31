@@ -1,6 +1,6 @@
 package code.util;
+import code.threads.ConcreteInteger;
 import code.util.classestest.IntegerComparator;
-import code.util.classestest.MyEnum;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -351,15 +351,18 @@ public class ListTest extends EquallableExUtil {
     }
     @Test
     public void retainTest() {
-        IdList<MyEnum> integers_ = new IdList<MyEnum>();
-        integers_.add(MyEnum.THREE);
-        integers_.add(MyEnum.ONE);
-        IdList<MyEnum> integersTwo_ = new IdList<MyEnum>();
-        integersTwo_.add(MyEnum.THREE);
-        integersTwo_.add(MyEnum.TWO);
+        IdList<ConcreteInteger> integers_ = new IdList<ConcreteInteger>();
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        integers_.add(three_);
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        integers_.add(one_);
+        IdList<ConcreteInteger> integersTwo_ = new IdList<ConcreteInteger>();
+        integersTwo_.add(three_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        integersTwo_.add(two_);
         integers_.retainAllElements(integersTwo_);
         assertEq(1, integers_.size());
-        assertSame(MyEnum.THREE, integers_.get(0));
+        assertSame(three_, integers_.get(0));
     }
     @Test
     public void retain2Test() {

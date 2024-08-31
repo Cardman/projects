@@ -123,7 +123,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         menuItem.setEnabled(false);
         search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
         _pr.getBeanNatLgNames().setDataBase(_dataBase);
-        session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
+        session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames(), window.getVideoBase()));
         initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
     }
 

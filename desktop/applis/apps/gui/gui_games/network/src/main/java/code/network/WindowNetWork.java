@@ -2686,6 +2686,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public AbstractAtomicBooleanCore getModal() {
         return modal;
     }
+
+    @Override
+    public StringMap<String> getVideoBase() {
+        return aiki.getVideoBase();
+    }
+
     public boolean isCards() {
         return cards;
     }

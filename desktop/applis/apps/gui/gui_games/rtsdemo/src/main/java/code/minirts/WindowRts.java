@@ -12,7 +12,6 @@ import code.maths.geo.RatePoint;
 import code.minirts.events.*;
 import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
-import code.scripts.messages.gui.MessPlayerGr;
 import code.threads.*;
 import code.util.*;
 
@@ -62,7 +61,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 //    private String noteFile = "";
     private AbsRtsTaskEnabled taskEnabled;
     private final LanguagesButtonsPair mainButton;
-    public WindowRts(AbstractProgramInfos _list, LanguagesButtonsPair _pair) {
+    public WindowRts(AbstractProgramInfos _list, LanguagesButtonsPair _pair, String _note) {
         super(_list);
         StringMap<String> mes_ = MessagesRts.valMessages(_list.currentLg());
         animate.setText(mes_.getVal(MessagesRts.ANIMATE));
@@ -129,9 +128,8 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         stop.setEnabled(false);
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
-        String note_ = MessPlayerGr.resourcesPlayerPlayer();
 //        noteFile = note_;
-        AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(note_));
+        AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(_note));
         int wCurs_ = or_.getWidth();
         int hCurs_ = or_.getHeight();
         int[] pixels_ = new int[wCurs_ * hCurs_];

@@ -47,7 +47,6 @@ import code.gui.initialize.*;
 //import code.network.*;
 //import code.network.enums.ErrorHostConnectionType;
 import code.scripts.messages.cards.MessagesGuiCards;
-import code.scripts.messages.gui.*;
 import code.sml.util.*;
 //import code.stream.StreamFolderFile;
 import code.stream.*;
@@ -344,10 +343,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        String loadedResourcesMessages_ = MessGuiCardsGr.ms().getVal(fileName_);
 //        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
 //    }
-
-    public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return FileDialog.getImage(MessCardVideoGr.resourcesCardsImagesSuits(), _fact);
-    }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
         return StringUtil.concat(getTempFolder(_tmpUserFolderSl), StreamTextFile.SEPARATEUR);

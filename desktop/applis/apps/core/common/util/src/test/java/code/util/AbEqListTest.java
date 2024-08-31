@@ -1,34 +1,40 @@
 package code.util;
 
-import code.util.classestest.MyEnum;
+import code.threads.ConcreteInteger;
 import code.util.comparators.NaturalComparator;
 import org.junit.Test;
 
 public class AbEqListTest extends EquallableExUtil {
     @Test
     public void index1Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>(new IdList<MyEnum>());
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.ONE);
-        Ints indexes_ = e_.indexesOfObj(MyEnum.ONE);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>(new IdList<ConcreteInteger>());
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        e_.add(one_);
+        Ints indexes_ = e_.indexesOfObj(one_);
         assertEq(2, indexes_.size());
         assertEq(0, indexes_.get(0));
         assertEq(3, indexes_.get(1));
     }
     @Test
     public void removeDuplates1Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>(new MyEnum[0]);
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.ONE);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>(new ConcreteInteger[0]);
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        e_.add(one_);
         e_.removeDuplicates();
         assertEq(3, e_.size());
-        assertSame(MyEnum.ONE, e_.get(0));
-        assertSame(MyEnum.TWO, e_.get(1));
-        assertSame(MyEnum.THREE, e_.get(2));
+        assertSame(one_, e_.get(0));
+        assertSame(two_, e_.get(1));
+        assertSame(three_, e_.get(2));
     }
     @Test
     public void getGroupsSameCompare1Test() {
@@ -49,104 +55,128 @@ public class AbEqListTest extends EquallableExUtil {
     }
     @Test
     public void eqEnum1Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>(new CollCapacity(3));
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.ONE);
-        IdList<MyEnum> f_ = new IdList<MyEnum>();
-        f_.add(MyEnum.ONE);
-        f_.add(MyEnum.TWO);
-        f_.add(MyEnum.THREE);
-        f_.add(MyEnum.ONE);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>(new CollCapacity(3));
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        e_.add(one_);
+        IdList<ConcreteInteger> f_ = new IdList<ConcreteInteger>();
+        f_.add(one_);
+        f_.add(two_);
+        f_.add(three_);
+        f_.add(one_);
         assertTrue(e_.eq(f_));
     }
     @Test
     public void eqEnum2Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>();
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        IdList<MyEnum> f_ = new IdList<MyEnum>();
-        f_.add(MyEnum.ONE);
-        f_.add(MyEnum.TWO);
-        f_.add(MyEnum.THREE);
-        f_.add(MyEnum.ONE);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>();
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        IdList<ConcreteInteger> f_ = new IdList<ConcreteInteger>();
+        f_.add(one_);
+        f_.add(two_);
+        f_.add(three_);
+        f_.add(one_);
         assertTrue(!e_.eq(f_));
     }
     @Test
     public void eqEnum3Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>();
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.THREE);
-        IdList<MyEnum> f_ = new IdList<MyEnum>();
-        f_.add(MyEnum.ONE);
-        f_.add(MyEnum.TWO);
-        f_.add(MyEnum.THREE);
-        f_.add(MyEnum.ONE);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>();
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        e_.add(three_);
+        IdList<ConcreteInteger> f_ = new IdList<ConcreteInteger>();
+        f_.add(one_);
+        f_.add(two_);
+        f_.add(three_);
+        f_.add(one_);
         assertTrue(!e_.eq(f_));
     }
     @Test
     public void indexId1Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>(new IdList<MyEnum>());
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.ONE);
-        int index_ = e_.indexOfObj(MyEnum.ONE,1);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>(new IdList<ConcreteInteger>());
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        e_.add(one_);
+        int index_ = e_.indexOfObj(one_,1);
         assertEq(3, index_);
     }
     @Test
     public void indexId2Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>(new MyEnum[0]);
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.ONE);
-        int index_ = e_.indexOfObj(MyEnum.TWO,2);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>(new ConcreteInteger[0]);
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        e_.add(one_);
+        int index_ = e_.indexOfObj(two_,2);
         assertEq(-1, index_);
     }
     @Test
     public void eqId1Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>(new CollCapacity(4));
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.ONE);
-        IdList<MyEnum> f_ = new IdList<MyEnum>();
-        f_.add(MyEnum.ONE);
-        f_.add(MyEnum.TWO);
-        f_.add(MyEnum.THREE);
-        f_.add(MyEnum.ONE);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>(new CollCapacity(4));
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        e_.add(one_);
+        IdList<ConcreteInteger> f_ = new IdList<ConcreteInteger>();
+        f_.add(one_);
+        f_.add(two_);
+        f_.add(three_);
+        f_.add(one_);
         assertTrue(e_.eq(f_));
     }
     @Test
     public void eqId2Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>();
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        IdList<MyEnum> f_ = new IdList<MyEnum>();
-        f_.add(MyEnum.ONE);
-        f_.add(MyEnum.TWO);
-        f_.add(MyEnum.THREE);
-        f_.add(MyEnum.ONE);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>();
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        IdList<ConcreteInteger> f_ = new IdList<ConcreteInteger>();
+        f_.add(one_);
+        f_.add(two_);
+        f_.add(three_);
+        f_.add(one_);
         assertTrue(!e_.eq(f_));
     }
     @Test
     public void eqId3Test() {
-        IdList<MyEnum> e_ = new IdList<MyEnum>();
-        e_.add(MyEnum.ONE);
-        e_.add(MyEnum.TWO);
-        e_.add(MyEnum.THREE);
-        e_.add(MyEnum.THREE);
-        IdList<MyEnum> f_ = new IdList<MyEnum>();
-        f_.add(MyEnum.ONE);
-        f_.add(MyEnum.TWO);
-        f_.add(MyEnum.THREE);
-        f_.add(MyEnum.ONE);
+        IdList<ConcreteInteger> e_ = new IdList<ConcreteInteger>();
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        e_.add(one_);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        e_.add(two_);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        e_.add(three_);
+        e_.add(three_);
+        IdList<ConcreteInteger> f_ = new IdList<ConcreteInteger>();
+        f_.add(one_);
+        f_.add(two_);
+        f_.add(three_);
+        f_.add(one_);
         assertTrue(!e_.eq(f_));
     }
     @Test

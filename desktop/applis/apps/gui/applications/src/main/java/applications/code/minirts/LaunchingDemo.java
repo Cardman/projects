@@ -2,6 +2,7 @@ package applications.code.minirts;
 
 import applications.code.gui.AdvSoftApplicationCore;
 import applications.code.gui.WithAppFactories;
+import applications.gui.MessagesApplications;
 import code.gui.*;
 import code.minirts.CreateMainWindowRts;
 
@@ -19,7 +20,7 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main, LanguagesButtonsPair _pair) {
-        getFrames().getCompoFactory().invokeNow(new CreateMainWindowRts(getFrames(), _pair));
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowRts(getFrames(), _pair, MessagesApplications.resourcesPlayerPlayer()));
     }
 
 

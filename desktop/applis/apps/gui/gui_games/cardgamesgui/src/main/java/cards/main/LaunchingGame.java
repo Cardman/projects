@@ -6,6 +6,7 @@ import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
 import code.gui.LanguagesButtonsPair;
 import code.gui.files.FileDialog;
+import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
@@ -18,13 +19,15 @@ public final class LaunchingGame implements Runnable {
 
     private final CardFactories taskLoadImgs;
     private final LanguagesButtonsPair pair;
+    private final AbstractImage image;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LaunchingGame(StringList _args, AbstractProgramInfos _list, CardFactories _imgs, LanguagesButtonsPair _p) {
+    public LaunchingGame(StringList _args, AbstractProgramInfos _list, CardFactories _imgs, LanguagesButtonsPair _p, AbstractImage _icon) {
         args = _args;
         list = _list;
         taskLoadImgs = _imgs;
         pair = _p;
+        image = _icon;
     }
 
     @Override
@@ -33,7 +36,7 @@ public final class LaunchingGame implements Runnable {
         window_.setPrepare(taskLoadImgs.getTaskNav());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowCards.getTempFolder(list), MessagesCardGames.getAppliFilesTr(list.getTranslations()).val().getMapping().getVal(MessagesCardGames.COORDS), list.getFileCoreStream(), list.getStreams()), list);
-        window_.setImageIconFrame(WindowCards.getIcon(window_.getImageFactory()));
+        window_.setImageIconFrame(image);
         window_.pack();
         window_.setVisible(true);
 //        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp(),list);

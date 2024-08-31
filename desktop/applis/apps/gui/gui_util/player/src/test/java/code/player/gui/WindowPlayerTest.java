@@ -22,7 +22,7 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     @Test
     public void noLaunchArg() {
         MockProgramInfos pr_ = build();
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer(EN, new StringList(), pr_, new LanguagesButtonsPair(null,null,null));
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer(EN, new StringList(), pr_, new LanguagesButtonsPair(null,null,null), null);
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());
@@ -301,7 +301,7 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     public void badList() {
         MockProgramInfos pr_ = build();
         StreamBinaryFile.writeFile("file",wrapInts('<'),pr_.getStreams());
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer(EN, new StringList("file"), pr_, new LanguagesButtonsPair(null,null,null));
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer(EN, new StringList("file"), pr_, new LanguagesButtonsPair(null,null,null), null);
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());
@@ -310,7 +310,7 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
     public void badListNoFile() {
         MockProgramInfos pr_ = build();
         StreamBinaryFile.writeFile("file",wrapInts(),pr_.getStreams());
-        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer(EN, new StringList("file"), pr_, new LanguagesButtonsPair(null,null,null));
+        CreateMainWindowPlayer cr_ = new CreateMainWindowPlayer(EN, new StringList("file"), pr_, new LanguagesButtonsPair(null,null,null), null);
         cr_.run();
         WindowPlayer w_ = cr_.getWindow();
         assertNull(w_.getClipStream());

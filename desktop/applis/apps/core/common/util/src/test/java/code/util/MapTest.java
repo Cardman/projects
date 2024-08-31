@@ -1,6 +1,6 @@
 package code.util;
 
-import code.util.classestest.MyEnum;
+import code.threads.ConcreteInteger;
 import code.util.ints.Listable;
 import org.junit.Test;
 
@@ -183,40 +183,47 @@ public class MapTest extends EquallableExUtil {
 
     @Test
     public void putAllMap7Test() {
-        IdMap<MyEnum,Integer> map_ = new IdMap<MyEnum,Integer>(new IdMap<MyEnum,Integer>(new CollCapacity(0)));
-        map_.put(MyEnum.ZERO, 0);
-        map_.put(MyEnum.ONE, 1);
-        IdMap<MyEnum,Integer> mapToPut_ = new IdMap<MyEnum,Integer>();
-        mapToPut_.put(MyEnum.TWO, 2);
-        mapToPut_.put(MyEnum.THREE, 3);
+        IdMap<ConcreteInteger,Integer> map_ = new IdMap<ConcreteInteger,Integer>(new IdMap<ConcreteInteger,Integer>(new CollCapacity(0)));
+        ConcreteInteger zero_ = new ConcreteInteger(0);
+        map_.put(zero_, 0);
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        map_.put(one_, 1);
+        IdMap<ConcreteInteger,Integer> mapToPut_ = new IdMap<ConcreteInteger,Integer>();
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        mapToPut_.put(two_, 2);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        mapToPut_.put(three_, 3);
         map_.putAllMap(mapToPut_);
         assertEq(4, map_.size());
-        assertTrue(map_.contains(MyEnum.ZERO));
-        assertTrue(map_.contains(MyEnum.ONE));
-        assertTrue(map_.contains(MyEnum.TWO));
-        assertTrue(map_.contains(MyEnum.THREE));
-        assertEq(0, map_.getVal(MyEnum.ZERO));
-        assertEq(1, map_.getVal(MyEnum.ONE));
-        assertEq(2, map_.getVal(MyEnum.TWO));
-        assertEq(3, map_.getVal(MyEnum.THREE));
+        assertTrue(map_.contains(zero_));
+        assertTrue(map_.contains(one_));
+        assertTrue(map_.contains(two_));
+        assertTrue(map_.contains(three_));
+        assertEq(0, map_.getVal(zero_));
+        assertEq(1, map_.getVal(one_));
+        assertEq(2, map_.getVal(two_));
+        assertEq(3, map_.getVal(three_));
     }
 
     @Test
     public void putAllMap8Test() {
-        IdMap<MyEnum,Integer> map_ = new IdMap<MyEnum,Integer>();
-        map_.put(MyEnum.ZERO, 0);
-        map_.put(MyEnum.ONE, 1);
-        IdMap<MyEnum,Integer> mapToPut_ = new IdMap<MyEnum,Integer>();
-        mapToPut_.put(MyEnum.TWO, 2);
-        mapToPut_.put(MyEnum.ONE, 3);
+        IdMap<ConcreteInteger,Integer> map_ = new IdMap<ConcreteInteger,Integer>();
+        ConcreteInteger zero_ = new ConcreteInteger(0);
+        map_.put(zero_, 0);
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        map_.put(one_, 1);
+        IdMap<ConcreteInteger,Integer> mapToPut_ = new IdMap<ConcreteInteger,Integer>();
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        mapToPut_.put(two_, 2);
+        mapToPut_.put(one_, 3);
         map_.putAllMap(mapToPut_);
         assertEq(3, map_.size());
-        assertTrue(map_.contains(MyEnum.ZERO));
-        assertTrue(map_.contains(MyEnum.ONE));
-        assertTrue(map_.contains(MyEnum.TWO));
-        assertEq(0, map_.getVal(MyEnum.ZERO));
-        assertEq(3, map_.getVal(MyEnum.ONE));
-        assertEq(2, map_.getVal(MyEnum.TWO));
+        assertTrue(map_.contains(zero_));
+        assertTrue(map_.contains(one_));
+        assertTrue(map_.contains(two_));
+        assertEq(0, map_.getVal(zero_));
+        assertEq(3, map_.getVal(one_));
+        assertEq(2, map_.getVal(two_));
     }
 
 //    @Test
@@ -508,12 +515,14 @@ public class MapTest extends EquallableExUtil {
 //    }
     @Test
     public void getKeysEmTest() {
-        IdMap<MyEnum,Integer> map_ = new IdMap<MyEnum,Integer>();
-        map_.put(MyEnum.ZERO, 0);
-        map_.put(MyEnum.ONE, 1);
-        CustList<MyEnum> elts_ = map_.getKeys();
+        IdMap<ConcreteInteger,Integer> map_ = new IdMap<ConcreteInteger,Integer>();
+        ConcreteInteger zero_ = new ConcreteInteger(0);
+        map_.put(zero_, 0);
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        map_.put(one_, 1);
+        CustList<ConcreteInteger> elts_ = map_.getKeys();
         assertEq(2,elts_.size());
-        assertSame(MyEnum.ZERO,elts_.first());
-        assertSame(MyEnum.ONE,elts_.last());
+        assertSame(zero_,elts_.first());
+        assertSame(one_,elts_.last());
     }
 }

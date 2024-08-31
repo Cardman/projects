@@ -6,16 +6,18 @@ import code.gui.initialize.AbstractProgramInfos;
 public final class CreateMainWindowRts implements Runnable {
     private final AbstractProgramInfos list;
     private final LanguagesButtonsPair pair;
+    private final String image;
     private WindowRts windowRts;
 
-    public CreateMainWindowRts(AbstractProgramInfos _list, LanguagesButtonsPair _p) {
+    public CreateMainWindowRts(AbstractProgramInfos _list, LanguagesButtonsPair _p, String _icon) {
         list = _list;
         pair = _p;
+        image = _icon;
     }
 
     @Override
     public void run() {
-        windowRts = new WindowRts(list, pair);
+        windowRts = new WindowRts(list, pair, image);
     }
 
     public WindowRts getWindowRts() {

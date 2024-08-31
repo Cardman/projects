@@ -16,7 +16,7 @@ public abstract class EquallableSoundPlayerUtil {
     public static final String FR = StringUtil.FR;
     public static WindowPlayer windowPlayer() {
         MockProgramInfos pr_ = build();
-        return new WindowPlayer(EN,pr_, new LanguagesButtonsPair(null,null,null));
+        return new WindowPlayer(EN,pr_, new LanguagesButtonsPair(null,null,null), pr_.getImageFactory().newImageRgb(1,1));
     }
     public static WindowRecorder windowRecorder() {
         MockProgramInfos pr_ = build();

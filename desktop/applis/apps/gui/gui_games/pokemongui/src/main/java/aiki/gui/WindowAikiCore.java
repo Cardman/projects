@@ -40,6 +40,7 @@ public final class WindowAikiCore {
     private StringMap<String> messages = new StringMap<String>();
     private IntGameChecker gameCheck;
 
+    private final StringMap<String> videoBase = new StringMap<String>();
     public WindowAikiCore(AikiFactory _fact, AbstractProgramInfos _list, ReportingFrame _resFile) {
         setGameCheck(new DefGameChecker());
         aikiFactory = _fact;
@@ -149,6 +150,10 @@ public final class WindowAikiCore {
 
     public EnabledMenu getZipLoad() {
         return zipLoad;
+    }
+
+    public StringMap<String> getVideoBase() {
+        return videoBase;
     }
 
     public VideoLoading getVideoLoading() {

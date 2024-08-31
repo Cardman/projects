@@ -3,7 +3,9 @@ package applications.code.player.main;
 
 import applications.code.gui.AdvSoftApplicationCore;
 import applications.code.gui.WithAppFactories;
+import applications.gui.MessagesApplications;
 import code.gui.*;
+import code.gui.files.FileDialog;
 import code.player.gui.CreateMainWindowPlayer;
 
 public class LaunchingPlayer extends AdvSoftApplicationCore {
@@ -16,7 +18,7 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main, LanguagesButtonsPair _pair) {
-        getFrames().getCompoFactory().invokeNow(new CreateMainWindowPlayer(_language,_args.getFileNames(), getFrames(), _pair));
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowPlayer(_language,_args.getFileNames(), getFrames(), _pair, FileDialog.getImage(MessagesApplications.resourcesPlayerPlayer(), getFrames().getImageFactory())));
     }
 
 }

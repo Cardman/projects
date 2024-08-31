@@ -1,4 +1,5 @@
 package aiki.main;
+
 import aiki.gui.WindowAikiInt;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 
@@ -13,7 +14,7 @@ public final class LoadGame implements Runnable {
     public LoadGame(WindowAikiInt _frame, AbstractAtomicIntegerCoreAdd _p) {
         frame = _frame;
         VideoLoading video_ = frame.common().getVideoLoading();
-        frame.progressDial().init(frame.getLoadFlag(),_frame, video_.getVideo(frame.getFrames().getGenerator(),frame.getFrames().getFileCoreStream(), frame.getFrames()), false, _frame.getCommonFrame());
+        frame.progressDial().init(frame.getLoadFlag(),_frame, video_.getVideo(frame.getFrames().getGenerator(),frame.getFrames().getFileCoreStream(), frame.getFrames(), frame.getVideoBase()), false, _frame.getCommonFrame());
         perCent = _p;
     }
 

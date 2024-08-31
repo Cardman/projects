@@ -7,6 +7,7 @@ import code.gui.AbsCommonFrame;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicBooleanCore;
+import code.util.StringMap;
 
 public interface WindowAikiInt {
     boolean updateConf();
@@ -29,6 +30,7 @@ public interface WindowAikiInt {
     ProgressingDialog progressDial();
     AbstractAtomicBooleanCore getLoadFlag();
     AbstractAtomicBooleanCore getModal();
+    StringMap<String> getVideoBase();
 
     AbsCommonFrame getCommonFrame();
     void showSuccessfulMessageDialogThenLoadHelp(String _fileName);

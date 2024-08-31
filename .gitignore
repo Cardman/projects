@@ -240,11 +240,6 @@
 !/desktop/applis/apps/core/scripts/scripts_cards/src/
 !/desktop/applis/apps/core/scripts/scripts_cards/src/**/
 !/desktop/applis/apps/core/scripts/scripts_cards/src/**/*.java
-!/desktop/applis/apps/core/scripts/scripts_core/
-!/desktop/applis/apps/core/scripts/scripts_core/pom.xml
-!/desktop/applis/apps/core/scripts/scripts_core/src/
-!/desktop/applis/apps/core/scripts/scripts_core/src/**/
-!/desktop/applis/apps/core/scripts/scripts_core/src/**/*.java
 !/desktop/applis/apps/core/scripts/scripts_game/
 !/desktop/applis/apps/core/scripts/scripts_game/pom.xml
 !/desktop/applis/apps/core/scripts/scripts_game/src/

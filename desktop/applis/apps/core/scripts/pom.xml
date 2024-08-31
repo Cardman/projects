@@ -13,7 +13,6 @@
     <artifactId>scripts</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>scripts_core</module>
         <module>scripts_cards</module>
         <module>scripts_game</module>
     </modules>

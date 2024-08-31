@@ -6,15 +6,12 @@ package code.player.gui;
 
 import code.gui.*;
 import code.gui.events.*;
-import code.gui.files.FileDialog;
 import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.*;
-import code.scripts.messages.gui.MessPlayerGr;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -85,13 +82,13 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private AbstractFuture abstractFuture;
     private final AbsButton mainButton;
 
-    public WindowPlayer(String _lg, AbstractProgramInfos _list, LanguagesButtonsPair _pair) {
+    public WindowPlayer(String _lg, AbstractProgramInfos _list, LanguagesButtonsPair _pair, AbstractImage _icon) {
         super(_list);
         mainButton = _pair.getMainButton();
         GuiBaseUtil.choose(this, _list);
         initMessages(_lg);
         setTitle(messages.getVal(MessagesPlayer.TITLE));
-        setIconImage(getIcon(_list.getImageFactory()));
+        setIconImage(_icon);
         AbsPanel pane_ = getCompoFactory().newPageBox();
         songsLabel.setText(messages.getVal(MessagesPlayer.SONGS));
         pane_.add(songsLabel);
@@ -138,11 +135,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         addWindowListener(new QuittingEvent(this));
     }
 
-    public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return FileDialog.getImage(MessPlayerGr.resourcesPlayerPlayer(), _fact);
-    }
-
-    //    @Override
+//    @Override
 //    public void dispose() {
 //        saveState();
 //        GuiBaseUtil.trEx(this);

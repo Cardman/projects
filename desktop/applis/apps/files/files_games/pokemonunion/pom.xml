@@ -29,11 +29,6 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
         <dependency>
-            <groupId>scripts_core</groupId>
-            <artifactId>scripts_core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>pokemonmock</groupId>
             <artifactId>pokemonmock</artifactId>
             <version>1.0-SNAPSHOT</version>

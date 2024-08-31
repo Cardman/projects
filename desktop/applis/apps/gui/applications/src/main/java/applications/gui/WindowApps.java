@@ -1,14 +1,12 @@
 package applications.gui;
 
-import aiki.gui.WindowAiki;
 import applications.code.gui.WithAppFactories;
 import applications.main.LaunchingApplications;
-import cards.gui.WindowCards;
 import code.gui.*;
-import code.gui.events.*;
+import code.gui.events.AlwaysActionListenerAct;
+import code.gui.events.QuittingEvent;
 import code.gui.files.FileDialog;
 import code.gui.images.MetaPoint;
-import code.player.gui.WindowPlayer;
 import code.stream.StreamLanguageUtil;
 
 
@@ -45,7 +43,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         setTitle(MessagesApplications.getAppliTr(_list.getProgramInfos().currentLg()).getMapping().getVal(MessagesApplications.MAIN_GAME).getMapping().getVal(MessagesApplications.MAIN_TITLE));
         AbsPanel panel_ = getCompoFactory().newPageBox();
         AbsPanel linePokemon_ = getCompoFactory().newLineBox();
-        buttonPokemon = _list.getProgramInfos().getCompoFactory().newImgButton(WindowAiki.getIcon(getImageFactory()));
+        buttonPokemon = _list.getProgramInfos().getCompoFactory().newImgButton(FileDialog.getImage(MessagesApplications.resourcesPkPokemon(), getImageFactory()));
         buttons = new LanguageComponentButtons(_list.getProgramInfos(), new AlwaysActionListenerAct());
         LanguageComponentButtons buttons_ = buttons;
 //        AbstractAtomicInteger at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
@@ -55,7 +53,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         AbsPanel lineCards_ = getCompoFactory().newLineBox();
-        buttonCards = _list.getProgramInfos().getCompoFactory().newImgButton(WindowCards.getIcon(getImageFactory()));
+        buttonCards = _list.getProgramInfos().getCompoFactory().newImgButton(FileDialog.getImage(MessagesApplications.resourcesCardsImagesSuits(), getImageFactory()));
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowCards.APP_CARDS,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowCards.APP_CARDS, buttonCards);
@@ -87,7 +85,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
         AbsPanel linePlayer_ = getCompoFactory().newLineBox();
-        buttonPlayer = _list.getProgramInfos().getCompoFactory().newImgButton(WindowPlayer.getIcon(getImageFactory()));
+        buttonPlayer = _list.getProgramInfos().getCompoFactory().newImgButton(FileDialog.getImage(MessagesApplications.resourcesPlayerPlayer(), getFrames().getImageFactory()));
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowPlayer.APPS_MUSICPLAYER,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowPlayer.APPS_MUSICPLAYER, buttonPlayer);

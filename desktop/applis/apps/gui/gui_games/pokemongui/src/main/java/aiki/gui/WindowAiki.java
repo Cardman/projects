@@ -35,7 +35,6 @@ import code.gui.initialize.*;
 //import code.network.*;
 //import code.sml.Document;
 //import code.sml.Element;
-import code.scripts.messages.gui.*;
 import code.sml.util.*;
 import code.stream.*;
 import code.threads.*;
@@ -228,7 +227,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final FrameHtmlData renderDataWeb;
     private final AbsActionListenerAct guardRender;
     private final LanguagesButtonsPair mainButton;
-    public WindowAiki(AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _pair) {
+    public WindowAiki(AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _pair, AbstractImage _icon) {
         super(_list);
         mainButton = _pair;
         guardRender = new AlwaysActionListenerAct();
@@ -265,7 +264,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        facade.setLanguages(_list.getLanguages());
 //        facade.setDisplayLanguages(_list.getDisplayLanguages());
 //        facade.setSimplyLanguage(_list.getLanguage());
-        setImageIconFrame(getIcon(getImageFactory()));
+        setImageIconFrame(_icon);
         AbsPanel mainPanel_ = getCompoFactory().newPageBox();
         scenePanel = new ScenePanel(this, core.getFacade());
         language = _pair.getLgMenu();
@@ -308,10 +307,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        String loadedResourcesMessages_ = MessGuiPkGr.ms().getVal(fileName_);
 //        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
 //    }
-
-    public static AbstractImage getIcon(AbstractImageFactory _fact) {
-        return FileDialog.getImage(MessPkVideoGr.resourcesPkPokemon(), _fact);
-    }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
         return StringUtil.concat(getTempFolder(_tmpUserFolderSl), StreamTextFile.SEPARATEUR);
@@ -2010,5 +2005,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public AbsActionListenerAct getGuardRender() {
         return guardRender;
+    }
+
+    public StringMap<String> getVideoBase() {
+        return core.getVideoBase();
     }
 }

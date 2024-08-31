@@ -5,6 +5,7 @@ import aiki.sml.LoadingGame;
 import aiki.sml.MessagesPkGame;
 import code.gui.LanguagesButtonsPair;
 import code.gui.files.FileDialog;
+import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamFolderFile;
 import code.util.StringList;
@@ -21,15 +22,19 @@ public final class CreateMainWindowAiki implements Runnable {
 
     private final AikiFactory aikiFactory;
     private final LanguagesButtonsPair pair;
+    private final StringMap<String> videoBase;
+    private final AbstractImage image;
     private WindowAiki window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _p) {
+    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _p, StringMap<String> _mess, AbstractImage _icon) {
         load = _load;
         withParam = _withParam;
         list = _list;
         aikiFactory = _fact;
         pair = _p;
+        videoBase = _mess;
+        image = _icon;
     }
 
     @Override
@@ -43,7 +48,8 @@ public final class CreateMainWindowAiki implements Runnable {
 //        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), PagesInit.buildInd(), builtMessages_, builtOther_, new PkInd(), list.getLanguages());
 //        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), PagesInit.buildDiff(), builtMessages_, builtOther_, new PkDiff(), list.getLanguages());
 //        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), PagesInit.buildProg(), builtMessages_, builtOther_, new PkProg(), list.getLanguages());
-        WindowAiki window_ = new WindowAiki(list,aikiFactory, pair);
+        WindowAiki window_ = new WindowAiki(list,aikiFactory, pair, image);
+        window_.getVideoBase().addAllEntries(videoBase);
 //        window_.getDataWeb().setEnabled(false);
         StringMap<String> mes_ = MessagesPkGame.getAppliFilesTr(list.getTranslations()).val().getMapping();
         FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), mes_.getVal(MessagesPkGame.COORDS), list.getFileCoreStream(), list.getStreams()), list);

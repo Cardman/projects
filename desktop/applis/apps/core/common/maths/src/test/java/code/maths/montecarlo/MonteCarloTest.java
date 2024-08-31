@@ -348,11 +348,11 @@ public class MonteCarloTest extends EquallableMathUtil {
     }
     @Test
     public void new_MonteCarloEnum_test() {
-        MonteCarloEnum<SampleEnum> l_ = new MonteCarloEnum<SampleEnum>();
-        l_.addEvent(SampleEnum.ONE,LgInt.one());
+        MonteCarloEnum<BoolVal> l_ = new MonteCarloEnum<BoolVal>();
+        l_.addEvent(BoolVal.TRUE,LgInt.one());
         assertEq(1,l_.nbEvents());
-        l_ = new MonteCarloEnum<SampleEnum>(new CollCapacity(1));
-        l_.addEvent(SampleEnum.TWO,LgInt.one());
+        l_ = new MonteCarloEnum<BoolVal>(new CollCapacity(1));
+        l_.addEvent(BoolVal.FALSE,LgInt.one());
         assertEq(1,l_.nbEvents());
     }
     @Test

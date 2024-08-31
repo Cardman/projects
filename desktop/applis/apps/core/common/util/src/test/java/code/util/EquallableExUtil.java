@@ -1,6 +1,6 @@
 package code.util;
 
-import code.util.classestest.MyEnum;
+import code.threads.ConcreteInteger;
 import code.util.core.BoolVal;
 import code.util.ints.Comparing;
 import org.junit.Assert;
@@ -34,7 +34,7 @@ public abstract class EquallableExUtil {
     public static void assertSame(BoolVal _expected, BoolVal _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertSame(MyEnum _expected, MyEnum _result) {
+    public static void assertSame(ConcreteInteger _expected, ConcreteInteger _result) {
         Assert.assertSame(_expected, _result);
     }
 
