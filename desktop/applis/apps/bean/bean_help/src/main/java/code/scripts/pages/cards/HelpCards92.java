@@ -17,16 +17,16 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_21_0+"=Le joueur qui distribue les cartes s''appelle le donneur.\n";
-f+=M_21_1+"=D''une partie &#224; l''autre, le donneur tourne,\n";
-f+=M_21_2+"=c''est &#224; dire que le nouveau donneur est le joueur plac&#233; &#224; droite de l''ancien donneur,\n";
+f+=M_21_0+"=Le joueur qui distribue les cartes s'appelle le donneur.\n";
+f+=M_21_1+"=D'une partie &#224; l'autre, le donneur tourne,\n";
+f+=M_21_2+"=c'est &#224; dire que le nouveau donneur est le joueur plac&#233; &#224; droite de l'ancien donneur,\n";
 f+=M_21_3+"=et le jeu est m&#233;lang&#233; et coup&#233; &#224; chaque fois.\n";
 f+=M_21_4+"=Chaque joueur poss&#232;de 18 cartes et 6 constituent un talon (appel&#233; chien),\n";
 f+=M_21_5+"=les cartes sont distribu&#233;es 3 par 3.\n";
 f+=M_21_6+"=Les cartes, face cach&#233;e, qui constituent le chien,\n";
-f+=M_21_7+"=sont distribu&#233;es carte par carte &#224; n''importe quel moment,\n";
+f+=M_21_7+"=sont distribu&#233;es carte par carte &#224; n'importe quel moment,\n";
 f+=M_21_8+"=sauf au premier tour et au dernier.\n";
-f+=M_21_9+"=Le donneur distribue dans le sens contraire des aiguilles d''une montre.\n";
+f+=M_21_9+"=Le donneur distribue dans le sens contraire des aiguilles d'une montre.\n";
 return f;
 }
 }

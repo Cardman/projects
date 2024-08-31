@@ -37,9 +37,9 @@ return e;
 static String fr(){
 String f="";
 f+=M_20_0+"=Les contrats d&#233;terminent la partie.\n";
-f+=M_20_1+"=Chaque joueur annonce un contrat, dans le sens contraire des aiguilles d''une montre, en commen&#231;ant par le joueur plac&#233;, &#224; droite du donneur.\n";
+f+=M_20_1+"=Chaque joueur annonce un contrat, dans le sens contraire des aiguilles d'une montre, en commen&#231;ant par le joueur plac&#233;, &#224; droite du donneur.\n";
 f+=M_20_2+"=Un joueur doit soit passer, soit annoncer un contrat sup&#233;rieur aux pr&#233;c&#233;dents. Chaque joueur doit annoncer une fois seulement.\n";
-f+=M_20_3+"=Au tarot, il existe 5 contrats, dans l''ordre du plus faible au plus fort:\n";
+f+=M_20_3+"=Au tarot, il existe 5 contrats, dans l'ordre du plus faible au plus fort:\n";
 f+=M_20_4+"=Passe\n";
 f+=M_20_5+"=Petite\n";
 f+=M_20_6+"=Garde\n";
@@ -53,7 +53,7 @@ f+=M_20_13+"=Garde Sans: le preneur prend le chien non visible &#224; personne,\
 f+=M_20_14+"=Garde Contre: le preneur laisse le chien &#224; ses adversaires non visible &#224; personne,\n";
 f+=M_20_15+"=Remarques:\n";
 f+=M_20_16+"=Les adversaires du preneur constituent la d&#233;fense.\n";
-f+=M_20_17+"=Il n''y a qu''un tour d''ench&#232;re.(Chaque joueur ne parle qu''une fois.)\n";
+f+=M_20_17+"=Il n'y a qu'un tour d'ench&#232;re.(Chaque joueur ne parle qu'une fois.)\n";
 f+=M_20_18+"=Exemples:\n";
 f+=M_20_19+"=Si le 1er joueur, qui doit parler, passe,\n";
 f+=M_20_20+"=&#160;&#160;si le 2e annonce une petite,\n";

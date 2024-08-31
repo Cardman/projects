@@ -23,14 +23,14 @@ f+=M_69_0+"=Vous trouverez toutes les fonctionnalites du logiciel.\n";
 f+=M_69_1+"=Le logiciel poss&#232;de une barre de menus avec cinq menus.\n";
 f+=M_69_2+"=Lors du premier lancement du logiciel vous avez devant\n";
 f+=M_69_3+"=vous les boutons \"Mode solo\" et \"Mode multi joueurs\".\n";
-f+=M_69_4+"=C''est le lancement par d&#233;faut.\n";
+f+=M_69_4+"=C'est le lancement par d&#233;faut.\n";
 f+=M_69_5+"=En ayant choisi un des deux modes, vous choisissez en suite le jeu auquel vous voulez jouer.\n";
 f+=M_69_6+"=De plus, des bo&#238;tes de dialogues sont accessibles par certains sous menus.\n";
-f+=M_69_7+"=Pour jouer en \"Mode multi joueurs\", vous devez choisir le nombre de joueurs puis cr&#233;er un serveur qui va permettre &#224; d''autres personnes de jouer avec vous.\n";
+f+=M_69_7+"=Pour jouer en \"Mode multi joueurs\", vous devez choisir le nombre de joueurs puis cr&#233;er un serveur qui va permettre &#224; d'autres personnes de jouer avec vous.\n";
 f+=M_69_8+"=Il faudra que vous donniez votre adresse IP aux autres joueurs.\n";
 f+=M_69_9+"=En \"Mode multi joueurs\", chaque personne doit choisir sa place avant de commencer.\n";
-f+=M_69_10+"=Il n''est possible de voir toutes les informations de la partie en r&#233;seau que si tous les joueurs sont dans la m&#234;me &#233;quipe pour &#233;viter de la tricherie.\n";
-f+=M_69_11+"=D''autres personnes peuvent se joindre apr&#232;s la fin de la partie.\n";
+f+=M_69_10+"=Il n'est possible de voir toutes les informations de la partie en r&#233;seau que si tous les joueurs sont dans la m&#234;me &#233;quipe pour &#233;viter de la tricherie.\n";
+f+=M_69_11+"=D'autres personnes peuvent se joindre apr&#232;s la fin de la partie.\n";
 return f;
 }
 }

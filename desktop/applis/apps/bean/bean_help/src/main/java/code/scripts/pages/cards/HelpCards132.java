@@ -10,8 +10,8 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_61_0+"=L''action du sous menu \"Equipes\" permet\n";
-f+=M_61_1+"=d''avoir l''ensemble des &#233;quipes de joueurs pour cette partie.\n";
+f+=M_61_0+"=L'action du sous menu \"Equipes\" permet\n";
+f+=M_61_1+"=d'avoir l'ensemble des &#233;quipes de joueurs pour cette partie.\n";
 f+=M_61_2+"=Cette action ouvre une bo&#238;te de dialogue.\n";
 return f;
 }

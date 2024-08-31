@@ -16,8 +16,8 @@ String f="";
 f+=M_10_0+"=La belote se joue avec 32 cartes, &#224; 4 joueurs.\n";
 f+=M_10_1+"=Il existe diff&#233;rents modes de jeu.\n";
 f+=M_10_2+"=Nous allons pr&#233;senter la belote classique et la belote coinch&#233;e.\n";
-f+=M_10_3+"=Le but, c''est de marquer le plus de points possible.\n";
-f+=M_10_4+"=Plusieurs variantes (ou modes) existent. A l''origine, ce jeu se jouait &#224; 4 joueurs.\n";
+f+=M_10_3+"=Le but, c'est de marquer le plus de points possible.\n";
+f+=M_10_4+"=Plusieurs variantes (ou modes) existent. A l'origine, ce jeu se jouait &#224; 4 joueurs.\n";
 f+=M_10_5+"=Comme beaucoup de jeux de cartes, la belote se joue carte par carte, les joueurs jouent une carte par tour.\n";
 return f;
 }

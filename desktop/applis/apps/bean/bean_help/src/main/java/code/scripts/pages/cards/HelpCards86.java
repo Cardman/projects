@@ -24,15 +24,15 @@ f+=M_15_0+"=Comme pour tous les jeux de cartes, il existe des variantes.\n";
 f+=M_15_1+"=Voici quelques variantes:\n";
 f+=M_15_2+"=&#201;galer est intedit: tous les joueurs ne peuvent pas jouer des groupes de cartes de m&#234;me force que le dernier groupr.\n";
 f+=M_15_3+"=&#201;galer saute toujours le joueur suivant: si deux groupes of m&#234;me force sont jou&#233;s, le joueur suivant est saut&#233;, (ce joueur ne peut pas jouer &#224; ce moment, mais peut apr&#232;s).\n";
-f+=M_15_4+"=&#201;galer force le joueur suivant &#224; &#233;galer encore: si deux grouprs de m&#234;me force sont jou&#233;s, le joueur suivant doit &#233;galer ou passer, (ce joueur peut seulement jouer un groupe de m&#234;me force &#224; ce moment, mais peut jouer n''importe quel groupe apr&#232;s). Si toutes les cartes de m&#234;me force sont successivement jou&#233;es dans le pli, li pli est fini comme le jeu d''un groupe de 2.\n";
+f+=M_15_4+"=&#201;galer force le joueur suivant &#224; &#233;galer encore: si deux grouprs de m&#234;me force sont jou&#233;s, le joueur suivant doit &#233;galer ou passer, (ce joueur peut seulement jouer un groupe de m&#234;me force &#224; ce moment, mais peut jouer n'importe quel groupe apr&#232;s). Si toutes les cartes de m&#234;me force sont successivement jou&#233;es dans le pli, li pli est fini comme le jeu d'un groupe de 2.\n";
 f+=M_15_5+"=Tous les joueurs doivent jouer si possible. (ne peut pas passer)\n";
 f+=M_15_6+"=Si un joueur finit par un groupe de 2, le joueur peut perdre la donne. (Si deux joueurs finissent par un groupe de 2, le dernier joueur perd.)\n";
-f+=M_15_7+"=Si 4 cartes sont jou&#233;es en m&#234;me temps, l''ordre est invers&#233; (Les 2 deviennent faibles et les 3 deviennent forts.). Si 4 autres cartes sont jou&#233;es en m&#234;me temps, l''inversion est annul&#233;e.\n";
-f+=M_15_8+"=Pour les donnes suivantes, le joueur au dernier rang &#233;change 2 cartes avec le joueur au premier rang et le joueur &#224; l''avant dernier rang &#233;change 1 carte avec le joueur au deuxi&#232;me rang.\n";
+f+=M_15_7+"=Si 4 cartes sont jou&#233;es en m&#234;me temps, l'ordre est invers&#233; (Les 2 deviennent faibles et les 3 deviennent forts.). Si 4 autres cartes sont jou&#233;es en m&#234;me temps, l'inversion est annul&#233;e.\n";
+f+=M_15_8+"=Pour les donnes suivantes, le joueur au dernier rang &#233;change 2 cartes avec le joueur au premier rang et le joueur &#224; l'avant dernier rang &#233;change 1 carte avec le joueur au deuxi&#232;me rang.\n";
 f+=M_15_9+"=Les perdants donnent leur meilleures cartes. Les gagnants donnent des cartes de leur choix.\n";
 f+=M_15_10+"=Pour les donnes suivantes, le joueur au dernier rang commence le premier pli.\n";
-f+=M_15_11+"=D''autres jeux de cartes peuvent &#234;tre ajout&#233;s.\n";
-f+=M_15_12+"=Les cartes peuvent &#234;tre distribu&#233;es dans le sens des aiguilles d''une montre.\n";
+f+=M_15_11+"=D'autres jeux de cartes peuvent &#234;tre ajout&#233;s.\n";
+f+=M_15_12+"=Les cartes peuvent &#234;tre distribu&#233;es dans le sens des aiguilles d'une montre.\n";
 return f;
 }
 }

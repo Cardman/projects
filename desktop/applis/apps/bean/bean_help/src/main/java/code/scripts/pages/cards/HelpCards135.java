@@ -18,11 +18,11 @@ static String fr(){
 String f="";
 f+=M_64_0+"=La donne de belote est al&#233;atoire et param&#233;tr&#233;e par les r&#232;gles.\n";
 f+=M_64_1+"=Il est possible de mettre en pause la partie pour comprendre le fonctionnement de la partie.\n";
-f+=M_64_2+"=Les diff&#233;rences entre une partie que l''utilisateur joue et une d&#233;monstration sont:\n";
-f+=M_64_3+"=Pas de boutons d''interaction avec la partie.\n";
+f+=M_64_2+"=Les diff&#233;rences entre une partie que l'utilisateur joue et une d&#233;monstration sont:\n";
+f+=M_64_3+"=Pas de boutons d'interaction avec la partie.\n";
 f+=M_64_4+"=Dans la zone de texte, on affiche toutes les informations sur la partie d&#233;mont&#233;e.\n";
-f+=M_64_5+"=Il n''y a pas de bo&#238;tes de dialogue pour une partie d&#233;monstr&#233;e.\n";
-f+=M_64_6+"=L''option conseil est toujours d&#233;sactiv&#233;e.\n";
+f+=M_64_5+"=Il n'y a pas de bo&#238;tes de dialogue pour une partie d&#233;monstr&#233;e.\n";
+f+=M_64_6+"=L'option conseil est toujours d&#233;sactiv&#233;e.\n";
 f+=M_64_7+"=Il est impossible de sauvegarder la partie de cartes d&#233;montr&#233;e.\n";
 f+=M_64_8+"=La partie de cartes d&#233;montr&#233;e peut &#234;tre interrompue brusquement.\n";
 return f;

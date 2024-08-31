@@ -11,7 +11,7 @@ return e;
 static String fr(){
 String f="";
 f+=M_36_0+"=Aide g&#233;n&#233;rale Raccourci F3\n";
-f+=M_36_1+"=Cette action permet d''avoir de l''aide sur les jeux de cartes et le logiciel.\n";
+f+=M_36_1+"=Cette action permet d'avoir de l'aide sur les jeux de cartes et le logiciel.\n";
 f+=M_36_2+"=Cette action met en place cette bo&#238;te de dialogue.\n";
 return f;
 }

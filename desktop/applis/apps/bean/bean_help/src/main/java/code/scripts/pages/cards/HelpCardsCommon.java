@@ -1,7 +1,6 @@
 package code.scripts.pages.cards;
 import cards.consts.*;
 import code.scripts.confs.*;
-import code.scripts.imgs.cards.*;
 import code.sml.*;
 import code.util.*;
 public abstract class HelpCardsCommon{

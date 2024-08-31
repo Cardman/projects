@@ -8,7 +8,7 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_55_0+"=Cette action permet d''arr&#234;ter de jouer une partie en r&#233;seau avec d''autres personnes.\n";
+f+=M_55_0+"=Cette action permet d'arr&#234;ter de jouer une partie en r&#233;seau avec d'autres personnes.\n";
 return f;
 }
 }

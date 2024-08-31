@@ -10,7 +10,7 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_14_0+"=L''ordre des cartes est:\n";
+f+=M_14_0+"=L'ordre des cartes est:\n";
 f+=M_14_1+"=2-As-Roi-Dame-Valet-10-9-8-7-6-5-4-3\n";
 f+=M_14_2+"=Ordre des cartes:\n";
 return f;

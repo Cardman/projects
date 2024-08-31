@@ -16,13 +16,13 @@ return e;
 static String fr(){
 String f="";
 f+=M_54_0+"=Aide au jeu Raccourci F2:\n";
-f+=M_54_1+"=L''action du sous menu \"Aide au jeu\" permet d''avoir l''ensemble des cartes jou&#233;es, l''ensemble des r&#233;partitions possibles des cartes pour les autres joueurs, et l''ensemble des cartes certainement poss&#233;d&#233;es par les autres joueurs, en fonction des r&#232;gles des jeux, pour des jeux non solitaires.\n";
+f+=M_54_1+"=L'action du sous menu \"Aide au jeu\" permet d'avoir l'ensemble des cartes jou&#233;es, l'ensemble des r&#233;partitions possibles des cartes pour les autres joueurs, et l'ensemble des cartes certainement poss&#233;d&#233;es par les autres joueurs, en fonction des r&#232;gles des jeux, pour des jeux non solitaires.\n";
 f+=M_54_2+"=Cette action ouvre une bo&#238;te de dialogue.\n";
-f+=M_54_3+"=Cette bo&#238;te de dialogue pr&#233;sente l''ensemble des possibilit&#233;s de possession des cartes des joueurs.\n";
+f+=M_54_3+"=Cette bo&#238;te de dialogue pr&#233;sente l'ensemble des possibilit&#233;s de possession des cartes des joueurs.\n";
 f+=M_54_4+"=La lettre P, derri&#232;re un nom de carte, signifie que cette carte est probablement poss&#233;d&#233;e par ce joueur.\n";
 f+=M_54_5+"=La lettre C, derri&#232;re un nom de carte, signifie que cette carte est certainement poss&#233;d&#233;e par ce joueur.\n";
 f+=M_54_6+"=La lettre J, derri&#232;re un nom de carte, signifie que cette carte est d&#233;j&#224; jou&#233;e.\n";
-f+=M_54_7+"=Si aucune des deux lettres n''est plac&#233;e derri&#232;re un nom de carte, alors cette carte est jou&#233;e (&#233;cart&#233;e dans le chien, si preneur; ou dans un pli) ou encore poss&#233;d&#233;e par l''utilisateur.\n";
+f+=M_54_7+"=Si aucune des deux lettres n'est plac&#233;e derri&#232;re un nom de carte, alors cette carte est jou&#233;e (&#233;cart&#233;e dans le chien, si preneur; ou dans un pli) ou encore poss&#233;d&#233;e par l'utilisateur.\n";
 return f;
 }
 }

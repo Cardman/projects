@@ -30,21 +30,21 @@ f+=M_68_0+"=Le logiciel poss&#232;de une barre de menus avec cinq menus.\n";
 f+=M_68_1+"=Ces menus sont:\n";
 f+=M_68_2+"=Fichier, qui permet de g&#233;rer\n";
 f+=M_68_3+"=les fichiers\n";
-f+=M_68_4+"=les changements d''&#233;tat du logiciel\n";
+f+=M_68_4+"=les changements d'&#233;tat du logiciel\n";
 f+=M_68_5+"=Partie, qui permet de\n";
 f+=M_68_6+"=g&#233;rer une partie\n";
-f+=M_68_7+"=obtenir de l''aide sur la fa&#231;on de jouer pour cette partie\n";
-f+=M_68_8+"=s''entra&#238;ner &#224; certaines situations de jeu\n";
+f+=M_68_7+"=obtenir de l'aide sur la fa&#231;on de jouer pour cette partie\n";
+f+=M_68_8+"=s'entra&#238;ner &#224; certaines situations de jeu\n";
 f+=M_68_9+"=regarder les possiblit&#233;s de possession de cartes des autres joueurs\n";
 f+=M_68_10+"=&#233;diter une partie\n";
-f+=M_68_11+"=apprendre &#224; jouer via une d&#233;monstration d''une partie\n";
+f+=M_68_11+"=apprendre &#224; jouer via une d&#233;monstration d'une partie\n";
 f+=M_68_12+"=Param&#232;tres, qui permet de g&#233;rer\n";
 f+=M_68_13+"=les r&#232;gles de jeux de cartes\n";
 f+=M_68_14+"=le lancement du logiciel\n";
 f+=M_68_15+"=les pseudonymes des joueurs\n";
 f+=M_68_16+"=la temporisation des jeux\n";
-f+=M_68_17+"=l''interaction entre la fl&#232;che de la souris et les cartes\n";
-f+=M_68_18+"=Aide, qui donne de l''aide\n";
+f+=M_68_17+"=l'interaction entre la fl&#232;che de la souris et les cartes\n";
+f+=M_68_18+"=Aide, qui donne de l'aide\n";
 return f;
 }
 }

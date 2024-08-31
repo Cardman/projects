@@ -17,13 +17,13 @@ return e;
 static String fr(){
 String f="";
 f+=M_48_0+"=Joueurs raccourci CTRL + ALT + J\n";
-f+=M_48_1+"=L''action du sous menu \"Joueurs\" permet de changer le pseudo de l''utilisateur et des autres joueurs.\n";
+f+=M_48_1+"=L'action du sous menu \"Joueurs\" permet de changer le pseudo de l'utilisateur et des autres joueurs.\n";
 f+=M_48_2+"=Cette action met en place une bo&#238;te de dialogue.\n";
 f+=M_48_3+"=La bo&#238;te de dialogue permet de changer:\n";
-f+=M_48_4+"=Le pseudonyme de l''utilisateur.\n";
+f+=M_48_4+"=Le pseudonyme de l'utilisateur.\n";
 f+=M_48_5+"=Le pseudonyme des autres &#233;ventuels joueurs.\n";
 f+=M_48_6+"=Attention, seuls les premiers pseudonymes,pour les autres joueurs, seront utilis&#233;s.\n";
-f+=M_48_7+"=Exemple: si le jeu s''effectue &#224; 4 joueurs, alors seuls les 3 premiers pseudonymes\n";
+f+=M_48_7+"=Exemple: si le jeu s'effectue &#224; 4 joueurs, alors seuls les 3 premiers pseudonymes\n";
 f+=M_48_8+"=seront utilis&#233;s.\n";
 return f;
 }

@@ -23,20 +23,20 @@ return e;
 static String fr(){
 String f="";
 f+=M_41_0+"=Sauvegarder une partie (raccourci: CTRL + S):\n";
-f+=M_41_1+"=L''action du sous menu Sauvegarder une partie met en place une bo&#238;te de dialogue.\n";
-f+=M_41_2+"=Ce sous menu permet de sauvegarder une partie de cartes en train d''&#234;tre jou&#233;e d&#232;s que possible.\n";
-f+=M_41_3+"=L''utilisateur peut alors reprendre cette partie apr&#232;s. De plus, s''il encha&#238;ne un \"TriaCartes\", il peut sauvegarder la partie en train d''&#234;tre jou&#233;e.\n";
-f+=M_41_4+"=La bo&#238;te de dialogue place le chemin relatif du dossier pour sauvegarder en tenant compte de la partie en train d''&#234;tre jou&#233;e ou &#233;dit&#233;e.\n";
+f+=M_41_1+"=L'action du sous menu Sauvegarder une partie met en place une bo&#238;te de dialogue.\n";
+f+=M_41_2+"=Ce sous menu permet de sauvegarder une partie de cartes en train d'&#234;tre jou&#233;e d&#232;s que possible.\n";
+f+=M_41_3+"=L'utilisateur peut alors reprendre cette partie apr&#232;s. De plus, s'il encha&#238;ne un \"TriaCartes\", il peut sauvegarder la partie en train d'&#234;tre jou&#233;e.\n";
+f+=M_41_4+"=La bo&#238;te de dialogue place le chemin relatif du dossier pour sauvegarder en tenant compte de la partie en train d'&#234;tre jou&#233;e ou &#233;dit&#233;e.\n";
 f+=M_41_5+"=On peut trier les fichiers:\n";
 f+=M_41_6+"=par ordre alphab&#233;tique du nom de fichier.\n";
 f+=M_41_7+"=par ordre de date modification du fichier.\n";
 f+=M_41_8+"=par ordre de taille du fichier.\n";
-f+=M_41_9+"=L''utilisateur ne sera pas oblig&#233; de rajouter l''extension du fichier apr&#232;s son nom.\n";
-f+=M_41_10+"=L''utilisateur, pour sauvegarder la partie, apr&#232;s avoir entr&#233; un nom, pourra soit cliquer sur le bouton \"Sauvegarder\", soit taper sur la touche \"Entree\".\n";
+f+=M_41_9+"=L'utilisateur ne sera pas oblig&#233; de rajouter l'extension du fichier apr&#232;s son nom.\n";
+f+=M_41_10+"=L'utilisateur, pour sauvegarder la partie, apr&#232;s avoir entr&#233; un nom, pourra soit cliquer sur le bouton \"Sauvegarder\", soit taper sur la touche \"Entree\".\n";
 f+=M_41_11+"=Le bouton \"Annuler\" ou la croix rouge en haut &#224; droite permettent de fermer la bo&#238;te de dialogue.\n";
-f+=M_41_12+"=Si l''utilisateur tente d''utiliser les caract&#232;res &lt; &gt; ? \" * / \\ | : ., le saut de ligne, les tabulations, alors un message d''erreur appara&#238;t.\n";
-f+=M_41_13+"=Si l''utilisateur tente de cr&#233;er une sauvegarde ne contenant que des espaces (Sur Windows), alors un message d''erreur appara&#238;t.\n";
-f+=M_41_14+"=Si l''utilisateur tente de sauvegarder dans un fichier dont le nom existe d&#233;j&#224;, alors un message d''avertissement appara&#238;t.\n";
+f+=M_41_12+"=Si l'utilisateur tente d'utiliser les caract&#232;res &lt; &gt; ? \" * / \\ | : ., le saut de ligne, les tabulations, alors un message d'erreur appara&#238;t.\n";
+f+=M_41_13+"=Si l'utilisateur tente de cr&#233;er une sauvegarde ne contenant que des espaces (Sur Windows), alors un message d'erreur appara&#238;t.\n";
+f+=M_41_14+"=Si l'utilisateur tente de sauvegarder dans un fichier dont le nom existe d&#233;j&#224;, alors un message d'avertissement appara&#238;t.\n";
 return f;
 }
 }

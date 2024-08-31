@@ -31,30 +31,30 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_35_0+"=La pr&#233;sentation de la fin de partie s''effectue directement sur la fen&#234;tre, par un conteneur &#224; onglets, donc pas de bo&#238;te de dialogue.\n";
+f+=M_35_0+"=La pr&#233;sentation de la fin de partie s'effectue directement sur la fen&#234;tre, par un conteneur &#224; onglets, donc pas de bo&#238;te de dialogue.\n";
 f+=M_35_1+"=Les onglets sont les suivants:\n";
 f+=M_35_2+"=R&#233;sultats de cette partie (scores pr&#233;c&#233;dents et scores de cette partie).\n";
 f+=M_35_3+"=Explication annonces.\n";
 f+=M_35_4+"=Courbes temporelles des scores centr&#233;s par rapport &#224; la moyenne, si la partie est al&#233;atoire.\n";
 f+=M_35_5+"=Mains et plis.\n";
-f+=M_35_6+"=L''utilisateur peut regarder les scores pr&#233;c&#233;dents, ceux de cette partie et les annonces de cette partie.\n";
+f+=M_35_6+"=L'utilisateur peut regarder les scores pr&#233;c&#233;dents, ceux de cette partie et les annonces de cette partie.\n";
 f+=M_35_7+"=Si la partie est finie au moins pour la deuxi&#232;me fois, on ne la comptabilise pas.\n";
 f+=M_35_8+"=On s&#233;pare les scores des parties al&#233;atoires de ceux des parties &#233;dit&#233;es.\n";
-f+=M_35_9+"=L''utilisateur peut regarder les mains et les plis de cette partie.\n";
+f+=M_35_9+"=L'utilisateur peut regarder les mains et les plis de cette partie.\n";
 f+=M_35_10+"=On sauvegarde la pile de toutes les cartes dans un fichier.\n";
 f+=M_35_11+"=On incr&#233;mente (augmente de un) le nombre de parties jou&#233;es depuis le lancement du logiciel,\n";
 f+=M_35_12+"=&#160;puis on le sauvegarde, dans un fichier texte, au bon endroit.\n";
 f+=M_35_13+"=On incr&#233;mente le nombre de fois que cette partie est finie.\n";
 f+=M_35_14+"=Les options de cet &#233;tat sont les suivantes:\n";
 f+=M_35_15+"=\"Continuer de jouer les parties &#233;dit&#233;es\", si la partie finie est &#233;dit&#233;e et non finale.\n";
-f+=M_35_16+"=\"Continuer sur le jeu actuel\", si la partie finie est &#233;dit&#233;e et finale et qu''auparavant,\n";
+f+=M_35_16+"=\"Continuer sur le jeu actuel\", si la partie finie est &#233;dit&#233;e et finale et qu'auparavant,\n";
 f+=M_35_17+"=au moins une partie al&#233;atoire a &#233;t&#233; jou&#233;e; ou si la partie pr&#233;c&#233;dente est al&#233;atoire.\n";
 f+=M_35_18+"=\"Rejouer la donne\".\n";
 f+=M_35_19+"=\"Arr&#234;ter\".\n";
-f+=M_35_20+"=Si l''utilisateur a choisi l''option \"Continuer de jouer les parties &#233;dit&#233;es\", alors les cartes ne sont pas battues et la donne suivante est jou&#233;e.\n";
-f+=M_35_21+"=Si l''utilisateur a choisi l''option \"Continuer sur le jeu actuel\", alors la partie suivante est jou&#233;e.\n";
-f+=M_35_22+"=Si l''utilisateur a choisi l''option \"Rejouer la donne\", alors la partie est redistribu&#233;e.\n";
-f+=M_35_23+"=Si l''utilisateur a choisi l''option \"Arr&#234;ter\", alors le menu \"menu solo\" avec les jeux est affich&eacute; is shown.\n";
+f+=M_35_20+"=Si l'utilisateur a choisi l'option \"Continuer de jouer les parties &#233;dit&#233;es\", alors les cartes ne sont pas battues et la donne suivante est jou&#233;e.\n";
+f+=M_35_21+"=Si l'utilisateur a choisi l'option \"Continuer sur le jeu actuel\", alors la partie suivante est jou&#233;e.\n";
+f+=M_35_22+"=Si l'utilisateur a choisi l'option \"Rejouer la donne\", alors la partie est redistribu&#233;e.\n";
+f+=M_35_23+"=Si l'utilisateur a choisi l'option \"Arr&#234;ter\", alors le menu \"menu solo\" avec les jeux est affich&eacute; is shown.\n";
 return f;
 }
 }

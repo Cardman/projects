@@ -163,7 +163,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Message\ntwo=Two";
-        String html_ = "<html><body>Esc''ape</body></html>";
+        String html_ = "<html><body>Esc'ape</body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(relative_, content_);

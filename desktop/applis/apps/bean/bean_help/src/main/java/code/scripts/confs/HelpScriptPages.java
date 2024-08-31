@@ -1,7 +1,6 @@
 package code.scripts.confs;
 
 import code.bean.nat.analyze.*;
-import code.scripts.pages.cards.*;
 import code.util.*;
 
 public final class HelpScriptPages {

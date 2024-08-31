@@ -39,14 +39,14 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_60_0+"=Le sous menu \"Entrainement\" contient les sous menus sur les jeux pour l''entra&#238;nement.\n";
-f+=M_60_1+"=Pour chaque nombre de joueurs diff&#233;rents (trois, quatre, cinq ou six), il existe trois modes d''entra&#238;nement au tarot:\n";
+f+=M_60_0+"=Le sous menu \"Entrainement\" contient les sous menus sur les jeux pour l'entra&#238;nement.\n";
+f+=M_60_1+"=Pour chaque nombre de joueurs diff&#233;rents (trois, quatre, cinq ou six), il existe trois modes d'entra&#238;nement au tarot:\n";
 f+=M_60_2+"=Petit &#224; chasser\n";
 f+=M_60_3+"=Petit &#224; sauver\n";
 f+=M_60_4+"=Petit &#224; emmener au bout\n";
-f+=M_60_5+"=Ceci est programm&#233; par des tirages de Monte - Carlo, c''est - &#224; - dire des tirages de nombres al&#233;atoires.\n";
-f+=M_60_6+"=On tire un nombre al&#233;atoire d''atouts suivant une loi bin&#244;miale conditionnelle; pour garder les &#233;v&#233;nements &#233;quiprobables.\n";
-f+=M_60_7+"=Les intervalles de nombres d''atouts &#224; tirer sont les suivants (Le Petit ne fait pas partie des atouts tir&#233;s al&#233;atoirement.):\n";
+f+=M_60_5+"=Ceci est programm&#233; par des tirages de Monte - Carlo, c'est - &#224; - dire des tirages de nombres al&#233;atoires.\n";
+f+=M_60_6+"=On tire un nombre al&#233;atoire d'atouts suivant une loi bin&#244;miale conditionnelle; pour garder les &#233;v&#233;nements &#233;quiprobables.\n";
+f+=M_60_7+"=Les intervalles de nombres d'atouts &#224; tirer sont les suivants (Le Petit ne fait pas partie des atouts tir&#233;s al&#233;atoirement.):\n";
 f+=M_60_8+"=A trois joueurs:\n";
 f+=M_60_9+"=Petit &#224; chasser:\n";
 f+=M_60_10+"=&#160;Le minimum vaut quinze et le maximum vaut vingt et un.\n";

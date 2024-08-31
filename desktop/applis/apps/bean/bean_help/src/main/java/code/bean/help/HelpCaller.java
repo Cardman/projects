@@ -64,10 +64,8 @@ public final class HelpCaller {
         if (_current instanceof Element) {
             String tagName_ = ((Element)_current).getTagName();
             if (StringUtil.quickEq(tagName_, _rend.getKeyWordsTags().getKeyWordMessage())) {
-                StringList objects_ = new StringList();
                 String value_ = ((Element)_current).getAttribute(_rend.getKeyWordsAttrs().getAttrValue());
-                String preRend_ = StringUtil.simpleStringsFormat(getPre(value_, properties, _files), objects_);
-                return _doc.createTextNode(preRend_);
+                return _doc.createTextNode(getPre(value_, properties, _files));
             }
             Element elt_ = _doc.createElement(tagName_);
             for (Attr a: _current.getAttributes()) {
@@ -75,7 +73,7 @@ public final class HelpCaller {
             }
             return elt_;
         }
-        return _doc.createTextNode(StringUtil.simpleStringsFormat(_current.getTextContent(),new StringList()));
+        return _doc.createTextNode(_current.getTextContent());
     }
     public static StringMap<TranslationsFile> files(TranslationsAppli _otherMessage, StringMap<String> _props){
         StringMap<TranslationsFile> files_ = new StringMap<TranslationsFile>();
