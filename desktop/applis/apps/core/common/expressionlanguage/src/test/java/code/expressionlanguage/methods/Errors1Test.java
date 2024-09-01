@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -24,16 +25,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
-                " int <a name=\"m25\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m42\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m64\">extField</a>;\n" +
-                " static int <a name=\"m86\">m</a>(){\n" +
-                "  <a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m97\">l</a> = new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m110\" title=\"The method field() from the type pkg.Int must be overriden in the concrete type pkg.Ext..Int*1.\" class=\"e\">{</a>\n" +
-                "   public int <a name=\"m126\">field</a>=++<a title=\"pkg.Ext.extField\" href=\"#m64\">extField</a>;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"42\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"64\">extField</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"86\">m</a>(){\n" +
+                "  <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"97\">l</a> = new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\" title=\"The method field() from the type pkg.Int must be overriden in the concrete type pkg.Ext..Int*1.\" class=\"e\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"126\">field</a>=++<a title=\"pkg.Ext.extField\" href=\"#"+ExportCst.PREF_REF+"64\">extField</a>;\n" +
                 "  }</span>;\n" +
-                "  return <a href=\"#m97\">l</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"97\">l</a>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -61,16 +62,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " int <a name=\"m21\">field</a> = 15;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"21\">field</a> = 15;\n" +
                 "}\n" +
-                "class <a name=\"m41\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m63\">extField</a>;\n" +
-                " static int <a name=\"m85\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"41\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"63\">extField</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"85\">m</a>(){\n" +
                 "  return 0;\n" +
-                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">if</a> (new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m117\">{</a>\n" +
-                "   public int <a name=\"m133\">subfield</a>;\n" +
-                "  }</span>.<a title=\"pkg.Int.field\" href=\"#m21\">field</a> == 15)<a name=\"m159\">lab</a>{\n" +
+                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">if</a> (new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"117\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"133\">subfield</a>;\n" +
+                "  }</span>.<a title=\"pkg.Int.field\" href=\"#"+ExportCst.PREF_REF+"21\">field</a> == 15)<a name=\""+ExportCst.PREF_REF+"159\">lab</a>{\n" +
                 "   <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> 1;\n" +
                 "  }\n" +
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> 2;\n" +
@@ -103,22 +104,22 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static int <a name=\"m28\">stfield</a>;\n" +
-                " int <a name=\"m42\" title=\"A throw block or a return block is missing for the method field().\" class=\"e\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">stfield</a>;\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"42\" title=\"A throw block or a return block is missing for the method field().\" class=\"e\">field</a>();\n" +
                 " static {\n" +
-                "  <a title=\"pkg.Int.stfield\" href=\"#m28\">stfield</a>++;\n" +
+                "  <a title=\"pkg.Int.stfield\" href=\"#"+ExportCst.PREF_REF+"28\">stfield</a>++;\n" +
                 " }\n" +
                 "}\n" +
-                "class <a name=\"m85\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m107\">m</a>(){\n" +
-                "  <a title=\"pkg.Int\" href=\"#m6\">Int</a> <a name=\"m118\">l</a> = new {} interfaces(<a title=\"pkg.Int\" href=\"#m6\">Int</a>) <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m150\" title=\"The type pkg.Int is not an interface.\" class=\"e\">{</a>\n" +
-                "   public int <a name=\"m166\">field</a>=++<a title=\"pkg.Int.stfield\" href=\"#m28\">stfield</a>;\n" +
-                "   public int <a name=\"m197\">field</a>(){\n" +
-                "    return <a title=\"pkg.Ext..Int*1.field\" href=\"#m166\">field</a>;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"85\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"107\">m</a>(){\n" +
+                "  <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a> <a name=\""+ExportCst.PREF_REF+"118\">l</a> = new {} interfaces(<a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>) <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"150\" title=\"The type pkg.Int is not an interface.\" class=\"e\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"166\">field</a>=++<a title=\"pkg.Int.stfield\" href=\"#"+ExportCst.PREF_REF+"28\">stfield</a>;\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"197\">field</a>(){\n" +
+                "    return <a title=\"pkg.Ext..Int*1.field\" href=\"#"+ExportCst.PREF_REF+"166\">field</a>;\n" +
                 "   }\n" +
                 "  }</span>;\n" +
-                "  return <a href=\"#m118\">l</a>.<a title=\"pkg.Int.field()\" href=\"#m42\">field</a>();\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"118\">l</a>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"42\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -157,31 +158,31 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
-                " int <a name=\"m25\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 "}\n" +
-                "enum <a name=\"m41\">pkg.Ext</a> {\n" +
-                " <a name=\"m52\" title=\"pkg.Ext-ONE.pkg.Ext-ONE(pkg.Int)\" href=\"#m200\">ONE</a>(<a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m113\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(1)<span class=\"t\"><a name=\"m66\">{</a>\n" +
-                "  static int <a name=\"m81\">extField</a>;\n" +
-                "  public int <a name=\"m104\">field</a>;\n" +
-                "  <a name=\"m113\">public Int(</a>int <a name=\"m128\">p</a>){\n" +
-                "   <a title=\"pkg.Ext..Int*1.field\" href=\"#m104\">field</a> = <a href=\"#m128\">p</a>;\n" +
+                "enum <a name=\""+ExportCst.PREF_REF+"41\">pkg.Ext</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"52\" title=\"pkg.Ext-ONE.pkg.Ext-ONE(pkg.Int)\" href=\"#"+ExportCst.PREF_REF+"200\">ONE</a>(<a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#"+ExportCst.PREF_REF+"113\">new</a> <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>(1)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"66\">{</a>\n" +
+                "  static int <a name=\""+ExportCst.PREF_REF+"81\">extField</a>;\n" +
+                "  public int <a name=\""+ExportCst.PREF_REF+"104\">field</a>;\n" +
+                "  <a name=\""+ExportCst.PREF_REF+"113\">public Int(</a>int <a name=\""+ExportCst.PREF_REF+"128\">p</a>){\n" +
+                "   <a title=\"pkg.Ext..Int*1.field\" href=\"#"+ExportCst.PREF_REF+"104\">field</a> = <a href=\"#"+ExportCst.PREF_REF+"128\">p</a>;\n" +
                 "  }\n" +
-                "  public int <a name=\"m163\">field</a>(){\n" +
-                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#m104\">field</a>;\n" +
+                "  public int <a name=\""+ExportCst.PREF_REF+"163\">field</a>(){\n" +
+                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#"+ExportCst.PREF_REF+"104\">field</a>;\n" +
                 "  }\n" +
                 " }</span>){\n" +
-                "  <a name=\"m200\">ONE(</a><a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m208\">p</a>){\n" +
-                "   <a title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#m246\">super</a>(<a href=\"#m208\">p</a>);\n" +
+                "  <a name=\""+ExportCst.PREF_REF+"200\">ONE(</a><a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"208\">p</a>){\n" +
+                "   <a title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#"+ExportCst.PREF_REF+"246\">super</a>(<a href=\"#"+ExportCst.PREF_REF+"208\">p</a>);\n" +
                 "  }\n" +
                 " };\n" +
-                " <a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m238\">inner</a>;\n" +
-                " <a name=\"m246\">Ext(</a><a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m254\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.inner\" href=\"#m238\">inner</a> = <a href=\"#m254\">p</a>;\n" +
+                " <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"238\">inner</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"246\">Ext(</a><a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"254\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.inner\" href=\"#"+ExportCst.PREF_REF+"238\">inner</a> = <a href=\"#"+ExportCst.PREF_REF+"254\">p</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m286\">m</a>(){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"286\">m</a>(){\n" +
                 "  return 0;\n" +
-                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#m52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#m238\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
+                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#"+ExportCst.PREF_REF+"52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#"+ExportCst.PREF_REF+"238\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -216,27 +217,27 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
-                " int <a name=\"m25\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 "}\n" +
-                "enum <a name=\"m41\">pkg.Ext</a> {\n" +
-                " <a name=\"m52\" title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#m211\">ONE</a>(<a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m113\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(1)<span class=\"t\"><a name=\"m66\">{</a>\n" +
-                "  static int <a name=\"m81\">extField</a>;\n" +
-                "  public int <a name=\"m104\">field</a>;\n" +
-                "  <a name=\"m113\">public Int(</a>int <a name=\"m128\">p</a>){\n" +
-                "   <a title=\"pkg.Ext..Int*1.field\" href=\"#m104\">field</a> = <a href=\"#m128\">p</a>;\n" +
+                "enum <a name=\""+ExportCst.PREF_REF+"41\">pkg.Ext</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"52\" title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#"+ExportCst.PREF_REF+"211\">ONE</a>(<a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#"+ExportCst.PREF_REF+"113\">new</a> <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>(1)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"66\">{</a>\n" +
+                "  static int <a name=\""+ExportCst.PREF_REF+"81\">extField</a>;\n" +
+                "  public int <a name=\""+ExportCst.PREF_REF+"104\">field</a>;\n" +
+                "  <a name=\""+ExportCst.PREF_REF+"113\">public Int(</a>int <a name=\""+ExportCst.PREF_REF+"128\">p</a>){\n" +
+                "   <a title=\"pkg.Ext..Int*1.field\" href=\"#"+ExportCst.PREF_REF+"104\">field</a> = <a href=\"#"+ExportCst.PREF_REF+"128\">p</a>;\n" +
                 "  }\n" +
-                "  public int <a name=\"m163\">field</a>(){\n" +
-                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#m104\">field</a>;\n" +
+                "  public int <a name=\""+ExportCst.PREF_REF+"163\">field</a>(){\n" +
+                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#"+ExportCst.PREF_REF+"104\">field</a>;\n" +
                 "  }\n" +
                 " }</span>);\n" +
-                " <a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m203\">inner</a>;\n" +
-                " <a name=\"m211\">Ext(</a><a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m219\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.inner\" href=\"#m203\">inner</a> = <a href=\"#m219\">p</a>;\n" +
+                " <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"203\">inner</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"211\">Ext(</a><a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"219\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.inner\" href=\"#"+ExportCst.PREF_REF+"203\">inner</a> = <a href=\"#"+ExportCst.PREF_REF+"219\">p</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m251\">m</a>(){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"251\">m</a>(){\n" +
                 "  return 0;\n" +
-                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#m52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#m203\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
+                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#"+ExportCst.PREF_REF+"52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#"+ExportCst.PREF_REF+"203\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -264,20 +265,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
-                " int <a name=\"m25\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m42\">pkg.Ext</a> {\n" +
-                " static <a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m64\">inner</a> = new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m81\">{</a>\n" +
-                "  static int <a name=\"m96\">extField</a>;\n" +
-                "  public int <a name=\"m119\">field</a>=1;\n" +
-                "  public int <a name=\"m141\">field</a>(){\n" +
-                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#m119\">field</a>;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"42\">pkg.Ext</a> {\n" +
+                " static <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"64\">inner</a> = new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"81\">{</a>\n" +
+                "  static int <a name=\""+ExportCst.PREF_REF+"96\">extField</a>;\n" +
+                "  public int <a name=\""+ExportCst.PREF_REF+"119\">field</a>=1;\n" +
+                "  public int <a name=\""+ExportCst.PREF_REF+"141\">field</a>(){\n" +
+                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#"+ExportCst.PREF_REF+"119\">field</a>;\n" +
                 "  }\n" +
                 " }</span>;\n" +
-                " static int <a name=\"m187\">m</a>(){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"187\">m</a>(){\n" +
                 "  return 0;\n" +
-                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.inner\" href=\"#m64\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
+                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.inner\" href=\"#"+ExportCst.PREF_REF+"64\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -305,19 +306,19 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " int <a name=\"m21\">field</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"21\">field</a>=1;\n" +
                 "}\n" +
-                "class <a name=\"m38\">pkg.Ext</a> {\n" +
-                " static String <a name=\"m63\">m</a>(){\n" +
-                "  String <a name=\"m77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
-                "  int <a name=\"m93\">i</a> = 0;\n" +
-                "  switch (new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m119\">{</a>}</span>.<a title=\"pkg.Int.field\" href=\"#m21\">field</a>){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"38\">pkg.Ext</a> {\n" +
+                " static String <a name=\""+ExportCst.PREF_REF+"63\">m</a>(){\n" +
+                "  String <a name=\""+ExportCst.PREF_REF+"77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"93\">i</a> = 0;\n" +
+                "  switch (new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"119\">{</a>}</span>.<a title=\"pkg.Int.field\" href=\"#"+ExportCst.PREF_REF+"21\">field</a>){\n" +
                 "   case 1;\n" +
-                "   <a href=\"#m77\">res</a>+=<span class=\"s\">','</span>;\n" +
-                "   <a href=\"#m93\">i</a>++;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"77\">res</a>+=<span class=\"s\">','</span>;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"93\">i</a>++;\n" +
                 "  }\n" +
-                "  return <a href=\"#m77\">res</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"77\">res</a>;\n" +
                 "  <a title=\"The type int cannot be implicitly cast to $core.String\n" +
                 "\n" +
                 "The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
@@ -366,36 +367,36 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " int <a name=\"m21\">field</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"21\">field</a>=1;\n" +
                 "}\n" +
-                "class <a name=\"m38\">pkg.Ext</a> {\n" +
-                " static String <a name=\"m63\">m</a>(){\n" +
-                "  String <a name=\"m77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
-                "  for (int <a name=\"m98\">i</a>: <a title=\"pkg.Ext..Iterable*1.pkg.Ext..Iterable*1(int...)\" href=\"#m140\">new</a> Iterable&lt;int&gt;(1,2)<span class=\"t\"><a name=\"m123\">{</a>\n" +
-                "   int[] <a name=\"m134\">f</a>;\n" +
-                "   <a name=\"m140\">Iterable(</a>int... <a name=\"m156\">a</a>){\n" +
-                "    <a title=\"pkg.Ext..Iterable*1.f\" href=\"#m134\">f</a> = <a href=\"#m156\">a</a>;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"38\">pkg.Ext</a> {\n" +
+                " static String <a name=\""+ExportCst.PREF_REF+"63\">m</a>(){\n" +
+                "  String <a name=\""+ExportCst.PREF_REF+"77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"98\">i</a>: <a title=\"pkg.Ext..Iterable*1.pkg.Ext..Iterable*1(int...)\" href=\"#"+ExportCst.PREF_REF+"140\">new</a> Iterable&lt;int&gt;(1,2)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>\n" +
+                "   int[] <a name=\""+ExportCst.PREF_REF+"134\">f</a>;\n" +
+                "   <a name=\""+ExportCst.PREF_REF+"140\">Iterable(</a>int... <a name=\""+ExportCst.PREF_REF+"156\">a</a>){\n" +
+                "    <a title=\"pkg.Ext..Iterable*1.f\" href=\"#"+ExportCst.PREF_REF+"134\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"156\">a</a>;\n" +
                 "   }\n" +
-                "   public Iterator&lt;int&gt; <a name=\"m200\">iterator</a>(){\n" +
-                "    return <a title=\"pkg.Ext..Iterable*1..Iterator*1.pkg.Ext..Iterable*1..Iterator*1(int...)\" href=\"#m276\">new</a> Iterator&lt;int&gt;(<a title=\"pkg.Ext..Iterable*1.f\" href=\"#m134\">f</a>)<span class=\"t\"><a name=\"m243\">{</a>\n" +
-                "     int[] <a name=\"m256\">g</a>;\n" +
-                "     int <a name=\"m268\">j</a>;\n" +
-                "     <a name=\"m276\">Iterator(</a>int... <a name=\"m292\">a</a>){\n" +
-                "      <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#m256\">g</a> = <a href=\"#m292\">a</a>;\n" +
+                "   public Iterator&lt;int&gt; <a name=\""+ExportCst.PREF_REF+"200\">iterator</a>(){\n" +
+                "    return <a title=\"pkg.Ext..Iterable*1..Iterator*1.pkg.Ext..Iterable*1..Iterator*1(int...)\" href=\"#"+ExportCst.PREF_REF+"276\">new</a> Iterator&lt;int&gt;(<a title=\"pkg.Ext..Iterable*1.f\" href=\"#"+ExportCst.PREF_REF+"134\">f</a>)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"243\">{</a>\n" +
+                "     int[] <a name=\""+ExportCst.PREF_REF+"256\">g</a>;\n" +
+                "     int <a name=\""+ExportCst.PREF_REF+"268\">j</a>;\n" +
+                "     <a name=\""+ExportCst.PREF_REF+"276\">Iterator(</a>int... <a name=\""+ExportCst.PREF_REF+"292\">a</a>){\n" +
+                "      <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#"+ExportCst.PREF_REF+"256\">g</a> = <a href=\"#"+ExportCst.PREF_REF+"292\">a</a>;\n" +
                 "     }\n" +
-                "     public boolean <a name=\"m336\">hasNext</a>(){\n" +
-                "      return <a title=\"pkg.Ext..Iterable*1..Iterator*1.j\" href=\"#m268\">j</a> &lt; <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#m256\">g</a>.<b>length</b>;\n" +
+                "     public boolean <a name=\""+ExportCst.PREF_REF+"336\">hasNext</a>(){\n" +
+                "      return <a title=\"pkg.Ext..Iterable*1..Iterator*1.j\" href=\"#"+ExportCst.PREF_REF+"268\">j</a> &lt; <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#"+ExportCst.PREF_REF+"256\">g</a>.<b>length</b>;\n" +
                 "     }\n" +
-                "     public int <a name=\"m397\">next</a>(){\n" +
-                "      return <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#m256\">g</a>[<a title=\"pkg.Ext..Iterable*1..Iterator*1.j\" href=\"#m268\">j</a>++];\n" +
+                "     public int <a name=\""+ExportCst.PREF_REF+"397\">next</a>(){\n" +
+                "      return <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#"+ExportCst.PREF_REF+"256\">g</a>[<a title=\"pkg.Ext..Iterable*1..Iterator*1.j\" href=\"#"+ExportCst.PREF_REF+"268\">j</a>++];\n" +
                 "     }\n" +
                 "    }</span>;\n" +
                 "   }\n" +
                 "  }</span>) {\n" +
-                "   <a href=\"#m77\">res</a>+=<a href=\"#m98\">i</a>+<span class=\"s\">\",\"</span>;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"77\">res</a>+=<a href=\"#"+ExportCst.PREF_REF+"98\">i</a>+<span class=\"s\">\",\"</span>;\n" +
                 "  }\n" +
-                "  return <a href=\"#m77\">res</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"77\">res</a>;\n" +
                 "  <a title=\"The type int cannot be implicitly cast to $core.String\n" +
                 "\n" +
                 "The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
@@ -463,55 +464,55 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " int <a name=\"m21\">field</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"21\">field</a>=1;\n" +
                 "}\n" +
-                "class <a name=\"m38\">pkg.Ext</a> {\n" +
-                " static String <a name=\"m63\">m</a>(){\n" +
-                "  String <a name=\"m77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
-                "  for (int <a name=\"m98\">i</a>, int <a name=\"m105\">y</a>: <a title=\"pkg.Ext..IterableTable*1.pkg.Ext..IterableTable*1([int,[int)\" href=\"#m194\">new</a> IterableTable&lt;int,int&gt;(new int[]{1,2},new int[]{3,4})<span class=\"t\"><a name=\"m165\">{</a>\n" +
-                "   int[] <a name=\"m176\">e</a>;\n" +
-                "   int[] <a name=\"m188\">f</a>;\n" +
-                "   <a name=\"m194\">IterableTable(</a>int[] <a name=\"m214\">b</a>,int[] <a name=\"m222\">a</a>){\n" +
-                "    <a title=\"pkg.Ext..IterableTable*1.e\" href=\"#m176\">e</a> = <a href=\"#m214\">b</a>;\n" +
-                "    <a title=\"pkg.Ext..IterableTable*1.f\" href=\"#m188\">f</a> = <a href=\"#m222\">a</a>;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"38\">pkg.Ext</a> {\n" +
+                " static String <a name=\""+ExportCst.PREF_REF+"63\">m</a>(){\n" +
+                "  String <a name=\""+ExportCst.PREF_REF+"77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"98\">i</a>, int <a name=\""+ExportCst.PREF_REF+"105\">y</a>: <a title=\"pkg.Ext..IterableTable*1.pkg.Ext..IterableTable*1([int,[int)\" href=\"#"+ExportCst.PREF_REF+"194\">new</a> IterableTable&lt;int,int&gt;(new int[]{1,2},new int[]{3,4})<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"165\">{</a>\n" +
+                "   int[] <a name=\""+ExportCst.PREF_REF+"176\">e</a>;\n" +
+                "   int[] <a name=\""+ExportCst.PREF_REF+"188\">f</a>;\n" +
+                "   <a name=\""+ExportCst.PREF_REF+"194\">IterableTable(</a>int[] <a name=\""+ExportCst.PREF_REF+"214\">b</a>,int[] <a name=\""+ExportCst.PREF_REF+"222\">a</a>){\n" +
+                "    <a title=\"pkg.Ext..IterableTable*1.e\" href=\"#"+ExportCst.PREF_REF+"176\">e</a> = <a href=\"#"+ExportCst.PREF_REF+"214\">b</a>;\n" +
+                "    <a title=\"pkg.Ext..IterableTable*1.f\" href=\"#"+ExportCst.PREF_REF+"188\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"222\">a</a>;\n" +
                 "   }\n" +
-                "   public IteratorTable&lt;int,int&gt; <a name=\"m286\">iteratorTable</a>(){\n" +
-                "    return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.pkg.Ext..IterableTable*1..IteratorTable*1([int,[int)\" href=\"#m392\">new</a> IteratorTable&lt;int,int&gt;(<a title=\"pkg.Ext..IterableTable*1.e\" href=\"#m176\">e</a>,<a title=\"pkg.Ext..IterableTable*1.f\" href=\"#m188\">f</a>)<span class=\"t\"><a name=\"m345\">{</a>\n" +
-                "     int[] <a name=\"m358\">g</a>;\n" +
-                "     int[] <a name=\"m372\">h</a>;\n" +
-                "     int <a name=\"m384\">j</a>;\n" +
-                "     <a name=\"m392\">IteratorTable(</a>int[] <a name=\"m412\">b</a>,int[] <a name=\"m420\">a</a>){\n" +
-                "      <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#m358\">g</a> = <a href=\"#m412\">b</a>;\n" +
-                "      <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.h\" href=\"#m372\">h</a> = <a href=\"#m420\">a</a>;\n" +
+                "   public IteratorTable&lt;int,int&gt; <a name=\""+ExportCst.PREF_REF+"286\">iteratorTable</a>(){\n" +
+                "    return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.pkg.Ext..IterableTable*1..IteratorTable*1([int,[int)\" href=\"#"+ExportCst.PREF_REF+"392\">new</a> IteratorTable&lt;int,int&gt;(<a title=\"pkg.Ext..IterableTable*1.e\" href=\"#"+ExportCst.PREF_REF+"176\">e</a>,<a title=\"pkg.Ext..IterableTable*1.f\" href=\"#"+ExportCst.PREF_REF+"188\">f</a>)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"345\">{</a>\n" +
+                "     int[] <a name=\""+ExportCst.PREF_REF+"358\">g</a>;\n" +
+                "     int[] <a name=\""+ExportCst.PREF_REF+"372\">h</a>;\n" +
+                "     int <a name=\""+ExportCst.PREF_REF+"384\">j</a>;\n" +
+                "     <a name=\""+ExportCst.PREF_REF+"392\">IteratorTable(</a>int[] <a name=\""+ExportCst.PREF_REF+"412\">b</a>,int[] <a name=\""+ExportCst.PREF_REF+"420\">a</a>){\n" +
+                "      <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#"+ExportCst.PREF_REF+"358\">g</a> = <a href=\"#"+ExportCst.PREF_REF+"412\">b</a>;\n" +
+                "      <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.h\" href=\"#"+ExportCst.PREF_REF+"372\">h</a> = <a href=\"#"+ExportCst.PREF_REF+"420\">a</a>;\n" +
                 "     }\n" +
-                "     public boolean <a name=\"m477\">hasNextPair</a>(){\n" +
-                "      return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.j\" href=\"#m384\">j</a> &lt; <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#m358\">g</a>.<b>length</b>;\n" +
+                "     public boolean <a name=\""+ExportCst.PREF_REF+"477\">hasNextPair</a>(){\n" +
+                "      return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.j\" href=\"#"+ExportCst.PREF_REF+"384\">j</a> &lt; <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#"+ExportCst.PREF_REF+"358\">g</a>.<b>length</b>;\n" +
                 "     }\n" +
-                "     public Pair&lt;int,int&gt; <a name=\"m552\">nextPair</a>(){\n" +
-                "      return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1([int,[int,int)\" href=\"#m658\">new</a> Pair&lt;int,int&gt;(<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#m358\">g</a>,<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.h\" href=\"#m372\">h</a>,<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.j\" href=\"#m384\">j</a>++)<span class=\"t\"><a name=\"m603\">{</a>\n" +
-                "       int[] <a name=\"m618\">k</a>;\n" +
-                "       int[] <a name=\"m634\">l</a>;\n" +
-                "       int <a name=\"m648\">m</a>;\n" +
-                "       <a name=\"m658\">Pair(</a>int[] <a name=\"m669\">b</a>,int[] <a name=\"m677\">a</a>, int <a name=\"m684\">z</a>){\n" +
-                "        <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.k\" href=\"#m618\">k</a> = <a href=\"#m669\">b</a>;\n" +
-                "        <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.l\" href=\"#m634\">l</a> = <a href=\"#m677\">a</a>;\n" +
-                "        <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.m\" href=\"#m648\">m</a> = <a href=\"#m684\">z</a>;\n" +
+                "     public Pair&lt;int,int&gt; <a name=\""+ExportCst.PREF_REF+"552\">nextPair</a>(){\n" +
+                "      return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1([int,[int,int)\" href=\"#"+ExportCst.PREF_REF+"658\">new</a> Pair&lt;int,int&gt;(<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#"+ExportCst.PREF_REF+"358\">g</a>,<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.h\" href=\"#"+ExportCst.PREF_REF+"372\">h</a>,<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.j\" href=\"#"+ExportCst.PREF_REF+"384\">j</a>++)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"603\">{</a>\n" +
+                "       int[] <a name=\""+ExportCst.PREF_REF+"618\">k</a>;\n" +
+                "       int[] <a name=\""+ExportCst.PREF_REF+"634\">l</a>;\n" +
+                "       int <a name=\""+ExportCst.PREF_REF+"648\">m</a>;\n" +
+                "       <a name=\""+ExportCst.PREF_REF+"658\">Pair(</a>int[] <a name=\""+ExportCst.PREF_REF+"669\">b</a>,int[] <a name=\""+ExportCst.PREF_REF+"677\">a</a>, int <a name=\""+ExportCst.PREF_REF+"684\">z</a>){\n" +
+                "        <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.k\" href=\"#"+ExportCst.PREF_REF+"618\">k</a> = <a href=\"#"+ExportCst.PREF_REF+"669\">b</a>;\n" +
+                "        <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.l\" href=\"#"+ExportCst.PREF_REF+"634\">l</a> = <a href=\"#"+ExportCst.PREF_REF+"677\">a</a>;\n" +
+                "        <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.m\" href=\"#"+ExportCst.PREF_REF+"648\">m</a> = <a href=\"#"+ExportCst.PREF_REF+"684\">z</a>;\n" +
                 "       }\n" +
-                "       public int <a name=\"m760\">getFirst</a>(){\n" +
-                "        return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.k\" href=\"#m618\">k</a>[<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.m\" href=\"#m648\">m</a>];\n" +
+                "       public int <a name=\""+ExportCst.PREF_REF+"760\">getFirst</a>(){\n" +
+                "        return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.k\" href=\"#"+ExportCst.PREF_REF+"618\">k</a>[<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.m\" href=\"#"+ExportCst.PREF_REF+"648\">m</a>];\n" +
                 "       }\n" +
-                "       public int <a name=\"m820\">getSecond</a>(){\n" +
-                "        return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.l\" href=\"#m634\">l</a>[<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.m\" href=\"#m648\">m</a>];\n" +
+                "       public int <a name=\""+ExportCst.PREF_REF+"820\">getSecond</a>(){\n" +
+                "        return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.l\" href=\"#"+ExportCst.PREF_REF+"634\">l</a>[<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.m\" href=\"#"+ExportCst.PREF_REF+"648\">m</a>];\n" +
                 "       }\n" +
                 "      }</span>;\n" +
                 "     }\n" +
                 "    }</span>;\n" +
                 "   }\n" +
                 "  }</span>) {\n" +
-                "   <a href=\"#m77\">res</a>+=<a href=\"#m105\">y</a>+<span class=\"s\">\",\"</span>+<a href=\"#m98\">i</a>+<span class=\"s\">\";\"</span>;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"77\">res</a>+=<a href=\"#"+ExportCst.PREF_REF+"105\">y</a>+<span class=\"s\">\",\"</span>+<a href=\"#"+ExportCst.PREF_REF+"98\">i</a>+<span class=\"s\">\";\"</span>;\n" +
                 "  }\n" +
-                "  return <a href=\"#m77\">res</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"77\">res</a>;\n" +
                 "  <a title=\"The type int cannot be implicitly cast to $core.String\n" +
                 "\n" +
                 "The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
@@ -552,29 +553,29 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Init</a> {\n" +
-                " int <a name=\"m22\">field</a> = 2;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Init</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"22\">field</a> = 2;\n" +
                 "}\n" +
-                "class <a name=\"m41\">pkg.Until</a> {\n" +
-                " int <a name=\"m58\">field</a> = 15;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"41\">pkg.Until</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"58\">field</a> = 15;\n" +
                 "}\n" +
-                "class <a name=\"m78\">pkg.Step</a> {\n" +
-                " int <a name=\"m94\">field</a> = 3;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"78\">pkg.Step</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"94\">field</a> = 3;\n" +
                 "}\n" +
-                "class <a name=\"m113\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m135\">extField</a>;\n" +
-                " static int <a name=\"m157\">m</a>(){\n" +
-                "  int <a name=\"m168\">sum</a> = 0;\n" +
-                "  iter (int <a name=\"m189\">v</a> = new <a title=\"pkg.Init\" href=\"#m6\">Init</a>()<span class=\"t\"><a name=\"m203\">{</a>\n" +
-                "   public int <a name=\"m219\">subfield</a>;\n" +
-                "  }</span>.<a title=\"pkg.Init.field\" href=\"#m22\">field</a>;new <a title=\"pkg.Until\" href=\"#m41\">Until</a>()<span class=\"t\"><a name=\"m250\">{</a>\n" +
-                "   public int <a name=\"m266\">subfield</a>;\n" +
-                "  }</span>.<a title=\"pkg.Until.field\" href=\"#m58\">field</a>;new <a title=\"pkg.Step\" href=\"#m78\">Step</a>()<span class=\"t\"><a name=\"m296\">{</a>\n" +
-                "   public int <a name=\"m312\">subfield</a>;\n" +
-                "  }</span>.<a title=\"pkg.Step.field\" href=\"#m94\">field</a>){\n" +
-                "   <a href=\"#m168\">sum</a> += <a href=\"#m189\">v</a>;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"113\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"135\">extField</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"157\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"168\">sum</a> = 0;\n" +
+                "  iter (int <a name=\""+ExportCst.PREF_REF+"189\">v</a> = new <a title=\"pkg.Init\" href=\"#"+ExportCst.PREF_REF+"6\">Init</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"203\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"219\">subfield</a>;\n" +
+                "  }</span>.<a title=\"pkg.Init.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;new <a title=\"pkg.Until\" href=\"#"+ExportCst.PREF_REF+"41\">Until</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"250\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"266\">subfield</a>;\n" +
+                "  }</span>.<a title=\"pkg.Until.field\" href=\"#"+ExportCst.PREF_REF+"58\">field</a>;new <a title=\"pkg.Step\" href=\"#"+ExportCst.PREF_REF+"78\">Step</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"296\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"312\">subfield</a>;\n" +
+                "  }</span>.<a title=\"pkg.Step.field\" href=\"#"+ExportCst.PREF_REF+"94\">field</a>){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"168\">sum</a> += <a href=\"#"+ExportCst.PREF_REF+"189\">v</a>;\n" +
                 "  }\n" +
-                "  return <a href=\"#m168\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"168\">sum</a>;\n" +
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
@@ -613,29 +614,29 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Init</a> {\n" +
-                " int <a name=\"m22\">field</a> = 2;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Init</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"22\">field</a> = 2;\n" +
                 "}\n" +
-                "class <a name=\"m41\">pkg.Until</a> {\n" +
-                " int <a name=\"m58\">field</a> = 15;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"41\">pkg.Until</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"58\">field</a> = 15;\n" +
                 "}\n" +
-                "class <a name=\"m78\">pkg.Step</a> {\n" +
-                " int <a name=\"m94\">field</a> = 3;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"78\">pkg.Step</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"94\">field</a> = 3;\n" +
                 "}\n" +
-                "class <a name=\"m113\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m135\">extField</a>;\n" +
-                " static int <a name=\"m157\">m</a>(){\n" +
-                "  int <a name=\"m168\">sum</a> = 0;\n" +
-                "  for (int <a name=\"m188\">v</a> = new <a title=\"pkg.Init\" href=\"#m6\">Init</a>()<span class=\"t\"><a name=\"m202\">{</a>\n" +
-                "   public int <a name=\"m218\">subfield</a>;\n" +
-                "  }</span>.<a title=\"pkg.Init.field\" href=\"#m22\">field</a>;<a href=\"#m188\">v</a> &lt; new <a title=\"pkg.Until\" href=\"#m41\">Until</a>()<span class=\"t\"><a name=\"m253\">{</a>\n" +
-                "   public int <a name=\"m269\">subfield</a>;\n" +
-                "  }</span>.<a title=\"pkg.Until.field\" href=\"#m58\">field</a>;<a href=\"#m188\">v</a> += new <a title=\"pkg.Step\" href=\"#m78\">Step</a>()<span class=\"t\"><a name=\"m304\">{</a>\n" +
-                "   public int <a name=\"m320\">subfield</a>;\n" +
-                "  }</span>.<a title=\"pkg.Step.field\" href=\"#m94\">field</a>){\n" +
-                "   <a href=\"#m168\">sum</a> += <a href=\"#m188\">v</a>;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"113\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"135\">extField</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"157\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"168\">sum</a> = 0;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"188\">v</a> = new <a title=\"pkg.Init\" href=\"#"+ExportCst.PREF_REF+"6\">Init</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"202\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"218\">subfield</a>;\n" +
+                "  }</span>.<a title=\"pkg.Init.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;<a href=\"#"+ExportCst.PREF_REF+"188\">v</a> &lt; new <a title=\"pkg.Until\" href=\"#"+ExportCst.PREF_REF+"41\">Until</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"253\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"269\">subfield</a>;\n" +
+                "  }</span>.<a title=\"pkg.Until.field\" href=\"#"+ExportCst.PREF_REF+"58\">field</a>;<a href=\"#"+ExportCst.PREF_REF+"188\">v</a> += new <a title=\"pkg.Step\" href=\"#"+ExportCst.PREF_REF+"78\">Step</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"304\">{</a>\n" +
+                "   public int <a name=\""+ExportCst.PREF_REF+"320\">subfield</a>;\n" +
+                "  }</span>.<a title=\"pkg.Step.field\" href=\"#"+ExportCst.PREF_REF+"94\">field</a>){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"168\">sum</a> += <a href=\"#"+ExportCst.PREF_REF+"188\">v</a>;\n" +
                 "  }\n" +
-                "  return <a href=\"#m168\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"168\">sum</a>;\n" +
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
@@ -661,17 +662,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " int <a name=\"m21\">CST</a> = 1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"21\">CST</a> = 1;\n" +
                 "}\n" +
-                "class <a name=\"m38\">pkg.Ext</a> {\n" +
-                " static String <a name=\"m63\">m</a>(){\n" +
-                "  String <a name=\"m77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"38\">pkg.Ext</a> {\n" +
+                " static String <a name=\""+ExportCst.PREF_REF+"63\">m</a>(){\n" +
+                "  String <a name=\""+ExportCst.PREF_REF+"77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
                 "  switch(1){\n" +
-                "   <a title=\"The case block with expression new Int(){}.CST is not constant.\" class=\"e\">case</a> new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m117\">{</a>}</span>.<a title=\"pkg.Int.CST\" href=\"#m21\">CST</a>;\n" +
-                "    <a href=\"#m77\">res</a> += 1;\n" +
+                "   <a title=\"The case block with expression new Int(){}.CST is not constant.\" class=\"e\">case</a> new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"117\">{</a>}</span>.<a title=\"pkg.Int.CST\" href=\"#"+ExportCst.PREF_REF+"21\">CST</a>;\n" +
+                "    <a href=\"#"+ExportCst.PREF_REF+"77\">res</a> += 1;\n" +
                 "  }\n" +
-                "  return <a href=\"#m77\">res</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"77\">res</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -690,11 +691,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  new Enum&lt;<a title=\"pkg.Ext..MyEnum\" href=\"#m67\">MyEnum</a>&gt;()<span class=\"t\"><a name=\"m54\" title=\"The type pkg.Ext..Enum*1 cannot have explicitly the type $core.Enum as super type because $core.Enum is reserved.\" class=\"e\">{</a>}</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  new Enum&lt;<a title=\"pkg.Ext..MyEnum\" href=\"#"+ExportCst.PREF_REF+"67\">MyEnum</a>&gt;()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"54\" title=\"The type pkg.Ext..Enum*1 cannot have explicitly the type $core.Enum as super type because $core.Enum is reserved.\" class=\"e\">{</a>}</span>;\n" +
                 " }\n" +
-                " enum <a name=\"m67\">MyEnum</a>{\n" +
+                " enum <a name=\""+ExportCst.PREF_REF+"67\">MyEnum</a>{\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -713,11 +714,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  new $en()<span class=\"t\"><a name=\"m45\" title=\"The type pkg.Ext..$en*1 cannot have explicitly the type $core.$en as super type because $core.$en is reserved.\" class=\"e\">{</a>}</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  new $en()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"45\" title=\"The type pkg.Ext..$en*1 cannot have explicitly the type $core.$en as super type because $core.$en is reserved.\" class=\"e\">{</a>}</span>;\n" +
                 " }\n" +
-                " enum <a name=\"m58\">MyEnum</a>{\n" +
+                " enum <a name=\""+ExportCst.PREF_REF+"58\">MyEnum</a>{\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -745,9 +746,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  <a title=\"The type $core.CharSequence is not resolved for instancing.\" class=\"e\">new</a> CharSequence()<span class=\"t\"><a name=\"m54\">{</a>int <a name=\"m59\">nonSeen</a>;}</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  <a title=\"The type $core.CharSequence is not resolved for instancing.\" class=\"e\">new</a> CharSequence()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"54\">{</a>int <a name=\""+ExportCst.PREF_REF+"59\">nonSeen</a>;}</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -765,9 +766,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  return <span class=\"t\">(int <a name=\"m47\">a</a>:int)<a name=\"m53\" title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">-&gt;</a>{}</span>.<b>call</b>(3);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  return <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"47\">a</a>:int)<a name=\""+ExportCst.PREF_REF+"53\" title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">-&gt;</a>{}</span>.<b>call</b>(3);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -785,9 +786,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  return <span class=\"t\">(int <a name=\"m47\">a</a>,int <a name=\"m53\" title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:int)<a name=\"m59\">-&gt;</a>{return 0;}</span>.<b>call</b>(3,4);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  return <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"47\">a</a>,int <a name=\""+ExportCst.PREF_REF+"53\" title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:int)<a name=\""+ExportCst.PREF_REF+"59\">-&gt;</a>{return 0;}</span>.<b>call</b>(3,4);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -805,9 +806,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  <span class=\"t\">(int <a name=\"m41\">a</a>:void)<a name=\"m48\">-&gt;</a>{<a title=\"The type cannot be the key word void.\" class=\"e\">return</a> 0;}</span>.<b>call</b>(3);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"41\">a</a>:void)<a name=\""+ExportCst.PREF_REF+"48\">-&gt;</a>{<a title=\"The type cannot be the key word void.\" class=\"e\">return</a> 0;}</span>.<b>call</b>(3);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -832,16 +833,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static int <a name=\"m145\">extField</a>;\n" +
-                " static int <a name=\"m167\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"145\">extField</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"167\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -866,16 +867,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "enum <a name=\"m89\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m133\">ONE</a>;\n" +
-                " static int <a name=\"m150\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "enum <a name=\""+ExportCst.PREF_REF+"89\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " <a name=\""+ExportCst.PREF_REF+"133\">ONE</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"150\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -900,16 +901,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "enum <a name=\"m89\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m133\">ONE</a>{};\n" +
-                " static int <a name=\"m152\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "enum <a name=\""+ExportCst.PREF_REF+"89\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " <a name=\""+ExportCst.PREF_REF+"133\">ONE</a>{};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"152\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -934,16 +935,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m106\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m91\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " int <a name=\"m106\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"106\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"91\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"106\">field</a>();\n" +
                 "}\n" +
-                "enum <a name=\"m122\">pkg.Ext</a> {\n" +
-                " <a name=\"m133\">ONE</a>{};\n" +
-                " static int <a name=\"m152\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "enum <a name=\""+ExportCst.PREF_REF+"122\">pkg.Ext</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"133\">ONE</a>{};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"152\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -968,16 +969,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>\n" +
-                " int <a name=\"m81\">field</a>()new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m97\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>;\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"81\">field</a>()new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"97\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>;\n" +
                 "}\n" +
-                "enum <a name=\"m114\">pkg.Ext</a> {\n" +
-                " <a name=\"m125\">ONE</a>{};\n" +
-                " static int <a name=\"m144\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "enum <a name=\""+ExportCst.PREF_REF+"114\">pkg.Ext</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"125\">ONE</a>{};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"144\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1002,16 +1003,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m106\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m91\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " int <a name=\"m106\">field</a>()new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>;\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"106\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"91\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"106\">field</a>()new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>;\n" +
                 "}\n" +
-                "enum <a name=\"m139\">pkg.Ext</a> {\n" +
-                " <a name=\"m150\">ONE</a>{};\n" +
-                " static int <a name=\"m169\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "enum <a name=\""+ExportCst.PREF_REF+"139\">pkg.Ext</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"150\">ONE</a>{};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"169\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1037,17 +1038,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<a title=\"pkg.Int\" href=\"#m6\">Int</a>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m148\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static int <a name=\"m170\">extField</a>;\n" +
-                " static int <a name=\"m192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=<a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"148\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"170\">extField</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1073,17 +1074,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<a title=\"pkg.Int\" href=\"#m6\">Int</a>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static int <a name=\"m170\">extField</a>;\n" +
-                " static int <a name=\"m192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=<a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"170\">extField</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1109,17 +1110,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m156\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static int <a name=\"m178\">extField</a>;\n" +
-                " static int <a name=\"m200\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"156\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"178\">extField</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"200\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1144,16 +1145,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m134\">Ext(</a>){};\n" +
-                " static int <a name=\"m155\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " <a name=\""+ExportCst.PREF_REF+"134\">Ext(</a>){};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"155\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1178,16 +1179,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m174\">p</a>){};\n" +
-                " static int <a name=\"m192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " <a name=\""+ExportCst.PREF_REF+"134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"174\">p</a>){};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1212,16 +1213,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m191\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m205\">p</a>){};\n" +
-                " static int <a name=\"m223\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " <a name=\""+ExportCst.PREF_REF+"134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"191\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"205\">p</a>){};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"223\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1246,16 +1247,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m174\">p</a>, @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m199\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m213\">q</a>){};\n" +
-                " static int <a name=\"m231\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " <a name=\""+ExportCst.PREF_REF+"134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"174\">p</a>, @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"199\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"213\">q</a>){};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"231\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1280,16 +1281,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static void <a name=\"m146\">l</a>(){};\n" +
-                " static int <a name=\"m165\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"146\">l</a>(){};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"165\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1314,16 +1315,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>){};\n" +
-                " static int <a name=\"m202\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"146\">l</a>(@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"184\">p</a>){};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"202\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1348,16 +1349,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m201\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m215\">p</a>){};\n" +
-                " static int <a name=\"m233\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"146\">l</a>(@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"201\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"215\">p</a>){};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"233\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1382,16 +1383,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>, @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m209\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m223\">q</a>){};\n" +
-                " static int <a name=\"m241\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"146\">l</a>(@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"184\">p</a>, @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"209\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"223\">q</a>){};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"241\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1418,18 +1419,18 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " void <a name=\"m139\">this</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m166\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m180\">p</a>){};\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m209\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " int <a name=\"m224\">this</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m251\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m265\">p</a>){return 0;};\n" +
-                " static int <a name=\"m292\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " void <a name=\""+ExportCst.PREF_REF+"139\">this</a>(@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"166\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"180\">p</a>){};\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"209\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"224\">this</a>(@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"251\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"265\">p</a>){return 0;};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"292\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1454,16 +1455,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " operator<a name=\"m142\">+</a> int(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>){return 0;};\n" +
-                " static int <a name=\"m211\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                " operator<a name=\""+ExportCst.PREF_REF+"142\">+</a> int(@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>) int <a name=\""+ExportCst.PREF_REF+"184\">p</a>){return 0;};\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"211\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1487,15 +1488,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
-                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
+                " static final int <a name=\""+ExportCst.PREF_REF+"34\">FIELD</a>=1;\n" +
                 "}\n" +
-                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " int <a name=\"m73\">field</a>();\n" +
+                "annotation <a name=\""+ExportCst.PREF_REF+"56\">pkg.Annot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"73\">field</a>();\n" +
                 "}\n" +
-                "@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m106\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                "class <a name=\"m122\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m144\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                "@<a title=\"pkg.Annot\" href=\"#"+ExportCst.PREF_REF+"56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#"+ExportCst.PREF_REF+"73\">field</a>=new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"6\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"106\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#"+ExportCst.PREF_REF+"34\">FIELD</a>)\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"122\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"144\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1519,15 +1520,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>).<a title=\"pkg.Ext.staticCall m()\" href=\"#m82\">m</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>).<a title=\"pkg.Ext.staticCall m()\" href=\"#"+ExportCst.PREF_REF+"82\">m</a>();\n" +
                 " }\n" +
-                " staticCall int <a name=\"m82\">m</a>(){\n" +
-                "  return <a title=\"pkg.Ext.staticCall m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m141\">m</a>(<span class=\"t\"><a name=\"m98\">a</a> <a name=\"m100\">-&gt;</a> <span class=\"t\"><a name=\"m103\">a</a> <a name=\"m105\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m103\">a</a> <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a title=\"There is no accessible field named ##a from the type pkg.Ext in this context.\" class=\"e\">##a</a></span></span>,2,3);\n" +
+                " staticCall int <a name=\""+ExportCst.PREF_REF+"82\">m</a>(){\n" +
+                "  return <a title=\"pkg.Ext.staticCall m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"141\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"98\">a</a> <a name=\""+ExportCst.PREF_REF+"100\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"103\">a</a> <a name=\""+ExportCst.PREF_REF+"105\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"103\">a</a> <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a title=\"There is no accessible field named ##a from the type pkg.Ext in this context.\" class=\"e\">##a</a></span></span>,2,3);\n" +
                 " }\n" +
-                " staticCall int <a name=\"m141\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m165\">fct</a>,int <a name=\"m173\">a</a>,int <a name=\"m179\">b</a>){\n" +
-                "  return <a href=\"#m165\">fct</a>.<b>call</b>(<a href=\"#m173\">a</a>).<b>call</b>(<a href=\"#m179\">b</a>);\n" +
+                " staticCall int <a name=\""+ExportCst.PREF_REF+"141\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"165\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"173\">a</a>,int <a name=\""+ExportCst.PREF_REF+"179\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"165\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"173\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"179\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1553,17 +1554,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  int <a name=\"m54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m187\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ##i is undefined in this context.\" class=\"e\">##i</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"187\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ##i is undefined in this context.\" class=\"e\">##i</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m187\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m211\">fct</a>,int <a name=\"m219\">a</a>,int <a name=\"m225\">b</a>){\n" +
-                "  return <a href=\"#m211\">fct</a>.<b>call</b>(<a href=\"#m219\">a</a>).<b>call</b>(<a href=\"#m225\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"187\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"211\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"219\">a</a>,int <a name=\""+ExportCst.PREF_REF+"225\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"211\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"219\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"225\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1589,17 +1590,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  int <a name=\"m54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m186\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable #a is undefined in this context.\" class=\"e\">#a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"186\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable #a is undefined in this context.\" class=\"e\">#a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m186\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m210\">fct</a>,int <a name=\"m218\">a</a>,int <a name=\"m224\">b</a>){\n" +
-                "  return <a href=\"#m210\">fct</a>.<b>call</b>(<a href=\"#m218\">a</a>).<b>call</b>(<a href=\"#m224\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"186\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"210\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"218\">a</a>,int <a name=\""+ExportCst.PREF_REF+"224\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"210\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"218\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"224\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1625,17 +1626,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  int <a name=\"m54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m185\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable # is undefined in this context.\" class=\"e\">#</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"185\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable # is undefined in this context.\" class=\"e\">#</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m185\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m209\">fct</a>,int <a name=\"m217\">a</a>,int <a name=\"m223\">b</a>){\n" +
-                "  return <a href=\"#m209\">fct</a>.<b>call</b>(<a href=\"#m217\">a</a>).<b>call</b>(<a href=\"#m223\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"185\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"209\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"217\">a</a>,int <a name=\""+ExportCst.PREF_REF+"223\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"209\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"217\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"223\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1661,17 +1662,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  int <a name=\"m54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m185\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable , is undefined in this context.\" class=\"e\">,</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"185\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable , is undefined in this context.\" class=\"e\">,</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m185\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m209\">fct</a>,int <a name=\"m217\">a</a>,int <a name=\"m223\">b</a>){\n" +
-                "  return <a href=\"#m209\">fct</a>.<b>call</b>(<a href=\"#m217\">a</a>).<b>call</b>(<a href=\"#m223\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"185\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"209\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"217\">a</a>,int <a name=\""+ExportCst.PREF_REF+"223\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"209\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"217\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"223\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1697,17 +1698,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  int <a name=\"m54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m186\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a is undefined in this context.\" class=\"e\">,a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"186\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a is undefined in this context.\" class=\"e\">,a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m186\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m210\">fct</a>,int <a name=\"m218\">a</a>,int <a name=\"m224\">b</a>){\n" +
-                "  return <a href=\"#m210\">fct</a>.<b>call</b>(<a href=\"#m218\">a</a>).<b>call</b>(<a href=\"#m224\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"186\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"210\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"218\">a</a>,int <a name=\""+ExportCst.PREF_REF+"224\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"210\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"218\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"224\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1733,17 +1734,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  int <a name=\"m54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m188\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a,b is undefined in this context.\" class=\"e\">,a,b</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"188\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a,b is undefined in this context.\" class=\"e\">,a,b</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m188\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m212\">fct</a>,int <a name=\"m220\">a</a>,int <a name=\"m226\">b</a>){\n" +
-                "  return <a href=\"#m212\">fct</a>.<b>call</b>(<a href=\"#m220\">a</a>).<b>call</b>(<a href=\"#m226\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"188\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"212\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"220\">a</a>,int <a name=\""+ExportCst.PREF_REF+"226\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"212\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"220\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"226\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1763,11 +1764,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  final int <a name=\"m45\">i</a> = 1;\n" +
-                "  <a href=\"#m45\">i</a> <a title=\"The field i is already assigned.\" class=\"e\">=</a> 2;\n" +
-                "  return <a href=\"#m45\">i</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"45\">i</a> = 1;\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"45\">i</a> <a title=\"The field i is already assigned.\" class=\"e\">=</a> 2;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"45\">i</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1787,11 +1788,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  final int <a name=\"m45\">i</a> = 1;\n" +
-                "  <a href=\"#m45\">i</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"2\"</span>;\n" +
-                "  return <a href=\"#m45\">i</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"45\">i</a> = 1;\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"45\">i</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"2\"</span>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"45\">i</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1811,11 +1812,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  final int <a name=\"m45\">i</a> = 1;\n" +
-                "  <a href=\"#m45\">i</a><a title=\"The field i is already assigned.\" class=\"e\">++</a>;\n" +
-                "  return <a href=\"#m45\">i</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"45\">i</a> = 1;\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"45\">i</a><a title=\"The field i is already assigned.\" class=\"e\">++</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"45\">i</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1835,11 +1836,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  final int <a name=\"m45\">i</a> = 1;\n" +
-                "  <a href=\"#m45\">i</a>+<a title=\"The field i is already assigned.\" class=\"e\">=</a>1;\n" +
-                "  return <a href=\"#m45\">i</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"45\">i</a> = 1;\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"45\">i</a>+<a title=\"The field i is already assigned.\" class=\"e\">=</a>1;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"45\">i</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1860,10 +1861,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  for (final int <a name=\"m50\">i</a> = 1;<a href=\"#m50\">i</a>&lt;2;){\n" +
-                "   <a href=\"#m50\">i</a> <a title=\"The field i is already assigned.\" class=\"e\">=</a> 2;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>&lt;2;){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> <a title=\"The field i is already assigned.\" class=\"e\">=</a> 2;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -1886,10 +1887,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  for (final int <a name=\"m50\">i</a> = 1;<a href=\"#m50\">i</a>&lt;2;){\n" +
-                "   <a href=\"#m50\">i</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"2\"</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>&lt;2;){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"2\"</span>;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -1912,10 +1913,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  for (final int <a name=\"m50\">i</a> = 1;<a href=\"#m50\">i</a>&lt;2;){\n" +
-                "   <a href=\"#m50\">i</a><a title=\"The field i is already assigned.\" class=\"e\">++</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>&lt;2;){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"50\">i</a><a title=\"The field i is already assigned.\" class=\"e\">++</a>;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -1938,10 +1939,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  for (final int <a name=\"m50\">i</a> = <a href=\"#m50\">i</a> = 1;<a href=\"#m50\">i</a>&lt;2;){\n" +
-                "   <a href=\"#m50\">i</a> +<a title=\"The field i is already assigned.\" class=\"e\">=</a> 1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>&lt;2;){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> +<a title=\"The field i is already assigned.\" class=\"e\">=</a> 1;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -1971,19 +1972,19 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m218\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
-                "   <a href=\"#m137\">b</a> <a title=\"The field b is already assigned.\" class=\"e\">=</a> 1;\n" +
-                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"218\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"137\">b</a> <a title=\"The field b is already assigned.\" class=\"e\">=</a> 1;\n" +
+                "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m218\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m242\">fct</a>,int <a name=\"m250\">a</a>,int <a name=\"m256\">b</a>){\n" +
-                "  return <a href=\"#m242\">fct</a>.<b>call</b>(<a href=\"#m250\">a</a>).<b>call</b>(<a href=\"#m256\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"218\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"242\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"250\">a</a>,int <a name=\""+ExportCst.PREF_REF+"256\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"242\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"250\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"256\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2011,19 +2012,19 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m221\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
-                "   <a href=\"#m60\">sum2</a> <a title=\"The field sum2 is already assigned.\" class=\"e\">=</a> 1;\n" +
-                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"221\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> <a title=\"The field sum2 is already assigned.\" class=\"e\">=</a> 1;\n" +
+                "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m221\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m245\">fct</a>,int <a name=\"m253\">a</a>,int <a name=\"m259\">b</a>){\n" +
-                "  return <a href=\"#m245\">fct</a>.<b>call</b>(<a href=\"#m253\">a</a>).<b>call</b>(<a href=\"#m259\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"221\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"245\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"253\">a</a>,int <a name=\""+ExportCst.PREF_REF+"259\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"245\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"253\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"259\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2051,19 +2052,19 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m223\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
-                "   <a href=\"#m60\">sum2</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"1\"</span>;\n" +
-                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"223\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"1\"</span>;\n" +
+                "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m247\">fct</a>,int <a name=\"m255\">a</a>,int <a name=\"m261\">b</a>){\n" +
-                "  return <a href=\"#m247\">fct</a>.<b>call</b>(<a href=\"#m255\">a</a>).<b>call</b>(<a href=\"#m261\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"247\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"255\">a</a>,int <a name=\""+ExportCst.PREF_REF+"261\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"247\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"255\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"261\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2091,19 +2092,19 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m219\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
-                "   <a href=\"#m60\">sum2</a><a title=\"The field sum2 is already assigned.\" class=\"e\">++</a>;\n" +
-                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"219\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a><a title=\"The field sum2 is already assigned.\" class=\"e\">++</a>;\n" +
+                "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m219\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m243\">fct</a>,int <a name=\"m251\">a</a>,int <a name=\"m257\">b</a>){\n" +
-                "  return <a href=\"#m243\">fct</a>.<b>call</b>(<a href=\"#m251\">a</a>).<b>call</b>(<a href=\"#m257\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"219\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"243\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"251\">a</a>,int <a name=\""+ExportCst.PREF_REF+"257\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"243\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"251\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"257\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2131,19 +2132,19 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">sum</a> = 0;\n" +
-                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
-                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m220\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
-                "   <a href=\"#m60\">sum2</a>+<a title=\"The field sum2 is already assigned.\" class=\"e\">=</a>1;\n" +
-                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"220\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a>+<a title=\"The field sum2 is already assigned.\" class=\"e\">=</a>1;\n" +
+                "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m39\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m220\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m244\">fct</a>,int <a name=\"m252\">a</a>,int <a name=\"m258\">b</a>){\n" +
-                "  return <a href=\"#m244\">fct</a>.<b>call</b>(<a href=\"#m252\">a</a>).<b>call</b>(<a href=\"#m258\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"220\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"244\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"252\">a</a>,int <a name=\""+ExportCst.PREF_REF+"258\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"244\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"252\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"258\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2171,19 +2172,19 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(int <a name=\"m34\">j</a>){\n" +
-                "  int <a name=\"m44\">sum</a> = 0;\n" +
-                "  final int <a name=\"m65\">sum2</a> = 3;\n" +
-                "  for (int <a name=\"m86\">i</a> = 1; <a href=\"#m86\">i</a> &lt;= 9; <a href=\"#m86\">i</a>+= 2){\n" +
-                "   <a href=\"#m44\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m223\">m</a>(<span class=\"t\"><a name=\"m121\">a</a> <a name=\"m123\">-&gt;</a> <span class=\"t\"><a name=\"m126\">i</a> <a name=\"m128\">-&gt;</a> {final int <a name=\"m142\">b</a> = 0;\n" +
-                "   <a href=\"#m34\">j</a> <a title=\"The field j is already assigned.\" class=\"e\">=</a> 1;\n" +
-                "   return <a href=\"#m65\">sum2</a> + <a href=\"#m126\">i</a> + <a href=\"#m121\">a</a>;}</span></span>,2,7);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(int <a name=\""+ExportCst.PREF_REF+"34\">j</a>){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"44\">sum</a> = 0;\n" +
+                "  final int <a name=\""+ExportCst.PREF_REF+"65\">sum2</a> = 3;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"86\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"86\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"86\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"44\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"223\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">a</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"126\">i</a> <a name=\""+ExportCst.PREF_REF+"128\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"142\">b</a> = 0;\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"34\">j</a> <a title=\"The field j is already assigned.\" class=\"e\">=</a> 1;\n" +
+                "   return <a href=\"#"+ExportCst.PREF_REF+"65\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"126\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
-                "  return <a href=\"#m44\">sum</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"44\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m247\">fct</a>,int <a name=\"m255\">a</a>,int <a name=\"m261\">b</a>){\n" +
-                "  return <a href=\"#m247\">fct</a>.<b>call</b>(<a href=\"#m255\">a</a>).<b>call</b>(<a href=\"#m261\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"247\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"255\">a</a>,int <a name=\""+ExportCst.PREF_REF+"261\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"247\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"255\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"261\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2204,12 +2205,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
                 "  return <a title=\"The function static m(int,int,int) is undefined.\" class=\"e\">m</a>(2,c:5,d:3);\n" +
                 " }\n" +
-                " static int <a name=\"m74\">m</a>(int <a name=\"m80\">a</a>,int <a name=\"m86\">b</a>,int <a name=\"m92\">c</a>){\n" +
-                "  return <a href=\"#m80\">a</a>*<a href=\"#m86\">b</a>+<a href=\"#m92\">c</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"74\">m</a>(int <a name=\""+ExportCst.PREF_REF+"80\">a</a>,int <a name=\""+ExportCst.PREF_REF+"86\">b</a>,int <a name=\""+ExportCst.PREF_REF+"92\">c</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"80\">a</a>*<a href=\"#"+ExportCst.PREF_REF+"86\">b</a>+<a href=\"#"+ExportCst.PREF_REF+"92\">c</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2230,12 +2231,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
                 "  return m(2,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:5,10,d:3);\n" +
                 " }\n" +
-                " static int <a name=\"m77\">m</a>(int <a name=\"m83\">a</a>,int <a name=\"m89\">b</a>,int <a name=\"m95\">c</a>,int <a name=\"m101\">d</a>){\n" +
-                "  return <a href=\"#m83\">a</a>*<a href=\"#m89\">b</a>+<a href=\"#m95\">c</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"77\">m</a>(int <a name=\""+ExportCst.PREF_REF+"83\">a</a>,int <a name=\""+ExportCst.PREF_REF+"89\">b</a>,int <a name=\""+ExportCst.PREF_REF+"95\">c</a>,int <a name=\""+ExportCst.PREF_REF+"101\">d</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"83\">a</a>*<a href=\"#"+ExportCst.PREF_REF+"89\">b</a>+<a href=\"#"+ExportCst.PREF_REF+"95\">c</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2255,12 +2256,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
                 "  return m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
                 " }\n" +
-                " static int <a name=\"m74\">m</a>(int <a name=\"m80\">a</a>,int <a name=\"m86\">b</a>,int <a name=\"m92\">c</a>){\n" +
-                "  return <a href=\"#m80\">a</a>*<a href=\"#m86\">b</a>+<a href=\"#m92\">c</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"74\">m</a>(int <a name=\""+ExportCst.PREF_REF+"80\">a</a>,int <a name=\""+ExportCst.PREF_REF+"86\">b</a>,int <a name=\""+ExportCst.PREF_REF+"92\">c</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"80\">a</a>*<a href=\"#"+ExportCst.PREF_REF+"86\">b</a>+<a href=\"#"+ExportCst.PREF_REF+"92\">c</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2277,8 +2278,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
                 "  return (<a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:3);\n" +
                 " }\n" +
                 "}\n" +
@@ -2298,11 +2299,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
                 " }\n" +
-                " <a name=\"m60\">Ext(</a>int <a name=\"m68\">a</a>,int <a name=\"m74\">b</a>,int <a name=\"m80\">c</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"60\">Ext(</a>int <a name=\""+ExportCst.PREF_REF+"68\">a</a>,int <a name=\""+ExportCst.PREF_REF+"74\">b</a>,int <a name=\""+ExportCst.PREF_REF+"80\">c</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2325,15 +2326,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3)<span class=\"t\"><a name=\"m54\">{</a>\n" +
-                "   <a name=\"m59\">Ext(</a>int <a name=\"m67\">a</a>,int <a name=\"m73\">b</a>, int <a name=\"m80\">c</a>){\n" +
-                "    <a title=\"pkg.Ext.pkg.Ext(int,int,int)\" href=\"#m116\">super</a>(<a href=\"#m67\">a</a>,<a href=\"#m73\">b</a>,<a href=\"#m80\">c</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"54\">{</a>\n" +
+                "   <a name=\""+ExportCst.PREF_REF+"59\">Ext(</a>int <a name=\""+ExportCst.PREF_REF+"67\">a</a>,int <a name=\""+ExportCst.PREF_REF+"73\">b</a>, int <a name=\""+ExportCst.PREF_REF+"80\">c</a>){\n" +
+                "    <a title=\"pkg.Ext.pkg.Ext(int,int,int)\" href=\"#"+ExportCst.PREF_REF+"116\">super</a>(<a href=\"#"+ExportCst.PREF_REF+"67\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"73\">b</a>,<a href=\"#"+ExportCst.PREF_REF+"80\">c</a>);\n" +
                 "   }\n" +
                 "  }</span>;\n" +
                 " }\n" +
-                " <a name=\"m116\">Ext(</a>int <a name=\"m124\">a</a>,int <a name=\"m130\">b</a>,int <a name=\"m136\">c</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"116\">Ext(</a>int <a name=\""+ExportCst.PREF_REF+"124\">a</a>,int <a name=\""+ExportCst.PREF_REF+"130\">b</a>,int <a name=\""+ExportCst.PREF_REF+"136\">c</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2356,15 +2357,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  <a title=\"pkg.Ext..Ext*1.pkg.Ext..Ext*1()\" href=\"#m50\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()<span class=\"t\"><a name=\"m45\">{</a>\n" +
-                "   <a name=\"m50\">Ext(</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  <a title=\"pkg.Ext..Ext*1.pkg.Ext..Ext*1()\" href=\"#"+ExportCst.PREF_REF+"50\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"45\">{</a>\n" +
+                "   <a name=\""+ExportCst.PREF_REF+"50\">Ext(</a>){\n" +
                 "    super(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
                 "   }\n" +
                 "  }</span>;\n" +
                 " }\n" +
-                " <a name=\"m93\">Ext(</a>int <a name=\"m101\">a</a>,int <a name=\"m107\">b</a>,int <a name=\"m113\">c</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"93\">Ext(</a>int <a name=\""+ExportCst.PREF_REF+"101\">a</a>,int <a name=\""+ExportCst.PREF_REF+"107\">b</a>,int <a name=\""+ExportCst.PREF_REF+"113\">c</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2384,12 +2385,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  return classchoice(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  return classchoice(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>)m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
                 " }\n" +
-                " static int <a name=\"m90\">m</a>(int <a name=\"m96\">a</a>,int <a name=\"m102\">b</a>,int <a name=\"m108\">c</a>){\n" +
-                "  return <a href=\"#m96\">a</a>*<a href=\"#m102\">b</a>+<a href=\"#m108\">c</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"90\">m</a>(int <a name=\""+ExportCst.PREF_REF+"96\">a</a>,int <a name=\""+ExportCst.PREF_REF+"102\">b</a>,int <a name=\""+ExportCst.PREF_REF+"108\">c</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"96\">a</a>*<a href=\"#"+ExportCst.PREF_REF+"102\">b</a>+<a href=\"#"+ExportCst.PREF_REF+"108\">c</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2409,12 +2410,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  return superaccess(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  return superaccess(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>)m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
                 " }\n" +
-                " static int <a name=\"m90\">m</a>(int <a name=\"m96\">a</a>,int <a name=\"m102\">b</a>,int <a name=\"m108\">c</a>){\n" +
-                "  return <a href=\"#m96\">a</a>*<a href=\"#m102\">b</a>+<a href=\"#m108\">c</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"90\">m</a>(int <a name=\""+ExportCst.PREF_REF+"96\">a</a>,int <a name=\""+ExportCst.PREF_REF+"102\">b</a>,int <a name=\""+ExportCst.PREF_REF+"108\">c</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"96\">a</a>*<a href=\"#"+ExportCst.PREF_REF+"102\">b</a>+<a href=\"#"+ExportCst.PREF_REF+"108\">c</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2436,14 +2437,14 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  return new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()[0,b:1,<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:2];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  return new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>()[0,b:1,<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:2];\n" +
                 " }\n" +
-                " int <a name=\"m75\">this</a>(int <a name=\"m84\">a</a>,int <a name=\"m90\">b</a>){\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"75\">this</a>(int <a name=\""+ExportCst.PREF_REF+"84\">a</a>,int <a name=\""+ExportCst.PREF_REF+"90\">b</a>){\n" +
                 "  return 0;\n" +
                 " }\n" +
-                " void <a name=\"m115\">this</a>(int <a name=\"m124\">a</a>,int <a name=\"m130\">b</a>){\n" +
+                " void <a name=\""+ExportCst.PREF_REF+"115\">this</a>(int <a name=\""+ExportCst.PREF_REF+"124\">a</a>,int <a name=\""+ExportCst.PREF_REF+"130\">b</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2463,11 +2464,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  return operator(+,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)(0,b:1,<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:2);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  return operator(+,<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>)(0,b:1,<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:2);\n" +
                 " }\n" +
-                " operator<a name=\"m85\">+</a> int(int <a name=\"m95\">a</a>,int <a name=\"m101\">b</a>){\n" +
+                " operator<a name=\""+ExportCst.PREF_REF+"85\">+</a> int(int <a name=\""+ExportCst.PREF_REF+"95\">a</a>,int <a name=\""+ExportCst.PREF_REF+"101\">b</a>){\n" +
                 "  return 0;\n" +
                 " }\n" +
                 "}\n" +
@@ -2485,8 +2486,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
                 "  return (<a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:3);\n" +
                 " }\n" +
                 "}\n" +
@@ -2507,11 +2508,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext(int,int,int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,d:3);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext(int,int,int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>(2,c:5,d:3);\n" +
                 " }\n" +
-                " <a name=\"m69\">Ext(</a>int <a name=\"m77\">a</a>,int <a name=\"m83\">b</a>,int <a name=\"m89\">c</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"69\">Ext(</a>int <a name=\""+ExportCst.PREF_REF+"77\">a</a>,int <a name=\""+ExportCst.PREF_REF+"83\">b</a>,int <a name=\""+ExportCst.PREF_REF+"89\">c</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2529,9 +2530,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(a:2);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>(a:2);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2556,16 +2557,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Object) is undefined.\" class=\"e\">m</a>(b:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11));\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Object) is undefined.\" class=\"e\">m</a>(b:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11));\n" +
                 " }\n" +
-                " staticCall <a href=\"#m14\">T</a> <a name=\"m141\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m150\">a</a>){\n" +
-                "  return <a href=\"#m150\">a</a>.<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"141\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"150\">a</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"150\">a</a>.<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2590,16 +2591,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\"m55\">Ext(</a><a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m66\">a</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m66\">a</a>.<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"66\">a</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"66\">a</a>.<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m105\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(b:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11));\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"105\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(b:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2624,16 +2625,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([$core.Object) is undefined.\" class=\"e\">m</a>(b:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11)});\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([$core.Object) is undefined.\" class=\"e\">m</a>(b:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11)});\n" +
                 " }\n" +
-                " staticCall <a href=\"#m14\">T</a> <a name=\"m154\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[] <a name=\"m165\">a</a>){\n" +
-                "  return <a href=\"#m165\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"154\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[] <a name=\""+ExportCst.PREF_REF+"165\">a</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"165\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2657,16 +2658,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\"m55\">Ext(</a><a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[] <a name=\"m68\">a</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m68\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[] <a name=\""+ExportCst.PREF_REF+"68\">a</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"68\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m110\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(b:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11)});\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"110\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(b:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11)});\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2690,16 +2691,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Fct&lt;$core.Object,$core.Object&gt;,int) is undefined.\" class=\"e\">m</a>(c:<span class=\"t\"><a name=\"m108\">a</a> <a name=\"m110\">-&gt;</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#m108\">a</a></span>,b:3);\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Fct&lt;$core.Object,$core.Object&gt;,int) is undefined.\" class=\"e\">m</a>(c:<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"108\">a</a> <a name=\""+ExportCst.PREF_REF+"110\">-&gt;</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#"+ExportCst.PREF_REF+"108\">a</a></span>,b:3);\n" +
                 " }\n" +
-                " staticCall <a href=\"#m14\">T</a> <a name=\"m142\">m</a>(Fct&lt;<a href=\"#m14\">T</a>,<a href=\"#m14\">T</a>&gt; <a name=\"m153\">a</a>,<a href=\"#m14\">T</a> <a name=\"m157\">b</a>){\n" +
-                "  return <a href=\"#m153\">a</a>.<b>call</b>(<a href=\"#m157\">b</a>);\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"142\">m</a>(Fct&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"153\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"157\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"153\">a</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"157\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2723,16 +2724,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\"m55\">Ext(</a>Fct&lt;<a href=\"#m14\">T</a>,<a href=\"#m14\">T</a>&gt; <a name=\"m68\">a</a>,<a href=\"#m14\">T</a> <a name=\"m72\">b</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m68\">a</a>.<b>call</b>(<a href=\"#m72\">b</a>);\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a>Fct&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"68\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"72\">b</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"68\">a</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"72\">b</a>);\n" +
                 " }\n" +
-                " static Object <a name=\"m113\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Fct&lt;$core.Object,$core.Object&gt;,int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(c:<span class=\"t\"><a name=\"m142\">a</a> <a name=\"m144\">-&gt;</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#m142\">a</a></span>,b:3);\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"113\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Fct&lt;$core.Object,$core.Object&gt;,int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(c:<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"142\">a</a> <a name=\""+ExportCst.PREF_REF+"144\">-&gt;</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#"+ExportCst.PREF_REF+"142\">a</a></span>,b:3);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2756,16 +2757,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"pkg.Ext.staticCall m([[$core.Object,int,int,$core.Object)\" href=\"#m155\">m</a>(new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],0,0,null);\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"pkg.Ext.staticCall m([[$core.Object,int,int,$core.Object)\" href=\"#"+ExportCst.PREF_REF+"155\">m</a>(new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],0,0,null);\n" +
                 " }\n" +
-                " staticCall Object <a name=\"m155\">m</a>(Object[][] <a name=\"m168\">a</a>,int <a name=\"m174\">b</a>, int <a name=\"m181\">c</a>, Object <a name=\"m191\">d</a>){\n" +
-                "  return <a href=\"#m168\">a</a>[<a href=\"#m174\">b</a>][<a href=\"#m181\">c</a>]=<a href=\"#m191\">d</a>;\n" +
+                " staticCall Object <a name=\""+ExportCst.PREF_REF+"155\">m</a>(Object[][] <a name=\""+ExportCst.PREF_REF+"168\">a</a>,int <a name=\""+ExportCst.PREF_REF+"174\">b</a>, int <a name=\""+ExportCst.PREF_REF+"181\">c</a>, Object <a name=\""+ExportCst.PREF_REF+"191\">d</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"168\">a</a>[<a href=\"#"+ExportCst.PREF_REF+"174\">b</a>][<a href=\"#"+ExportCst.PREF_REF+"181\">c</a>]=<a href=\"#"+ExportCst.PREF_REF+"191\">d</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2789,16 +2790,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\"m55\">Ext(</a>Object[][] <a name=\"m70\">a</a>,int <a name=\"m76\">b</a>, int <a name=\"m83\">c</a>, Object <a name=\"m93\">d</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a><a title=\"The type $core.Object cannot be implicitly cast to #T\" class=\"e\">=</a>(<a href=\"#m70\">a</a>[<a href=\"#m76\">b</a>][<a href=\"#m83\">c</a>]=<a href=\"#m93\">d</a>).<a title=\"There is no accessible field named field from the type $core.Object in this context.\" class=\"e\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a>Object[][] <a name=\""+ExportCst.PREF_REF+"70\">a</a>,int <a name=\""+ExportCst.PREF_REF+"76\">b</a>, int <a name=\""+ExportCst.PREF_REF+"83\">c</a>, Object <a name=\""+ExportCst.PREF_REF+"93\">d</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a><a title=\"The type $core.Object cannot be implicitly cast to #T\" class=\"e\">=</a>(<a href=\"#"+ExportCst.PREF_REF+"70\">a</a>[<a href=\"#"+ExportCst.PREF_REF+"76\">b</a>][<a href=\"#"+ExportCst.PREF_REF+"83\">c</a>]=<a href=\"#"+ExportCst.PREF_REF+"93\">d</a>).<a title=\"There is no accessible field named field from the type $core.Object in this context.\" class=\"e\">field</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m142\">m</a>(){\n" +
-                "  return <a title=\"pkg.Ext.pkg.Ext([[$core.Object,int,int,$core.Object)\" href=\"#m55\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],0,0,null);\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"142\">m</a>(){\n" +
+                "  return <a title=\"pkg.Ext.pkg.Ext([[$core.Object,int,int,$core.Object)\" href=\"#"+ExportCst.PREF_REF+"55\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],0,0,null);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2822,16 +2823,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">m</a>(e:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11));\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">m</a>(e:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11));\n" +
                 " }\n" +
-                " staticCall <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m172\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[][] <a name=\"m185\">a</a>,int <a name=\"m191\">b</a>, int <a name=\"m198\">c</a>, <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m208\">d</a>){\n" +
-                "  return <a href=\"#m185\">a</a>[<a href=\"#m191\">b</a>][<a href=\"#m198\">c</a>]=<a href=\"#m208\">d</a>;\n" +
+                " staticCall <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"172\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[][] <a name=\""+ExportCst.PREF_REF+"185\">a</a>,int <a name=\""+ExportCst.PREF_REF+"191\">b</a>, int <a name=\""+ExportCst.PREF_REF+"198\">c</a>, <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"208\">d</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"185\">a</a>[<a href=\"#"+ExportCst.PREF_REF+"191\">b</a>][<a href=\"#"+ExportCst.PREF_REF+"198\">c</a>]=<a href=\"#"+ExportCst.PREF_REF+"208\">d</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2855,16 +2856,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\"m55\">Ext(</a><a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[][] <a name=\"m70\">a</a>,int <a name=\"m76\">b</a>, int <a name=\"m83\">c</a>, <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m93\">d</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=(<a href=\"#m70\">a</a>[<a href=\"#m76\">b</a>][<a href=\"#m83\">c</a>]=<a href=\"#m93\">d</a>).<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[][] <a name=\""+ExportCst.PREF_REF+"70\">a</a>,int <a name=\""+ExportCst.PREF_REF+"76\">b</a>, int <a name=\""+ExportCst.PREF_REF+"83\">c</a>, <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"93\">d</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=(<a href=\"#"+ExportCst.PREF_REF+"70\">a</a>[<a href=\"#"+ExportCst.PREF_REF+"76\">b</a>][<a href=\"#"+ExportCst.PREF_REF+"83\">c</a>]=<a href=\"#"+ExportCst.PREF_REF+"93\">d</a>).<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m142\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(e:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11));\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"142\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(e:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2894,22 +2895,22 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " static Object <a name=\"m69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m(int,[$core.Object) is undefined.\" class=\"e\">m</a>(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11)});\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m(int,[$core.Object) is undefined.\" class=\"e\">m</a>(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11)});\n" +
                 " }\n" +
-                " staticCall <a href=\"#m14\">T</a> <a name=\"m146\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;... <a name=\"m158\">a</a>){\n" +
-                "  return <a href=\"#m158\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"146\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;... <a name=\""+ExportCst.PREF_REF+"158\">a</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"158\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
-                " staticCall <a href=\"#m14\">T</a> <a name=\"m200\">m</a>(int <a name=\"m206\">b</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;... <a name=\"m218\">a</a>){\n" +
-                "  return (<a href=\"#m14\">T</a>)((int)<a href=\"#m218\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>+<a href=\"#m206\">b</a>);\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"200\">m</a>(int <a name=\""+ExportCst.PREF_REF+"206\">b</a>,<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;... <a name=\""+ExportCst.PREF_REF+"218\">a</a>){\n" +
+                "  return (<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>)((int)<a href=\"#"+ExportCst.PREF_REF+"218\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>+<a href=\"#"+ExportCst.PREF_REF+"206\">b</a>);\n" +
                 " }\n" +
-                " staticCall <a href=\"#m14\">T</a> <a name=\"m272\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[] <a name=\"m283\">a</a>, int... <a name=\"m293\">b</a>){\n" +
-                "  return (<a href=\"#m14\">T</a>)((int)<a href=\"#m283\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>+<a href=\"#m293\">b</a>[0]);\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"272\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[] <a name=\""+ExportCst.PREF_REF+"283\">a</a>, int... <a name=\""+ExportCst.PREF_REF+"293\">b</a>){\n" +
+                "  return (<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>)((int)<a href=\"#"+ExportCst.PREF_REF+"283\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>+<a href=\"#"+ExportCst.PREF_REF+"293\">b</a>[0]);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2939,22 +2940,22 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
-                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\"m55\">Ext(</a><a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;... <a name=\"m69\">a</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m69\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;... <a name=\""+ExportCst.PREF_REF+"69\">a</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"69\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
-                " <a name=\"m97\">Ext(</a>int <a name=\"m105\">b</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;... <a name=\"m117\">a</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=(<a href=\"#m14\">T</a>)((int)<a href=\"#m117\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>+<a href=\"#m105\">b</a>);\n" +
+                " <a name=\""+ExportCst.PREF_REF+"97\">Ext(</a>int <a name=\""+ExportCst.PREF_REF+"105\">b</a>,<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;... <a name=\""+ExportCst.PREF_REF+"117\">a</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=(<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>)((int)<a href=\"#"+ExportCst.PREF_REF+"117\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>+<a href=\"#"+ExportCst.PREF_REF+"105\">b</a>);\n" +
                 " }\n" +
-                " <a name=\"m157\">Ext(</a><a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[] <a name=\"m170\">a</a>, int... <a name=\"m180\">b</a>){\n" +
-                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=(<a href=\"#m14\">T</a>)((int)<a href=\"#m170\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>+<a href=\"#m180\">b</a>[0]);\n" +
+                " <a name=\""+ExportCst.PREF_REF+"157\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[] <a name=\""+ExportCst.PREF_REF+"170\">a</a>, int... <a name=\""+ExportCst.PREF_REF+"180\">b</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=(<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>)((int)<a href=\"#"+ExportCst.PREF_REF+"170\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>+<a href=\"#"+ExportCst.PREF_REF+"180\">b</a>[0]);\n" +
                 " }\n" +
-                " static Object <a name=\"m237\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;(int,[$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;&gt;(11)});\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"237\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;(int,[$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11)});\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2975,15 +2976,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  <a title=\"pkg.ExAbsFinal\" href=\"#m145\">ExAbsFinal</a> <a name=\"m65\">v</a> = $null;\n" +
-                "  <a title=\"The type pkg.ExAbsFinal is unexpected.\" class=\"e\">$switch</a> (<a href=\"#m65\">v</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
+                " $public $int <a name=\""+ExportCst.PREF_REF+"41\">method</a>() {\n" +
+                "  <a title=\"pkg.ExAbsFinal\" href=\"#"+ExportCst.PREF_REF+"145\">ExAbsFinal</a> <a name=\""+ExportCst.PREF_REF+"65\">v</a> = $null;\n" +
+                "  <a title=\"The type pkg.ExAbsFinal is unexpected.\" class=\"e\">$switch</a> (<a href=\"#"+ExportCst.PREF_REF+"65\">v</a>){\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
                 "}\n" +
-                "$public $abstract $final $class <a name=\"m145\">pkg.ExAbsFinal</a> {\n" +
+                "$public $abstract $final $class <a name=\""+ExportCst.PREF_REF+"145\">pkg.ExAbsFinal</a> {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -2997,8 +2998,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
-                " <a name=\"m28\" title=\"The expression part is empty.\" class=\"e\">ONE</a>((1+2]){}\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\""+ExportCst.PREF_REF+"14\">pkg.MyEnum</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"28\" title=\"The expression part is empty.\" class=\"e\">ONE</a>((1+2]){}\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3012,8 +3013,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
-                " <a name=\"m28\" title=\"The expression part is empty.\" class=\"e\">ONE</a>((1+2])\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\""+ExportCst.PREF_REF+"14\">pkg.MyEnum</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"28\" title=\"The expression part is empty.\" class=\"e\">ONE</a>((1+2])\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3029,10 +3030,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $static $final $int <a name=\"m48\">i</a>=0;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
+                " $static $final $int <a name=\""+ExportCst.PREF_REF+"48\">i</a>=0;\n" +
                 " $static {\n" +
-                "  <a title=\"pkg.MySub.i\" href=\"#m48\">i</a><a title=\"The type pkg.MySub cannot be implicitly cast to $int\" class=\"e\">&amp;&amp;&amp;</a><a title=\"The field i is already assigned.\" class=\"e\">=</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>)$null;\n" +
+                "  <a title=\"pkg.MySub.i\" href=\"#"+ExportCst.PREF_REF+"48\">i</a><a title=\"The type pkg.MySub cannot be implicitly cast to $int\" class=\"e\">&amp;&amp;&amp;</a><a title=\"The field i is already assigned.\" class=\"e\">=</a>(<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>)$null;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3050,10 +3051,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $static $final $int <a name=\"m48\">i</a>=0;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
+                " $static $final $int <a name=\""+ExportCst.PREF_REF+"48\">i</a>=0;\n" +
                 " $static {\n" +
-                "  <a title=\"pkg.MySub.i\" href=\"#m48\">i</a><a title=\"The type pkg.MySub cannot be implicitly cast to $int\" class=\"e\">???</a><a title=\"The field i is already assigned.\" class=\"e\">=</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>)$null;\n" +
+                "  <a title=\"pkg.MySub.i\" href=\"#"+ExportCst.PREF_REF+"48\">i</a><a title=\"The type pkg.MySub cannot be implicitly cast to $int\" class=\"e\">???</a><a title=\"The field i is already assigned.\" class=\"e\">=</a>(<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>)$null;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3089,28 +3090,28 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
-                " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a>();\n" +
-                "  <a href=\"#m71\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m205\">field</a>=10;\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m115\">f</a> = $new <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a>();\n" +
-                "  <a href=\"#m115\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#m205\">field</a>=1;\n" +
-                "  <a href=\"#m71\">e</a><a title=\"pkg.ExClass.$static $true($boolean,pkg.ExClass)\" href=\"#m240\">|</a><a title=\"pkg.ExClass.$static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m368\">||</a>=<a href=\"#m115\">f</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Apply</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"71\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"205\">field</a>=10;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"115\">f</a> = $new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"115\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"205\">field</a>=1;\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"71\">e</a><a title=\"pkg.ExClass.$static $true($boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"240\">|</a><a title=\"pkg.ExClass.$static ||(pkg.ExClass,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"368\">||</a>=<a href=\"#"+ExportCst.PREF_REF+"115\">f</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m178\">pkg.ExClass</a> {\n" +
-                " $public <a title=\"The type int is unknown.\" class=\"e\">int</a> <a name=\"m205\">field</a>=2;\n" +
-                " $public $static $boolean <a name=\"m240\" title=\"A $throw block or a $return block is missing for the method $static $true($boolean,pkg.ExClass).\" class=\"e\">$true</a>(<a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m254\">i</a>){\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"178\">pkg.ExClass</a> {\n" +
+                " $public <a title=\"The type int is unknown.\" class=\"e\">int</a> <a name=\""+ExportCst.PREF_REF+"205\">field</a>=2;\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"240\" title=\"A $throw block or a $return block is missing for the method $static $true($boolean,pkg.ExClass).\" class=\"e\">$true</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"254\">i</a>){\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m287\" title=\"A $throw block or a $return block is missing for the method $static $false($boolean,pkg.ExClass).\" class=\"e\">$false</a>(<a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m302\">i</a>){\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"287\" title=\"A $throw block or a $return block is missing for the method $static $false($boolean,pkg.ExClass).\" class=\"e\">$false</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"302\">i</a>){\n" +
                 " }\n" +
-                " $operator<a name=\"m319\" title=\"A $throw block or a $return block is missing for the method $static &amp;&amp;(pkg.ExClass,pkg.ExClass).\" class=\"e\">&amp;&amp;</a> $boolean (<a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m340\">i</a>, <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m351\">j</a>){\n" +
+                " $operator<a name=\""+ExportCst.PREF_REF+"319\" title=\"A $throw block or a $return block is missing for the method $static &amp;&amp;(pkg.ExClass,pkg.ExClass).\" class=\"e\">&amp;&amp;</a> $boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"340\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"351\">j</a>){\n" +
                 " }\n" +
-                " $operator<a name=\"m368\" title=\"A $throw block or a $return block is missing for the method $static ||(pkg.ExClass,pkg.ExClass).\" class=\"e\">||</a> $boolean (<a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m389\">i</a>, <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m400\">j</a>){\n" +
+                " $operator<a name=\""+ExportCst.PREF_REF+"368\" title=\"A $throw block or a $return block is missing for the method $static ||(pkg.ExClass,pkg.ExClass).\" class=\"e\">||</a> $boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"389\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"400\">j</a>){\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m433\" title=\"A $throw block or a $return block is missing for the method $static $($boolean,pkg.ExClass).\" class=\"e\">$</a>(<a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m443\">i</a>){\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"433\" title=\"A $throw block or a $return block is missing for the method $static $($boolean,pkg.ExClass).\" class=\"e\">$</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"443\">i</a>){\n" +
                 " }\n" +
-                " $public $static <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m475\" title=\"A $throw block or a $return block is missing for the method $static $(pkg.ExClass,$boolean).\" class=\"e\">$</a>($boolean <a name=\"m486\">i</a>){\n" +
+                " $public $static <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"475\" title=\"A $throw block or a $return block is missing for the method $static $(pkg.ExClass,$boolean).\" class=\"e\">$</a>($boolean <a name=\""+ExportCst.PREF_REF+"486\">i</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3129,11 +3130,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">a</a> = 0;\n" +
-                "  that Object <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a> <a title=\"The type int cannot be implicitly cast to \" class=\"e\">=</a> that(<a href=\"#m39\">a</a>);\n" +
-                "  return <a href=\"#m39\">a</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">a</a> = 0;\n" +
+                "  that Object <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a> <a title=\"The type int cannot be implicitly cast to \" class=\"e\">=</a> that(<a href=\"#"+ExportCst.PREF_REF+"39\">a</a>);\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"39\">a</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3151,10 +3152,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
-                "  <a href=\"#m42\">a</a>.<b>clone</b>() <a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a> new int[0];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"42\">a</a> = new int[0];\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"42\">a</a>.<b>clone</b>() <a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a> new int[0];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3172,10 +3173,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
-                "  <a href=\"#m42\">a</a>.<b>clone</b>() <a title=\"The assignment operator += is unexpected.\" class=\"e\">+=</a> new int[0];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"42\">a</a> = new int[0];\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"42\">a</a>.<b>clone</b>() <a title=\"The assignment operator += is unexpected.\" class=\"e\">+=</a> new int[0];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3193,10 +3194,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
-                "  <a href=\"#m42\">a</a>.<b>clone</b>() <a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"42\">a</a> = new int[0];\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"42\">a</a>.<b>clone</b>() <a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3214,10 +3215,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
-                "  <a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a> <a href=\"#m42\">a</a>.<b>clone</b>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"42\">a</a> = new int[0];\n" +
+                "  <a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a> <a href=\"#"+ExportCst.PREF_REF+"42\">a</a>.<b>clone</b>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3235,10 +3236,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  int <a name=\"m40\">a</a> = 0;\n" +
-                "  <a title=\"The key word that is unexpected here.\" class=\"e\">that</a>(<a href=\"#m40\">a</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"40\">a</a> = 0;\n" +
+                "  <a title=\"The key word that is unexpected here.\" class=\"e\">that</a>(<a href=\"#"+ExportCst.PREF_REF+"40\">a</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3254,8 +3255,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class <a name=\"m7\">pkg.Ext</a> {\n" +
-                " <a name=\"m18\">(</a>)<a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class <a name=\""+ExportCst.PREF_REF+"7\">pkg.Ext</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"18\">(</a>)<a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3276,14 +3277,14 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a> (){\n" +
-                "  <a title=\"pkg.Rec\" href=\"#m107\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m107\">Rec</a>(<a title=\"The parameter function name f is duplicated.\" class=\"e\">f</a>:10);\n" +
-                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m122\">field</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"107\">Rec</a> <a name=\""+ExportCst.PREF_REF+"58\">r</a> = new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"107\">Rec</a>(<a title=\"The parameter function name f is duplicated.\" class=\"e\">f</a>:10);\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"122\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m107\">pkg.Rec</a> {\n" +
-                " int <a name=\"m122\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"107\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"122\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3302,13 +3303,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a> (){\n" +
-                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m87\">Rec</a>,new,f);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a> (){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"87\">Rec</a>,new,f);\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m87\">pkg.Rec</a> {\n" +
-                " int <a name=\"m102\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"87\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"102\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3328,16 +3329,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a> (){\n" +
-                "  <a title=\"pkg.Rec\" href=\"#m120\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m120\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m135\">field</a>:10,<a title=\"The parameter function name field is duplicated.\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"120\">Rec</a> <a name=\""+ExportCst.PREF_REF+"58\">r</a> = new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"120\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"135\">field</a>:10,<a title=\"The parameter function name field is duplicated.\n" +
                 "\n" +
-                "pkg.Rec.field\" href=\"#m135\" class=\"e\">field</a>:10);\n" +
-                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m135\">field</a>;\n" +
+                "pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"135\" class=\"e\">field</a>:10);\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"135\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m120\">pkg.Rec</a> {\n" +
-                " int <a name=\"m135\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"120\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"135\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3357,16 +3358,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a> (){\n" +
-                "  <a title=\"pkg.Rec\" href=\"#m113\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m113\">Rec</a>(<a title=\"The parameter function name field is duplicated.\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"113\">Rec</a> <a name=\""+ExportCst.PREF_REF+"58\">r</a> = new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"113\">Rec</a>(<a title=\"The parameter function name field is duplicated.\n" +
                 "\n" +
-                "pkg.Rec.field\" href=\"#m128\" class=\"e\">field</a>:<span class=\"s\">\"10\"</span>);\n" +
-                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m128\">field</a>;\n" +
+                "pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"128\" class=\"e\">field</a>:<span class=\"s\">\"10\"</span>);\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"128\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m113\">pkg.Rec</a> {\n" +
-                " int <a name=\"m128\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"113\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"128\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3385,13 +3386,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a> (){\n" +
-                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m97\">Rec</a>,new,<a title=\"pkg.Rec.field\" href=\"#m112\">field</a>,<a title=\"pkg.Rec.field\" href=\"#m112\">field</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a> (){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"97\">Rec</a>,new,<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"112\">field</a>,<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"112\">field</a>);\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m97\">pkg.Rec</a> {\n" +
-                " int <a name=\"m112\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"97\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"112\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3410,13 +3411,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a> (){\n" +
-                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m94\">Rec</a>&lt;?&gt;,new,field);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a> (){\n" +
+                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"94\">Rec</a>&lt;?&gt;,new,field);\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m94\">pkg.Rec</a>&lt;<a name=\"m102\">T</a>&gt; {\n" +
-                " int <a name=\"m112\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"94\">pkg.Rec</a>&lt;<a name=\""+ExportCst.PREF_REF+"102\">T</a>&gt; {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"112\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3433,10 +3434,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
-                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
-                "  that int[] <a name=\"m71\">b</a> <a title=\"The type $core.Object cannot be implicitly cast to [int\" class=\"e\">=</a> <a title=\"The key word that is unexpected here.\" class=\"e\">that</a>(<a href=\"#m42\">a</a>.<b>clone</b>());\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"42\">a</a> = new int[0];\n" +
+                "  that int[] <a name=\""+ExportCst.PREF_REF+"71\">b</a> <a title=\"The type $core.Object cannot be implicitly cast to [int\" class=\"e\">=</a> <a title=\"The key word that is unexpected here.\" class=\"e\">that</a>(<a href=\"#"+ExportCst.PREF_REF+"42\">a</a>.<b>clone</b>());\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3453,9 +3454,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\"m39\">t</a> = <a title=\"The number of required operands 1 is different from the number of supplied arguments 0.\" class=\"e\">(</a>);\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a> = <a title=\"The number of required operands 1 is different from the number of supplied arguments 0.\" class=\"e\">(</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3474,12 +3475,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  <a title=\"pkg.Param\" href=\"#m68\">Param</a>&lt;<a title=\"The type Param&lt;~$int&gt; is unknown.\" class=\"e\">~</a>$int&gt; <a name=\"m45\">t</a>;\n" +
+                "  <a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"68\">Param</a>&lt;<a title=\"The type Param&lt;~$int&gt; is unknown.\" class=\"e\">~</a>$int&gt; <a name=\""+ExportCst.PREF_REF+"45\">t</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m68\">pkg.Param</a>&lt;<a name=\"m78\">T</a>&gt; {\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"68\">pkg.Param</a>&lt;<a name=\""+ExportCst.PREF_REF+"78\">T</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3497,12 +3498,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\"m39\">t</a>=$(<a title=\"pkg.Param\" href=\"#m84\">Param</a>&lt;~<a title=\"The type Param&lt;~~$int&gt; is unknown.\" class=\"e\">~</a>$int&gt;)$null;\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a>=$(<a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"84\">Param</a>&lt;~<a title=\"The type Param&lt;~~$int&gt; is unknown.\" class=\"e\">~</a>$int&gt;)$null;\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m84\">pkg.Param</a>&lt;<a name=\"m94\">T</a>&gt; {\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"84\">pkg.Param</a>&lt;<a name=\""+ExportCst.PREF_REF+"94\">T</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3520,12 +3521,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\"m39\">t</a>=$($Fct<a title=\"The type $Fct&lt;~&gt; is unknown.\" class=\"e\">&lt;</a>~&gt;)$null;\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a>=$($Fct<a title=\"The type $Fct&lt;~&gt; is unknown.\" class=\"e\">&lt;</a>~&gt;)$null;\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m78\">pkg.Param</a>&lt;<a name=\"m88\">T</a>&gt; {\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"78\">pkg.Param</a>&lt;<a name=\""+ExportCst.PREF_REF+"88\">T</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3549,17 +3550,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $int <a name=\"m63\">t</a> = 7;\n" +
-                "  <a title=\"pkg.Ex.$static exmeth(~$int)\" href=\"#m145\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,exmeth,~$int).<b>call</b><a title=\"The type $int cannot be implicitly cast to ~$int\" class=\"e\">(</a><a href=\"#m63\">t</a>);\n" +
-                "  $return <a href=\"#m63\">t</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">exmeth</a>(){\n" +
+                "  $int <a name=\""+ExportCst.PREF_REF+"63\">t</a> = 7;\n" +
+                "  <a title=\"pkg.Ex.$static exmeth(~$int)\" href=\"#"+ExportCst.PREF_REF+"145\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"15\">Ex</a>,exmeth,~$int).<b>call</b><a title=\"The type $int cannot be implicitly cast to ~$int\" class=\"e\">(</a><a href=\"#"+ExportCst.PREF_REF+"63\">t</a>);\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"63\">t</a>;\n" +
                 " }\n" +
-                " $public $static $void <a name=\"m145\">exmeth</a>($that $int <a name=\"m163\">t</a>){\n" +
-                "  <a href=\"#m163\">t</a>=8;\n" +
+                " $public $static $void <a name=\""+ExportCst.PREF_REF+"145\">exmeth</a>($that $int <a name=\""+ExportCst.PREF_REF+"163\">t</a>){\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"163\">t</a>=8;\n" +
                 " }\n" +
-                " $public $static $int <a name=\"m199\">exmeth</a>($int <a name=\"m211\">t</a>){\n" +
-                "  $return <a href=\"#m211\">t</a>+8;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"199\">exmeth</a>($int <a name=\""+ExportCst.PREF_REF+"211\">t</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"211\">t</a>+8;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3584,17 +3585,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  Object <a name=\"m65\">t</a> = 7;\n" +
-                "  <a title=\"pkg.Ex.$static exmeth(~$int)\" href=\"#m154\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,exmeth,~$int).<b>call</b><a title=\"The type java.lang.Object cannot be implicitly cast to ~$int\" class=\"e\">(</a>$that(<a href=\"#m65\">t</a>));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">exmeth</a>(){\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"65\">t</a> = 7;\n" +
+                "  <a title=\"pkg.Ex.$static exmeth(~$int)\" href=\"#"+ExportCst.PREF_REF+"154\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"15\">Ex</a>,exmeth,~$int).<b>call</b><a title=\"The type java.lang.Object cannot be implicitly cast to ~$int\" class=\"e\">(</a>$that(<a href=\"#"+ExportCst.PREF_REF+"65\">t</a>));\n" +
                 "  $return 0;\n" +
                 " }\n" +
-                " $public $static $void <a name=\"m154\">exmeth</a>($that $int <a name=\"m172\">t</a>){\n" +
-                "  <a href=\"#m172\">t</a>=8;\n" +
+                " $public $static $void <a name=\""+ExportCst.PREF_REF+"154\">exmeth</a>($that $int <a name=\""+ExportCst.PREF_REF+"172\">t</a>){\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"172\">t</a>=8;\n" +
                 " }\n" +
-                " $public $static $int <a name=\"m208\">exmeth</a>($int <a name=\"m220\">t</a>){\n" +
-                "  $return <a href=\"#m220\">t</a>+8;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"208\">exmeth</a>($int <a name=\""+ExportCst.PREF_REF+"220\">t</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"220\">t</a>+8;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3619,17 +3620,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  Object <a name=\"m65\">t</a> = 7;\n" +
-                "  <a title=\"pkg.Ex.$static exmeth($int)\" href=\"#m207\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,exmeth,$int).<b>call</b><a title=\"The type java.lang.Object cannot be implicitly cast to $int\" class=\"e\">(</a>$that(<a href=\"#m65\">t</a>));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">exmeth</a>(){\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"65\">t</a> = 7;\n" +
+                "  <a title=\"pkg.Ex.$static exmeth($int)\" href=\"#"+ExportCst.PREF_REF+"207\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"15\">Ex</a>,exmeth,$int).<b>call</b><a title=\"The type java.lang.Object cannot be implicitly cast to $int\" class=\"e\">(</a>$that(<a href=\"#"+ExportCst.PREF_REF+"65\">t</a>));\n" +
                 "  $return 0;\n" +
                 " }\n" +
-                " $public $static $void <a name=\"m153\">exmeth</a>($that $int <a name=\"m171\">t</a>){\n" +
-                "  <a href=\"#m171\">t</a>=8;\n" +
+                " $public $static $void <a name=\""+ExportCst.PREF_REF+"153\">exmeth</a>($that $int <a name=\""+ExportCst.PREF_REF+"171\">t</a>){\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"171\">t</a>=8;\n" +
                 " }\n" +
-                " $public $static $int <a name=\"m207\">exmeth</a>($int <a name=\"m219\">t</a>){\n" +
-                "  $return <a href=\"#m219\">t</a>+8;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"207\">exmeth</a>($int <a name=\""+ExportCst.PREF_REF+"219\">t</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"219\">t</a>+8;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3644,8 +3645,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                "  $Fct&lt;$int&gt; <a name=\"m37\">t</a><a title=\"The type java.lang.$Fct&lt;~$int&gt; cannot be implicitly cast to java.lang.$Fct&lt;$int&gt;\" class=\"e\">=</a>$($Fct&lt;~$int&gt;)$null;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                "  $Fct&lt;$int&gt; <a name=\""+ExportCst.PREF_REF+"37\">t</a><a title=\"The type java.lang.$Fct&lt;~$int&gt; cannot be implicitly cast to java.lang.$Fct&lt;$int&gt;\" class=\"e\">=</a>$($Fct&lt;~$int&gt;)$null;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3659,8 +3660,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                "  $Fct&lt;~$int&gt; <a name=\"m38\">t</a><a title=\"The type java.lang.$Fct&lt;$int&gt; cannot be implicitly cast to java.lang.$Fct&lt;~$int&gt;\" class=\"e\">=</a>$($Fct&lt;$int&gt;)$null;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                "  $Fct&lt;~$int&gt; <a name=\""+ExportCst.PREF_REF+"38\">t</a><a title=\"The type java.lang.$Fct&lt;$int&gt; cannot be implicitly cast to java.lang.$Fct&lt;~$int&gt;\" class=\"e\">=</a>$($Fct&lt;$int&gt;)$null;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3676,7 +3677,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 "  {\n" +
                 "   <a title=\"There is no accessible field named $Fct from the type pkg.Ex in this context.\" class=\"e\">$Fct</a>&lt;<a title=\"The operands types java.lang.Number for the operator ~ are unexpected.\" class=\"e\">~</a><a title=\"The operands types java.lang.Object for the operator ~ are unexpected.\" class=\"e\">~</a><a title=\"There is no accessible field named $int from the type pkg.Ex in this context.\" class=\"e\">$int</a><a title=\"The number of required operands 2 is different from the number of supplied arguments 3 for the operator &lt;\" class=\"e\">&gt;</a> <a title=\"There is no accessible field named t from the type pkg.Ex in this context.\" class=\"e\">t</a>;\n" +
                 "  }\n" +
@@ -3694,8 +3695,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@interface <a name=\"m11\">pkg.Ext</a> {\n" +
-                " <a name=\"m22\">(</a>)<a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@interface <a name=\""+ExportCst.PREF_REF+"11\">pkg.Ext</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"22\">(</a>)<a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3716,14 +3717,14 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a> (){\n" +
-                "  <a title=\"pkg.Rec\" href=\"#m111\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m111\">Rec</a>(<a title=\"The parameter function name f is duplicated.\" class=\"e\">f</a>:10);\n" +
-                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m126\">field</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"111\">Rec</a> <a name=\""+ExportCst.PREF_REF+"58\">r</a> = new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"111\">Rec</a>(<a title=\"The parameter function name f is duplicated.\" class=\"e\">f</a>:10);\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"126\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "@interface <a name=\"m111\">pkg.Rec</a> {\n" +
-                " int <a name=\"m126\">field</a>;\n" +
+                "@interface <a name=\""+ExportCst.PREF_REF+"111\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"126\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3742,13 +3743,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a> (){\n" +
-                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m91\">Rec</a>,new,f);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a> (){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"91\">Rec</a>,new,f);\n" +
                 " }\n" +
                 "}\n" +
-                "@interface <a name=\"m91\">pkg.Rec</a> {\n" +
-                " int <a name=\"m106\">field</a>;\n" +
+                "@interface <a name=\""+ExportCst.PREF_REF+"91\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"106\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3768,16 +3769,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a> (){\n" +
-                "  <a title=\"pkg.Rec\" href=\"#m124\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m124\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m139\">field</a>:10,<a title=\"The parameter function name field is duplicated.\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"124\">Rec</a> <a name=\""+ExportCst.PREF_REF+"58\">r</a> = new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"124\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"139\">field</a>:10,<a title=\"The parameter function name field is duplicated.\n" +
                 "\n" +
-                "pkg.Rec.field\" href=\"#m139\" class=\"e\">field</a>:10);\n" +
-                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m139\">field</a>;\n" +
+                "pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"139\" class=\"e\">field</a>:10);\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"139\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "@interface <a name=\"m124\">pkg.Rec</a> {\n" +
-                " int <a name=\"m139\">field</a>;\n" +
+                "@interface <a name=\""+ExportCst.PREF_REF+"124\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"139\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3797,16 +3798,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a> (){\n" +
-                "  <a title=\"pkg.Rec\" href=\"#m117\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m117\">Rec</a>(<a title=\"The parameter function name field is duplicated.\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"117\">Rec</a> <a name=\""+ExportCst.PREF_REF+"58\">r</a> = new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"117\">Rec</a>(<a title=\"The parameter function name field is duplicated.\n" +
                 "\n" +
-                "pkg.Rec.field\" href=\"#m132\" class=\"e\">field</a>:<span class=\"s\">\"10\"</span>);\n" +
-                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m132\">field</a>;\n" +
+                "pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"132\" class=\"e\">field</a>:<span class=\"s\">\"10\"</span>);\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"132\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "@interface <a name=\"m117\">pkg.Rec</a> {\n" +
-                " int <a name=\"m132\">field</a>;\n" +
+                "@interface <a name=\""+ExportCst.PREF_REF+"117\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"132\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3825,13 +3826,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a> (){\n" +
-                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m101\">Rec</a>,new,<a title=\"pkg.Rec.field\" href=\"#m116\">field</a>,<a title=\"pkg.Rec.field\" href=\"#m116\">field</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a> (){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"101\">Rec</a>,new,<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"116\">field</a>,<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"116\">field</a>);\n" +
                 " }\n" +
                 "}\n" +
-                "@interface <a name=\"m101\">pkg.Rec</a> {\n" +
-                " int <a name=\"m116\">field</a>;\n" +
+                "@interface <a name=\""+ExportCst.PREF_REF+"101\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"116\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3850,13 +3851,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a> (){\n" +
-                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m98\">Rec</a>&lt;?&gt;,new,field);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a> (){\n" +
+                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"98\">Rec</a>&lt;?&gt;,new,field);\n" +
                 " }\n" +
                 "}\n" +
-                "@interface <a name=\"m98\">pkg.Rec</a>&lt;<a name=\"m106\">T</a>&gt; {\n" +
-                " int <a name=\"m116\">field</a>;\n" +
+                "@interface <a name=\""+ExportCst.PREF_REF+"98\">pkg.Rec</a>&lt;<a name=\""+ExportCst.PREF_REF+"106\">T</a>&gt; {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"116\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3872,8 +3873,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public void <a name=\"m35\">exmeth</a> (){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public void <a name=\""+ExportCst.PREF_REF+"35\">exmeth</a> (){\n" +
                 "  <a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a>this;\n" +
                 " }\n" +
                 "}\n" +
@@ -3909,28 +3910,28 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static int <a name=\"m44\">method</a>(){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m238\">ExClass</a> <a name=\"m64\">e</a> = new <a title=\"pkg.ExClass\" href=\"#m238\">ExClass</a>();\n" +
-                "  <a href=\"#m64\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m264\">field</a>=1;\n" +
-                "  <a title=\"pkg.ExClass2\" href=\"#m349\">ExClass2</a> <a name=\"m107\">f</a> = new <a title=\"pkg.ExClass2\" href=\"#m349\">ExClass2</a>();\n" +
-                "  <a href=\"#m107\">f</a>.<a title=\"pkg.ExClass2.field\" href=\"#m376\">field</a>=1;\n" +
-                "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a title=\"pkg.Apply.static and(boolean,boolean)\" href=\"#m178\">and</a>(<a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#m296\"> </a><a href=\"#m64\">e</a>,<a title=\"pkg.ExClass2.static $(boolean,pkg.ExClass2)\" href=\"#m408\"> </a><a href=\"#m107\">f</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"238\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"64\">e</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"238\">ExClass</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"64\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"264\">field</a>=1;\n" +
+                "  <a title=\"pkg.ExClass2\" href=\"#"+ExportCst.PREF_REF+"349\">ExClass2</a> <a name=\""+ExportCst.PREF_REF+"107\">f</a> = new <a title=\"pkg.ExClass2\" href=\"#"+ExportCst.PREF_REF+"349\">ExClass2</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"107\">f</a>.<a title=\"pkg.ExClass2.field\" href=\"#"+ExportCst.PREF_REF+"376\">field</a>=1;\n" +
+                "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a title=\"pkg.Apply.static and(boolean,boolean)\" href=\"#"+ExportCst.PREF_REF+"178\">and</a>(<a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"296\"> </a><a href=\"#"+ExportCst.PREF_REF+"64\">e</a>,<a title=\"pkg.ExClass2.static $(boolean,pkg.ExClass2)\" href=\"#"+ExportCst.PREF_REF+"408\"> </a><a href=\"#"+ExportCst.PREF_REF+"107\">f</a>);\n" +
                 " }\n" +
-                " static boolean <a name=\"m178\">and</a>(boolean <a name=\"m190\">a</a>, boolean <a name=\"m201\">b</a>){\n" +
-                "  return <a href=\"#m190\">a</a>&amp;&amp;<a href=\"#m201\">b</a>;\n" +
-                " }\n" +
-                "}\n" +
-                "public class <a name=\"m238\">pkg.ExClass</a> {\n" +
-                " public int <a name=\"m264\">field</a>=2;\n" +
-                " public static boolean <a name=\"m296\">$</a>(<a title=\"pkg.ExClass\" href=\"#m238\">ExClass</a> <a name=\"m306\">i</a>){\n" +
-                "  return <a href=\"#m306\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m264\">field</a>==1;\n" +
+                " static boolean <a name=\""+ExportCst.PREF_REF+"178\">and</a>(boolean <a name=\""+ExportCst.PREF_REF+"190\">a</a>, boolean <a name=\""+ExportCst.PREF_REF+"201\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"190\">a</a>&amp;&amp;<a href=\"#"+ExportCst.PREF_REF+"201\">b</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m349\">pkg.ExClass2</a> {\n" +
-                " public int <a name=\"m376\">field</a>=2;\n" +
-                " public static boolean <a name=\"m408\">$</a>(<a title=\"pkg.ExClass2\" href=\"#m349\">ExClass2</a> <a name=\"m419\">i</a>){\n" +
-                "  return <a href=\"#m419\">i</a>.<a title=\"pkg.ExClass2.field\" href=\"#m376\">field</a>==1;\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"238\">pkg.ExClass</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"264\">field</a>=2;\n" +
+                " public static boolean <a name=\""+ExportCst.PREF_REF+"296\">$</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"238\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"306\">i</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"306\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"264\">field</a>==1;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"349\">pkg.ExClass2</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"376\">field</a>=2;\n" +
+                " public static boolean <a name=\""+ExportCst.PREF_REF+"408\">$</a>(<a title=\"pkg.ExClass2\" href=\"#"+ExportCst.PREF_REF+"349\">ExClass2</a> <a name=\""+ExportCst.PREF_REF+"419\">i</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"419\">i</a>.<a title=\"pkg.ExClass2.field\" href=\"#"+ExportCst.PREF_REF+"376\">field</a>==1;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3973,36 +3974,36 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static int <a name=\"m44\">method</a>(){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m64\">e</a> = new <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a>();\n" +
-                "  <a href=\"#m64\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>=1;\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m106\">f</a> = new <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a>();\n" +
-                "  <a href=\"#m106\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>=1;\n" +
-                "  <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#m64\">e</a><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m307\">&amp;</a><a title=\"pkg.ExClass.static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m358\">&amp;</a><a title=\"pkg.ExClass.static $(pkg.ExClass,boolean)\" href=\"#m593\"> </a><a href=\"#m106\">f</a><a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#m532\">?</a><span class=\"s\">\"Vrai\"</span>:<span class=\"s\">\"Faux\"</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"64\">e</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"64\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>=1;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"106\">f</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"106\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>=1;\n" +
+                "  <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"64\">e</a><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"307\">&amp;</a><a title=\"pkg.ExClass.static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"358\">&amp;</a><a title=\"pkg.ExClass.static $(pkg.ExClass,boolean)\" href=\"#"+ExportCst.PREF_REF+"593\"> </a><a href=\"#"+ExportCst.PREF_REF+"106\">f</a><a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"532\">?</a><span class=\"s\">\"Vrai\"</span>:<span class=\"s\">\"Faux\"</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m185\">pkg.ExClass</a> {\n" +
-                " public int <a name=\"m211\">field</a>=2;\n" +
-                " public static boolean <a name=\"m243\">true</a>(<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m256\">i</a>){\n" +
-                "  return <a href=\"#m256\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1;\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"185\">pkg.ExClass</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"211\">field</a>=2;\n" +
+                " public static boolean <a name=\""+ExportCst.PREF_REF+"243\">true</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"256\">i</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"256\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1;\n" +
                 " }\n" +
-                " public static boolean <a name=\"m307\">false</a>(<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m321\">i</a>){\n" +
-                "  return <a href=\"#m321\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>!=1;\n" +
+                " public static boolean <a name=\""+ExportCst.PREF_REF+"307\">false</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"321\">i</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"321\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>!=1;\n" +
                 " }\n" +
-                " operator<a name=\"m358\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m378\">i</a>, <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m389\">j</a>){\n" +
-                "  return <a href=\"#m378\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1&amp;&amp;<a href=\"#m389\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1;\n" +
+                " operator<a name=\""+ExportCst.PREF_REF+"358\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"378\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"389\">j</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"378\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1&amp;&amp;<a href=\"#"+ExportCst.PREF_REF+"389\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1;\n" +
                 " }\n" +
-                " operator<a name=\"m438\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m458\">i</a>, <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m469\">j</a>){\n" +
-                "  return <a href=\"#m458\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1||<a href=\"#m469\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1;\n" +
+                " operator<a name=\""+ExportCst.PREF_REF+"438\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"458\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"469\">j</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"458\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1||<a href=\"#"+ExportCst.PREF_REF+"469\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1;\n" +
                 " }\n" +
-                " public static boolean <a name=\"m532\">$</a>(<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m542\">i</a>){\n" +
-                "  return <a href=\"#m542\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1;\n" +
+                " public static boolean <a name=\""+ExportCst.PREF_REF+"532\">$</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"542\">i</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"542\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1;\n" +
                 " }\n" +
-                " public static <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m593\">$</a>(boolean <a name=\"m603\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m617\">e</a> = new <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a>();\n" +
-                "  <a href=\"#m617\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>=<a href=\"#m603\">i</a>?1:2;\n" +
-                "  return <a href=\"#m617\">e</a>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"593\">$</a>(boolean <a name=\""+ExportCst.PREF_REF+"603\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"617\">e</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"617\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"603\">i</a>?1:2;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"617\">e</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4034,25 +4035,25 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static int <a name=\"m44\">method</a>(){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m64\">nb</a> = new <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a>();\n" +
-                "  <a title=\"pkg.ExTwo\" href=\"#m306\">ExTwo</a> <a name=\"m92\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#m306\">ExTwo</a>();\n" +
-                "  <a title=\"The type pkg.ExClass cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#m64\">nb</a> <a title=\"pkg.ExClass.static &lt;=(pkg.ExClass,int)\" href=\"#m191\">&lt;=</a><a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#m358\"> </a> <a href=\"#m92\">ex</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"64\">nb</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a>();\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"306\">ExTwo</a> <a name=\""+ExportCst.PREF_REF+"92\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"306\">ExTwo</a>();\n" +
+                "  <a title=\"The type pkg.ExClass cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"64\">nb</a> <a title=\"pkg.ExClass.static &lt;=(pkg.ExClass,int)\" href=\"#"+ExportCst.PREF_REF+"191\">&lt;=</a><a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"358\"> </a> <a href=\"#"+ExportCst.PREF_REF+"92\">ex</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m147\">pkg.ExClass</a> {\n" +
-                " public int <a name=\"m173\">field</a>=2;\n" +
-                " operator<a name=\"m191\">&lt;=</a> <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> (<a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m211\">h</a>, int <a name=\"m218\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m232\">e</a> = new <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a>();\n" +
-                "  <a href=\"#m232\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m173\">field</a> = <a href=\"#m218\">i</a> + <a href=\"#m211\">h</a>.<a title=\"pkg.ExClass.field\" href=\"#m173\">field</a>;\n" +
-                "  return <a href=\"#m232\">e</a>;\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"147\">pkg.ExClass</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"173\">field</a>=2;\n" +
+                " operator<a name=\""+ExportCst.PREF_REF+"191\">&lt;=</a> <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"211\">h</a>, int <a name=\""+ExportCst.PREF_REF+"218\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"232\">e</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"232\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"173\">field</a> = <a href=\"#"+ExportCst.PREF_REF+"218\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"211\">h</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"173\">field</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"232\">e</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m306\">pkg.ExTwo</a> {\n" +
-                " public int <a name=\"m330\">field</a>=2;\n" +
-                " public static int <a name=\"m358\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m306\">ExTwo</a> <a name=\"m366\">i</a>){\n" +
-                "  return <a href=\"#m366\">i</a>.<a title=\"pkg.ExTwo.field\" href=\"#m330\">field</a>;\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"306\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"330\">field</a>=2;\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"358\">$</a>(<a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"306\">ExTwo</a> <a name=\""+ExportCst.PREF_REF+"366\">i</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"366\">i</a>.<a title=\"pkg.ExTwo.field\" href=\"#"+ExportCst.PREF_REF+"330\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4075,16 +4076,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static int <a name=\"m44\">method</a>(){\n" +
-                "  <a title=\"pkg.ExTwo\" href=\"#m117\">ExTwo</a> <a name=\"m62\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#m117\">ExTwo</a>();\n" +
-                "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#m62\">ex</a> <a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#m169\"> </a>&lt;=<a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#m169\"> </a> <a href=\"#m62\">ex</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"117\">ExTwo</a> <a name=\""+ExportCst.PREF_REF+"62\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"117\">ExTwo</a>();\n" +
+                "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"62\">ex</a> <a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"169\"> </a>&lt;=<a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"169\"> </a> <a href=\"#"+ExportCst.PREF_REF+"62\">ex</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m117\">pkg.ExTwo</a> {\n" +
-                " public int <a name=\"m141\">field</a>=2;\n" +
-                " public static int <a name=\"m169\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m117\">ExTwo</a> <a name=\"m177\">i</a>){\n" +
-                "  return <a href=\"#m177\">i</a>.<a title=\"pkg.ExTwo.field\" href=\"#m141\">field</a>;\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"117\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"141\">field</a>=2;\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"169\">$</a>(<a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"117\">ExTwo</a> <a name=\""+ExportCst.PREF_REF+"177\">i</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"177\">i</a>.<a title=\"pkg.ExTwo.field\" href=\"#"+ExportCst.PREF_REF+"141\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4104,14 +4105,14 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static void <a name=\"m45\">method</a>(){\n" +
-                "  <a title=\"pkg.ExTwo\" href=\"#m111\">ExTwo</a> <a name=\"m63\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#m111\">ExTwo</a>();\n" +
-                "  <a href=\"#m63\">ex</a> <a title=\"The type pkg.ExTwo cannot be implicitly cast to pkg.ExTwo\" class=\"e\">+</a>= <a href=\"#m63\">ex</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"111\">ExTwo</a> <a name=\""+ExportCst.PREF_REF+"63\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"111\">ExTwo</a>();\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"63\">ex</a> <a title=\"The type pkg.ExTwo cannot be implicitly cast to pkg.ExTwo\" class=\"e\">+</a>= <a href=\"#"+ExportCst.PREF_REF+"63\">ex</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m111\">pkg.ExTwo</a> {\n" +
-                " public int <a name=\"m135\">field</a>=2;\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"111\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"135\">field</a>=2;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -4127,10 +4128,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static void <a name=\"m45\">method</a>(){\n" +
-                "  int <a name=\"m61\">a</a> = 0;\n" +
-                "  <a href=\"#m61\">a</a> <a title=\"The expression part is empty.\" class=\"e\">+=</a> ;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"61\">a</a> = 0;\n" +
+                "  <a href=\"#"+ExportCst.PREF_REF+"61\">a</a> <a title=\"The expression part is empty.\" class=\"e\">+=</a> ;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4158,14 +4159,14 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a> (){\n" +
-                "  <a title=\"pkg.Rec\" href=\"#m113\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m113\">Rec</a>( <a title=\"The parameter function name f is duplicated.\" class=\"e\">f</a> :10);\n" +
-                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m128\">field</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"113\">Rec</a> <a name=\""+ExportCst.PREF_REF+"58\">r</a> = new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"113\">Rec</a>( <a title=\"The parameter function name f is duplicated.\" class=\"e\">f</a> :10);\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"128\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "@interface <a name=\"m113\">pkg.Rec</a> {\n" +
-                " int <a name=\"m128\">field</a>;\n" +
+                "@interface <a name=\""+ExportCst.PREF_REF+"113\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"128\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -4185,12 +4186,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
                 "  return m(2, c :5, <a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a> :3);\n" +
                 " }\n" +
-                " static int <a name=\"m78\">m</a>(int <a name=\"m84\">a</a>,int <a name=\"m90\">b</a>,int <a name=\"m96\">c</a>){\n" +
-                "  return <a href=\"#m84\">a</a>*<a href=\"#m90\">b</a>+<a href=\"#m96\">c</a>;\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"78\">m</a>(int <a name=\""+ExportCst.PREF_REF+"84\">a</a>,int <a name=\""+ExportCst.PREF_REF+"90\">b</a>,int <a name=\""+ExportCst.PREF_REF+"96\">c</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"84\">a</a>*<a href=\"#"+ExportCst.PREF_REF+"90\">b</a>+<a href=\"#"+ExportCst.PREF_REF+"96\">c</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4206,7 +4207,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,$int,<a title=\"The operator symbol $ is not valid.\" class=\"e\">$</a>);\n" +
                 " }\n" +
@@ -4224,9 +4225,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"The operator symbol $ is not valid.\" class=\"e\">$</a>);\n" +
+                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>,<a title=\"The operator symbol $ is not valid.\" class=\"e\">$</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4242,7 +4243,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"The type $ is unknown.\" class=\"e\">$</a><a title=\"The operator symbol $ is not valid.\" class=\"e\">)</a>;\n" +
                 " }\n" +
@@ -4260,7 +4261,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,$int<a title=\"The operator symbol $int is not valid.\" class=\"e\">)</a>;\n" +
                 " }\n" +
@@ -4278,7 +4279,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"The type $ is unknown.\" class=\"e\">$</a>,<a title=\"The operator symbol $ is not valid.\" class=\"e\">$</a>);\n" +
                 " }\n" +
@@ -4296,7 +4297,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,$int, <a title=\"The operator symbol $ is not valid.\" class=\"e\">$</a>);\n" +
                 " }\n" +
@@ -4314,7 +4315,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator, <a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a><a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
                 " }\n" +
@@ -4332,9 +4333,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>, <a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a><a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
+                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>, <a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a><a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4351,7 +4352,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator, <a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a>,$id<a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
                 " }\n" +
@@ -4370,9 +4371,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>, <a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a>,$id<a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
+                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>, <a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a>,$id<a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4388,9 +4389,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  $lambda($operator, <a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
+                "  $lambda($operator, <a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4406,9 +4407,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>, <a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
+                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>, <a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4425,9 +4426,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  $lambda($operator, <a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,$id,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
+                "  $lambda($operator, <a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,$id,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4444,9 +4445,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>, <a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,$id,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
+                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>, <a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,$id,<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4462,7 +4463,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator, <a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">++</a><a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
                 " }\n" +
@@ -4480,9 +4481,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\"m39\">t</a> = $(<a title=\"The type Inex is unknown.\" class=\"e\">Inex</a>) 0;\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a> = $(<a title=\"The type Inex is unknown.\" class=\"e\">Inex</a>) 0;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4500,11 +4501,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>($int <a name=\"m126\">b</a>){\n" +
-                "  $return $that(<a href=\"#m126\">b</a><a title=\"The type $int is unexpected.\" class=\"e\">?</a>$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>):$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>($int <a name=\""+ExportCst.PREF_REF+"126\">b</a>){\n" +
+                "  $return $that(<a href=\"#"+ExportCst.PREF_REF+"126\">b</a><a title=\"The type $int is unexpected.\" class=\"e\">?</a>$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>):$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4522,11 +4523,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
-                "  $return $that(<a href=\"#m130\">b</a>?<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a><a title=\"The key word $that is unexpected here.\" class=\"e\">:</a>$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"130\">b</a>){\n" +
+                "  $return $that(<a href=\"#"+ExportCst.PREF_REF+"130\">b</a>?<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a><a title=\"The key word $that is unexpected here.\" class=\"e\">:</a>$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4544,11 +4545,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
-                "  $return $that(<a href=\"#m130\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"130\">b</a>){\n" +
+                "  $return $that(<a href=\"#"+ExportCst.PREF_REF+"130\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4566,11 +4567,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static String <a name=\"m48\">p1</a> = <span class=\"s\">\"15\"</span>;\n" +
-                " $public $static $int <a name=\"m81\">p2</a> = 18;\n" +
-                " $public $static $that Object <a name=\"m120\">exmeth</a>($boolean <a name=\"m136\">b</a>){\n" +
-                "  <a title=\"The type java.lang.String cannot be implicitly cast to java.lang.Object\" class=\"e\">$return</a> $that(<a href=\"#m136\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#m48\">p1</a>)<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">:</a>$that(<a title=\"pkg.Ex.p2\" href=\"#m81\">p2</a>));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">p1</a> = <span class=\"s\">\"15\"</span>;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"81\">p2</a> = 18;\n" +
+                " $public $static $that Object <a name=\""+ExportCst.PREF_REF+"120\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"136\">b</a>){\n" +
+                "  <a title=\"The type java.lang.String cannot be implicitly cast to java.lang.Object\" class=\"e\">$return</a> $that(<a href=\"#"+ExportCst.PREF_REF+"136\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"48\">p1</a>)<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">:</a>$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"81\">p2</a>));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4588,11 +4589,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>($int <a name=\"m126\">b</a>){\n" +
-                "  $return $that($bool<a title=\"The type $int is unexpected.\" class=\"e\">(</a><a href=\"#m126\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>),$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>($int <a name=\""+ExportCst.PREF_REF+"126\">b</a>){\n" +
+                "  $return $that($bool<a title=\"The type $int is unexpected.\" class=\"e\">(</a><a href=\"#"+ExportCst.PREF_REF+"126\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>),$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>)));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4610,11 +4611,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
-                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#m130\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"130\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#"+ExportCst.PREF_REF+"130\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>)));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4632,11 +4633,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
-                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#m130\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>),<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"130\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#"+ExportCst.PREF_REF+"130\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>),<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4654,11 +4655,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static String <a name=\"m48\">p1</a> = <span class=\"s\">\"15\"</span>;\n" +
-                " $public $static $int <a name=\"m81\">p2</a> = 18;\n" +
-                " $public $static $that Object <a name=\"m120\">exmeth</a>($boolean <a name=\"m136\">b</a>){\n" +
-                "  <a title=\"The type java.lang.String cannot be implicitly cast to java.lang.Object\" class=\"e\">$return</a> $that(<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">$bool</a>(<a href=\"#m136\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#m48\">p1</a>),$that(<a title=\"pkg.Ex.p2\" href=\"#m81\">p2</a>)));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">p1</a> = <span class=\"s\">\"15\"</span>;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"81\">p2</a> = 18;\n" +
+                " $public $static $that Object <a name=\""+ExportCst.PREF_REF+"120\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"136\">b</a>){\n" +
+                "  <a title=\"The type java.lang.String cannot be implicitly cast to java.lang.Object\" class=\"e\">$return</a> $that(<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">$bool</a>(<a href=\"#"+ExportCst.PREF_REF+"136\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"48\">p1</a>),$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"81\">p2</a>)));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4676,11 +4677,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>($int <a name=\"m126\">b</a>){\n" +
-                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a><a title=\"The type $int is unexpected.\" class=\"e\">(</a><a href=\"#m126\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>($int <a name=\""+ExportCst.PREF_REF+"126\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a><a title=\"The type $int is unexpected.\" class=\"e\">(</a><a href=\"#"+ExportCst.PREF_REF+"126\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>)));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4707,22 +4708,22 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m128\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"192\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"128\">b</a>){\n" +
                 "  $return $that(<a title=\"The key word $that is unexpected here.\n" +
                 "\n" +
-                "pkg.ExBool.$static $true($boolean,pkg.ExBool)\" href=\"#m269\" class=\"e\">$bool</a>(<a href=\"#m128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                "pkg.ExBool.$static $true($boolean,pkg.ExBool)\" href=\"#"+ExportCst.PREF_REF+"269\" class=\"e\">$bool</a>(<a href=\"#"+ExportCst.PREF_REF+"128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>)));\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m192\">pkg.ExBool</a> {\n" +
-                " $int <a name=\"m211\">f</a>;\n" +
-                " <a name=\"m215\">ExBool(</a>$int <a name=\"m227\">p</a>){\n" +
-                "  <a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> = <a href=\"#m227\">p</a>;\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"192\">pkg.ExBool</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"211\">f</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"215\">ExBool(</a>$int <a name=\""+ExportCst.PREF_REF+"227\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"211\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"227\">p</a>;\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m269\">$true</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m282\">v</a>){\n" +
-                "  $return <a href=\"#m282\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> == 1;\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"269\">$true</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"192\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"282\">v</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"282\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"211\">f</a> == 1;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4749,22 +4750,22 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m128\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"192\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"128\">b</a>){\n" +
                 "  $return $that(<a title=\"The key word $that is unexpected here.\n" +
                 "\n" +
-                "pkg.ExBool.$static $($boolean,pkg.ExBool)\" href=\"#m269\" class=\"e\">$bool</a>(<a href=\"#m128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                "pkg.ExBool.$static $($boolean,pkg.ExBool)\" href=\"#"+ExportCst.PREF_REF+"269\" class=\"e\">$bool</a>(<a href=\"#"+ExportCst.PREF_REF+"128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>)));\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m192\">pkg.ExBool</a> {\n" +
-                " $int <a name=\"m211\">f</a>;\n" +
-                " <a name=\"m215\">ExBool(</a>$int <a name=\"m227\">p</a>){\n" +
-                "  <a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> = <a href=\"#m227\">p</a>;\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"192\">pkg.ExBool</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"211\">f</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"215\">ExBool(</a>$int <a name=\""+ExportCst.PREF_REF+"227\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"211\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"227\">p</a>;\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m269\">$</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m278\">v</a>){\n" +
-                "  $return <a href=\"#m278\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> == 1;\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"269\">$</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"192\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"278\">v</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"278\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"211\">f</a> == 1;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4791,20 +4792,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m128\">b</a>){\n" +
-                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#m128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"192\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"128\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#"+ExportCst.PREF_REF+"128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>)));\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m192\">pkg.ExBool</a> {\n" +
-                " $int <a name=\"m211\">f</a>;\n" +
-                " <a name=\"m215\">ExBool(</a>$int <a name=\"m227\">p</a>){\n" +
-                "  <a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> = <a href=\"#m227\">p</a>;\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"192\">pkg.ExBool</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"211\">f</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"215\">ExBool(</a>$int <a name=\""+ExportCst.PREF_REF+"227\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"211\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"227\">p</a>;\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m269\">$</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m278\">v</a>){\n" +
-                "  $return <a href=\"#m278\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> == 1;\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"269\">$</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"192\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"278\">v</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"278\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"211\">f</a> == 1;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4831,22 +4832,22 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m128\">b</a>){\n" +
-                "  $return $that(<a href=\"#m128\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>)<a title=\"The key word $that is unexpected here.\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"185\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"128\">b</a>){\n" +
+                "  $return $that(<a href=\"#"+ExportCst.PREF_REF+"128\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>)<a title=\"The key word $that is unexpected here.\n" +
                 "\n" +
-                "pkg.ExBool.$static $true($boolean,pkg.ExBool)\" href=\"#m262\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>);\n" +
+                "pkg.ExBool.$static $true($boolean,pkg.ExBool)\" href=\"#"+ExportCst.PREF_REF+"262\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>);\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m185\">pkg.ExBool</a> {\n" +
-                " $int <a name=\"m204\">f</a>;\n" +
-                " <a name=\"m208\">ExBool(</a>$int <a name=\"m220\">p</a>){\n" +
-                "  <a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> = <a href=\"#m220\">p</a>;\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"185\">pkg.ExBool</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"204\">f</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"208\">ExBool(</a>$int <a name=\""+ExportCst.PREF_REF+"220\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"204\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"220\">p</a>;\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m262\">$true</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m275\">v</a>){\n" +
-                "  $return <a href=\"#m275\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> == 1;\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"262\">$true</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"185\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"275\">v</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"275\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"204\">f</a> == 1;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4873,20 +4874,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m128\">b</a>){\n" +
-                "  $return $that(<a href=\"#m128\">b</a><a title=\"pkg.ExBool.$static $($boolean,pkg.ExBool)\" href=\"#m262\">?</a>$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"185\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"128\">b</a>){\n" +
+                "  $return $that(<a href=\"#"+ExportCst.PREF_REF+"128\">b</a><a title=\"pkg.ExBool.$static $($boolean,pkg.ExBool)\" href=\"#"+ExportCst.PREF_REF+"262\">?</a>$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>);\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m185\">pkg.ExBool</a> {\n" +
-                " $int <a name=\"m204\">f</a>;\n" +
-                " <a name=\"m208\">ExBool(</a>$int <a name=\"m220\">p</a>){\n" +
-                "  <a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> = <a href=\"#m220\">p</a>;\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"185\">pkg.ExBool</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"204\">f</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"208\">ExBool(</a>$int <a name=\""+ExportCst.PREF_REF+"220\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"204\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"220\">p</a>;\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m262\">$</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m271\">v</a>){\n" +
-                "  $return <a href=\"#m271\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> == 1;\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"262\">$</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"185\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"271\">v</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"271\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"204\">f</a> == 1;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4913,20 +4914,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m128\">b</a>){\n" +
-                "  $return $that(<a href=\"#m128\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"185\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"128\">b</a>){\n" +
+                "  $return $that(<a href=\"#"+ExportCst.PREF_REF+"128\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>);\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m185\">pkg.ExBool</a> {\n" +
-                " $int <a name=\"m204\">f</a>;\n" +
-                " <a name=\"m208\">ExBool(</a>$int <a name=\"m220\">p</a>){\n" +
-                "  <a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> = <a href=\"#m220\">p</a>;\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"185\">pkg.ExBool</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"204\">f</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"208\">ExBool(</a>$int <a name=\""+ExportCst.PREF_REF+"220\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"204\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"220\">p</a>;\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m262\">$</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m271\">v</a>){\n" +
-                "  $return <a href=\"#m271\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> == 1;\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"262\">$</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"185\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"271\">v</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"271\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"204\">f</a> == 1;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4953,20 +4954,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
-                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
-                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
-                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#m130\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\""+ExportCst.PREF_REF+"77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\""+ExportCst.PREF_REF+"114\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"130\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#"+ExportCst.PREF_REF+"130\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#"+ExportCst.PREF_REF+"46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#"+ExportCst.PREF_REF+"77\">p2</a>)));\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m194\">pkg.ExBool</a> {\n" +
-                " $int <a name=\"m213\">f</a>;\n" +
-                " <a name=\"m217\">ExBool(</a>$int <a name=\"m229\">p</a>){\n" +
-                "  <a title=\"pkg.ExBool.f\" href=\"#m213\">f</a> = <a href=\"#m229\">p</a>;\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"194\">pkg.ExBool</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"213\">f</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"217\">ExBool(</a>$int <a name=\""+ExportCst.PREF_REF+"229\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"213\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"229\">p</a>;\n" +
                 " }\n" +
-                " $public $static $boolean <a name=\"m271\">$</a>(<a title=\"pkg.ExBool\" href=\"#m194\">ExBool</a> <a name=\"m280\">v</a>){\n" +
-                "  $return <a href=\"#m280\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m213\">f</a> == 1;\n" +
+                " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"271\">$</a>(<a title=\"pkg.ExBool\" href=\"#"+ExportCst.PREF_REF+"194\">ExBool</a> <a name=\""+ExportCst.PREF_REF+"280\">v</a>){\n" +
+                "  $return <a href=\"#"+ExportCst.PREF_REF+"280\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#"+ExportCst.PREF_REF+"213\">f</a> == 1;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -4982,8 +4983,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
                 "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;`\n" +
                 "&quot;&quot;&quot;\" class=\"e\">\"\"\"`\n" +
                 "\"\"\"</a></span>;\n" +
@@ -5002,8 +5003,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
                 "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
                 "\\u000g&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
                 "\\u000g\"\"\"</a></span>;\n" +
@@ -5022,8 +5023,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
                 "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
                 "\\u000G&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
                 "\\u000G\"\"\"</a></span>;\n" +
@@ -5042,8 +5043,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
                 "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
                 "\\u000!&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
                 "\\u000!\"\"\"</a></span>;\n" +
@@ -5062,8 +5063,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
                 "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
                 "\\u000~&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
                 "\\u000~\"\"\"</a></span>;\n" +
@@ -5082,8 +5083,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
                 "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
                 "\\a&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
                 "\\a\"\"\"</a></span>;\n" +
@@ -5110,13 +5111,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$interface <a name=\"m11\">pkg.Int</a> {\n" +
-                " $int <a name=\"m27\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$interface <a name=\""+ExportCst.PREF_REF+"11\">pkg.Int</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"27\">field</a>();\n" +
                 "}\n" +
-                "$class <a name=\"m45\">pkg.Ext</a> {\n" +
-                " $static $int <a name=\"m69\">m</a>(){\n" +
-                "  $new <a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(info=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2})<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2}) <a title=\"pkg.Int\" href=\"#m11\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>\n" +
-                "   $public $int <a name=\"m141\">field</a>(){\n" +
+                "$class <a name=\""+ExportCst.PREF_REF+"45\">pkg.Ext</a> {\n" +
+                " $static $int <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
+                "  $new <a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(info=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2})<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2}) <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"11\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>\n" +
+                "   $public $int <a name=\""+ExportCst.PREF_REF+"141\">field</a>(){\n" +
                 "    $return 0;\n" +
                 "   }\n" +
                 "  }</span>;\n" +
@@ -5144,13 +5145,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$interface <a name=\"m11\">pkg.Int</a> {\n" +
-                " $int <a name=\"m27\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$interface <a name=\""+ExportCst.PREF_REF+"11\">pkg.Int</a> {\n" +
+                " $int <a name=\""+ExportCst.PREF_REF+"27\">field</a>();\n" +
                 "}\n" +
-                "$class <a name=\"m45\">pkg.Ext</a> {\n" +
-                " $static $int <a name=\"m69\">m</a>(){\n" +
-                "  $new <a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(info=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>$new <a title=\"pkg.Int\" href=\"#m11\">Int</a>()<span class=\"t\"><a name=\"m104\" title=\"The method field() from the type pkg.Int must be overriden in the concrete type pkg.Ext..Int*1..Int*1.\" class=\"e\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#m27\">field</a>()})<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2}) <a title=\"pkg.Int\" href=\"#m11\">Int</a>()<span class=\"t\"><a name=\"m142\">{</a>\n" +
-                "   $public $int <a name=\"m160\">field</a>(){\n" +
+                "$class <a name=\""+ExportCst.PREF_REF+"45\">pkg.Ext</a> {\n" +
+                " $static $int <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
+                "  $new <a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(info=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>$new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"11\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"104\" title=\"The method field() from the type pkg.Int must be overriden in the concrete type pkg.Ext..Int*1..Int*1.\" class=\"e\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"27\">field</a>()})<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2}) <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"11\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"142\">{</a>\n" +
+                "   $public $int <a name=\""+ExportCst.PREF_REF+"160\">field</a>(){\n" +
                 "    $return 0;\n" +
                 "   }\n" +
                 "  }</span>;\n" +
@@ -5175,13 +5176,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">v</a> = <a title=\"pkg.Ext.static m($core.Fct&lt;int,int,int&gt;,int,int)\" href=\"#m235\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7)<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8) int <a name=\"m87\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9)<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10) int <a name=\"m134\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11)<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12) int)<a name=\"m180\">-&gt;</a>{return 2 * <a href=\"#m87\">a</a> * <a href=\"#m134\">b</a>;}</span>,3,4);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">v</a> = <a title=\"pkg.Ext.static m($core.Fct&lt;int,int,int&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"235\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7)<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8) int <a name=\""+ExportCst.PREF_REF+"87\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9)<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10) int <a name=\""+ExportCst.PREF_REF+"134\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11)<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12) int)<a name=\""+ExportCst.PREF_REF+"180\">-&gt;</a>{return 2 * <a href=\"#"+ExportCst.PREF_REF+"87\">a</a> * <a href=\"#"+ExportCst.PREF_REF+"134\">b</a>;}</span>,3,4);\n" +
                 "  return 0;\n" +
                 " }\n" +
-                " static int <a name=\"m235\">m</a>(Fct&lt;int,int,int&gt; <a name=\"m254\">fct</a>,int <a name=\"m262\">a</a>, int <a name=\"m269\">b</a>){\n" +
-                "  return <a href=\"#m254\">fct</a>.<b>call</b>(<a href=\"#m262\">a</a>,<a href=\"#m269\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"235\">m</a>(Fct&lt;int,int,int&gt; <a name=\""+ExportCst.PREF_REF+"254\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"262\">a</a>, int <a name=\""+ExportCst.PREF_REF+"269\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"254\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"262\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"269\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5205,16 +5206,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
-                " int <a name=\"m25\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 "}\n" +
-                "class <a name=\"m42\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m64\">m</a>(){\n" +
-                "  int <a name=\"m75\">v</a> = <a title=\"pkg.Ext.static m($core.Fct&lt;int,int,int&gt;,int,int)\" href=\"#m565\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m109\">{</a>public int <a name=\"m121\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>())<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m176\">{</a>public int <a name=\"m188\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>()) int <a name=\"m221\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m252\">{</a>public int <a name=\"m264\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>())<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m321\">{</a>public int <a name=\"m333\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>()) int <a name=\"m366\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m397\">{</a>public int <a name=\"m409\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>())<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m465\">{</a>public int <a name=\"m477\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>()) int)<a name=\"m510\">-&gt;</a>{return 2 * <a href=\"#m221\">a</a> * <a href=\"#m366\">b</a>;}</span>,3,4);\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"42\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"64\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"75\">v</a> = <a title=\"pkg.Ext.static m($core.Fct&lt;int,int,int&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"565\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"109\">{</a>public int <a name=\""+ExportCst.PREF_REF+"121\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"176\">{</a>public int <a name=\""+ExportCst.PREF_REF+"188\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int <a name=\""+ExportCst.PREF_REF+"221\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"252\">{</a>public int <a name=\""+ExportCst.PREF_REF+"264\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"321\">{</a>public int <a name=\""+ExportCst.PREF_REF+"333\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int <a name=\""+ExportCst.PREF_REF+"366\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"397\">{</a>public int <a name=\""+ExportCst.PREF_REF+"409\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"465\">{</a>public int <a name=\""+ExportCst.PREF_REF+"477\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int)<a name=\""+ExportCst.PREF_REF+"510\">-&gt;</a>{return 2 * <a href=\"#"+ExportCst.PREF_REF+"221\">a</a> * <a href=\"#"+ExportCst.PREF_REF+"366\">b</a>;}</span>,3,4);\n" +
                 "  return 0;\n" +
                 " }\n" +
-                " static int <a name=\"m565\">m</a>(Fct&lt;int,int,int&gt; <a name=\"m584\">fct</a>,int <a name=\"m592\">a</a>, int <a name=\"m599\">b</a>){\n" +
-                "  return <a href=\"#m584\">fct</a>.<b>call</b>(<a href=\"#m592\">a</a>,<a href=\"#m599\">b</a>);\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"565\">m</a>(Fct&lt;int,int,int&gt; <a name=\""+ExportCst.PREF_REF+"584\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"592\">a</a>, int <a name=\""+ExportCst.PREF_REF+"599\">b</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"584\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"592\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"599\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5239,10 +5240,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">a</a> = 10;\n" +
-                "  int <a name=\"m53\">t</a> = switch(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">a</a> = 10;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"53\">t</a> = switch(<a href=\"#"+ExportCst.PREF_REF+"39\">a</a>) <span class=\"t\">{\n" +
                 "   case 10;\n" +
                 "    return 5;\n" +
                 "   default;\n" +
@@ -5271,10 +5272,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">a</a> = 10;\n" +
-                "  int <a name=\"m53\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">a</a> = 10;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"53\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(<a href=\"#"+ExportCst.PREF_REF+"39\">a</a>) <span class=\"t\">{\n" +
                 "   case 10;\n" +
                 "    return 5;\n" +
                 "  }</span>;\n" +
@@ -5302,10 +5303,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">a</a> = 10;\n" +
-                "  int <a name=\"m53\">t</a> = switch(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">a</a> = 10;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"53\">t</a> = switch(<a href=\"#"+ExportCst.PREF_REF+"39\">a</a>) <span class=\"t\">{\n" +
                 "   case 10;\n" +
                 "    <a title=\"The break block must be inner of the blocks switch|for|foreach|do|iter|while.\" class=\"e\">break</a>;\n" +
                 "   default;\n" +
@@ -5330,9 +5331,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -5354,9 +5355,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
                 "   default;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
@@ -5379,10 +5380,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1($core.Object).\" class=\"e\">switch</a>((Object)null) <span class=\"t\">{\n" +
-                "   default <a title=\"$core.Object\" name=\"m77\">d</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1($core.Object).\" class=\"e\">switch</a>((Object)null) <span class=\"t\">{\n" +
+                "   default <a title=\"$core.Object\" name=\""+ExportCst.PREF_REF+"77\">d</a>;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -5404,10 +5405,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
-                "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
-                "   int <a name=\"m62\">i</a><a title=\"The switch block must contain only one of the blocks case|default.\" class=\"e\">;</a>\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
+                "   int <a name=\""+ExportCst.PREF_REF+"62\">i</a><a title=\"The switch block must contain only one of the blocks case|default.\" class=\"e\">;</a>\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -5430,8 +5431,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  (switch(0) <span class=\"t\">{\n" +
                 "   default;\n" +
                 "    <a title=\"The type int cannot be implicitly cast to $core.Object\" class=\"e\">return</a> 0;\n" +
@@ -5457,8 +5458,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static int <a name=\"m28\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  (switch[String](0) <span class=\"t\">{\n" +
                 "   default;\n" +
                 "    <a title=\"The type $core.Object cannot be implicitly cast to $core.String\" class=\"e\">return</a> <a title=\"The key word that is unexpected here.\" class=\"e\">that</a>(0);\n" +
@@ -5487,10 +5488,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
-                " public static int <a name=\"m42\">m</a>(){\n" +
-                "  int <a name=\"m53\">a</a> = 10;\n" +
-                "  int <a name=\"m67\">t</a> = switch[int:<a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>:<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>](<a href=\"#m53\">a</a>) <span class=\"t\">{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"53\">a</a> = 10;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"67\">t</a> = switch[int:<a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>:<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>](<a href=\"#"+ExportCst.PREF_REF+"53\">a</a>) <span class=\"t\">{\n" +
                 "   case 10;\n" +
                 "    return 5;\n" +
                 "   default;\n" +
@@ -5523,13 +5524,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public interface <a name=\"m17\">pkg.Int</a> {\n" +
-                " normal int <a name=\"m39\">field</a>(){return 0;}\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public interface <a name=\""+ExportCst.PREF_REF+"17\">pkg.Int</a> {\n" +
+                " normal int <a name=\""+ExportCst.PREF_REF+"39\">field</a>(){return 0;}\n" +
                 "}\n" +
-                "public class <a name=\"m73\">pkg.Ext</a> {\n" +
-                " public static int <a name=\"m102\">m</a>(){\n" +
-                "  int <a name=\"m113\">a</a> = 10;\n" +
-                "  int <a name=\"m127\">t</a> = switch[int:<a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(new <a title=\"pkg.Int\" href=\"#m17\">Int</a>()<span class=\"t\"><a name=\"m158\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#m39\">field</a>()):<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(new <a title=\"pkg.Int\" href=\"#m17\">Int</a>()<span class=\"t\"><a name=\"m189\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#m39\">field</a>())](<a href=\"#m113\">a</a>) <span class=\"t\">{\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"73\">pkg.Ext</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"102\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"113\">a</a> = 10;\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"127\">t</a> = switch[int:<a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"17\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"158\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"39\">field</a>()):<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"17\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"189\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"39\">field</a>())](<a href=\"#"+ExportCst.PREF_REF+"113\">a</a>) <span class=\"t\">{\n" +
                 "   case 10;\n" +
                 "    return 5;\n" +
                 "   default;\n" +
@@ -5547,7 +5548,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a name=\"m8\" title=\"The part $classe pkg in a type is not valid. It must be a word.\" class=\"e\">$classe pkg.Ex</a><a title=\"Bad index by parsing.\" class=\"e\">{</a>}\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a name=\""+ExportCst.PREF_REF+"8\" title=\"The part $classe pkg in a type is not valid. It must be a word.\" class=\"e\">$classe pkg.Ex</a><a title=\"Bad index by parsing.\" class=\"e\">{</a>}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
@@ -5558,8 +5559,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.ExTwo</a>{}\n" +
-                "<a name=\"m27\" title=\"The part $classe pkg in a type is not valid. It must be a word.\" class=\"e\">$classe pkg.Ex</a><a title=\"Bad index by parsing.\" class=\"e\">{</a>}</span></pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.ExTwo</a>{}\n" +
+                "<a name=\""+ExportCst.PREF_REF+"27\" title=\"The part $classe pkg in a type is not valid. It must be a word.\" class=\"e\">$classe pkg.Ex</a><a title=\"Bad index by parsing.\" class=\"e\">{</a>}</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report836Test() {
@@ -5568,7 +5569,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a title=\"Bad index by parsing.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part $interfaces pkg in a type is not valid. It must be a word.\" class=\"e\">$interfaces pkg.Ex</a>{}\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a title=\"Bad index by parsing.\" class=\"e\">$class</a> <a name=\""+ExportCst.PREF_REF+"15\" title=\"The part $interfaces pkg in a type is not valid. It must be a word.\" class=\"e\">$interfaces pkg.Ex</a>{}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
@@ -5582,8 +5583,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ext</a> {\n" +
-                " $public $static Object <a name=\"m49\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ext</a> {\n" +
+                " $public $static Object <a name=\""+ExportCst.PREF_REF+"49\">m</a>(){\n" +
                 "  $return $staticCall(<a title=\"The type ExInext is unknown.\" class=\"e\">ExInext</a>&lt;&gt;).<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
                 " }\n" +
                 "}\n" +
@@ -5602,12 +5603,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ext</a> {\n" +
-                " $public $static Object <a name=\"m49\">m</a>(){\n" +
-                "  $return $staticCall(<a title=\"pkg.ExInext\" href=\"#m116\">ExInext</a>&lt;&gt;).<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ext</a> {\n" +
+                " $public $static Object <a name=\""+ExportCst.PREF_REF+"49\">m</a>(){\n" +
+                "  $return $staticCall(<a title=\"pkg.ExInext\" href=\"#"+ExportCst.PREF_REF+"116\">ExInext</a>&lt;&gt;).<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\"m116\">pkg.ExInext</a>&lt;<a name=\"m128\">T</a>&gt; {\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"116\">pkg.ExInext</a>&lt;<a name=\""+ExportCst.PREF_REF+"128\">T</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -5626,12 +5627,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MyCont\" href=\"#m81\">pkg.MyCont</a>.<a title=\"pkg.MyCont..MyClass\" href=\"#m117\">MyClass</a>&lt;String&gt;<a title=\"The type pkg.MyCont..MyClass&lt;java.lang.String&gt;..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCont..MyClass..Inner\" href=\"#m154\">Inner</a> <a name=\"m61\">v</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
+                " <a title=\"pkg.MyCont\" href=\"#"+ExportCst.PREF_REF+"81\">pkg.MyCont</a>.<a title=\"pkg.MyCont..MyClass\" href=\"#"+ExportCst.PREF_REF+"117\">MyClass</a>&lt;String&gt;<a title=\"The type pkg.MyCont..MyClass&lt;java.lang.String&gt;..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCont..MyClass..Inner\" href=\"#"+ExportCst.PREF_REF+"154\">Inner</a> <a name=\""+ExportCst.PREF_REF+"61\">v</a>;\n" +
                 "}\n" +
-                "$public $class <a name=\"m81\">pkg.MyCont</a>{\n" +
-                " $public $static $class <a name=\"m117\">MyClass</a>&lt;<a name=\"m125\">T</a>&gt;{\n" +
-                "  $public $static $class <a name=\"m154\">Inner</a>{\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"81\">pkg.MyCont</a>{\n" +
+                " $public $static $class <a name=\""+ExportCst.PREF_REF+"117\">MyClass</a>&lt;<a name=\""+ExportCst.PREF_REF+"125\">T</a>&gt;{\n" +
+                "  $public $static $class <a name=\""+ExportCst.PREF_REF+"154\">Inner</a>{\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -5671,31 +5672,31 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
-                " int <a name=\"m25\">field</a>();\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 "}\n" +
-                "enum <a name=\"m41\">pkg.Ext</a> {\n" +
-                " <a name=\"m52\" title=\"pkg.Ext-ONE.pkg.Ext-ONE(pkg.Int)\" href=\"#m201\">ONE</a> (<a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m114\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(1)<span class=\"t\"><a name=\"m67\">{</a>\n" +
-                "  static int <a name=\"m82\">extField</a>;\n" +
-                "  public int <a name=\"m105\">field</a>;\n" +
-                "  <a name=\"m114\">public Int(</a>int <a name=\"m129\">p</a>){\n" +
-                "   <a title=\"pkg.Ext..Int*1.field\" href=\"#m105\">field</a> = <a href=\"#m129\">p</a>;\n" +
+                "enum <a name=\""+ExportCst.PREF_REF+"41\">pkg.Ext</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"52\" title=\"pkg.Ext-ONE.pkg.Ext-ONE(pkg.Int)\" href=\"#"+ExportCst.PREF_REF+"201\">ONE</a> (<a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#"+ExportCst.PREF_REF+"114\">new</a> <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>(1)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"67\">{</a>\n" +
+                "  static int <a name=\""+ExportCst.PREF_REF+"82\">extField</a>;\n" +
+                "  public int <a name=\""+ExportCst.PREF_REF+"105\">field</a>;\n" +
+                "  <a name=\""+ExportCst.PREF_REF+"114\">public Int(</a>int <a name=\""+ExportCst.PREF_REF+"129\">p</a>){\n" +
+                "   <a title=\"pkg.Ext..Int*1.field\" href=\"#"+ExportCst.PREF_REF+"105\">field</a> = <a href=\"#"+ExportCst.PREF_REF+"129\">p</a>;\n" +
                 "  }\n" +
-                "  public int <a name=\"m164\">field</a>(){\n" +
-                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#m105\">field</a>;\n" +
+                "  public int <a name=\""+ExportCst.PREF_REF+"164\">field</a>(){\n" +
+                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#"+ExportCst.PREF_REF+"105\">field</a>;\n" +
                 "  }\n" +
                 " }</span>){\n" +
-                "  <a name=\"m201\">ONE(</a><a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m209\">p</a>){\n" +
-                "   <a title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#m247\">super</a>(<a href=\"#m209\">p</a>);\n" +
+                "  <a name=\""+ExportCst.PREF_REF+"201\">ONE(</a><a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"209\">p</a>){\n" +
+                "   <a title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#"+ExportCst.PREF_REF+"247\">super</a>(<a href=\"#"+ExportCst.PREF_REF+"209\">p</a>);\n" +
                 "  }\n" +
                 " };\n" +
-                " <a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m239\">inner</a>;\n" +
-                " <a name=\"m247\">Ext(</a><a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m255\">p</a>){\n" +
-                "  <a title=\"pkg.Ext.inner\" href=\"#m239\">inner</a> = <a href=\"#m255\">p</a>;\n" +
+                " <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"239\">inner</a>;\n" +
+                " <a name=\""+ExportCst.PREF_REF+"247\">Ext(</a><a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a> <a name=\""+ExportCst.PREF_REF+"255\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.inner\" href=\"#"+ExportCst.PREF_REF+"239\">inner</a> = <a href=\"#"+ExportCst.PREF_REF+"255\">p</a>;\n" +
                 " }\n" +
-                " static int <a name=\"m287\">m</a>(){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"287\">m</a>(){\n" +
                 "  return 0;\n" +
-                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#m52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#m239\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
+                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#"+ExportCst.PREF_REF+"52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#"+ExportCst.PREF_REF+"239\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5713,10 +5714,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  int <a name=\"m42\">t</a> = 0;\n" +
-                "  return <a href=\"#m42\">t</a><a title=\"The type int is unexpected.\" class=\"e\">[</a>1???2];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"42\">t</a> = 0;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"42\">t</a><a title=\"The type int is unexpected.\" class=\"e\">[</a>1???2];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5734,10 +5735,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  int[] <a name=\"m44\">t</a> = {};\n" +
-                "  return <a href=\"#m44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a>?<a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"2\"</span>];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"44\">t</a> = {};\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a>?<a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"2\"</span>];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5755,10 +5756,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  int[] <a name=\"m44\">t</a> = {};\n" +
-                "  return <a href=\"#m44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String for the operator ??? are unexpected.\" class=\"e\">?</a>??];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"44\">t</a> = {};\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String for the operator ??? are unexpected.\" class=\"e\">?</a>??];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5775,8 +5776,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Range <a name=\"m30\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Range <a name=\""+ExportCst.PREF_REF+"30\">m</a>(){\n" +
                 "  return <a title=\"The expression part is empty.\" class=\"e\">???</a>;\n" +
                 " }\n" +
                 "}\n" +
@@ -5795,10 +5796,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  int[] <a name=\"m44\">t</a> = {};\n" +
-                "  return <a href=\"#m44\">t</a>[<a title=\"The expression part is empty.\" class=\"e\">???</a>];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"44\">t</a> = {};\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"44\">t</a>[<a title=\"The expression part is empty.\" class=\"e\">???</a>];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5816,10 +5817,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  int[] <a name=\"m44\">t</a> = {};\n" +
-                "  return <a href=\"#m44\">t</a>[1???2???3<a title=\"The number of required operands 3 is different from the number of supplied arguments 4 for the operator ???\" class=\"e\">???</a>4];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"44\">t</a> = {};\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"44\">t</a>[1???2???3<a title=\"The number of required operands 3 is different from the number of supplied arguments 4 for the operator ???\" class=\"e\">???</a>4];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5837,10 +5838,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  int[] <a name=\"m44\">t</a> = {};\n" +
-                "  return <a href=\"#m44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a>?<a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"2\"</span>???1];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"44\">t</a> = {};\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a>?<a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"2\"</span>???1];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5858,10 +5859,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  int[] <a name=\"m44\">t</a> = {};\n" +
-                "  return <a href=\"#m44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a>?<a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"2\"</span>??<a title=\"The operands types $core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"3\"</span>];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"44\">t</a> = {};\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a>?<a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"2\"</span>??<a title=\"The operands types $core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"3\"</span>];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5879,10 +5880,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  int[] <a name=\"m44\">t</a> = {};\n" +
-                "  return <a href=\"#m44\">t</a>[1???2??<a title=\"The operands types $core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"3\"</span>];\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  int[] <a name=\""+ExportCst.PREF_REF+"44\">t</a> = {};\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"44\">t</a>[1???2??<a title=\"The operands types $core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"3\"</span>];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5898,8 +5899,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public long <a name=\"m35\" title=\"A throw block or a return block is missing for the method null().\" class=\"e\">null</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public long <a name=\""+ExportCst.PREF_REF+"35\" title=\"A throw block or a return block is missing for the method null().\" class=\"e\">null</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5915,9 +5916,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\"m39\">a</a> =( <a title=\"The expression part is empty.\" class=\"e\">$</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>));\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">a</a> =( <a title=\"The expression part is empty.\" class=\"e\">$</a>(<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5939,14 +5940,14 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\"m39\">t</a> = $null;\n" +
-                "  $switch(<a href=\"#m39\">t</a>){\n" +
-                "   $case $int <a name=\"m78\">v</a>;\n" +
-                "    <a href=\"#m39\">t</a>=<a href=\"#m78\">v</a>+<span class=\"s\">\" int\"</span>;\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a> = $null;\n" +
+                "  $switch(<a href=\"#"+ExportCst.PREF_REF+"39\">t</a>){\n" +
+                "   $case $int <a name=\""+ExportCst.PREF_REF+"78\">v</a>;\n" +
+                "    <a href=\"#"+ExportCst.PREF_REF+"39\">t</a>=<a href=\"#"+ExportCst.PREF_REF+"78\">v</a>+<span class=\"s\">\" int\"</span>;\n" +
                 "   <a title=\"The code is unreachable in the function 0()\" class=\"e\">$case</a> 8;\n" +
-                "    <a href=\"#m39\">t</a>=<span class=\"s\">\" string\"</span><a title=\"The code is unreachable in the function 0()\" class=\"e\">;</a>\n" +
+                "    <a href=\"#"+ExportCst.PREF_REF+"39\">t</a>=<span class=\"s\">\" string\"</span><a title=\"The code is unreachable in the function 0()\" class=\"e\">;</a>\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -5969,14 +5970,14 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\"m39\">t</a> = $null;\n" +
-                "  $switch(<a href=\"#m39\">t</a>){\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a> = $null;\n" +
+                "  $switch(<a href=\"#"+ExportCst.PREF_REF+"39\">t</a>){\n" +
                 "   $case 8;\n" +
-                "    <a href=\"#m39\">t</a>=<span class=\"s\">\" int\"</span>;\n" +
+                "    <a href=\"#"+ExportCst.PREF_REF+"39\">t</a>=<span class=\"s\">\" int\"</span>;\n" +
                 "   <a title=\"The $case block with value 8 is duplicated in the parent $switch block.\" class=\"e\">$case</a> 8;\n" +
-                "    <a href=\"#m39\">t</a>=<span class=\"s\">\" string\"</span>;\n" +
+                "    <a href=\"#"+ExportCst.PREF_REF+"39\">t</a>=<span class=\"s\">\" string\"</span>;\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -5995,9 +5996,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
-                " static void <a name=\"m32\">m</a>(){\n" +
-                "  <a title=\"The type Inex&lt;Ext&lt;int&gt;&gt; is unknown.\" class=\"e\">Inex</a>&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;&gt; <a name=\"m54\">v</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"32\">m</a>(){\n" +
+                "  <a title=\"The type Inex&lt;Ext&lt;int&gt;&gt; is unknown.\" class=\"e\">Inex</a>&lt;<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"54\">v</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -6015,8 +6016,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static void <a name=\"m29\">m</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
                 "  <a title=\"There is no accessible field named Inex from the type pkg.Ext in this context.\" class=\"e\">Inex</a>.<a title=\"There is no accessible field named i from the type $core.Object in this context.\" class=\"e\">i</a>;\n" +
                 " }\n" +
                 "}\n" +
@@ -6039,14 +6040,14 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " <a title=\"pkg.Param\" href=\"#m48\">Param</a>&lt;<a title=\"pkg.ParamCt\" href=\"#m92\">ParamCt</a><a title=\"The type pkg.ParamCt&lt;int&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>int&gt;&gt; <a name=\"m37\">v</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " <a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"48\">Param</a>&lt;<a title=\"pkg.ParamCt\" href=\"#"+ExportCst.PREF_REF+"92\">ParamCt</a><a title=\"The type pkg.ParamCt&lt;int&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"37\">v</a>;\n" +
                 "}\n" +
-                "class <a name=\"m48\">pkg.Param</a>&lt;<a name=\"m58\">T</a>&gt; {\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"48\">pkg.Param</a>&lt;<a name=\""+ExportCst.PREF_REF+"58\">T</a>&gt; {\n" +
                 "}\n" +
-                "class <a name=\"m71\">pkg.Simple</a> {\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"71\">pkg.Simple</a> {\n" +
                 "}\n" +
-                "class <a name=\"m92\">pkg.ParamCt</a>&lt;<a name=\"m104\">U</a>:<a title=\"pkg.Simple\" href=\"#m71\">Simple</a>&gt; {\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"92\">pkg.ParamCt</a>&lt;<a name=\""+ExportCst.PREF_REF+"104\">U</a>:<a title=\"pkg.Simple\" href=\"#"+ExportCst.PREF_REF+"71\">Simple</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6061,8 +6062,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " <a title=\"The type [] is unknown.\" class=\"e\">[]</a> <a name=\"m20\">v</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " <a title=\"The type [] is unknown.\" class=\"e\">[]</a> <a name=\""+ExportCst.PREF_REF+"20\">v</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6086,17 +6087,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
                 "  switch((Object)1){\n" +
-                "   <a title=\"The type int is unexpected.\" class=\"e\">case</a> int <a name=\"m84\">t</a>: new <a title=\"pkg.ExTwo\" href=\"#m156\">ExTwo</a>()<span class=\"t\"><a name=\"m98\">{</a>}</span>.<a title=\"pkg.ExTwo.f\" href=\"#m180\">f</a> + 2;\n" +
-                "    return <a href=\"#m84\">t</a>;\n" +
+                "   <a title=\"The type int is unexpected.\" class=\"e\">case</a> int <a name=\""+ExportCst.PREF_REF+"84\">t</a>: new <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"156\">ExTwo</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"98\">{</a>}</span>.<a title=\"pkg.ExTwo.f\" href=\"#"+ExportCst.PREF_REF+"180\">f</a> + 2;\n" +
+                "    return <a href=\"#"+ExportCst.PREF_REF+"84\">t</a>;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m156\">pkg.ExTwo</a> {\n" +
-                " public int <a name=\"m180\">f</a> = 1;\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"156\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"180\">f</a> = 1;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6118,12 +6119,12 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
                 "  switch((Object)1){\n" +
-                "   case int <a name=\"m84\">t</a>;\n" +
-                "    return <a href=\"#m84\">t</a>;\n" +
-                "   <a title=\"The code is unreachable in the function static exmeth()\" class=\"e\">case</a> int <a name=\"m113\">t</a>: <a href=\"#m113\">t</a> == 1;\n" +
+                "   case int <a name=\""+ExportCst.PREF_REF+"84\">t</a>;\n" +
+                "    return <a href=\"#"+ExportCst.PREF_REF+"84\">t</a>;\n" +
+                "   <a title=\"The code is unreachable in the function static exmeth()\" class=\"e\">case</a> int <a name=\""+ExportCst.PREF_REF+"113\">t</a>: <a href=\"#"+ExportCst.PREF_REF+"113\">t</a> == 1;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -6145,10 +6146,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
                 "  switch((int)1){\n" +
-                "   <a title=\"This case block must be constant.\" class=\"e\">case</a> int <a name=\"m81\">t</a>: <a href=\"#m81\">t</a> == 1;\n" +
+                "   <a title=\"This case block must be constant.\" class=\"e\">case</a> int <a name=\""+ExportCst.PREF_REF+"81\">t</a>: <a href=\"#"+ExportCst.PREF_REF+"81\">t</a> == 1;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -6173,16 +6174,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  switch(<a title=\"pkg.ExEnum\" href=\"#m129\">ExEnum</a>.<a title=\"pkg.ExEnum.ONE\" href=\"#m143\">ONE</a>){\n" +
-                "   <a title=\"This case block must be constant.\" class=\"e\">case</a> int <a name=\"m85\">t</a>: <a href=\"#m85\">t</a> == 1;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
+                "  switch(<a title=\"pkg.ExEnum\" href=\"#"+ExportCst.PREF_REF+"129\">ExEnum</a>.<a title=\"pkg.ExEnum.ONE\" href=\"#"+ExportCst.PREF_REF+"143\">ONE</a>){\n" +
+                "   <a title=\"This case block must be constant.\" class=\"e\">case</a> int <a name=\""+ExportCst.PREF_REF+"85\">t</a>: <a href=\"#"+ExportCst.PREF_REF+"85\">t</a> == 1;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
                 "}\n" +
-                "public enum <a name=\"m129\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m143\">ONE</a>\n" +
+                "public enum <a name=\""+ExportCst.PREF_REF+"129\">pkg.ExEnum</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"143\">ONE</a>\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6197,9 +6198,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
-                " <a name=\"m22\">ONE</a>{}\n" +
-                " <a name=\"m29\" title=\"Bad index by parsing.\" class=\"e\">TWO</a>{};\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"22\">ONE</a>{}\n" +
+                " <a name=\""+ExportCst.PREF_REF+"29\" title=\"Bad index by parsing.\" class=\"e\">TWO</a>{};\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6214,9 +6215,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
-                " <a name=\"m22\">ONE</a>{}\n" +
-                " <a name=\"m29\" title=\"Bad index by parsing.\" class=\"e\">TWO</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {\n" +
+                " <a name=\""+ExportCst.PREF_REF+"22\">ONE</a>{}\n" +
+                " <a name=\""+ExportCst.PREF_REF+"29\" title=\"Bad index by parsing.\" class=\"e\">TWO</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6242,20 +6243,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  new <a title=\"pkg.Rec\" href=\"#m106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m130\">field</a>:10, <a title=\"pkg.RecSuper2\" href=\"#m189\">RecSuper2</a>. <a title=\"The parameter function name RecSuper2. field2 is duplicated.\" class=\"e\">field2</a>:12);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"130\">field</a>:10, <a title=\"pkg.RecSuper2\" href=\"#"+ExportCst.PREF_REF+"189\">RecSuper2</a>. <a title=\"The parameter function name RecSuper2. field2 is duplicated.\" class=\"e\">field2</a>:12);\n" +
                 "  return null;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m149\">RecSuper</a> {\n" +
-                " int <a name=\"m130\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"149\">RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"130\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m149\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m169\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"149\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"169\">field2</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m189\">pkg.RecSuper2</a> {\n" +
-                " int <a name=\"m210\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"189\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"210\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6281,20 +6282,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  new <a title=\"pkg.Rec\" href=\"#m106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m130\">field</a>:10, <a title=\"pkg.RecSuper\" href=\"#m149\">RecSuper</a> . <a title=\"The parameter function name RecSuper . field3 is duplicated.\" class=\"e\">field3</a>:12);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"130\">field</a>:10, <a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"149\">RecSuper</a> . <a title=\"The parameter function name RecSuper . field3 is duplicated.\" class=\"e\">field3</a>:12);\n" +
                 "  return null;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m149\">RecSuper</a> {\n" +
-                " int <a name=\"m130\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"149\">RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"130\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m149\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m169\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"149\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"169\">field2</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m189\">pkg.RecSuper2</a> {\n" +
-                " int <a name=\"m210\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"189\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"210\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6320,20 +6321,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  new <a title=\"pkg.Rec\" href=\"#m106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m130\">field</a>:10, <a title=\"The type RecSuper3 is unknown.\" class=\"e\">RecSuper3</a>. <a title=\"The parameter function name RecSuper3. field2 is duplicated.\" class=\"e\">field2</a>:12);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  new <a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"130\">field</a>:10, <a title=\"The type RecSuper3 is unknown.\" class=\"e\">RecSuper3</a>. <a title=\"The parameter function name RecSuper3. field2 is duplicated.\" class=\"e\">field2</a>:12);\n" +
                 "  return null;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m149\">RecSuper</a> {\n" +
-                " int <a name=\"m130\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"149\">RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"130\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m149\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m169\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"149\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"169\">field2</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m189\">pkg.RecSuper2</a> {\n" +
-                " int <a name=\"m210\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"189\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"210\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6359,20 +6360,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m109\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#m133\">field</a>, <a title=\"pkg.RecSuper2\" href=\"#m192\">RecSuper2</a>. field2);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"109\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"133\">field</a>, <a title=\"pkg.RecSuper2\" href=\"#"+ExportCst.PREF_REF+"192\">RecSuper2</a>. field2);\n" +
                 "  return null;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m109\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m152\">RecSuper</a> {\n" +
-                " int <a name=\"m133\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"109\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"152\">RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"133\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m152\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m172\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"152\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"172\">field2</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m192\">pkg.RecSuper2</a> {\n" +
-                " int <a name=\"m213\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"192\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"213\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6398,20 +6399,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m108\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#m132\">field</a>, <a title=\"pkg.RecSuper\" href=\"#m151\">RecSuper</a>. field3);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"108\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"132\">field</a>, <a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"151\">RecSuper</a>. field3);\n" +
                 "  return null;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m108\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m151\">RecSuper</a> {\n" +
-                " int <a name=\"m132\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"108\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"151\">RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"132\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m151\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m171\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"151\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"171\">field2</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m191\">pkg.RecSuper2</a> {\n" +
-                " int <a name=\"m212\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"191\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"212\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6437,20 +6438,20 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
-                " static Object <a name=\"m31\">m</a>(){\n" +
-                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m109\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#m133\">field</a>, <a title=\"The type RecSuper3 is unknown.\" class=\"e\">RecSuper3</a>. field2);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"109\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#"+ExportCst.PREF_REF+"133\">field</a>, <a title=\"The type RecSuper3 is unknown.\" class=\"e\">RecSuper3</a>. field2);\n" +
                 "  return null;\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\"m109\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m152\">RecSuper</a> {\n" +
-                " int <a name=\"m133\">field</a>;\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"109\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"152\">RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"133\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m152\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m172\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"152\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"172\">field2</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m192\">pkg.RecSuper2</a> {\n" +
-                " int <a name=\"m213\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"192\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"213\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6467,11 +6468,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"pkg.RecSuper\" href=\"#m62\">RecSuper</a>) <a name=\"m28\" title=\"The type pkg.RecSuper is not an interface.\" class=\"e\">pkg.Rec</a> {\n" +
-                " int <a name=\"m43\">field</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"pkg.RecSuper\" href=\"#"+ExportCst.PREF_REF+"62\">RecSuper</a>) <a name=\""+ExportCst.PREF_REF+"28\" title=\"The type pkg.RecSuper is not an interface.\" class=\"e\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"43\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m62\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m82\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"62\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"82\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6488,11 +6489,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"The type RecSuper2 is unknown.\" class=\"e\">RecSuper2</a>) <a name=\"m29\">pkg.Rec</a> {\n" +
-                " int <a name=\"m44\">field</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"The type RecSuper2 is unknown.\" class=\"e\">RecSuper2</a>) <a name=\""+ExportCst.PREF_REF+"29\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"44\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m63\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m83\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"63\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"83\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6509,11 +6510,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"There must be a type.\" class=\"e\">)</a> <a name=\"m21\">pkg.Rec</a> {\n" +
-                " int <a name=\"m36\">field</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"There must be a type.\" class=\"e\">)</a> <a name=\""+ExportCst.PREF_REF+"21\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"36\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m55\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m75\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"55\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"75\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6530,11 +6531,11 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"There must be a type.\" class=\"e\"> </a>,<a title=\"There must be a type.\" class=\"e\"> </a>) <a name=\"m23\">pkg.Rec</a> {\n" +
-                " int <a name=\"m38\">field</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"There must be a type.\" class=\"e\"> </a>,<a title=\"There must be a type.\" class=\"e\"> </a>) <a name=\""+ExportCst.PREF_REF+"23\">pkg.Rec</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"38\">field</a>;\n" +
                 "}\n" +
-                "interface <a name=\"m57\">pkg.RecSuper</a> {\n" +
-                " int <a name=\"m77\">field2</a>;\n" +
+                "interface <a name=\""+ExportCst.PREF_REF+"57\">pkg.RecSuper</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"77\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6565,22 +6566,22 @@ public final class Errors1Test extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
-                "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
-                " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
+                "public annotation <a name=\""+ExportCst.PREF_REF+"38\">pkg.MyAnnot</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"57\">infoIntOne</a>()2i;\n" +
                 "}\n" +
-                "public annotation <a name=\"m93\">pkg.MyAnnotTwo</a> {\n" +
-                " int <a name=\"m115\">infoIntTwo</a>()4i;\n" +
+                "public annotation <a name=\""+ExportCst.PREF_REF+"93\">pkg.MyAnnotTwo</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"115\">infoIntTwo</a>()4i;\n" +
                 "}\n" +
-                "public class <a name=\"m146\">pkg.Ex</a> {\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"146\">pkg.Ex</a> {\n" +
                 "\n" +
-                " public int <a name=\"m168\">this</a>(int <a name=\"m177\">p</a>){\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"168\">this</a>(int <a name=\""+ExportCst.PREF_REF+"177\">p</a>){\n" +
                 "  return 0i;\n" +
                 " }\n" +
-                " public void <a name=\"m210\">this</a>(int <a name=\"m219\">p</a>, @<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=(<span class=\"t\">(int <a name=\"m248\">x</a>:int)<a name=\"m254\" title=\"The type $core.Object cannot be implicitly cast to int\" class=\"e\">-&gt;</a><a title=\"There is no accessible field named y from the type pkg.Ex in this context.\" class=\"e\">y</a></span>).<b>call</b>(1))@<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=3i) int value){\n" +
-                "  (switch(<a href=\"#m219\">p</a>)<span class=\"t\">{default;return 0;}</span>);\n" +
+                " public void <a name=\""+ExportCst.PREF_REF+"210\">this</a>(int <a name=\""+ExportCst.PREF_REF+"219\">p</a>, @<a title=\"pkg.MyAnnot\" href=\"#"+ExportCst.PREF_REF+"38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#"+ExportCst.PREF_REF+"57\">infoIntOne</a>=(<span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"248\">x</a>:int)<a name=\""+ExportCst.PREF_REF+"254\" title=\"The type $core.Object cannot be implicitly cast to int\" class=\"e\">-&gt;</a><a title=\"There is no accessible field named y from the type pkg.Ex in this context.\" class=\"e\">y</a></span>).<b>call</b>(1))@<a title=\"pkg.MyAnnotTwo\" href=\"#"+ExportCst.PREF_REF+"93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#"+ExportCst.PREF_REF+"115\">infoIntTwo</a>=3i) int value){\n" +
+                "  (switch(<a href=\"#"+ExportCst.PREF_REF+"219\">p</a>)<span class=\"t\">{default;return 0;}</span>);\n" +
                 " }\n" +
-                " public static int <a name=\"m362\">exmeth</a>(){\n" +
-                "  Annotation[] <a name=\"m387\">arr</a> = class(<a title=\"pkg.Ex\" href=\"#m146\">Ex</a>).getDeclaredMethods()[1i].getDeclaredSwitchMethods()[0i].getAnnotationsSupp();\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"362\">exmeth</a>(){\n" +
+                "  Annotation[] <a name=\""+ExportCst.PREF_REF+"387\">arr</a> = class(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"146\">Ex</a>).getDeclaredMethods()[1i].getDeclaredSwitchMethods()[0i].getAnnotationsSupp();\n" +
                 "  return 0i;\n" +
                 " }\n" +
                 "}\n" +
@@ -6606,17 +6607,17 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
                 "  switch((Object)1){\n" +
-                "   <a title=\"The type int is unexpected.\" class=\"e\">case</a> int:?: new <a title=\"pkg.ExTwo\" href=\"#m156\">ExTwo</a>()<span class=\"t\"><a name=\"m98\">{</a>}</span>.<a title=\"pkg.ExTwo.f\" href=\"#m180\">f</a> + 2;\n" +
+                "   <a title=\"The type int is unexpected.\" class=\"e\">case</a> int:?: new <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"156\">ExTwo</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"98\">{</a>}</span>.<a title=\"pkg.ExTwo.f\" href=\"#"+ExportCst.PREF_REF+"180\">f</a> + 2;\n" +
                 "    return 0;\n" +
                 "  }\n" +
                 "  return 0;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m156\">pkg.ExTwo</a> {\n" +
-                " public int <a name=\"m180\">f</a> = 1;\n" +
+                "public class <a name=\""+ExportCst.PREF_REF+"156\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\""+ExportCst.PREF_REF+"180\">f</a> = 1;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }

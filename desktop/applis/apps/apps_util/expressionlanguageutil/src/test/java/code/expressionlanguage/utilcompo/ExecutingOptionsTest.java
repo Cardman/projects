@@ -19,6 +19,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.guicompos.stds.*;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -438,6 +439,15 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         assertTrue(opt_.getOptionsReport().isDisplayImplicitLabel());
     }
     @Test
+    public void setupOptionals35() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        ExecutingOptions exec_ = exOpt(pr_);
+        exec_.setListGenerator(new CdmFactory(pr_,new MockInterceptor()));
+        Options opt_ = new Options();
+        ExecutingOptions.setupOptionals(0,opt_,exec_, lines("file=cust"));
+        assertEq("cust",opt_.getOptionsReport().getCallsFile());
+    }
+    @Test
     public void argsSet() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -483,7 +493,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         Struct arr_ = call(new FctCoverage(""), null, ctx_, null, null, st_);
         assertEq(3,((ArrayStruct)arr_).getLength());
         assertEq("src/sample.txt.html", call(new FctEntryTextName(),null,ctx_,((ArrayStruct) arr_).get(0),null,st_));
-        assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Sample</a>{}</span></pre></body></html>", call(new FctEntryTextValue(),null,ctx_,((ArrayStruct) arr_).get(0),null,st_));
+        assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Sample</a>{}</span></pre></body></html>", call(new FctEntryTextValue(),null,ctx_,((ArrayStruct) arr_).get(0),null,st_));
         assertEq(6,toLong(call(new FctEntryTextTime0(),null,ctx_,((ArrayStruct) arr_).get(0),null,st_)));
     }
     @Test

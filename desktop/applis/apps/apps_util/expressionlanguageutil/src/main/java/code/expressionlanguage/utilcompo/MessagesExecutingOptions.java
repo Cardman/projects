@@ -18,6 +18,7 @@ public final class MessagesExecutingOptions {
     public static final String EXEC_OPTIONS_FOLDER_OUTPUT="5";
     public static final String EXEC_OPTIONS_FOLDER_COVERAGE="6";
     public static final String EXEC_OPTIONS_FOLDER_ERRORS="7";
+    public static final String EXEC_OPTIONS_FOLDER_CALLS="8";
     public static final String EXEC_OPTIONS_KEY="exec_options_2";
     public static final String EXEC_OPTIONS_KEY_LOG="0";
     public static final String EXEC_OPTIONS_KEY_LGS="1";
@@ -41,6 +42,7 @@ public final class MessagesExecutingOptions {
     public static final String EXEC_OPTIONS_KEY_COMMENTS="19";
     public static final String EXEC_OPTIONS_KEY_MAIN="20";
     public static final String EXEC_OPTIONS_KEY_INIT_DB="21";
+    public static final String EXEC_OPTIONS_KEY_CALL_FILE="22";
     public static final String EXEC_OPTIONS_EXT="exec_options_3";
     public static final String EXEC_OPTIONS_EXT_VAL="0";
 
@@ -104,6 +106,7 @@ public final class MessagesExecutingOptions {
         e_.add(EXEC_OPTIONS_FOLDER_OUTPUT,"out/results.zip");
         e_.add(EXEC_OPTIONS_FOLDER_COVERAGE,"coverage");
         e_.add(EXEC_OPTIONS_FOLDER_ERRORS,"errors");
+        e_.add(EXEC_OPTIONS_FOLDER_CALLS,"calls");
         return e_;
     }
 
@@ -117,6 +120,7 @@ public final class MessagesExecutingOptions {
         f_.add(EXEC_OPTIONS_FOLDER_OUTPUT,"sortie_archive/valeurs.zip");
         f_.add(EXEC_OPTIONS_FOLDER_COVERAGE,"couverture");
         f_.add(EXEC_OPTIONS_FOLDER_ERRORS,"erreurs");
+        f_.add(EXEC_OPTIONS_FOLDER_CALLS,"appels");
         return f_;
     }
 
@@ -148,6 +152,7 @@ public final class MessagesExecutingOptions {
         e_.add(EXEC_OPTIONS_KEY_COMMENTS,"comments");
         e_.add(EXEC_OPTIONS_KEY_MAIN,"main");
         e_.add(EXEC_OPTIONS_KEY_INIT_DB,"initDb");
+        e_.add(EXEC_OPTIONS_KEY_CALL_FILE,"file");
         return e_;
     }
 
@@ -175,6 +180,7 @@ public final class MessagesExecutingOptions {
         f_.add(EXEC_OPTIONS_KEY_COMMENTS,"comments");
         f_.add(EXEC_OPTIONS_KEY_MAIN,"pcp");
         f_.add(EXEC_OPTIONS_KEY_INIT_DB,"initBd");
+        f_.add(EXEC_OPTIONS_KEY_CALL_FILE,"fichier");
         return f_;
     }
 

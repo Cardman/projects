@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.utilcompo.*;
 import code.sml.util.*;
 import code.util.*;
@@ -196,8 +197,8 @@ public final class MessagesIde {
     public static final String SPAN = "span";
     public static final String HTML = "html";
     public static final String STYLE = "style";
-    public static final String COLOR = "color";
-    public static final String BACKGROUND_COLOR = "background-" + COLOR;
+    public static final String COLOR = MessagesCdmBase.COLOR;
+    public static final String BACKGROUND_COLOR = MessagesCdmBase.BACKGROUND_COLOR;
     public static final String BLACK = "000000";
     public static final String WHITE = "ffffff";
     public static final String RED = "ff0000";

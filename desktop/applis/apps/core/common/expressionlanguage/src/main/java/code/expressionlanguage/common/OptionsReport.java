@@ -4,6 +4,7 @@ public final class OptionsReport {
     private boolean displayImplicit;
     private boolean displayImplicitLabel;
     private boolean encodeHeader = true;
+    private String callsFile;
 
     public boolean isDisplayImplicit() {
         return displayImplicit;
@@ -27,6 +28,14 @@ public final class OptionsReport {
 
     public void setEncodeHeader(boolean _e) {
         encodeHeader = _e;
+    }
+
+    public String getCallsFile() {
+        return callsFile;
+    }
+
+    public void setCallsFile(String _c) {
+        this.callsFile = _c;
     }
 
 }

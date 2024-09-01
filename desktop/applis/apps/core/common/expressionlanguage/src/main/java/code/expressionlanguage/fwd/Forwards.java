@@ -93,6 +93,7 @@ public final class Forwards {
         cov_.getOptionsReport().setDisplayImplicit(_opt.getOptionsReport().isDisplayImplicit());
         cov_.getOptionsReport().setDisplayImplicitLabel(_opt.getOptionsReport().isDisplayImplicitLabel());
         cov_.getOptionsReport().setEncodeHeader(_opt.getOptionsReport().isEncodeHeader());
+        cov_.getOptionsReport().setCallsFile(_opt.getOptionsReport().getCallsFile());
         return cov_;
     }
     public DebugMapping dbg() {

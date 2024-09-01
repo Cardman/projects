@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -15,8 +16,8 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
                 "  return true<a title=\"A part of code is unreachable in this ternary operation.\" class=\"w\">?</a>1:0;\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
@@ -33,10 +34,10 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">v</a>;\n" +
-                " public static that int <a name=\"m68\">exmeth</a>(){\n" +
-                "  return that(true<a title=\"A part of code is unreachable in this ternary operation.\" class=\"w\">?</a>that(<a title=\"pkg.Ex.v\" href=\"#m41\">v</a>):that(<a title=\"pkg.Ex.v\" href=\"#m41\">v</a>));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">v</a>;\n" +
+                " public static that int <a name=\""+ExportCst.PREF_REF+"68\">exmeth</a>(){\n" +
+                "  return that(true<a title=\"A part of code is unreachable in this ternary operation.\" class=\"w\">?</a>that(<a title=\"pkg.Ex.v\" href=\"#"+ExportCst.PREF_REF+"41\">v</a>):that(<a title=\"pkg.Ex.v\" href=\"#"+ExportCst.PREF_REF+"41\">v</a>));\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -51,8 +52,8 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
                 "  return bool<a title=\"A part of code is unreachable in this ternary operation.\" class=\"w\">(</a>true,1,0);\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
@@ -69,10 +70,10 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">v</a>;\n" +
-                " public static that int <a name=\"m68\">exmeth</a>(){\n" +
-                "  return that(bool<a title=\"A part of code is unreachable in this ternary operation.\" class=\"w\">(</a>true,that(<a title=\"pkg.Ex.v\" href=\"#m41\">v</a>),that(<a title=\"pkg.Ex.v\" href=\"#m41\">v</a>)));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">v</a>;\n" +
+                " public static that int <a name=\""+ExportCst.PREF_REF+"68\">exmeth</a>(){\n" +
+                "  return that(bool<a title=\"A part of code is unreachable in this ternary operation.\" class=\"w\">(</a>true,that(<a title=\"pkg.Ex.v\" href=\"#"+ExportCst.PREF_REF+"41\">v</a>),that(<a title=\"pkg.Ex.v\" href=\"#"+ExportCst.PREF_REF+"41\">v</a>)));\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -88,10 +89,10 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  <b title=\"boolean\">var</b> <a name=\"m57\">b</a> = true;\n" +
-                "  return <a href=\"#m57\">b</a>?1:0;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
+                "  <b title=\"boolean\">var</b> <a name=\""+ExportCst.PREF_REF+"57\">b</a> = true;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"57\">b</a>?1:0;\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -108,11 +109,11 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">v</a>;\n" +
-                " public static that int <a name=\"m68\">exmeth</a>(){\n" +
-                "  <b title=\"boolean\">var</b> <a name=\"m84\">b</a> = true;\n" +
-                "  return that(<a href=\"#m84\">b</a>?that(<a title=\"pkg.Ex.v\" href=\"#m41\">v</a>):that(<a title=\"pkg.Ex.v\" href=\"#m41\">v</a>));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">v</a>;\n" +
+                " public static that int <a name=\""+ExportCst.PREF_REF+"68\">exmeth</a>(){\n" +
+                "  <b title=\"boolean\">var</b> <a name=\""+ExportCst.PREF_REF+"84\">b</a> = true;\n" +
+                "  return that(<a href=\"#"+ExportCst.PREF_REF+"84\">b</a>?that(<a title=\"pkg.Ex.v\" href=\"#"+ExportCst.PREF_REF+"41\">v</a>):that(<a title=\"pkg.Ex.v\" href=\"#"+ExportCst.PREF_REF+"41\">v</a>));\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -128,10 +129,10 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  <b title=\"boolean\">var</b> <a name=\"m57\">b</a> = true;\n" +
-                "  return bool(<a href=\"#m57\">b</a>,1,0);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
+                "  <b title=\"boolean\">var</b> <a name=\""+ExportCst.PREF_REF+"57\">b</a> = true;\n" +
+                "  return bool(<a href=\"#"+ExportCst.PREF_REF+"57\">b</a>,1,0);\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -148,11 +149,11 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">v</a>;\n" +
-                " public static that int <a name=\"m68\">exmeth</a>(){\n" +
-                "  <b title=\"boolean\">var</b> <a name=\"m84\">b</a> = true;\n" +
-                "  return that(bool(<a href=\"#m84\">b</a>,that(<a title=\"pkg.Ex.v\" href=\"#m41\">v</a>),that(<a title=\"pkg.Ex.v\" href=\"#m41\">v</a>)));\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">v</a>;\n" +
+                " public static that int <a name=\""+ExportCst.PREF_REF+"68\">exmeth</a>(){\n" +
+                "  <b title=\"boolean\">var</b> <a name=\""+ExportCst.PREF_REF+"84\">b</a> = true;\n" +
+                "  return that(bool(<a href=\"#"+ExportCst.PREF_REF+"84\">b</a>,that(<a title=\"pkg.Ex.v\" href=\"#"+ExportCst.PREF_REF+"41\">v</a>),that(<a title=\"pkg.Ex.v\" href=\"#"+ExportCst.PREF_REF+"41\">v</a>)));\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -166,8 +167,8 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a>(int <a title=\"The parameter u is unused.\" name=\"m53\" class=\"w\">u</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a>(int <a title=\"The parameter u is unused.\" name=\""+ExportCst.PREF_REF+"53\" class=\"w\">u</a>){\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -182,9 +183,9 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static int <a name=\"m41\">exmeth</a>(int <a name=\"m52\">u</a>){\n" +
-                "  return <a href=\"#m52\">u</a>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(int <a name=\""+ExportCst.PREF_REF+"52\">u</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"52\">u</a>;\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -198,8 +199,8 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a>(int <a name=\"m53\" title=\"The parameter function name int is not valid. It must not a primitive type.\" class=\"e\">int</a>,int <a title=\"The parameter u is unused.\" name=\"m61\" class=\"w\">u</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a>(int <a name=\""+ExportCst.PREF_REF+"53\" title=\"The parameter function name int is not valid. It must not a primitive type.\" class=\"e\">int</a>,int <a title=\"The parameter u is unused.\" name=\""+ExportCst.PREF_REF+"61\" class=\"w\">u</a>){\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -215,10 +216,10 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public @class <a name=\"m14\">pkg.Ex</a> {\n" +
-                " int <a name=\"m28\">f</a>;\n" +
-                " operator<a name=\"m40\">+</a> <a title=\"pkg.Ex\" href=\"#m14\">Ex</a>(<a title=\"pkg.Ex\" href=\"#m14\">Ex</a> <a name=\"m48\">a</a>,<a title=\"pkg.Ex\" href=\"#m14\">Ex</a> <a name=\"m53\">b</a>){\n" +
-                "  return new(<a title=\"pkg.Ex.f\" href=\"#m28\">f</a>:<a href=\"#m48\">a</a>.<a title=\"pkg.Ex.f\" href=\"#m28\">f</a>+<a href=\"#m53\">b</a>.<a title=\"pkg.Ex.f\" href=\"#m28\">f</a>);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public @class <a name=\""+ExportCst.PREF_REF+"14\">pkg.Ex</a> {\n" +
+                " int <a name=\""+ExportCst.PREF_REF+"28\">f</a>;\n" +
+                " operator<a name=\""+ExportCst.PREF_REF+"40\">+</a> <a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"14\">Ex</a>(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"14\">Ex</a> <a name=\""+ExportCst.PREF_REF+"48\">a</a>,<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"14\">Ex</a> <a name=\""+ExportCst.PREF_REF+"53\">b</a>){\n" +
+                "  return new(<a title=\"pkg.Ex.f\" href=\"#"+ExportCst.PREF_REF+"28\">f</a>:<a href=\"#"+ExportCst.PREF_REF+"48\">a</a>.<a title=\"pkg.Ex.f\" href=\"#"+ExportCst.PREF_REF+"28\">f</a>+<a href=\"#"+ExportCst.PREF_REF+"53\">b</a>.<a title=\"pkg.Ex.f\" href=\"#"+ExportCst.PREF_REF+"28\">f</a>);\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -235,11 +236,11 @@ public final class WarningReportTest extends ProcessMethodCommon {
         xml_.append("}");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">caller</a>(){\n" +
-                "  Fct&lt;int,void&gt; <a name=\"m68\">elt</a> = staticCall(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>).<a title=\"pkg.Ex.static exmeth(int)\" href=\"#m129\">$lambda</a>(exmeth);\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"42\">caller</a>(){\n" +
+                "  Fct&lt;int,void&gt; <a name=\""+ExportCst.PREF_REF+"68\">elt</a> = staticCall(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"13\">Ex</a>).<a title=\"pkg.Ex.static exmeth(int)\" href=\"#"+ExportCst.PREF_REF+"129\">$lambda</a>(exmeth);\n" +
                 " }\n" +
-                " public static void <a name=\"m129\">exmeth</a>(int <a name=\"m140\">u</a>){\n" +
+                " public static void <a name=\""+ExportCst.PREF_REF+"129\">exmeth</a>(int <a name=\""+ExportCst.PREF_REF+"140\">u</a>){\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }

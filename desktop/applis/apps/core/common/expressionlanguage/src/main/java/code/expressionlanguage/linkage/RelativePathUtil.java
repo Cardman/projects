@@ -24,7 +24,7 @@ public final class RelativePathUtil {
                 finished_ = false;
                 break;
             }
-            if(curChar_ == LinkageUtil.SEP_DIR) {
+            if(curChar_ == ExportCst.SEP_DIR) {
                 diffFirst_ = i;
                 countCommon_++;
             }
@@ -33,13 +33,13 @@ public final class RelativePathUtil {
             return _refFile.substring(len_);
         }
         String relFile_ = _refFile.substring(diffFirst_ + 1);
-        if (_currentFile.indexOf(LinkageUtil.SEP_DIR,diffFirst_+1) < 0) {
+        if (_currentFile.indexOf(ExportCst.SEP_DIR,diffFirst_+1) < 0) {
             return relFile_;
         }
         StringBuilder b_ = new StringBuilder();
-        int count_ = StringUtil.indexesOfChar(_currentFile, LinkageUtil.SEP_DIR).size() - countCommon_;
+        int count_ = StringUtil.indexesOfChar(_currentFile, ExportCst.SEP_DIR).size() - countCommon_;
         for (int i = 0; i < count_; i++) {
-            b_.append(LinkageUtil.PARENT).append(LinkageUtil.SEP_DIR);
+            b_.append(ExportCst.PARENT).append(ExportCst.SEP_DIR);
         }
         return b_.append(relFile_).toString();
     }

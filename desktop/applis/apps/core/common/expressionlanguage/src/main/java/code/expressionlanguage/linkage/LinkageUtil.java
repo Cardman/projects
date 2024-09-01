@@ -20,10 +20,7 @@ import code.expressionlanguage.analyze.types.AnaResultPartTypeDtoInt;
 import code.expressionlanguage.analyze.types.LinkagePartTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.common.OptionsReport;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.Coverage;
@@ -40,53 +37,6 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class LinkageUtil {
-
-    public static final String BEGIN_HEAD = "<head>";
-    public static final String END_HEAD = "</head>";
-    public static final String BEGIN = "<html>";
-    public static final String BEGIN_BODY = "<body>";
-    public static final String BEGIN_BODY_PRE = BEGIN_BODY+"<pre>";
-    public static final String END_BODY = "</body>";
-    public static final String END_BODY_PRE = "</pre>"+END_BODY;
-    public static final String END = "</html>";
-    public static final String CSS = "css/style.css";
-    public static final String TR = "<tr>";
-    public static final String TD = "<td>";
-    public static final String ETD = "</td>";
-    public static final String ETR = "</tr>";
-    public static final String LT = "&lt;";
-    public static final String GT = "&gt;";
-    public static final String AMP = "&amp;";
-    public static final String QUOT = "&quot;";
-    public static final String FULL = "f";
-    public static final String PARTIAL = "p";
-    public static final String NONE = "n";
-    public static final String STRING = "s";
-    public static final String FULL_INIT = "g";
-    public static final String PARTIAL_INIT = "q";
-    public static final String FULL_2 = "f2";
-    public static final String FULL_INIT_2 = "g2";
-    public static final String PARTIAL_2 = "p2";
-    public static final String PARTIAL_INIT_2 = "q2";
-    public static final String NONE_2 = "n2";
-    public static final String TYPE = "t";
-    public static final String IMPORT = "i";
-    public static final String COMMENT = "c";
-    public static final String EMPTY = "";
-    public static final char QUOT_CHAR = '\"';
-    public static final char LEFT_TAG = '<';
-    public static final char RIGHT_TAG = '>';
-    public static final char SPEC_CHAR = '&';
-    public static final char SPACE_CH = ' ';
-    public static final char SEP_DIR = '/';
-    public static final String PARENT = "..";
-    public static final char LINE_RET_CHAR = '\n';
-    public static final char TAB_CHAR = '\t';
-    public static final String LINE_RET = "\n";
-    public static final String TAB = "\t";
-    public static final String DEF_SPACE = " ";
-    public static final String BEGIN_ENCODE = "&#";
-    public static final String END_ENCODE = ";";
 
     private LinkageUtil(){
     }
@@ -105,18 +55,18 @@ public final class LinkageUtil {
             String fileExp_ = f.getRenderFileName();
             VariablesOffsets listStr_ = processError(toStringOwners_,randCodeOwners_,f, keyWords_, displayedStrings_, optionsReport_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String cssPart_ = BEGIN_HEAD + encode(optionsReport_.isEncodeHeader()) +
-                    link(f) +
-                    END_HEAD;
-            files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +xml_+ END_BODY_PRE+END);
+            String cssPart_ = ExportCst.BEGIN_HEAD + MessagesCdmBase.encode(optionsReport_.isEncodeHeader()) +
+                    MessagesCdmBase.link(f) +
+                    ExportCst.END_HEAD;
+            files_.addEntry(fileExp_, ExportCst.BEGIN_DOC +cssPart_+ ExportCst.BEGIN_BODY_PRE +xml_+ ExportCst.END_BODY_PRE+ ExportCst.END_DOC);
         }
-        String cssContent_ = ".e{background-color:red;}\n";
-        cssContent_ += ".w{background-color:yellow;}\n";
-        cssContent_ += ".s{color:blue;}\n";
-        cssContent_ += ".c{color:grey;background-color:white;}\n";
-        cssContent_ += ".i{color:red;}\n";
-        cssContent_ += ".t{background-color:white;}\n";
-        files_.addEntry(CSS,cssContent_);
+        String cssContent_ = ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_ERROR+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.RED+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_WARNING+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.YELLOW+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_STRING+ExportCst.BEG_SET+ MessagesCdmBase.COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.BLUE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_COMMENT+ExportCst.BEG_SET+ MessagesCdmBase.COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.GREY+ExportCst.END_ATTR+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.WHITE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_IMPORT+ExportCst.BEG_SET+ MessagesCdmBase.COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.RED+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_TYPE+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.WHITE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        files_.addEntry(MessagesCdmBase.CSS,cssContent_);
         return files_;
     }
 
@@ -137,10 +87,10 @@ public final class LinkageUtil {
             String fileExp_ = f.getRenderFileName();
             VariablesOffsets listStr_ = processReport(toStringOwners_,randCodeOwners_,f, cov_, keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String cssPart_ = BEGIN_HEAD +encode(cov_.getOptionsReport().isEncodeHeader())+
-                    link(f) +
-                    END_HEAD;
-            files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +xml_+END_BODY_PRE+END);
+            String cssPart_ = ExportCst.BEGIN_HEAD + MessagesCdmBase.encode(cov_.getOptionsReport().isEncodeHeader())+
+                    MessagesCdmBase.link(f) +
+                    ExportCst.END_HEAD;
+            files_.addEntry(fileExp_, ExportCst.BEGIN_DOC +cssPart_+ ExportCst.BEGIN_BODY_PRE +xml_+ ExportCst.END_BODY_PRE+ ExportCst.END_DOC);
         }
         IdMap<RootBlock,String> types_ = new IdMap<RootBlock,String>();
         for (RootBlock t: refFoundTypes_) {
@@ -151,42 +101,42 @@ public final class LinkageUtil {
             types_.addEntry(t, ratioCall_);
         }
         int calledOps_ = getCalledOps(cov_, operators_);
-        String callTable_ = "calls"+ExportCst.EXT;
-        StringBuilder table_ = new StringBuilder(BEGIN);
-        table_.append(BEGIN_HEAD);
-        table_.append(encode(cov_.getOptionsReport().isEncodeHeader()));
-        table_.append(END_HEAD);
-        table_.append(BEGIN_BODY);
-        table_.append("<table>");
-        table_.append(TR);
-        table_.append(TD);
-        table_.append(ETD);
-        table_.append(TD);
+        String callTable_ = cov_.getOptionsReport().getCallsFile()+ MessagesCdmBase.EXT;
+        StringBuilder table_ = new StringBuilder(ExportCst.BEGIN_DOC);
+        table_.append(ExportCst.BEGIN_HEAD);
+        table_.append(MessagesCdmBase.encode(cov_.getOptionsReport().isEncodeHeader()));
+        table_.append(ExportCst.END_HEAD);
+        table_.append(ExportCst.BEGIN_BODY);
+        table_.append(ExportCst.BEGIN_TAG+ MessagesCdmBase.CST_TABLE+ExportCst.END);
+        table_.append(ExportCst.TR);
+        table_.append(ExportCst.TD);
+        table_.append(ExportCst.ETD);
+        table_.append(ExportCst.TD);
         table_.append(calledOps_);
         table_.append(ExportCst.RATIO_COVERAGE);
         table_.append(operators_.size());
-        table_.append(ETD);
-        table_.append(ETR);
+        table_.append(ExportCst.ETD);
+        table_.append(ExportCst.ETR);
         buildTable(types_, table_);
-        table_.append("</table>");
-        table_.append(END_BODY);
-        table_.append(END);
+        table_.append(ExportCst.END_PARENT+ MessagesCdmBase.CST_TABLE+ExportCst.END);
+        table_.append(ExportCst.END_BODY);
+        table_.append(ExportCst.END_DOC);
         files_.addEntry(callTable_,table_.toString());
-        String cssContent_ = ".f{background-color:green;}\n";
-        cssContent_ += ".g{background-color:lightgreen;}\n";
-        cssContent_ += ".p{background-color:yellow;}\n";
-        cssContent_ += ".q{background-color:lightyellow;}\n";
-        cssContent_ += ".n{background-color:red;}\n";
-        cssContent_ += ".t{background-color:white;}\n";
-        cssContent_ += ".s{color:#0080ff;}\n";
-        cssContent_ += ".c{color:grey;background-color:white;}\n";
-        cssContent_ += ".i{color:red;}\n";
-        cssContent_ += ".f2{background-color:darkblue;}\n";
-        cssContent_ += ".g2{background-color:blue;}\n";
-        cssContent_ += ".p2{background-color:gold;}\n";
-        cssContent_ += ".q2{background-color:orange;}\n";
-        cssContent_ += ".n2{background-color:silver;}\n";
-        files_.addEntry(CSS,cssContent_);
+        String cssContent_ = ExportCst.PREF_CLASS+ MessagesCdmBase.FULL+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.GREEN+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.FULL_INIT+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.LIGHT_GREEN+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.PARTIAL+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.YELLOW+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.PARTIAL_INIT+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.LIGHT_YELLOW+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.NONE+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.RED+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_TYPE+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.WHITE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_STRING+ExportCst.BEG_SET+ MessagesCdmBase.COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.AZURE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_COMMENT+ExportCst.BEG_SET+ MessagesCdmBase.COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.GREY+ExportCst.END_ATTR+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.WHITE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.CLASS_IMPORT+ExportCst.BEG_SET+ MessagesCdmBase.COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.RED+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.FULL_2+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.DARK_BLUE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.FULL_INIT_2+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.BLUE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.PARTIAL_2+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.GOLD+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.PARTIAL_INIT_2+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.ORANGE+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        cssContent_ += ExportCst.PREF_CLASS+ MessagesCdmBase.NONE_2+ExportCst.BEG_SET+ MessagesCdmBase.BACKGROUND_COLOR+ExportCst.MID_ATTR+ MessagesCdmBase.SILVER+ExportCst.END_ATTR+ExportCst.END_SET+ ExportCst.LINE_RET;
+        files_.addEntry(MessagesCdmBase.CSS,cssContent_);
         return files_;
     }
 
@@ -221,31 +171,21 @@ public final class LinkageUtil {
 
     private static void buildTable(IdMap<RootBlock, String> _types, StringBuilder _table) {
         for (EntryCust<RootBlock,String> e: _types.entryList()) {
-            _table.append(TR);
-            _table.append(TD);
+            _table.append(ExportCst.TR);
+            _table.append(ExportCst.TD);
             _table.append(e.getKey().getFullName());
-            _table.append(ETD);
-            _table.append(TD);
+            _table.append(ExportCst.ETD);
+            _table.append(ExportCst.TD);
             _table.append(e.getValue());
-            _table.append(ETD);
-            _table.append(ETR);
+            _table.append(ExportCst.ETD);
+            _table.append(ExportCst.ETR);
         }
     }
 
-    private static String link(FileBlock _file) {
-        return "<link href=\"" + RelativePathUtil.relativize(_file, CSS) + "\" rel=\"stylesheet\" type=\"text/css\"/>";
-    }
-
-    private static String encode(boolean _encode) {
-        if (_encode) {
-            return "<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/>";
-        }
-        return EMPTY;
-    }
     private static StringBuilder build(FileBlock _fileBlock, String _value, VariablesOffsets _listStr) {
         String value_ = _value;
         if (_value.isEmpty()) {
-            value_ = DEF_SPACE;
+            value_ = ExportCst.DEF_SPACE;
         }
         StringBuilder xml_ = new StringBuilder(value_.length());
         int i_ = value_.length() - 1;
@@ -266,7 +206,7 @@ public final class LinkageUtil {
         String tr_ = transformText(_ch);
         if (_ex.getBeginComments().containsObj(_index)) {
             prepend(_xml, tr_);
-            prepend(_xml, ExportCst.span(COMMENT));
+            prepend(_xml, ExportCst.span(ExportCst.COMMENT));
             return;
         }
         if (_ex.getEndComments().containsObj(_index)) {
@@ -285,34 +225,34 @@ public final class LinkageUtil {
         if (_ch > 126) {
             return escapeNum(_ch);
         }
-        if (_ch < SPACE_CH) {
+        if (_ch < ExportCst.SPACE_CH) {
             return processSpace(_ch);
         }
-        if (_ch == LEFT_TAG) {
-            return LT;
+        if (_ch == ExportCst.LEFT_TAG) {
+            return MessagesCdmBase.LT;
         }
-        if (_ch == RIGHT_TAG) {
-            return GT;
+        if (_ch == ExportCst.RIGHT_TAG) {
+            return MessagesCdmBase.GT;
         }
-        if (_ch == SPEC_CHAR) {
-            return AMP;
+        if (_ch == ExportCst.SPEC_CHAR) {
+            return MessagesCdmBase.AMP;
         }
         return Character.toString(_ch);
     }
 
     private static String processSpace(char _ch) {
-        if (_ch == LINE_RET_CHAR) {
-            return LINE_RET;
+        if (_ch == ExportCst.LINE_RET_CHAR) {
+            return ExportCst.LINE_RET;
         }
-        if (_ch == TAB_CHAR) {
-            return TAB;
+        if (_ch == ExportCst.TAB_CHAR) {
+            return ExportCst.TAB;
         }
-        return DEF_SPACE;
+        return ExportCst.DEF_SPACE;
     }
 
     private static VariablesOffsets processError(StringList _toStringOwers, StringList _randCodeOwners, FileBlock _ex, KeyWords _keyWords, DisplayedStrings _displayedStrings, OptionsReport _implicit){
         VariablesOffsets vars_ = new VariablesOffsets();
-        vars_.addPart(new PartOffset(ExportCst.span(TYPE),0));
+        vars_.addPart(new PartOffset(ExportCst.span(ExportCst.TYPE),0));
         vars_.addStackElt(new LinkageStackElement(_ex.getLength()));
         vars_.setKeyWords(_keyWords);
         update(_implicit, vars_);
@@ -530,7 +470,7 @@ public final class LinkageUtil {
     }
     private static VariablesOffsets processReport(StringList _toStringOwers, StringList _randCodeOwners, FileBlock _ex, Coverage _coverage, KeyWords _keyWords, LgNames _standards){
         VariablesOffsets vars_ = new VariablesOffsets();
-        vars_.addPart(new PartOffset(ExportCst.span(TYPE),0));
+        vars_.addPart(new PartOffset(ExportCst.span(ExportCst.TYPE),0));
         vars_.addStackElt(new LinkageStackElement(_ex.getLength()));
         vars_.setKeyWords(_keyWords);
         update(_coverage.getOptionsReport(), vars_);
@@ -978,9 +918,9 @@ public final class LinkageUtil {
         }
         String supp_;
         if (!indexes_.isEmpty() && count_ < full_) {
-            supp_ = LINE_RET+StringUtil.join(indexes_,ExportCst.FOUND_COVERAGE);
+            supp_ = ExportCst.LINE_RET+StringUtil.join(indexes_,ExportCst.FOUND_COVERAGE);
         } else {
-            supp_ = "";
+            supp_ = ExportCst.EMPTY;
         }
         return headCoverage(full_,count_) + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_ +supp_);
     }
@@ -1687,7 +1627,7 @@ public final class LinkageUtil {
             _vars.getLastStackElt().setStopVisit(true);
             return;
         }
-        _vars.addPart(new PartOffset(ExportCst.span(TYPE), _cond.getBegin()));
+        _vars.addPart(new PartOffset(ExportCst.span(ExportCst.TYPE), _cond.getBegin()));
     }
 
 
@@ -1757,7 +1697,7 @@ public final class LinkageUtil {
             OperatorBlock op_ = (OperatorBlock) _cond;
             int lenImp_ = op_.getImports().size();
             for (int i = 0; i < lenImp_; i++) {
-                _vars.addPart(new PartOffset(ExportCst.span(IMPORT), op_.getImportsOffset().get(i)));
+                _vars.addPart(new PartOffset(ExportCst.span(ExportCst.IMPORT), op_.getImportsOffset().get(i)));
                 _vars.addPart(new PartOffset(ExportCst.END_SPAN, op_.getImportsOffset().get(i) + op_.getImports().get(i).length()));
             }
         }
@@ -1806,7 +1746,7 @@ public final class LinkageUtil {
             _vars.getLastStackElt().setStopVisit(true);
             return;
         }
-        _vars.addPart(new PartOffset(ExportCst.span(TYPE), _cond.getBegin()));
+        _vars.addPart(new PartOffset(ExportCst.span(ExportCst.TYPE), _cond.getBegin()));
     }
 
     private static void processAnnotationMethodBlockReport(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, Coverage _cov) {
@@ -1914,7 +1854,7 @@ public final class LinkageUtil {
             return;
         }
         if (_cond instanceof AnonymousTypeBlock) {
-            _vars.addPart(new PartOffset(ExportCst.span(TYPE), _cond.getBegin()));
+            _vars.addPart(new PartOffset(ExportCst.span(ExportCst.TYPE), _cond.getBegin()));
         } else {
             processAnnotationReport(_vars, _cond, _cov);
         }
@@ -1963,7 +1903,7 @@ public final class LinkageUtil {
     private static void appendImportPart(VariablesOffsets _vars, RootBlock _cond) {
         int len_ = _cond.getImports().size();
         for (int i = 0; i < len_; i++) {
-            _vars.addPart(new PartOffset(ExportCst.span(IMPORT), _cond.getImportsOffset().get(i)));
+            _vars.addPart(new PartOffset(ExportCst.span(ExportCst.IMPORT), _cond.getImportsOffset().get(i)));
             _vars.addPart(new PartOffset(ExportCst.END_SPAN, _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
         }
     }
@@ -1979,7 +1919,7 @@ public final class LinkageUtil {
             return;
         }
         if (_cond instanceof AnonymousTypeBlock) {
-            _vars.addPart(new PartOffset(ExportCst.span(TYPE), _cond.getBegin()));
+            _vars.addPart(new PartOffset(ExportCst.span(ExportCst.TYPE), _cond.getBegin()));
         } else {
             processAnnotationError(_vars, _cond);
         }
@@ -2027,7 +1967,7 @@ public final class LinkageUtil {
     private static void processFileBlockReport(VariablesOffsets _vars, FileBlock _cond) {
         int len_ = _cond.getImports().size();
         for (int i = 0; i < len_; i++) {
-            _vars.addPart(new PartOffset(ExportCst.span(IMPORT), _cond.getImportsOffset().get(i)));
+            _vars.addPart(new PartOffset(ExportCst.span(ExportCst.IMPORT), _cond.getImportsOffset().get(i)));
             _vars.addPart(new PartOffset(ExportCst.END_SPAN, _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
         }
     }
@@ -2433,7 +2373,7 @@ public final class LinkageUtil {
             NamedCalledFunctionBlock block_ = ((AnonymousLambdaOperation) _val).getBlock();
             setAnonState(_vars, block_);
             int begin_ = _in.getBeginBlock() + _val.getIndexInEl();
-            _vars.addPart(new PartOffset(ExportCst.span(TYPE), begin_));
+            _vars.addPart(new PartOffset(ExportCst.span(ExportCst.TYPE), begin_));
             _vars.getLastStackElt().element(_val, _in);
             _vars.getVisited().add(_val);
             return null;
@@ -2498,17 +2438,17 @@ public final class LinkageUtil {
         String partialInit_;
         String none_;
         if (_in.getIndexAnnotationLook() >= 0 || AbsBk.isAnnotBlock(_in.getBlock())) {
-            full_ = FULL_2;
-            fullInit_ = FULL_INIT_2;
-            partial_ = PARTIAL_2;
-            partialInit_ = PARTIAL_INIT_2;
-            none_ = NONE_2;
+            full_ = MessagesCdmBase.FULL_2;
+            fullInit_ = MessagesCdmBase.FULL_INIT_2;
+            partial_ = MessagesCdmBase.PARTIAL_2;
+            partialInit_ = MessagesCdmBase.PARTIAL_INIT_2;
+            none_ = MessagesCdmBase.NONE_2;
         } else {
-            full_ = FULL;
-            fullInit_ = FULL_INIT;
-            partial_ = PARTIAL;
-            partialInit_ = PARTIAL_INIT;
-            none_ = NONE;
+            full_ = MessagesCdmBase.FULL;
+            fullInit_ = MessagesCdmBase.FULL_INIT;
+            partial_ = MessagesCdmBase.PARTIAL;
+            partialInit_ = MessagesCdmBase.PARTIAL_INIT;
+            none_ = MessagesCdmBase.NONE;
         }
         if (_val.getArgument() != null) {
             return procCstCover(_in, _root, _val, _cov, full_, fullInit_, none_);
@@ -2657,11 +2597,11 @@ public final class LinkageUtil {
     private static String headCoverage(AbstractCoverageResult _result) {
         String tag_;
         if (_result.isFullCovered()) {
-            tag_ = ExportCst.span(FULL);
+            tag_ = ExportCst.span(MessagesCdmBase.FULL);
         } else if (_result.isPartialCovered()) {
-            tag_ = ExportCst.span(PARTIAL);
+            tag_ = ExportCst.span(MessagesCdmBase.PARTIAL);
         } else {
-            tag_ = ExportCst.span(NONE);
+            tag_ = ExportCst.span(MessagesCdmBase.NONE);
         }
         return tag_;
     }
@@ -2669,11 +2609,11 @@ public final class LinkageUtil {
     private static String headCoverage(int _full, int _count) {
         String tag_;
         if (_count == _full) {
-            tag_ = ExportCst.span(FULL);
+            tag_ = ExportCst.span(MessagesCdmBase.FULL);
         } else if (_count > 0) {
-            tag_ = ExportCst.span(PARTIAL);
+            tag_ = ExportCst.span(MessagesCdmBase.PARTIAL);
         } else {
-            tag_ = ExportCst.span(NONE);
+            tag_ = ExportCst.span(MessagesCdmBase.NONE);
         }
         return tag_;
     }
@@ -2831,12 +2771,12 @@ public final class LinkageUtil {
             int off_ = ((ConstantOperation)_val).getOffset();
             int begCst_ = _sum + off_ + _val.getIndexInEl();
             if (_val instanceof ConstantStrOperation) {
-                _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
+                _vars.addPart(new PartOffset(ExportCst.span(ExportCst.STRING), begCst_));
                 messageCst(_vars,_val, begCst_, ((ConstantStrOperation)_val).getLen());
                 _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantStrOperation)_val).getLen()));
             }
             if (_val instanceof ConstantCharOperation) {
-                _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
+                _vars.addPart(new PartOffset(ExportCst.span(ExportCst.STRING), begCst_));
                 messageCst(_vars,_val, begCst_, ((ConstantCharOperation)_val).getLen());
                 _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantCharOperation)_val).getLen()));
             }
@@ -3347,8 +3287,8 @@ public final class LinkageUtil {
     private static void processNamedArgument(VariablesOffsets _vars, int _sum, NamedArgumentOperation _n) {
         int firstOff_ = _n.getOffsetTr();
         CustList<NamedFunctionBlock> customMethods_ = _n.getCustomMethod();
-        String relOne_ = EMPTY;
-        String relTwo_ = EMPTY;
+        String relOne_ = ExportCst.EMPTY;
+        String relTwo_ = ExportCst.EMPTY;
         int i_ = 0;
         CustList<LinkedNamedArgParts> cust_ = new CustList<LinkedNamedArgParts>();
         CustList<LinkedNamedArgParts> filterSet_ = new CustList<LinkedNamedArgParts>();
@@ -4000,7 +3940,7 @@ public final class LinkageUtil {
             if (_name > -1) {
                 return ExportCst.anchorName(_name);
             }
-            return "";
+            return ExportCst.EMPTY;
         }
         return buildLink(_id, _errors, _title, _name, dis_, rel_);
     }
@@ -4033,7 +3973,7 @@ public final class LinkageUtil {
     }
     private static String classErr(StringList _errors) {
         if (_errors.isEmpty()) {
-            return EMPTY;
+            return ExportCst.EMPTY;
         }
         return ExportCst.SEP_ATTR_CLASS_ERR;
     }
@@ -4041,10 +3981,10 @@ public final class LinkageUtil {
     private static String getRelativize(FileBlock _block, AnaTypeFct _id) {
         NamedFunctionBlock function_ = AnaTypeFct.fct(_id);
         if (function_ == null) {
-            return EMPTY;
+            return ExportCst.EMPTY;
         }
         if (!ContextUtil.isFromCustFile(function_.getFile())) {
-            return EMPTY;
+            return ExportCst.EMPTY;
         }
         return ExportCst.href(_block, function_.getFile(), function_.getNameOffset());
     }
@@ -4062,7 +4002,7 @@ public final class LinkageUtil {
             if (!_errs.isEmpty()) {
                 return ExportCst.anchorErr(StringUtil.join(_errs,ExportCst.JOIN_ERR));
             }
-            return "";
+            return ExportCst.EMPTY;
         }
         String rel_ = ExportCst.href(_currentFileName, _type.getFile(), _offset);
         return ExportCst.BEGIN_ANCHOR+ExportCst.SEP_ATTR
@@ -4075,15 +4015,15 @@ public final class LinkageUtil {
         for (char c: _string.toCharArray()) {
             if (c > 126) {
                 str_.append(escapeNum(c));
-            } else if (c == LEFT_TAG) {
-                str_.append(LT);
-            } else if (c == RIGHT_TAG) {
-                str_.append(GT);
-            } else if (c == SPEC_CHAR) {
-                str_.append(AMP);
-            } else if (c == QUOT_CHAR) {
-                str_.append(QUOT);
-            } else if (c < SPACE_CH) {
+            } else if (c == ExportCst.LEFT_TAG) {
+                str_.append(MessagesCdmBase.LT);
+            } else if (c == ExportCst.RIGHT_TAG) {
+                str_.append(MessagesCdmBase.GT);
+            } else if (c == ExportCst.SPEC_CHAR) {
+                str_.append(MessagesCdmBase.AMP);
+            } else if (c == ExportCst.QUOT_CHAR) {
+                str_.append(MessagesCdmBase.QUOT);
+            } else if (c < ExportCst.SPACE_CH) {
                 str_.append(processSpace(c));
             } else {
                 str_.append(c);
@@ -4092,7 +4032,7 @@ public final class LinkageUtil {
         return str_.toString();
     }
     private static String escapeNum(char _ch) {
-        return BEGIN_ENCODE +(int)_ch+ END_ENCODE;
+        return ExportCst.BEGIN_ENCODE +(int)_ch+ ExportCst.END_ENCODE;
     }
     private static boolean canCallToString(VariablesOffsets _vars, AnaClassArgumentMatching _type) {
         StringList toStringOwners_ = _vars.getToStringOwners();

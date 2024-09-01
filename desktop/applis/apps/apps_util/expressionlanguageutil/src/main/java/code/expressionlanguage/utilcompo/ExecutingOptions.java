@@ -43,6 +43,7 @@ public final class ExecutingOptions {
     private AbstractLightProgramInfos lightProgramInfos;
     private AbstractInterceptor interceptor;
     private FileSystemParameterizing fileSystemParameterizing;
+    private String callsFile;
 
     public ExecutingOptions(AbstractLightProgramInfos _api) {
         this(_api.currentLg());
@@ -63,6 +64,7 @@ public final class ExecutingOptions {
         outputZip = StringUtil.nullToEmpty(_folders.getVal(MessagesExecutingOptions.EXEC_OPTIONS_FOLDER_OUTPUT));
         coverFolder = StringUtil.nullToEmpty(_folders.getVal(MessagesExecutingOptions.EXEC_OPTIONS_FOLDER_COVERAGE));
         errorsFolder = StringUtil.nullToEmpty(_folders.getVal(MessagesExecutingOptions.EXEC_OPTIONS_FOLDER_ERRORS));
+        callsFile = StringUtil.nullToEmpty(_folders.getVal(MessagesExecutingOptions.EXEC_OPTIONS_FOLDER_CALLS));
     }
 
     public static StringList lines(String _content) {
@@ -77,6 +79,7 @@ public final class ExecutingOptions {
         return linesFiles_;
     }
     public static void setupOptionals(int _from, Options _options, ExecutingOptions _exec, StringList _lines) {
+        _options.getOptionsReport().setCallsFile("");
         StringMap<String> mesKeys_ = MessagesExecutingOptions.valExecOptionsKeys(_exec.lightProgramInfos.currentLg());
         String log_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_LOG);
         String lgs_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_LGS);
@@ -98,6 +101,7 @@ public final class ExecutingOptions {
         String mess_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_MESSAGES);
         String kw_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_KEYWORDS);
         String com_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_COMMENTS);
+        String callsFile_ = mesKeys_.getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_CALL_FILE);
         StringBuilder argParts_ = new StringBuilder();
         StringBuilder aliasesPart_ = new StringBuilder();
         StringBuilder messagesPart_ = new StringBuilder();
@@ -113,6 +117,7 @@ public final class ExecutingOptions {
             extractSeed(_options, l, seed_);
             extractImpl(_options, l, imp_);
             extractImplLabel(_options, l, impLab_);
+            extractCallsFile(_options, l,callsFile_);
             extractParts(warnsPart_, l, w_+EXEC_OPTIONS_SEP);
             extractResources(_exec, l, res_);
             extractFiles(_exec, l, files_);
@@ -132,6 +137,9 @@ public final class ExecutingOptions {
         finishAlias(_exec, aliasesPart_);
         finishMessages(_exec, messagesPart_);
         finishKeywords(_exec, keyWordsPart_);
+        if (!_exec.getLightProgramInfos().getValidator().ok(_options.getOptionsReport().getCallsFile())) {
+            _options.getOptionsReport().setCallsFile(_exec.callsFile);
+        }
     }
 
     private static void finishKeywords(ExecutingOptions _exec, StringBuilder _keyWordsPart) {
@@ -255,6 +263,12 @@ public final class ExecutingOptions {
     private static void extractImplLabel(Options _options, String _l, String _pref) {
         if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
             _options.getOptionsReport().setDisplayImplicitLabel(true);
+        }
+    }
+
+    private static void extractCallsFile(Options _options, String _l, String _pref) {
+        if (_l.startsWith(_pref +EXEC_OPTIONS_SEP)) {
+            _options.getOptionsReport().setCallsFile(_l.substring((_pref +EXEC_OPTIONS_SEP).length()));
         }
     }
 

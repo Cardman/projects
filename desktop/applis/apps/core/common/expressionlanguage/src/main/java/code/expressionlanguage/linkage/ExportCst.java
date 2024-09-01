@@ -1,11 +1,11 @@
 package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ExportCst {
-    public static final String EXT = ".html";
     public static final String JOIN_ERR = "\n\n";
     public static final String JOIN_TYPES = "&";
     public static final String JOIN_BLOCK = "|";
@@ -18,32 +18,67 @@ public final class ExportCst {
     public static final String BEGIN_TAG = "<";
     public static final String END = ">";
     public static final String END_PARENT = BEGIN_TAG+"/";
-    public static final String CST_ANCHOR = "a";
-    public static final String CST_BOLD = "b";
-    public static final String BEGIN_ANCHOR = BEGIN_TAG+ CST_ANCHOR;
-    public static final String BEGIN_BOLD = BEGIN_TAG+ CST_BOLD;
+    public static final String BEGIN_ANCHOR = BEGIN_TAG+ MessagesCdmBase.CST_ANCHOR;
+    public static final String BEGIN_BOLD = BEGIN_TAG+ MessagesCdmBase.CST_BOLD;
     public static final String HEAD_BOLD = BEGIN_BOLD+END;
-    public static final String HEAD_ITALIC = "<i>";
-    public static final String FOOT_ITALIC = "</i>";
+    public static final String HEAD_ITALIC = BEGIN_TAG+MessagesCdmBase.CST_ITALIC+END;
+    public static final String FOOT_ITALIC = END_PARENT+MessagesCdmBase.CST_ITALIC+END;
     public static final String SEP_ATTR = " ";
-    public static final String TITLE_ATTR = "title=";
-    public static final String HREF_ATTR = "href=";
-    public static final String NAME_ATTR = "name=";
-    public static final String PREF_REF = "m";
+    public static final String SEP_KEY_VALUE = "=";
+    public static final String TITLE_ATTR = MessagesCdmBase.TITLE +SEP_KEY_VALUE;
+    public static final String HREF_ATTR = MessagesCdmBase.HREF +SEP_KEY_VALUE;
+    public static final String NAME_ATTR = MessagesCdmBase.NAME +SEP_KEY_VALUE;
+    public static final String PREF_REF = "_";
     public static final String LOC_REF = "#";
-    public static final String CLASS_ATTR = "class=";
+    public static final String CLASS_ATTR = MessagesCdmBase.CLASS +SEP_KEY_VALUE;
     public static final String DEL_ATTR = "\"";
-    public static final String END_ANCHOR = END_PARENT+ CST_ANCHOR +END;
-    public static final String END_BOLD = END_PARENT+ CST_BOLD +END;
-    public static final String CST_SPAN = "span";
-    public static final String END_SPAN = END_PARENT+ CST_SPAN +END;
-    public static final String CLASS_ERR = CLASS_ATTR+DEL_ATTR+"e"+DEL_ATTR;
+    public static final String END_ANCHOR = END_PARENT+ MessagesCdmBase.CST_ANCHOR +END;
+    public static final String END_BOLD = END_PARENT+ MessagesCdmBase.CST_BOLD +END;
+    public static final String PREF_CLASS = ".";
+    public static final String STRING = MessagesCdmBase.CLASS_STRING;
+    public static final String COMMENT = MessagesCdmBase.CLASS_COMMENT;
+    public static final String IMPORT = MessagesCdmBase.CLASS_IMPORT;
+    public static final String TYPE = MessagesCdmBase.CLASS_TYPE;
+    public static final String END_SPAN = END_PARENT+ MessagesCdmBase.CST_SPAN +END;
+    public static final String CLASS_ERR = CLASS_ATTR+DEL_ATTR+ MessagesCdmBase.CLASS_ERROR+DEL_ATTR;
     public static final String SEP_ATTR_CLASS_ERR = SEP_ATTR+CLASS_ERR;
-    public static final String CLASS_WAR = CLASS_ATTR+DEL_ATTR+"w"+DEL_ATTR;
+    public static final String CLASS_WAR = CLASS_ATTR+DEL_ATTR+ MessagesCdmBase.CLASS_WARNING+DEL_ATTR;
+    public static final String BEG_SET = "{";
+    public static final String END_SET = "}";
+    public static final String MID_ATTR = ":";
+    public static final String END_ATTR = ";";
+    public static final String BEGIN_HEAD = BEGIN_TAG + MessagesCdmBase.HEAD + END;
+    public static final String END_HEAD = END_PARENT + MessagesCdmBase.HEAD + END;
+    public static final String BEGIN_BODY = BEGIN_TAG + MessagesCdmBase.BODY + END;
+    public static final String BEGIN_BODY_PRE = BEGIN_BODY+ BEGIN_TAG + MessagesCdmBase.PRE + END;
+    public static final String END_BODY = END_PARENT + MessagesCdmBase.BODY + END;
+    public static final String END_BODY_PRE = END_PARENT + MessagesCdmBase.PRE + END +END_BODY;
+    public static final String TR = BEGIN_TAG + MessagesCdmBase.TAG_TR + END;
+    public static final String TD = BEGIN_TAG + MessagesCdmBase.TAG_TD + END;
+    public static final String ETD = END_PARENT + MessagesCdmBase.TAG_TD + END;
+    public static final String ETR = END_PARENT + MessagesCdmBase.TAG_TR + END;
+    public static final String BEGIN_DOC = BEGIN_TAG + MessagesCdmBase.HTML + END;
+    public static final String END_DOC = END_PARENT + MessagesCdmBase.HTML + END;
+    public static final String EMPTY = "";
+    public static final char QUOT_CHAR = '\"';
+    public static final char LEFT_TAG = '<';
+    public static final char RIGHT_TAG = '>';
+    public static final char SPEC_CHAR = '&';
+    public static final char SPACE_CH = ' ';
+    public static final char SEP_DIR = '/';
+    public static final String PARENT = "..";
+    public static final char LINE_RET_CHAR = '\n';
+    public static final char TAB_CHAR = '\t';
+    public static final String LINE_RET = "\n";
+    public static final String TAB = "\t";
+    public static final String DEF_SPACE = " ";
+    public static final String BEGIN_ENCODE = "&#";
+    public static final String END_ENCODE = ";";
+
     private ExportCst() {
     }
     public static String span(String _cl) {
-        return BEGIN_TAG+ CST_SPAN +SEP_ATTR+CLASS_ATTR+DEL_ATTR+_cl+DEL_ATTR+END;
+        return BEGIN_TAG+ MessagesCdmBase.CST_SPAN +SEP_ATTR+CLASS_ATTR+DEL_ATTR+_cl+DEL_ATTR+END;
     }
     public static String anchorNameErr(int _offset,String _title) {
         return BEGIN_ANCHOR+SEP_ATTR+name(_offset)+SEP_ATTR

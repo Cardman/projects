@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.gui.unit.*;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.DefBuildLightResultContextNext;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
@@ -90,7 +91,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
         assertTrue(RunningTest.launchByConfContent(new StringList(StringUtil.EN),";\n"+StringUtil.EN+"\nerr=",progTest_,infos_, new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
         StringMap<ContentTime> reported_ = pr_.getZipFact().zippedBinaryFiles(progTest_.getExportedReport());
-        assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Sample</a>{}</span></pre></body></html>",StringUtil.decode(reported_.getVal("errors/src/folder/file.txt.html").getContent()));
+        assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Sample</a>{}</span></pre></body></html>",StringUtil.decode(reported_.getVal("errors/src/folder/file.txt.html").getContent()));
     }
     @Test
     public void launch6() {
@@ -108,7 +109,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         RunningTest running_ = RunningTest.newFromContent(new StringList(StringUtil.EN,StringUtil.FR), "", progTest_, fr_.getInfos(), new SampleAtIntLgNames(),new SampleExecFileBuilderGene());
         running_.run();
         StringMap<ContentTime> reported_ = pr_.getZipFact().zippedBinaryFiles(running_.getProgressingTests().getExportedReport());
-        assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Sample</a>{<span class=\"f2\">@Test</span> public void <a name=\"m42\">err</a>(){<span class=\"n\"><span class=\"n\">Assert</span>.<span class=\"n\">assert(<span class=\"n\">0</span>,<span class=\"n\">1</span>)</span></span>;}<span class=\"f2\">@Test</span> public void <a name=\"m86\">success</a>(){<span class=\"f\"><span class=\"f\">Assert</span>.<span class=\"f\">assert(<span class=\"f\">1</span>,<span class=\"f\">1</span>)</span></span>;}}</span></pre></body></html>",StringUtil.decode(reported_.getVal("coverage/src/folder/file.txt.html").getContent()));
+        assertEq("<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Sample</a>{<span class=\"f2\">@Test</span> public void <a name=\""+ExportCst.PREF_REF+"42\">err</a>(){<span class=\"n\"><span class=\"n\">Assert</span>.<span class=\"n\">assert(<span class=\"n\">0</span>,<span class=\"n\">1</span>)</span></span>;}<span class=\"f2\">@Test</span> public void <a name=\""+ExportCst.PREF_REF+"86\">success</a>(){<span class=\"f\"><span class=\"f\">Assert</span>.<span class=\"f\">assert(<span class=\"f\">1</span>,<span class=\"f\">1</span>)</span></span>;}}</span></pre></body></html>",StringUtil.decode(reported_.getVal("coverage/src/folder/file.txt.html").getContent()));
 //        assertFalse(bar_.getMessages().isEmpty());
         messages(pr_);
         assertEq(2, bar_.getResults().size());

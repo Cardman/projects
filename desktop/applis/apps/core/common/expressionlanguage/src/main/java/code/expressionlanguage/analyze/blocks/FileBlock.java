@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
 import code.expressionlanguage.common.FileMetricsCore;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
@@ -200,7 +201,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     }
 
     public String getRenderFileName() {
-        return fileName+ ExportCst.EXT;
+        return fileName+ MessagesCdmBase.EXT;
     }
 
     public StringList getAllPackages() {

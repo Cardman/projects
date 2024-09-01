@@ -310,6 +310,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setGettingErrors(true);
         opt_.getOptionsReport().setDisplayImplicit(true);
         opt_.getOptionsReport().setEncodeHeader(true);
+        opt_.getOptionsReport().setCallsFile("calls");
         CustLgNames lgName_ = getLgNames();
 
         KeyWords kwl_ = en(lgName_);
@@ -351,6 +352,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl covEnReadOnlyImpl2(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.getOptionsReport().setEncodeHeader(true);
+        opt_.getOptionsReport().setCallsFile("calls");
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.getOptionsReport().setDisplayImplicit(true);
@@ -694,6 +696,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static Options newOptions() {
         Options options_ = new Options();
         options_.getOptionsReport().setEncodeHeader(false);
+        options_.getOptionsReport().setCallsFile("calls");
         DefaultAccess defaultAccess_ = options_.getDefaultAccess();
         setup(defaultAccess_.getAccAnonymous(),AccessEnum.PACKAGE);
         setup(defaultAccess_.getAccClass(),AccessEnum.PACKAGE);
