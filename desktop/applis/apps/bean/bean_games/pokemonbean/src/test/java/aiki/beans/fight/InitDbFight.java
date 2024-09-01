@@ -5,6 +5,7 @@ import aiki.beans.InitDbBean;
 import aiki.beans.PkFight;
 import aiki.beans.facade.fight.*;
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
@@ -771,7 +772,7 @@ public abstract class InitDbFight extends InitDbBean {
         DamagingMoveData damage_ = Instances.newDamagingMoveData();
         damage_.setCategory(SPEC);
         EffectDamage effDam_ = Instances.newEffectDamage();
-        effDam_.setPower(VAR_PREFIX+ DataBase.DEF_LANCEUR_NB_UTILISATION +DataBase.SEP_BETWEEN_KEYS+ M_NB_FIGHTER);
+        effDam_.setPower(VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_NB_UTILISATION +DataBase.SEP_BETWEEN_KEYS+ M_NB_FIGHTER);
         damage_.getEffects().add(effDam_);
         data_.completeMembers(M_NB_FIGHTER, damage_);
         StatusMoveData mrestrdef_ = Instances.newStatusMoveData();
@@ -871,7 +872,7 @@ public abstract class InitDbFight extends InitDbBean {
         DamagingMoveData used_ = Instances.newDamagingMoveData();
         used_.setCategory(SPEC);
         EffectDamage dam_ = Instances.newEffectDamage();
-        dam_.setPower(VAR_PREFIX+ DataBase.DEF_EQUIPE_NB_UTILISATION +DataBase.SEP_BETWEEN_KEYS+M_USE);
+        dam_.setPower(VAR_PREFIX+ MessagesDataBaseConstants.DEF_EQUIPE_NB_UTILISATION +DataBase.SEP_BETWEEN_KEYS+M_USE);
         used_.getEffects().add(dam_);
         data_.completeMembers(M_USE, used_);
         StatusMoveData heal_ = Instances.newStatusMoveData();
@@ -1535,12 +1536,12 @@ public abstract class InitDbFight extends InitDbBean {
     }
 
     private static void pts(DataBase _data) {
-        _data.getExpGrowth().put(ExpType.E,"2*"+DataBase.DEF_NIVEAU);
-        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
-        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
-        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",2)");
-        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+DataBase.DEF_NIVEAU);
-        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.E,"2*"+ MessagesDataBaseConstants.DEF_NIVEAU);
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",2)");
+        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU);
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");

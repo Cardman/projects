@@ -8,8 +8,8 @@ static final String CS_TRES_DIFFICILE=DataBase.DEF_TRES_DIFFICILE;
 static final String CS_DIFFICILE=DataBase.DEF_DIFFICILE;
 static final String CS_TRES_FACILE=DataBase.DEF_TRES_FACILE;
 static final String CS_FACILE=DataBase.DEF_FACILE;
-static final String VAR_LEVEL_LOOSER=DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+DataBase.DEF_LEVEL_LOOSER;
-static final String VAR_LEVEL_WINNER=DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+DataBase.DEF_LEVEL_WINNER;
+static final String VAR_LEVEL_LOOSER= MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+ MessagesDataBaseConstants.DEF_LEVEL_LOOSER;
+static final String VAR_LEVEL_WINNER= MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+ MessagesDataBaseConstants.DEF_LEVEL_WINNER;
 private Cst5(){}
 static IdMap<DifficultyWinPointsFight,String> di(){
 IdMap<DifficultyWinPointsFight,String> e=new IdMap<DifficultyWinPointsFight,String>(new CollCapacity(4));

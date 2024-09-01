@@ -2,6 +2,7 @@ package aiki.beans.help;
 
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.instances.Instances;
@@ -53,15 +54,15 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
     }
     @Test
     public void formCat() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callFightHelpBeanCatchingFormulaGet(bean(db())));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callFightHelpBeanCatchingFormulaGet(bean(db())));
     }
     @Test
     public void formDam() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callFightHelpBeanDamgeFormulaGet(bean(db())));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callFightHelpBeanDamgeFormulaGet(bean(db())));
     }
     @Test
     public void formFlee() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callFightHelpBeanFleeingFormulaGet(bean(db())));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callFightHelpBeanFleeingFormulaGet(bean(db())));
     }
     @Test
     public void varsCat() {
@@ -113,10 +114,10 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
         f_.getData().setAnimAbsorb(BaseSixtyFourUtil.getImageByString("AAABAAAA"));
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
-        f_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
-        f_.getData().setDamageFormula(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
-        f_.getData().setRateFleeing(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
-        f_.getData().setRateCatching(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
+        f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
+        f_.getData().setDamageFormula(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
+        f_.getData().setRateFleeing(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
+        f_.getData().setRateCatching(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         f_.getData().addConstNumTest(DataBase.BONUS_BOOST, Rate.one());
         f_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS, Rate.one());
         f_.getData().addConstNumTest(DataBase.MIN_HP, Rate.one());

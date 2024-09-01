@@ -1,8 +1,7 @@
 package aiki.beans.help;
 
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.Fight;
 import code.maths.Rate;
 import code.util.LongTreeMap;
 import code.util.StringMap;
@@ -31,9 +30,9 @@ public final class FightHelpBeanBoostsTest extends InitDbFightHelp {
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
-        f_.getData().setRateBoost(VAR_PREFIX+ DataBase.DEF_BOOST+"+1");
+        f_.getData().setRateBoost(VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+"+1");
         StringMap<String> litteral_ = new StringMap<String>();
-        litteral_.addEntry(DataBase.DEF_BOOST, StringUtil.concat("_",TAB,"b",TAB,"_"));
+        litteral_.addEntry(MessagesDataBaseConstants.DEF_BOOST, StringUtil.concat("_",TAB,"b",TAB,"_"));
         f_.getData().getLitterals().addEntry(LANGUAGE,litteral_);
         return f_;
     }

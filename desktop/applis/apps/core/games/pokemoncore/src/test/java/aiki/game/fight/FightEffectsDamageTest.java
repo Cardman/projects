@@ -1,5 +1,6 @@
 package aiki.game.fight;
 
+import aiki.db.MessagesDataBaseConstants;
 import aiki.util.TeamPositionsMonteCarloNumber;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -125,11 +126,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         MoveData move_ = _data.getMove(_move);
         StringList typeAtt_=FightMoves.moveTypes(_fight, _thrower,_move, _data);
         String nomActuelLanceur_=fighter_.getCurrentName();
-        variables_.put(StringUtil.concat(VAR_PREFIX, DataBase.DEF_ATTAQUE_CATEGORIE), _data.getCategory(move_));
-        variables_.put(StringUtil.concat(VAR_PREFIX, DataBase.DEF_LANCEUR_NOM), nomActuelLanceur_);
-        variables_.put(StringUtil.concat(VAR_PREFIX, DataBase.DEF_ATTAQUE_TYPES), StringUtil.join(typeAtt_, _data.getSepartorSetChar()));
-        variables_.put(StringUtil.concat(VAR_PREFIX, DataBase.DEF_ATTAQUE_NOM), _move);
-        variables_.put(StringUtil.concat(VAR_PREFIX, DataBase.DEF_PUISSANCE_BASE), _power.toNumberString());
+        variables_.put(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_ATTAQUE_CATEGORIE), _data.getCategory(move_));
+        variables_.put(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_LANCEUR_NOM), nomActuelLanceur_);
+        variables_.put(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_ATTAQUE_TYPES), StringUtil.join(typeAtt_, _data.getSepartorSetChar()));
+        variables_.put(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_ATTAQUE_NOM), _move);
+        variables_.put(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_PUISSANCE_BASE), _power.toNumberString());
         return variables_;
     }
 
@@ -827,8 +828,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = _fight.getFighter(_thrower);
         StringMap<String> variables_;
         variables_ = getValues(_fight, _thrower, _target, _move, _power, _data);
-        variables_.put(StringUtil.concat(VAR_PREFIX, DataBase.DEF_COEFF_EFF), _efficiency.toNumberString());
-        variables_.put(StringUtil.concat(VAR_PREFIX, DataBase.DEF_NB_UTILISATION_CONSECUTIF), fighter_.getNbRepeatingSuccessfulMoves().toNumberString());
+        variables_.put(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_COEFF_EFF), _efficiency.toNumberString());
+        variables_.put(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_NB_UTILISATION_CONSECUTIF), fighter_.getNbRepeatingSuccessfulMoves().toNumberString());
         return variables_;
     }
 

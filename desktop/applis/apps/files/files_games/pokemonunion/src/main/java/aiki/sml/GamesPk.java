@@ -1,6 +1,7 @@
 package aiki.sml;
 
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.util.*;
@@ -84,6 +85,7 @@ public final class GamesPk {
     // Load rom first
     private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l) {
         DataBase data_ = new DataBase(_gene);
+        MessagesDataBaseConstants.initEmpty(data_);
         data_.setLanguages(_f.getLanguages());
         data_.setDisplayLanguages(_f.getDisplayLanguages());
         _l.set(true);

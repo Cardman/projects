@@ -454,10 +454,6 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         assertTrue(data_.isError());
     }
 
-    private static DataBase newData() {
-        return new DataBase(DefaultGenerator.oneElt());
-    }
-
     @Test
     public void fail6Test() {
         DataBase data_ = newData();
@@ -979,4 +975,11 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.validateCore(new ConcreteInteger());
         assertTrue(data_.isError());
     }
+
+    private static DataBase newData() {
+        DataBase db_ = new DataBase(DefaultGenerator.oneElt());
+        MessagesDataBaseConstants.initEmpty(db_);
+        return db_;
+    }
+
 }

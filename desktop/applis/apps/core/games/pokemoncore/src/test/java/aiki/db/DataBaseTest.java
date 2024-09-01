@@ -1373,7 +1373,7 @@ public class DataBaseTest extends EquallablePkUtil {
         DataBase data_ = newData();
         data_.prefixVar("MY_VAR_");
         data_.validateOtherConstants();
-        assertEq(DataBase.VAR_DEF,data_.prefixVar());
+        assertEq(MessagesDataBaseConstants.VAR_DEF,data_.prefixVar());
     }
     @Test
     public void validateOtherConstants2(){
@@ -1389,7 +1389,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.validateOtherConstants();
         data_.prefixVar("");
         data_.validateOtherConstants();
-        assertEq(DataBase.VAR_DEF,data_.prefixVar());
+        assertEq(MessagesDataBaseConstants.VAR_DEF,data_.prefixVar());
     }
     @Test
     public void validateOtherConstants4(){
@@ -1407,56 +1407,56 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.validateOtherConstants();
         data_.niveau("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_NIVEAU,data_.niveau());
+        assertEq(MessagesDataBaseConstants.DEF_NIVEAU,data_.niveau());
     }
     @Test
     public void validateOtherConstants6(){
         DataBase data_ = newData();
         data_.levelLooser("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_LEVEL_LOOSER,data_.levelLooser());
+        assertEq(MessagesDataBaseConstants.DEF_LEVEL_LOOSER,data_.levelLooser());
     }
     @Test
     public void validateOtherConstants7(){
         DataBase data_ = newData();
         data_.levelWinner("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_LEVEL_WINNER,data_.levelWinner());
+        assertEq(MessagesDataBaseConstants.DEF_LEVEL_WINNER,data_.levelWinner());
     }
     @Test
     public void validateOtherConstants8(){
         DataBase data_ = newData();
         data_.fighterNiveau("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_FIGHTER_NIVEAU,data_.fighterNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_FIGHTER_NIVEAU,data_.fighterNiveau());
     }
     @Test
     public void validateOtherConstants9(){
         DataBase data_ = newData();
         data_.cibleNiveau("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_CIBLE_NIVEAU,data_.cibleNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_CIBLE_NIVEAU,data_.cibleNiveau());
     }
     @Test
     public void validateOtherConstants10(){
         DataBase data_ = newData();
         data_.lanceurNiveau("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_LANCEUR_NIVEAU,data_.lanceurNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_LANCEUR_NIVEAU,data_.lanceurNiveau());
     }
     @Test
     public void validateOtherConstants11(){
         DataBase data_ = newData();
         data_.pkSauvageNiveau("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_PK_SAUVAGE_NIVEAU,data_.pkSauvageNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_PK_SAUVAGE_NIVEAU,data_.pkSauvageNiveau());
     }
     @Test
     public void validateOtherConstants12(){
         DataBase data_ = newData();
         data_.pkUtNiveau("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_PK_UT_NIVEAU,data_.pkUtNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_PK_UT_NIVEAU,data_.pkUtNiveau());
     }
     @Test
     public void validateOtherConstants13(){
@@ -1464,8 +1464,8 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.levelLooser("_0");
         data_.levelWinner("_0");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_LEVEL_LOOSER,data_.levelLooser());
-        assertEq(DataBase.DEF_LEVEL_WINNER,data_.levelWinner());
+        assertEq(MessagesDataBaseConstants.DEF_LEVEL_LOOSER,data_.levelLooser());
+        assertEq(MessagesDataBaseConstants.DEF_LEVEL_WINNER,data_.levelWinner());
     }
     @Test
     public void validateOtherConstants14(){
@@ -1473,8 +1473,8 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.cibleNiveau("_0");
         data_.lanceurNiveau("_0");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_CIBLE_NIVEAU,data_.cibleNiveau());
-        assertEq(DataBase.DEF_LANCEUR_NIVEAU,data_.lanceurNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_CIBLE_NIVEAU,data_.cibleNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_LANCEUR_NIVEAU,data_.lanceurNiveau());
     }
     @Test
     public void validateOtherConstants15(){
@@ -1482,15 +1482,15 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.pkSauvageNiveau("_0");
         data_.pkUtNiveau("_0");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_PK_SAUVAGE_NIVEAU,data_.pkSauvageNiveau());
-        assertEq(DataBase.DEF_PK_UT_NIVEAU,data_.pkUtNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_PK_SAUVAGE_NIVEAU,data_.pkSauvageNiveau());
+        assertEq(MessagesDataBaseConstants.DEF_PK_UT_NIVEAU,data_.pkUtNiveau());
     }
     @Test
     public void validateOtherConstants16(){
         DataBase data_ = newData();
         data_.boost("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_BOOST,data_.boost());
+        assertEq(MessagesDataBaseConstants.DEF_BOOST,data_.boost());
     }
     @Test
     public void validateOtherConstants17(){
@@ -1499,9 +1499,9 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.attack("");
         data_.defense("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_ATTACK,data_.attack());
-        assertEq(DataBase.DEF_DEFENSE,data_.defense());
-        assertEq(DataBase.DEF_POWER,data_.power());
+        assertEq(MessagesDataBaseConstants.DEF_ATTACK,data_.attack());
+        assertEq(MessagesDataBaseConstants.DEF_DEFENSE,data_.defense());
+        assertEq(MessagesDataBaseConstants.DEF_POWER,data_.power());
     }
     @Test
     public void validateOtherConstants18(){
@@ -1511,10 +1511,10 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.foePkMaxHp("");
         data_.foePkRemoteHp("");
         data_.validateOtherConstants();
-        assertEq(DataBase.DEF_BASE_CAPT_PK,data_.baseCaptPk());
-        assertEq(DataBase.DEF_RATE_BALL_STATUS,data_.rateBallStatus());
-        assertEq(DataBase.DEF_FOE_PK_MAX_HP,data_.foePkMaxHp());
-        assertEq(DataBase.DEF_FOE_PK_REMOTE_HP,data_.foePkRemoteHp());
+        assertEq(MessagesDataBaseConstants.DEF_BASE_CAPT_PK,data_.baseCaptPk());
+        assertEq(MessagesDataBaseConstants.DEF_RATE_BALL_STATUS,data_.rateBallStatus());
+        assertEq(MessagesDataBaseConstants.DEF_FOE_PK_MAX_HP,data_.foePkMaxHp());
+        assertEq(MessagesDataBaseConstants.DEF_FOE_PK_REMOTE_HP,data_.foePkRemoteHp());
     }
     @Test
     public void completeMembers1Test() {

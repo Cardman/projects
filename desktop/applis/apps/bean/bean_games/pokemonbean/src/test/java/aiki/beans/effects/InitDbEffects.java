@@ -2,7 +2,7 @@ package aiki.beans.effects;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.*;
 import aiki.fight.enums.Statistic;
@@ -93,7 +93,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         EffectCombo co2_ = Instances.newEffectCombo();
         EffectEndRoundFoe ef_ = Instances.newEffectEndRoundFoe();
         ef_.setEndRoundRank(1);
-        ef_.setFailEndRound(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
+        ef_.setFailEndRound(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         co2_.getEffectEndRound().add(ef_);
         co2_.setMultEvtRateSecEff(Rate.newRate("2"));
         co2_.setRankIncrementNbRound((short)4);
@@ -110,7 +110,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         c_.getEffects().add(new ListEffectCombo(new StringList(M_STA_02,M_STA_03), co6_));
         facade_.getData().setCombos(c_);
         facade_.getData().getLitterals().addEntry(EN,new StringMap<String>());
-        facade_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
+        facade_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         facade_.getData().completeVariables();
         facade_.getData().completeMembersCombos();
         facade_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());

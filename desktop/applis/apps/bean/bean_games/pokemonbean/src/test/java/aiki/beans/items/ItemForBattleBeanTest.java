@@ -5,7 +5,7 @@ import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
@@ -157,11 +157,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMultPower() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callItemForBattleBeanMultPowerGet());
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callItemForBattleBeanMultPowerGet());
     }
     @Test
     public void getMultDamage() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callItemForBattleBeanMultDamageGet());
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callItemForBattleBeanMultDamageGet());
     }
     @Test
     public void getTypesPk1() {
@@ -329,7 +329,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMultStat2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,second(elt(callItemForBattleBeanMultStatGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callItemForBattleBeanMultStatGet(),0)));
     }
     @Test
     public void getTrMultStat() {
@@ -341,7 +341,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVars2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callItemForBattleBeanMapVarsGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callItemForBattleBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVars3() {
@@ -429,7 +429,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getFailStatus3() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,second(elt(callItemForBattleBeanFailStatusGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callItemForBattleBeanFailStatusGet(),0)));
     }
     @Test
     public void getTrFailStatus() {
@@ -497,7 +497,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callItemForBattleBeanMapVarsFailEndRoundGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callItemForBattleBeanMapVarsFailEndRoundGet(),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
@@ -509,7 +509,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getReasonsEndRound2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callItemForBattleBeanReasonsEndRoundGet(),0));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,elt(callItemForBattleBeanReasonsEndRoundGet(),0));
     }
     @Test
     public void getDisableWeather1() {
@@ -561,7 +561,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVarsFail2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getMapVarsFail3() {
@@ -573,7 +573,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getReasons2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectWhileSendingBeanReasonsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,elt(callEffectWhileSendingBeanReasonsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
     }
     @Test
     public void evtRate1() {
@@ -689,7 +689,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVarsStatistics2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getMapVarsStatistics3() {
@@ -701,7 +701,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVarsStatistics5() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getMapVarsStatistics6() {
@@ -713,11 +713,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getFail() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callEffectWhileSendingBeanGetFail(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one()),0));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callEffectWhileSendingBeanGetFail(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one()),0));
     }
     @Test
     public void getSwapFail() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callEffectWhileSendingBeanGetSwapFail(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one()),0));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callEffectWhileSendingBeanGetSwapFail(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one()),0));
     }
     @Test
     public void getRate() {

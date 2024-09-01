@@ -295,7 +295,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
-        core.getFacade().setData(new DataBase(_list.getGenerator()));
+        DataBase db_ = new DataBase(_list.getGenerator());
+        MessagesDataBaseConstants.initEmpty(db_);
+        core.getFacade().setData(db_);
         initMessages();
         setTitle(messages.getVal(MessagesRenderWindowPk.TITLE));
     }

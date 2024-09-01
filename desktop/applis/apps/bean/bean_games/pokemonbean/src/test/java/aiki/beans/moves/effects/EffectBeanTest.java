@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import org.junit.Test;
@@ -120,31 +120,31 @@ public final class EffectBeanTest extends InitDbMoveEffect {
     }
     @Test
     public void reasons1() {
-        assertSizeEq(3,callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR),0)));
+        assertSizeEq(3,callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)));
     }
     @Test
     public void reasons2() {
-        assertEq("("+ DataBase.DEF_TEMPS_TOUR +"|"+ DataBase.DEF_TEMPS_TOUR +")",elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR),0)),0));
+        assertEq("("+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")",elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),0));
     }
     @Test
     public void reasons3() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR),0)),1));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),1));
     }
     @Test
     public void reasons4() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR),0)),2));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),2));
     }
     @Test
     public void mapFail1() {
-        assertSizeEq(1,callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR),0)));
+        assertSizeEq(1,callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)));
     }
     @Test
     public void mapFail2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR),0)),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),0)));
     }
     @Test
     public void mapFail3() {
-        assertEq(TIME,second(elt(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR),0)),0)));
+        assertEq(TIME,second(elt(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),0)));
     }
     @Test
     public void refBase() {

@@ -4,7 +4,7 @@ import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.beans.moves.AikiBeansMovesStd;
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.util.Coords;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -209,7 +209,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getExpEvo() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callPokemonBeanExpEvoGet());
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callPokemonBeanExpEvoGet());
     }
     @Test
     public void getEvoBase() {
@@ -289,7 +289,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getMapVars2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callPokemonBeanMapVarsGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callPokemonBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVars3() {

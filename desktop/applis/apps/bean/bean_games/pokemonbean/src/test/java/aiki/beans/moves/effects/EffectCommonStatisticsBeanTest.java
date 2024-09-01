@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import org.junit.Test;
 
 public final class EffectCommonStatisticsBeanTest extends InitDbMoveEffectOther {
@@ -10,7 +10,7 @@ public final class EffectCommonStatisticsBeanTest extends InitDbMoveEffectOther 
     }
     @Test
     public void getCommonValue2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,second(elt(callEffectCommonStatisticsBeanCommonValueGet(dispMoveEffCommonStatistics()),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callEffectCommonStatisticsBeanCommonValueGet(dispMoveEffCommonStatistics()),0)));
     }
     @Test
     public void getTrStatistic() {
@@ -22,7 +22,7 @@ public final class EffectCommonStatisticsBeanTest extends InitDbMoveEffectOther 
     }
     @Test
     public void getMapVarsCommonStatistics2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(dispMoveEffCommonStatistics()),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(dispMoveEffCommonStatistics()),0)));
     }
     @Test
     public void getMapVarsCommonStatistics3() {

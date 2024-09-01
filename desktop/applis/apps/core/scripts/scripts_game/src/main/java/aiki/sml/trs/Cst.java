@@ -1,5 +1,6 @@
 package aiki.sml.trs;
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.util.*;
 import code.util.*;
 import code.maths.*;
@@ -7,7 +8,7 @@ import aiki.game.params.enums.*;
 import aiki.fight.util.*;
 import aiki.fight.pokemon.enums.*;
 public final class Cst{
-public static final String NIV= DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+DataBase.DEF_NIVEAU;
+public static final String NIV= MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+ MessagesDataBaseConstants.DEF_NIVEAU;
 private Cst(){}
 public static StringMap<Rate> cn(){
 return Cst0.cn();

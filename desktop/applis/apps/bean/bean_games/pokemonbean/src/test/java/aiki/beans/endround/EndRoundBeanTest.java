@@ -4,7 +4,7 @@ import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.status.AikiBeansStatusStd;
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import code.maths.*;
 import org.junit.Test;
 
@@ -267,7 +267,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getReasonsEndRound2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callEffectEndRoundBeanReasonsEndRoundGet(9),0));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,elt(callEffectEndRoundBeanReasonsEndRoundGet(9),0));
     }
     @Test
     public void getMapVarsFailEndRound1() {
@@ -275,7 +275,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {

@@ -1,6 +1,7 @@
 package aiki.gui;
 
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.game.Game;
 import aiki.gui.components.*;
 import aiki.gui.listeners.MouseTask;
@@ -23,7 +24,7 @@ import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableAikiGuiUtil {
-    public static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
+    public static final String VAR_PREFIX = MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     public static final String FR = StringUtil.FR;
     public static final String EN = StringUtil.EN;
     public static final String LANGUAGE = EN;

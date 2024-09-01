@@ -2,6 +2,7 @@ package fr.apps;
 
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
@@ -264,11 +265,11 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         initDefaultConsts(POKE_BALL,
                 "1",
                 "1",
-                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+DataBase.DEF_BOOST+",1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+DataBase.DEF_BOOST+")*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),2)",
-                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+",0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+",1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+")*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+",0),2)",
+                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+"-4)",
                 "1",
                 ECLAIR_3,
-                DataBase.DEFAULT_EGG_GROUP_VALUE, _data);
+                MessagesDataBaseConstants.DEFAULT_EGG_GROUP_VALUE, _data);
     }
 
     public static void initDefaultConsts(String _ballDef, String _rateCatching,
@@ -287,12 +288,12 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         _db.defValues();
     }
     public static void initExpPoints(DataBase _data) {
-        _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+DataBase.DEF_NIVEAU);
-        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
-        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
-        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",2)");
-        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+DataBase.DEF_NIVEAU);
-        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().addEntry(ExpType.E,"2*"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().addEntry(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().addEntry(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",2)");
+        _data.getExpGrowth().addEntry(ExpType.F,VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU);
+        _data.getExpGrowth().addEntry(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
         _data.getRates().addEntry(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().addEntry(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().addEntry(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -387,8 +388,8 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         words_ = DataBase.basicTranslation(EvolvedMathFactory.getFunctions());
         _data.getTranslatedFctMath().addEntry(LANGUAGE, words_);
         StringMap<String> litteral_ = new StringMap<String>();
-        litteral_.addEntry(DataBase.DEF_NIVEAU, StringUtil.concat("level",TAB,"l",TAB,"The level of the Pokemon"));
-        litteral_.addEntry(DataBase.DEF_BOOST, StringUtil.concat("boost",TAB,"b",TAB,"The boost of the Pokemon"));
+        litteral_.addEntry(MessagesDataBaseConstants.DEF_NIVEAU, StringUtil.concat("level",TAB,"l",TAB,"The level of the Pokemon"));
+        litteral_.addEntry(MessagesDataBaseConstants.DEF_BOOST, StringUtil.concat("boost",TAB,"b",TAB,"The boost of the Pokemon"));
         _data.getLitterals().addEntry(LANGUAGE,litteral_);
     }
 

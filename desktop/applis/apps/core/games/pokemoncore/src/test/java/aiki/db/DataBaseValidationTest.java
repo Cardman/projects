@@ -1349,7 +1349,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
@@ -1374,7 +1374,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
@@ -1401,7 +1401,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
@@ -1428,14 +1428,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         move_.getEffects().add(Instances.newEffectStatistic());
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.TOUS_ADV);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1455,7 +1455,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
@@ -1465,7 +1465,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.getEffects().add(effectStatistic_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.TOUS_ADV);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1485,13 +1485,13 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.ADJ_MULT);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1511,13 +1511,13 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1537,14 +1537,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setConstUserChoice(true);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1564,14 +1564,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setConstUserChoice(true);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1591,14 +1591,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setRechargeRound(true);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1618,14 +1618,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setNbPrepaRound((short) 1);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1645,14 +1645,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setPriority((byte) -1);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1672,14 +1672,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "", data_);
         StatusMoveData move_ = Instances.newStatusMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
-        effectDamage_.setPower(DataBase.VAR_DEF);
+        effectDamage_.setPower(MessagesDataBaseConstants.VAR_DEF);
         effectDamage_.setFail(MbOperationNode.TRUE_STRING);
         effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.getEffects().add(effectDamage_);
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setPriority((byte) -1);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1706,7 +1706,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         move_.setPriority((byte) -1);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
@@ -1734,7 +1734,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
         move_.setTargetChoice(TargetChoice.ANY_FOE);
         move_.setPriority((byte) -1);
-        move_.setAccuracy(DataBase.VAR_DEF);
+        move_.setAccuracy(MessagesDataBaseConstants.VAR_DEF);
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }

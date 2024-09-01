@@ -2,7 +2,7 @@ package aiki.beans.endround;
 
 import aiki.beans.*;
 import aiki.beans.db.*;
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.Combos;
 import aiki.fight.abilities.*;
@@ -473,7 +473,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
         facade_.getData().setCombos(co_);
         facade_.getData().completeMembersCombos();
         facade_.getData().getLitterals().addEntry(EN,new StringMap<String>());
-        facade_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
+        facade_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         facade_.getData().completeVariables();
         facade_.getData().sortEndRound();
         facade_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
@@ -598,7 +598,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
     private static EffectEndRoundIndividual individual(int _rk) {
         EffectEndRoundIndividual e_ = Instances.newEffectEndRoundIndividual();
-        e_.setFailEndRound(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.setEndRoundRank(_rk);
         e_.setDeleteAllStatus(Rate.one());
         e_.setRecoilDamage(Rate.one());

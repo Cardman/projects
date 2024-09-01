@@ -3,7 +3,7 @@ package aiki.beans.abilities;
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
 import aiki.beans.effects.AikiBeansEffectsStd;
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
@@ -1155,7 +1155,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
 
     protected static EffectEndRound effEndRound() {
         EffectEndRound e_ = lawEndRound();
-        e_.setFailEndRound(VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.setEndRoundRank(1);
         return e_;
     }

@@ -1,6 +1,6 @@
 package aiki.beans.help;
 
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.instances.Instances;
@@ -14,7 +14,7 @@ public final class FightHelpBeanRatesTest extends InitDbFightHelp {
         StringMap<String> b_ = FightHelpBean.ratesInit(db().getData(),EN);
         assertEq(1,b_.size());
         assertEq(DifficultyWinPointsFight.FACILE.getWinName(),b_.getKey(0));
-        assertEq(DataBase.DEF_TEMPS_TOUR,b_.getValue(0));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,b_.getValue(0));
     }
     @Test
     public void ini() {
@@ -26,9 +26,9 @@ public final class FightHelpBeanRatesTest extends InitDbFightHelp {
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
-        f_.getData().getRates().addEntry(DifficultyWinPointsFight.FACILE,VAR_PREFIX+ DataBase.DEF_TEMPS_TOUR);
+        f_.getData().getRates().addEntry(DifficultyWinPointsFight.FACILE,VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
-        f_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
+        f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getTranslatedDiffWinPts().addEntry(EN,new IdMap<DifficultyWinPointsFight,String>());
         f_.getData().getTranslatedDiffWinPts().getVal(EN).addEntry(DifficultyWinPointsFight.FACILE,"U");

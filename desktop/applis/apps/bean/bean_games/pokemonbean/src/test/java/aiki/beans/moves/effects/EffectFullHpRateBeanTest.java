@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import code.maths.Rate;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public final class EffectFullHpRateBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getRestoredHp() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callEffectFullHpRateBeanRestoredHpGet(dispMoveEffFullHpRate()));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callEffectFullHpRateBeanRestoredHpGet(dispMoveEffFullHpRate()));
     }
     @Test
     public void getMapVarsRestored1() {
@@ -23,7 +23,7 @@ public final class EffectFullHpRateBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMapVarsRestored2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callEffectFullHpRateBeanMapVarsRestoredGet(dispMoveEffFullHpRate()),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectFullHpRateBeanMapVarsRestoredGet(dispMoveEffFullHpRate()),0)));
     }
     @Test
     public void getMapVarsRestored3() {

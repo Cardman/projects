@@ -1,6 +1,7 @@
 package fr.apps;
 
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
@@ -8,7 +9,7 @@ import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableApplicationsUtil {
-    public static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
+    public static final String VAR_PREFIX = MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     public static final String EN = StringUtil.EN;
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

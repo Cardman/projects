@@ -35,7 +35,7 @@ import code.util.*;
 
 public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String LANGUAGE = EN;
-    protected static final String VAR_PREFIX = DataBase.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
+    protected static final String VAR_PREFIX = MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     protected static final String RAI = "RAI";
     protected static final String RAI2 = "RAI2";
     protected static final String RAI_TR = "RE";
@@ -687,12 +687,12 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         return t_;
     }
     static void initExpPointsSec(DataBase _data) {
-        _data.getExpGrowth().put(ExpType.E,"2*"+VAR_PREFIX+DataBase.DEF_NIVEAU);
-        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
-        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
-        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",2)");
-        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+DataBase.DEF_NIVEAU);
-        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.E,"2*"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU);
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",2)");
+        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU);
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
@@ -720,13 +720,13 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         _data.addConstNumTest(DataBase.MAX_STEPS, new Rate("1024"));
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
         initDefaultConsts(POKE_BALL,
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_FOE_PK_MAX_HP+","+VAR_PREFIX+DataBase.DEF_FOE_PK_REMOTE_HP+"),2)",
-                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+DataBase.DEF_PK_UT_VITESSE+","+VAR_PREFIX+DataBase.DEF_PK_SAUVAGE_VITESSE+"),1)",
-                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+DataBase.DEF_BOOST+",1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+DataBase.DEF_BOOST+")*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+DataBase.DEF_BOOST+",0),2)",
-                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+DataBase.DEF_BOOST+"-4)",
-                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+DataBase.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+DataBase.DEF_ATTACK+"*"+VAR_PREFIX+DataBase.DEF_POWER+",(125*"+VAR_PREFIX+DataBase.DEF_DEFENSE+"))",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_FOE_PK_MAX_HP+","+VAR_PREFIX+ MessagesDataBaseConstants.DEF_FOE_PK_REMOTE_HP+"),2)",
+                MbOperationNode.CARAC_DROITE_FERME+"("+MbOperationNode.DIV_FCT+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_PK_UT_VITESSE+","+VAR_PREFIX+ MessagesDataBaseConstants.DEF_PK_SAUVAGE_VITESSE+"),1)",
+                MbOperationNode.DIV_FCT+"(2*"+MbOperationNode.CARAC_GAUCHE_OUVERT+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+",0),"+MbOperationNode.MAX+"(2-"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+",1))+"+MbOperationNode.DIV_FCT+"((2+"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+")*"+MbOperationNode.CARAC_DROITE_FERME+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+",0),2)",
+                MbOperationNode.PUIS+"(2,"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+"-4)",
+                MbOperationNode.DIV_FCT+"((5+"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_NIVEAU+")*"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_ATTACK+"*"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_POWER+",(125*"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_DEFENSE+"))",
                 LUTTE,
-                DataBase.DEFAULT_EGG_GROUP_VALUE, _data);
+                MessagesDataBaseConstants.DEFAULT_EGG_GROUP_VALUE, _data);
     }
     static void initDefaultConsts(String _ballDef, String _rateCatching,
                                   String _rateFleeing, String _rateBoost,
@@ -743,12 +743,12 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         _db.setDefCategory("AUTRE");
     }
     private static void initExpPoints(DataBase _data) {
-        _data.getExpGrowth().put(ExpType.E,"2*"+DataBase.DEF_NIVEAU);
-        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
-        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
-        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",2)");
-        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+DataBase.DEF_NIVEAU);
-        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+DataBase.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.E,"2*"+ MessagesDataBaseConstants.DEF_NIVEAU);
+        _data.getExpGrowth().put(ExpType.L,"5/4*"+MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.M,MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
+        _data.getExpGrowth().put(ExpType.P,MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",2)");
+        _data.getExpGrowth().put(ExpType.F,VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU);
+        _data.getExpGrowth().put(ExpType.R,"4/5*"+MbOperationNode.PUIS+"("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU+",3)");
         _data.getRates().put(DifficultyWinPointsFight.TRES_FACILE, "4");
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");

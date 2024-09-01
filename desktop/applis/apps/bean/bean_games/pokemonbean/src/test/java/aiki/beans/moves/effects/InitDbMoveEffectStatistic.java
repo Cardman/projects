@@ -3,6 +3,7 @@ package aiki.beans.moves.effects;
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
@@ -79,7 +80,7 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectStatistic _eff) {
         FacadeGame f_ = feedDbMoveEffDataDam(_eff);
-        f_.getData().getLitterals().getVal(EN).addEntry(DataBase.DEF_TEMPS_TOUR, TAB+ DataBase.DEF_TEMPS_TOUR +TAB+TIME);
+        f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         return f_;
     }
     protected static NaSt dispMoveEffStatis(FacadeGame _fac, int _index) {

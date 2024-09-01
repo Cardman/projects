@@ -3,7 +3,7 @@ package aiki.beans.abilities;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
-import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.StringList;
@@ -288,11 +288,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultPower() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callAbilityBeanMultPowerGet());
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callAbilityBeanMultPowerGet());
     }
     @Test
     public void getMultDamage() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,callAbilityBeanMultDamageGet());
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callAbilityBeanMultDamageGet());
     }
     @Test
     public void getDefEff() {
@@ -468,7 +468,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStat2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,second(elt(callAbilityBeanMultStatGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callAbilityBeanMultStatGet(),0)));
     }
     @Test
     public void getTrMultStat() {
@@ -792,7 +792,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getFailStatus3() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,second(elt(callAbilityBeanFailStatusGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callAbilityBeanFailStatusGet(),0)));
     }
     @Test
     public void getTrFailStatus() {
@@ -1278,7 +1278,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMapVars2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callAbilityBeanMapVarsGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callAbilityBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVars3() {
@@ -1290,7 +1290,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,first(elt(callAbilityBeanMapVarsFailEndRoundGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callAbilityBeanMapVarsFailEndRoundGet(),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
@@ -1302,7 +1302,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getReasonsEndRound2() {
-        assertEq(DataBase.DEF_TEMPS_TOUR,elt(callAbilityBeanReasonsEndRoundGet(),0));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,elt(callAbilityBeanReasonsEndRoundGet(),0));
     }
     @Test
     public void clickAbilities() {
