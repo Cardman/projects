@@ -23,6 +23,8 @@ public final class MessagesNetWork {
     public static final String USED_PORT = "15";
     public static final String APPS_NETWORK = "network";
     public static final String COMMON = "common";
+    public static final String NET_ZERO = "net0";
+    public static final String WLAN_ZERO = "wlan0";
 
     private MessagesNetWork() {
     }

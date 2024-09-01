@@ -4,6 +4,7 @@ import code.gui.initialize.AbstractAddressList;
 import code.gui.initialize.AbstractNetworkInterfaceList;
 import code.gui.initialize.AbstractSocketFactory;
 import code.maths.litteralcom.MathExpUtil;
+import code.netw.MessagesNetWork;
 import code.network.enums.IpType;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
@@ -14,8 +15,6 @@ import code.util.core.StringUtil;
 
 public final class NetCreate {
 
-    static final String NET_ZERO = "net0";
-    static final String WLAN_ZERO = "wlan0";
     static final int MAX_PORT = 256 * 256;
     private static final String LINE_RETURN_N = "\n";
     private static final String LINE_RETURN_R = "\r";
@@ -66,7 +65,7 @@ public final class NetCreate {
         StringList host_ = new StringList();
         for (int i = 0; i < size_; i++) {
             String name_ = _list.getName(i);
-            if (!StringUtil.quickEq(name_.trim(), NET_ZERO) && !StringUtil.quickEq(name_.trim(), WLAN_ZERO) || _list.isVirtual(i)) {
+            if (!StringUtil.quickEq(name_.trim(), MessagesNetWork.NET_ZERO) && !StringUtil.quickEq(name_.trim(), MessagesNetWork.WLAN_ZERO) || _list.isVirtual(i)) {
                 continue;
             }
             feed(_ipType, host_, _list.list(i));

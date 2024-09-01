@@ -19,6 +19,7 @@ import code.gui.AbsCustComponent;
 import code.gui.LanguagesButtonsPair;
 import code.gui.initialize.*;
 import code.mock.*;
+import code.netw.MessagesNetWork;
 import code.network.enums.IpType;
 import code.util.CustList;
 import code.util.IdList;
@@ -98,13 +99,13 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
     public void hostAddresses1() {
         MockNetworkInterfaceList list_ = new MockNetworkInterfaceList();
         list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),"__",true));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),NetCreate.WLAN_ZERO,false));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),NetCreate.NET_ZERO,false));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),NetCreate.WLAN_ZERO,true));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),NetCreate.NET_ZERO,true));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()), MessagesNetWork.WLAN_ZERO,false));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()), MessagesNetWork.NET_ZERO,false));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()), MessagesNetWork.WLAN_ZERO,true));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()), MessagesNetWork.NET_ZERO,true));
         list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),"",false));
         list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("",true,true,false),new MockAddress("",true,false,true))),"__",false));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("1",false,false,false))),NetCreate.WLAN_ZERO,false));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("1",false,false,false))), MessagesNetWork.WLAN_ZERO,false));
         StringList res_ = NetCreate.hostAddresses(IpType.HOST_NAME, list_);
         assertEq(1,res_.size());
         assertEq("1",res_.get(0));
@@ -114,8 +115,8 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         MockNetworkInterfaceList list_ = new MockNetworkInterfaceList();
         list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),"__",true));
         list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),"",false));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("",true,true,false),new MockAddress("",true,false,true))),NetCreate.NET_ZERO,false));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("1",false,true,false),new MockAddress("2",false,false,true))),NetCreate.WLAN_ZERO,false));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("",true,true,false),new MockAddress("",true,false,true))), MessagesNetWork.NET_ZERO,false));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("1",false,true,false),new MockAddress("2",false,false,true))), MessagesNetWork.WLAN_ZERO,false));
         StringList res_ = NetCreate.hostAddresses(IpType.IP_V4, list_);
         assertEq(1,res_.size());
         assertEq("1",res_.get(0));
@@ -125,8 +126,8 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         MockNetworkInterfaceList list_ = new MockNetworkInterfaceList();
         list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),"__",true));
         list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>()),"",false));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("",true,true,false),new MockAddress("",true,false,true))),NetCreate.NET_ZERO,false));
-        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("1",false,true,false),new MockAddress("2",false,false,true))),NetCreate.WLAN_ZERO,false));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("",true,true,false),new MockAddress("",true,false,true))), MessagesNetWork.NET_ZERO,false));
+        list_.getList().add(new MockNetworkInterface(init(new CustList<MockAddress>(new MockAddress("1",false,true,false),new MockAddress("2",false,false,true))), MessagesNetWork.WLAN_ZERO,false));
         StringList res_ = NetCreate.hostAddresses(IpType.IP_V6, list_);
         assertEq(1,res_.size());
         assertEq("2",res_.get(0));
