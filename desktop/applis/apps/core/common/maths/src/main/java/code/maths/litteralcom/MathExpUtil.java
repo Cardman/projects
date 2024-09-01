@@ -10,6 +10,7 @@ import code.util.ints.ListableEntries;
 public final class MathExpUtil {
 
     private static final char CHAR_WORD_OTHER = '_';
+    private static final char DOLLAR = 36;
 
     private MathExpUtil() {
     }
@@ -158,7 +159,7 @@ public final class MathExpUtil {
     }
 
     public static boolean isDollarWordChar(char _char) {
-        if (_char == '$') {
+        if (_char == DOLLAR) {
             return true;
         }
         return isWordChar(_char);
