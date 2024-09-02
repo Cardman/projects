@@ -3018,10 +3018,11 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         writeToServer(_server, _socket);
     }
     private static AbsCustComponent componentDog(ContainerMultiTarot _compo, CardTarot _cb) {
-        HandTarot h_ = new HandTarot();
-        h_.ajouterCartes(_compo.getCardsInDog());
-        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
-        return _compo.tapisTarot().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
+//        HandTarot h_ = new HandTarot();
+//        h_.ajouterCartes(_compo.getCardsInDog());
+//        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
+//        return _compo.tapisTarot().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
+        return _compo.tapisTarot().getCenterDeck().getComponent(_compo.getCardsInDog().getCards().indexOfObj(_cb));
     }
     private static AbsCustComponent componentUnion(ContainerMultiTarot _compo, CardTarot _cb) {
         HandTarot h_ = new HandTarot();
@@ -3030,16 +3031,18 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         return _compo.getPanelHand().getComponent(h_.getCards().indexOfObj(_cb));
     }
     private static AbsCustComponent componentHandful(ContainerMultiTarot _compo, CardTarot _cb) {
-        HandTarot h_ = new HandTarot();
-        h_.ajouterCartes(_compo.getCurrentIncludedTrumps());
-        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
-        return _compo.getIncludedTrumpsForHandful().getComponent(h_.getCards().indexOfObj(_cb));
+//        HandTarot h_ = new HandTarot();
+//        h_.ajouterCartes(_compo.getCurrentIncludedTrumps());
+//        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
+//        return _compo.getIncludedTrumpsForHandful().getComponent(h_.getCards().indexOfObj(_cb));
+        return _compo.getIncludedTrumpsForHandful().getComponent(_compo.getCurrentIncludedTrumps().getCards().indexOfObj(_cb));
     }
     private static AbsCustComponent componentHandfulExc(ContainerMultiTarot _compo, CardTarot _cb) {
-        HandTarot h_ = new HandTarot();
-        h_.ajouterCartes(_compo.getCurrentExcludedTrumps());
-        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
-        return _compo.getExcludedTrumpsForHandful().getComponent(h_.getCards().indexOfObj(_cb));
+//        HandTarot h_ = new HandTarot();
+//        h_.ajouterCartes(_compo.getCurrentExcludedTrumps());
+//        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
+//        return _compo.getExcludedTrumpsForHandful().getComponent(h_.getCards().indexOfObj(_cb));
+        return _compo.getExcludedTrumpsForHandful().getComponent(_compo.getCurrentExcludedTrumps().getCards().indexOfObj(_cb));
     }
 
     private static void tryClickCall(ContainerMultiTarot _compo, MockGameTarot _mock) {

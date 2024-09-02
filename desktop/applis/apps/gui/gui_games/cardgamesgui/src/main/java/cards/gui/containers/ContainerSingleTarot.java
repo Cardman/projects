@@ -1527,6 +1527,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public static String err(ContainerTarot _curCont, IdList<CardTarot> _must, CardTarot _t, IdList<CardTarot> _discarded) {
         if (_discarded.containsObj(_t)) {
+            HandTarot d_ = new HandTarot();
+            d_.setCards(_discarded);
+            if (_t.getId().getCouleur() != Suit.TRUMP && !d_.couleur(Suit.TRUMP).estVide()) {
+                TranslationsLg lg_ = _curCont.getOwner().getFrames().currentLg();
+                return StringUtil.simpleStringsFormat(_curCont.file().getVal(MessagesGuiCards.MAIN_CANT_RESTORE), Games.toString(_t,lg_));
+            }
             return "";
         }
         if (_must.containsObj(_t)) {

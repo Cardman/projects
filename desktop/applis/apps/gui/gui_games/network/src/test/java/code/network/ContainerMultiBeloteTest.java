@@ -1547,10 +1547,11 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
     }
 
     private static AbsCustComponent componentDog(ContainerMultiBelote _compo, CardBelote _cb) {
-        HandBelote h_ = new HandBelote();
-        h_.ajouterCartes(_compo.getCardsInDog());
-        h_.trier(_compo.getDisplayingBelote().getDisplaying().getSuits(), _compo.getDisplayingBelote().getDisplaying().isDecreasing(), _compo.getBidMax());
-        return _compo.tapisBelote().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
+//        HandBelote h_ = new HandBelote();
+//        h_.ajouterCartes(_compo.getCardsInDog());
+//        h_.trier(_compo.getDisplayingBelote().getDisplaying().getSuits(), _compo.getDisplayingBelote().getDisplaying().isDecreasing(), _compo.getBidMax());
+//        return _compo.tapisBelote().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
+        return _compo.tapisBelote().getCenterDeck().getComponent(_compo.getCardsInDog().getCards().indexOfObj(_cb));
     }
     private static void tryClickCard(ContainerMultiBelote _compo, MockGameBelote _mock) {
         tryClickCard(component(_compo,_mock.currentCard()));

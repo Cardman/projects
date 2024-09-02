@@ -457,7 +457,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertEq(BidTarot.GUARD, game_.getContrat());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
-        assertEq(0, game_.getCardsToBeDiscarded());
+//        assertEq(0, game_.getCardsToBeDiscarded());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
         //assertFalse(game_.chienPasVuOuIa());
@@ -3900,7 +3900,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.firstLead();
         CheckerGameTarotWithRules.check(game_);
         assertFalse(game_.getError().isEmpty());
-        game_.autoriseEcartDe(CardTarot.SPADE_QUEEN);
+//        game_.autoriseEcartDe(CardTarot.SPADE_QUEEN);
     }
     private static DealTarot deal1(byte _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();

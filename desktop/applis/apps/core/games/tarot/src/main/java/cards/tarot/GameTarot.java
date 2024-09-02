@@ -79,7 +79,7 @@ public final class GameTarot {
 
 //    private BidTarot lastBid = BidTarot.FOLD;
 
-    private int cardsToBeDiscardedCount;
+//    private int cardsToBeDiscardedCount;
 
 //    private CardTarot playedCard = CardTarot.WHITE;
 
@@ -185,7 +185,7 @@ public final class GameTarot {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             gameTarotContent.getHandfuls().set( joueur_, new HandTarot());
         }
-        cardsToBeDiscardedCount = 0;
+//        cardsToBeDiscardedCount = 0;
     }
 
     private void firstTrickIfNoBid() {
@@ -207,7 +207,7 @@ public final class GameTarot {
         bid = bt_.getBid();
         patchBids();
         boolean defined_ = avContrat(rules) && bid.isJouerDonne() && rules.getDealing().getAppel() == CallingCard.DEFINED;
-        cardsToBeDiscarded();
+//        cardsToBeDiscarded();
         if (!defined_) {
             calledPlayers = new Bytes(joueursAyantCarteAppelee());
         } else {
@@ -312,16 +312,16 @@ public final class GameTarot {
         }
     }
 
-    private void cardsToBeDiscarded() {
-        cardsToBeDiscardedCount = 0;
-        if (bid.getJeuChien() == PlayingDog.WITH) {
-            if (tricks.isEmpty()) {
-                cardsToBeDiscardedCount += getPliEnCours().total();
-            } else {
-                cardsToBeDiscardedCount += tricks.first().total();
-            }
-        }
-    }
+//    private void cardsToBeDiscarded() {
+//        cardsToBeDiscardedCount = 0;
+//        if (bid.getJeuChien() == PlayingDog.WITH) {
+//            if (tricks.isEmpty()) {
+//                cardsToBeDiscardedCount += getPliEnCours().total();
+//            } else {
+//                cardsToBeDiscardedCount += tricks.first().total();
+//            }
+//        }
+//    }
 
     private BidTarotTaker bid() {
         return bidding(rules.getDealing(), bids, deal.getDealer());
@@ -995,20 +995,20 @@ public final class GameTarot {
     }
 
     public ReasonDiscard autoriseEcartDe(CardTarot _c) {
-        if(cardsToBeDiscardedCount >= getDistribution()
-                .derniereMain().total()) {
-            return ReasonDiscard.TOO_MUCH;
-        }
-        cardsToBeDiscardedCount++;
+//        if(getPliEnCours().total() >= getDistribution()
+//                .derniereMain().total()) {
+//            return ReasonDiscard.TOO_MUCH;
+//        }
+//        cardsToBeDiscardedCount++;
         HandTarot ecartables_ = ecartables();
         ecartables_.supprimerCartes(getPliEnCours().getCartes());
         if (_c.getId().getCouleur() == Suit.TRUMP && ecartables_.total() > ecartables_.couleur(Suit.TRUMP).total()) {
             return reasonDiscard(_c);
         }
         boolean allowed_ = ecartables_.contient(_c);
-        if (!allowed_) {
-            cardsToBeDiscardedCount--;
-        }
+//        if (!allowed_) {
+//            cardsToBeDiscardedCount--;
+//        }
         if (allowed_) {
             return ReasonDiscard.NOTHING;
         }
@@ -1113,9 +1113,10 @@ public final class GameTarot {
         return discarding(calledCards,mainPreneur_);
     }
     private HandTarot discarding(HandTarot _carteAppelee, HandTarot _taker) {
-        HandTarot handStrat_ = strategieEcart(_carteAppelee,_taker);
-        cardsToBeDiscardedCount = 0;
-        return handStrat_;
+//        HandTarot handStrat_ = strategieEcart(_carteAppelee,_taker);
+//        cardsToBeDiscardedCount = 0;
+//        return handStrat_;
+        return strategieEcart(_carteAppelee,_taker);
     }
 
     private HandTarot strategieEcart(HandTarot _carteAppelee, HandTarot _taker) {
@@ -1125,14 +1126,14 @@ public final class GameTarot {
         return g_.strategieEcart(_carteAppelee);
     }
 
-    public void invaliderAjoutCarteAuChien() {
-        cardsToBeDiscardedCount--;
-    }
+//    public void invaliderAjoutCarteAuChien() {
+//        cardsToBeDiscardedCount--;
+//    }
 
     public void retirerUneCarteDuChien(CardTarot _ct) {
         progressingTrick.retirer(_ct);
         deal.hand(getPreneur()).ajouter(_ct);
-        invaliderAjoutCarteAuChien();
+//        invaliderAjoutCarteAuChien();
     }
 
     public void gererChienInconnu() {
@@ -1897,9 +1898,9 @@ public final class GameTarot {
         error = _error;
     }
 
-    public int getCardsToBeDiscarded() {
-        return cardsToBeDiscardedCount;
-    }
+//    public int getCardsToBeDiscarded() {
+//        return cardsToBeDiscardedCount;
+//    }
 
     public boolean isEnded() {
         return ended;

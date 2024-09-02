@@ -4506,10 +4506,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
 
     private static AbsCustComponent componentDog(ContainerSingleBelote _compo, CardBelote _cb) {
-        HandBelote h_ = new HandBelote();
-        h_.ajouterCartes(_compo.partieBelote().getPliEnCours().getCards());
-        h_.trier(_compo.getDisplayingBelote().getDisplaying().getSuits(), _compo.getDisplayingBelote().getDisplaying().isDecreasing(), _compo.partieBelote().getBid());
-        return _compo.tapisBelote().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
+//        HandBelote h_ = new HandBelote();
+//        h_.ajouterCartes(_compo.partieBelote().getPliEnCours().getCards());
+//        h_.trier(_compo.getDisplayingBelote().getDisplaying().getSuits(), _compo.getDisplayingBelote().getDisplaying().isDecreasing(), _compo.partieBelote().getBid());
+//        return _compo.tapisBelote().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
+        return _compo.tapisBelote().getCenterDeck().getComponent(_compo.partieBelote().getPliEnCours().getCards().getCards().indexOfObj(_cb));
     }
     private static void tryClickCard(ContainerSingleBelote _compo, MockGameBelote _mock) {
         tryClickCard(component(_compo,_mock.currentCard()));
