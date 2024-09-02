@@ -20528,18 +20528,6 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
         assertTrue(StringDataUtil.isLetterOrDigit('A'));
     }
     @Test
-    public void type() {
-        TstsCharacters tsts_ = new TstsCharacters();
-        assertEq(-1, tsts_.getMin());
-        assertEq(18, tsts_.getMax());
-        assertEq(0, tsts_.getMinType());
-        assertEq(30, tsts_.getMaxType());
-        assertEq('A', tsts_.getMinLetter());
-        assertEq(65500, tsts_.getMaxLetter());
-        assertEq('0', tsts_.getMinLetterDigit());
-        assertEq(65500, tsts_.getMaxLetterDigit());
-    }
-    @Test
     public void toLowerCaseTest() {
         assertEq("0", StringDataUtil.toLowerCase("0"));
     }

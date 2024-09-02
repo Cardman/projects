@@ -2,43 +2,13 @@ package code.expressionlanguage.tsts;
 
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
-import code.expressionlanguage.common.StringDataLetterUtil;
-import code.expressionlanguage.common.StringDataUtil;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
-import code.util.core.NumberUtil;
 
 public final class TstsCharacters {
-    private int max = -1;
-    private int maxType = -1;
-    private int min = 100;
-    private int minType = 100;
-    private int maxLetter = -1;
-    private int minLetter = -1;
-    private int maxLetterDigit = -1;
-    private int minLetterDigit = -1;
-    public TstsCharacters() {
-        for (int i = 0; i < 256*256;i++) {
-            int dir_ = StringDataUtil.getDirectionality((char) i);
-            int type_ = StringDataUtil.getType((char) i);
-            max = NumberUtil.max(dir_,max);
-            min = NumberUtil.min(dir_,min);
-            maxType = NumberUtil.max(type_,maxType);
-            minType = NumberUtil.min(type_,minType);
-            if (StringDataLetterUtil.isLetter((char) i)) {
-                if (minLetter == -1) {
-                    minLetter = i;
-                }
-                maxLetter = i;
-            }
-            if (StringDataUtil.isLetterOrDigit((char) i)) {
-                if (minLetterDigit == -1) {
-                    minLetterDigit = i;
-                }
-                maxLetterDigit = i;
-            }
-        }
+
+    private TstsCharacters() {
     }
 
     public static CustList<StringList> annotationsParams(CustList<ResultParsedAnnots> _list) {
@@ -81,35 +51,4 @@ public final class TstsCharacters {
         return ls_;
     }
 
-    public int getMax() {
-        return max;
-    }
-
-    public int getMaxLetter() {
-        return maxLetter;
-    }
-
-    public int getMaxLetterDigit() {
-        return maxLetterDigit;
-    }
-
-    public int getMaxType() {
-        return maxType;
-    }
-
-    public int getMin() {
-        return min;
-    }
-
-    public int getMinLetter() {
-        return minLetter;
-    }
-
-    public int getMinLetterDigit() {
-        return minLetterDigit;
-    }
-
-    public int getMinType() {
-        return minType;
-    }
 }
