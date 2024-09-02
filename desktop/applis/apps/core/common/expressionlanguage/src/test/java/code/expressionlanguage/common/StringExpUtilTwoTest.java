@@ -1,7 +1,6 @@
 package code.expressionlanguage.common;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.tsts.TstsCharacters;
 import code.maths.litteralcom.MathExpUtil;
 import code.util.StringList;
 import org.junit.Test;
