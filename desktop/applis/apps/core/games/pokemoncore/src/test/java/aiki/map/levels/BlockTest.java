@@ -1,15 +1,12 @@
 package aiki.map.levels;
 
 import aiki.db.EquallablePkUtil;
-import code.images.ImageCsv;
 import code.maths.montecarlo.DefaultGenerator;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.util.Point;
-import code.util.StringList;
 
 
 public class BlockTest extends EquallablePkUtil {
@@ -72,19 +69,11 @@ public class BlockTest extends EquallablePkUtil {
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
 
-    private static StringList getPixels() {
-        StringList list_ = new StringList("1","2","6","9","-1","12");
-        list_.addAllElts(new StringList("1","2","6","9","-1","12"));
-        list_.addAllElts(new StringList("1","2","6","9","-1","12"));
-        list_.addAllElts(new StringList("1","2","6","9","-1","12"));
-        return list_;
-    }
-
     @Test
     public void isValidForEditing3Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
@@ -93,7 +82,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing4Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
     }
@@ -102,7 +91,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing5Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
         Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
@@ -113,7 +102,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing6Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
         Block blockTwo_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
@@ -124,7 +113,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing7Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
         Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
@@ -135,7 +124,7 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing8Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile2.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
@@ -144,11 +133,15 @@ public class BlockTest extends EquallablePkUtil {
     public void isValidForEditing9Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
-        dataBase_.addImage("tile.png", getImageByString(StringUtil.concat("6",Character.toString(ImageCsv.SEPARATOR_CHAR), StringUtil.join(getPixels(), ImageCsv.SEPARATOR_CHAR))));
+        dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(3);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
-    private static int[][] getImageByString(String _string) {
-        return ImageCsv.getImageByString(_string);
+
+    static int[][] rows() {
+        return new int[][]{row(),row(),row(),row()};
+    }
+    static int[] row() {
+        return new int[]{1,2,6,9,-1,12};
     }
 }

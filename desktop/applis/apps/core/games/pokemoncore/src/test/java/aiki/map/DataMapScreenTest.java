@@ -2,11 +2,8 @@ package aiki.map;
 
 import aiki.db.EquallablePkUtil;
 import aiki.map.util.PlaceInterConnects;
-import aiki.tsts.TstsPk;
 import aiki.util.*;
-import code.images.ImageCsv;
 import code.maths.montecarlo.DefaultGenerator;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -23,7 +20,6 @@ import aiki.map.places.Road;
 import aiki.map.util.ScreenCoords;
 import code.util.*;
 
-import code.util.StringList;
 import code.util.StringMap;
 
 public class DataMapScreenTest extends EquallablePkUtil {
@@ -713,21 +709,21 @@ public class DataMapScreenTest extends EquallablePkUtil {
 
     private StringMap<int[][]> imgages() {
         StringMap<int[][]> images_ = new StringMap<int[][]>();
-        StringList list_ = new StringList("3","4","5","6");
-        StringList voie_ = csvImgs("6", 9, list_);
-        images_.put(VOIE, getImageByString(StringUtil.join(voie_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieTwo_ = csvImgs("12", 18, list_);
-        images_.put(VOIE2, getImageByString(StringUtil.join(voieTwo_, ImageCsv.SEPARATOR_CHAR)));
-        StringList voieThree_ = csvImgs("6", 18, list_);
-        images_.put(VOIE3, getImageByString(StringUtil.join(voieThree_, ImageCsv.SEPARATOR_CHAR)));
+        images_.put(VOIE, new int[][]{shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2()});
+        images_.put(VOIE2, new int[][]{longRow(), longRow(), longRow(), longRow(), longRow(), longRow()});
+        images_.put(VOIE3, new int[][]{shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2()});
         return images_;
     }
 
-    private StringList csvImgs(String _w, int _nb, StringList _list) {
-        return TstsPk.csvImg(_w, _nb, _list);
+    private int[] longRow() {
+        return new int[]{3, 4, 5, 6, 3, 4, 5, 6, 3, 4, 5, 6};
     }
 
-    private static int[][] getImageByString(String _string) {
-        return ImageCsv.getImageByString(_string);
+    private int[] shortRow2() {
+        return new int[]{5, 6, 3, 4, 5, 6};
+    }
+
+    private int[] shortRow1() {
+        return new int[]{3, 4, 5, 6, 3, 4};
     }
 }
