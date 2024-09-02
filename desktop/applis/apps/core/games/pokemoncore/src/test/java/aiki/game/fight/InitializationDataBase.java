@@ -33,6 +33,7 @@ import code.util.IdMap;
 import code.util.*;
 
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public class InitializationDataBase extends EquallablePkUtil {
@@ -1938,6 +1939,10 @@ public class InitializationDataBase extends EquallablePkUtil {
         chs_.add(ch_);
 //        _fightSimulation.setTeams(chs_, _begin);
         _fightSimulation.setTeams(chs_);
+    }
+
+    public static int countValues(CustList<BoolVal> _map, BoolVal _taken) {
+        return new IdList<BoolVal>(_map).indexesOfObj(_taken).size();
     }
 
     public void fullHeal(Fight _f, TeamPosition _id, DataBase _d) {

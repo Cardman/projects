@@ -13152,7 +13152,7 @@ public class FightFacadeTest extends InitializationDataBase {
 //            }
 //        }
 //        return nb_;
-        return DataBase.countValues(_map.values(), _value);
+        return countValues(_map.values(), _value);
     }
 
     private static Fight saveFight(Fight _currentFight) {

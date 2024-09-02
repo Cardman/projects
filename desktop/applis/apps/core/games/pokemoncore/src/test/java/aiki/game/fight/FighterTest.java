@@ -5698,8 +5698,9 @@ public class FighterTest extends InitializationDataBase {
         StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
-        StringList attaquesConnues_=getMoves(newMoves_,false);
-        StringList attaquesApprendre_=getMoves(newMoves_,true);
+        StringList attaquesConnues_=new StringList();
+        StringList attaquesApprendre_=new StringList();
+        Fighter.updateMoveList(newMoves_,attaquesConnues_,attaquesApprendre_);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         assertEq(0, fighter_.getMovesToBeLearnt().size());
     }
@@ -5734,8 +5735,9 @@ public class FighterTest extends InitializationDataBase {
         StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
-        StringList attaquesConnues_=getMoves(newMoves_,false);
-        StringList attaquesApprendre_=getMoves(newMoves_,true);
+        StringList attaquesConnues_=new StringList();
+        StringList attaquesApprendre_=new StringList();
+        Fighter.updateMoveList(newMoves_,attaquesConnues_,attaquesApprendre_);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         StringList movesToBeLearnt_ = fighter_.getMovesToBeLearnt();
         assertEq(1, movesToBeLearnt_.size());
@@ -5771,8 +5773,9 @@ public class FighterTest extends InitializationDataBase {
         StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
-        StringList attaquesConnues_=getMoves(newMoves_,false);
-        StringList attaquesApprendre_=getMoves(newMoves_,true);
+        StringList attaquesConnues_=new StringList();
+        StringList attaquesApprendre_=new StringList();
+        Fighter.updateMoveList(newMoves_,attaquesConnues_,attaquesApprendre_);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
         learnMoves(fighter_, attaquesApprendre_, data_);
@@ -5828,8 +5831,9 @@ public class FighterTest extends InitializationDataBase {
         StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
-        StringList attaquesConnues_=getMoves(newMoves_,false);
-        StringList attaquesApprendre_=getMoves(newMoves_,true);
+        StringList attaquesConnues_=new StringList();
+        StringList attaquesApprendre_=new StringList();
+        Fighter.updateMoveList(newMoves_,attaquesConnues_,attaquesApprendre_);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
         learnMoves(fighter_, attaquesApprendre_, data_);
@@ -5885,8 +5889,9 @@ public class FighterTest extends InitializationDataBase {
         StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
-        StringList attaquesConnues_=getMoves(newMoves_,false);
-        StringList attaquesApprendre_=getMoves(newMoves_,true);
+        StringList attaquesConnues_=new StringList();
+        StringList attaquesApprendre_=new StringList();
+        Fighter.updateMoveList(newMoves_,attaquesConnues_,attaquesApprendre_);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
         learnMoves(fighter_, attaquesApprendre_, data_);
@@ -5941,8 +5946,9 @@ public class FighterTest extends InitializationDataBase {
         StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
-        StringList attaquesConnues_=getMoves(newMoves_,false);
-        StringList attaquesApprendre_=getMoves(newMoves_,true);
+        StringList attaquesConnues_=new StringList();
+        StringList attaquesApprendre_=new StringList();
+        Fighter.updateMoveList(newMoves_,attaquesConnues_,attaquesApprendre_);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
         learnMoves(fighter_, attaquesApprendre_, data_);
@@ -5998,8 +6004,9 @@ public class FighterTest extends InitializationDataBase {
         StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
-        StringList attaquesConnues_=getMoves(newMoves_,false);
-        StringList attaquesApprendre_=getMoves(newMoves_,true);
+        StringList attaquesConnues_=new StringList();
+        StringList attaquesApprendre_=new StringList();
+        Fighter.updateMoveList(newMoves_,attaquesConnues_,attaquesApprendre_);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
         learnMoves(fighter_, attaquesApprendre_, data_);
@@ -6057,8 +6064,9 @@ public class FighterTest extends InitializationDataBase {
         StringMap<BoolVal> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
-        StringList attaquesConnues_=getMoves(newMoves_,false);
-        StringList attaquesApprendre_=getMoves(newMoves_,true);
+        StringList attaquesConnues_=new StringList();
+        StringList attaquesApprendre_=new StringList();
+        Fighter.updateMoveList(newMoves_,attaquesConnues_,attaquesApprendre_);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
         learnMoves(fighter_, attaquesApprendre_, data_);
@@ -6067,10 +6075,6 @@ public class FighterTest extends InitializationDataBase {
         fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
-    }
-
-    private static StringList getMoves(StringMap<BoolVal> _map, boolean _learn) {
-        return DataBase.keysWithValue(_map, ComparatorBoolean.of(_learn));
     }
 
     @Test

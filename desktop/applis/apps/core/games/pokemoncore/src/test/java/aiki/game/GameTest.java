@@ -915,7 +915,7 @@ public class GameTest extends InitializationDataBase {
 //                }
 //            }
 //        }
-        return DataBase.countValues(_map.values(), ComparatorBoolean.of(_taken));
+        return countValues(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test

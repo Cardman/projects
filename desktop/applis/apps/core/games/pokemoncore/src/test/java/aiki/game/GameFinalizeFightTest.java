@@ -23,7 +23,6 @@ import aiki.map.characters.Ally;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.TempTrainer;
 import aiki.map.enums.Direction;
-import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.Campaign;
 import aiki.map.pokemon.Egg;
@@ -815,7 +814,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
 //            }
 //        }
 //        return n_;
-        return DataBase.countValues(_map.values(), ComparatorBoolean.of(_taken));
+        return countValues(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test
@@ -1076,7 +1075,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
 //            }
 //        }
 //        return n_;
-        return DataBase.countValues(_map.values(), ComparatorBoolean.of(_taken));
+        return countValues(_map.values(), ComparatorBoolean.of(_taken));
     }
 
     @Test

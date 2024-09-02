@@ -1831,13 +1831,7 @@ public final class Fighter {
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=new StringList();
         StringList attaquesApprendre_=new StringList();
-        for (EntryCust<String,BoolVal> e: newMoves_.entryList()) {
-            if (e.getValue() == BoolVal.TRUE) {
-                attaquesApprendre_.add(e.getKey());
-            } else {
-                attaquesConnues_.add(e.getKey());
-            }
-        }
+        updateMoveList(newMoves_, attaquesConnues_, attaquesApprendre_);
         initLearntMoves(attaquesApprendre_, attaquesConnues_, _import);
         short monteNiveau_=(short) (achievedLevel_-level);
         setLevel(achievedLevel_);
@@ -1854,6 +1848,16 @@ public final class Fighter {
             //groundPlace = groundPlaceSubst;
         }
         proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, _import, _pkNamesBegin);
+    }
+
+    public static void updateMoveList(StringMap<BoolVal> _newMoves, StringList _attaquesConnues, StringList _attaquesApprendre) {
+        for (EntryCust<String,BoolVal> e: _newMoves.entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
+                _attaquesApprendre.add(e.getKey());
+            } else {
+                _attaquesConnues.add(e.getKey());
+            }
+        }
     }
 
     LevelExpPoints newLevelWonPoints(DataBase _import) {
