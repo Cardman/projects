@@ -1,5 +1,6 @@
 package aiki.facade;
 
+import aiki.db.DataBase;
 import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
@@ -193,7 +194,7 @@ public class CriteriaForSearchingTest extends EquallablePkUtil {
 
     @Test
     public void matchStringList6Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.WHOLE_STRING, "SUBSTRING", new StringList(null, null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.WHOLE_STRING, "SUBSTRING", new StringList(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING)));
     }
 
     @Test
@@ -208,7 +209,7 @@ public class CriteriaForSearchingTest extends EquallablePkUtil {
 
     @Test
     public void matchStringList9Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.SUBSTRING, "STRING", new StringList(null, null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.SUBSTRING, "STRING", new StringList(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING)));
     }
 
     @Test
@@ -253,7 +254,7 @@ public class CriteriaForSearchingTest extends EquallablePkUtil {
 
     @Test
     public void matchStringList18Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.END, "STRING", new StringList(null, null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.END, "STRING", new StringList(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING)));
     }
 
     @Test
@@ -268,7 +269,7 @@ public class CriteriaForSearchingTest extends EquallablePkUtil {
 
     @Test
     public void matchStringList21Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.BEGIN, "STRING", new StringList(null, null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.BEGIN, "STRING", new StringList(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING)));
     }
 
     @Test
@@ -288,7 +289,7 @@ public class CriteriaForSearchingTest extends EquallablePkUtil {
 
     @Test
     public void matchStringList25Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "STRING", new StringList((String)null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "STRING", new StringList(DataBase.EMPTY_STRING)));
     }
 
 }

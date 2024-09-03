@@ -496,9 +496,9 @@ public final class RendForwardInfos {
         part_.setOpExp(parts_);
         return part_;
     }
-    private static StringMap<CustList<CustList<RendDynOperationNode>>> toExecPartMapExt(StringMap<CustList<OperationNode>> _roots, Forwards _forwards) {
+    private static StringMap<CustList<CustList<RendDynOperationNode>>> toExecPartMapExt(StringMap<Integer> _roots, Forwards _forwards) {
         StringMap<CustList<CustList<RendDynOperationNode>>> m_ = new StringMap<CustList<CustList<RendDynOperationNode>>>();
-        for (EntryCust<String, CustList<OperationNode>> e:_roots.entryList()) {
+        for (EntryCust<String, Integer> e:_roots.entryList()) {
             CustList<CustList<RendDynOperationNode>> parts_ = toExecPartExt(e.getValue(), _forwards);
             m_.addEntry(e.getKey(),parts_);
         }
@@ -510,6 +510,14 @@ public final class RendForwardInfos {
         parts_ = new CustList<CustList<RendDynOperationNode>>();
         for (OperationNode r: _roots) {
             parts_.add(getExecutableNodes(r, _forwards));
+        }
+        return parts_;
+    }
+    private static CustList<CustList<RendDynOperationNode>> toExecPartExt(int _roots, Forwards _forwards) {
+        CustList<CustList<RendDynOperationNode>> parts_;
+        parts_ = new CustList<CustList<RendDynOperationNode>>();
+        for (int i = 0; i < _roots; i++) {
+            parts_.add(getExecutableNodes(null, _forwards));
         }
         return parts_;
     }

@@ -43,11 +43,11 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
         NatExecOperationNode settable_ = castDottedTo(root_);
         CustList<LongTreeMap<NatNodeContainer>> stack_ = ((NatRendStackCallAdv)_rendStackCall).getFormParts().getContainersMapStack();
         NatArgumentsPair pair_ = args_.getValue(settable_.getOrder());
-        CustList<NaSt> obj_;
+        NaSt obj_;
         if (((NatSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
-            obj_ = new CustList<NaSt>(pair_.getPreviousArgument());
+            obj_ = pair_.getPreviousArgument();
         } else {
-            obj_ = new CustList<NaSt>(_rendStackCall.getLastPage().getGlobalArgument());
+            obj_ = _rendStackCall.getLastPage().getGlobalArgument();
         }
 //            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
         NaSt arg_ = pair_.getArgument();

@@ -255,7 +255,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     public static void setRendObject(NatNodeContainer _nodeContainer,
                                      NaSt _attribute) {
-        NaSt obj_ = _nodeContainer.getAllObject().first();
+        NaSt obj_ = _nodeContainer.getAllObject();
         NatCaller wr_ = _nodeContainer.getOpsWrite();
         wr_.re(obj_,new NaSt[]{_attribute});
     }

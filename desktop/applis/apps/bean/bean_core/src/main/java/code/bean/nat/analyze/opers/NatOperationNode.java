@@ -9,6 +9,7 @@ import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -113,9 +114,9 @@ public abstract class NatOperationNode {
 
     private static void fetchFieldsType(CustList<NatFieldResult> _ancestors,
                                         SpecialNatClass _scope, String _scopeField) {
-        if (_scope == null) {
-            return;
-        }
+//        if (_scope == null) {
+//            return;
+//        }
         for (StandardField f: _scope.getFields()) {
             if (StringUtil.quickEq(f.getFieldName(), _scopeField)) {
                 String type_ = f.getImportedClassName();
@@ -148,9 +149,9 @@ public abstract class NatOperationNode {
                                                   CustList<NatMethodInfo> _methods, NatAnalyzedCode _page) {
         CustList<SpecialNatClass> typeInfosGroups_ = typeLists(_fromClasses, _page);
         for (SpecialNatClass t: typeInfosGroups_) {
-            if(t == null) {
-                continue;
-            }
+//            if(t == null) {
+//                continue;
+//            }
             for (SpecNatMethod e: t.getMethods()) {
                 _methods.add(getMethodInfo(e, e.getImportedReturnType()));
             }
@@ -160,12 +161,19 @@ public abstract class NatOperationNode {
     private static CustList<SpecialNatClass> typeLists(String _fromClasses, NatAnalyzedCode _page) {
         CustList<SpecialNatClass> typeInfos_ = new CustList<SpecialNatClass>();
         SpecialNatClass root_ = _page.getStds().getVal(_fromClasses);
-        typeInfos_.add(root_);
-        for (String m : root_.getAllSuperTypes()) {
+        for (String m : addNotNull(typeInfos_, root_)) {
             SpecialNatClass sup_ = _page.getStds().getVal(m);
-            typeInfos_.add(sup_);
+            addNotNull(typeInfos_, sup_);
         }
         return typeInfos_;
+    }
+
+    private static StringList addNotNull(CustList<SpecialNatClass> _typeInfos, SpecialNatClass _sup) {
+        if (_sup == null) {
+            return new StringList();
+        }
+        _typeInfos.add(_sup);
+        return _sup.getAllSuperTypes();
     }
 
     private static NatMethodInfo getMethodInfo(SpecNatMethod _m, String _importedReturnType) {

@@ -22,7 +22,7 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
     private StringMap<String> preformatted;
     private final CustList<BoolVal> quoted = new CustList<BoolVal>();
     private final CustList<BoolVal> escaped = new CustList<BoolVal>();
-    private final StringMap<CustList<OperationNode>> callsRoots = new StringMap<CustList<OperationNode>>();
+    private final StringMap<Integer> callsRoots = new StringMap<Integer>();
     private final StringList args = new StringList();
     private final StringMap<Document> locDoc = new StringMap<Document>();
     private final CustList<ResultExpression> resultExpressionList = new CustList<ResultExpression>();
@@ -74,13 +74,10 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
             preRend_=StringUtil.simpleStringsFormat(concat_, formArg_);
             DocumentResult res2_ = DocumentBuilder.parseSaxNotNullRowCol(preRend_);
             Document docLoc2_ = res2_.getDocument();
-            CustList<OperationNode> callExpsLoc_ = new CustList<OperationNode>();
+            int count_ = 0;
             if (docLoc2_ != null) {
                 ElementList anc_ = docLoc2_.getElementsByTagName(_anaDoc.getRendKeyWords().getKeyWordAnchor());
-                int nb_ = anc_.size();
-                for (int i = 0; i < nb_; i++) {
-                    callExpsLoc_.add(null);
-                }
+                count_ = anc_.size();
             }
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
             Document docLoc_ = res_.getDocument();
@@ -92,7 +89,7 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                         res_.getLocation().display());
                 AnalyzingDoc.addError(badEl_, _page);
             }
-            callsRoots.addEntry(e.getKey(),callExpsLoc_);
+            callsRoots.addEntry(e.getKey(),count_);
             locDoc.addEntry(e.getKey(),docLoc_);
         }
 
@@ -128,7 +125,7 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
         return roots;
     }
 
-    public StringMap<CustList<OperationNode>> getCallsRoots() {
+    public StringMap<Integer> getCallsRoots() {
         return callsRoots;
     }
 

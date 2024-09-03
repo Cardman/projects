@@ -11,6 +11,7 @@ import code.util.Shorts;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class ResultsTarotBean extends TarotBean {
 
@@ -115,7 +116,7 @@ public final class ResultsTarotBean extends TarotBean {
             calledPlayers.add(getNicknames().get(p));
         }
         for (CardTarot c: getGame().getCarteAppelee()) {
-            calledCardsList.add(toString(c, _res.getRes().getGeneralCards()));
+            calledCardsList.add(StringUtil.nullToEmpty(toString(c, _res.getRes().getGeneralCards())));
         }
     }
 

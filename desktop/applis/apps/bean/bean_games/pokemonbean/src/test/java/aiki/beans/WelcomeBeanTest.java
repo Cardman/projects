@@ -183,8 +183,8 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         st_.add(second_);
         r_.getFormParts().getInputs().add(0L);
         up_.setRad(true);
-        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<NaSt>(), st_), r_,"");
-        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<NaSt>(), st_), r_,"");
+        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(NaNu.NULL_VALUE, st_), r_,"");
+        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(NaNu.NULL_VALUE, st_), r_,"");
         NatExecTextPart txtPart_ = new NatExecTextPart();
         txtPart_.setOpExp(new CustList<CustList<NatExecOperationNode>>());
         txtPart_.getOpExp().add(exps_);

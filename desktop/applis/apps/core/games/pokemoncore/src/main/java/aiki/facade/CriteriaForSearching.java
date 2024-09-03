@@ -85,7 +85,7 @@ public abstract class CriteriaForSearching {
     private static boolean space(String _typedString, StringList _list) {
         boolean contained_ = false;
         for (String s: _list) {
-            if (s != null && StringUtil.matchSpace(s, _typedString)) {
+            if (StringUtil.matchSpace(s, _typedString)) {
                 contained_ = true;
                 break;
             }
@@ -96,7 +96,7 @@ public abstract class CriteriaForSearching {
     private static boolean end(String _typedString, StringList _list) {
         boolean contained_ = false;
         for (String s: _list) {
-            if (s != null && StringUtil.endsWith(s, _typedString)) {
+            if (StringUtil.endsWith(s, _typedString)) {
                 contained_ = true;
                 break;
             }
@@ -107,7 +107,7 @@ public abstract class CriteriaForSearching {
     private static boolean begin(String _typedString, StringList _list) {
         boolean contained_ = false;
         for (String s: _list) {
-            if (s != null && StringUtil.startsWith(s, _typedString)) {
+            if (StringUtil.startsWith(s, _typedString)) {
                 contained_ = true;
                 break;
             }
@@ -118,7 +118,7 @@ public abstract class CriteriaForSearching {
     private static boolean substring(String _typedString, StringList _list) {
         boolean contained_ = false;
         for (String s: _list) {
-            if (s != null && s.contains(_typedString)) {
+            if (s.contains(_typedString)) {
                 contained_ = true;
                 break;
             }
@@ -129,7 +129,7 @@ public abstract class CriteriaForSearching {
     private static boolean wholeString(String _typedString, StringList _list) {
         boolean contained_ = false;
         for (String s: _list) {
-            if (s != null && StringUtil.quickEq(s, _typedString)) {
+            if (StringUtil.quickEq(s, _typedString)) {
                 contained_ = true;
                 break;
             }
