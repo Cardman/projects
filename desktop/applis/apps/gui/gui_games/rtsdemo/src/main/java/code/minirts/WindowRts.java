@@ -2,6 +2,7 @@ package code.minirts;
 
 import code.gui.*;
 import code.gui.events.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
@@ -79,7 +80,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         count = _list.getThreadFactory().newAtomicLong();
         AbsPanel contentPane_ = getCompoFactory().newBorder();
         AbsPanel scene_ = getCompoFactory().newBorder();
-        scene_.add(currentCoords,GuiConstants.BORDER_LAYOUT_NORTH);
+        scene_.add(currentCoords, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         InteractClick i_ = new InteractClick(this);
         battleground.addMouseListener(i_);
         battleground.addMouseMotionListener(i_);
@@ -91,7 +92,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         battleground.setLocation(cust_);
 //        battleground.setLocation(facade.getTopLeftPoint());
         battlegroundWrapper_.setPreferredSize(new MetaDimension(256, 256));
-        scene_.add(battlegroundWrapper_, GuiConstants.BORDER_LAYOUT_CENTER);
+        scene_.add(battlegroundWrapper_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        panel_.add(battlegroundWrapper_, BorderLayout.CENTER);
         left = new RtsKeyPad(RtsDirection.LEFT, getCompoFactory());
         RtsKeyPad left_ = left;
@@ -114,10 +115,10 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         down_.addMouseListener(new RtsMouseTask(RtsDirection.DOWN, task_, t_));
         left_.addMouseListener(new RtsMouseTask(RtsDirection.LEFT, task_, t_));
         right_.addMouseListener(new RtsMouseTask(RtsDirection.RIGHT, task_, t_));
-        contentPane_.add(up_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_NORTH);
-        contentPane_.add(down_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_SOUTH);
-        contentPane_.add(left_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_WEST);
-        contentPane_.add(right_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_EAST);
+        contentPane_.add(up_.getPaintableLabel(), MessagesGuiFct.BORDER_LAYOUT_NORTH);
+        contentPane_.add(down_.getPaintableLabel(), MessagesGuiFct.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(left_.getPaintableLabel(), MessagesGuiFct.BORDER_LAYOUT_WEST);
+        contentPane_.add(right_.getPaintableLabel(), MessagesGuiFct.BORDER_LAYOUT_EAST);
         animate.addActionListener(new Animate(this));
         AbsPanel buttons_ = getCompoFactory().newLineBox();
         buttons_.add(animate);
@@ -142,8 +143,8 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
             }
         }
         setCursor(battlegroundWrapper_, wCurs_, hCurs_, pixels_);
-        scene_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
-        contentPane_.add(scene_, GuiConstants.BORDER_LAYOUT_CENTER);
+        scene_.add(buttons_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(scene_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsMetaLabelRts.repaintChildren(elts_,getImageFactory());
 //        battlegroundWrapper_.repaintSecondChildren(getImageFactory());
 //        battleground.getContainer().repaintSecondChildren(getImageFactory());

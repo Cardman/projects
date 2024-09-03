@@ -10,8 +10,8 @@ import aiki.main.AikiFactory;
 import aiki.main.PkNonModalEvent;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
-import code.gui.GuiConstants;
 import code.gui.ScrollCustomGraphicList;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
@@ -43,7 +43,7 @@ public final class FighterPanel {
         container.setLoweredBorder();
         title = compoFactory.newPlainLabel(_titre);
         title.setToolTipText(_titre);
-        container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
+        container.add(title, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         liste.getElements().setFont(title.getMetaFont());
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
@@ -51,7 +51,7 @@ public final class FighterPanel {
 //        int s_ = _facade.getData().getMap().getSideLength();
 //        liste.getScrollPane().setPreferredSize(new MetaDimension(150,s_*_nb));
         initFighters(_fighters);
-        container.add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(liste.getScrollPane(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        container.setPreferredSize(new MetaDimension(150,s_*_nb+16));
     }
 

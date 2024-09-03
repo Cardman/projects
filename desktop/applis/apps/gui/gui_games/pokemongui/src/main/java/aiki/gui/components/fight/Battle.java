@@ -30,6 +30,7 @@ import aiki.gui.dialogs.FrameHtmlData;
 import aiki.gui.dialogs.SelectHealingItem;
 import code.gui.*;
 import code.gui.events.ClosingChildFrameEvent;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
@@ -1678,19 +1679,19 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             if (FightFacade.indexes(chosablePlayer_).size() + FightFacade.indexes(chosableFoe_).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_TARGET));
-                targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
+                targetsPanel.add(header_, MessagesGuiFct.BORDER_LAYOUT_NORTH);
                 updateGraphics(targets.getPlayerTargets(), Fight.CST_PLAYER);
                 updateGraphics(targets.getFoeTargets(), Fight.CST_FOE);
-                targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+                targetsPanel.add(targets.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
             } else if (FightFacade.requiredSwitch(facade.getFight(),facade.getData())) {
                 fighterBackPanelSub.initFighters(facade.getPlayerBackTeam());
                 fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
                 fighterBackPanelSub.getListe().revalidate();
                 fighterBackPanelSub.getListe().events();
-                targetsPanel.add(fighterBackPanelSub.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+                targetsPanel.add(fighterBackPanelSub.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
             } else {
                 targets.getContainer().removeAll();
-                targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+                targetsPanel.add(targets.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
             }
             actions.add(targetsPanel);
 //        }
@@ -1723,18 +1724,18 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             if (FightFacade.indexes(foeTargets_).size() + FightFacade.indexes(plTargets_).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderBattle.SELECT_TARGET));
-                targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
-                targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+                targetsPanel.add(header_, MessagesGuiFct.BORDER_LAYOUT_NORTH);
+                targetsPanel.add(targets.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
             } else if (FightFacade.requiredSwitch(facade.getFight(),facade.getData())) {
                 fighterBackPanelSub.initFighters(facade.getPlayerBackTeam());
                 fighterBackPanelSub.getListe().select(facade.getGame().getFight().getTemp().getChosenSubstitute());
                 fighterBackPanelSub.getListe().revalidate();
                 fighterBackPanelSub.getListe().events();
-                targetsPanel.add(fighterBackPanelSub.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+                targetsPanel.add(fighterBackPanelSub.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
             } else {
                 window.setSavedGame(false);
                 targets.getContainer().removeAll();
-                targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+                targetsPanel.add(targets.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
             }
             actions.add(targetsPanel);
         } else {

@@ -14,6 +14,7 @@ import cards.gui.labels.GraphicKey;
 import cards.main.CardsNonModalEvent;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
@@ -158,14 +159,14 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),graphique_);
         locScroll_.setPreferredSize(new MetaDimension(300,200));
         AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
-        panneau_.add(getOwner().getCompoFactory().newPlainLabel(file().getVal(MessagesGuiCards.MAIN_SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
-        panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_CENTER);
+        panneau_.add(getOwner().getCompoFactory().newPlainLabel(file().getVal(MessagesGuiCards.MAIN_SCORES_EVOLUTION_DETAIL)), MessagesGuiFct.BORDER_LAYOUT_NORTH);
+        panneau_.add(locScroll_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         GraphicKey legende_=new GraphicKey(_pseudos,couleurs_, getOwner().getFrames());
         legende_.setPreferredSize(new MetaDimension(300,15*(_nbPlayers +1)));
         AbsMetaLabelCard.paintCard(getWindow().getImageFactory(),legende_);
         locScroll_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
         locScroll_.setPreferredSize(new MetaDimension(300,100));
-        panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        panneau_.add(locScroll_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         _onglets.add(file().getVal(MessagesGuiCards.MAIN_SCORES_EVOLUTION),panneau_);
     }
     public static void resultButtons(AbsPanel _buttons,ContainerSin _single) {
@@ -369,7 +370,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
     }
     public void engage(AbsPanel _border,AbsPanel _panelHand) {
         panelHand(_panelHand);
-        _border.add(_panelHand,GuiConstants.BORDER_LAYOUT_SOUTH);
+        _border.add(_panelHand, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         pack();
     }
 

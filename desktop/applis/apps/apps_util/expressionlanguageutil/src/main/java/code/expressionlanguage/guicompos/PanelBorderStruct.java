@@ -3,7 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.GuiConstants;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.StringUtil;
 
@@ -36,7 +36,7 @@ public final class PanelBorderStruct extends PanelStruct {
         if (!(_constraint instanceof StringStruct)) {
             _comp.setParentComponent(this);
             getChildren().add(_comp);
-            getPanel().add(_comp.getComponent(), GuiConstants.BORDER_LAYOUT_CENTER);
+            getPanel().add(_comp.getComponent(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
             return;
         }
         StringStruct c_ = (StringStruct)_constraint;
@@ -45,31 +45,31 @@ public final class PanelBorderStruct extends PanelStruct {
         boolean ok_ = false;
         if (StringUtil.quickEq(ct_, CENTER)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_CENTER;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_CENTER;
         } else if (StringUtil.quickEq(ct_, NORTH)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_NORTH;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_NORTH;
         } else if (StringUtil.quickEq(ct_, SOUTH)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_SOUTH;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_SOUTH;
         } else if (StringUtil.quickEq(ct_, WEST)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_WEST;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_WEST;
         } else if (StringUtil.quickEq(ct_, EAST)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_EAST;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_EAST;
         } else if (StringUtil.quickEq(ct_, BEFORE_FIRST_LINE)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_BEFORE_FIRST_LINE;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_BEFORE_FIRST_LINE;
         } else if (StringUtil.quickEq(ct_, AFTER_LAST_LINE)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_AFTER_LAST_LINE;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_AFTER_LAST_LINE;
         } else if (StringUtil.quickEq(ct_, BEFORE_LINE_BEGINS)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_BEFORE_LINE_BEGINS;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_BEFORE_LINE_BEGINS;
         } else if (StringUtil.quickEq(ct_, AFTER_LINE_ENDS)) {
             ok_ = true;
-            value_ = GuiConstants.BORDER_LAYOUT_AFTER_LINE_ENDS;
+            value_ = MessagesGuiFct.BORDER_LAYOUT_AFTER_LINE_ENDS;
         }
         if (!ok_) {
             return;

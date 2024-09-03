@@ -12,6 +12,16 @@ public final class MessagesGuiFct {
     public static final String FILE_SAVE_DIAL = "file_save";
     public static final String FILE_TAB = "file_table";
     public static final String DATE_FORMAT = "dd-MM-yyyy HH-mm-ss";
+    public static final String BORDER_LAYOUT_CENTER = "Center";
+    public static final String BORDER_LAYOUT_SOUTH = "South";
+    public static final String BORDER_LAYOUT_EAST = "East";
+    public static final String BORDER_LAYOUT_NORTH = "North";
+    public static final String BORDER_LAYOUT_WEST = "West";
+    public static final String BORDER_LAYOUT_BEFORE_FIRST_LINE = "First";
+    public static final String BORDER_LAYOUT_AFTER_LAST_LINE = "Last";
+    public static final String BORDER_LAYOUT_BEFORE_LINE_BEGINS = "Before";
+    public static final String BORDER_LAYOUT_AFTER_LINE_ENDS = "After";
+    public static final String MONOSPACED = "Monospaced";
 
     private MessagesGuiFct() {
     }

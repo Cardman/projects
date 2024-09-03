@@ -25,7 +25,7 @@ public abstract class AbsOpenSaveFrame extends FileFrame {
     protected void common(AbsSaveFile _save, AbsContinueFile _c, FileDialogContent _o, FileDialogContent _s) {
         AbsCompoFactory compoFactory_ = getPrInfos().getCompoFactory();
         AbsPanel contentPane_ = compoFactory_.newBorder();
-        contentPane_.add(tabs, GuiConstants.BORDER_LAYOUT_CENTER);
+        contentPane_.add(tabs, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compoFactory_.newPageBox();
         buttons_.add(labSave);
         buttons_.add(labOpen);
@@ -42,7 +42,7 @@ public abstract class AbsOpenSaveFrame extends FileFrame {
         closeAction = button_;
         button_.addActionListener(new CloseSelectFileEvent(getClosing()));
         buttons_.add(button_);
-        contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(buttons_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
 
         getFrame().setContentPane(contentPane_);
         getFrame().pack();

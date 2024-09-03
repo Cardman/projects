@@ -11,6 +11,7 @@ import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -84,7 +85,7 @@ public final class DialogSoft extends DialogHelpCards {
             saveHomeFolder = getCompoFactory().newCustCheckBox(messSoft_.getVal(MessagesGuiCards.DIAL_SOFT_SELECT_HOME_PATH));
             saveHomeFolder.setSelected(parametres.isSaveHomeFolder());
             panneau_.add(saveHomeFolder);
-            container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+            container_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         } else if(StringUtil.quickEq(menu, MessagesGuiCards.CST_TIMING)) {
             AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
 //            byte indiceInfo_=0;
@@ -127,17 +128,17 @@ public final class DialogSoft extends DialogHelpCards {
             waitTrickClick =getCompoFactory().newCustCheckBox(messSoft_.getVal(MessagesGuiCards.DIAL_SOFT_CLICK_FOR_PLAYING_TRICK));
             waitTrickClick.setSelected(parametres.getAttentePlisClic());
             panneau_.add(waitTrickClick);
-            container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+            container_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         } else {
             AbsPanel panneau_=_fenetre.getCompoFactory().newPageBox();
             clickCard=getCompoFactory().newCustCheckBox(messSoft_.getVal(MessagesGuiCards.DIAL_SOFT_CLICK_FOR_PLAYING_CARD));
             clickCard.setSelected(parametres.getJeuCarteClic());
             panneau_.add(clickCard);
-            container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+            container_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         }
         validate = getCompoFactory().newPlainButton(messSoft_.getVal(MessagesGuiCards.DIAL_SOFT_VALIDATE));
         validate.addActionListener(new ListenerParameters(_fenetre,this));
-        container_.add(validate,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(validate, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         getAbsDialog().setContentPane(container_);
         getAbsDialog().pack();
     }

@@ -11,8 +11,8 @@ import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorHealingItem;
 import code.gui.AbsButton;
 import code.gui.AbsPanel;
-import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
@@ -65,7 +65,7 @@ public final class SelectHealingItem extends SelectDialog {
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
         paginatorHealingItem = new PaginatorHealingItem(_parent, pag_, getSelectDial(), _facade);
-        contentPane_.add(compo.newAbsScrollPane(paginatorHealingItem.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
+        contentPane_.add(compo.newAbsScrollPane(paginatorHealingItem.getContainer()), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         movesPanel = compo.newPageBox();
         movesPanel.setTitledBorder(messages_.getVal(MessagesRenderPaginatorHealingItem.HEAL_MOVE_TITLE));
@@ -77,7 +77,7 @@ public final class SelectHealingItem extends SelectDialog {
 //        cancelButton.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
 //        buttons_.add(cancelButton);
         buttons_.add(movesPanel);
-        contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(buttons_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
 //        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         getSelectDial().pack();

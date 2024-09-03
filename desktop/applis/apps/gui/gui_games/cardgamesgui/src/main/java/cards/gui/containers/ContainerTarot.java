@@ -18,6 +18,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -98,7 +99,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
         getPanelDiscardedTrumps().setVisible(false);
         _panneau2.add(getPanelDiscardedTrumps());
-        _container.add(_panneau2,GuiConstants.BORDER_LAYOUT_EAST);
+        _container.add(_panneau2, MessagesGuiFct.BORDER_LAYOUT_EAST);
     }
 
     public static void ajouterBoutonContratsTarot(ContainerPlayableTarot _playable,CustList<BidTarot> _bids, BidTarot _m) {

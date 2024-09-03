@@ -34,6 +34,7 @@ import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
@@ -316,10 +317,10 @@ public final class ContainerMultiBelote extends ContainerBelote implements
         dialogBeloteContent = new DialogBeloteContent(getOwner().getFrames());
         AbsTabbedPane jt_ = dialogBeloteContent.initJt(getWindow(),false, containerMultiContent.getNbChoosenPlayers(), null);
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
-        border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
+        border_.add(jt_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         selectRules = getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
         selectRules.addActionListener(new AfterValidateRulesBeloteMulti(dialogBeloteContent,this));
-        border_.add(selectRules,GuiConstants.BORDER_LAYOUT_SOUTH);
+        border_.add(selectRules, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
     }
 
@@ -854,20 +855,20 @@ public final class ContainerMultiBelote extends ContainerBelote implements
         getPane().removeAll();
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringList list_ = nicknames();
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(), containerMultiContent.getNbChoosenPlayers(), getDisplayingBelote().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, containerMultiContent.getNbChoosenPlayers(), getDisplayingBelote().getDisplaying().isClockwise(),
                 ContainerSingleBelote.displayedCards(rulesBeloteMulti), getOwner().getFrames());
         getTapis().setTapisBelote(tapis_);
-        container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_ = panelHand();
 //        AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
 //        panneau_.setBackground(GuiConstants.BLUE);
 //        setPanelHand(panneau_);
 //        panelHand(panneau_);
-        container_.add(panelHand(), GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panelHand(), MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_ = getOwner().getCompoFactory().newPageBox();
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY, 8, 30));
         panneau2_.add(events());
@@ -1051,7 +1052,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
         editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
-        container_.add(onglets_, GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
 //        containerMultiContent.endReady(this,panneau_);
 //        readyToPlay = false;

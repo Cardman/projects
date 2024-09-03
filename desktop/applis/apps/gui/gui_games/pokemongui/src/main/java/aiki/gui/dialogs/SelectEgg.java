@@ -12,6 +12,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorEgg;
 import code.gui.*;
 import code.gui.events.AbsWindowListenerClosing;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
@@ -59,7 +60,7 @@ public final class SelectEgg extends SelectDialog {
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
         paginatorEgg = new PaginatorEgg(_parent, pag_, getSelectDial(), _facade);
-        contentPane_.add(compo.newAbsScrollPane(paginatorEgg.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
+        contentPane_.add(compo.newAbsScrollPane(paginatorEgg.getContainer()), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         buttons(_parent,buttons_);
 //        AbsButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
@@ -68,7 +69,7 @@ public final class SelectEgg extends SelectDialog {
 //        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
 //        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
 //        buttons_.add(cancel_);
-        contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(buttons_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
 //        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         getSelectDial().pack();

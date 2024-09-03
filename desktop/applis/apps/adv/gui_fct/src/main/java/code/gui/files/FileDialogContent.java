@@ -106,9 +106,9 @@ public abstract class FileDialogContent {
         }
         AbsSplitPane fileSelector_ = programInfos.getCompoFactory().newHorizontalSplitPane(programInfos.getCompoFactory().newAbsScrollPane(folderSystem),programInfos.getCompoFactory().newAbsScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
-        contentPane_.add(fileSelector_, GuiConstants.BORDER_LAYOUT_CENTER);
-        contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
-        contentPane_.add(programInfos.getCompoFactory().newAbsScrollPane(errors), GuiConstants.BORDER_LAYOUT_EAST);
+        contentPane_.add(fileSelector_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
+        contentPane_.add(openSaveFile_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(programInfos.getCompoFactory().newAbsScrollPane(errors), MessagesGuiFct.BORDER_LAYOUT_EAST);
         contentPane = contentPane_;
     }
 

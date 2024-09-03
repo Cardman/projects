@@ -3,6 +3,7 @@ package aiki.gui.components.walk;
 import aiki.facade.*;
 import aiki.gui.WindowAiki;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
@@ -22,14 +23,14 @@ public abstract class AbsItemsPanel {
         liste = _l;
         container.setLoweredBorder();
         AbsPlainLabel titrePanneau_ = _window.getFrames().getCompoFactory().newPlainLabel(_titre);
-        container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
+        container.add(titrePanneau_, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         int side_ = facade.getMap().getSideLength();
         liste.getScrollPane().setPreferredSize(new MetaDimension(100,2*side_*_nb));
         initItems();
-        container.add(liste.getScrollPane(),GuiConstants.BORDER_LAYOUT_CENTER);
-        container.add(amount, GuiConstants.BORDER_LAYOUT_SOUTH);
+        container.add(liste.getScrollPane(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
+        container.add(amount, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         container.setPreferredSize(new MetaDimension(100,2*side_*_nb+32));
     }
 

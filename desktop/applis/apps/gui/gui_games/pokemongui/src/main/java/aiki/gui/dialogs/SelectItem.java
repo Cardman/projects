@@ -9,8 +9,8 @@ import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPaginatorItem;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsPanel;
-import code.gui.GuiConstants;
 import code.gui.events.AbsWindowListenerClosing;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
@@ -68,7 +68,7 @@ public final class SelectItem extends SelectDialog {
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
         paginatorItem = new PaginatorItem(_parent, pag_, getSelectDial(), _facade, _action == BUY);
-        contentPane_.add(compo.newAbsScrollPane(paginatorItem.getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
+        contentPane_.add(compo.newAbsScrollPane(paginatorItem.getContainer()), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         if (_action == USE) {
             giveCheckBox = _parent.getCompoFactory().newCustCheckBox(messages_.getVal(MessagesRenderPaginatorItem.GIVE));
@@ -87,7 +87,7 @@ public final class SelectItem extends SelectDialog {
 //        AbsButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
 //        cancel_.addActionListener(new ClosingSelectButtonEvt(getSelectDial(), _parent));
 //        buttons_.add(cancel_);
-        contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(buttons_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
 //        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         getSelectDial().pack();

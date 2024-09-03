@@ -58,7 +58,7 @@ public final class FileSaveDialogContent extends FileDialogContent {
             searchingPanel.add(label_);
             searchingPanel.add(typedString);
             searchingPanel.add(search);
-            getContentPane().add(searchingPanel, GuiConstants.BORDER_LAYOUT_NORTH);
+            getContentPane().add(searchingPanel, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         }
         getPostFileDialogEvent().visible(getContentPane());
     }

@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.options.Options;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
@@ -24,7 +25,7 @@ public abstract class AbsReadOnlyTabEditor implements AbsLightTabEditor {
         center.setFocusable(true);
         center.addMouseListener(new ClickTextPane(center));
         center.visibleCaret();
-        center.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
+        center.setFont(new MetaFont(MessagesGuiFct.MONOSPACED,GuiConstants.fontStyle(false,false),12));
         center.setBackground(GuiConstants.BLACK);
         center.setForeground(GuiConstants.WHITE);
         center.setCaretColor(GuiConstants.WHITE);

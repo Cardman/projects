@@ -29,6 +29,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsActionListenerAct;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -683,19 +684,19 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     private void placerIhmBelote() {
         getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().getDisplaying().isClockwise(), displayedCards(partie_.getRegles()), getOwner().getFrames());
         getTapis().setTapisBelote(tapis_);
-        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_ = panelHand();
 //        AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
 //        panneau_.setBackground(GuiConstants.BLUE);
 //        setPanelHand(panneau_);
 //        panelHand(panneau_);
-        container_.add(panelHand(),GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panelHand(), MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
 //        getEvents().setEditable(false);
@@ -1028,7 +1029,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsCustComponent ascenseur_ = end_.getContainer();
         ascenseur_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),ascenseur_);
-        container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
         resultButtons(buttons_,this);
@@ -1047,7 +1048,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
 //        if(type_!=GameType.EDIT) {
 //            partie_.setNombre();
 //        }

@@ -9,6 +9,7 @@ import cards.gui.dialogs.events.MoveCardsEvent;
 import cards.gui.panels.AbsCardsScrollableList;
 import code.gui.*;
 import code.gui.files.FileSaveDialogContent;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -163,7 +164,7 @@ public final class EditorCards {
 
     public void buildPanelDealAll(AbsPanel _border, WindowCards _w, SetterSelectedCardList _d, StringList _pseudos, int _nbPlayers, String _add, boolean _addItem) {
         AbsPanel panneau_=_w.getCompoFactory().newBorder();
-        panneau_.add(getPanelsCards(), GuiConstants.BORDER_LAYOUT_CENTER);
+        panneau_.add(getPanelsCards(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel sousPanneau_=buildMoveCards(_w,_d);
         StringComboBox handPl_ = beginCombo(_w.getImageFactory(), _w.getCompoFactory(), _pseudos, _nbPlayers);
         if (_addItem) {
@@ -172,8 +173,8 @@ public final class EditorCards {
         handPl_.getCombo().repaint();
         sousPanneau_.add(handPl_.self());
         sousPanneau_.add(buildLabelSelectCard(_w.getCompoFactory()));
-        panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
-        _border.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
+        panneau_.add(sousPanneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
+        _border.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         buildPanelDeal(_border,_w,_d);
     }
     public void buildPanelDeal(AbsPanel _border, WindowCards _w, SetterSelectedCardList _d) {

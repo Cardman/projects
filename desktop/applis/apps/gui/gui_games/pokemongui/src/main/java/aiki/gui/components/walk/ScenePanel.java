@@ -26,6 +26,7 @@ import aiki.map.pokemon.UsablePokemon;
 //import aiki.network.NetAiki;
 //import aiki.network.stream.SentPokemon;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.LgInt;
@@ -347,7 +348,7 @@ public class ScenePanel {
 
     public void reinit() {
         panelOptions.removeAll();
-        panelOptions.add(scrollPaneDetail,GuiConstants.BORDER_LAYOUT_EAST);
+        panelOptions.add(scrollPaneDetail, MessagesGuiFct.BORDER_LAYOUT_EAST);
 //        if (keyPadListener != null) {
 //            keyPadListener.setSceneKepPad(null);
 //        }
@@ -408,7 +409,7 @@ public class ScenePanel {
 
     public void drawGameWalking(boolean _setPreferredSize) {
         panelOptions.removeAll();
-        panelOptions.add(scrollPaneDetail,GuiConstants.BORDER_LAYOUT_EAST);
+        panelOptions.add(scrollPaneDetail, MessagesGuiFct.BORDER_LAYOUT_EAST);
         endGame.setText(facade.getEndGameMessage());
         endGame.setVisible(facade.isShowEndGame());
         panelMenu.setVisible(true);
@@ -464,13 +465,13 @@ public class ScenePanel {
             placeName = window.getCompoFactory().newPlainLabel("");
         }
         placeName.setText(facade.getCurrentPlace());
-        sceneInteract.add(placeName, GuiConstants.BORDER_LAYOUT_NORTH);
-        sceneInteract.add(scene.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_CENTER);
+        sceneInteract.add(placeName, MessagesGuiFct.BORDER_LAYOUT_NORTH);
+        sceneInteract.add(scene.getPaintableLabel(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         initInteraction();
 //        if (fish != null) {
             enableIfPossibleFishing();
 //        }
-        sceneInteract.add(interaction, GuiConstants.BORDER_LAYOUT_SOUTH);
+        sceneInteract.add(interaction, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         buttonInteract.setEnabled(facade.getInterfaceType() != InterfaceType.RIEN);
 //        if (wasNull_) {
 //            component.add(sceneInteract, IndexConstants.FIRST_INDEX);
@@ -622,7 +623,7 @@ public class ScenePanel {
         panelMenu.setVisible(false);
         disableFishing();
         panelOptions.removeAll();
-        panelOptions.add(scrollPaneDetail,GuiConstants.BORDER_LAYOUT_EAST);
+        panelOptions.add(scrollPaneDetail, MessagesGuiFct.BORDER_LAYOUT_EAST);
         ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
@@ -638,7 +639,7 @@ public class ScenePanel {
         set_.add(scroll_);
         abilities = compoFactory.newGrid(0,1);
         set_.add(abilities);
-        panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
+        panelOptions.add(set_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         addExit();
         window.pack();
     }
@@ -707,7 +708,7 @@ public class ScenePanel {
         validateMoveToPlace = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.OK));
         validateMoveToPlace.addActionListener(new PkNonModalEvent(window.getModal()),new ChoosePlaceEvent(this));
         box_.add(validateMoveToPlace);
-        panelOptions.add(box_, GuiConstants.BORDER_LAYOUT_CENTER);
+        panelOptions.add(box_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         //panelOptions
         addExit();
         window.pack();
@@ -868,7 +869,7 @@ public class ScenePanel {
 
     private void showOptions() {
         panelOptions.removeAll();
-        panelOptions.add(scrollPaneDetail,GuiConstants.BORDER_LAYOUT_EAST);
+        panelOptions.add(scrollPaneDetail, MessagesGuiFct.BORDER_LAYOUT_EAST);
         if (facade.getInterfaceType() == InterfaceType.ECH_BOITE) {
 //            selectedForSwitch = window.getCompoFactory().newPlainLabel("");
             AbsPanel storage_ = compoFactory.newGrid(0, 1);
@@ -911,7 +912,7 @@ public class ScenePanel {
             teamPan.addListenerStorage(this);
             set_.add(teamPan.getContainer());
             set_.add(storage_);
-            panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
+            panelOptions.add(set_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.MOVE_TUTORS) {
@@ -922,7 +923,7 @@ public class ScenePanel {
             AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);
             scroll_.setPreferredSize(new MetaDimension(100, 220));
             set_.add(scroll_);
-            panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
+            panelOptions.add(set_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
@@ -938,7 +939,7 @@ public class ScenePanel {
             tmBuy = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.TM_BUY));
             tmBuy.addActionListener(new PkNonModalEvent(window.getModal()),new BuyTmEvent(this));
             set_.add(tmBuy);
-            panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
+            panelOptions.add(set_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS) {
@@ -962,7 +963,7 @@ public class ScenePanel {
             buySell = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.ITEM_BUY_SELL));
             buySell.addActionListener(new PkNonModalEvent(window.getModal()),new BuyItemsEvent(this));
             set_.add(buySell);
-            panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
+            panelOptions.add(set_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.PENSION) {
@@ -989,7 +990,7 @@ public class ScenePanel {
             hostPk.addActionListener(new PkNonModalEvent(window.getModal()),new HostPokemonEvent(this));
             form_.add(hostPk);
             set_.add(form_);
-            panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
+            panelOptions.add(set_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.FOSSILE) {
@@ -1306,7 +1307,7 @@ public class ScenePanel {
 //        teamMenu_.add(nicknamePk);
         set_.add(teamPan.getContainer());
         set_.add(teamMenu_);
-        panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
+        panelOptions.add(set_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
     }
 
     public void takeItemFromTeam() {
@@ -1503,7 +1504,7 @@ public class ScenePanel {
     private void addExit() {
         exitOptions = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.EXIT));
         exitOptions.addActionListener(new PkNonModalEvent(window.getModal()),new ExitInteractionEvent(this));
-        panelOptions.add(exitOptions, GuiConstants.BORDER_LAYOUT_SOUTH);
+        panelOptions.add(exitOptions, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
     }
 
     public void exitInteractionPack() {
@@ -1514,7 +1515,7 @@ public class ScenePanel {
 
     public void exitInteraction() {
         panelOptions.removeAll();
-        panelOptions.add(scrollPaneDetail,GuiConstants.BORDER_LAYOUT_EAST);
+        panelOptions.add(scrollPaneDetail, MessagesGuiFct.BORDER_LAYOUT_EAST);
         scrollPaneDetail.setNullViewportView();
         if (switchUsable != null) {
             switchUsable.setSelected(false);

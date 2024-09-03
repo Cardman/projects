@@ -11,6 +11,7 @@ import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.dialogs.events.*;
 import cards.gui.panels.BeloteCardsScrollableList;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
@@ -108,7 +109,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        liste.addItem(editorCards.translate(_parent,MessagesEditorCards.RANDOM));
 //        liste.getCombo().repaint();
         panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosBelote(), nbPlayers_).self());
-        c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
+        c.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         editorCards.setPanelsCards(_parent.getCompoFactory().newLineBox());
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getDisplaying().getSuits(), displayingBelote.getDisplaying().isDecreasing(), displayingBelote.getOrderBeforeBids());

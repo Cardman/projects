@@ -14,6 +14,7 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
@@ -113,7 +114,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //        liste.addItem(editorCards.translate(_parent,MessagesEditorCards.RANDOM));
 //        liste.getCombo().repaint();
         panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosTarot(), nbPlayers_).self());
-        c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
+        c.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         pile_.trier(displayingTarot.getDisplaying().getSuits(), displayingTarot.getDisplaying().isDecreasing());
         TarotCardsScrollableList plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),editorCards.translate(MessagesEditorCards.DEALING_STACK),displayingTarot);
         plc_.iniPile(pile_.getCards());

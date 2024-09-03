@@ -15,6 +15,7 @@ import cards.main.CardNatLgNamesNavigation;
 import code.gui.*;
 
 import code.gui.document.RenderedPage;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -248,11 +249,11 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         StringList pseudos_ = pseudosSimuleeBelote();
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().getDisplaying().isClockwise(), ContainerSingleBelote.displayedCards(partie_.getRegles()), container.getWindow().getFrames());
         container.getTapis().setTapisBelote(tapis_);
-        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
 //        panneau_.setBackground(GuiConstants.BLUE);
 //        container.setPanelHand(panneau_);
@@ -283,7 +284,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
-        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
+        container_.add(panneau2_, MessagesGuiFct.BORDER_LAYOUT_EAST);
         container.tapisBelote().setTalonBelote(container.getWindow(),lg_,partie_.getDistribution().derniereMain(), partie_.getRules());
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock().getComponent());
@@ -393,9 +394,9 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         ascenseur_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),ascenseur_);
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText())));
-        containerBelote_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        containerBelote_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        containerBelote_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
-        containerBelote_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        containerBelote_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         container.setContentPane(containerBelote_);
         container.pack();
     }

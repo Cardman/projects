@@ -2,8 +2,8 @@ package cards.gui.panels;
 
 import cards.gui.dialogs.*;
 import code.gui.AbsPlainLabel;
-import code.gui.GuiConstants;
 import code.gui.ScrollCustomGraphicList;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.scripts.messages.cards.*;
@@ -25,14 +25,14 @@ public class CardsScrollableList<T> extends ScrollableList<T> implements AbsCard
         comparing = _cmp;
         setMax(_pmax);
         AbsPlainLabel titrePanneau_ = _absCompoFactory.getCompoFactory().newPlainLabel(_titre);
-        getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
+        getContainer().add(titrePanneau_, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         getListe().getScrollPane().setPreferredSize(new MetaDimension(100,10* _nb));
         setNbCartesRestantes(_pmax);
-        getContainer().add(getListe().getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
+        getContainer().add(getListe().getScrollPane(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         remCards = _absCompoFactory.getCompoFactory().newPlainLabel(formatPls(_absCompoFactory));
-        getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
+        getContainer().add(remCards, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
     }
 

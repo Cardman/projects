@@ -17,6 +17,7 @@ import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.main.CardNatLgNamesNavigation;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
@@ -135,7 +136,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         AbsPanel sousPanneau_ = getOwner().getCompoFactory().newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         _panneau2.add(sousPanneau_);
-        _container.add(_panneau2, GuiConstants.BORDER_LAYOUT_EAST);
+        _container.add(_panneau2, MessagesGuiFct.BORDER_LAYOUT_EAST);
     }
 
     public static void bidButtons(ContainerPlayableBelote _playable, RulesBelote _rules, int _pts, BidBeloteSuit _bid, CustList<BidBeloteSuit> _bids) {

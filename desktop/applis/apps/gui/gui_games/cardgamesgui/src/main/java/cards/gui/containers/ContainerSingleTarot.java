@@ -36,6 +36,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsActionListenerAct;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -88,19 +89,19 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void placerIhmTarot() {
         getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         GameTarot partie_=partieTarot();
         StringList pseudos_ = pseudosTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), getOwner().getFrames());
         getTapis().setTapisTarot(tapis_);
-        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        panelHand(getOwner().getCompoFactory().newLineBox());
 //        AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
 ////        panneau_.add(getPanelHand());
 //        panneau_.add(panelHand());
 //        panneau_.setBackground(GuiConstants.BLUE);
-        container_.add(panelHand(),GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panelHand(), MessagesGuiFct.BORDER_LAYOUT_SOUTH);
 
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
@@ -1263,7 +1264,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         AbsCustComponent panelCards_ = end_.getContainer();
         panelCards_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
-        container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
         resultButtons(buttons_,this);
@@ -1282,7 +1283,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
 //        if(type_!=GameType.EDIT) {
 //            partie_.setNombre();
 //        }

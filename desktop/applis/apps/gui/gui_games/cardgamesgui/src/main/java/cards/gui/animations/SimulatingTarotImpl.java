@@ -15,6 +15,7 @@ import cards.tarot.enumerations.*;
 import code.gui.*;
 
 import code.gui.document.RenderedPage;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -235,11 +236,11 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         GameTarot partie_=partieTarotSimulee();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         StringList pseudos_ = pseudosSimuleeTarot();
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().getDisplaying().isClockwise(), partie_.getDistribution().derniereMain().total(), container.getOwner().getFrames());
         container.getTapis().setTapisTarot(tapis_);
-        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        container.setPanelHand(container.getOwner().getCompoFactory().newLineBox());
 //        AbsPanel panneau_=container.getOwner().getCompoFactory().newLineBox();
 //        panneau_.add(container.getPanelHand());
@@ -276,7 +277,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container.setPanelDiscardedTrumps(container.getOwner().getCompoFactory().newLineBox());
         container.getPanelDiscardedTrumps().setVisible(false);
         panneau2_.add(container.getPanelDiscardedTrumps());
-        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
+        container_.add(panneau2_, MessagesGuiFct.BORDER_LAYOUT_EAST);
         container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), container.getOwner());
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());
@@ -399,9 +400,9 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         panelCards_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
         onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText())));
-        containerTarot_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        containerTarot_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        containerTarot_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30)),GuiConstants.BORDER_LAYOUT_EAST);
-        containerTarot_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        containerTarot_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         container.setContentPane(containerTarot_);
         container.pack();
     }

@@ -14,9 +14,9 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.MessagesRenderScenePanel;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
-import code.gui.GuiConstants;
 import code.gui.ScrollCustomGraphicList;
 import code.gui.events.AbsActionListenerAct;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
@@ -59,15 +59,15 @@ public final class TeamPanel {
         container.setLoweredBorder();
         AbsPlainLabel titrePanneau_ = compoFactory.newPlainLabel(_titre);
         titrePanneau_.setToolTipText(_titre);
-        container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
+        container.add(titrePanneau_, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         liste.getElements().setFont(titrePanneau_.getMetaFont());
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         nbRemainPlaces = compoFactory.newPlainLabel("");
         initFighters(_team,_mess);
-        container.add(liste.getScrollPane(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(liste.getScrollPane(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         translate(_mess);
-        container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container.add(nbRemainPlaces, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
     }
 
     public void initFighters(ByteTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {

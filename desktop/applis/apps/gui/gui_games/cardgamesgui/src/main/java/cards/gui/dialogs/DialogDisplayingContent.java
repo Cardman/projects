@@ -10,6 +10,7 @@ import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbsCompoFactory;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -79,10 +80,10 @@ public final class DialogDisplayingContent {
         panneau_.add(orderedSuits.getContainer());
         center = panneau_;
         jt_.add(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_SORTING),panneau_);
-        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(jt_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         validateButton=compoFactory_.newPlainButton(messDis_.getVal(MessagesGuiCards.DIAL_DISPLAY_VALIDATE));
         validateButton.addActionListener(new ValidateDisplayingEvent(_window, _dial));
-        container_.add(validateButton,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(validateButton, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         return container_;
     }
 

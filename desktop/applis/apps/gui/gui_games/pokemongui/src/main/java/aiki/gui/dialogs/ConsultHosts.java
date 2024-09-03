@@ -14,6 +14,7 @@ import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderConsultHost;
 import aiki.util.Coords;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.util.EntryCust;
@@ -100,8 +101,8 @@ public final class ConsultHosts {
             }
             contentPane_.add(hosting_);
         }
-        mainComponent.add(contentPane_,GuiConstants.BORDER_LAYOUT_CENTER);
-        mainComponent.add(pkDetailContent.getContent(),GuiConstants.BORDER_LAYOUT_EAST);
+        mainComponent.add(contentPane_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
+        mainComponent.add(pkDetailContent.getContent(), MessagesGuiFct.BORDER_LAYOUT_EAST);
         absDialog.setContentPane(mainComponent);
         //setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         absDialog.pack();

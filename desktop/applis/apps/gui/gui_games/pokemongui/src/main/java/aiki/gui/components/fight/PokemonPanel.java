@@ -9,6 +9,7 @@ import aiki.gui.listeners.PokemonSelection;
 import aiki.main.AikiFactory;
 import aiki.main.PkNonModalEvent;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
@@ -45,7 +46,7 @@ public final class PokemonPanel {
         container.setLoweredBorder();
         title = _parent.getFrames().getCompoFactory().newPlainLabel(_titre);
         title.setToolTipText(_titre);
-        container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
+        container.add(title, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         liste.getElements().setFont(title.getMetaFont());
         maxVisible = _nb;
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
@@ -53,7 +54,7 @@ public final class PokemonPanel {
 //        int s_ = _facade.getData().getMap().getSideLength();
 //        liste.getScrollPane().setPreferredSize(new MetaDimension(100,s_*(_nb+1)));
         initEvos();
-        container.add(liste.getScrollPane(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(liste.getScrollPane(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        container.setPreferredSize(new MetaDimension(100,s_*(_nb+1)+16));
     }
 

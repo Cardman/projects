@@ -6,6 +6,7 @@ import cards.gui.labels.*;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.scripts.messages.cards.*;
 import code.sml.util.*;
 import code.util.*;
@@ -75,13 +76,13 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         cardNumberTrick.getCombo().repaint();
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick.self());
-        container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container.add(selectionGameState_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
     }
 
     protected void cards(int _nbPlayers) {
         hands(_nbPlayers);
         discards();
-        container.add(window.getCompoFactory().newAbsScrollPane(cards),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(window.getCompoFactory().newAbsScrollPane(cards), MessagesGuiFct.BORDER_LAYOUT_CENTER);
     }
 
     private void discards() {

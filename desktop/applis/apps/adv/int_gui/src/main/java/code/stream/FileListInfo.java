@@ -1,5 +1,6 @@
 package code.stream;
 
+import code.gui.GuiConstants;
 import code.util.Bytes;
 
 public final class FileListInfo {
@@ -44,14 +45,14 @@ public final class FileListInfo {
         if (_bytes.length < 12) {
             return false;
         }
-        return _bytes[0] == 'R' && _bytes[1] == 'I' && _bytes[2] == 'F' && _bytes[3] == 'F'
-                &&_bytes[8] == 'W' && _bytes[9] == 'A' && _bytes[10] == 'V' && _bytes[11] == 'E';
+        return _bytes[0] == GuiConstants.VK_R && _bytes[1] == GuiConstants.VK_I && _bytes[2] == GuiConstants.VK_F && _bytes[3] == GuiConstants.VK_F
+                &&_bytes[8] == GuiConstants.VK_W && _bytes[9] == GuiConstants.VK_A && _bytes[10] == GuiConstants.VK_V && _bytes[11] == GuiConstants.VK_E;
     }
     public static boolean isMp3(byte[] _bytes) {
         if (isMpFirst3(_bytes)) {
             return true;
         }
-        return _bytes.length >= 3 && _bytes[0] == 'I' && _bytes[1] == 'D' && _bytes[2] == '3';
+        return _bytes.length >= 3 && _bytes[0] == GuiConstants.VK_I && _bytes[1] == GuiConstants.VK_D && _bytes[2] == '3';
     }
     public static boolean isMpFirst3(byte[] _bytes) {
         if (_bytes.length < 2) {

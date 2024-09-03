@@ -11,6 +11,7 @@ import cards.gui.panels.events.ListenerTricks;
 import cards.president.*;
 import cards.president.enumerations.CardPresident;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.util.*;
@@ -97,7 +98,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //        }
 //        sousPanneau2_.add(sousPanneau3_);
 //        cards_.add(sousPanneau2_);
-        container.add(window.getCompoFactory().newAbsScrollPane(cards_),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(window.getCompoFactory().newAbsScrollPane(cards_), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_TRICK)));
 //        Integer[] numerosPlis_;
@@ -145,7 +146,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //        cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick.self());
-        container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container.add(selectionGameState_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         changeTrick();
     }
 

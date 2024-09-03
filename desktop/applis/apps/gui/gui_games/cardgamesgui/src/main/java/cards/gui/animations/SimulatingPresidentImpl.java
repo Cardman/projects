@@ -16,6 +16,7 @@ import cards.president.enumerations.Playing;
 import code.gui.*;
 
 import code.gui.document.RenderedPage;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -182,13 +183,13 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
         tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(), NumberUtil.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), container.getOwner().getCompoFactory());
         container.getTapis().setTapisPresident(tapis_);
-        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
 //        panneau_.setBackground(GuiConstants.BLUE);
 //        container.setPanelHand(panneau_);
@@ -212,7 +213,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(sousPanneau_));
         container.setActionsHistory(panneau2_);
-        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
+        container_.add(panneau2_, MessagesGuiFct.BORDER_LAYOUT_EAST);
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
@@ -397,8 +398,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
             panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
             panneau_.add(container.getOwner().getClock());
             panneau_.add(container.getOwner().getLastSavedGameDate());
-            containerPresident_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
-            containerPresident_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+            containerPresident_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
+            containerPresident_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
             container.setContentPane(containerPresident_);
             container.pack();
             getDealsTricks().selectItem(0);

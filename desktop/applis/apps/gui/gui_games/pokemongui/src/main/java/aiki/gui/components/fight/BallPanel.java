@@ -9,8 +9,8 @@ import aiki.main.AikiFactory;
 import aiki.main.PkNonModalEvent;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
-import code.gui.GuiConstants;
 import code.gui.ScrollCustomGraphicList;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
@@ -49,7 +49,7 @@ public final class BallPanel {
         container = compoFactory.newBorder();
         container.setLoweredBorder();
         title = compoFactory.newPlainLabel(_titre);
-        container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
+        container.add(title, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         listeBall.getElements().setFont(title.getMetaFont());
         maxVisible = _nb;
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
@@ -57,7 +57,7 @@ public final class BallPanel {
 //        int s_ = _facade.getData().getMap().getSideLength();
 //        listeBall.getScrollPane().setPreferredSize(new MetaDimension(100,s_*_nb));
         initBalls(-1, -1);
-        container.add(listeBall.getScrollPane(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(listeBall.getScrollPane(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        container.setPreferredSize(new MetaDimension(100,s_*_nb+16));
     }
 

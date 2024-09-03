@@ -3,9 +3,9 @@ package cards.gui.dialogs;
 import cards.gui.WindowCardsInt;
 import code.gui.AbsButton;
 import code.gui.AbsPanel;
-import code.gui.GuiConstants;
 import code.gui.files.AbsPostFileDialogEvent;
 import code.gui.files.FileSaveDialogContent;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class EditorPostFileDialogEvent implements AbsPostFileDialogEvent {
@@ -37,12 +37,12 @@ public final class EditorPostFileDialogEvent implements AbsPostFileDialogEvent {
     public String visible(AbsPanel _panel) {
         AbsPanel panelDeal_ = editorCards.getPanelDeal();
         AbsCompoFactory compoFactory_ = editorCards.getProgramInfos().getCompoFactory();
-        panelDeal_.add(compoFactory_.newHorizontalSplitPane(compoFactory_.newAbsScrollPane(editorCards.getBorder()),compoFactory_.newAbsScrollPane(_panel)), GuiConstants.BORDER_LAYOUT_CENTER);
+        panelDeal_.add(compoFactory_.newHorizontalSplitPane(compoFactory_.newAbsScrollPane(editorCards.getBorder()),compoFactory_.newAbsScrollPane(_panel)), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel line_ = compoFactory_.newLineBox();
         AbsButton bouton_= editorCards.buildBackToRules(window,dialog);
         line_.add(bouton_);
         line_.add(editorCards.getErrors());
-        panelDeal_.add(line_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        panelDeal_.add(line_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         return "";
     }
 }

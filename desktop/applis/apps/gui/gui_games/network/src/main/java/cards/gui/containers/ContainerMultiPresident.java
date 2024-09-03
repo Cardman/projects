@@ -31,6 +31,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AlwaysActionListenerAct;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
@@ -162,10 +163,10 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         dialogPresidentContent = new DialogPresidentContent(getOwner().getFrames());
         AbsTabbedPane jt_ = dialogPresidentContent.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
-        border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
+        border_.add(jt_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         selectRules= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
         selectRules.addActionListener(new AfterValidateRulesPresidentMulti(dialogPresidentContent,this));
-        border_.add(selectRules,GuiConstants.BORDER_LAYOUT_SOUTH);
+        border_.add(selectRules, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
     }
 //    @Override
@@ -471,7 +472,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         getPane().removeAll();
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         CarpetPresident tapis_ = new CarpetPresident();
 //        ByteTreeMap<String> pseudos_ = nicknames();
@@ -480,13 +481,13 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         StringList list_ = nicknames();
         tapis_.initTapisPresident(lg_,list_, status_, _nbMax, getOwner().getCompoFactory());
         getTapis().setTapisPresident(tapis_);
-        container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_ = panelHand();
 //        AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
 //        panneau_.setBackground(GuiConstants.BLUE);
 //        setPanelHand(panneau_);
 //        panelHand(panneau_);
-        container_.add(panelHand(), GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panelHand(), MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         panneau2_.add(events());
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
@@ -517,7 +518,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         getNoPlay().setVisible(false);
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
-        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
+        container_.add(panneau2_, MessagesGuiFct.BORDER_LAYOUT_EAST);
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
@@ -668,7 +669,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
-        container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
 //        containerMultiContent.endReady(this,panneau_);
 //        readyToPlay = false;

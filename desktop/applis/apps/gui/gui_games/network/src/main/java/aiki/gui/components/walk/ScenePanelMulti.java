@@ -14,6 +14,7 @@ import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.AlwaysActionListenerAct;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
@@ -703,7 +704,7 @@ public class ScenePanelMulti {
         panelMenu.setVisible(false);
 //        disableFishing();
         panelNetWork = compoFactory.newPageBox();
-        panelOptions.add(panelNetWork, GuiConstants.BORDER_LAYOUT_CENTER);
+        panelOptions.add(panelNetWork, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         exitTrade = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.EXIT));
         AbsButton exit_ = exitTrade;
         exit_.addActionListener(new ExitTradeEvent(window));
@@ -714,9 +715,9 @@ public class ScenePanelMulti {
             trade_.addActionListener(new ValidateTradingEvent(window));
             panel_.add(trade_);
             panel_.add(exit_);
-            panelOptions.add(panel_, GuiConstants.BORDER_LAYOUT_SOUTH);
+            panelOptions.add(panel_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         } else {
-            panelOptions.add(exit_, GuiConstants.BORDER_LAYOUT_SOUTH);
+            panelOptions.add(exit_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         }
     }
 
@@ -730,14 +731,14 @@ public class ScenePanelMulti {
         teamPan.getListe().setListener(new PokemonSelectionTrading(this));
         panelNetWork.add(teamPan.getContainer());
         AbsPanel group_ = compoFactory.newBorder();
-        group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.RECEIVED_POKEMON)), GuiConstants.BORDER_LAYOUT_NORTH);
+        group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.RECEIVED_POKEMON)), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
         receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter(), window.getGuardRender());
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window.getCommonFrame());
 //        receivedPk.prepare();
         scrollSession_.setPreferredSize(new MetaDimension(400, 300));
-        group_.add(scrollSession_, GuiConstants.BORDER_LAYOUT_CENTER);
+        group_.add(scrollSession_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         panelNetWork.add(group_);
         enabledReady = false;
         readyCheck = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.READY));

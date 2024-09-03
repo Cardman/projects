@@ -4,6 +4,7 @@ import cards.consts.*;
 import cards.facade.Games;
 import cards.gui.containers.*;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.scripts.messages.cards.*;
@@ -43,7 +44,7 @@ public abstract class DialogHelpUniqCard<T> extends DialogHelpCards {
             zone_.append(strBuild_.toString());
             panneau3_.add(zone_);
         }
-        panneau2_.add(panneau3_,GuiConstants.BORDER_LAYOUT_CENTER);
+        panneau2_.add(panneau3_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsScrollPane ascenseur_= getCompo().newAbsScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new MetaDimension(600,600));
         container_.add(ascenseur_);

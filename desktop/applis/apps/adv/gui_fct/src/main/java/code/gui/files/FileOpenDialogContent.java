@@ -74,7 +74,7 @@ public final class FileOpenDialogContent extends FileDialogContent {
         searchingPanel.add(searchedFiles);
         foundFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages_.getVal(MessagesFileOpenDialog.RESULT_COUNT), 0));
         searchingPanel.add(foundFiles);
-        getContentPane().add(searchingPanel, GuiConstants.BORDER_LAYOUT_NORTH);
+        getContentPane().add(searchingPanel, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         getPostFileDialogEvent().visible(getContentPane());
     }
 

@@ -35,6 +35,7 @@ import cards.president.enumerations.CardPresident;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListenerAct;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
@@ -315,7 +316,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getPane().removeAll();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         GamePresident partie_=partiePresident();
         RulesPresident rules_ = partie_.getRules();
         CarpetPresident tapis_=new CarpetPresident();
@@ -323,13 +324,13 @@ public class ContainerSinglePresident extends ContainerPresident implements
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
         tapis_.initTapisPresident(lg_,pseudos_, partie_.getLastStatus(), NumberUtil.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), getOwner().getCompoFactory());
         getTapis().setTapisPresident(tapis_);
-        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_ = panelHand();
 //        AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
 //        panneau_.setBackground(GuiConstants.BLUE);
 //        setPanelHand(panneau_);
 //        panelHand(panneau_);
-        container_.add(panelHand(),GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panelHand(), MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
 //        getEvents().setEditable(false);
@@ -359,7 +360,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getNoPlay().setVisible(false);
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
-        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
+        container_.add(panneau2_, MessagesGuiFct.BORDER_LAYOUT_EAST);
         tapisPresident().setTalonPresident(getWindow().getImageFactory());
 //        tapisPresident().repaintValidate();
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
@@ -634,7 +635,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         AbsCustComponent panelCards_ = end_.getContainer();
         panelCards_.setPreferredSize(new MetaDimension(850,850));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),panelCards_);
-        container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
         resultButtons(buttons_,this);
@@ -653,7 +654,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
-        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
 //        if(type_!=GameType.EDIT) {
 //            partie_.setNombre();
 //        }

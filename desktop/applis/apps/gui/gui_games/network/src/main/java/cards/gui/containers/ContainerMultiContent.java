@@ -10,6 +10,7 @@ import cards.network.common.before.*;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.files.MessagesGuiFct;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -256,7 +257,7 @@ public final class ContainerMultiContent {
         }
         panneau_.add(window().getClock());
         panneau_.add(window().getLastSavedGameDate());
-        _panel.add(panneau_, GuiConstants.BORDER_LAYOUT_SOUTH);
+        _panel.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
 
         window().setContentPane(_panel);
         window().pack();

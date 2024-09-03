@@ -11,6 +11,7 @@ import cards.gui.WindowCards;
 import cards.gui.WindowCardsCore;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -101,7 +102,7 @@ public final class DialogNicknames extends DialogHelpCards {
             i_++;
         }
         jt_.add(GameEnum.TAROT.toString(lg_),sousPanneau_);
-        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(jt_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         //Panneau pseudo du joueur
         sousPanneau_=_fenetre.getCompoFactory().newPageBox();
         sousPanneau_.add(getCompoFactory().newPlainLabel(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_CST_NICKNAME)));
@@ -111,7 +112,7 @@ public final class DialogNicknames extends DialogHelpCards {
         validate = getCompoFactory().newPlainButton(nicknamesMessages_.getVal(MessagesGuiCards.DIAL_NICK_VALIDATE));
         validate.addActionListener(new ListenerNicknames(_fenetre,this));
         sousPanneau_.add(validate);
-        container_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(sousPanneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         getAbsDialog().setContentPane(container_);
         getAbsDialog().pack();
         getAbsDialog().setVisible(true);

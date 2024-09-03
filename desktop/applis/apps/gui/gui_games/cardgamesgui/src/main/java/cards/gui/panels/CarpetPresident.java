@@ -14,6 +14,7 @@ import cards.president.enumerations.Playing;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.sml.util.TranslationsLg;
@@ -61,7 +62,7 @@ public class CarpetPresident {
             entered_ = true;
         }
         centerDeck_.setBackground(GuiConstants.newColor(0, 125, 0));
-        container.add(centerDeck_, GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(centerDeck_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel playersPanel_ = _compoFactory.newPageBox();
         for (String n: pseudos) {
             AbsPlainLabel l_ = _compoFactory.newPlainLabel(n);
@@ -69,7 +70,7 @@ public class CarpetPresident {
             labels.add(l_);
             playersPanel_.add(l_);
         }
-        container.add(playersPanel_, GuiConstants.BORDER_LAYOUT_WEST);
+        container.add(playersPanel_, MessagesGuiFct.BORDER_LAYOUT_WEST);
     }
 
 //    public void retirerCartes() {

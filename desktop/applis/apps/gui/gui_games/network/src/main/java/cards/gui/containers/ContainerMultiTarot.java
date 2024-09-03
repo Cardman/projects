@@ -32,6 +32,7 @@ import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
@@ -251,11 +252,11 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         dialogTarotContent = new DialogTarotContent(getOwner().getFrames());
         AbsTabbedPane jt_ = dialogTarotContent.initJt(null, false, containerMultiContent.getNbChoosenPlayers(), getOwner());
         AbsPanel border_ = getOwner().getCompoFactory().newBorder();
-        border_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
+        border_.add(jt_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         selectRules= getOwner().getCompoFactory().newPlainButton(containerMultiContent.getMessages().getVal(MessagesGuiCards.SELECT_RULES));
         selectRules.addActionListener(new AfterValidateRulesTarotMulti(dialogTarotContent,this));
         dialogTarotContent.setValidateButton(selectRules);
-        border_.add(selectRules,GuiConstants.BORDER_LAYOUT_SOUTH);
+        border_.add(selectRules, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         _container.add(border_);
     }
 //    @Override
@@ -791,21 +792,21 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         MenuItemUtils.setEnabledMenu(getContainerMultiContent().window().getMultiStop(),false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()),GuiConstants.BORDER_LAYOUT_NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(helpMenuTip()), MessagesGuiFct.BORDER_LAYOUT_NORTH);
 //        ByteTreeMap<String> pseudos_ = nicknames();
 //        StringList list_ = new StringList(pseudos_.values());
         StringList list_ = nicknames();
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),list_.size(), getDisplayingTarot().getDisplaying().isClockwise(), list_, getOwner().getCompoFactory()));
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, containerMultiContent.getNbChoosenPlayers(), getDisplayingTarot().getDisplaying().isClockwise(), _dog.total(), getOwner().getFrames());
         getTapis().setTapisTarot(tapis_);
-        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(tapis_.getContainer(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        panelHand(getOwner().getCompoFactory().newLineBox());
 //        AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
 ////        panneau_.add(getPanelHand());
 //        panneau_.add(panelHand());
 //        panneau_.setBackground(GuiConstants.BLUE);
 
-        container_.add(panelHand(),GuiConstants.BORDER_LAYOUT_SOUTH);
+        container_.add(panelHand(), MessagesGuiFct.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         panneau2_.add(events());
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
@@ -1260,7 +1261,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
         editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
         onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
-        container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
 //        containerMultiContent.endReady(this,panneau_);
 //        readyToPlay = false;

@@ -12,6 +12,7 @@ import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.InterruptibleContextEl;
 import code.gui.*;
 import code.gui.events.AbsEnabledAction;
+import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
@@ -103,7 +104,7 @@ public final class TabEditor implements AbsTabEditor {
         center = frames_.getCompoFactory().newTextPane();
         center.setFocusable(true);
         center.addMouseListener(new ClickTextPane(center));
-        center.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
+        center.setFont(new MetaFont(MessagesGuiFct.MONOSPACED,GuiConstants.fontStyle(false,false),12));
         center.setBackground(GuiConstants.BLACK);
         center.setForeground(GuiConstants.WHITE);
         center.setCaretColor(GuiConstants.WHITE);
@@ -221,7 +222,7 @@ public final class TabEditor implements AbsTabEditor {
         applRepl_.add(applyExp);
         preview = frames_.getCompoFactory().newTextPane();
         preview.setEditable(false);
-        preview.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
+        preview.setFont(new MetaFont(MessagesGuiFct.MONOSPACED,GuiConstants.fontStyle(false,false),12));
         preview.setBackground(GuiConstants.BLACK);
         preview.setForeground(GuiConstants.WHITE);
         preview.setCaretColor(GuiConstants.WHITE);

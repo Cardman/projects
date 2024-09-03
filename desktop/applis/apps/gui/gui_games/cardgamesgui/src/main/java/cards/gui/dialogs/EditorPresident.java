@@ -15,8 +15,8 @@ import cards.president.GamePresident;
 import cards.president.HandPresident;
 import code.gui.AbsPanel;
 import code.gui.EnabledMenu;
-import code.gui.GuiConstants;
 import code.gui.MenuItemUtils;
+import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
@@ -138,7 +138,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //        liste.addItem(editorCards.translate(_parent,MessagesEditorCards.RANDOM));
 //        liste.getCombo().repaint();
         panneau_.add(editorCards.buildDealer(window.getPseudosJoueurs().getPseudo(),_parent.getImageFactory(), _parent.getCompoFactory(), window.getPseudosJoueurs().getPseudosPresident(), nbPlayers_).self());
-        c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
+        c.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_NORTH);
         pile_.sortCards(displayingPresident.getDisplaying().isDecreasing(), false);
         PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),editorCards.translate(MessagesEditorCards.DEALING_STACK),displayingPresident);
         plc_.iniPile(pile_.getCards());
