@@ -148,7 +148,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         if (_form) {
             processRendFormRequest(_navigation, _ctx, rendStackCall_, _elt);
         } else {
-            processRendAnchorRequest(_elt, _navigation, _ctx, rendStackCall_);
+            processRendAnchorRequest(_elt, _navigation, _ctx, rendStackCall_, true);
         }
         return rendStackCall_;
     }
@@ -609,7 +609,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         proc(_nav, _ctx, _rendStackCall, currentUrl_, bean_, _nav.getCurrentBeanName());
     }
 
-    public void processRendAnchorRequest(Element _ancElt,  Navigation _nav, ContextEl _ctx, RendStackCall _rendStack) {
+    public void processRendAnchorRequest(Element _ancElt, Navigation _nav, ContextEl _ctx, RendStackCall _rendStack, boolean _anchor) {
         if (_ancElt == null) {
             return;
         }
@@ -621,8 +621,8 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             ImportingPage ip_ = new ImportingPage();
             _rendStack.addPage(ip_);
             int indexPoint_ = actionCommand_.indexOf(DOT);
-            String beanName_ = actionCommand_
-                    .substring(actionCommand_.indexOf(CALL_METHOD) + 1);
+            String beanName_ = actionCommand_;
+//                    .substring(actionCommand_.indexOf(CALL_METHOD) + 1);
             Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             setGlobalArgumentStruct(bean_,_ctx,_rendStack);
@@ -645,7 +645,11 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             return;
         }
         Struct bean_ = getBeanOrNull(_nav.getCurrentBeanName());
-        proc(_nav, _ctx, _rendStack, actionCommand_, bean_, _nav.getCurrentBeanName());
+        if (_anchor) {
+            proc(_nav, _ctx, _rendStack, _ancElt.getAttribute(session_.getRendKeyWords().getAttrHref()), bean_, _nav.getCurrentBeanName());
+        } else {
+            proc(_nav, _ctx, _rendStack, _ancElt.getAttribute(session_.getRendKeyWords().getAttrAction()), bean_, _nav.getCurrentBeanName());
+        }
     }
 
     private void proc(Navigation _nav, ContextEl _ctx, RendStackCall _rendStack, String _actionCommand, Struct _bean, String _currentBeanName) {
@@ -1095,7 +1099,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         }
 
         //invoke application
-        processRendAnchorRequest(_elt, _nav, _ctx, _rendStackCall);
+        processRendAnchorRequest(_elt, _nav, _ctx, _rendStackCall, false);
     }
 
     public StringMap<Message> validateAll(DefHtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack) {

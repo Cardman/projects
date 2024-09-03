@@ -164,12 +164,12 @@ public abstract class RendBlock {
     }
 
     public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringMap<CustList<RendDynOperationNode>> _textPart, RendGeneLinkTypes _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
-        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        if (!href_.startsWith(BeanLgNames.CALL_METHOD)) {
-            _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc.getGeneLink(),new CustList<AbstractWrapper>()));
-            procCstAnc(_cont, _nextWrite, _rendStackCall.getFormParts());
-            return;
-        }
+//        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+//        if (!href_.startsWith(BeanLgNames.CALL_METHOD)) {
+//            _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc.getGeneLink(),new CustList<AbstractWrapper>()));
+//            procCstAnc(_cont, _nextWrite, _rendStackCall.getFormParts());
+//            return;
+//        }
         CustList<AbstractWrapper> values_ = new CustList<AbstractWrapper>();
         int i_ = 0;
         for (EntryCust<String, CustList<RendDynOperationNode>> e: _textPart.entryList()) {
@@ -185,23 +185,11 @@ public abstract class RendBlock {
         }
         _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc.getGeneLink(),values_));
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
-        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(BeanLgNames.CALL_METHOD,beanName_));
+        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), beanName_);
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNb(_cont.getRend(), _nextWrite, _rendStackCall.getFormParts().getIndexes(), _cont.getRendKeyWords().group());
         IndexesFormInput.incr(_rendStackCall.getFormParts().getIndexes());
-    }
-
-    public static void procCstAnc(Configuration _cont, Element _nextWrite, FormParts _formParts) {
-        hideLink(_cont, _nextWrite);
-        incrAncNb(_cont.getRend(), _nextWrite, _formParts.getIndexes(), _cont.getRendKeyWords().group());
-        IndexesFormInput.incr(_formParts.getIndexes());
-    }
-
-    public static void hideLink(Configuration _cont, Element _nextWrite) {
-        if (_nextWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
-            _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
-        }
     }
 
     public static String getCssHref(Configuration _cont,Element _link) {

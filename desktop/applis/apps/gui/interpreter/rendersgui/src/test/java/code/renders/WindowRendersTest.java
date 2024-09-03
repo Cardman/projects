@@ -186,7 +186,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
         StringMap<ContentTime> cont_ = with(pr_, with(pr_, with(pr_, init(), "conf.txt", "content"), "src/"), "src/folder/");
         StringMap<ContentTime> contConf_ = with(pr_,cont_,"conf_cl.txt","src/folder/file.txt");
-        StringMap<ContentTime> contRend_ = with(pr_,with(pr_,contConf_,"page.html","<html><body><a c:command=\"page_.html\">_</a></body></html>"),"page_.html","<html><body>_</body></html>");
+        StringMap<ContentTime> contRend_ = with(pr_,with(pr_,contConf_,"page.html","<html><body><a href=\"page_.html\">_</a></body></html>"),"page_.html","<html><body>_</body></html>");
         StringMap<ContentTime> content_ = with(pr_, contRend_, "src/folder/file.txt", "public class cl.Init{public static Object init(String[] names, String[] contents){return new String[0];}}");
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
@@ -251,7 +251,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
         StringMap<ContentTime> cont_ = with(pr_, with(pr_, with(pr_, init(), "conf.txt", "content"), "src/"), "src/folder/");
         StringMap<ContentTime> contConf_ = with(pr_,cont_,"conf_cl.txt","src/folder/file.txt");
-        StringMap<ContentTime> contRend_ = with(pr_,with(pr_,contConf_,"page.html","<html c:bean='bean_one'><body><a c:command=\"$redirectBad\">_</a></body></html>"),"page_.html","<html><body>_</body></html>");
+        StringMap<ContentTime> contRend_ = with(pr_,with(pr_,contConf_,"page.html","<html c:bean='bean_one'><body><a c:command=\"redirectBad\">_</a></body></html>"),"page_.html","<html><body>_</body></html>");
         StringMap<ContentTime> content_ = with(pr_, contRend_, "src/folder/file.txt", "public class cl.Init:$core.Bean{public void beforeDisplaying(){}public static Object init(String[] names, String[] contents){return new String[0];}public int redirectBad(){return 1/0;}}");
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);

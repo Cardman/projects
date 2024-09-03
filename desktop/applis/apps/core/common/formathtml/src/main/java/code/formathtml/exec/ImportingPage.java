@@ -156,7 +156,7 @@ public final class ImportingPage extends AbsImportingPage {
             if (((RendIfStack)last_).getBlock() instanceof RendElem) {
                 rendReadWrite.setWrite(NavigationCore.getParentNode(rendReadWrite));
             }
-            if (((RendIfStack)last_).getBlock() instanceof RendForm) {
+            if (((RendIfStack)last_).getBlock() instanceof RendForm || ((RendIfStack)last_).getBlock() instanceof RendCstForm) {
                 CustList<LongTreeMap<DefNodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
                 Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
                 long nb_ = formsNb_.last();

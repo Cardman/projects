@@ -10,8 +10,8 @@ public final class RenderFormTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"$click\" name='\"myform\"'><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"click\" name='\"myform\"'><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -32,7 +32,7 @@ public final class RenderFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click()\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><form action=\"\" c:command=\"bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click()\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -40,8 +40,8 @@ public final class RenderFormTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"$click\" c:param0='0' name='\"myform\"'><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"click\" c:param0='0' name='\"myform\"'><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -62,14 +62,14 @@ public final class RenderFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click($int)\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><form action=\"\" c:command=\"bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click($int)\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process3Test() {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form name='\"myform\"'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
@@ -98,8 +98,8 @@ public final class RenderFormTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"$click\" c:param0='1/0' name='\"myform\"'><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"click\" c:param0='1/0' name='\"myform\"'><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" n-r='0' name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -128,8 +128,8 @@ public final class RenderFormTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"$click\"/><form action=\"\" c:command=\"$click2\"/></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"click\"/><form action=\"\" c:command=\"click2\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -152,7 +152,7 @@ public final class RenderFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click()\" n-f=\"0\"/><form action=\"\" c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click2()\" n-f=\"1\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><form action=\"\" c:command=\"bean_one\" c:sgn=\"pkg.BeanOne.click()\" n-f=\"0\"/><form action=\"\" c:command=\"bean_one\" c:sgn=\"pkg.BeanOne.click2()\" n-f=\"1\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
@@ -167,8 +167,8 @@ public final class RenderFormTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"$click({&quot;&quot;},{$null})\" name=\"myform\"><input type=\"radio\" name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"click({&quot;&quot;},{$null})\" name=\"myform\"><input type=\"radio\" name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -197,8 +197,8 @@ public final class RenderFormTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"$click({&quot;&quot;},{$null})\" c:param0='&quot;&quot;' name=\"myform\"><input type=\"radio\" name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"click({&quot;&quot;},{$null})\" c:param0='&quot;&quot;' name=\"myform\"><input type=\"radio\" name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -227,8 +227,8 @@ public final class RenderFormTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"$click2\" c:param0='0' name=\"myform\"><input type=\"radio\" name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"click2\" c:param0='0' name=\"myform\"><input type=\"radio\" name=\"first.value\" c:varValue=\"2\"/><input type=\"radio\" name=\"first.value\" c:varValue=\"4\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

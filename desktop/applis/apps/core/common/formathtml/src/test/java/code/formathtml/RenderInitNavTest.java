@@ -33,7 +33,7 @@ public final class RenderInitNavTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><a c:command=\"page2.html\"/></body></html>";
+        String html_ = "<html><body><a href=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -66,7 +66,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setFiles(files_);
         ContextEl res_ = setupRendClassesInitStdMess(a_, n_);
         init(res_,a_, n_);
-        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
+        assertEq("<html><body><a href=\"page2.html\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
     public void process2Test() {
@@ -189,7 +189,7 @@ public final class RenderInitNavTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><a c:command=\"page2.html\"/></body></html>";
+        String html_ = "<html><body><a href=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -261,7 +261,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanCustLgNames stds_ = page_.getStds();
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
-        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
+        assertEq("<html><body><a href=\"page2.html\" n-a=\"0\"/></body></html>",n_.getHtmlText());
         assertEq(2,page_.getContext().getAddedFiles().size());
         assertEq(0,n_.getLanguages().size());
     }
@@ -271,7 +271,7 @@ public final class RenderInitNavTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><a c:command=\"page2.html\"/></body></html>";
+        String html_ = "<html><body><a href=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -350,7 +350,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanCustLgNames stds_ = page_.getStds();
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
-        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
+        assertEq("<html><body><a href=\"page2.html\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
     public void process7Test() {
@@ -358,7 +358,7 @@ public final class RenderInitNavTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><a c:command=\"page2.html\"/></body></html>";
+        String html_ = "<html><body><a href=\"page2.html\"/></body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -444,7 +444,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanCustLgNames stds_ = page_.getStds();
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
-        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
+        assertEq("<html><body><a href=\"page2.html\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
 
     @Test
@@ -453,7 +453,7 @@ public final class RenderInitNavTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><a c:command=\"page2.html\"/>{java.lang.Resources.readContent(\"res.txt\")}</body></html>";
+        String html_ = "<html><body><a href=\"page2.html\"/>{java.lang.Resources.readContent(\"res.txt\")}</body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -543,7 +543,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanCustLgNames stds_ = page_.getStds();
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
-        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>content</body></html>",n_.getHtmlText());
+        assertEq("<html><body><a href=\"page2.html\" n-a=\"0\"/>content</body></html>",n_.getHtmlText());
     }
 
     @Test
@@ -552,7 +552,7 @@ public final class RenderInitNavTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><a c:command=\"page2.html\"/>{$class(java.lang.$math).getDeclaredMethods(&quot;mod&quot;,$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)}</body></html>";
+        String html_ = "<html><body><a href=\"page2.html\"/>{$class(java.lang.$math).getDeclaredMethods(&quot;mod&quot;,$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)}</body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -585,7 +585,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setFiles(files_);
         ContextEl res_ = setupRendClassesInitStdMess(a_, n_);
         init(res_,a_, n_);
-        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
+        assertEq("<html><body><a href=\"page2.html\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
     }
 
     @Test

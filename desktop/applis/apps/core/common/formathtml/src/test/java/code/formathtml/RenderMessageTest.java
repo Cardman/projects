@@ -10,7 +10,7 @@ public final class RenderMessageTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
@@ -26,14 +26,14 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"bean_one.click\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process2Test() {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click({1})\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/><c:param value='2'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
@@ -50,7 +50,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"$bean_one.click(2)\" href=\"\" n-a=\"0\">two</a>After</body></html>", getAncOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"bean_one.click(2)\" n-a=\"0\">two</a>After</body></html>", getAncOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -75,7 +75,7 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"link\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"bean_one.link\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process4Test() {
@@ -251,7 +251,7 @@ public final class RenderMessageTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='tmpLoc=0'/><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
@@ -267,14 +267,14 @@ public final class RenderMessageTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body>desc &#60;Text&#62;<a c:command=\"bean_one.click\" n-a=\"0\">two</a>After</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process12Test() {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='tmpLoc=0'/><c:message value=\"msg_example,three\"><c:param value='1/0'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
@@ -367,7 +367,7 @@ public final class RenderMessageTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='code.bean.Message' value='m=code.bean.Message.newStandardMessage()'/>{m==m};{m==code.bean.Message.newStandardMessage()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
@@ -400,7 +400,7 @@ public final class RenderMessageTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After<\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After<\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
@@ -423,7 +423,7 @@ public final class RenderMessageTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After<\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click\">two</a>After<\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,five\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
@@ -446,8 +446,8 @@ public final class RenderMessageTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$cl+1+$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"/><a c:command=\"$cl+1+$click\">two</a></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"cl+1+$click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"/><a c:command=\"cl+1+$click\">two</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -469,8 +469,8 @@ public final class RenderMessageTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click((o,p),(1),p,(q))\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"/><a c:command=\"$click((o,p),(1),p,(q))\">two</a></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click((o,p),(1),p,(q))\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"/><a c:command=\"click((o,p),(1),p,(q))\">two</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -492,8 +492,8 @@ public final class RenderMessageTest extends CommonRender {
         String locale_ = EN;
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click((o,p),(1),p,(q),(tmpLoc))\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><<c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"><p value='0'></p></c:message><a c:command=\"$click((o,p),(1),p,(q),(tmpLoc))\">two</a></body></html>";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"click((o,p),(1),p,(q),(tmpLoc))\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><<c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"><p value='0'></p></c:message><a c:command=\"click((o,p),(1),p,(q),(tmpLoc))\">two</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

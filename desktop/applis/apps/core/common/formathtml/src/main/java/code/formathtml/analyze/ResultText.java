@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.util.BeanLgNames;
 import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.util.*;
@@ -120,17 +119,16 @@ public final class ResultText {
     }
 
     public static void buildAnchor(AnaRendBlock _r, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultText _res) {
-        String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         _res.opExpRoot = new CustList<OperationNode>();
         _res.texts = new StringList();
-        if (href_.startsWith(BeanLgNames.CALL_METHOD)) {
-            String lk_ = href_.substring(1);
+        if (_read.hasAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()))) {
             int colsGrId_ = _r.getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             for (EntryCust<String,ResultExpression> e: _res.getResults().entryList()) {
                 _page.zeroOffset();
                 _page.setSumOffset(e.getValue().getSumOffset());
                 RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, e.getValue());
             }
+            String lk_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrCommand()));
             if (MathExpUtil.isDollarWord(lk_)) {
                 StringList argCla_ = feedArgs(_res,_page);
                 _page.zeroOffset();

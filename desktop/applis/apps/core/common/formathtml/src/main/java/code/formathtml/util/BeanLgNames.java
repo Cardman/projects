@@ -12,8 +12,6 @@ public abstract class BeanLgNames extends LgNames {
 
     public static final String DOT = ".";
 
-    public static final String CALL_METHOD = "$";
-
     public static final String EMPTY_STRING = "";
 
     protected BeanLgNames(AbstractGenerator _gene) {

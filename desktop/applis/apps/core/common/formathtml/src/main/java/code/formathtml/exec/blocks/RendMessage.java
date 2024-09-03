@@ -149,14 +149,14 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
 
     private static void processImportedNode(Configuration _conf,
                                             Element _tag, String _beanName) {
-        if (StringUtil.quickEq(_tag.getTagName(),_conf.getRendKeyWords().getKeyWordAnchor())) {
-            String href_ = _tag.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()));
-            if (href_.startsWith(BeanLgNames.CALL_METHOD)) {
-                _tag.setAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringUtil.concat(BeanLgNames.CALL_METHOD, _beanName,DOT,href_.substring(1)));
-            }
-            if (_tag.hasAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
-                _tag.setAttribute(_conf.getRendKeyWords().getAttrHref(), EMPTY_STRING);
-            }
+        if (StringUtil.quickEq(_tag.getTagName(),_conf.getRendKeyWords().getKeyWordAnchor()) && _tag.hasAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
+//            String href_ = _tag.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()));
+//            if (_tag.hasAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
+                _tag.setAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringUtil.concat(_beanName,DOT,_tag.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))));
+//            }
+//            if (_tag.hasAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
+//                _tag.setAttribute(_conf.getRendKeyWords().getAttrHref(), EMPTY_STRING);
+//            }
         }
     }
 }

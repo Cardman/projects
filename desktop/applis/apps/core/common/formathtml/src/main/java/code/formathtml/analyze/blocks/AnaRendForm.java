@@ -10,7 +10,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.util.BeanLgNames;
 import code.maths.litteralcom.MathExpUtil;
 import code.sml.Element;
 import code.util.EntryCust;
@@ -31,9 +30,8 @@ public final class AnaRendForm extends AnaRendElement implements AnaRendElementA
 
     @Override
     public void processAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String href_ = getRead().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-        if (href_.startsWith(BeanLgNames.CALL_METHOD)) {
-            String lk_ = href_.substring(1);
+        if (getRead().hasAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()))) {
+            String lk_ = getRead().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             results = res.getResults();
             for (EntryCust<String, ResultExpression> e: res.getResults().entryList()) {
