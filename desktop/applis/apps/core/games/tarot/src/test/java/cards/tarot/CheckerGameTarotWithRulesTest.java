@@ -22,7 +22,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = deal();
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertTrue(!game_.isCallingState());
         //assertEq(1, game_.getNbPlisTotal());
@@ -39,7 +39,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal();
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -57,7 +57,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.MISERE);
         DealTarot deal_ = deal();
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -74,7 +74,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         DealTarot deal_ = deal();
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -91,7 +91,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         DealTarot deal_ = deal();
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -109,7 +109,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -137,7 +137,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
@@ -164,7 +164,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(4, game_.getBids().size());
@@ -190,7 +190,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
@@ -222,7 +222,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         intelligenceArtificielleAppel(game_);
         game_.gererChienInconnu();
         game_.slam(new DefGameTarot());
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
@@ -253,7 +253,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
@@ -284,7 +284,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
@@ -315,7 +315,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ecarter(new DefGameTarot());
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -347,7 +347,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.appelApresEcart(new DefGameTarot());
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -379,7 +379,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -413,7 +413,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -448,7 +448,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
         game_.retirerUneCarteDuChien(CardTarot.CLUB_6);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -483,7 +483,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -522,7 +522,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -547,7 +547,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -571,7 +571,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -599,7 +599,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -624,7 +624,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_2);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(2, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -659,7 +659,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         game_.addCurTrick();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -697,7 +697,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         discard(game_, CardTarot.HEART_1);
         discard(game_, CardTarot.HEART_7);
         game_.addCurTrick();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -731,7 +731,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
         discard(game_, CardTarot.HEART_1);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -760,7 +760,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -777,7 +777,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -809,7 +809,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -857,7 +857,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_3);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_6);
         game_.ajouterPetitAuBoutPliEnCours();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -901,7 +901,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_3);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -927,7 +927,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -951,7 +951,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.addCurTrick();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -989,7 +989,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         discard(game_, CardTarot.SPADE_10);
         discard(game_, CardTarot.DIAMOND_2);
         game_.addCurTrick();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1032,7 +1032,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         discard(game_, CardTarot.DIAMOND_2);
         game_.ajouterChelemUtilisateur();
         game_.addCurTrickDiscarded();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1058,7 +1058,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1085,7 +1085,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.SLAM);
         game_.initEquipeDeterminee();
         without(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1113,7 +1113,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.initEquipeDeterminee();
         without(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1140,7 +1140,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1183,7 +1183,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1203,7 +1203,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1247,7 +1247,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1291,7 +1291,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1318,7 +1318,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1346,7 +1346,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1381,7 +1381,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1413,7 +1413,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_6);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1448,7 +1448,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_10);
         assertEq(-1, game_.getPreneur());
@@ -1465,7 +1465,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1492,7 +1492,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1508,7 +1508,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1540,7 +1540,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_6);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -1664,7 +1664,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
 //        game_.setPliEnCours(false);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
     }
 
@@ -1783,7 +1783,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
 //        game_.setPliEnCours(false);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
     }
 
@@ -1808,7 +1808,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -1842,7 +1842,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_1);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_2);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_5);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(1, game_.getTricks().size());
@@ -1872,7 +1872,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         discard(game_, CardTarot.CLUB_6);
         discard(game_, CardTarot.HEART_1);
         discard(game_, CardTarot.HEART_7);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getTricks().size());
         assertEq(0, game_.getPreneur());
@@ -1901,7 +1901,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 //        discard(game_, CardTarot.CLUB_6);
 //        discard(game_, CardTarot.HEART_1);
 //        discard(game_, CardTarot.HEART_7);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getTricks().size());
         assertEq(0, game_.getPreneur());
@@ -2024,7 +2024,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game_.ajouterPetitAuBoutPliEnCours();
 //        game_.setPliEnCours(false);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
     }
@@ -2041,7 +2041,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
@@ -2061,7 +2061,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(5, game_.getPreneur());
         assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
@@ -2087,7 +2087,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -2119,7 +2119,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -2152,7 +2152,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -2184,7 +2184,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_2);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -2218,7 +2218,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_JACK);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.CLUB_6);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -2243,7 +2243,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         intelligenceArtificielleAppel(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
@@ -2262,7 +2262,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
@@ -2283,7 +2283,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidTarot.GUARD_AGAINST,game_.getContrat());
@@ -2338,7 +2338,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
@@ -2365,7 +2365,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
         game_.getReason();
     }
@@ -2387,7 +2387,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2410,7 +2410,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2433,7 +2433,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2456,7 +2456,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2480,7 +2480,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.setCarteAppelee(cartesAppel_);
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_6);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2494,7 +2494,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_1);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2517,7 +2517,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2545,7 +2545,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -2571,7 +2571,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2599,7 +2599,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         game_.addCurTrick();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2634,7 +2634,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2664,7 +2664,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2707,7 +2707,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -2742,7 +2742,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2777,7 +2777,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2813,7 +2813,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2840,7 +2840,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2874,7 +2874,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 //
@@ -3074,7 +3074,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.getDistribution().hand().ajouter(CardTarot.CLUB_6);
         game_.getDistribution().derniereMain().ajouter(CardTarot.TRUMP_21);
         game_.getDistribution().derniereMain().jouer(CardTarot.CLUB_6);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3103,7 +3103,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3131,7 +3131,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3159,7 +3159,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3180,7 +3180,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3192,7 +3192,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         deal_.hand().jouer(CardTarot.TRUMP_21);
         deal_.hand((byte) 1).ajouter(CardTarot.TRUMP_21);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3219,7 +3219,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         discard(game_, CardTarot.HEART_7);
         discard(game_, CardTarot.SPADE_4);
         //game_.addCurTrick();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3243,7 +3243,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.getDistribution().hand((byte) 1).ajouter(CardTarot.EXCUSE);
         game_.getDistribution().hand((byte) 2).jouer(CardTarot.EXCUSE);
         //game_.addCurTrick();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3275,7 +3275,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3305,7 +3305,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3324,7 +3324,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_10);
         game_.ajouterPetitAuBoutPliEnCours();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3342,7 +3342,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_10);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3357,7 +3357,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         deal_.hand().jouer(CardTarot.TRUMP_17);
         deal_.hand().jouer(CardTarot.TRUMP_21);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3383,7 +3383,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3397,7 +3397,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         firstTrick(game_);
         game_.setAnnoncesMiseres(new IdList<Miseres>(Miseres.TRUMP));
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3411,7 +3411,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         firstTrick(game_);
         game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.ONE));
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3427,7 +3427,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         hand_.ajouter(CardTarot.TRUMP_21);
         game_.ajouterPoignee(hand_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3439,7 +3439,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         DealTarot deal_ = deal1((byte) 3);
         deal_.derniereMain().ajouter(deal_.hand().jouer(0));
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3451,7 +3451,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         DealTarot deal_ = deal1((byte) 3);
         deal_.getDeal().add(new HandTarot());
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3551,7 +3551,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
         //assertEq(3, game_.getNbPlisTotal());
         assertEq(-1, game_.getPreneur());
@@ -3583,7 +3583,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_6);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3606,7 +3606,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         intelligenceArtificielleAppel(game_);
         game_.gererChienInconnu();
         game_.slam(new DefGameTarot());
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3639,7 +3639,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         invalid(game_,(byte) 2, CardTarot.DIAMOND_1);
         invalid(game_,(byte) 3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3659,7 +3659,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -3682,7 +3682,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterContrat(BidTarot.FOLD);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -3704,7 +3704,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         HandTarot called_ = new HandTarot();
         called_.ajouter(CardTarot.WHITE);
         game_.setCarteAppelee(called_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -3714,7 +3714,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -3725,7 +3725,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         //invalid
         game_.getDeclaresHandfuls().removeLast();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -3736,7 +3736,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         //invalid
         game_.getHandfuls().removeLast();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3763,7 +3763,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         discard(game_, CardTarot.DIAMOND_2);
         game_.addCurTrickDiscarded();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_1);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertFalse(game_.getError().isEmpty());
         //assertEq(0, game_.getEntameur());
         //assertEq(0, game_.getRamasseur());
@@ -3798,7 +3798,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         //invalid
         game_.getDeclaresMiseres().removeLast();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3809,7 +3809,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         DealTarot deal_ = deal();
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.getScoresRef().clear();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3844,7 +3844,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_16);
         game_.ajouterPetitAuBoutPliEnCours();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3867,7 +3867,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.SPADE_1);
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertFalse(game_.getError().isEmpty());
     }
 
@@ -3898,10 +3898,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         game_.addCurTrickDiscarded();
         game_.ajouterChelem(true);
         game_.firstLead();
-        CheckerGameTarotWithRules.check(game_);
+        check(game_);
         assertFalse(game_.getError().isEmpty());
 //        game_.autoriseEcartDe(CardTarot.SPADE_QUEEN);
     }
+
+    private static void check(GameTarot _game) {
+        CheckerGameTarotWithRules.check(_game);
+    }
+
     private static DealTarot deal1(byte _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;

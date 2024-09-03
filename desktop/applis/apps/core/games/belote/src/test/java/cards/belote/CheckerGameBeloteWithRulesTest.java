@@ -173,7 +173,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -189,7 +189,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -208,7 +208,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -228,7 +228,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -249,7 +249,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -284,7 +284,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.OTHER_SUIT);
         bid_.setSuit(Suit.CLUB);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.OTHER_SUIT, game_.getBid().getBid());
@@ -309,7 +309,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertTrue(game_.keepBidding());
         assertEq(1, game_.getPreneur());
@@ -341,7 +341,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(90);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -375,7 +375,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -415,7 +415,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -453,7 +453,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.NO_TRUMP, game_.getBid().getBid());
@@ -491,7 +491,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.NO_TRUMP, game_.getBid().getBid());
@@ -526,7 +526,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.NO_TRUMP, game_.getBid().getBid());
@@ -573,7 +573,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.NO_TRUMP, game_.getBid().getBid());
@@ -597,7 +597,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -632,7 +632,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -668,7 +668,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -693,7 +693,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -719,7 +719,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -756,7 +756,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_KING);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -785,7 +785,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
         assertTrue(game_.autoriseBeloteRebelote());
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -812,7 +812,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         assertTrue(!game_.autoriseBeloteRebelote());
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -841,7 +841,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
         game_.ajouterDixDeDerPliEnCours();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -869,7 +869,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -904,7 +904,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         assertTrue(game_.autoriseBeloteRebelote());
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -935,7 +935,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -970,7 +970,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -1006,7 +1006,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -1045,7 +1045,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -1083,7 +1083,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -1125,7 +1125,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
         game_.ajouterDixDeDerPliEnCours();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -1151,7 +1151,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.UNDEFINED);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(BidBelote.ALL_TRUMP, game_.getBid().getBid());
@@ -1180,7 +1180,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
         first_ = game_.playerAfter((byte) first_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -1244,7 +1244,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_10);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_QUEEN);
         game_.ajouterDixDeDerPliEnCours();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -1275,7 +1275,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.noPlayedClassic());
@@ -1287,7 +1287,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
         DealBelote deal_ = dealThreePlayers();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertTrue(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1305,7 +1305,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
         slam(game_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1325,7 +1325,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         slam(game_);
         game_.validateDiscard();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1343,7 +1343,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
         game_.ajouterCartesUtilisateur();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1362,7 +1362,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1380,7 +1380,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
         slam(game_);
         game_.validateDiscard();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1404,7 +1404,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1421,7 +1421,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
         slam(game_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1,game_.getTricks().size());
         assertEq(8,game_.getTricks().first().total());
@@ -1444,7 +1444,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.getTricks().add(game_.getProgressingTrick());
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2,game_.getTricks().size());
         assertEq(0,game_.getProgressingTrick().total());
@@ -1464,7 +1464,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
         slam(game_);
         game_.validateDiscard();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.noPlayedClassic());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1476,7 +1476,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
         DealBelote deal_ = dealThreePlayers();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertTrue(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1491,7 +1491,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         slam(game_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1508,7 +1508,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         slam(game_);
         game_.validateDiscard();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1523,7 +1523,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         game_.ajouterCartesUtilisateur();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1539,7 +1539,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1554,7 +1554,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         slam(game_);
         game_.validateDiscard();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1575,7 +1575,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1589,7 +1589,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         slam(game_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1,game_.getTricks().size());
         assertEq(8,game_.getTricks().first().total());
@@ -1609,7 +1609,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.getTricks().add(game_.getProgressingTrick());
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2,game_.getTricks().size());
         assertEq(0,game_.getProgressingTrick().total());
@@ -1626,7 +1626,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         slam(game_);
         game_.validateDiscard();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.noPlayedClassic());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1638,7 +1638,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_1_VS_2);
         DealBelote deal_ = dealThreePlayers();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertTrue(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1655,7 +1655,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         slam(game_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1674,7 +1674,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         slam(game_);
         game_.validateDiscard();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1691,7 +1691,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterCartesUtilisateur();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1709,7 +1709,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1726,7 +1726,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         slam(game_);
         game_.validateDiscard();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1749,7 +1749,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1765,7 +1765,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         slam(game_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1,game_.getTricks().size());
         assertEq(8,game_.getTricks().first().total());
@@ -1787,7 +1787,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.getTricks().add(game_.getProgressingTrick());
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2,game_.getTricks().size());
         assertEq(0,game_.getProgressingTrick().total());
@@ -1806,7 +1806,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         slam(game_);
         game_.validateDiscard();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.noPlayedClassic());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1818,7 +1818,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_1_VS_2_5);
         DealBelote deal_ = dealThreePlayersFiveCards();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertTrue(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1833,7 +1833,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         slamFiveCards(game_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1850,7 +1850,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         slamFiveCards(game_);
         game_.validateDiscard();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_JACK);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1865,7 +1865,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         game_.ajouterCartesUtilisateur();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1881,7 +1881,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.getTricks().isEmpty());
@@ -1896,7 +1896,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         slamFiveCards(game_);
         game_.validateDiscard();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1917,7 +1917,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1931,7 +1931,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         slamFiveCards(game_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1,game_.getTricks().size());
         assertEq(5,game_.getTricks().first().total());
@@ -1951,7 +1951,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.getTricks().add(game_.getProgressingTrick());
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(2,game_.getTricks().size());
         assertEq(0,game_.getProgressingTrick().total());
@@ -1968,7 +1968,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,80,BidBelote.SUIT));
         slamFiveCards(game_);
         game_.validateDiscard();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.noPlayedClassic());
         assertFalse(game_.keepBidding());
         assertFalse(game_.getTricks().isEmpty());
@@ -1979,7 +1979,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
         DealBelote deal_ = dealThreePlayers24Classic();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -1994,7 +1994,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_1_VS_2_24);
         DealBelote deal_ = dealThreePlayers24Coinche();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -2045,7 +2045,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_10);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
         game_.ajouterDixDeDerPliEnCours();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -2097,7 +2097,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_10);
         game_.ajouterDixDeDerPliEnCours();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -2129,7 +2129,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
 //        game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(1, game_.getPreneur());
         assertEq(4, game_.getBids().size());
@@ -2154,7 +2154,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_JACK);
         game_.getTricks().add(game_.getProgressingTrick());
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -2174,7 +2174,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.CLASSIC_1_VS_1);
         DealBelote deal_ = dealTwoPlayers();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -2189,7 +2189,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.setDealing(DealingBelote.COINCHE_1_VS_1);
         DealBelote deal_ = dealTwoPlayers();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
         assertEq(BidBelote.FOLD, game_.getBid().getBid());
@@ -2260,7 +2260,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_KING);
         game_.ajouterDixDeDerPliEnCours();
 
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -2330,7 +2330,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_KING);
         game_.ajouterDixDeDerPliEnCours();
 
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(0, game_.getPreneur());
         assertEq(BidBelote.SUIT, game_.getBid().getBid());
@@ -2349,7 +2349,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.getDeal().derniereMain().getCards().swapIndexes(8,11);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2364,7 +2364,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2381,7 +2381,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(70);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2405,7 +2405,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.OTHER_SUIT);
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2428,7 +2428,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2457,7 +2457,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2475,7 +2475,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         first_ = game_.playerAfter((byte) first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2496,7 +2496,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2518,7 +2518,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2552,7 +2552,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.OTHER_SUIT);
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2586,7 +2586,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.OTHER_SUIT);
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2615,7 +2615,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2640,7 +2640,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2670,7 +2670,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
         quick(game_);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_10);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2701,7 +2701,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
         first_ = game_.playerAfter((byte) first_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2720,7 +2720,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_8);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2739,7 +2739,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_8);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -2772,7 +2772,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
 //        game_.ajouterPliEnCoursLoc();
         quick(game_);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2807,7 +2807,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2839,7 +2839,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
@@ -2872,7 +2872,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_JACK);
         game_.ajouterDixDeDerPliEnCours();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_10);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2893,7 +2893,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
         game_.getAnnoncesBeloteRebelote((byte) 1).jouer(CardBelote.SPADE_KING);
         game_.getAnnoncesBeloteRebelote((byte) 1).ajouter(CardBelote.SPADE_QUEEN);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -2914,7 +2914,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
         game_.getAnnoncesBeloteRebelote((byte) 1).jouer(CardBelote.SPADE_KING);
         game_.getAnnoncesBeloteRebelote((byte) 0).ajouter(CardBelote.SPADE_KING);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3019,7 +3019,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.UNDEFINED);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3030,7 +3030,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDistribution().getDeal().add(new HandBelote());
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3042,7 +3042,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         HandBelote hand_ = game_.getDistribution().derniereMain();
         hand_.ajouter(game_.getDistribution().hand().jouer(0));
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3075,7 +3075,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
         game_.ajouterDixDeDerPliEnCours();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3109,7 +3109,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_9);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3121,7 +3121,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         deal_.hand().jouer(0);
         deal_.hand().ajouter(CardBelote.HEART_1);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3137,7 +3137,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertFalse(game_.keepBidding());
         assertTrue(game_.noPlayedClassic());
@@ -3153,7 +3153,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(game_.getError().isEmpty());
         assertTrue(game_.keepBidding());
         assertTrue(game_.noPlayedClassic());
@@ -3187,7 +3187,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(100);
         game_.ajouterContrat(bid_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3198,7 +3198,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CardBelote c_ = deal_.getDeal().get(0).jouer(0);
         deal_.getDeal().get(1).ajouter(c_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3210,7 +3210,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CardBelote c_ = deal_.getDeal().get(0).jouer(0);
         deal_.getDeal().get(1).ajouter(c_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3227,7 +3227,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         deal_.derniereMain().ajouter(c_);
         c_ = deal_.getDeal().get(3).jouer(0);
         deal_.derniereMain().ajouter(c_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3238,7 +3238,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         deal_.getDeal().get(1).ajouter(CardBelote.WHITE);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3247,7 +3247,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3257,7 +3257,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeclares().clear();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3267,7 +3267,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeclaresBeloteRebelote().clear();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3277,7 +3277,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getScoresRef().clear();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3287,7 +3287,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getWonLastTrick().clear();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3299,7 +3299,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
         assertTrue(!rules_.getListeAnnoncesAutorisees().isEmpty());
         game_.getRules().getAllowedBids().clear();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3310,7 +3310,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         assertTrue(!rules_.getListeEncheresAutorisees().isEmpty());
         game_.getRules().getAllowedDeclares().clear();
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
 
@@ -3327,7 +3327,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
         slam(game_);
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.HEART_JACK);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.getError().isEmpty());
     }
 
@@ -3348,7 +3348,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_9);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.getError().isEmpty());
     }
 
@@ -3359,7 +3359,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         DealBelote deal_ = dealThreePlayers();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeal().hand().supprimer(0);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.getError().isEmpty());
     }
     @Test
@@ -3369,7 +3369,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         DealBelote deal_ = dealThreePlayers24Classic();
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeal().derniereMain().getCards().swapIndexes(0,game_.getDeal().derniereMain().getCards().size()-1);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.getError().isEmpty());
     }
     @Test
@@ -3384,8 +3384,12 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.getDeal().derniereMain().jouer(0);
         game_.getDeal().hand().ajouter(discard_);
         game_.getDeal().derniereMain().ajouter(player_);
-        CheckerGameBeloteWithRules.check(game_);
+        check(game_);
         assertFalse(game_.getError().isEmpty());
+    }
+
+    private void check(GameBelote _game) {
+        CheckerGameBeloteWithRules.check(_game);
     }
 
     private static DealBelote deal1Classic(byte _dealer) {

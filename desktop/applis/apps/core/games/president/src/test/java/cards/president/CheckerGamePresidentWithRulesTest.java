@@ -24,7 +24,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -57,7 +57,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -90,7 +90,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -126,7 +126,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -161,7 +161,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -197,7 +197,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -235,7 +235,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -273,7 +273,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -313,7 +313,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -371,7 +371,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -438,7 +438,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -506,7 +506,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -584,7 +584,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -673,7 +673,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -771,7 +771,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -865,7 +865,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -953,7 +953,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -1047,7 +1047,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -1165,7 +1165,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -1251,7 +1251,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(!g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -1284,7 +1284,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(3, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -1319,7 +1319,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(!g_.readyToPlay());
 //        assertEq(3, g_.getPassOrFinish().size());
@@ -1355,7 +1355,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(3, g_.getPassOrFinish().size());
@@ -1392,7 +1392,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(!g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -1433,7 +1433,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(3, g_.getPassOrFinish().size());
@@ -1470,7 +1470,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(!g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -1509,7 +1509,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -1548,7 +1548,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -1628,7 +1628,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -1740,7 +1740,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -1852,7 +1852,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -1984,7 +1984,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -2115,7 +2115,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(0));
@@ -2238,7 +2238,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -2325,7 +2325,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -2367,7 +2367,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(3, g_.getPassOrFinish().size());
@@ -2401,7 +2401,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -2436,7 +2436,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -2471,7 +2471,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -2507,7 +2507,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -2593,7 +2593,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
         assertTrue(g_.readyToPlay());
 //        assertEq(4, g_.getPassOrFinish().size());
@@ -2630,7 +2630,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -2668,7 +2668,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(g_.getError().isEmpty());
 //        assertEq(4, g_.getPassOrFinish().size());
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(0));
@@ -2702,7 +2702,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2721,7 +2721,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2739,7 +2739,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2757,7 +2757,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2776,7 +2776,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2803,7 +2803,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         invalid_.ajouter(CardPresident.DIAMOND_3);
         g_.getSwitchedCards().add(invalid_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2830,7 +2830,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         invalid_.ajouter(CardPresident.DIAMOND_3);
         g_.getSwitchedCards().set((byte) 0, invalid_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2857,7 +2857,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         invalid_.ajouter(CardPresident.SPADE_3);
         g_.getSwitchedCards().set((byte) 1, invalid_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2883,7 +2883,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDeal().hand((byte) 1).ajouterCartes(invalid_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2910,7 +2910,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         invalid_.ajouter(CardPresident.DIAMOND_3);
         g_.getSwitchedCards().set((byte) 1, invalid_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2942,7 +2942,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getDeal().hand((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
         g_.getDeal().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2973,7 +2973,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getDeal().hand((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
         g_.getDeal().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -2988,7 +2988,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3019,7 +3019,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getDeal().hand((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
         g_.getDeal().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3050,7 +3050,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getDeal().hand((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
         g_.getDeal().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3070,7 +3070,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3091,7 +3091,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3112,7 +3112,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3131,7 +3131,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3156,7 +3156,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.HEART_3);
         g_.getProgressingTrick().ajouter(played_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3180,7 +3180,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         g_.getTricks().add(new TrickPresident((byte) 2));
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3196,7 +3196,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3227,7 +3227,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getSwitchedCards().set((byte) 1, invalid_);
         g_.getDeal().hand((byte) 2).ajouterCartes(invalid_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3242,7 +3242,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3257,7 +3257,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3287,7 +3287,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3344,7 +3344,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getDeal().hand((byte)2).supprimerCartes(played_);
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3359,7 +3359,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getDeal().hand().ajouter(CardPresident.WHITE);
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3376,7 +3376,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         transientFields(g_);
         g_.getTricks().last().ajouter();
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3393,7 +3393,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         transientFields(g_);
         g_.getProgressingTrick().getCards().add(0,new HandPresident());
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3413,7 +3413,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_.getTricks().last().ajouter(played_);
         g_.getDeal().hand((byte)2).supprimerCartes(played_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3482,7 +3482,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         transientFields(g_);
         g_.getSwitchedCards().clear();
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3551,7 +3551,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         transientFields(g_);
         g_.getScores().clear();
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3567,7 +3567,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         transientFields(g_);
         r_.setNbStacks(-1);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3583,7 +3583,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         transientFields(g_);
         r_.setNbPlayers(-1);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3599,7 +3599,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         transientFields(g_);
         r_.setNbPlayers(513);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertTrue(!g_.getError().isEmpty());
     }
 
@@ -3656,7 +3656,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertFalse(g_.getError().isEmpty());
     }
 
@@ -3713,9 +3713,14 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         //
         transientFields(g_);
         //
-        CheckerGamePresidentWithRules.check(g_);
+        check(g_);
         assertFalse(g_.getError().isEmpty());
     }
+
+    private void check(GamePresident _game) {
+        CheckerGamePresidentWithRules.check(_game);
+    }
+
     static void transientFields(GamePresident _g) {
         CheckerGamePresidentWithRules.cancelStarter(_g.getTricks());
         _g.getProgressingTrick().setEntameur(-1);
