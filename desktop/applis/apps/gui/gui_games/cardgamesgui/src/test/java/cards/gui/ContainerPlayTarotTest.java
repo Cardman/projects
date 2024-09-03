@@ -5917,14 +5917,36 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     }
 
     private ContainerSingleTarot containerGame(GameTarot _game, WindowCards _wc) {
-        CheckerGameTarotWithRules.check(_game);
+        CheckerGameTarotWithRules.check(_game, mesCheck());
         assertTrue(_game.getError().isEmpty());
         Games games_ = new Games();
         games_.jouerTarot(_game);
         _wc.tryToLoadDeal("_",games_);
         return (ContainerSingleTarot) _wc.getCore().getContainerGame();
     }
-
+    public static StringMap<String> mesCheck(){
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(CheckerGameTarotWithRules.BAD_DECLARING,CheckerGameTarotWithRules.BAD_DECLARING);
+        m_.addEntry(CheckerGameTarotWithRules.BAD_PLAYING,CheckerGameTarotWithRules.BAD_PLAYING);
+        m_.addEntry(CheckerGameTarotWithRules.A_CARD_IS_MISSING_OR_EXCEDING_FOR_DISCARDING,CheckerGameTarotWithRules.A_CARD_IS_MISSING_OR_EXCEDING_FOR_DISCARDING);
+        m_.addEntry(CheckerGameTarotWithRules.A_CARD_IS_MISSING_FOR_DISCARDING,CheckerGameTarotWithRules.A_CARD_IS_MISSING_FOR_DISCARDING);
+        m_.addEntry(CheckerGameTarotWithRules.THIS_CARD_IS_NOT_DISCARDABLE,CheckerGameTarotWithRules.THIS_CARD_IS_NOT_DISCARDABLE);
+        m_.addEntry(CheckerGameTarotWithRules.A_CARD_MUST_BE_CALLED_AMONG_ALL_POSSIBLE,CheckerGameTarotWithRules.A_CARD_MUST_BE_CALLED_AMONG_ALL_POSSIBLE);
+        m_.addEntry(CheckerGameTarotWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK,CheckerGameTarotWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK);
+        m_.addEntry(CheckerGameTarotWithRules.NO_ALLOWED_BID,CheckerGameTarotWithRules.NO_ALLOWED_BID);
+        m_.addEntry(CheckerGameTarotWithRules.ERROR_CALLING_MUST_BE_BEFORE_DISCARD,CheckerGameTarotWithRules.ERROR_CALLING_MUST_BE_BEFORE_DISCARD);
+        m_.addEntry(CheckerGameTarotWithRules.ERROR_BID_MUST_BE_BEFORE_CALLING,CheckerGameTarotWithRules.ERROR_BID_MUST_BE_BEFORE_CALLING);
+        m_.addEntry(CheckerGameTarotWithRules.TOO_MUCH_BIDS,CheckerGameTarotWithRules.TOO_MUCH_BIDS);
+        m_.addEntry(CheckerGameTarotWithRules.INVALID_BID,CheckerGameTarotWithRules.INVALID_BID);
+        m_.addEntry(CheckerGameTarotWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE,CheckerGameTarotWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE);
+        m_.addEntry(CheckerGameTarotWithRules.BAD_COUNT_FOR_HANDS,CheckerGameTarotWithRules.BAD_COUNT_FOR_HANDS);
+        m_.addEntry(CheckerGameTarotWithRules.TRICK_WITH_BAD_COUNT,CheckerGameTarotWithRules.TRICK_WITH_BAD_COUNT);
+        m_.addEntry(CheckerGameTarotWithRules.BAD_COUNT_FOR_REMAINING_CARDS,CheckerGameTarotWithRules.BAD_COUNT_FOR_REMAINING_CARDS);
+        m_.addEntry(CheckerGameTarotWithRules.BAD_COUNT_FOR_DEAL,CheckerGameTarotWithRules.BAD_COUNT_FOR_DEAL);
+        m_.addEntry(CheckerGameTarotWithRules.INVALID_RULES,CheckerGameTarotWithRules.INVALID_RULES);
+        m_.addEntry(CheckerGameTarotWithRules.BAD_CARD,CheckerGameTarotWithRules.BAD_CARD);
+        return m_;
+    }
     private ContainerSingleTarot modifyTarot(RulesTarot _rules, MockGameTarot _mock) {
         return modifyTarot(_rules,_mock,0);
     }

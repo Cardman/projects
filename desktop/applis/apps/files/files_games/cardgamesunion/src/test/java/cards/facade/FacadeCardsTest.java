@@ -389,7 +389,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().belote(DocumentWriterBeloteUtil.TYPE_GAME_BELOTE,game_);
         assertEq(1,fg_.load(DocumentWriterBeloteUtil.TYPE_GAME_BELOTE).getPartiesBelote().size());
@@ -405,13 +405,14 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         game_.ajouterContrat(bid_);
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().belote(DocumentWriterBeloteUtil.TYPE_GAME_BELOTE,game_);
         Games load_ = fg_.load(DocumentWriterBeloteUtil.TYPE_GAME_BELOTE);
         assertEq(0, load_.getPartiesBelote().size());
         assertEq(0, load_.getPartiesPresident().size());
         assertEq(0, load_.getPartiesTarot().size());
+        assertFalse(load_.getErrorFile().isEmpty());
     }
     @Test
     public void load3() {
@@ -421,7 +422,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident game_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         game_.initCartesEchanges();
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().president(DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT,game_);
         assertEq(1,fg_.load(DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT).getPartiesPresident().size());
@@ -443,13 +444,14 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_3);
         game_.addCardsToCurrentTrickAndLoop(played_);
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().president(DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT,game_);
         Games load_ = fg_.load(DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT);
         assertEq(0, load_.getPartiesBelote().size());
         assertEq(0, load_.getPartiesPresident().size());
         assertEq(0, load_.getPartiesTarot().size());
+        assertFalse(load_.getErrorFile().isEmpty());
     }
     @Test
     public void load5() {
@@ -459,7 +461,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         deal_.setDealer((byte) 0);
         initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().tarot(DocumentWriterTarotUtil.TYPE_GAME_TAROT,game_);
         assertEq(1,fg_.load(DocumentWriterTarotUtil.TYPE_GAME_TAROT).getPartiesTarot().size());
@@ -481,22 +483,31 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.intelligenceArtificielleAppel(new DefGameTarot());
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
         fg_.getNicknamesCrud().getCardGamesCrud().tarot(DocumentWriterTarotUtil.TYPE_GAME_TAROT,game_);
         Games load_ = fg_.load(DocumentWriterTarotUtil.TYPE_GAME_TAROT);
         assertEq(0, load_.getPartiesBelote().size());
         assertEq(0, load_.getPartiesPresident().size());
         assertEq(0, load_.getPartiesTarot().size());
+        assertFalse(load_.getErrorFile().isEmpty());
     }
     @Test
     public void load7() {
-        MockProgramInfos pr_ = pr(1, 2);
+        MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
         Games load_ = fg_.load("");
         assertEq(0, load_.getPartiesBelote().size());
         assertEq(0, load_.getPartiesPresident().size());
         assertEq(0, load_.getPartiesTarot().size());
+    }
+    private static MockProgramInfos prAppli() {
+        MockProgramInfos pr_ = pr(1, 2);
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        MessagesCardGames.enTr(MessagesCardGames.initAppliTr(pr_.lg(StringUtil.EN)));
+        MessagesCardGames.frTr(MessagesCardGames.initAppliTr(pr_.lg(StringUtil.FR)));
+        pr_.setLanguage(StringUtil.EN);
+        return pr_;
     }
     private FacadeCards facade(AbstractProgramInfos _pr) {
         CardGamesStream cs_ = new CardGamesStream(_pr,"/_/");

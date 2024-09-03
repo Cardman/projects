@@ -30,6 +30,8 @@ public final class Games {
 
     private RulesPresident rulesPresident;
 
+    private String errorFile;
+
     public static String toCardString(int _b, TranslationsLg _locale){
         return MessagesCardGames.getCommonCardsTr(MessagesCardGames.getAppliTr(_locale)).getMapping().getVal(Integer.toString(_b));
 //        String fichier_ = tarotCoreFileContent(_locale);
@@ -505,5 +507,13 @@ public final class Games {
     }
     public CustList<GamePresident> getPartiesPresident() {
         return partiesPresident;
+    }
+
+    public String getErrorFile() {
+        return errorFile;
+    }
+
+    public void setErrorFile(String _e) {
+        this.errorFile = _e;
     }
 }

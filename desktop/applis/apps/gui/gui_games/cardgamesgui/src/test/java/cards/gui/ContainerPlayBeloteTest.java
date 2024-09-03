@@ -4577,7 +4577,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
 
     private ContainerSingleBelote containerGame(GameBelote _game, WindowCards _wc) {
-        CheckerGameBeloteWithRules.check(_game);
+        CheckerGameBeloteWithRules.check(_game, mesCheck());
         assertTrue(_game.getError().isEmpty());
         Games games_ = new Games();
         games_.jouerBelote(_game);
@@ -4626,6 +4626,25 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = (ContainerSingleBelote) wc_.getCore().getContainerGame();
         MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
         return csb_;
+    }
+
+    private static StringMap<String> mesCheck(){
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_PLAYING,CheckerGameBeloteWithRules.BAD_PLAYING);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_DECLARING,CheckerGameBeloteWithRules.BAD_DECLARING);
+        m_.addEntry(CheckerGameBeloteWithRules.BIDDING_TOO_MUCH_LOW,CheckerGameBeloteWithRules.BIDDING_TOO_MUCH_LOW);
+        m_.addEntry(CheckerGameBeloteWithRules.BIDDING_LOWER,CheckerGameBeloteWithRules.BIDDING_LOWER);
+        m_.addEntry(CheckerGameBeloteWithRules.TOO_MUCH_BIDS,CheckerGameBeloteWithRules.TOO_MUCH_BIDS);
+        m_.addEntry(CheckerGameBeloteWithRules.INVALID_BID,CheckerGameBeloteWithRules.INVALID_BID);
+        m_.addEntry(CheckerGameBeloteWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK,CheckerGameBeloteWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK);
+        m_.addEntry(CheckerGameBeloteWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE,CheckerGameBeloteWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_COUNT_FOR_HANDS,CheckerGameBeloteWithRules.BAD_COUNT_FOR_HANDS);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_REP_FOR_HANDS,CheckerGameBeloteWithRules.BAD_REP_FOR_HANDS);
+        m_.addEntry(CheckerGameBeloteWithRules.TRICK_WITH_BAD_COUNT,CheckerGameBeloteWithRules.TRICK_WITH_BAD_COUNT);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_COUNT_FOR_REMAINING_CARDS,CheckerGameBeloteWithRules.BAD_COUNT_FOR_REMAINING_CARDS);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_COUNT_FOR_DEAL,CheckerGameBeloteWithRules.BAD_COUNT_FOR_DEAL);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_CARD,CheckerGameBeloteWithRules.BAD_CARD);
+        return m_;
     }
     private void nextBid(MockGameBelote _m, BidBeloteSuit _bid) {
         _m.getBids().add(_bid);

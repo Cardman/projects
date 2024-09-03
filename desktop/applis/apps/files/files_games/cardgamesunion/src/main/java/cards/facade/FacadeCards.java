@@ -11,6 +11,7 @@ import cards.tarot.*;
 import cards.tarot.sml.*;
 import code.gui.initialize.*;
 import code.sml.Document;
+import code.sml.util.TranslationsFile;
 import code.stream.*;
 import code.util.*;
 import code.util.core.*;
@@ -166,14 +167,17 @@ public final class FacadeCards {
     }
     public Games load(String _file) {
         Games g_ = new Games();
+        g_.setErrorFile("");
         AbsCardGamesCrud cs_ = getNicknamesCrud().getCardGamesCrud();
+        StringMap<TranslationsFile> files_ = MessagesCardGames.getAppliTr(cs_.getProgramInfos().currentLg()).getMapping();
         String content_ = cs_.read(_file);
         Document doc_ = cs_.parse(_file,content_);
         String tagName_ = cs_.tag(_file,content_,doc_);
         if (StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE)) {
             GameBelote par_ = cs_.belote(_file,doc_);
-            CheckerGameBeloteWithRules.check(par_);
+            CheckerGameBeloteWithRules.check(par_, files_.getVal(MessagesCardGames.GAME_BELOTE_CH).getMapping());
             if (!par_.getError().isEmpty()) {
+                g_.setErrorFile(par_.getError());
                 return g_;
             }
             g_.jouerBelote(par_);
@@ -181,8 +185,9 @@ public final class FacadeCards {
         }
         if (StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT)) {
             GamePresident par_ = cs_.president(_file,doc_);
-            CheckerGamePresidentWithRules.check(par_);
+            CheckerGamePresidentWithRules.check(par_, files_.getVal(MessagesCardGames.GAME_PRESIDENT_CH).getMapping());
             if (!par_.getError().isEmpty()) {
+                g_.setErrorFile(par_.getError());
                 return g_;
             }
             g_.jouerPresident(par_);
@@ -190,8 +195,9 @@ public final class FacadeCards {
         }
         if (StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT)) {
             GameTarot par_ = cs_.tarot(_file,doc_);
-            CheckerGameTarotWithRules.check(par_);
+            CheckerGameTarotWithRules.check(par_, files_.getVal(MessagesCardGames.GAME_TAROT_CH).getMapping());
             if (!par_.getError().isEmpty()) {
+                g_.setErrorFile(par_.getError());
                 return g_;
             }
             g_.jouerTarot(par_);

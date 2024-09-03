@@ -2,6 +2,7 @@ package cards.belote;
 
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -3389,7 +3390,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     }
 
     private void check(GameBelote _game) {
-        CheckerGameBeloteWithRules.check(_game);
+        CheckerGameBeloteWithRules.check(_game, mesCheck());
     }
 
     private static DealBelote deal1Classic(byte _dealer) {
@@ -3778,5 +3779,23 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         suit_.setPoints(_pts);
         suit_.setBid(_bid);
         return suit_;
+    }
+    private static StringMap<String> mesCheck(){
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_PLAYING,CheckerGameBeloteWithRules.BAD_PLAYING);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_DECLARING,CheckerGameBeloteWithRules.BAD_DECLARING);
+        m_.addEntry(CheckerGameBeloteWithRules.BIDDING_TOO_MUCH_LOW,CheckerGameBeloteWithRules.BIDDING_TOO_MUCH_LOW);
+        m_.addEntry(CheckerGameBeloteWithRules.BIDDING_LOWER,CheckerGameBeloteWithRules.BIDDING_LOWER);
+        m_.addEntry(CheckerGameBeloteWithRules.TOO_MUCH_BIDS,CheckerGameBeloteWithRules.TOO_MUCH_BIDS);
+        m_.addEntry(CheckerGameBeloteWithRules.INVALID_BID,CheckerGameBeloteWithRules.INVALID_BID);
+        m_.addEntry(CheckerGameBeloteWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK,CheckerGameBeloteWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK);
+        m_.addEntry(CheckerGameBeloteWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE,CheckerGameBeloteWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_COUNT_FOR_HANDS,CheckerGameBeloteWithRules.BAD_COUNT_FOR_HANDS);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_REP_FOR_HANDS,CheckerGameBeloteWithRules.BAD_REP_FOR_HANDS);
+        m_.addEntry(CheckerGameBeloteWithRules.TRICK_WITH_BAD_COUNT,CheckerGameBeloteWithRules.TRICK_WITH_BAD_COUNT);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_COUNT_FOR_REMAINING_CARDS,CheckerGameBeloteWithRules.BAD_COUNT_FOR_REMAINING_CARDS);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_COUNT_FOR_DEAL,CheckerGameBeloteWithRules.BAD_COUNT_FOR_DEAL);
+        m_.addEntry(CheckerGameBeloteWithRules.BAD_CARD,CheckerGameBeloteWithRules.BAD_CARD);
+        return m_;
     }
 }

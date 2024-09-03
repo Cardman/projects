@@ -1,5 +1,6 @@
 package code.scripts.messages.cards;
 
+import cards.tarot.CheckerGameTarotWithRules;
 import cards.tarot.enumerations.*;
 import code.sml.util.TranslationsFile;
 
@@ -78,6 +79,29 @@ public final class MessagesTarot {
         e_.add(TAROT_UNDERTRUMP,"You must undertrump with a trump.");
         return e_;
     }
+    public static TranslationsFile enCheck(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(CheckerGameTarotWithRules.BAD_DECLARING,"Bad declaring");
+        e_.add(CheckerGameTarotWithRules.BAD_PLAYING,"Bad playing");
+        e_.add(CheckerGameTarotWithRules.A_CARD_IS_MISSING_OR_EXCEDING_FOR_DISCARDING,"A card is missing or exceding for discarding");
+        e_.add(CheckerGameTarotWithRules.A_CARD_IS_MISSING_FOR_DISCARDING,"A card is missing for discarding");
+        e_.add(CheckerGameTarotWithRules.THIS_CARD_IS_NOT_DISCARDABLE,"This card is not discardable");
+        e_.add(CheckerGameTarotWithRules.A_CARD_MUST_BE_CALLED_AMONG_ALL_POSSIBLE,"A card must be called among all possible cards");
+        e_.add(CheckerGameTarotWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK,"There should not be any trick");
+        e_.add(CheckerGameTarotWithRules.NO_ALLOWED_BID,"no allowed bid");
+        e_.add(CheckerGameTarotWithRules.ERROR_CALLING_MUST_BE_BEFORE_DISCARD,"calling must be before discard");
+        e_.add(CheckerGameTarotWithRules.ERROR_BID_MUST_BE_BEFORE_CALLING,"bid must be before calling");
+        e_.add(CheckerGameTarotWithRules.TOO_MUCH_BIDS,"too much bids");
+        e_.add(CheckerGameTarotWithRules.INVALID_BID,"invalid bid");
+        e_.add(CheckerGameTarotWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE,"All cards are not used exactly once");
+        e_.add(CheckerGameTarotWithRules.BAD_COUNT_FOR_HANDS,"Bad count for hands");
+        e_.add(CheckerGameTarotWithRules.TRICK_WITH_BAD_COUNT,"trick with bad count");
+        e_.add(CheckerGameTarotWithRules.BAD_COUNT_FOR_REMAINING_CARDS,"Bad count for remaining cards");
+        e_.add(CheckerGameTarotWithRules.BAD_COUNT_FOR_DEAL,"Bad count for deal");
+        e_.add(CheckerGameTarotWithRules.INVALID_RULES,"invalid rules");
+        e_.add(CheckerGameTarotWithRules.BAD_CARD,"bad card");
+        return e_;
+    }
     public static TranslationsFile fr(){
         TranslationsFile f_ = new TranslationsFile();
         f_.add(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.FOLD),"Passe");
@@ -136,6 +160,29 @@ public final class MessagesTarot {
         f_.add(TAROT_TOO_MANY_CARDS,"Vous ne pouvez pas écarter une carte de plus car l'écart est plein.");
         f_.add(TAROT_TRUMP,"Vous devez couper avec un atout.");
         f_.add(TAROT_UNDERTRUMP,"Vous devez sous - couper avec un atout.");
+        return f_;
+    }
+    public static TranslationsFile frCheck(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(CheckerGameTarotWithRules.BAD_DECLARING,"Mauvaise annonce declaring");
+        f_.add(CheckerGameTarotWithRules.BAD_PLAYING,"Mauvais jeu");
+        f_.add(CheckerGameTarotWithRules.A_CARD_IS_MISSING_OR_EXCEDING_FOR_DISCARDING,"Une carte manque ou excède pour l'écart");
+        f_.add(CheckerGameTarotWithRules.A_CARD_IS_MISSING_FOR_DISCARDING,"Une carte manque pour l'écart");
+        f_.add(CheckerGameTarotWithRules.THIS_CARD_IS_NOT_DISCARDABLE,"Cette carte n'est pas écartable");
+        f_.add(CheckerGameTarotWithRules.A_CARD_MUST_BE_CALLED_AMONG_ALL_POSSIBLE,"Une carte doit être appelée parmi toutes les cartes possibles");
+        f_.add(CheckerGameTarotWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK,"Il ne doit pas y avoir un pli");
+        f_.add(CheckerGameTarotWithRules.NO_ALLOWED_BID,"Pas de contrat autorisé");
+        f_.add(CheckerGameTarotWithRules.ERROR_CALLING_MUST_BE_BEFORE_DISCARD,"L'appel doit être avant l'écart");
+        f_.add(CheckerGameTarotWithRules.ERROR_BID_MUST_BE_BEFORE_CALLING,"Le contrat doit être avant l'appel");
+        f_.add(CheckerGameTarotWithRules.TOO_MUCH_BIDS,"Trop de contrats");
+        f_.add(CheckerGameTarotWithRules.INVALID_BID,"Contrat invalide");
+        f_.add(CheckerGameTarotWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE,"Toutes les cartes ne sont pas utilisé une fois exactement");
+        f_.add(CheckerGameTarotWithRules.BAD_COUNT_FOR_HANDS,"Mauvais nombre pour les mains");
+        f_.add(CheckerGameTarotWithRules.TRICK_WITH_BAD_COUNT,"Pli avec mauvais nombre");
+        f_.add(CheckerGameTarotWithRules.BAD_COUNT_FOR_REMAINING_CARDS,"Mauvais nombre pour les cartes restantes");
+        f_.add(CheckerGameTarotWithRules.BAD_COUNT_FOR_DEAL,"Mauvais nombre pour la donne");
+        f_.add(CheckerGameTarotWithRules.INVALID_RULES,"Règles invalides");
+        f_.add(CheckerGameTarotWithRules.BAD_CARD,"Mauvaise carte");
         return f_;
     }
 }

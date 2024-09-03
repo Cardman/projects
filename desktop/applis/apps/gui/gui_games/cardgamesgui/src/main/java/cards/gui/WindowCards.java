@@ -1158,7 +1158,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
-        erreurDeChargement(_nomFichier);
+        erreurDeChargement(_nomFichier, _g.getErrorFile());
     }
 
     public void saveGame() {
@@ -1754,10 +1754,10 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private void editeurTarot() {
         EditorTarot.initEditorTarot(this);
     }
-    private void erreurDeChargement(String _fichier) {
+    private void erreurDeChargement(String _fichier, String _cause) {
         //The issue of quality of game are caught here
         String mes_ = StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED), _fichier);
-        errorsFile.display(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE),mes_);
+        errorsFile.display(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE),StringUtil.concat(mes_,"\n",StringUtil.nullToEmpty(_cause)));
         lastFile = _fichier;
 //        getFrames().getMessageDialogAbs().input(getCommonFrame(),mes_, getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED_TILE), GuiConstants.ERROR_MESSAGE);
     }

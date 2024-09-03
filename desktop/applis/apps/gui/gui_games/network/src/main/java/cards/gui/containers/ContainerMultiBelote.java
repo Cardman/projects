@@ -1017,7 +1017,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
         CustList<Longs> sc_ = _res.getRes().scores();
         _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
         _res.getGame().setRules(getRulesBeloteMulti());
-        CheckerGameBeloteWithRules.check(_res.getGame());
+        CheckerGameBeloteWithRules.check(_res.getGame(), new StringMap<String>());
         _res.initialize(nicknames(), sc_);
         containerMultiContent.messagesEndGame(_res.getRes(),nicknames(),readCoreResourceSuit(),readResource(), readCoreResourceCards());
 //        Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());

@@ -1228,7 +1228,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         CustList<Longs> sc_ = _res.getRes().scores();
         _res.getRes().setUser(getContainerMultiContent().getIndexInGame());
         _res.getGame().setRules(getRulesTarotMulti());
-        CheckerGameTarotWithRules.check(_res.getGame());
+        CheckerGameTarotWithRules.check(_res.getGame(), new StringMap<String>());
         _res.initialize(nicknames(), sc_);
         containerMultiContent.messagesEndGame(_res.getRes(),nicknames(),readCoreResourceSuit(),readResource(), readCoreResourceCards());
 //        Games.setMessages(_res.getRes(),getOwner().getFrames().currentLg());

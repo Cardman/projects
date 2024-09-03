@@ -8,52 +8,51 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
 public final class CheckerGamePresidentWithRules {
-
-    private static final String ERROR_RULES = "invalid rules";
-    private static final String HANDS_COUNT = "bad hand count";
-    private static final String SCORES_COUNT = "bad scores points count";
-    private static final String TRICK_EVENTS = "either no played card or the first group is not empty";
-    private static final String EMPTY_TRICK = "empty trick";
-    private static final String NOT_PLAYABLE = "not playable";
-    private static final String BAD_RANK_COUNT = "bad rank count";
-    private static final String BAD_SWITCH_CARD_GROUP_COUNT = "bad switch card group count";
-    private static final String BAD_SWITCH_CARD_GROUP_COUNT_OTHER = "other players cannot switch any card";
-    private static final String BAD_SWITCH_CARD_GROUP_COUNT_WINNER = "winner players must switch exactly the required count";
-    private static final String BAD_SWITCH_CARD_GROUP_COUNT_LOOSER = "looser players must switch exactly the required count";
-    private static final String BAD_SWITCH_CARD_GROUP_COUNT_WINNER_CONTENT = "cards do not come from looser players to winner players";
-    private static final String BAD_SWITCH_CARD_GROUP_COUNT_LOOSER_CONTENT = "looser players must give their best cards";
-    private static final String DUPLICATE_RANK_COUNT = "duplicate ranks";
-    private static final String BAD_CARD_COUNT = "bad card count for player";
-    private static final String BAD_CARD_UNIT_COUNT = "the number of each different card is the following (because of stack count):";
-    private static final String NOT_ALLOWED_PLAYED_CARD = "cards must be switched before played";
-    private static final String MISS_MATCH_TRICK_EVENTS_NOT_EMPTY_GROUP = "there is a mismatch between events count or the possible first played cards group";
-    private static final String MISS_MATCH_STRENGTH = "played card must have the same strength in a same group";
-    private static final String BAD_PLAYED_CARD = "played cards are not allowed or bad played count cards";
-    private static final String FIRST_GROUP_CANNOT_BE_EMPTY = "first card group cannot be empty";
-    private static final String CANNOT_PASS = "there must be played card";
-    private static final String NO_CARD_AFTER_FINISHED_DIRECTLY_CARD = "there must not be any card after directly finished trick";
+    public static final String ERROR_RULES="0";
+    public static final String HANDS_COUNT="1";
+    public static final String SCORES_COUNT="2";
+    public static final String TRICK_EVENTS="3";
+    public static final String EMPTY_TRICK="4";
+    public static final String NOT_PLAYABLE="5";
+    public static final String BAD_RANK_COUNT="6";
+    public static final String BAD_SWITCH_CARD_GROUP_COUNT="7";
+    public static final String BAD_SWITCH_CARD_GROUP_COUNT_OTHER="8";
+    public static final String BAD_SWITCH_CARD_GROUP_COUNT_WINNER="9";
+    public static final String BAD_SWITCH_CARD_GROUP_COUNT_LOOSER="10";
+    public static final String BAD_SWITCH_CARD_GROUP_COUNT_WINNER_CONTENT="11";
+    public static final String BAD_SWITCH_CARD_GROUP_COUNT_LOOSER_CONTENT="12";
+    public static final String DUPLICATE_RANK_COUNT="13";
+    public static final String BAD_CARD_COUNT="14";
+    public static final String BAD_CARD_UNIT_COUNT="15";
+    public static final String NOT_ALLOWED_PLAYED_CARD="16";
+    public static final String MISS_MATCH_TRICK_EVENTS_NOT_EMPTY_GROUP="17";
+    public static final String MISS_MATCH_STRENGTH="18";
+    public static final String BAD_PLAYED_CARD="19";
+    public static final String FIRST_GROUP_CANNOT_BE_EMPTY="20";
+    public static final String CANNOT_PASS="21";
+    public static final String NO_CARD_AFTER_FINISHED_DIRECTLY_CARD="22";
 
     private CheckerGamePresidentWithRules() {
     }
-    public static void check(GamePresident _loadedGame) {
+    public static void check(GamePresident _loadedGame, StringMap<String> _mes) {
         RulesPresident rules_ = _loadedGame.getRules();
         if (!rules_.isValidRules()) {
-            _loadedGame.setError(ERROR_RULES);
+            _loadedGame.setError(_mes.getVal(ERROR_RULES));
             return;
         }
         byte nbPlayers_ = (byte) rules_.getNbPlayers();
         if (_loadedGame.getDeal().nombreDeMains() != nbPlayers_) {
-            _loadedGame.setError(HANDS_COUNT);
+            _loadedGame.setError(_mes.getVal(HANDS_COUNT));
             return;
         }
         if (_loadedGame.getScores().size() != nbPlayers_) {
-            _loadedGame.setError(SCORES_COUNT);
+            _loadedGame.setError(_mes.getVal(SCORES_COUNT));
             return;
         }
         Bytes ranks_ = _loadedGame.getRanks();
         CustList<TrickPresidentIndexesCheck> check_ = _loadedGame.loadGame();
         for (TrickPresidentIndexesCheck c: check_) {
-            koNext(_loadedGame,c);
+            koNext(_loadedGame,c, _mes);
         }
         CustList<TrickPresident> allTricks_ = _loadedGame.unionPlis();
         HandPresident cards_ = allCards(_loadedGame);
@@ -61,41 +60,41 @@ public final class CheckerGamePresidentWithRules {
         allTricksPlusCurr_.add(_loadedGame.getProgressingTrick());
         for (TrickPresident t: allTricksPlusCurr_) {
             if (notEmptyAlthough(t)) {
-                _loadedGame.setError(TRICK_EVENTS);
+                _loadedGame.setError(_mes.getVal(TRICK_EVENTS));
                 return;
             }
         }
         for (CardPresident e : cards_) {
             if (!e.getId().isJouable()) {
-                _loadedGame.setError(NOT_PLAYABLE);
+                _loadedGame.setError(_mes.getVal(NOT_PLAYABLE));
                 return;
             }
         }
         DealPresident deal_ = buildDeal(_loadedGame, nbPlayers_, allTricks_);
         if (!ranks_.isEmpty()) {
             if (ranks_.size() != nbPlayers_) {
-                _loadedGame.setError(BAD_RANK_COUNT);
+                _loadedGame.setError(_mes.getVal(BAD_RANK_COUNT));
                 return;
             }
             Bytes copyRanks_ = new Bytes(ranks_);
             if (copyRanks_.hasDuplicates()) {
-                _loadedGame.setError(DUPLICATE_RANK_COUNT);
+                _loadedGame.setError(_mes.getVal(DUPLICATE_RANK_COUNT));
                 return;
             }
         }
-        chSwitch(_loadedGame, deal_);
+        chSwitch(_loadedGame, deal_, _mes);
     }
 
-    private static void chSwitch(GamePresident _loadedGame, DealPresident _deal) {
+    private static void chSwitch(GamePresident _loadedGame, DealPresident _deal, StringMap<String> _mes) {
         Bytes winners_ = _loadedGame.getWinners();
         Bytes loosers_ = _loadedGame.getLoosers();
         for (TrickPresident t: _loadedGame.unionPlis()) {
             if (t.estVide()) {
-                _loadedGame.setError(EMPTY_TRICK);
+                _loadedGame.setError(_mes.getVal(EMPTY_TRICK));
                 return;
             }
         }
-        checkGiftsHandsPlay(_loadedGame, _deal, winners_, loosers_);
+        checkGiftsHandsPlay(_loadedGame, _deal, winners_, loosers_, _mes);
     }
 
     private static boolean notEmptyAlthough(TrickPresident _t) {
@@ -122,53 +121,53 @@ public final class CheckerGamePresidentWithRules {
         return cards_;
     }
 
-    private static void checkGiftsHandsPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers) {
+    private static void checkGiftsHandsPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers, StringMap<String> _mes) {
         if (!_loadedGame.availableSwitchingCards() && !_loadedGame.getSwitchedCards().isEmpty()) {
-            _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT);
+            _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT));
             return;
         }
         if (_loadedGame.availableSwitchingCards() && _loadedGame.getSwitchedCards().size() != _loadedGame.getRules().getNbPlayers()) {
-            _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT);
+            _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT));
             return;
         }
         DealPresident dcp_ = new DealPresident(_deal);
-        if (skipPlay(_loadedGame, _deal, _winners, _loosers)) {
+        if (skipPlay(_loadedGame, _deal, _winners, _loosers, _mes)) {
             return;
         }
-        play(_loadedGame, dcp_);
+        play(_loadedGame, dcp_, _mes);
     }
 
-    private static boolean skipPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers) {
+    private static boolean skipPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers, StringMap<String> _mes) {
         boolean readyToPlay_ = GamePresident.revert(_loadedGame.nombresCartesEchangesMax(), _loadedGame.getRanks(), _loadedGame.getSwitchedCards(), _deal);
         Bytes swPl_ = new Bytes();
         swPl_.addAllElts(_winners);
         swPl_.addAllElts(_loosers);
         for (byte o : SortedPlayers.autresJoueurs(swPl_,(byte) _loadedGame.getRules().getNbPlayers())) {
             if (koSwOther(_loadedGame, o)) {
-                _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT_OTHER);
+                _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT_OTHER));
                 return true;
             }
         }
         for (byte w : _winners) {
-            if (koSwWinner(_loadedGame, _deal, _winners, _loosers, readyToPlay_, w)) {
+            if (koSwWinner(_loadedGame, _deal, _winners, _loosers, readyToPlay_, w, _mes)) {
                 return true;
             }
         }
         for (byte l : _loosers) {
-            if (koSwLooser(_loadedGame, _deal, _loosers, l)) {
+            if (koSwLooser(_loadedGame, _deal, _loosers, l, _mes)) {
                 return true;
             }
         }
-        if (koCount(_loadedGame, _deal)) {
+        if (koCount(_loadedGame, _deal, _mes)) {
             return true;
         }
         if (!allCardsUsedNb(_loadedGame.getRules(), _deal)) {
-            _loadedGame.setError(BAD_CARD_UNIT_COUNT+ _loadedGame.getRules().getNbStacks());
+            _loadedGame.setError(_mes.getVal(BAD_CARD_UNIT_COUNT)+ _loadedGame.getRules().getNbStacks());
             return true;
         }
         if (!readyToPlay_) {
             if (oneCardPlayAtLeast(_loadedGame)) {
-                _loadedGame.setError(NOT_ALLOWED_PLAYED_CARD);
+                _loadedGame.setError(_mes.getVal(NOT_ALLOWED_PLAYED_CARD));
             }
             return true;
         }
@@ -179,7 +178,7 @@ public final class CheckerGamePresidentWithRules {
         return _loadedGame.getSwitchedCards().isValidIndex(_o) && !_loadedGame.getSwitchedCards().get(_o).estVide();
     }
 
-    private static boolean koSwWinner(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers, boolean _readyToPlay, byte _w) {
+    private static boolean koSwWinner(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers, boolean _readyToPlay, byte _w, StringMap<String> _mes) {
         if (!_loadedGame.getSwitchedCards().isValidIndex(_w)) {
             return false;
         }
@@ -191,7 +190,7 @@ public final class CheckerGamePresidentWithRules {
                 - ind_;
         HandPresident sw_ = _loadedGame.getSwitchedCards().get(_w);
         if (sw_.total() != nbGivenCards_) {
-            _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT_WINNER);
+            _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT_WINNER));
             return true;
         }
         byte pl_ = GamePresident.getMatchingLoser(_winners, _loosers, _w);
@@ -200,13 +199,13 @@ public final class CheckerGamePresidentWithRules {
                 .get(pl_));
         if (!hl_.containsCards(_loadedGame.getSwitchedCards()
                 .get(_w))) {
-            _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT_WINNER_CONTENT);
+            _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT_WINNER_CONTENT));
             return true;
         }
         return false;
     }
 
-    private static boolean koSwLooser(GamePresident _loadedGame, DealPresident _deal, Bytes _loosers, byte _l) {
+    private static boolean koSwLooser(GamePresident _loadedGame, DealPresident _deal, Bytes _loosers, byte _l, StringMap<String> _mes) {
         if (!_loadedGame.getSwitchedCards().isValidIndex(_l)) {
             return false;
         }
@@ -214,7 +213,7 @@ public final class CheckerGamePresidentWithRules {
         int nbGivenCards_ = _loadedGame.nombresCartesEchangesMax()
                 - ind_;
         if (_loadedGame.getSwitchedCards().get(_l).total() != nbGivenCards_) {
-            _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT_LOOSER);
+            _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT_LOOSER));
             return true;
         }
         HandPresident hCopy_ = new HandPresident(_deal.hand(_l));
@@ -227,7 +226,7 @@ public final class CheckerGamePresidentWithRules {
             byte strGiv_ = hSwitchCopy_.carte(i).getForce();
             byte str_ = hCopy_.carte(i).getForce();
             if (strGiv_ != str_) {
-                _loadedGame.setError(BAD_SWITCH_CARD_GROUP_COUNT_LOOSER_CONTENT);
+                _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT_LOOSER_CONTENT));
                 return true;
             }
         }
@@ -238,7 +237,7 @@ public final class CheckerGamePresidentWithRules {
         return !_readyToPlay && _w == DealPresident.NUMERO_UTILISATEUR;
     }
 
-    private static boolean koCount(GamePresident _loadedGame, DealPresident _deal) {
+    private static boolean koCount(GamePresident _loadedGame, DealPresident _deal, StringMap<String> _mes) {
         byte nbPlayers_ = (byte) _loadedGame.getRules().getNbPlayers();
         int nbCards_ = _loadedGame.getRules().getNbStacks() * HandPresident.pileBase().total();
         int rem_ = nbCards_ % nbPlayers_;
@@ -247,14 +246,14 @@ public final class CheckerGamePresidentWithRules {
         if (noRem_) {
             for (HandPresident h : _deal) {
                 if (h.total() != nbCardsPerPlayer_) {
-                    _loadedGame.setError(BAD_CARD_COUNT);
+                    _loadedGame.setError(_mes.getVal(BAD_CARD_COUNT));
                     return true;
                 }
             }
         } else {
             for (HandPresident h : _deal) {
                 if (h.total() > nbCardsPerPlayer_ + 1 || h.total() < nbCardsPerPlayer_) {
-                    _loadedGame.setError(BAD_CARD_COUNT);
+                    _loadedGame.setError(_mes.getVal(BAD_CARD_COUNT));
                     return true;
                 }
             }
@@ -303,14 +302,14 @@ public final class CheckerGamePresidentWithRules {
         return allCardsUsedNb_;
     }
 
-    private static void play(GamePresident _loadedGame, DealPresident _deal) {
+    private static void play(GamePresident _loadedGame, DealPresident _deal, StringMap<String> _mes) {
         GamePresident loadedGameCopy_ = new GamePresident(
                 _loadedGame.getType(), _deal, _loadedGame.getRules(), _loadedGame.getRanks());
         loadedGameCopy_.copySwitchCards(_loadedGame.getSwitchedCards());
         int ind_ = 0;
 //        loadedGameCopy_.initializeFirstTrick();
         while (true) {
-            if (!keepTrick(_loadedGame, loadedGameCopy_,ind_)) {
+            if (!keepTrick(_loadedGame, loadedGameCopy_,ind_, _mes)) {
                 return;
             }
             if (ind_ >= loadedGameCopy_.unionPlis().size()) {
@@ -322,7 +321,7 @@ public final class CheckerGamePresidentWithRules {
             }
         }
     }
-    private static boolean keepTrick(GamePresident _loadedGame, GamePresident _loadedGameCopy, int _ind){
+    private static boolean keepTrick(GamePresident _loadedGame, GamePresident _loadedGameCopy, int _ind, StringMap<String> _mes){
         TrickPresident trick_ = trick(_loadedGame, _ind);
 //        if (!_loadedGame.getTricks().isValidIndex(_ind) && empty(_loadedGameCopy) != null) {
 //            _loadedGame.setError(MESSAGE_ERROR);
@@ -338,7 +337,7 @@ public final class CheckerGamePresidentWithRules {
             if (currentIndex_ > i) {
                 continue;
             }
-            int next_ = keepTrickIt(_loadedGame, trick_, _loadedGameCopy, i, nbCardsPerPlayerTrick_);
+            int next_ = keepTrickIt(_loadedGame, trick_, _loadedGameCopy, i, nbCardsPerPlayerTrick_, _mes);
             if (next_ < 0) {
                 return false;
             }
@@ -353,7 +352,7 @@ public final class CheckerGamePresidentWithRules {
                 ko_ = false;
             }
             if (ko_) {
-                _loadedGame.setError(MISS_MATCH_TRICK_EVENTS_NOT_EMPTY_GROUP);
+                _loadedGame.setError(_mes.getVal(MISS_MATCH_TRICK_EVENTS_NOT_EMPTY_GROUP));
                 return true;
             }
             currentIndex_ = next_;
@@ -398,17 +397,17 @@ public final class CheckerGamePresidentWithRules {
         return _t.getNombreDeCartesParJoueur() == 0;
     }
 
-    private static int keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, int _nombreDeCartesParJoueur){
+    private static int keepTrickIt(GamePresident _loadedGame, TrickPresident _trick, GamePresident _loadedGameCopy, int _i, int _nombreDeCartesParJoueur, StringMap<String> _mes){
 //        byte nbPlayers_ = (byte) _rules.getNbPlayers();
 //        byte player_ = _trick.getPlayer(_i, nbPlayers_);
         HandPresident curHand_ = _trick.carte(_i);
         if (!sameStrength(curHand_)) {
-            _loadedGame.setError(MISS_MATCH_STRENGTH);
+            _loadedGame.setError(_mes.getVal(MISS_MATCH_STRENGTH));
             return -1;
         }
         if (!curHand_.estVide()) {
             if (!_loadedGameCopy.allowPlaying(curHand_) || curHand_.total() != _nombreDeCartesParJoueur) {
-                _loadedGame.setError(BAD_PLAYED_CARD);
+                _loadedGame.setError(_mes.getVal(BAD_PLAYED_CARD));
                 return -1;
             }
 //            if (_loadedGameCopy.getDeal().hand(player_)
@@ -424,11 +423,11 @@ public final class CheckerGamePresidentWithRules {
         } else {
 //        } else if (_nombreDeCartesParJoueur != 0) {
             if (_loadedGameCopy.getProgressingTrick().getCartes().estVide()) {
-                _loadedGame.setError(FIRST_GROUP_CANNOT_BE_EMPTY);
+                _loadedGame.setError(_mes.getVal(FIRST_GROUP_CANNOT_BE_EMPTY));
                 return -1;
             }
             if (!_loadedGameCopy.canPass()) {
-                _loadedGame.setError(CANNOT_PASS);
+                _loadedGame.setError(_mes.getVal(CANNOT_PASS));
                 return -1;
             }
 //            if (_loadedGameCopy.getStatus() == Playing.CAN_PLAY) {
@@ -451,7 +450,7 @@ public final class CheckerGamePresidentWithRules {
         }
         _loadedGameCopy.addCardsToCurrentTrickAndLoop(
                 curHand_);
-        if (koNext(_loadedGame, _trick, _i + 1, until(_loadedGameCopy, _trick))) {
+        if (koNext(_loadedGame, _trick, _i + 1, until(_loadedGameCopy, _trick), _mes)) {
             return -1;
         }
 //        if (exist(_trick, _i + 1, until(_loadedGameCopy, _trick))) {
@@ -461,14 +460,14 @@ public final class CheckerGamePresidentWithRules {
         return _loadedGameCopy.getProgressingTrick().total();
     }
 
-    private static void koNext(GamePresident _loadedGame, TrickPresidentIndexesCheck _trick) {
+    private static void koNext(GamePresident _loadedGame, TrickPresidentIndexesCheck _trick, StringMap<String> _mes) {
         for (int i: _trick.getIndexes()) {
-            koNext(_loadedGame,_trick.getTrick(),i, i+1);
+            koNext(_loadedGame,_trick.getTrick(),i, i+1, _mes);
         }
     }
-    private static boolean koNext(GamePresident _loadedGame, TrickPresident _trick, int _i, int _to) {
+    private static boolean koNext(GamePresident _loadedGame, TrickPresident _trick, int _i, int _to, StringMap<String> _mes) {
         if (exist(_trick, _i, _to)) {
-            _loadedGame.setError(NO_CARD_AFTER_FINISHED_DIRECTLY_CARD);
+            _loadedGame.setError(_mes.getVal(NO_CARD_AFTER_FINISHED_DIRECTLY_CARD));
             return true;
         }
         return false;

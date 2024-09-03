@@ -1,5 +1,6 @@
 package code.scripts.messages.cards;
 
+import cards.belote.CheckerGameBeloteWithRules;
 import cards.belote.enumerations.*;
 import code.sml.util.TranslationsFile;
 
@@ -63,6 +64,24 @@ public final class MessagesBelote {
         e_.add(BELOTE_UNDER_TRUMP_PARTNER,"You must undertrump with a card of the suit {0} under your partner.");
         return e_;
     }
+    public static TranslationsFile enCheck(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(CheckerGameBeloteWithRules.BAD_PLAYING,"Bad playing");
+        e_.add(CheckerGameBeloteWithRules.BAD_DECLARING,"Bad declaring");
+        e_.add(CheckerGameBeloteWithRules.BIDDING_TOO_MUCH_LOW,"Too many zero bids");
+        e_.add(CheckerGameBeloteWithRules.BIDDING_LOWER,"Bad point number");
+        e_.add(CheckerGameBeloteWithRules.TOO_MUCH_BIDS,"Too much bids");
+        e_.add(CheckerGameBeloteWithRules.INVALID_BID,"Invalid bid");
+        e_.add(CheckerGameBeloteWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK,"There should not be any trick");
+        e_.add(CheckerGameBeloteWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE,"All cards are not used exactly once");
+        e_.add(CheckerGameBeloteWithRules.BAD_COUNT_FOR_HANDS,"Bad count for hands");
+        e_.add(CheckerGameBeloteWithRules.BAD_REP_FOR_HANDS,"Bad rep for hands");
+        e_.add(CheckerGameBeloteWithRules.TRICK_WITH_BAD_COUNT,"Trick with bad count");
+        e_.add(CheckerGameBeloteWithRules.BAD_COUNT_FOR_REMAINING_CARDS,"Bad count for remaining cards");
+        e_.add(CheckerGameBeloteWithRules.BAD_COUNT_FOR_DEAL,"Bad count for deal");
+        e_.add(CheckerGameBeloteWithRules.BAD_CARD,"Bad card");
+        return e_;
+    }
     public static TranslationsFile fr(){
         TranslationsFile f_ = new TranslationsFile();
         f_.add(BeloteCardsExporterUtil.BID+BeloteCardsExporterUtil.fromBidBelote(BidBelote.FOLD),"Passe");
@@ -112,6 +131,24 @@ public final class MessagesBelote {
         f_.add(BELOTE_TRUMP_FOE,"Vous devez couper avec une carte de la couleur {0} au dessus de votre adversaire.");
         f_.add(BELOTE_UNDER_TRUMP_FOE,"Vous devez sous-couper avec une carte de la couleur {0} en dessous de votre adversaire.");
         f_.add(BELOTE_UNDER_TRUMP_PARTNER,"Vous devez sous-couper avec une carte de la couleur {0} en dessous de votre partenaire.");
+        return f_;
+    }
+    public static TranslationsFile frCheck(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(CheckerGameBeloteWithRules.BAD_PLAYING,"Mauvais jeu");
+        f_.add(CheckerGameBeloteWithRules.BAD_DECLARING,"Mauvaise annonce");
+        f_.add(CheckerGameBeloteWithRules.BIDDING_TOO_MUCH_LOW,"Trop de contrats nuls");
+        f_.add(CheckerGameBeloteWithRules.BIDDING_LOWER,"Mauvais nombre de points");
+        f_.add(CheckerGameBeloteWithRules.TOO_MUCH_BIDS,"Trop de contrats");
+        f_.add(CheckerGameBeloteWithRules.INVALID_BID,"Contrat invalide");
+        f_.add(CheckerGameBeloteWithRules.THERE_SHOULD_NOT_BE_ANY_TRICK,"Il ne devrait pas avoir de pli");
+        f_.add(CheckerGameBeloteWithRules.ALL_CARDS_AT_REMAINING_CARDS_ARE_NOT_USED_ONCE,"Toutes les cartes ne sont pas utilisé une fois exactement");
+        f_.add(CheckerGameBeloteWithRules.BAD_COUNT_FOR_HANDS,"Mauvais nombre pour les mains");
+        f_.add(CheckerGameBeloteWithRules.BAD_REP_FOR_HANDS,"Mauvais répartition pour les mains");
+        f_.add(CheckerGameBeloteWithRules.TRICK_WITH_BAD_COUNT,"Pli avec un mauvais nombre");
+        f_.add(CheckerGameBeloteWithRules.BAD_COUNT_FOR_REMAINING_CARDS,"Mauvais nombre pour les cartes restantes");
+        f_.add(CheckerGameBeloteWithRules.BAD_COUNT_FOR_DEAL,"Mauvais nombre pour la donne");
+        f_.add(CheckerGameBeloteWithRules.BAD_CARD,"Mauvaise carte");
         return f_;
     }
 }

@@ -1,7 +1,6 @@
 package cards.president;
 
 import code.maths.montecarlo.DefaultGenerator;
-import code.util.core.BoolVal;
 import org.junit.Test;
 
 import cards.consts.GameType;
@@ -3718,7 +3717,34 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     }
 
     private void check(GamePresident _game) {
-        CheckerGamePresidentWithRules.check(_game);
+        CheckerGamePresidentWithRules.check(_game, mesCheck());
+    }
+    public static StringMap<String> mesCheck(){
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(CheckerGamePresidentWithRules.ERROR_RULES,CheckerGamePresidentWithRules.ERROR_RULES);
+        m_.addEntry(CheckerGamePresidentWithRules.HANDS_COUNT,CheckerGamePresidentWithRules.HANDS_COUNT);
+        m_.addEntry(CheckerGamePresidentWithRules.SCORES_COUNT,CheckerGamePresidentWithRules.SCORES_COUNT);
+        m_.addEntry(CheckerGamePresidentWithRules.TRICK_EVENTS,CheckerGamePresidentWithRules.TRICK_EVENTS);
+        m_.addEntry(CheckerGamePresidentWithRules.EMPTY_TRICK,CheckerGamePresidentWithRules.EMPTY_TRICK);
+        m_.addEntry(CheckerGamePresidentWithRules.NOT_PLAYABLE,CheckerGamePresidentWithRules.NOT_PLAYABLE);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_RANK_COUNT,CheckerGamePresidentWithRules.BAD_RANK_COUNT);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT,CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_OTHER,CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_OTHER);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_WINNER,CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_WINNER);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_LOOSER,CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_LOOSER);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_WINNER_CONTENT,CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_WINNER_CONTENT);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_LOOSER_CONTENT,CheckerGamePresidentWithRules.BAD_SWITCH_CARD_GROUP_COUNT_LOOSER_CONTENT);
+        m_.addEntry(CheckerGamePresidentWithRules.DUPLICATE_RANK_COUNT,CheckerGamePresidentWithRules.DUPLICATE_RANK_COUNT);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_CARD_COUNT,CheckerGamePresidentWithRules.BAD_CARD_COUNT);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_CARD_UNIT_COUNT,CheckerGamePresidentWithRules.BAD_CARD_UNIT_COUNT);
+        m_.addEntry(CheckerGamePresidentWithRules.NOT_ALLOWED_PLAYED_CARD,CheckerGamePresidentWithRules.NOT_ALLOWED_PLAYED_CARD);
+        m_.addEntry(CheckerGamePresidentWithRules.MISS_MATCH_TRICK_EVENTS_NOT_EMPTY_GROUP,CheckerGamePresidentWithRules.MISS_MATCH_TRICK_EVENTS_NOT_EMPTY_GROUP);
+        m_.addEntry(CheckerGamePresidentWithRules.MISS_MATCH_STRENGTH,CheckerGamePresidentWithRules.MISS_MATCH_STRENGTH);
+        m_.addEntry(CheckerGamePresidentWithRules.BAD_PLAYED_CARD,CheckerGamePresidentWithRules.BAD_PLAYED_CARD);
+        m_.addEntry(CheckerGamePresidentWithRules.FIRST_GROUP_CANNOT_BE_EMPTY,CheckerGamePresidentWithRules.FIRST_GROUP_CANNOT_BE_EMPTY);
+        m_.addEntry(CheckerGamePresidentWithRules.CANNOT_PASS,CheckerGamePresidentWithRules.CANNOT_PASS);
+        m_.addEntry(CheckerGamePresidentWithRules.NO_CARD_AFTER_FINISHED_DIRECTLY_CARD,CheckerGamePresidentWithRules.NO_CARD_AFTER_FINISHED_DIRECTLY_CARD);
+        return m_;
     }
 
     static void transientFields(GamePresident _g) {

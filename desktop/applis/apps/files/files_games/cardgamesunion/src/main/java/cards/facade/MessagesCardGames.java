@@ -23,8 +23,11 @@ public final class MessagesCardGames {
     public static final String COMMON_PRESIDENT = "com_president";
     public static final String COMMON_TAROT = "com_tarot";
     public static final String GAME_BELOTE = "game_belote";
+    public static final String GAME_BELOTE_CH = "game_belote_ch";
     public static final String GAME_PRESIDENT = "game_president";
+    public static final String GAME_PRESIDENT_CH = "game_president_ch";
     public static final String GAME_TAROT = "game_tarot";
+    public static final String GAME_TAROT_CH = "game_tarot_ch";
     public static final String CHOICE_TAROT = "com_ch_tarot";
     public static final String COMMON_CARDS = "common_cards";
     public static final String COMMON_FILE = "common_file";
@@ -87,10 +90,13 @@ public final class MessagesCardGames {
         appendCommonMix(_lgs, MessagesCommonMix.en());
         appendCommonBelote(_lgs, MessagesBelote.en());
         appendGameBelote(_lgs, MessagesBelote.enGame());
+        appendGameBeloteCh(_lgs, MessagesBelote.enCheck());
         appendCommonPresident(_lgs, MessagesPresident.en());
         appendGamePresident(_lgs, MessagesPresident.enGame());
+        appendGamePresidentCh(_lgs, MessagesPresident.enCheck());
         appendCommonTarot(_lgs, MessagesTarot.en());
         appendGameTarot(_lgs, MessagesTarot.enGame());
+        appendGameTarotCh(_lgs, MessagesTarot.enCheck());
         appendCommonChTarot(_lgs, MessagesChoiceTarot.en());
         appendGamesNames(_lgs, MessagesGamesGames.en());
         appendNickNames(_lgs, en());
@@ -114,10 +120,13 @@ public final class MessagesCardGames {
         appendCommonMix(_lgs, MessagesCommonMix.fr());
         appendCommonBelote(_lgs, MessagesBelote.fr());
         appendGameBelote(_lgs, MessagesBelote.frGame());
+        appendGameBeloteCh(_lgs, MessagesBelote.frCheck());
         appendCommonPresident(_lgs, MessagesPresident.fr());
         appendGamePresident(_lgs, MessagesPresident.frGame());
+        appendGamePresidentCh(_lgs, MessagesPresident.frCheck());
         appendCommonTarot(_lgs, MessagesTarot.fr());
         appendGameTarot(_lgs, MessagesTarot.frGame());
+        appendGameTarotCh(_lgs, MessagesTarot.frCheck());
         appendCommonChTarot(_lgs, MessagesChoiceTarot.fr());
         appendGamesNames(_lgs, MessagesGamesGames.fr());
         appendNickNames(_lgs, fr());
@@ -163,6 +172,10 @@ public final class MessagesCardGames {
         _lgs.getMapping().addEntry(GAME_BELOTE, _f);
     }
 
+    public static void appendGameBeloteCh(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(GAME_BELOTE_CH, _f);
+    }
+
     public static void appendCommonPresident(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(COMMON_PRESIDENT, _f);
     }
@@ -171,12 +184,20 @@ public final class MessagesCardGames {
         _lgs.getMapping().addEntry(GAME_PRESIDENT, _f);
     }
 
+    public static void appendGamePresidentCh(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(GAME_PRESIDENT_CH, _f);
+    }
+
     public static void appendCommonTarot(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(COMMON_TAROT, _f);
     }
 
     public static void appendGameTarot(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(GAME_TAROT, _f);
+    }
+
+    public static void appendGameTarotCh(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(GAME_TAROT_CH, _f);
     }
 
     public static void appendCommonChTarot(TranslationsAppli _lgs, TranslationsFile _f) {
