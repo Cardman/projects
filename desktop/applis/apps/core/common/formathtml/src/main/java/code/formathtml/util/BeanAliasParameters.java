@@ -36,6 +36,13 @@ public final class BeanAliasParameters {
     public static final String MESSAGE_0_SET_ARGS_0="2224";
     public static final String DOCUMENT_0_BEAN_VALUE_0="2225";
     public static final String DOCUMENT_0_VALIDATOR_VALUE_0="2226";
+    public static final String DOCUMENT_0_REINIT_VALUE_0="2226_";
+    public static final String REINIT_0_REINIT_BEAN_0="2229";
+    public static final String REINIT_0_REINIT_BEAN_1="2230";
+    public static final String REINIT_0_REINIT_BEAN_2="2231";
+    public static final String REINIT_0_REINIT_BEAN_3="2232";
+    public static final String REINIT_0_REINIT_BEAN_4="2233";
+    public static final String REINIT_0_REINIT_BEAN_5="2234";
 
     private String aliasBean0SetLanguage0="a";
     private String aliasBean0SetScope0="a";
@@ -66,6 +73,13 @@ public final class BeanAliasParameters {
     private String aliasMessage0SetArgs0="a";
     private String aliasDocument0BeanValue0="a";
     private String aliasDocument0ValidatorValue0="a";
+    private String aliasDocument0ReinitValue0="a";
+    private String aliasReinit0ReinitBean0="a";
+    private String aliasReinit0ReinitBean1="b";
+    private String aliasReinit0ReinitBean2="c";
+    private String aliasReinit0ReinitBean3="d";
+    private String aliasReinit0ReinitBean4="e";
+    private String aliasReinit0ReinitBean5="f";
 
     public static void en(TranslationsFile _en){
         _en.add(BEAN_0_SET_LANGUAGE_0,"Bean0SetLanguage0=a");
@@ -97,6 +111,13 @@ public final class BeanAliasParameters {
         _en.add(MESSAGE_0_SET_ARGS_0,"Message0SetArgs0=a");
         _en.add(DOCUMENT_0_BEAN_VALUE_0,"Document0BeanValue0=a");
         _en.add(DOCUMENT_0_VALIDATOR_VALUE_0,"Document0ValidatorValue0=a");
+        _en.add(DOCUMENT_0_REINIT_VALUE_0,"Document0ReinitValue0=a");
+        _en.add(REINIT_0_REINIT_BEAN_0,"aliasReinit0ReinitBean0=a");
+        _en.add(REINIT_0_REINIT_BEAN_1,"aliasReinit0ReinitBean1=b");
+        _en.add(REINIT_0_REINIT_BEAN_2,"aliasReinit0ReinitBean2=c");
+        _en.add(REINIT_0_REINIT_BEAN_3,"aliasReinit0ReinitBean3=d");
+        _en.add(REINIT_0_REINIT_BEAN_4,"aliasReinit0ReinitBean4=e");
+        _en.add(REINIT_0_REINIT_BEAN_5,"aliasReinit0ReinitBean5=f");
     }
     public static void fr(TranslationsFile _fr){
         _fr.add(BEAN_0_SET_LANGUAGE_0,"Bean0SetLanguage0=a");
@@ -128,6 +149,13 @@ public final class BeanAliasParameters {
         _fr.add(MESSAGE_0_SET_ARGS_0,"Message0SetArgs0=a");
         _fr.add(DOCUMENT_0_BEAN_VALUE_0,"Document0BeanValue0=a");
         _fr.add(DOCUMENT_0_VALIDATOR_VALUE_0,"Document0ValidatorValue0=a");
+        _fr.add(DOCUMENT_0_REINIT_VALUE_0,"Document0ReinitValue0=a");
+        _fr.add(REINIT_0_REINIT_BEAN_0,"aliasReinit0ReinitBean0=a");
+        _fr.add(REINIT_0_REINIT_BEAN_1,"aliasReinit0ReinitBean1=b");
+        _fr.add(REINIT_0_REINIT_BEAN_2,"aliasReinit0ReinitBean2=c");
+        _fr.add(REINIT_0_REINIT_BEAN_3,"aliasReinit0ReinitBean3=d");
+        _fr.add(REINIT_0_REINIT_BEAN_4,"aliasReinit0ReinitBean4=e");
+        _fr.add(REINIT_0_REINIT_BEAN_5,"aliasReinit0ReinitBean5=f");
     }
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
@@ -160,6 +188,13 @@ public final class BeanAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(MESSAGE_0_SET_ARGS_0),aliasMessage0SetArgs0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(DOCUMENT_0_BEAN_VALUE_0),aliasDocument0BeanValue0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(DOCUMENT_0_VALIDATOR_VALUE_0),aliasDocument0ValidatorValue0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(DOCUMENT_0_REINIT_VALUE_0),aliasDocument0ReinitValue0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(REINIT_0_REINIT_BEAN_0),aliasReinit0ReinitBean0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(REINIT_0_REINIT_BEAN_1),aliasReinit0ReinitBean1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(REINIT_0_REINIT_BEAN_2),aliasReinit0ReinitBean2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(REINIT_0_REINIT_BEAN_3),aliasReinit0ReinitBean3)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(REINIT_0_REINIT_BEAN_4),aliasReinit0ReinitBean4)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(REINIT_0_REINIT_BEAN_5),aliasReinit0ReinitBean5)));
         return m_;
     }
 
@@ -193,6 +228,13 @@ public final class BeanAliasParameters {
         aliasMessage0SetArgs0=LgNamesContent.get(_util, _cust, _mapping.getVal(MESSAGE_0_SET_ARGS_0));
         aliasDocument0BeanValue0=LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_0_BEAN_VALUE_0));
         aliasDocument0ValidatorValue0=LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_0_VALIDATOR_VALUE_0));
+        aliasDocument0ReinitValue0=LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_0_REINIT_VALUE_0));
+        aliasReinit0ReinitBean0=LgNamesContent.get(_util, _cust, _mapping.getVal(REINIT_0_REINIT_BEAN_0));
+        aliasReinit0ReinitBean1=LgNamesContent.get(_util, _cust, _mapping.getVal(REINIT_0_REINIT_BEAN_1));
+        aliasReinit0ReinitBean2=LgNamesContent.get(_util, _cust, _mapping.getVal(REINIT_0_REINIT_BEAN_2));
+        aliasReinit0ReinitBean3=LgNamesContent.get(_util, _cust, _mapping.getVal(REINIT_0_REINIT_BEAN_3));
+        aliasReinit0ReinitBean4=LgNamesContent.get(_util, _cust, _mapping.getVal(REINIT_0_REINIT_BEAN_4));
+        aliasReinit0ReinitBean5=LgNamesContent.get(_util, _cust, _mapping.getVal(REINIT_0_REINIT_BEAN_5));
     }
 
     public String getAliasBean0SetDataBase0() {
@@ -309,5 +351,33 @@ public final class BeanAliasParameters {
 
     public String getAliasDocument0ValidatorValue0() {
         return aliasDocument0ValidatorValue0;
+    }
+
+    public String getAliasDocument0ReinitValue0() {
+        return aliasDocument0ReinitValue0;
+    }
+
+    public String getAliasReinit0ReinitBean0() {
+        return aliasReinit0ReinitBean0;
+    }
+
+    public String getAliasReinit0ReinitBean1() {
+        return aliasReinit0ReinitBean1;
+    }
+
+    public String getAliasReinit0ReinitBean2() {
+        return aliasReinit0ReinitBean2;
+    }
+
+    public String getAliasReinit0ReinitBean3() {
+        return aliasReinit0ReinitBean3;
+    }
+
+    public String getAliasReinit0ReinitBean4() {
+        return aliasReinit0ReinitBean4;
+    }
+
+    public String getAliasReinit0ReinitBean5() {
+        return aliasReinit0ReinitBean5;
     }
 }

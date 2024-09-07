@@ -26,6 +26,7 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -43,6 +44,7 @@ public final class Configuration {
 //    private int tabWidth = DEFAULT_TAB_WIDTH;
 
     private StringMap<ValidatorInfo> lateValidators = new StringMap<ValidatorInfo>();
+    private StringMap<ValidatorInfo> lateReinits = new StringMap<ValidatorInfo>();
 
 //    private String prefix = EMPTY_STRING;
 
@@ -90,23 +92,32 @@ public final class Configuration {
             _page.getInfosVars().removeKey(keyWordVar_);
         }
         for (EntryCust<String,ValidatorInfo> e: getLateValidators().entryList()) {
-            ValidatorInfo v_ = e.getValue();
-            AnaResultPartType type_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(0, v_.getClassName(), _page);
-            String clName_ = type_.getResult(_page);
-            AnaLocalVariable lInfo_ = new AnaLocalVariable();
-            lInfo_.setClassName(clName_);
-            lInfo_.setConstType(ConstType.FIX_VAR);
-            String keyWordVar_ = _page.getKeyWords().getKeyWordVar();
-            _page.getInfosVars().put(keyWordVar_, lInfo_);
-            ResultExpression res_ = new ResultExpression();
-            res_.setAnalyzedString(StringUtil.concat(keyWordVar_+"="+keyWordNew_, "()"));
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(res_, 0, _anaDoc, _page);
-            OperationNode nextSibling_ = root_.getFirstChild().getNextSibling();
-            nextSibling_.setOrder(0);
-            _anaDoc.getLateValidators().addEntry(nextSibling_,v_);
-            _page.getInfosVars().removeKey(keyWordVar_);
+            validatorAna(_page, _anaDoc, e, _anaDoc.getLateValidators());
+        }
+        for (EntryCust<String,ValidatorInfo> e: getLateReinits().entryList()) {
+            validatorAna(_page, _anaDoc, e, _anaDoc.getLateReinits());
         }
     }
+
+    private void validatorAna(AnalyzedPageEl _page, AnalyzingDoc _anaDoc, EntryCust<String, ValidatorInfo> _e, IdMap<OperationNode, ValidatorInfo> _dest) {
+        String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
+        ValidatorInfo v_ = _e.getValue();
+        AnaResultPartType type_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(0, v_.getClassName(), _page);
+        String clName_ = type_.getResult(_page);
+        AnaLocalVariable lInfo_ = new AnaLocalVariable();
+        lInfo_.setClassName(clName_);
+        lInfo_.setConstType(ConstType.FIX_VAR);
+        String keyWordVar_ = _page.getKeyWords().getKeyWordVar();
+        _page.getInfosVars().put(keyWordVar_, lInfo_);
+        ResultExpression res_ = new ResultExpression();
+        res_.setAnalyzedString(StringUtil.concat(keyWordVar_+"="+ keyWordNew_, "()"));
+        OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(res_, 0, _anaDoc, _page);
+        OperationNode nextSibling_ = root_.getFirstChild().getNextSibling();
+        nextSibling_.setOrder(0);
+        _dest.addEntry(nextSibling_,v_);
+        _page.getInfosVars().removeKey(keyWordVar_);
+    }
+
     public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, DualConfigurationContext _dual, FileBlock _confFile) {
         setFiles(_files);
         _analyzingDoc.setup(this, _dual.getProperties(), _dual.getMessagesFolder());
@@ -221,6 +232,13 @@ public final class Configuration {
         this.lateValidators = _lateValidators;
     }
 
+    public StringMap<ValidatorInfo> getLateReinits() {
+        return lateReinits;
+    }
+
+    public void setLateReinits(StringMap<ValidatorInfo> _l) {
+        this.lateReinits = _l;
+    }
 
     public RendKeyWords getRendKeyWords() {
         return rendKeyWords;

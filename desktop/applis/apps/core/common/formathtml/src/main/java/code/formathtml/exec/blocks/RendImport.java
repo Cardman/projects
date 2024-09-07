@@ -107,7 +107,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
                 ip_.setOpOffset(0);
                 CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                 ip_.setInternGlobal(_newBean);
-                RenderExpUtil.getAllArgs(exps_, _ctx, _rendStack).lastValue();
+                RenderExpUtil.getAllArgs(exps_, _ctx, _rendStack);
                 if (_ctx.callsOrException(_rendStack.getStackCall())) {
                     return true;
                 }

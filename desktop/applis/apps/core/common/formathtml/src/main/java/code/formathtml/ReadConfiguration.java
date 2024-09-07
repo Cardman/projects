@@ -20,9 +20,28 @@ import code.util.core.StringUtil;
 
 public final class ReadConfiguration {
 
-    private static final String FIELD = "field";
-    private static final String VALUE = "value";
-    private static final String KEY = "key";
+    public static final String FIELD = "0";
+    public static final String VALUE = "1";
+    public static final String KEY = "2";
+    public static final String OPTIONS = "0";
+    public static final String STACK_OVER_FLOW = "1";
+    public static final String TAB_WIDTH = "2";
+    public static final String CLASSES = "0";
+    public static final String SCOPE = "0";
+    public static final String CLASS_NAME = "1";
+    public static final String CONTEXT = "0";
+    public static final String LATE_VALIDATORS = "1";
+    public static final String FILES_CONF_NAME = "3";
+    public static final String FIRST_URL = "4";
+    public static final String PREFIX = "5";
+    public static final String MESSAGES_FOLDER = "6";
+    public static final String BEANS = "7";
+    public static final String PROPERTIES = "8";
+    public static final String RESOURCES = "9";
+    public static final String NAVIGATION = "10";
+    public static final String ADDED_FILES = "11";
+    public static final String RENDER_FILES = "12";
+    public static final String LATE_REINIT = "13";
 
     private ReadConfiguration(){
     }
@@ -73,7 +92,7 @@ public final class ReadConfiguration {
         opt_.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute(FIELD);
-            if (StringUtil.quickEq(fieldName_, "options")) {
+            if (StringUtil.quickEq(fieldName_, OPTIONS)) {
                 loadOptions(c, opt_);
             }
         }
@@ -81,11 +100,11 @@ public final class ReadConfiguration {
         int tab_ = 4;
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute(FIELD);
-            if (StringUtil.quickEq(fieldName_, "stackOverFlow")) {
+            if (StringUtil.quickEq(fieldName_, STACK_OVER_FLOW)) {
                 stack_=(NumberUtil.parseInt(c.getAttribute(VALUE)));
                 continue;
             }
-            if (StringUtil.quickEq(fieldName_, "tabWidth")) {
+            if (StringUtil.quickEq(fieldName_, TAB_WIDTH)) {
                 tab_=(NumberUtil.parseInt(c.getAttribute(VALUE)));
             }
         }
@@ -98,7 +117,7 @@ public final class ReadConfiguration {
         _opt.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute(FIELD);
-            if (StringUtil.quickEq(fieldName_, "classes")) {
+            if (StringUtil.quickEq(fieldName_, CLASSES)) {
                 _opt.getTypesInit().add(c.getAttribute(VALUE));
             }
         }
@@ -124,11 +143,11 @@ public final class ReadConfiguration {
         BeanInfo bean_ = new BeanInfo();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute(FIELD);
-            if (StringUtil.quickEq(fieldName_, "scope")) {
+            if (StringUtil.quickEq(fieldName_, SCOPE)) {
                 bean_.setScope(c.getAttribute(VALUE));
                 continue;
             }
-            if (StringUtil.quickEq(fieldName_, "className")) {
+            if (StringUtil.quickEq(fieldName_, CLASS_NAME)) {
                 bean_.setClassName(c.getAttribute(VALUE));
             }
         }

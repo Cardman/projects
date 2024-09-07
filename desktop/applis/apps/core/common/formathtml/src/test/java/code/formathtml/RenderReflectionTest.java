@@ -360,6 +360,54 @@ public final class RenderReflectionTest extends CommonRender {
         assertEq("<html><body>true</body></html>", getResTwoPagesTwo2(folder_, relative_, html_,html2_, filesSec_));
     }
 
+    @Test
+    public void process18Test() {
+        String locale_ = EN;
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/>{code.bean.Document.reinitArr().length}</body></html>";
+        String html2_ = "<html c:bean=\"bean_two\"><body>CONTENT</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", html2_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return $false;}}");
+        file_.append("$public $class pkg.Mi:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return $false;}}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>2</body></html>", getResTwoPagesTwoInit2(folder_, relative_, html_,html2_, filesSec_));
+    }
+
+    @Test
+    public void process19Test() {
+        String locale_ = EN;
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/>{code.bean.Document.reinitValue(code.bean.Document.reinitArr()[0])==code.bean.Document.reinitValue(code.bean.Document.reinitArr()[0])}</body></html>";
+        String html2_ = "<html c:bean=\"bean_two\"><body>CONTENT</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", html2_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return $false;}}");
+        file_.append("$public $class pkg.Mi:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return $false;}}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>true</body></html>", getResTwoPagesTwoInit2(folder_, relative_, html_,html2_, filesSec_));
+    }
+
     private String getResOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

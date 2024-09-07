@@ -23,6 +23,7 @@ public final class AnalyzingDoc extends SetupableAnalyzingDoc {
     private RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
     private final IdMap<OperationNode, BeanInfo> beansInfos = new IdMap<OperationNode, BeanInfo>();
     private final IdMap<OperationNode, ValidatorInfo> lateValidators = new IdMap<OperationNode, ValidatorInfo>();
+    private final IdMap<OperationNode, ValidatorInfo> lateReinits = new IdMap<OperationNode, ValidatorInfo>();
     private LgNamesContent content;
 
     private StringMap<BeanInfo> beansInfosBefore = new StringMap<BeanInfo>();
@@ -80,6 +81,10 @@ public final class AnalyzingDoc extends SetupableAnalyzingDoc {
 
     public IdMap<OperationNode, ValidatorInfo> getLateValidators() {
         return lateValidators;
+    }
+
+    public IdMap<OperationNode, ValidatorInfo> getLateReinits() {
+        return lateReinits;
     }
 
     public StringMap<BeanInfo> getBeansInfosBefore() {

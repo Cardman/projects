@@ -1056,6 +1056,15 @@ public final class RendForwardInfos {
         }
     }
 
+    private static void initReinitsInstance(AnalyzingDoc _anaDoc, Forwards _forwards) {
+        for (EntryCust<OperationNode, ValidatorInfo> e: _anaDoc.getLateReinits().entryList()) {
+            OperationNode root_ = e.getKey();
+            StandardInstancingOperation s_ = (StandardInstancingOperation) root_;
+            RendInvokingOperation rootExp_ = instance(s_, _forwards);
+            e.getValue().setExps(new CustList<RendDynOperationNode>(rootExp_));
+        }
+    }
+
     private static void initBeansInstances(AnalyzingDoc _anaDoc, Forwards _forwards) {
         for (EntryCust<OperationNode, BeanInfo> e: _anaDoc.getBeansInfos().entryList()) {
             OperationNode root_ = e.getKey();
@@ -1069,6 +1078,7 @@ public final class RendForwardInfos {
         RendDocumentBlock rendDocumentBlock_ = buildExec(_d, _forwards, _conf, _analyzingDoc, _renders);
         initBeansInstances(_analyzingDoc, _forwards.getForwards());
         initValidatorsInstance(_analyzingDoc, _forwards.getForwards());
+        initReinitsInstance(_analyzingDoc, _forwards.getForwards());
         return rendDocumentBlock_;
     }
 

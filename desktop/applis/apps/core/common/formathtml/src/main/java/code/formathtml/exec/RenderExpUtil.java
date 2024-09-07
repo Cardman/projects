@@ -23,6 +23,9 @@ public final class RenderExpUtil {
             a_.setArgument(o.getArgument());
             arguments_.addEntry(o, a_);
         }
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return arguments_;
+        }
         int fr_ = 0;
         int len_ = _nodes.size();
         while (fr_ < len_) {

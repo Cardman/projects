@@ -64,10 +64,6 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
 
     private static final String REF_TAG = "#";
 
-    private static final String PAGE = "page";
-
-    private static final String SESSION = "session";
-
     private static final String RETURN_LINE = "\n";
     private static final String SIMPLE_WILD_CARD = "<?>";
     private static final String DOUBLE_WILD_CARD = "<?,?>";
@@ -125,14 +121,23 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
     private CustList<RendDynOperationNode> expsSetScope;
     private CustList<RendDynOperationNode> expsSetLanguage;
     private CustList<RendDynOperationNode> expsValidate;
+    private CustList<RendDynOperationNode> expsReinit;
     private CustList<RendDynOperationNode> opsMap;
     private String validateVar;
+
     private String validateVarArgNewValue;
     private String validateVarArgOldValue;
     private String validateVarArgBean;
     private String validateVarArgForm;
     private String validateVarArgClassField;
-    private String vlidateVarArgNameField;
+    private String validateVarArgNameField;
+    private String reinitVar;
+    private String reinitDest;
+    private String reinitRef;
+    private String reinitBeanName;
+    private String reinitCurrentBean;
+    private String reinitCurrentUrl;
+    private String reinitIdReinit;
     private final RendExecutingBlocks rendExecutingBlocks = new RendExecutingBlocks();
 
     private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
@@ -380,7 +385,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         locName_ = tr(l_);
         validateVarArgClassField = locName_;
         locName_ = tr(l_);
-        vlidateVarArgNameField = locName_;
+        validateVarArgNameField = locName_;
 
         String validate_ = beanAliases.getAliasValidate();
         args_ = new StringMap<String>();
@@ -389,7 +394,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         args_.addEntry(validateVarArgBean, getAliasObject());
         args_.addEntry(validateVarArgForm,StringExpUtil.getPrettyArrayType(getAliasObject()));
         args_.addEntry(validateVarArgClassField, getAliasString());
-        args_.addEntry(vlidateVarArgNameField, getAliasString());
+        args_.addEntry(validateVarArgNameField, getAliasString());
         expsValidate = newCall(validateVar, beanAliases.getAliasValidator(),
                 new ClassMethodId(beanAliases.getAliasValidator(),new MethodId(MethodAccessKind.INSTANCE,validate_,new StringList(
                         getAliasObject(),
@@ -400,6 +405,31 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
                         getAliasString()
                 ))),
                 getAliasObject(), args_, _classes);
+        reinitVar = tr(l_);
+        reinitDest = tr(l_);
+        reinitRef = tr(l_);
+        reinitBeanName = tr(l_);
+        reinitCurrentBean = tr(l_);
+        reinitCurrentUrl = tr(l_);
+        reinitIdReinit = tr(l_);
+        args_ = new StringMap<String>();
+        args_.addEntry(reinitDest, getAliasString());
+        args_.addEntry(reinitRef, getAliasString());
+        args_.addEntry(reinitBeanName, getAliasString());
+        args_.addEntry(reinitCurrentBean,getAliasString());
+        args_.addEntry(reinitCurrentUrl, getAliasString());
+        args_.addEntry(reinitIdReinit, getAliasString());
+        expsReinit = newCall(reinitVar, beanAliases.getAliasReinitInterface(),
+                new ClassMethodId(beanAliases.getAliasReinitInterface(),new MethodId(MethodAccessKind.INSTANCE,beanAliases.getAliasReinitMethod(),new StringList(
+                        getAliasString(),
+                        getAliasString(),
+                        getAliasString(),
+                        getAliasString(),
+                        getAliasString(),
+                        getAliasString()
+                ))),
+                getAliasObject(), args_, _classes);
+
         newInstance(_classes);
     }
 
@@ -531,6 +561,9 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         for (EntryCust<String, ValidatorInfo> e: _conf.getLateValidators().entryList()) {
             rendExecutingBlocks.getBuiltValidators().addEntry(e.getKey(),NullStruct.NULL_VALUE);
         }
+        for (EntryCust<String, ValidatorInfo> e: _conf.getLateReinits().entryList()) {
+            rendExecutingBlocks.getBuiltReinit().addEntry(e.getKey(),NullStruct.NULL_VALUE);
+        }
     }
 
     @Override
@@ -580,17 +613,31 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         }
         index_ = 0;
         for (EntryCust<String, ValidatorInfo> e: _conf.getLateValidators().entryList()) {
-            ValidatorInfo info_ = e.getValue();
-            _rendStack.addPage(new ImportingPage());
-            Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(info_.getExps(), _ctx, _rendStack).lastValue().getArgument());
-            _rendStack.removeLastPage();
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            int i_ = init(_ctx, _rendStack, e, index_, rendExecutingBlocks.getBuiltValidators());
+            if (i_ == index_) {
                 return;
             }
-            Struct strBean_ = arg_.getStruct();
-            rendExecutingBlocks.getBuiltValidators().setValue(index_,strBean_);
-            index_++;
+            index_ = i_;
         }
+        index_ = 0;
+        for (EntryCust<String, ValidatorInfo> e: _conf.getLateReinits().entryList()) {
+            int i_ = init(_ctx, _rendStack, e, index_, rendExecutingBlocks.getBuiltReinit());
+            if (i_ == index_) {
+                return;
+            }
+            index_ = i_;
+        }
+    }
+    private int init(ContextEl _ctx, RendStackCall _rendStack, EntryCust<String, ValidatorInfo> _e, int _index, StringMap<Struct> _builtValidators) {
+        ValidatorInfo info_ = _e.getValue();
+        _rendStack.addPage(new ImportingPage());
+        Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(info_.getExps(), _ctx, _rendStack).lastValue().getArgument());
+        _rendStack.removeLastPage();
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            return _index;
+        }
+        _builtValidators.setValue(_index,arg_.getStruct());
+        return _index+1;
     }
 
     public void initializeRendSessionDoc(ContextEl _ctx, Navigation _nav, RendStackCall _rendStackCall) {
@@ -788,21 +835,28 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return false;
     }
     private boolean reinitRendBean(String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
-        if (!StringUtil.quickEq(_currentBean,_beanName)) {
-            return false;
-        }
         Struct bean_ = getBeanOrNull(_currentBean);
+        if (!ExecInherits.isCorrectExecute(bean_.getClassName(_ctx), beanAliases.getAliasBean(), _ctx)) {
+            return false;
+        }
         String scope_ = getScope(bean_, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return false;
+        Struct reinit_ = rendExecutingBlocks.getBuiltReinit().getVal(scope_);
+        if (reinit_ != null) {
+            _rendStackCall.getLastPage().putInternVars(reinitVar, reinit_, _ctx);
+            String dest_ = StringUtil.getFirstToken(_dest, REF_TAG);
+            _rendStackCall.getLastPage().putInternVars(reinitDest, LocalVariable.newLocalVariable(new StringStruct(dest_),getAliasString()));
+            _rendStackCall.getLastPage().putInternVars(reinitRef, LocalVariable.newLocalVariable(new StringStruct(_dest.substring(dest_.length())), getAliasString()));
+            _rendStackCall.getLastPage().putInternVars(reinitBeanName, LocalVariable.newLocalVariable(new StringStruct(_beanName), getAliasString()));
+            _rendStackCall.getLastPage().putInternVars(reinitCurrentBean, LocalVariable.newLocalVariable(new StringStruct(_currentBean), getAliasString()));
+            _rendStackCall.getLastPage().putInternVars(reinitCurrentUrl, LocalVariable.newLocalVariable(new StringStruct(_currentUrl), getAliasString()));
+            _rendStackCall.getLastPage().putInternVars(reinitIdReinit, LocalVariable.newLocalVariable(new StringStruct(scope_), getAliasString()));
+            _rendStackCall.getLastPage().setEnabledOp(false);
+            Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(expsReinit, _ctx, _rendStackCall).lastValue().getArgument());
+            _rendStackCall.getLastPage().setEnabledOp(true);
+            _rendStackCall.getLastPage().clearInternVars();
+            return BooleanStruct.isTrue(arg_.getStruct());
         }
-        if (StringUtil.quickEq(scope_,SESSION)) {
-            return false;
-        }
-        if (StringUtil.quickEq(scope_,PAGE)) {
-            return !StringUtil.quickEq(_currentUrl, StringUtil.getFirstToken(_dest, REF_TAG));
-        }
-        return true;
+        return false;
     }
 
     private Struct newBean(String _language, Struct _bean, BeanInfo _info, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -811,13 +865,13 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         forwardDataBase(_bean,strBean_, _ctx, _rendStackCall);
         setStoredForms(strBean_, NullStruct.NULL_VALUE, _ctx, _rendStackCall);
         setLanguage(strBean_, _language, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return NullStruct.NULL_VALUE;
-        }
+//        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+//            return NullStruct.NULL_VALUE;
+//        }
         String str_ = getScope(_bean, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return NullStruct.NULL_VALUE;
-        }
+//        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+//            return NullStruct.NULL_VALUE;
+//        }
         setScope(strBean_, str_, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
@@ -851,7 +905,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         }
         _rendStackCall.getLastPage().putInternVars(setDataBaseVar, _to, _ctx);
         _rendStackCall.getLastPage().putInternVars(setDataBaseVarArg, argument_.getStruct(), _ctx);
-        RenderExpUtil.getAllArgs(expsSetDataBase, _ctx, _rendStackCall).lastValue();
+        RenderExpUtil.getAllArgs(expsSetDataBase, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
     }
@@ -886,13 +940,13 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
 
 
     private void setStoredForms(Struct _bean, Struct _storedForms, ContextEl _ctx, RendStackCall _rendStackCall) {
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return;
-        }
+//        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+//            return;
+//        }
         _rendStackCall.getLastPage().setEnabledOp(false);
         _rendStackCall.getLastPage().putInternVars(setFormsVar, _bean, _ctx);
         _rendStackCall.getLastPage().putInternVars(setFormsVarArg, _storedForms, _ctx);
-        RenderExpUtil.getAllArgs(expsSetForms, _ctx, _rendStackCall).lastValue();
+        RenderExpUtil.getAllArgs(expsSetForms, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
         _rendStackCall.getLastPage().setEnabledOp(true);
     }
@@ -979,20 +1033,20 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         _rendStackCall.getLastPage().putInternVars(getValVarArg, _key, _ctx);
         Argument argument_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(expsGetVal, _ctx, _rendStackCall).lastValue().getArgument());
         _rendStackCall.getLastPage().clearInternVars();
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return;
-        }
+//        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+//            return;
+//        }
         _rendStackCall.getLastPage().putInternVars(putVarCust, _to, _ctx);
         _rendStackCall.getLastPage().putInternVars(putVarCustKey, _key, _ctx);
         _rendStackCall.getLastPage().putInternVars(putVarCustValue, argument_.getStruct(), _ctx);
-        RenderExpUtil.getAllArgs(expsPut, _ctx, _rendStackCall).lastValue();
+        RenderExpUtil.getAllArgs(expsPut, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
     }
 
     public void putAllMap(Struct _map, Struct _other, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(putAllVarCust, _map, _ctx);
         _rendStackCall.getLastPage().putInternVars(putAllVarCustArg, _other, _ctx);
-        RenderExpUtil.getAllArgs(expsPutAll, _ctx, _rendStackCall).lastValue();
+        RenderExpUtil.getAllArgs(expsPutAll, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
     }
 
@@ -1112,7 +1166,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             NodeInformations nInfos_ = nCont_.getNodeInformation();
             String valId_ = nInfos_.getValidator();
             String id_ = nInfos_.getId();
-            Message messageTr_ = validate(nCont_,valId_, _ctx, _rendStack);
+            Message messageTr_ = validate(valId_, nCont_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return null;
             }
@@ -1177,17 +1231,13 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return argument_.getStruct();
     }
 
-    public Message validate(DefNodeContainer _cont, String _validatorId, ContextEl _ctx, RendStackCall _rendStack) {
+    private Message validate(String _validatorId, DefNodeContainer _cont, ContextEl _ctx, RendStackCall _rendStackCall) {
         Struct validator_ = rendExecutingBlocks.getBuiltValidators().getVal(_validatorId);
         if (validator_ == null) {
             return null;
         }
-        return validate(_cont,validator_, _ctx, _rendStack);
-    }
-
-    private Message validate(DefNodeContainer _cont, Struct _validator, ContextEl _ctx, RendStackCall _rendStackCall) {
         LocalVariable locVar_;
-        _rendStackCall.getLastPage().putInternVars(validateVar, _validator, _ctx);
+        _rendStackCall.getLastPage().putInternVars(validateVar, validator_, _ctx);
         locVar_ = newLocVar(_cont);
         _rendStackCall.getLastPage().putInternVars(validateVarArgNewValue, locVar_);
         locVar_ = LocalVariable.newLocalVariable(_cont.getTypedStruct(), getAliasObject());
@@ -1204,7 +1254,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         locVar_ = LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasObject()));
         _rendStackCall.getLastPage().putInternVars(validateVarArgForm, locVar_);
         _rendStackCall.getLastPage().putInternVars(validateVarArgClassField, new StringStruct(_cont.getIdFieldClass()), _ctx);
-        _rendStackCall.getLastPage().putInternVars(vlidateVarArgNameField, new StringStruct(_cont.getIdFieldName()), _ctx);
+        _rendStackCall.getLastPage().putInternVars(validateVarArgNameField, new StringStruct(_cont.getIdFieldName()), _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
         Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(expsValidate, _ctx, _rendStackCall).lastValue().getArgument());
         _rendStackCall.getLastPage().setEnabledOp(true);
@@ -1226,7 +1276,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         String locName_ = getBeforeDisplayingVar();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        RenderExpUtil.getAllArgs(expsBeforeDisplaying, _ctx, _rendStack).lastValue();
+        RenderExpUtil.getAllArgs(expsBeforeDisplaying, _ctx, _rendStack);
         _rendStack.getLastPage().setEnabledOp(true);
         _rendStack.getLastPage().clearInternVars();
     }
@@ -1246,18 +1296,18 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         _rendStackCall.getLastPage().putInternVars(setScopeVar, _bean, _ctx);
         _rendStackCall.getLastPage().putInternVars(setScopeVarArg, new StringStruct(_scope), _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        RenderExpUtil.getAllArgs(expsSetScope, _ctx, _rendStackCall).lastValue();
+        RenderExpUtil.getAllArgs(expsSetScope, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
     }
     private void setLanguage(Struct _bean, String _scope, ContextEl _ctx, RendStackCall _rendStackCall) {
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return;
-        }
+//        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+//            return;
+//        }
         _rendStackCall.getLastPage().putInternVars(setLanguageVar, _bean, _ctx);
         _rendStackCall.getLastPage().putInternVars(setLanguageVarArg, new StringStruct(_scope), _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        RenderExpUtil.getAllArgs(expsSetLanguage, _ctx, _rendStackCall).lastValue();
+        RenderExpUtil.getAllArgs(expsSetLanguage, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
     }

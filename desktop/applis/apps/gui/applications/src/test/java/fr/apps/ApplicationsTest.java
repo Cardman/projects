@@ -28,6 +28,7 @@ import code.converterimages.gui.*;
 import code.expressionlanguage.adv.*;
 import code.expressionlanguage.gui.unit.*;
 import code.expressionlanguage.utilcompo.*;
+import code.formathtml.ReadConfiguration;
 import code.formathtml.util.*;
 import code.gui.*;
 import code.gui.files.*;
@@ -38,6 +39,7 @@ import code.mock.*;
 import code.netw.*;
 import code.player.gui.*;
 import code.renders.*;
+import code.renders.utilcompo.LgNamesRenderUtils;
 import code.sml.*;
 import code.sml.util.*;
 import code.stream.*;
@@ -240,45 +242,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         DefaultBeanAliases.enTr(MessagesRenders.updateEn(FileInfos.enTr(FileInfos.initComments(en_))));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
-        String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
-                "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
-                "\t\t</sm>\n" +
-                "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<sm field='styleValues' value='StyleValueRgb=___'/>\n" +
-                "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
-                "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
-                "\t\t</b>\n" +
-                "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
-                "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
-                "\t</sm>\n" +
-                "</cfg>";
+        String xmlConf_ = cfg();
         StringMap<ContentTime> cont_ = with(p_, with(p_, with(p_, init(), "conf.txt", "content"), "src/"), "src/folder/");
         StringMap<ContentTime> contConf_ = with(p_,cont_,"conf_cl.txt","src/folder/file.txt");
         StringMap<ContentTime> contRend_ = with(p_,contConf_,"page.html","<html><body>_</body></html>");
@@ -675,45 +639,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         DefaultBeanAliases.enTr(MessagesRenders.updateEn(FileInfos.enTr(FileInfos.initComments(en_))));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
-        String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
-                "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
-                "\t\t</sm>\n" +
-                "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<sm field='styleValues' value='StyleValueRgb=___'/>\n" +
-                "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
-                "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
-                "\t\t</b>\n" +
-                "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
-                "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
-                "\t</sm>\n" +
-                "</cfg>";
+        String xmlConf_ = cfg();
         StringMap<ContentTime> cont_ = with(p_, with(p_, with(p_, init(), "conf.txt", "content"), "src/"), "src/folder/");
         StringMap<ContentTime> contConf_ = with(p_,cont_,"conf_cl.txt","src/folder/file.txt");
         StringMap<ContentTime> contRend_ = with(p_,contConf_,"page.html","<html><body>_</body></html>");
@@ -1301,6 +1227,47 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         return th_;
     }
 
+    private String cfg() {
+        return "<cfg>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+LgNamesRenderUtils.STYLE_VALUES+"' "+ReadConfiguration.VALUE+"='StyleValueRgb=___'/>\n" +
+                "\t</n>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf_cl.txt'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "</cfg>";
+    }
     public static StringMap<ContentTime> init() {
         return new StringMap<ContentTime>();
     }

@@ -20,6 +20,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
+import code.formathtml.ReadConfiguration;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
@@ -33,6 +34,16 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
+    public static final String MESSAGES = "0";
+    public static final String RENDMESSAGES = "1";
+    public static final String KEYWORDS = "2";
+    public static final String ALIASES = "3";
+    public static final String TAGS = "4";
+    public static final String ATTRS = "5";
+    public static final String VALUES = "6";
+    public static final String STYLE_ATTRS = "7";
+    public static final String STYLE_VALUES = "8";
+    public static final String STYLE_UNITS = "9";
 //    public static final String RESOURCES_RENDERS_ALIASES = "resources_renders/aliases";
     private final LgNamesUtilsContent execContent;
 //    private final StringMap<String> properties = MessCdmRenderGr.ms();
@@ -85,17 +96,17 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         StringBuilder styleValuesPart_ = new StringBuilder();
         StringBuilder styleUnitsPart_ = new StringBuilder();
         for (Element c: _elt.getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
-            feed(fieldName_, "messages", messPart_, c);
-            feed(fieldName_, "rendmessages", rendMessPart_, c);
-            feed(fieldName_, "keywords", keyWordsPart_, c);
-            feed(fieldName_, "aliases", aliasesPart_, c);
-            feed(fieldName_, "tags", tagsPart_, c);
-            feed(fieldName_, "attrs", attrsPart_, c);
-            feed(fieldName_, "values", valuesPart_, c);
-            feed(fieldName_, "styleAttrs", styleAttrsPart_, c);
-            feed(fieldName_, "styleValues", styleValuesPart_, c);
-            feed(fieldName_, "styleUnits", styleUnitsPart_, c);
+            String fieldName_ = c.getAttribute(ReadConfiguration.FIELD);
+            feed(fieldName_, MESSAGES, messPart_, c);
+            feed(fieldName_, RENDMESSAGES, rendMessPart_, c);
+            feed(fieldName_, KEYWORDS, keyWordsPart_, c);
+            feed(fieldName_, ALIASES, aliasesPart_, c);
+            feed(fieldName_, TAGS, tagsPart_, c);
+            feed(fieldName_, ATTRS, attrsPart_, c);
+            feed(fieldName_, VALUES, valuesPart_, c);
+            feed(fieldName_, STYLE_ATTRS, styleAttrsPart_, c);
+            feed(fieldName_, STYLE_VALUES, styleValuesPart_, c);
+            feed(fieldName_, STYLE_UNITS, styleUnitsPart_, c);
         }
         StringMap<String> mess_ = new StringMap<String>();
         StringMap<String> rendMess_ = new StringMap<String>();
@@ -144,7 +155,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
 
     private void feed(String _field, String _cst, StringBuilder _part, Element _c) {
         if (StringUtil.quickEq(_field, _cst)) {
-            _part.append(_c.getAttribute("value"));
+            _part.append(_c.getAttribute(ReadConfiguration.VALUE));
         }
     }
 

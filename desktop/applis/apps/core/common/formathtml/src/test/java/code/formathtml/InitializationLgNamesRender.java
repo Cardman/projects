@@ -31,6 +31,8 @@ public final class InitializationLgNamesRender extends EquallableRenderUtil {
         _lgNames.getBeanAliases().setAliasMapClear("clear");
         _lgNames.getBeanAliases().setAliasValidator("code.bean.Validator");
         _lgNames.getBeanAliases().setAliasValidate("validate");
+        _lgNames.getBeanAliases().setAliasReinitInterface("code.bean.Reinitialised");
+        _lgNames.getBeanAliases().setAliasReinitMethod("reinitialise");
         _lgNames.getBeanAliases().setAliasBean("code.bean.Bean");
         _lgNames.getBeanAliases().setAliasStringMapObject("code.formathtml.nat.StringMapObject");
         _lgNames.getBeanAliases().setAliasForms("forms");

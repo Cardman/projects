@@ -67,6 +67,8 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
     public static final String DOCUMENT_ALL="2188";
     public static final String DOCUMENT_VALIDATOR_ARRAY="2189";
     public static final String DOCUMENT_VALIDATOR_VALUE="2190";
+    public static final String DOCUMENT_REINIT_ARRAY="2190_";
+    public static final String DOCUMENT_REINIT_VALUE="2190__";
     public static final String DOCUMENT_BEAN_ARRAY="2191";
     public static final String DOCUMENT_BEAN_VALUE="2192";
     public static final String DOCUMENT_BEAN_NAME="2193";
@@ -74,6 +76,8 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
     public static final String MESSAGE_FORMAT="2195";
     public static final String MESSAGE_GET_ARGS="2196";
     public static final String MESSAGE_SET_ARGS="2197";
+    public static final String REINIT_EQ_INTERFACE="2227";
+    public static final String REINIT_EQ_METHOD="2228";
     private static final char END_LINE = ';';
     private static final char SPACE = ' ';
     private static final char LEFT_BRACE = '{';
@@ -150,10 +154,14 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
     private String aliasDocumentBeanValue="beanValue";
     private String aliasDocumentValidatorArray="valArr";
     private String aliasDocumentValidatorValue="valValue";
+    private String aliasDocumentReinitArray="reinitArr";
+    private String aliasDocumentReinitValue="reinitValue";
     private String aliasNewMessage="newStandardMessage";
     private String aliasMessageFormat="format";
     private String aliasMessageGetArgs="getArgs";
     private String aliasMessageSetArgs="setArgs";
+    private String aliasReinitInterface="code.bean.Reinitialised";
+    private String aliasReinitMethod="reinitialise";
     private final BeanAliasParameters beanAliasParameters = new BeanAliasParameters();
 
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
@@ -487,6 +495,21 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         file_.append(END_LINE);
         file_.append(RIGHT_BRACE);
         files_.put(aliasValidator, file_.toString());
+        file_ = new StringBuilder();
+        file_.append(public_).append(SPACE).append(interface_).append(SPACE)
+                .append(aliasReinitInterface).append(LEFT_BRACE);
+        file_.append(public_).append(SPACE).append(_content.getPrimTypes().getAliasPrimBoolean()).append(SPACE)
+                .append(aliasReinitMethod).append(LEFT_PAR);
+        file_.append(string_).append(SPACE).append(beanAliasParameters.getAliasReinit0ReinitBean0()).append(COMMA);
+        file_.append(string_).append(SPACE).append(beanAliasParameters.getAliasReinit0ReinitBean1()).append(COMMA);
+        file_.append(string_).append(SPACE).append(beanAliasParameters.getAliasReinit0ReinitBean2()).append(COMMA);
+        file_.append(string_).append(SPACE).append(beanAliasParameters.getAliasReinit0ReinitBean3()).append(COMMA);
+        file_.append(string_).append(SPACE).append(beanAliasParameters.getAliasReinit0ReinitBean4()).append(COMMA);
+        file_.append(string_).append(SPACE).append(beanAliasParameters.getAliasReinit0ReinitBean5());
+        file_.append(RIGHT_PAR);
+        file_.append(END_LINE);
+        file_.append(RIGHT_BRACE);
+        files_.put(aliasReinitInterface, file_.toString());
         return files_;
     }
     private static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _params) {
@@ -557,6 +580,12 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasDocumentValidatorValue, params_, aliasValidator, false, MethodModifier.STATIC, new StringList(beanAliasParameters.getAliasDocument0ValidatorValue0()),new FctDocumentValidatorValue(_rendExecutingBlocks));
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDocumentReinitArray, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC,new FctDocumentReinitArray(_rendExecutingBlocks));
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasDocumentReinitValue, params_, aliasReinitInterface, false, MethodModifier.STATIC, new StringList(beanAliasParameters.getAliasDocument0ReinitValue0()),new FctDocumentReinitValue(_rendExecutingBlocks));
+        StandardNamedFunction.addFct(methods_, method_);
         StandardType.addType(_content.getStandards(),aliasDocument, std_);
 
     }
@@ -617,6 +646,8 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         _en.add(MAP_CLEAR,"MapClear=clear");
         _en.add(VALIDATOR,"Validator=$core.Validator");
         _en.add(VALIDATE,"Validate=validate");
+        _en.add(REINIT_EQ_INTERFACE,"ReinitInterface=$core.Reinitialised");
+        _en.add(REINIT_EQ_METHOD,"ReinitMethod=reinitialise");
         _en.add(DATA_BASE_FIELD,"DataBaseField=dataBase");
         _en.add(FORMS,"Forms=forms");
         _en.add(SET_FORMS,"SetForms=setForms");
@@ -636,6 +667,8 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         _en.add(DOCUMENT_ALL,"DocumentAll=all");
         _en.add(DOCUMENT_VALIDATOR_ARRAY,"DocumentValidatorArray=validatorArray");
         _en.add(DOCUMENT_VALIDATOR_VALUE,"DocumentValidatorValue=validatorValue");
+        _en.add(DOCUMENT_REINIT_ARRAY,"DocumentReinitArray=reinitArray");
+        _en.add(DOCUMENT_REINIT_VALUE,"DocumentReinitValue=reinitValue");
         _en.add(DOCUMENT_BEAN_ARRAY,"DocumentBeanArray=beanArray");
         _en.add(DOCUMENT_BEAN_VALUE,"DocumentBeanValue=beanValue");
         _en.add(DOCUMENT_BEAN_NAME,"DocumentBeanName=beanName");
@@ -668,6 +701,8 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         _fr.add(MAP_CLEAR,"MapClear=suppr");
         _fr.add(VALIDATOR,"Validator=$coeur.Validateur");
         _fr.add(VALIDATE,"Validate=valider");
+        _fr.add(REINIT_EQ_INTERFACE,"ReinitInterface=$coeur.Reinitialise");
+        _fr.add(REINIT_EQ_METHOD,"ReinitMethod=reinitialiser");
         _fr.add(DATA_BASE_FIELD,"DataBaseField=baseDonnees");
         _fr.add(FORMS,"Forms=formulaire");
         _fr.add(SET_FORMS,"SetForms=majFormulaire");
@@ -687,6 +722,8 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         _fr.add(DOCUMENT_ALL,"DocumentAll=tous");
         _fr.add(DOCUMENT_VALIDATOR_ARRAY,"DocumentValidatorArray=validateurTab");
         _fr.add(DOCUMENT_VALIDATOR_VALUE,"DocumentValidatorValue=validateurValeur");
+        _fr.add(DOCUMENT_REINIT_ARRAY,"DocumentReinitArray=reinitTab");
+        _fr.add(DOCUMENT_REINIT_VALUE,"DocumentReinitValue=reinitValeur");
         _fr.add(DOCUMENT_BEAN_ARRAY,"DocumentBeanArray=graineTab");
         _fr.add(DOCUMENT_BEAN_VALUE,"DocumentBeanValue=graineValeur");
         _fr.add(DOCUMENT_BEAN_NAME,"DocumentBeanName=graineNom");
@@ -725,6 +762,8 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         setAliasMapClear(LgNamesContent.get(_util, _cust, _mapping.getVal(MAP_CLEAR)));
         setAliasValidator(LgNamesContent.get(_util, _cust, _mapping.getVal(VALIDATOR)));
         setAliasValidate(LgNamesContent.get(_util, _cust, _mapping.getVal(VALIDATE)));
+        setAliasReinitInterface(LgNamesContent.get(_util, _cust, _mapping.getVal(REINIT_EQ_INTERFACE)));
+        setAliasReinitMethod(LgNamesContent.get(_util, _cust, _mapping.getVal(REINIT_EQ_METHOD)));
         setAliasDataBaseField(LgNamesContent.get(_util, _cust, _mapping.getVal(DATA_BASE_FIELD)));
         setAliasForms(LgNamesContent.get(_util, _cust, _mapping.getVal(FORMS)));
         setAliasSetForms(LgNamesContent.get(_util, _cust, _mapping.getVal(SET_FORMS)));
@@ -751,6 +790,8 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         setAliasDocumentBeanValue(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_BEAN_VALUE)));
         setAliasDocumentValidatorArray(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_VALIDATOR_ARRAY)));
         setAliasDocumentValidatorValue(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_VALIDATOR_VALUE)));
+        setAliasDocumentReinitArray(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_REINIT_ARRAY)));
+        setAliasDocumentReinitValue(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_REINIT_VALUE)));
     }
 
     public StringMap<String> allRefTypes(StringMap<String> _mapping) {
@@ -760,6 +801,7 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         types_.addEntry(_mapping.getVal(VALIDATOR),getAliasValidator());
         types_.addEntry(_mapping.getVal(STRING_MAP_OBJECT),getAliasStringMapObject());
         types_.addEntry(_mapping.getVal(BEAN),getAliasBean());
+        types_.addEntry(_mapping.getVal(REINIT_EQ_INTERFACE),getAliasReinitInterface());
         return types_;
     }
 
@@ -777,11 +819,15 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_BEAN_VALUE),getAliasDocumentBeanValue()));
         lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_VALIDATOR_ARRAY),getAliasDocumentValidatorArray()));
         lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_VALIDATOR_VALUE),getAliasDocumentValidatorValue()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_REINIT_ARRAY),getAliasDocumentReinitArray()));
+        lis_.add(new KeyValueMemberName(_mapping.getVal(DOCUMENT_REINIT_VALUE),getAliasDocumentReinitValue()));
         lis_.add(new KeyValueMemberName(_mapping.getVal(GET_DECLARED_LOCAL_TYPES),_reflect.getAliasGetDeclaredLocalTypes()));
         lis_.add(new KeyValueMemberName(_mapping.getVal(GET_DECLARED_ANONYMOUS_TYPES),_reflect.getAliasGetDeclaredAnonymousTypes()));
         methods_.addEntry(getAliasDocument(), lis_);
         methods_.addEntry(getAliasValidator(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(VALIDATE),getAliasValidate())));
+        methods_.addEntry(getAliasReinitInterface(),new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(REINIT_EQ_METHOD),getAliasReinitMethod())));
         methods_.addEntry(getAliasStringMapObject(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(MAP_GET_VAL),getAliasMapGetVal()),
                 new KeyValueMemberName(_mapping.getVal(MAP_PUT),getAliasMapPut()),
@@ -1012,6 +1058,22 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         aliasValidate = _aliasValidate;
     }
 
+    public String getAliasReinitInterface() {
+        return aliasReinitInterface;
+    }
+
+    public void setAliasReinitInterface(String _p) {
+        this.aliasReinitInterface = _p;
+    }
+
+    public String getAliasReinitMethod() {
+        return aliasReinitMethod;
+    }
+
+    public void setAliasReinitMethod(String _p) {
+        this.aliasReinitMethod = _p;
+    }
+
     public String getAliasBean() {
         return aliasBean;
     }
@@ -1192,6 +1254,22 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
 
     public void setAliasDocumentValidatorValue(String _v) {
         this.aliasDocumentValidatorValue = _v;
+    }
+
+    public String getAliasDocumentReinitArray() {
+        return aliasDocumentReinitArray;
+    }
+
+    public void setAliasDocumentReinitArray(String _v) {
+        this.aliasDocumentReinitArray = _v;
+    }
+
+    public String getAliasDocumentReinitValue() {
+        return aliasDocumentReinitValue;
+    }
+
+    public void setAliasDocumentReinitValue(String _v) {
+        this.aliasDocumentReinitValue = _v;
     }
 
     public String getAliasNewMessage() {

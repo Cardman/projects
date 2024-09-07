@@ -14,8 +14,6 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class DefaultConfigurationLoader {
-    private static final String FIELD = "field";
-    private static final String VALUE = "value";
     private final BeanCustLgNames stds;
     private final LoggableLgNames log;
 
@@ -35,8 +33,8 @@ public final class DefaultConfigurationLoader {
 
         boolean ok_ = false;
         for (Element c: _document.getDocumentElement().getChildElements()) {
-            String fieldName_ = c.getAttribute(FIELD);
-            if (StringUtil.quickEq(fieldName_, "context")) {
+            String fieldName_ = c.getAttribute(ReadConfiguration.FIELD);
+            if (StringUtil.quickEq(fieldName_, ReadConfiguration.CONTEXT)) {
                 ReadConfiguration.getOptions(c, _context);
             }
         }
@@ -46,8 +44,8 @@ public final class DefaultConfigurationLoader {
             if (specific(_configuration,_context,c)) {
                 continue;
             }
-            String fieldName_ = c.getAttribute(FIELD);
-            if (StringUtil.quickEq(fieldName_, "context")) {
+            String fieldName_ = c.getAttribute(ReadConfiguration.FIELD);
+            if (StringUtil.quickEq(fieldName_, ReadConfiguration.CONTEXT)) {
                 ok_ = ReadConfiguration.loadContext(c, _lgCode, stds,_configuration, _page, forwards_, _context);
             }
         }
@@ -55,18 +53,23 @@ public final class DefaultConfigurationLoader {
         return new DualAnalyzedContext(forwards_,_page,stds,_context, _file);
     }
     private static boolean specific(Configuration _configuration, DualConfigurationContext _context, Element _c) {
-        String fieldName_ = _c.getAttribute(FIELD);
-        if (StringUtil.quickEq(fieldName_, "lateValidators")) {
+        String fieldName_ = _c.getAttribute(ReadConfiguration.FIELD);
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.LATE_VALIDATORS)) {
             _context.setupLateValidators(ReadConfiguration.loadStringMapString(_c));
             _configuration.setLateValidators(_context.getLateValidators());
             return true;
         }
-        if (StringUtil.quickEq(fieldName_, "tabWidth")) {
-            _configuration.setTabWidth(NumberUtil.parseInt(_c.getAttribute(VALUE)));
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.LATE_REINIT)) {
+            _context.setupLateReinit(ReadConfiguration.loadStringMapString(_c));
+            _configuration.setLateReinits(_context.getLateReinit());
             return true;
         }
-        if (StringUtil.quickEq(fieldName_, "filesConfName")) {
-            _context.setFilesConfName(_c.getAttribute(VALUE));
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.TAB_WIDTH)) {
+            _configuration.setTabWidth(NumberUtil.parseInt(_c.getAttribute(ReadConfiguration.VALUE)));
+            return true;
+        }
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.FILES_CONF_NAME)) {
+            _context.setFilesConfName(_c.getAttribute(ReadConfiguration.VALUE));
             return true;
         }
         return false;
@@ -79,41 +82,41 @@ public final class DefaultConfigurationLoader {
     }
 
     private void update(Configuration _configuration, DualConfigurationContext _d, Element _c) {
-        String fieldName_ = _c.getAttribute(FIELD);
-        if (StringUtil.quickEq(fieldName_, "firstUrl")) {
-            _configuration.setFirstUrl(_c.getAttribute(VALUE));
+        String fieldName_ = _c.getAttribute(ReadConfiguration.FIELD);
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.FIRST_URL)) {
+            _configuration.setFirstUrl(_c.getAttribute(ReadConfiguration.VALUE));
             return;
         }
-        if (StringUtil.quickEq(fieldName_, "prefix")) {
-            _configuration.setPrefix(_c.getAttribute(VALUE));
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.PREFIX)) {
+            _configuration.setPrefix(_c.getAttribute(ReadConfiguration.VALUE));
             return;
         }
-        if (StringUtil.quickEq(fieldName_, "messagesFolder")) {
-            _d.setMessagesFolder(_c.getAttribute(VALUE));
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.MESSAGES_FOLDER)) {
+            _d.setMessagesFolder(_c.getAttribute(ReadConfiguration.VALUE));
             return;
         }
-        if (StringUtil.quickEq(fieldName_, "beans")) {
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.BEANS)) {
             _configuration.setBeansInfos(ReadConfiguration.loadBeans(_c));
             return;
         }
-        if (StringUtil.quickEq(fieldName_, "properties")) {
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.PROPERTIES)) {
             _d.setProperties(ReadConfiguration.loadStringMapString(_c));
             return;
         }
-        if (StringUtil.quickEq(fieldName_, "resources")) {
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.RESOURCES)) {
             _d.setAddedResources(ReadConfiguration.getStringList(_c));
             return;
         }
-        if (StringUtil.quickEq(fieldName_, "navigation")) {
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.NAVIGATION)) {
             _configuration.setNavigation(ReadConfiguration.loadStringMapStrings(_c));
             return;
         }
 
-        if (StringUtil.quickEq(fieldName_, "addedFiles")) {
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.ADDED_FILES)) {
             _d.setAddedFiles(ReadConfiguration.getStringList(_c));
             return;
         }
-        if (StringUtil.quickEq(fieldName_, "renderFiles")) {
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.RENDER_FILES)) {
             _d.setRenderFiles(ReadConfiguration.getStringList(_c));
         }
     }

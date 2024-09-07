@@ -10,6 +10,7 @@ public final class RendExecutingBlocks {
     private final StringMap<Struct> builtBeans = new StringMap<Struct>();
 
     private final StringMap<Struct> builtValidators = new StringMap<Struct>();
+    private final StringMap<Struct> builtReinit = new StringMap<Struct>();
     private RendDocumentBlock rendDocumentBlock;
     public StringMap<RendDocumentBlock> getRenders() {
         return renders;
@@ -21,6 +22,10 @@ public final class RendExecutingBlocks {
 
     public StringMap<Struct> getBuiltValidators() {
         return builtValidators;
+    }
+
+    public StringMap<Struct> getBuiltReinit() {
+        return builtReinit;
     }
 
     public RendDocumentBlock getRendDocumentBlock() {

@@ -718,6 +718,12 @@ public abstract class CommonRender extends EquallableRenderUtil {
         _nav.getSession().getLateValidators().addEntry(_valId,v_);
     }
 
+    private static void addReinit(Navigation _nav, String _valId, String _class) {
+        ValidatorInfo v_ = new ValidatorInfo();
+        v_.setClassName(_class);
+        _nav.getSession().getLateReinits().addEntry(_valId,v_);
+    }
+
     protected static Struct getExTwoPages(String _folder, String _relative, String _html, String _htmlTwo) {
         DualNavigationContext a_ = buildNav();
         
@@ -783,6 +789,26 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return successRes(ctx_, a_);
     }
 
+
+    protected static String getResTwoPagesTwoInit2(String _folder, String _relative, String _html, String _htmlTwo, StringMap<String> _filesSec) {
+        DualNavigationContext a_ = buildNav();
+
+        setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
+        StringMap<String> files_ = twoFiles(oneFile(_html), "page2.html", _htmlTwo);
+        newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
+        newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
+        addReinit(a_.getNavigation(),"valRef1","pkg.Re");
+        addReinit(a_.getNavigation(),"valRef2","pkg.Mi");
+
+        ContextEl ctx_ = ana(_filesSec, files_, a_);
+        checkErrors(a_);
+        CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
+        CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
+        calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops2_, 1, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+
+        return successRes(ctx_, a_);
+    }
     protected static Struct getExTwoPagesTwo(String _folder, String _relative, String _html, String _htmlTwo, StringMap<String> _filesSec) {
         DualNavigationContext a_ = buildNav();
         

@@ -23,6 +23,7 @@ public final class DualConfigurationContext {
     private StringList renderFiles = new StringList();
 
     private StringMap<ValidatorInfo> lateValidators;
+    private StringMap<ValidatorInfo> lateReinit;
     private String filesConfName = "";
     private boolean ko;
     private final Options options = new Options();
@@ -107,6 +108,24 @@ public final class DualConfigurationContext {
 
     public void setLateValidators(StringMap<ValidatorInfo> _lateValidators) {
         this.lateValidators = _lateValidators;
+    }
+
+    public StringMap<ValidatorInfo> getLateReinit() {
+        return lateReinit;
+    }
+
+    public void setupLateReinit(StringMap<String> _lateValidators) {
+        StringMap<ValidatorInfo> lateValidators_ = new StringMap<ValidatorInfo>();
+        for (EntryCust<String, String> e: _lateValidators.entryList()) {
+            ValidatorInfo val_ = new ValidatorInfo();
+            val_.setClassName(e.getValue());
+            lateValidators_.addEntry(e.getKey(), val_);
+        }
+        setLateReinit(lateValidators_);
+    }
+
+    public void setLateReinit(StringMap<ValidatorInfo> _l) {
+        this.lateReinit = _l;
     }
 
     public String getFilesConfName() {

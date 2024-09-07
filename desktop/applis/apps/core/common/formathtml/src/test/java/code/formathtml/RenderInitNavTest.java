@@ -59,7 +59,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        conf_.getBeansInfos().addEntry("bean_one",i_);
+        addInfo(conf_, i_);
         conf_.init(a_.getDualAnalyzedContext().getContext());
         Navigation n_ = a_.getNavigation();
         n_.setSession(conf_);
@@ -100,7 +100,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        conf_.getBeansInfos().addEntry("bean_one",i_);
+        addInfo(conf_, i_);
         conf_.init(a_.getDualAnalyzedContext().getContext());
         Navigation n_ = a_.getNavigation();
         n_.setSession(conf_);
@@ -114,12 +114,12 @@ public final class RenderInitNavTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"page2.html\"/>{field}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"page2.html\"/>{"+ReadConfiguration.FIELD+"}</body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
-        file_.append(" $public $int field;");
+        file_.append(" $public $int "+ReadConfiguration.FIELD+";");
         file_.append("}");
         files_.put("my_file",file_.toString());
         file_ = new StringBuilder();
@@ -138,7 +138,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        conf_.getBeansInfos().addEntry("bean_one",i_);
+        addInfo(conf_, i_);
         conf_.init(a_.getDualAnalyzedContext().getContext());
         Navigation n_ = a_.getNavigation();
         n_.setSession(conf_);
@@ -151,12 +151,12 @@ public final class RenderInitNavTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"page2.html\"/>{field}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"page2.html\"/>{"+ReadConfiguration.FIELD+"}</body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
-        file_.append(" $public $int field;");
+        file_.append(" $public $int "+ReadConfiguration.FIELD+";");
         file_.append("}");
         files_.put("my_file",file_.toString());
         file_ = new StringBuilder();
@@ -175,7 +175,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        conf_.getBeansInfos().addEntry("bean_one",i_);
+        addInfo(conf_, i_);
         conf_.init(a_.getDualAnalyzedContext().getContext());
         Navigation n_ = a_.getNavigation();
         n_.setDataBaseStruct(NullStruct.NULL_VALUE);
@@ -193,6 +193,7 @@ public final class RenderInitNavTest extends CommonRender {
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return  _2 != _3?$false: $true;}}");
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
         file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $return $null;");
@@ -215,43 +216,47 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
                 "</cfg>";
         Navigation n_ = new Navigation();
@@ -275,6 +280,7 @@ public final class RenderInitNavTest extends CommonRender {
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return  _2 != _3?$false: $true;}}");
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
         file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $return $null;");
@@ -295,52 +301,56 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
-                "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
-                "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.STACK_OVER_FLOW+"' "+ReadConfiguration.VALUE+"='-1'/>\n" +
+                "\t\t<o "+ReadConfiguration.FIELD+"='"+ReadConfiguration.OPTIONS+"'>\n" +
+//                "\t\t\t<v "+ReadConfiguration.FIELD+"='suffixVar' "+ReadConfiguration.VALUE+"='NONE'/>\n" +
+//                "\t\t\t<b "+ReadConfiguration.FIELD+"='initializeStaticClassFirst' "+ReadConfiguration.VALUE+"='true'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</o>\n" +
-                "\t\t<i field='inex'/>\n" +
+                "\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
+                "\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
+                "\t</sm>\n" +
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
@@ -362,6 +372,7 @@ public final class RenderInitNavTest extends CommonRender {
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return  _2 != _3?$false: $true;}}");
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
         file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $return $null;");
@@ -388,53 +399,57 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
-                "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
-                "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
-                "\t\t\t<i field='classes' value='pkg.BeanTwo'/>\n" +
-                "\t\t\t<i field='classes' value='pkg.BeanThree'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.STACK_OVER_FLOW+"' "+ReadConfiguration.VALUE+"='-1'/>\n" +
+                "\t\t<o "+ReadConfiguration.FIELD+"='"+ReadConfiguration.OPTIONS+"'>\n" +
+//                "\t\t\t<v "+ReadConfiguration.FIELD+"='suffixVar' "+ReadConfiguration.VALUE+"='NONE'/>\n" +
+//                "\t\t\t<b "+ReadConfiguration.FIELD+"='initializeStaticClassFirst' "+ReadConfiguration.VALUE+"='true'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASSES+"' "+ReadConfiguration.VALUE+"='pkg.BeanTwo'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASSES+"' "+ReadConfiguration.VALUE+"='pkg.BeanThree'/>\n" +
                 "\t\t</o>\n" +
-                "\t\t<i field='inex'/>\n" +
+                "\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
+                "\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
+                "\t</sm>\n" +
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
@@ -457,6 +472,7 @@ public final class RenderInitNavTest extends CommonRender {
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return  _2 != _3?$false: $true;}}");
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
         file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $return $null;");
@@ -484,56 +500,60 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         files_.put("res.txt", "content");
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
-                "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
-                "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
-                "\t\t\t<i field='classes' value='pkg.BeanTwo'/>\n" +
-                "\t\t\t<i field='classes' value='pkg.BeanThree'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.STACK_OVER_FLOW+"' "+ReadConfiguration.VALUE+"='-1'/>\n" +
+                "\t\t<o "+ReadConfiguration.FIELD+"='"+ReadConfiguration.OPTIONS+"'>\n" +
+//                "\t\t\t<v "+ReadConfiguration.FIELD+"='suffixVar' "+ReadConfiguration.VALUE+"='NONE'/>\n" +
+//                "\t\t\t<b "+ReadConfiguration.FIELD+"='initializeStaticClassFirst' "+ReadConfiguration.VALUE+"='true'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASSES+"' "+ReadConfiguration.VALUE+"='pkg.BeanTwo'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASSES+"' "+ReadConfiguration.VALUE+"='pkg.BeanThree'/>\n" +
                 "\t\t</o>\n" +
-                "\t\t<i field='inex'/>\n" +
+                "\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sl field='resources'>\n" +
-                "\t\t<java.lang.String value='res.txt'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RESOURCES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='res.txt'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
+                "\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
+                "\t</sm>\n" +
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
@@ -578,7 +598,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        conf_.getBeansInfos().addEntry("bean_one",i_);
+        addInfo(conf_, i_);
         conf_.init(a_.getDualAnalyzedContext().getContext());
         Navigation n_ = a_.getNavigation();
         n_.setSession(conf_);
@@ -598,6 +618,7 @@ public final class RenderInitNavTest extends CommonRender {
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return  _2 != _3?$false: $true;}}");
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
         file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
         file_.append("  $return $null;");
@@ -620,43 +641,47 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
+                "\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
+                "\t</sm>\n" +
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
@@ -672,6 +697,7 @@ public final class RenderInitNavTest extends CommonRender {
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return  _2 != _3?$false: $true;}}");
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
         file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
         file_.append("  $return $null;");
@@ -707,6 +733,7 @@ public final class RenderInitNavTest extends CommonRender {
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return  _2 != _3?$false: $true;}}");
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
         file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
         file_.append("  $return $null;");
@@ -727,52 +754,56 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
-                "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
-                "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.STACK_OVER_FLOW+"' "+ReadConfiguration.VALUE+"='-1'/>\n" +
+                "\t\t<o "+ReadConfiguration.FIELD+"='"+ReadConfiguration.OPTIONS+"'>\n" +
+//                "\t\t\t<v "+ReadConfiguration.FIELD+"='suffixVar' "+ReadConfiguration.VALUE+"='NONE'/>\n" +
+//                "\t\t\t<b "+ReadConfiguration.FIELD+"='initializeStaticClassFirst' "+ReadConfiguration.VALUE+"='true'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</o>\n" +
-                "\t\t<i field='inex'/>\n" +
+                "\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
+                "\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
+                "\t</sm>\n" +
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
@@ -788,6 +819,7 @@ public final class RenderInitNavTest extends CommonRender {
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Re:code.bean.Reinitialised{$public $boolean reinitialise(String _0,String _1,String _2,String _3,String _4,String _5){$return  _2 != _3?$false: $true;}}");
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
         file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
         file_.append("  $return $null;");
@@ -808,52 +840,56 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
-                "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
-                "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.STACK_OVER_FLOW+"' "+ReadConfiguration.VALUE+"='-1'/>\n" +
+                "\t\t<o "+ReadConfiguration.FIELD+"='"+ReadConfiguration.OPTIONS+"'>\n" +
+//                "\t\t\t<v "+ReadConfiguration.FIELD+"='suffixVar' "+ReadConfiguration.VALUE+"='NONE'/>\n" +
+//                "\t\t\t<b "+ReadConfiguration.FIELD+"='initializeStaticClassFirst' "+ReadConfiguration.VALUE+"='true'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</o>\n" +
-                "\t\t<i field='inex'/>\n" +
+                "\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
-                "\t\t\t<i field='inex'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
+                "\t\t\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page1.html'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
+                "\t<i "+ReadConfiguration.FIELD+"='inex'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
+                "\t</sm>\n" +
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
@@ -873,41 +909,45 @@ public final class RenderInitNavTest extends CommonRender {
     @Test
     public void execute3() {
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
                 "</cfg>";
         assertEq("",initDbOkConfNoCtx(xmlConf_));
@@ -916,41 +956,45 @@ public final class RenderInitNavTest extends CommonRender {
     @Test
     public void execute4() {
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf_cl.txt'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
                 "</cfg>";
         assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","init","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$throw $null;}}","<html><body>_</body></html>")));
@@ -959,41 +1003,45 @@ public final class RenderInitNavTest extends CommonRender {
     @Test
     public void execute5() {
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf_cl.txt'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
                 "</cfg>";
         assertEq("java.lang.$defErrorClass\n" +
@@ -1005,41 +1053,45 @@ public final class RenderInitNavTest extends CommonRender {
     @Test
     public void execute6() {
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf_cl.txt'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
                 "</cfg>";
         assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","init","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
@@ -1048,41 +1100,45 @@ public final class RenderInitNavTest extends CommonRender {
     @Test
     public void execute7() {
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf_cl.txt'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
                 "</cfg>";
         assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
@@ -1091,41 +1147,45 @@ public final class RenderInitNavTest extends CommonRender {
     @Test
     public void execute8() {
         String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FIRST_URL+"' "+ReadConfiguration.VALUE+"='page.html'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PREFIX+"' "+ReadConfiguration.VALUE+"='c'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.NAVIGATION+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one.method'/>\n" +
                 "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='res'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.VALUE+"='page2.html'/>\n" +
                 "\t\t</sm>\n" +
                 "\t</sm>\n" +
-                "\t<n field=\"context\">\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<n "+ReadConfiguration.FIELD+"=\""+ReadConfiguration.CONTEXT+"\">\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
                 "\t</n>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf_cl.txt'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t<java.lang.Integer "+ReadConfiguration.FIELD+"='"+ReadConfiguration.TAB_WIDTH+"' "+ReadConfiguration.VALUE+"='4'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.MESSAGES_FOLDER+"' "+ReadConfiguration.VALUE+"='messages'/>\n" +
+                "\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.FILES_CONF_NAME+"' "+ReadConfiguration.VALUE+"='conf_cl.txt'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.BEANS+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='bean_one'/>\n" +
                 "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.SCOPE+"' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t\t<java.lang.String "+ReadConfiguration.FIELD+"='"+ReadConfiguration.CLASS_NAME+"' "+ReadConfiguration.VALUE+"='pkg.BeanOne'/>\n" +
                 "\t\t</b>\n" +
                 "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.PROPERTIES+"'>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='msg_cust'/>\n" +
+                "\t\t<java.lang.String "+ReadConfiguration.VALUE+"='sample/file'/>\n" +
                 "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.ADDED_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page.html'/>\n" +
+                "\t<sl "+ReadConfiguration.FIELD+"='"+ReadConfiguration.RENDER_FILES+"'>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='page.html'/>\n" +
                 "\t</sl>\n" +
-                "\t<sm field='lateValidators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_VALIDATORS+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "\t<sm "+ReadConfiguration.FIELD+"='"+ReadConfiguration.LATE_REINIT+"'>\n" +
+                "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
+                "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
                 "</cfg>";
         assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"","","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
@@ -1515,6 +1575,8 @@ public final class RenderInitNavTest extends CommonRender {
         lgNames_.getBeanAliases().setAliasMapClear("clear");
         lgNames_.getBeanAliases().setAliasValidator("code.bean.Validator");
         lgNames_.getBeanAliases().setAliasValidate("validate");
+        lgNames_.getBeanAliases().setAliasReinitInterface("code.bean.Reinitialised");
+        lgNames_.getBeanAliases().setAliasReinitMethod("reinitialise");
         lgNames_.getBeanAliases().setAliasBean("code.bean.Bean");
         lgNames_.getBeanAliases().setAliasStringMapObject("code.formathtml.nat.StringMapObject");
         lgNames_.getBeanAliases().setAliasForms("forms");
@@ -1584,6 +1646,10 @@ public final class RenderInitNavTest extends CommonRender {
 
     private static ContextEl setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {
         return _stds.setupAll(new DualNavigationContext(_nav, _dual),new DefRenderContextGenerator()).getContext();
+    }
+
+    private void addInfo(Configuration _conf, BeanInfo _i) {
+        _conf.getBeansInfos().addEntry("bean_one", _i);
     }
 
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
