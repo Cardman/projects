@@ -2,7 +2,6 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.DefFormParts;
@@ -17,7 +16,6 @@ import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.IdMap;
 
 public final class RendImport extends RendParentBlock implements RendWithEl {
     private final Element elt;
@@ -38,8 +36,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         }
         ip_.setOffset(rendExp.getOffset());
         ip_.setOpOffset(0);
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(rendExp.getList(), _ctx, _rendStack);
-        String pageName_ = RendInput.idRad(args_,_ctx,_rendStack);
+        String pageName_ = RendInput.idRad(rendExp.getList(),_ctx,_rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -107,8 +104,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
                 ip_.setOpOffset(0);
                 CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                 ip_.setInternGlobal(_newBean);
-                RenderExpUtil.getAllArgs(exps_, _ctx, _rendStack);
-                if (_ctx.callsOrException(_rendStack.getStackCall())) {
+                if (RenderExpUtil.getFinalArg(exps_, _ctx, _rendStack) == null) {
                     return true;
                 }
                 ip_.setInternGlobal(null);

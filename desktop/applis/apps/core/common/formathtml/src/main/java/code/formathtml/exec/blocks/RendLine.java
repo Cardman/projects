@@ -21,8 +21,7 @@ public final class RendLine extends RendLeaf implements RendWithEl {
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         ip_.setOffset(exp.getOffset());
-        RenderExpUtil.getAllArgs(exp.getList(), _ctx, _rendStack).lastValue();
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (RenderExpUtil.getFinalArg(exp.getList(), _ctx, _rendStack) == null) {
             return;
         }
         processBlock(_cont, _stds, _ctx, _rendStack);

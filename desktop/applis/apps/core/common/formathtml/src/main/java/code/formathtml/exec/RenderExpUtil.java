@@ -15,16 +15,23 @@ public final class RenderExpUtil {
     private RenderExpUtil() {
     }
 
+    public static Struct getFinalArg(CustList<RendDynOperationNode> _nodes, ContextEl _ctx, RendStackCall _rendStackCall) {
+        IdMap<RendDynOperationNode, ArgumentsPair> all_ = getAllArgs(_nodes, _ctx, _rendStackCall);
+        if (all_.isEmpty()) {
+            return null;
+        }
+        return Argument.getNull(all_.lastValue().getArgument().getStruct());
+    }
     public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, ContextEl _ctx, RendStackCall _rendStackCall) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<RendDynOperationNode,ArgumentsPair>();
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return arguments_;
+        }
         for (RendDynOperationNode o: _nodes) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
             arguments_.addEntry(o, a_);
-        }
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return arguments_;
         }
         int fr_ = 0;
         int len_ = _nodes.size();
@@ -44,6 +51,9 @@ public final class RenderExpUtil {
                 a_.calculate(arguments_, _ctx, _rendStackCall);
                 fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
             }
+        }
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            arguments_.clear();
         }
         return arguments_;
     }

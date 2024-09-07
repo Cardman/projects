@@ -2207,7 +2207,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 //    }
 
     private static RendStackCall reuse(ContextEl _ctx, CustList<RendDynOperationNode> _executableNodes, RendStackCall _build) {
-        RenderExpUtil.getAllArgs(_executableNodes, _ctx, _build).lastValue();
+        RenderExpUtil.getAllArgs(_executableNodes, _ctx, _build);
         return _build;
     }
 

@@ -21,12 +21,11 @@ public final class RendStdInput extends RendInput {
     }
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         DefFetchedObjs def_ = processIndexes(_cont, _read, (Element) _nextWrite, _ctx, _rendStack, new CustList<RendDynOperationNode>());
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return true;
+            return;
         }
         prStack(_cont,(Element) _nextWrite,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 }

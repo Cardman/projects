@@ -25,7 +25,7 @@ public final class RendCstForm extends RendElement implements RendElem {
     }
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         DefFormParts formParts_ = _rendStack.getFormParts();
         Element elt_ = (Element) _nextWrite;
         formParts_.getContainersMapStack().add(new LongTreeMap<DefNodeContainer>());
@@ -34,7 +34,6 @@ public final class RendCstForm extends RendElement implements RendElem {
         long currentForm_;
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
 }

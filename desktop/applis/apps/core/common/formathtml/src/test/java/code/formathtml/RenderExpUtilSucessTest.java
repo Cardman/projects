@@ -5928,7 +5928,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static Argument caculateReuse(ContextEl _ctx, CustList<RendDynOperationNode> _out, RendStackCall _build) {
-        Struct object_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_out, _ctx, _build).lastValue().getArgument()).getStruct();
+        Struct object_ = RenderExpUtil.getFinalArg(_out, _ctx, _build);
         assertNull(_build.getStackCall().getCallingState());
         return new Argument(object_);
     }

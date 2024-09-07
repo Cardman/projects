@@ -1,10 +1,10 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -47,7 +47,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         if (length_ == IndexConstants.SIZE_EMPTY) {
             finished_ = true;
         }
-        if (_cont.callsOrException(_rendStack.getStackCall())) {
+        if (length_ < 0) {
             return null;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
@@ -82,7 +82,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
             return;
         }
         Struct its_ = processLoop(_ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (its_ == null) {
             return;
         }
         RendLoopBlockStack l_ = newLoopBlockStack(_cont,_stds,_ctx,label,its_, _rendStack);
@@ -106,11 +106,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
     private Struct processLoop(ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.setOffset(exp.getOffset());
-        Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(exp.getList(), _ctx, _rendStackCall).lastValue().getArgument());
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return NullStruct.NULL_VALUE;
-        }
-        return arg_.getStruct();
+        return RenderExpUtil.getFinalArg(exp.getList(), _ctx, _rendStackCall);
 
     }
 
@@ -137,25 +133,25 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
 
 //        abs_.setGlobalOffset(variableNameOffset);
         LoopVariable lv_ = _vars.getVal(variableName);
-        Argument arg_ = retrieveValue(_conf,_advStandards,_ctx,_l, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct arg_ = retrieveValue(_conf,_advStandards,_ctx,_l, _rendStackCall);
+        if (arg_ == null) {
             return;
         }
-        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassName), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
+        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassName), arg_.getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
             return;
         }
         if (!(this instanceof RendForEachRefArray)) {
             String clFirst_ = _rendStackCall.formatVarType(importedClassName);
-            _varsInfos.set(variableName, new VariableWrapper(LocalVariable.newLocalVariable(arg_.getStruct(), clFirst_)));
+            _varsInfos.set(variableName, new VariableWrapper(LocalVariable.newLocalVariable(arg_, clFirst_)));
         }
         AbstractWrapper lInfo_ = _varsInfos.getVal(variableName);
-        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
+        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx, ArgumentListCall.toStr(arg_));
         lv_.setIndex(lv_.getIndex() + 1);
         abs_.getRendReadWrite().setRead(getFirstChild());
     }
     protected abstract RendLoopBlockStack newLoopBlockStack(Configuration _conf, BeanLgNames _stds, ContextEl _cont, String _label, Struct _its, RendStackCall _rendStack);
 
-    protected abstract Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack);
+    protected abstract Struct retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack);
 
     protected abstract ConditionReturn hasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack);
 

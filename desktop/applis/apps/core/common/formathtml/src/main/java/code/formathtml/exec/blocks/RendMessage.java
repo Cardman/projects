@@ -1,8 +1,8 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.sml.FormParts;
 import code.formathtml.exec.AnchorCall;
@@ -54,8 +54,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 anchorArg_.add(args.get(i));
                 continue;
             }
-            Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opExp.get(i), _ctx, _rendStack).lastValue().getArgument());
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            Struct arg_ = RenderExpUtil.getFinalArg(opExp.get(i), _ctx, _rendStack);
+            if (arg_ == null) {
                 return;
             }
             String res_;

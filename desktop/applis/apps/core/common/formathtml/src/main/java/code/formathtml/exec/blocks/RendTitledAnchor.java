@@ -1,10 +1,8 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendGeneLinkTypes;
 import code.formathtml.util.BeanLgNames;
@@ -33,13 +31,12 @@ public final class RendTitledAnchor extends RendElement {
     }
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element curWr_ = processTitle(_cont, (Element) _nextWrite, _ctx, _rendStack, opExpTitle, preformatted);
         if (curWr_ == null) {
-            return true;
+            return;
         }
         processLink(_cont,curWr_,_read, textPart, opExpAnch, _ctx, _rendStack);
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
     public static Element processTitle(Configuration _cont, Element _nextWrite, ContextEl _ctx, RendStackCall _rendStack, StringMap<CustList<RendDynOperationNode>> _opExpTitle, StringMap<String> _preformatted) {
@@ -52,8 +49,7 @@ public final class RendTitledAnchor extends RendElement {
         _nextWrite.removeAttribute(_cont.getRendKeyWords().getAttrEscapedAmp());
         StringList objects_ = new StringList();
         for (EntryCust<String, CustList<RendDynOperationNode>> e: _opExpTitle.entryList()) {
-            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
-            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
+            String txt_ = RendInput.idRad(e.getValue(),_ctx,_rendStack);
             objects_.add(txt_);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return null;

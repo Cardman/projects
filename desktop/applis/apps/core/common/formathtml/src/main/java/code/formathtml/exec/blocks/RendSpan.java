@@ -1,18 +1,15 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.sml.FormParts;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -29,17 +26,15 @@ public final class RendSpan extends RendElement {
     }
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage last_ = _rendStack.getLastPage();
         last_.setOffset(rendExp.getOffset());
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(rendExp.getList(), _ctx, _rendStack);
-        String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
+        String txt_ = RendInput.idRad(rendExp.getList(),_ctx,_rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             ((Element)_nextWrite).removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
-            return true;
+            return;
         }
         setupTxt(_cont, _nextWrite, txt_, formatted, _rendStack.getFormParts());
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
     public static void setupTxt(Configuration _cont, Node _nextWrite, String _txt, StringMap<String> _formatted, FormParts _formParts) {

@@ -937,7 +937,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
     protected static Struct calculateReuse(ContextEl _ctx, CustList<RendDynOperationNode> _ops, BeanCustLgNames _advStandards) {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
         addInnerPage(build_);
-        return Argument.getNullableValue(RenderExpUtil.getAllArgs(_ops, _ctx, build_).lastValue().getArgument()).getStruct();
+        return RenderExpUtil.getFinalArg(_ops, _ctx, build_);
     }
 
     protected static void setNavigation(Configuration _configuration) {

@@ -966,7 +966,7 @@ public final class ExecHelperBlocks {
         }
         long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
         long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
-        long stepValue_ = stepValue(argStep_, fromValue_, toValue_);
+        long stepValue_ = stepValue(argStep_.getStruct(), fromValue_, toValue_);
         boolean isEq_ = _block instanceof ExecForIterativeLoopEq;
         boolean finished_ = stepValue_ == 0 || fromValue_ == toValue_ && !isEq_;
         LoopBlockStack l_ = new LoopBlockStack(_block);
@@ -988,8 +988,8 @@ public final class ExecHelperBlocks {
         return l_;
     }
 
-    public static long stepValue(Argument _argStep, long _fromValue, long _toValue) {
-        long stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(_argStep.getStruct())).longStruct();
+    public static long stepValue(Struct _argStep, long _fromValue, long _toValue) {
+        long stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(_argStep)).longStruct();
         if (stepValue_ > 0) {
             if (_fromValue > _toValue) {
                 stepValue_ = -stepValue_;

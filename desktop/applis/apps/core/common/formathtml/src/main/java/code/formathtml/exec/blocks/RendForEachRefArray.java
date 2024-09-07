@@ -31,12 +31,12 @@ public final class RendForEachRefArray extends RendAbstractForEachLoop {
         ip_.getRefParams().put(getVariableName(), new ArrayWrapper(Argument.getNull(ExecArrayTemplates.elt(_l.getContent().getArray(),new LongStruct(0))),_l.getContent().getContainer(),new LongStruct(0)));
     }
     @Override
-    protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
+    protected Struct retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         Struct container_ = _l.getContent().getContainer();
         LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
         ip_.getRefParams().set(getVariableName(),new ArrayWrapper(Argument.getNull(ExecArrayTemplates.elt(_l.getContent().getArray(),lg_)),container_,lg_));
-        return new Argument(ExecArrayTemplates.getElement(container_, lg_, _ctx, _rendStack.getStackCall()));
+        return ExecArrayTemplates.getElement(container_, lg_, _ctx, _rendStack.getStackCall());
     }
 
     @Override

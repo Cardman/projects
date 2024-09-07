@@ -1,11 +1,9 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.util.BeanLgNames;
@@ -24,18 +22,17 @@ public final class RendLink extends RendElement {
     }
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         String fileContent_ = content;
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
         if (!execOpExpTitle.isEmpty()) {
             StringList objects_ = new StringList();
             for (EntryCust<String, CustList<RendDynOperationNode>> e:execOpExpTitle.entryList()) {
-                IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
-                String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
+                String txt_ = RendInput.idRad(e.getValue(),_ctx,_rendStack);
                 objects_.add(txt_);
                 if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                    return true;
+                    return;
                 }
                 curWr_.removeAttribute(e.getKey());
             }
@@ -45,7 +42,6 @@ public final class RendLink extends RendElement {
         DefRendReadWrite rw_ = ip_.getRendReadWrite();
         NavigationCore.simpleAppendChild(ownerDocument_, rw_, _nextWrite);
         RendBlock.procLink(_cont.getRendKeyWords().group().getKeyWordsTags(), fileContent_, ownerDocument_);
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
 }

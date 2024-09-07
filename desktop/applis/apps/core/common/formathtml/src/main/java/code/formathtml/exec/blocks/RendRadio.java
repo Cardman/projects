@@ -1,6 +1,5 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
@@ -33,34 +32,33 @@ public final class RendRadio extends RendInput {
 
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
         DefFetchedObjs arg_ = processIndexes(_cont, _read, elt_, _ctx, _rendStack, idRadio);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return true;
+            return;
         }
         Struct res_ = arg_.getArg();
         if (!opsConverterFieldValue.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getArg(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
             _rendStack.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
-            Argument argConv_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterFieldValue, _ctx, _rendStack).lastValue().getArgument());
+            Struct argConv_ = RenderExpUtil.getFinalArg(opsConverterFieldValue, _ctx, _rendStack);
             _rendStack.getLastPage().removeRefVar("0");
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return true;
+            if (argConv_ == null) {
+                return;
             }
-            res_ = argConv_.getStruct();
+            res_ = argConv_;
         }
         if (res_ == NullStruct.NULL_VALUE) {
             elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
             String strObj_ = getStringKey(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return true;
+                return;
             }
             NavigationCore.procDefValue(elt_, strObj_, _cont.getRendKeyWords().group());
         }
         prStack(_cont,elt_,arg_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
 }

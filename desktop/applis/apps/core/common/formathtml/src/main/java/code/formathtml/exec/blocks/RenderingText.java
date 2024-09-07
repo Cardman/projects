@@ -1,7 +1,7 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -32,8 +32,8 @@ public final class RenderingText {
     }
 
     private static String tryCalculate(CustList<RendDynOperationNode> _e, ContextEl _ctx, RendStackCall _rendStackCall) {
-        Argument argument_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_e, _ctx, _rendStackCall).lastValue().getArgument());
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct argument_ = RenderExpUtil.getFinalArg(_e, _ctx, _rendStackCall);
+        if (argument_ == null) {
             return null;
         }
         String string_ = BeanCustLgNames.processStr(argument_, _ctx, _rendStackCall);

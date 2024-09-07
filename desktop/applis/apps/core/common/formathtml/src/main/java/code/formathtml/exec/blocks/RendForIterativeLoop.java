@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
@@ -77,34 +78,34 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
         String var_ = getVariableName();
 
         ip_.setOffset(init.getOffset());
-        Argument argFrom_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(init.getList(), _ctx, _rendStackCall).lastValue().getArgument());
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct argFrom_ = RenderExpUtil.getFinalArg(init.getList(), _ctx, _rendStackCall);
+        if (argFrom_ == null) {
             return null;
         }
-        if (argFrom_.isNull()) {
+        if (argFrom_ == NullStruct.NULL_VALUE) {
             _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_, _rendStackCall.getStackCall())));
             return null;
         }
         ip_.setOffset(exp.getOffset());
-        Argument argTo_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(exp.getList(), _ctx, _rendStackCall).lastValue().getArgument());
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct argTo_ = RenderExpUtil.getFinalArg(exp.getList(), _ctx, _rendStackCall);
+        if (argTo_ == null) {
             return null;
         }
-        if (argTo_.isNull()) {
+        if (argTo_ == NullStruct.NULL_VALUE) {
             _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_, _rendStackCall.getStackCall())));
             return null;
         }
         ip_.setOffset(step.getOffset());
-        Argument argStep_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(step.getList(), _ctx, _rendStackCall).lastValue().getArgument());
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct argStep_ = RenderExpUtil.getFinalArg(step.getList(), _ctx, _rendStackCall);
+        if (argStep_ == null) {
             return null;
         }
-        if (argStep_.isNull()) {
+        if (argStep_ == NullStruct.NULL_VALUE) {
             _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_, _rendStackCall.getStackCall())));
             return null;
         }
-        long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
-        long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
+        long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_)).longStruct();
+        long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_)).longStruct();
         long stepValue_ = ExecHelperBlocks.stepValue(argStep_,fromValue_,toValue_);
         boolean eq_ = this instanceof RendForIterativeLoopEq;
         boolean finished_ = stepValue_ == 0 || fromValue_ == toValue_ && !eq_;

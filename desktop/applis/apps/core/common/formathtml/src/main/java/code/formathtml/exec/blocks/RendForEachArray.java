@@ -1,6 +1,5 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
@@ -36,10 +35,10 @@ public final class RendForEachArray extends RendAbstractForEachLoop {
     }
 
     @Override
-    protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
+    protected Struct retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
         Struct container_ = _l.getContent().getContainer();
         LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
-        return new Argument(ExecArrayTemplates.getElement(container_, lg_, _ctx, _rendStack.getStackCall()));
+        return ExecArrayTemplates.getElement(container_, lg_, _ctx, _rendStack.getStackCall());
     }
 
     @Override

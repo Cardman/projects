@@ -217,7 +217,7 @@ public abstract class RendDynOperationNode {
             out_ = res_;
         }
         if (content.getResultClass().isConvertToString()){
-            out_ = processString(_argument, _context, _rendStack);
+            out_ = processString(ArgumentListCall.toStr(_argument), _context, _rendStack);
             if (_context.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
@@ -252,9 +252,9 @@ public abstract class RendDynOperationNode {
         return out_;
     }
 
-    public static Argument processString(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
+    public static Argument processString(Struct _argument, ContextEl _context, RendStackCall _stackCall) {
         RendNativeFct nat_ = new RendNativeFct();
-        Argument out_ = new Argument(_argument.getStruct());
+        Argument out_ = new Argument(_argument);
         out_ = IndirectCalledFctUtil.processString(out_, _context, _stackCall.getStackCall());
         return result(nat_,_stackCall, _context, out_);
     }

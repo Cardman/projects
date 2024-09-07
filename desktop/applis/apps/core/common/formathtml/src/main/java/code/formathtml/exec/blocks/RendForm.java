@@ -1,9 +1,7 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
@@ -34,7 +32,7 @@ public final class RendForm extends RendElement implements RendElem {
     }
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         DefFormParts formParts_ = _rendStack.getFormParts();
 //        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
@@ -48,12 +46,11 @@ public final class RendForm extends RendElement implements RendElem {
         CustList<AbstractWrapper> values_ = new CustList<AbstractWrapper>();
         int f_ = 0;
         for (EntryCust<String, CustList<RendDynOperationNode>> e: textPart.entryList()) {
-            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return true;
+            Struct args_ = RenderExpUtil.getFinalArg(e.getValue(), _ctx, _rendStack);
+            if (args_ == null) {
+                return;
             }
-            Struct ar_ = Argument.getNullableValue(args_.lastValue().getArgument()).getStruct();
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(ar_, _rendStack.formatVarType(opForm.getTypes().get(f_)));
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(args_, _rendStack.formatVarType(opForm.getTypes().get(f_)));
             values_.add(new VariableWrapper(locVar_));
             elt_.removeAttribute(e.getKey());
             f_++;
@@ -67,7 +64,6 @@ public final class RendForm extends RendElement implements RendElem {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         long currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
     public static void incrForm(FormParts _formParts) {

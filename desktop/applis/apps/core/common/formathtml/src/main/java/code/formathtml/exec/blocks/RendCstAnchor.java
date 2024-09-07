@@ -26,12 +26,11 @@ public final class RendCstAnchor extends RendElement {
 
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         _rendStack.getFormParts().getCallsExps().add(new AnchorCall(opExpAnch.getGeneLink(),new CustList<AbstractWrapper>()));
         FormParts formParts_ = _rendStack.getFormParts();
         incrAncNb(_cont.getRend(), (Element) _nextWrite, formParts_.getIndexes(), _cont.getRendKeyWords().group());
         IndexesFormInput.incr(formParts_.getIndexes());
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
 }

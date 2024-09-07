@@ -41,7 +41,7 @@ public final class RendTextArea extends RendElement {
     }
 
     @Override
-    protected boolean processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
         doc_.renameNode(_nextWrite,_cont.getRendKeyWords().getKeyWordTextarea());
@@ -54,11 +54,10 @@ public final class RendTextArea extends RendElement {
         look(_cont,docElementArea_,defArea_,_rendStack);
         fetchValue(_cont,getRead(),docElementArea_,opsValue, opsConverterField, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return true;
+            return;
         }
         docElementArea_.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         docElementArea_.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         prStack(_cont,docElementArea_,defFieldUpdates,defArea_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
-        return _ctx.callsOrException(_rendStack.getStackCall());
     }
 }

@@ -1,11 +1,11 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -58,12 +58,12 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
             return;
         }
         Struct its_ = processLoopTable(_ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (its_ == NullStruct.NULL_VALUE) {
             return;
         }
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        Argument arg_ = iteratorMultTable(its_, _stds, _ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        Struct arg_ = iteratorMultTable(its_, _stds, _ctx, _rendStack);
+        if (arg_ == null) {
             return;
         }
         RendLoopBlockStack l_ = addedStack(ip_, its_, length_, arg_, label, this);
@@ -85,21 +85,20 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         processLastElementLoop(_stds, _ctx, l_, _rendStack);
     }
 
-    public static RendLoopBlockStack addedStack(ImportingPage _ip, Struct _its, long _length, Argument _arg, String _label, RendParentBlock _block) {
+    public static RendLoopBlockStack addedStack(ImportingPage _ip, Struct _its, long _length, Struct _arg, String _label, RendParentBlock _block) {
         RendLoopBlockStack l_ = stElt(_its, _length, _arg, _label, _block);
         _ip.addBlock(l_);
         return l_;
     }
 
-    public static RendLoopBlockStack stElt(Struct _its, long _length, Argument _arg, String _label, RendParentBlock _block) {
-        Struct iterStr_ = _arg.getStruct();
+    public static RendLoopBlockStack stElt(Struct _its, long _length, Struct _arg, String _label, RendParentBlock _block) {
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setLabel(_label);
         l_.getContent().setIndex(-1);
         l_.getContent().setFinished(false);
         l_.setBlock(_block);
         l_.setCurrentVisitedBlock(_block);
-        l_.getContent().setStructIterator(iterStr_);
+        l_.getContent().setStructIterator(_arg);
         l_.getContent().setMaxIteration(_length);
         l_.getContent().setContainer(_its);
         return l_;
@@ -108,16 +107,15 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
     Struct processLoopTable(ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.setOffset(exp.getOffset());
-        Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(exp.getList(), _ctx, _rendStackCall).lastValue().getArgument());
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct arg_ = RenderExpUtil.getFinalArg(exp.getList(), _ctx, _rendStackCall);
+        if (arg_ == null) {
             return NullStruct.NULL_VALUE;
         }
-        Struct ito_ = arg_.getStruct();
-        if (ito_ == NullStruct.NULL_VALUE) {
+        if (arg_ == NullStruct.NULL_VALUE) {
             String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
             _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_, _rendStackCall.getStackCall())));
         }
-        return ito_;
+        return arg_;
 
     }
 
@@ -151,46 +149,45 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         Struct iterator_ = _l.getContent().getStructIterator();
         ImportingPage call_ = _rendStackCall.getLastPage();
-        Argument nextPair_ = nextPair(iterator_, _advStandards, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct nextPair_ = nextPair(iterator_, _advStandards, _ctx, _rendStackCall);
+        if (nextPair_ == null) {
             return;
         }
-        Struct value_ = nextPair_.getStruct();
-        Argument arg_ = first(value_, _advStandards, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct arg_ = first(nextPair_, _advStandards, _ctx, _rendStackCall);
+        if (arg_ == null) {
             return;
         }
-        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassNameFirst), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
+        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassNameFirst), arg_.getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
         String clFirst_ = _rendStackCall.formatVarType(importedClassNameFirst);
-        _varsInfos.set(variableNameFirst, new VariableWrapper(LocalVariable.newLocalVariable(arg_.getStruct(),clFirst_)));
+        _varsInfos.set(variableNameFirst, new VariableWrapper(LocalVariable.newLocalVariable(arg_,clFirst_)));
         AbstractWrapper lInfo_ = _varsInfos.getVal(variableNameFirst);
-        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
+        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,ArgumentListCall.toStr(arg_));
         lv_.setIndex(lv_.getIndex() + 1);
-        arg_ = second(value_, _advStandards, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        arg_ = second(nextPair_, _advStandards, _ctx, _rendStackCall);
+        if (arg_ == null) {
             return;
         }
-        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassNameSecond), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
+        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassNameSecond), arg_.getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
             return;
         }
         lv_ = _vars.getVal(variableNameSecond);
         String clSecond_ = _rendStackCall.formatVarType(importedClassNameSecond);
-        _varsInfos.set(variableNameSecond, new VariableWrapper(LocalVariable.newLocalVariable(arg_.getStruct(),clSecond_)));
+        _varsInfos.set(variableNameSecond, new VariableWrapper(LocalVariable.newLocalVariable(arg_,clSecond_)));
         lInfo_ = _varsInfos.getVal(variableNameSecond);
-        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
+        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx, ArgumentListCall.toStr(arg_));
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }
     private static ConditionReturn iteratorHasNext(BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, RendStackCall _rendStackCall) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();
-        Argument arg_ = hasNextPair(strIter_, _advStandards, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct arg_ = hasNextPair(strIter_, _advStandards, _ctx, _rendStackCall);
+        if (arg_ == null) {
             return ConditionReturn.CALL_EX;
         }
-        if (BooleanStruct.isTrue(arg_.getStruct())) {
+        if (BooleanStruct.isTrue(arg_)) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

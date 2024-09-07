@@ -1,6 +1,5 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.LocalThrowing;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
@@ -103,12 +102,12 @@ public final class RendLocalThrowing {
             return _ca;
         }
         String varName_ = _ca.getContent().getVariableName();
-        Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(ls_, _ctx, _rendStackCall).lastValue().getArgument());
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct arg_ = RenderExpUtil.getFinalArg(ls_, _ctx, _rendStackCall);
+        if (arg_ == null) {
             possibleRemove(varName_, _bkIp);
             return null;
         }
-        if (BooleanStruct.isTrue(arg_.getStruct())) {
+        if (BooleanStruct.isTrue(arg_)) {
             return _ca;
         }
         possibleRemove(varName_, _bkIp);
