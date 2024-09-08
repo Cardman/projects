@@ -162,6 +162,10 @@ public abstract class RendDynOperationNode {
         }
     }
 
+    public final void setSimpleArgument(Struct _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
+        setSimpleArgument(ArgumentListCall.toStr(_argument),_nodes,_context,_rendStackCall);
+    }
+
     public final void setSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
         setQuickConvertSimpleArgument(_argument, _nodes, _context, _rendStackCall);
         setNextSiblingsArg(_nodes, _context, _rendStackCall);
@@ -217,7 +221,7 @@ public abstract class RendDynOperationNode {
             out_ = res_;
         }
         if (content.getResultClass().isConvertToString()){
-            out_ = processString(ArgumentListCall.toStr(_argument), _context, _rendStack);
+            out_ = ArgumentListCall.toStr(processString(ArgumentListCall.toStr(_argument), _context, _rendStack));
             if (_context.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
@@ -252,30 +256,31 @@ public abstract class RendDynOperationNode {
         return out_;
     }
 
-    public static Argument processString(Struct _argument, ContextEl _context, RendStackCall _stackCall) {
+    public static Struct processString(Struct _argument, ContextEl _context, RendStackCall _stackCall) {
         RendNativeFct nat_ = new RendNativeFct();
         Argument out_ = new Argument(_argument);
         out_ = IndirectCalledFctUtil.processString(out_, _context, _stackCall.getStackCall());
         return result(nat_,_stackCall, _context, out_);
     }
 
-    public static Argument processRandCode(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
+    public static Struct processRandCode(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
         RendNativeFct nat_ = new RendNativeFct();
         Argument out_ = new Argument(_argument.getStruct());
         out_ = IndirectCalledFctUtil.processRandCode(out_, _context, _stackCall.getStackCall());
         return result(nat_,_stackCall,_context, out_);
     }
 
-    private static Argument result(NativeFct _nat,RendStackCall _st, ContextEl _context, Argument _out) {
+    private static Struct result(NativeFct _nat,RendStackCall _st, ContextEl _context, Argument _out) {
         boolean convert_ = _st.getStackCall().getCallingState() instanceof CustomFoundMethod;
         Argument out_ = calculateArgument(_st,_out,_context);
-        if (_context.callsOrException(_st.getStackCall())) {
-            return Argument.createVoid();
-        }
-        if (convert_) {
+        boolean calls_ = _context.callsOrException(_st.getStackCall());
+        if (!calls_ && convert_) {
             out_ = new Argument(_nat.compute(out_, _context));
         }
-        return out_;
+        if (calls_) {
+            return null;
+        }
+        return ArgumentListCall.toStr(Argument.getNullableValue(out_));
     }
     public static Argument calculateArgument(RendStackCall _stackCall,Argument _def, ContextEl _ct) {
         CallingState state_ = _stackCall.getStackCall().getCallingState();

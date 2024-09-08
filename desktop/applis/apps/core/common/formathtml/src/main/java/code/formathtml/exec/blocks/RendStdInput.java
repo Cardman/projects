@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -21,11 +23,12 @@ public final class RendStdInput extends RendInput {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         DefFetchedObjs def_ = processIndexes(_cont, _read, (Element) _nextWrite, _ctx, _rendStack, new CustList<RendDynOperationNode>());
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
+        if (def_.getArg() == null) {
+            return null;
         }
         prStack(_cont,(Element) _nextWrite,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        return NullStruct.NULL_VALUE;
     }
 }

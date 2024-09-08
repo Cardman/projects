@@ -1,6 +1,7 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -49,20 +50,19 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
         Element created_ = NavigationCore.appendChild(ownerDocument_, read);
         for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
             String txt_ = RendInput.idRad(e.getValue(),_ctx,_rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            if (txt_ == null) {
                 return;
             }
             created_.setAttribute(e.getKey(),txt_);
         }
         for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributes.entryList()) {
             String txt_ = RendInput.idRad(e.getValue(),_ctx,_rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            if (txt_ == null) {
                 return;
             }
             created_.setAttribute(e.getKey(),txt_);
         }
-        processExecAttr(_cont,created_,read, _stds, _ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (processExecAttr(_cont,created_,read, _stds, _ctx, _rendStack) == null) {
             return;
         }
         if (!after) {
@@ -83,6 +83,6 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
         _rw.setWrite(_created);
     }
 
-    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);
+    protected abstract Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);
 
 }

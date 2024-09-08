@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.DefFormParts;
@@ -37,7 +38,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         ip_.setOffset(rendExp.getOffset());
         ip_.setOpOffset(0);
         String pageName_ = RendInput.idRad(rendExp.getList(),_ctx,_rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (pageName_ == null) {
             return;
         }
         RendDocumentBlock val_ = ((BeanCustLgNames)_stds).getRendExecutingBlocks().getRenders().getVal(pageName_);
@@ -69,8 +70,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         ImportingPage ip_ = _rendStack.getLastPage();
         ip_.setOffset(rendExp.getOffset());
         ip_.setOpOffset(0);
-        befDisp(_stds, _ctx, _rendStack, _newBean);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (befDisp(_stds, _ctx, _rendStack, _newBean) == null) {
             return;
         }
         String beanName_ = _val.getBeanName();
@@ -113,10 +113,11 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         return false;
     }
 
-    public static void befDisp(BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, Struct _newBean) {
+    public static Struct befDisp(BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, Struct _newBean) {
         if (_newBean != null) {
-            _stds.beforeDisplaying(_newBean, _ctx, _rendStack);
+            return _stds.beforeDisplaying(_newBean, _ctx, _rendStack);
         }
+        return NullStruct.NULL_VALUE;
     }
 
     public static ImportingPage newImportingPage(ImportingPage _ip, RendDocumentBlock _val, String _beanName, DefFormParts _formParts) {

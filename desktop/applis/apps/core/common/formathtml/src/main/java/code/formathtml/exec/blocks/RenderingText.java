@@ -1,11 +1,11 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.util.BeanCustLgNames;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -23,7 +23,7 @@ public final class RenderingText {
             CustList<RendDynOperationNode> exp_ = opExp_.get(i);
             String st_ = tryCalculate(exp_, _ctx, _rendStackCall);
             if (st_ == null) {
-                return str_.toString();
+                return null;
             }
             str_.append(st_);
         }
@@ -36,10 +36,10 @@ public final class RenderingText {
         if (argument_ == null) {
             return null;
         }
-        String string_ = BeanCustLgNames.processStr(argument_, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct string_ = RendDynOperationNode.processString(argument_, _ctx, _rendStackCall);
+        if (string_ == null) {
             return null;
         }
-        return string_;
+        return NumParsers.getString(string_).getInstance();
     }
 }

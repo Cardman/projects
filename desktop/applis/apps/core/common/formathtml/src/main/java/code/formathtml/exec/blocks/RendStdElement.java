@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -21,10 +23,11 @@ public final class RendStdElement extends RendElement implements RendElem {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         DefRendReadWrite rw_ = ip_.getRendReadWrite();
         Document ownerDocument_ = rw_.getDocument();
         NavigationCore.simpleAppendChild(ownerDocument_, rw_, _nextWrite);
+        return NullStruct.NULL_VALUE;
     }
 }

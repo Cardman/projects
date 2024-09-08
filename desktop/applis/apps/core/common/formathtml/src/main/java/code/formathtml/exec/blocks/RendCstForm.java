@@ -2,6 +2,8 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.DefFormParts;
@@ -25,7 +27,7 @@ public final class RendCstForm extends RendElement implements RendElem {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         DefFormParts formParts_ = _rendStack.getFormParts();
         Element elt_ = (Element) _nextWrite;
         formParts_.getContainersMapStack().add(new LongTreeMap<DefNodeContainer>());
@@ -34,6 +36,7 @@ public final class RendCstForm extends RendElement implements RendElem {
         long currentForm_;
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+        return NullStruct.NULL_VALUE;
     }
 
 }

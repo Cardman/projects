@@ -1,6 +1,7 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -31,12 +32,12 @@ public final class RendTitledAnchor extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element curWr_ = processTitle(_cont, (Element) _nextWrite, _ctx, _rendStack, opExpTitle, preformatted);
         if (curWr_ == null) {
-            return;
+            return null;
         }
-        processLink(_cont,curWr_,_read, textPart, opExpAnch, _ctx, _rendStack);
+        return processLink(_cont,curWr_,_read, textPart, opExpAnch, _ctx, _rendStack);
     }
 
     public static Element processTitle(Configuration _cont, Element _nextWrite, ContextEl _ctx, RendStackCall _rendStack, StringMap<CustList<RendDynOperationNode>> _opExpTitle, StringMap<String> _preformatted) {
@@ -50,10 +51,10 @@ public final class RendTitledAnchor extends RendElement {
         StringList objects_ = new StringList();
         for (EntryCust<String, CustList<RendDynOperationNode>> e: _opExpTitle.entryList()) {
             String txt_ = RendInput.idRad(e.getValue(),_ctx,_rendStack);
-            objects_.add(txt_);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            if (txt_ == null) {
                 return null;
             }
+            objects_.add(txt_);
             _nextWrite.removeAttribute(e.getKey());
         }
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringUtil.simpleStringsFormat(_preformatted.getVal(_cont.getCurrentLanguage()), objects_));

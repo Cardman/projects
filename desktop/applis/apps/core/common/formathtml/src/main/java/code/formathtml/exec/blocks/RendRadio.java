@@ -1,6 +1,7 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.NullStruct;
@@ -32,33 +33,34 @@ public final class RendRadio extends RendInput {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
         DefFetchedObjs arg_ = processIndexes(_cont, _read, elt_, _ctx, _rendStack, idRadio);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
-        }
         Struct res_ = arg_.getArg();
+        if (res_ == null) {
+            return null;
+        }
         if (!opsConverterFieldValue.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getArg(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(res_, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
             _rendStack.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
             Struct argConv_ = RenderExpUtil.getFinalArg(opsConverterFieldValue, _ctx, _rendStack);
             _rendStack.getLastPage().removeRefVar("0");
             if (argConv_ == null) {
-                return;
+                return null;
             }
             res_ = argConv_;
         }
         if (res_ == NullStruct.NULL_VALUE) {
             elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
-            String strObj_ = getStringKey(res_, _ctx, _rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
+            Struct strObj_ = RendDynOperationNode.processString(res_, _ctx, _rendStack);
+            if (strObj_ == null) {
+                return null;
             }
-            NavigationCore.procDefValue(elt_, strObj_, _cont.getRendKeyWords().group());
+            NavigationCore.procDefValue(elt_, NumParsers.getString(strObj_).getInstance(), _cont.getRendKeyWords().group());
         }
         prStack(_cont,elt_,arg_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        return NullStruct.NULL_VALUE;
     }
 
 }

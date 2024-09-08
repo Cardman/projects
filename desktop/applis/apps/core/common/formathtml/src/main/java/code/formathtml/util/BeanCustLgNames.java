@@ -158,20 +158,17 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return rendStackCall_;
     }
 
-    public String getRendUrlDest(String _method, Struct _return, ContextEl _context, RendStackCall _stackCall) {
-        String case_ = processString(_return, _context, _stackCall);
-        if (_context.callsOrException(_stackCall.getStackCall())) {
-            return null;
-        }
-        return select(_method, case_, navigation);
+    public Struct getRendUrlDest(String _method, Struct _return, ContextEl _context, RendStackCall _stackCall) {
+        Struct case_ = RendDynOperationNode.processString(_return, _context, _stackCall);
+        return nullify(case_, select(_method, NumParsers.getString(case_).getInstance(), navigation));
     }
 
-    public static String select(String _method, String _ca, StringMap<StringMap<String>> _navigation) {
+    public static Struct select(String _method, String _ca, StringMap<StringMap<String>> _navigation) {
         StringMap<String> casesList_ = _navigation.getVal(_method);
         if (casesList_ == null) {
-            return null;
+            return NullStruct.NULL_VALUE;
         }
-        return casesList_.getVal(_ca);
+        return BeanLgNames.wrapStd(casesList_.getVal(_ca));
     }
 
     public void buildOtherBean() {
@@ -579,7 +576,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         this.custPage = _custPage;
     }
 
-    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack) {
+    public boolean initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
@@ -587,7 +584,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             Struct arg_ = RenderExpUtil.getFinalArg(info_.getExps(), _ctx, _rendStack);
             if (arg_ == null) {
                 _rendStack.removeLastPage();
-                return;
+                return false;
             }
             String clName_ = arg_.getClassName(_ctx);
             if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
@@ -614,7 +611,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         for (EntryCust<String, ValidatorInfo> e: _conf.getLateValidators().entryList()) {
             int i_ = init(_ctx, _rendStack, e, index_, rendExecutingBlocks.getBuiltValidators());
             if (i_ == index_) {
-                return;
+                return false;
             }
             index_ = i_;
         }
@@ -622,10 +619,11 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         for (EntryCust<String, ValidatorInfo> e: _conf.getLateReinits().entryList()) {
             int i_ = init(_ctx, _rendStack, e, index_, rendExecutingBlocks.getBuiltReinit());
             if (i_ == index_) {
-                return;
+                return false;
             }
             index_ = i_;
         }
+        return true;
     }
     private int init(ContextEl _ctx, RendStackCall _rendStack, EntryCust<String, ValidatorInfo> _e, int _index, StringMap<Struct> _builtValidators) {
         ValidatorInfo info_ = _e.getValue();
@@ -646,8 +644,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         _rendStackCall.init();
         String lg_ = _nav.getLanguage();
         Configuration session_ = _nav.getSession();
-        initBeans(session_,lg_,_nav.getDataBaseStruct(), _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        if (!initBeans(session_,lg_,_nav.getDataBaseStruct(), _ctx, _rendStackCall)) {
             return;
         }
         String currentUrl_ = session_.getFirstUrl();
@@ -672,21 +669,21 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             ip_.setOffset(indexPoint_+1);
             setGlobalArgumentStruct(bean_,_ctx,_rendStack);
             Struct return_ = redirect(custPage,bean_,_ctx,_rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            if (return_ == null) {
                 return;
             }
-            String urlDest_ = _nav.getCurrentUrl();
+            Struct urlDest_ = BeanLgNames.wrapStd(_nav.getCurrentUrl());
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(actionCommand_.length());
                 urlDest_ = getRendUrlDest(sgn_, return_, _ctx, _rendStack);
-                if (_ctx.callsOrException(_rendStack.getStackCall())) {
+                if (urlDest_ == null) {
                     return;
                 }
-                if (urlDest_ == null) {
-                    urlDest_ = _nav.getCurrentUrl();
+                if (urlDest_ == NullStruct.NULL_VALUE) {
+                    urlDest_ = BeanLgNames.wrapStd(_nav.getCurrentUrl());
                 }
             }
-            proc(_nav, _ctx, _rendStack, urlDest_, bean_, actionCommand_);
+            proc(_nav, _ctx, _rendStack, NumParsers.getString(urlDest_).getInstance(), bean_, actionCommand_);
             return;
         }
         Struct bean_ = getBeanOrNull(_nav.getCurrentBeanName());
@@ -722,25 +719,24 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         if (!_beanName.isEmpty()) {
             forms_ = storeForms(_bean, _ctx, _rendStack);
         }
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (forms_ == null) {
             return "";
         }
-        processInitBeans(_nav, _dest,_beanName, curl_, _ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (!processInitBeans(_nav, _dest,_beanName, curl_, _ctx, _rendStack)) {
             return "";
         }
         String dest_ = StringUtil.getFirstToken(_dest, REF_TAG);
-        String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = rendExecutingBlocks.getRenders().getVal(dest_);
         if (rendDocumentBlock_ == null) {
             return "";
         }
-        currentBeanName_ = rendDocumentBlock_.getBeanName();
+        String currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
+        Struct formsBis_ = NullStruct.NULL_VALUE;
         if (!_beanName.isEmpty()) {
-            setStoredForms(bean_, forms_, _ctx, _rendStack);
+            formsBis_ = setStoredForms(bean_, forms_, _ctx, _rendStack);
         }
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (formsBis_ == null) {
             return "";
         }
         _rendStack.clearPages();
@@ -752,14 +748,14 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
     }
 
     public String getRes(RendDocumentBlock _rend, Configuration _conf, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
-        _rendStackCall.getFormParts().initFormsSpec();
-        String beanName_ = _rend.getBeanName();
-        Struct bean_ = getBuiltBeans().getVal(beanName_);
-        _rendStackCall.setMainBean(bean_);
-        _rendStackCall.addPage(new ImportingPage());
-        RendImport.befDisp(_stds,_ctx, _rendStackCall, bean_);
-        _rendStackCall.removeLastPage();
-        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, beanName_, bean_);
+//        _rendStackCall.getFormParts().initFormsSpec();
+//        String beanName_ = _rend.getBeanName();
+//        Struct bean_ = getBuiltBeans().getVal(beanName_);
+//        _rendStackCall.setMainBean(bean_);
+//        _rendStackCall.addPage(new ImportingPage());
+//        RendImport.befDisp(_stds,_ctx, _rendStackCall, bean_);
+//        _rendStackCall.removeLastPage();
+        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall);
     }
 
     public Struct convert(DefNodeContainer _container, ContextEl _context, RendStackCall _rendStackCall) {
@@ -770,7 +766,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             setGlobalArgumentStruct(_container.getBean(),_context,_rendStackCall);
             Struct res_ = RenderExpUtil.getFinalArg(ops_, _context, _rendStackCall);
             _rendStackCall.getLastPage().removeRefVar("0");
-            return Argument.getNull(res_);
+            return res_;
         }
         String className_ = _container.getNodeInformation().getInputClass();
         StringList values_ = _container.getNodeInformation().getValue();
@@ -801,41 +797,49 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return getStructToBeValidatedPrim(_values, _className, _ctx, _stack);
     }
 
-    private void processInitBeans(Navigation _nav, String _dest, String _beanName, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private boolean processInitBeans(Navigation _nav, String _dest, String _beanName, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
         int s_ = getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
             if (exitInit(_nav, _dest,_beanName,_currentUrl, _ctx,_rendStackCall,i)) {
-                return;
+                return false;
             }
         }
+        return true;
     }
     private boolean exitInit(Navigation _nav, String _dest, String _beanName, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall, int _i) {
         Configuration session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
         String key_ = getBuiltBeans().getKey(_i);
-        boolean reinit_ = reinitRendBean(_dest, _beanName, key_, _currentUrl, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct reinit_ = reinitRendBean(_dest, _beanName, key_, _currentUrl, _ctx, _rendStackCall);
+        if (reinit_ == null) {
             return true;
         }
-        if (!reinit_) {
+        if (BooleanStruct.isFalse(reinit_)) {
             return false;
         }
         Struct bean_ = getBuiltBeans().getValue(_i);
         BeanInfo info_ = session_.getBeansInfos().getValue(_i);
         bean_ = newBean(lg_, bean_,info_, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        if (bean_ == null) {
             return true;
         }
         getBuiltBeans().setValue(_i,bean_);
         return false;
     }
-    private boolean reinitRendBean(String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private Struct reinitRendBean(String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
         Struct bean_ = getBeanOrNull(_currentBean);
         if (!ExecInherits.isCorrectExecute(bean_.getClassName(_ctx), beanAliases.getAliasBean(), _ctx)) {
-            return false;
+            return BooleanStruct.of(false);
         }
-        String scope_ = getScope(bean_, _ctx, _rendStackCall);
-        Struct reinit_ = rendExecutingBlocks.getBuiltReinit().getVal(scope_);
+        Struct scope_ = getScope(bean_, _ctx, _rendStackCall);
+        if (scope_ == null) {
+            return null;
+        }
+        if (!(scope_ instanceof StringStruct)) {
+            return BooleanStruct.of(false);
+        }
+        String scopeValue_ = ((StringStruct)scope_).getInstance();
+        Struct reinit_ = rendExecutingBlocks.getBuiltReinit().getVal(scopeValue_);
         if (reinit_ != null) {
             _rendStackCall.getLastPage().putInternVars(reinitVar, reinit_, _ctx);
             String dest_ = StringUtil.getFirstToken(_dest, REF_TAG);
@@ -844,33 +848,33 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             _rendStackCall.getLastPage().putInternVars(reinitBeanName, LocalVariable.newLocalVariable(new StringStruct(_beanName), getAliasString()));
             _rendStackCall.getLastPage().putInternVars(reinitCurrentBean, LocalVariable.newLocalVariable(new StringStruct(_currentBean), getAliasString()));
             _rendStackCall.getLastPage().putInternVars(reinitCurrentUrl, LocalVariable.newLocalVariable(new StringStruct(_currentUrl), getAliasString()));
-            _rendStackCall.getLastPage().putInternVars(reinitIdReinit, LocalVariable.newLocalVariable(new StringStruct(scope_), getAliasString()));
+            _rendStackCall.getLastPage().putInternVars(reinitIdReinit, LocalVariable.newLocalVariable(scope_, getAliasString()));
             _rendStackCall.getLastPage().setEnabledOp(false);
             Struct arg_ = RenderExpUtil.getFinalArg(expsReinit, _ctx, _rendStackCall);
             _rendStackCall.getLastPage().setEnabledOp(true);
             _rendStackCall.getLastPage().clearInternVars();
-            return BooleanStruct.isTrue(arg_);
+            return arg_;
         }
-        return false;
+        return BooleanStruct.of(false);
     }
 
     private Struct newBean(String _language, Struct _bean, BeanInfo _info, ContextEl _ctx, RendStackCall _rendStackCall) {
         Struct arg_ = RenderExpUtil.getFinalArg(_info.getExps(), _ctx, _rendStackCall);
-        forwardDataBase(_bean, arg_, _ctx, _rendStackCall);
-        setStoredForms(arg_, NullStruct.NULL_VALUE, _ctx, _rendStackCall);
-        setLanguage(arg_, _language, _ctx, _rendStackCall);
+        return forwardDataBase(_bean, arg_, _language, _ctx, _rendStackCall);
+//        setStoredForms(arg_, NullStruct.NULL_VALUE, _ctx, _rendStackCall);
+//        setLanguage(arg_, _language, _ctx, _rendStackCall);
 //        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
 //            return NullStruct.NULL_VALUE;
 //        }
-        String str_ = getScope(_bean, _ctx, _rendStackCall);
+//        String str_ = getScope(_bean, _ctx, _rendStackCall);
 //        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
 //            return NullStruct.NULL_VALUE;
 //        }
-        setScope(arg_, str_, _ctx, _rendStackCall);
+//        setScope(arg_, str_, _ctx, _rendStackCall);
 //        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
 //            return NullStruct.NULL_VALUE;
 //        }
-        return arg_;
+//        return arg_;
     }
 
     private Struct getBeanOrNull(String _currentBeanName) {
@@ -885,7 +889,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return rendExecutingBlocks.getBuiltBeans().getVal(_beanName);
     }
 
-    private void forwardDataBase(Struct _bean, Struct _to, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private Struct forwardDataBase(Struct _bean, Struct _to, String _language, ContextEl _ctx, RendStackCall _rendStackCall) {
 //        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
 //            return;
 //        }
@@ -895,20 +899,30 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         _rendStackCall.getLastPage().clearInternVars();
         if (argument_ == null) {
             _rendStackCall.getLastPage().setEnabledOp(true);
-            return;
+            return null;
         }
         _rendStackCall.getLastPage().putInternVars(setDataBaseVar, _to, _ctx);
         _rendStackCall.getLastPage().putInternVars(setDataBaseVarArg, argument_, _ctx);
         RenderExpUtil.getFinalArg(expsSetDataBase, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
+        setStoredForms(_to, NullStruct.NULL_VALUE, _ctx, _rendStackCall);
+        setLanguage(_to, _language, _ctx, _rendStackCall);
+//        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+//            return NullStruct.NULL_VALUE;
+//        }
+        Struct str_ = getScope(_bean, _ctx, _rendStackCall);
+//        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+//            return NullStruct.NULL_VALUE;
+//        }
+        return setScope(_to, str_, _ctx, _rendStackCall);
     }
 
 
     private Struct storeForms(Struct _bean, ContextEl _ctx, RendStackCall _rendStackCall) {
         Struct forms_ = getForms(_bean, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
-        return Argument.getNull(forms_);
+        return forms_;
     }
 
     private Struct getForms(Struct _bean, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -920,26 +934,27 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         _rendStackCall.getLastPage().putInternVars(getFormsVar, _bean, _ctx);
         Struct argument_ = RenderExpUtil.getFinalArg(expsGetForms, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        if (argument_ == null) {
             return null;
         }
-        if (Argument.getNull(argument_) == NullStruct.NULL_VALUE) {
+        if (argument_ == NullStruct.NULL_VALUE) {
             return RenderExpUtil.getFinalArg(opsMap, _ctx, _rendStackCall);
         }
         return argument_;
     }
 
 
-    private void setStoredForms(Struct _bean, Struct _storedForms, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private Struct setStoredForms(Struct _bean, Struct _storedForms, ContextEl _ctx, RendStackCall _rendStackCall) {
 //        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
 //            return;
 //        }
         _rendStackCall.getLastPage().setEnabledOp(false);
         _rendStackCall.getLastPage().putInternVars(setFormsVar, _bean, _ctx);
         _rendStackCall.getLastPage().putInternVars(setFormsVarArg, _storedForms, _ctx);
-        RenderExpUtil.getFinalArg(expsSetForms, _ctx, _rendStackCall);
+        Struct finalArg_ = RenderExpUtil.getFinalArg(expsSetForms, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
         _rendStackCall.getLastPage().setEnabledOp(true);
+        return finalArg_;
     }
 
     public boolean setBeanForms(Struct _mainBean,
@@ -951,26 +966,26 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         if (bean_ == null) {
             return true;
         }
-        boolean ok_ = gearFw(_mainBean, _node, _keepField, bean_, _ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            ok_ = false;
-        }
-        return ok_;
+//        boolean ok_ = gearFw(_mainBean, _node, _keepField, bean_, _ctx, _rendStack) != null;
+//        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+//            ok_ = false;
+//        }
+        return gearFw(_mainBean, _node, _keepField, bean_, _ctx, _rendStack) != null;
     }
 
     public StringMap<Struct> getBuiltBeans() {
         return rendExecutingBlocks.getBuiltBeans();
     }
-    protected boolean gearFw(Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct gearFw(Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
         Struct forms_ = getForms(_bean, _ctx, _rendStack);
         if (forms_ == null) {
             _rendStack.getLastPage().setEnabledOp(true);
-            return false;
+            return null;
         }
         Struct formsMap_ = getForms(_mainBean, _ctx, _rendStack);
         if (formsMap_ == null) {
             _rendStack.getLastPage().setEnabledOp(true);
-            return false;
+            return null;
         }
         if (_keepField) {
             for (RendBlock f_: RendBlock.getDirectChildren(_node)) {
@@ -978,18 +993,20 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
                     continue;
                 }
                 String name_ = ((RendImportForm)f_).getName();
-                forwardMap(formsMap_,forms_,new StringStruct(name_), _ctx, _rendStack);
-                if (_ctx.callsOrException(_rendStack.getStackCall())) {
+                Struct arg_ = forwardMap(formsMap_, forms_, new StringStruct(name_), _ctx, _rendStack);
+                if (arg_ == null) {
                     _rendStack.getLastPage().setEnabledOp(true);
-                    return false;
+                    return null;
                 }
             }
         } else {
             //add option for copying forms (default copy)
-            putAllMap(forms_,formsMap_, _ctx, _rendStack);
+            Struct res_ = putAllMap(forms_, formsMap_, _ctx, _rendStack);
+            _rendStack.getLastPage().setEnabledOp(true);
+            return res_;
         }
         _rendStack.getLastPage().setEnabledOp(true);
-        return true;
+        return _bean;
     }
 
     public Struct getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack) {
@@ -1004,14 +1021,14 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
             if (!doubleInfo_.isValid()) {
                 _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
-                return NullStruct.NULL_VALUE;
+                return null;
             }
             return NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue()));
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
         if (!val_.isValid()) {
             _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
-            return NullStruct.NULL_VALUE;
+            return null;
         }
         return NumParsers.convertToInt(cast_,new LongStruct(val_.getValue()));
     }
@@ -1019,7 +1036,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return beanAliases;
     }
 
-    private void forwardMap(Struct _map, Struct _to, Struct _key, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private Struct forwardMap(Struct _map, Struct _to, Struct _key, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(getValVar, _map, _ctx);
         _rendStackCall.getLastPage().putInternVars(getValVarArg, _key, _ctx);
         Struct argument_ = RenderExpUtil.getFinalArg(expsGetVal, _ctx, _rendStackCall);
@@ -1030,15 +1047,17 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         _rendStackCall.getLastPage().putInternVars(putVarCust, _to, _ctx);
         _rendStackCall.getLastPage().putInternVars(putVarCustKey, _key, _ctx);
         _rendStackCall.getLastPage().putInternVars(putVarCustValue, argument_, _ctx);
-        RenderExpUtil.getFinalArg(expsPut, _ctx, _rendStackCall);
+        Struct finalArg_ = RenderExpUtil.getFinalArg(expsPut, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
+        return finalArg_;
     }
 
-    public void putAllMap(Struct _map, Struct _other, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public Struct putAllMap(Struct _map, Struct _other, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(putAllVarCust, _map, _ctx);
         _rendStackCall.getLastPage().putInternVars(putAllVarCustArg, _other, _ctx);
-        RenderExpUtil.getFinalArg(expsPutAll, _ctx, _rendStackCall);
+        Struct finalArg_ = RenderExpUtil.getFinalArg(expsPutAll, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
+        return finalArg_;
     }
 
     public String getIteratorVar() {
@@ -1157,11 +1176,38 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             NodeInformations nInfos_ = nCont_.getNodeInformation();
             String valId_ = nInfos_.getValidator();
             String id_ = nInfos_.getId();
-            Message messageTr_ = validate(valId_, nCont_, _ctx, _rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            Struct validator_ = rendExecutingBlocks.getBuiltValidators().getVal(valId_);
+            if (validator_ == null) {
+                continue;
+            }
+            LocalVariable locVar_;
+            _rendStack.getLastPage().putInternVars(validateVar, validator_, _ctx);
+            locVar_ = newLocVar(nCont_);
+            _rendStack.getLastPage().putInternVars(validateVarArgNewValue, locVar_);
+            locVar_ = LocalVariable.newLocalVariable(nCont_.getTypedStruct(), getAliasObject());
+            _rendStack.getLastPage().putInternVars(validateVarArgOldValue, locVar_);
+            locVar_ = LocalVariable.newLocalVariable(nCont_.getBean(), getAliasObject());
+            _rendStack.getLastPage().putInternVars(validateVarArgBean, locVar_);
+            CustList<Struct> params_ = nCont_.getStructParam();
+            int size_ = params_.size();
+            ArrayStruct arr_ = new ArrayStruct(size_ +1,StringExpUtil.getPrettyArrayType(getAliasObject()));
+            arr_.set(0, nCont_.getAllObject().first());
+            for (int i = 0; i < size_; i++) {
+                arr_.set(i+1, params_.get(i));
+            }
+            locVar_ = LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasObject()));
+            _rendStack.getLastPage().putInternVars(validateVarArgForm, locVar_);
+            _rendStack.getLastPage().putInternVars(validateVarArgClassField, new StringStruct(nCont_.getIdFieldClass()), _ctx);
+            _rendStack.getLastPage().putInternVars(validateVarArgNameField, new StringStruct(nCont_.getIdFieldName()), _ctx);
+            _rendStack.getLastPage().setEnabledOp(false);
+            Struct arg_ = RenderExpUtil.getFinalArg(expsValidate, _ctx, _rendStack);
+            _rendStack.getLastPage().setEnabledOp(true);
+            _rendStack.getLastPage().clearInternVars();
+            if (arg_ == null) {
                 return null;
             }
-            if (messageTr_ != null) {
+            if (arg_ != NullStruct.NULL_VALUE) {
+                Message messageTr_ = DefaultBeanAliases.getMessageStruct(arg_, beanAliases.getAliasMessage()).getInstance();
                 map_.put(id_, messageTr_);
             }
         }
@@ -1179,7 +1225,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
                 continue;
             }
             Struct res_ = convert(nCont_, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            if (res_ == null) {
                 return false;
             }
             Struct procObj_ = e.getValue().getAllObject().first();
@@ -1216,75 +1262,48 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         for (int i = 0; i< s_; i++) {
             ip_.removeRefVar(Long.toString(i));
         }
-        return Argument.getNull(argument_);
+        return argument_;
     }
 
-    private Message validate(String _validatorId, DefNodeContainer _cont, ContextEl _ctx, RendStackCall _rendStackCall) {
-        Struct validator_ = rendExecutingBlocks.getBuiltValidators().getVal(_validatorId);
-        if (validator_ == null) {
-            return null;
-        }
-        LocalVariable locVar_;
-        _rendStackCall.getLastPage().putInternVars(validateVar, validator_, _ctx);
-        locVar_ = newLocVar(_cont);
-        _rendStackCall.getLastPage().putInternVars(validateVarArgNewValue, locVar_);
-        locVar_ = LocalVariable.newLocalVariable(_cont.getTypedStruct(), getAliasObject());
-        _rendStackCall.getLastPage().putInternVars(validateVarArgOldValue, locVar_);
-        locVar_ = LocalVariable.newLocalVariable(_cont.getBean(), getAliasObject());
-        _rendStackCall.getLastPage().putInternVars(validateVarArgBean, locVar_);
-        CustList<Struct> params_ = _cont.getStructParam();
-        int size_ = params_.size();
-        ArrayStruct arr_ = new ArrayStruct(size_ +1,StringExpUtil.getPrettyArrayType(getAliasObject()));
-        arr_.set(0, _cont.getAllObject().first());
-        for (int i = 0; i < size_; i++) {
-            arr_.set(i+1, params_.get(i));
-        }
-        locVar_ = LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasObject()));
-        _rendStackCall.getLastPage().putInternVars(validateVarArgForm, locVar_);
-        _rendStackCall.getLastPage().putInternVars(validateVarArgClassField, new StringStruct(_cont.getIdFieldClass()), _ctx);
-        _rendStackCall.getLastPage().putInternVars(validateVarArgNameField, new StringStruct(_cont.getIdFieldName()), _ctx);
-        _rendStackCall.getLastPage().setEnabledOp(false);
-        Struct arg_ = RenderExpUtil.getFinalArg(expsValidate, _ctx, _rendStackCall);
-        _rendStackCall.getLastPage().setEnabledOp(true);
-        _rendStackCall.getLastPage().clearInternVars();
-        if (Argument.getNull(arg_) == NullStruct.NULL_VALUE) {
-            return null;
-        }
-        return DefaultBeanAliases.getMessageStruct(arg_, beanAliases.getAliasMessage()).getInstance();
-    }
-
-    public void beforeDisplaying(Struct _arg, ContextEl _ctx, RendStackCall _rendStack) {
+    public Struct beforeDisplaying(Struct _arg, ContextEl _ctx, RendStackCall _rendStack) {
         String clName_ = _arg.getClassName(_ctx);
         if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
-            return;
+            return NullStruct.NULL_VALUE;
         }
         String locName_ = getBeforeDisplayingVar();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        RenderExpUtil.getFinalArg(expsBeforeDisplaying, _ctx, _rendStack);
+        Struct finalArg_ = RenderExpUtil.getFinalArg(expsBeforeDisplaying, _ctx, _rendStack);
         _rendStack.getLastPage().setEnabledOp(true);
         _rendStack.getLastPage().clearInternVars();
+        return finalArg_;
     }
 
-    private String getScope(Struct _bean, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private Struct getScope(Struct _bean, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(getScopeVar, _bean, _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
         Struct argument_ = RenderExpUtil.getFinalArg(expsGetScope, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
-        if (Argument.getNull(argument_) == NullStruct.NULL_VALUE) {
-            return "";
-        }
-        return NumParsers.getString(argument_).getInstance();
+        return argument_;
     }
-    private void setScope(Struct _bean, String _scope, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private Struct setScope(Struct _bean, Struct _scope, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(setScopeVar, _bean, _ctx);
-        _rendStackCall.getLastPage().putInternVars(setScopeVarArg, new StringStruct(_scope), _ctx);
+        _rendStackCall.getLastPage().putInternVars(setScopeVarArg, _scope, _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        RenderExpUtil.getFinalArg(expsSetScope, _ctx, _rendStackCall);
+        Struct finalArg_ = RenderExpUtil.getFinalArg(expsSetScope, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
+        return nullify(finalArg_, _bean);
     }
+
+    public static Struct nullify(Struct _arg, Struct _bean) {
+        if (_arg == null) {
+            return null;
+        }
+        return _bean;
+    }
+
     private void setLanguage(Struct _bean, String _scope, ContextEl _ctx, RendStackCall _rendStackCall) {
 //        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
 //            return;
@@ -1297,16 +1316,16 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         _rendStackCall.getLastPage().clearInternVars();
     }
 
-    public String processString(Struct _arg, ContextEl _ctx, RendStackCall _stack) {
-        return processStr(_arg, _ctx, _stack);
-    }
-
-    public static String processStr(Struct _arg, ContextEl _ctx, RendStackCall _stack) {
-        Argument arg_ = RendDynOperationNode.processString(_arg, _ctx, _stack);
-        if (_ctx.callsOrException(_stack.getStackCall())) {
-            return "";
+    public static String processString(Struct _arg, ContextEl _ctx, RendStackCall _stack) {
+        Struct arg_ = RendDynOperationNode.processString(_arg, _ctx, _stack);
+        if (arg_ == null) {
+            return null;
         }
-        return NumParsers.getString(arg_.getStruct()).getInstance();
+        return NumParsers.getString(arg_).getInstance();
+//        if (_ctx.callsOrException(_stack.getStackCall())) {
+//            return "";
+//        }
+//        return NumParsers.getString(arg_.getStruct()).getInstance();
     }
     public String getAliasPrimBoolean() {
         return getContent().getPrimTypes().getAliasPrimBoolean();

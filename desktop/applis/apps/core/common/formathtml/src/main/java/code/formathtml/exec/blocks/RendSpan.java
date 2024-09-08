@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.sml.FormParts;
 import code.formathtml.exec.ImportingPage;
@@ -26,15 +28,16 @@ public final class RendSpan extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage last_ = _rendStack.getLastPage();
         last_.setOffset(rendExp.getOffset());
         String txt_ = RendInput.idRad(rendExp.getList(),_ctx,_rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
+        if (txt_ == null) {
             ((Element)_nextWrite).removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
-            return;
+            return null;
         }
         setupTxt(_cont, _nextWrite, txt_, formatted, _rendStack.getFormParts());
+        return NullStruct.NULL_VALUE;
     }
 
     public static void setupTxt(Configuration _cont, Node _nextWrite, String _txt, StringMap<String> _formatted, FormParts _formParts) {

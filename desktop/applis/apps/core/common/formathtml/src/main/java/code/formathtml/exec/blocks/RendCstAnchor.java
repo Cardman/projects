@@ -2,6 +2,8 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.RendStackCall;
@@ -26,11 +28,12 @@ public final class RendCstAnchor extends RendElement {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         _rendStack.getFormParts().getCallsExps().add(new AnchorCall(opExpAnch.getGeneLink(),new CustList<AbstractWrapper>()));
         FormParts formParts_ = _rendStack.getFormParts();
         incrAncNb(_cont.getRend(), (Element) _nextWrite, formParts_.getIndexes(), _cont.getRendKeyWords().group());
         IndexesFormInput.incr(formParts_.getIndexes());
+        return NullStruct.NULL_VALUE;
     }
 
 }

@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -22,7 +24,7 @@ public final class RendLink extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         String fileContent_ = content;
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
@@ -30,10 +32,10 @@ public final class RendLink extends RendElement {
             StringList objects_ = new StringList();
             for (EntryCust<String, CustList<RendDynOperationNode>> e:execOpExpTitle.entryList()) {
                 String txt_ = RendInput.idRad(e.getValue(),_ctx,_rendStack);
-                objects_.add(txt_);
-                if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                    return;
+                if (txt_ == null) {
+                    return null;
                 }
+                objects_.add(txt_);
                 curWr_.removeAttribute(e.getKey());
             }
             fileContent_ = StringUtil.simpleStringsFormat(fileContent_, objects_);
@@ -42,6 +44,7 @@ public final class RendLink extends RendElement {
         DefRendReadWrite rw_ = ip_.getRendReadWrite();
         NavigationCore.simpleAppendChild(ownerDocument_, rw_, _nextWrite);
         RendBlock.procLink(_cont.getRendKeyWords().group().getKeyWordsTags(), fileContent_, ownerDocument_);
+        return NullStruct.NULL_VALUE;
     }
 
 }

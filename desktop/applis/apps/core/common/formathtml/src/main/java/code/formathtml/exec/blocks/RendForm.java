@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.sml.FormParts;
@@ -32,7 +33,7 @@ public final class RendForm extends RendElement implements RendElem {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         DefFormParts formParts_ = _rendStack.getFormParts();
 //        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
@@ -48,7 +49,7 @@ public final class RendForm extends RendElement implements RendElem {
         for (EntryCust<String, CustList<RendDynOperationNode>> e: textPart.entryList()) {
             Struct args_ = RenderExpUtil.getFinalArg(e.getValue(), _ctx, _rendStack);
             if (args_ == null) {
-                return;
+                return null;
             }
             LocalVariable locVar_ = LocalVariable.newLocalVariable(args_, _rendStack.formatVarType(opForm.getTypes().get(f_)));
             values_.add(new VariableWrapper(locVar_));
@@ -64,6 +65,7 @@ public final class RendForm extends RendElement implements RendElem {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         long currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+        return NullStruct.NULL_VALUE;
     }
 
     public static void incrForm(FormParts _formParts) {

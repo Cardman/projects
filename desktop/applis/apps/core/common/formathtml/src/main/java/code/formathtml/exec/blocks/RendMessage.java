@@ -62,9 +62,9 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
             if (escaped.get(i) == BoolVal.TRUE) {
                 res_ = escapeParam(arg_, _ctx, _rendStack);
             } else {
-                res_ = BeanCustLgNames.processStr(arg_, _ctx, _rendStack);
+                res_ = BeanCustLgNames.processString(arg_, _ctx, _rendStack);
             }
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+            if (res_ == null) {
                 return;
             }
             objects_.add(res_);

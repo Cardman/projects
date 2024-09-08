@@ -1,9 +1,12 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.RendSelectOperators;
 import code.sml.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
@@ -15,8 +18,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class RendTextArea extends RendElement {
-    private final CustList<RendDynOperationNode> opsValue;
-    private final CustList<RendDynOperationNode> opsConverterField;
+    private final RendSelectOperators opers;
 
     private final DefFieldUpdates defFieldUpdates;
 
@@ -25,8 +27,7 @@ public final class RendTextArea extends RendElement {
                         StringMap<CustList<RendDynOperationNode>> _execAttributesText, StringMap<CustList<RendDynOperationNode>> _execAttributes,
                         Element _elt, DefFieldUpdates _txt) {
         super(_elt,_execAttributes,_execAttributesText);
-        this.opsValue = _opsValue;
-        this.opsConverterField = _opsConverterField;
+        opers = new RendSelectOperators(_opsValue,new CustList<RendDynOperationNode>(),new CustList<RendDynOperationNode>(),_opsConverterField,new CustList<RendDynOperationNode>());
         defFieldUpdates = _txt;
     }
 
@@ -41,7 +42,7 @@ public final class RendTextArea extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
         doc_.renameNode(_nextWrite,_cont.getRendKeyWords().getKeyWordTextarea());
@@ -52,12 +53,13 @@ public final class RendTextArea extends RendElement {
         }
         DefFetchedObjs defArea_ = fetchName(_cont, getRead(), _ctx, _rendStack, "", defFieldUpdates.getOpsRead());
         look(_cont,docElementArea_,defArea_,_rendStack);
-        fetchValue(_cont,getRead(),docElementArea_,opsValue, opsConverterField, _ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
+        DefFetchedObjs finalArg_ = fetchValue(_cont, getRead(), docElementArea_, opers, _ctx, _rendStack, defArea_);
+        if (finalArg_.getArg() == null) {
+            return null;
         }
         docElementArea_.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         docElementArea_.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         prStack(_cont,docElementArea_,defFieldUpdates,defArea_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        return NullStruct.NULL_VALUE;
     }
 }

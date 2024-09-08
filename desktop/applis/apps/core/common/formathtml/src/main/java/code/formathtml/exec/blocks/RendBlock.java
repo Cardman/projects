@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
@@ -54,18 +55,25 @@ public abstract class RendBlock {
     public static boolean isPossibleEmpty(RendBlock _rb) {
         return _rb instanceof RendEmptyText;
     }
-    public static String res(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _beanName, Struct _bean) {
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+    public static String res(RendDocumentBlock _rend, Configuration _conf, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
+        _rendStackCall.getFormParts().initFormsSpec();
+        String beanName_ = _rend.getBeanName();
+        Struct bean_ = _stds.getBuiltBeans().getVal(beanName_);
+        _rendStackCall.setMainBean(bean_);
+        _rendStackCall.addPage(new ImportingPage());
+        Struct resDis_ = RendImport.befDisp(_stds, _ctx, _rendStackCall, bean_);
+        _rendStackCall.removeLastPage();
+        if (resDis_ == null) {
             return EMPTY_STRING;
         }
         _rendStackCall.getStackCall().setFullStack(new AdvancedFullStack(_ctx, _rendStackCall));
         ImportingPage ip_ = new ImportingPage();
         int tabWidth_ = _conf.getTabWidth();
 //        ip_.setReadUrl(_currentUrl);
-        ip_.setBeanName(_beanName);
+        ip_.setBeanName(beanName_);
         ip_.doc(_rend);
-        if (_bean != null) {
-            ip_.setGlobalArgumentStruct(_bean,_ctx);
+        if (bean_ != null) {
+            ip_.setGlobalArgumentStruct(bean_,_ctx);
         }
         _rendStackCall.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
@@ -163,7 +171,7 @@ public abstract class RendBlock {
         parent = _b;
     }
 
-    public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringMap<CustList<RendDynOperationNode>> _textPart, RendGeneLinkTypes _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public static Struct processLink(Configuration _cont, Element _nextWrite, Element _read, StringMap<CustList<RendDynOperationNode>> _textPart, RendGeneLinkTypes _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
 //        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
 //        if (!href_.startsWith(BeanLgNames.CALL_METHOD)) {
 //            _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc.getGeneLink(),new CustList<AbstractWrapper>()));
@@ -175,7 +183,7 @@ public abstract class RendBlock {
         for (EntryCust<String, CustList<RendDynOperationNode>> e: _textPart.entryList()) {
             Struct args_ = RenderExpUtil.getFinalArg(e.getValue(), _ctx, _rendStackCall);
             if (args_ == null) {
-                return;
+                return null;
             }
             LocalVariable locVar_ = LocalVariable.newLocalVariable(args_, _rendStackCall.formatVarType(_anc.getTypes().get(i_)));
             values_.add(new VariableWrapper(locVar_));
@@ -189,6 +197,7 @@ public abstract class RendBlock {
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNb(_cont.getRend(), _nextWrite, _rendStackCall.getFormParts().getIndexes(), _cont.getRendKeyWords().group());
         IndexesFormInput.incr(_rendStackCall.getFormParts().getIndexes());
+        return NullStruct.NULL_VALUE;
     }
 
     public static String getCssHref(Configuration _cont,Element _link) {
@@ -274,10 +283,6 @@ public abstract class RendBlock {
         return arg_;
     }
 
-    static String getStringKey(Struct _instance, ContextEl _ctx, RendStackCall _rendStack) {
-        return BeanCustLgNames.processStr(_instance, _ctx, _rendStack);
-    }
-
     protected static DefFetchedObjs fetchName(Configuration _cont, Element _read, ContextEl _ctx, RendStackCall _rendStackCall, String _idRad, CustList<RendDynOperationNode> _opRead) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
@@ -285,12 +290,11 @@ public abstract class RendBlock {
             stack_ = _rendStackCall.getFormParts().getContainersMapStack();
             return new DefFetchedObjs(_idRad,null, new CustList<Struct>(), stack_, NullStruct.NULL_VALUE, "");
         }
-        CustList<Struct> allObj_ = new CustList<Struct>();
         IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(_opRead, _ctx, _rendStackCall);
         if (args_.isEmpty()) {
             CustList<LongTreeMap<DefNodeContainer>> stack_;
             stack_ = _rendStackCall.getFormParts().getContainersMapStack();
-            return new DefFetchedObjs(_idRad,null, allObj_, stack_, NullStruct.NULL_VALUE, "");
+            return new DefFetchedObjs(_idRad,null, new CustList<Struct>(), stack_, null, "");
         }
         RendDynOperationNode root_ = args_.lastKey();
         RendDynOperationNode res_;
@@ -299,7 +303,7 @@ public abstract class RendBlock {
         } else {
             res_ = root_;
         }
-        CustList<LongTreeMap<DefNodeContainer>> stack_;
+        CustList<Struct> allObj_ = new CustList<Struct>();
         RendDynOperationNode settable_ = RendAbstractAffectOperation.castDottedTo(res_);
         Struct arg_ = ArgumentListCall.toStr(Argument.getNullableValue(args_.getValue(settable_.getOrder()).getArgument()));
         AbstractWrapper wr_;
@@ -340,7 +344,7 @@ public abstract class RendBlock {
             allObj_.add(parent_);
             feed(argumentList_, allObj_);
         }
-        stack_ = _rendStackCall.getFormParts().getContainersMapStack();
+        CustList<LongTreeMap<DefNodeContainer>> stack_ = _rendStackCall.getFormParts().getContainersMapStack();
         return new DefFetchedObjs(_idRad,wr_, allObj_, stack_, arg_, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
     }
 
@@ -415,21 +419,22 @@ public abstract class RendBlock {
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _fetch.getInputName());
     }
 
-    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return;
+    protected static DefFetchedObjs fetchValue(Configuration _cont, Element _read, Element _write, RendSelectOperators _opers, ContextEl _ctx, RendStackCall _rendStackCall, DefFetchedObjs _arg) {
+        if (_arg.getArg() == null) {
+            return _arg;
         }
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
-        if (name_.isEmpty() || _ops.isEmpty()) {
-            return;
+        if (name_.isEmpty() || _opers.getOpsValue().isEmpty()) {
+            return _arg;
         }
-        if (StringUtil.quickEq(_read.getTagName(), _cont.getRendKeyWords().getKeyWordInput()) && exitInput(_cont, _read, _write, _ops, _opsConv, _ctx, _rendStackCall)) {
-            return;
+        if (StringUtil.quickEq(_read.getTagName(), _cont.getRendKeyWords().getKeyWordInput()) && exitInput(_cont, _read, _write, _opers.getOpsValue(), _opers.getOpsConverterField(), _ctx, _rendStackCall)) {
+            return new DefFetchedObjs("",null,new CustList<Struct>(),new CustList<LongTreeMap<DefNodeContainer>>(),null,"");
         }
-        if (StringUtil.quickEq(_read.getTagName(), _cont.getRendKeyWords().getKeyWordTextarea()) && exitTextArea(_write, _ops, _opsConv, _ctx, _rendStackCall)) {
-            return;
+        if (StringUtil.quickEq(_read.getTagName(), _cont.getRendKeyWords().getKeyWordTextarea()) && exitTextArea(_write, _opers.getOpsValue(), _opers.getOpsConverterField(), _ctx, _rendStackCall)) {
+            return new DefFetchedObjs("",null,new CustList<Struct>(),new CustList<LongTreeMap<DefNodeContainer>>(),null,"");
         }
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
+        return _arg;
     }
     private static boolean exitInput(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
         Struct o_ = RenderExpUtil.getFinalArg(_ops, _ctx, _rendStackCall);
@@ -447,11 +452,11 @@ public abstract class RendBlock {
             if (o_ == NullStruct.NULL_VALUE) {
                 return true;
             }
-            String value_ = BeanCustLgNames.processStr(o_, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            Struct value_ = RendDynOperationNode.processString(o_, _ctx, _rendStackCall);
+            if (value_ == null) {
                 return true;
             }
-            _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
+            _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), NumParsers.getString(value_).getInstance());
         }
         return false;
     }
@@ -464,11 +469,11 @@ public abstract class RendBlock {
         if (o_ == NullStruct.NULL_VALUE) {
             return true;
         }
-        String value_ = BeanCustLgNames.processStr(o_, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        Struct value_ = RendDynOperationNode.processString(o_, _ctx, _rendStackCall);
+        if (value_ == null) {
             return true;
         }
-        Text text_ = _write.getOwnerDocument().createTextNode(value_);
+        Text text_ = _write.getOwnerDocument().createTextNode(NumParsers.getString(value_).getInstance());
         _write.appendChild(text_);
         return false;
     }
@@ -492,9 +497,9 @@ public abstract class RendBlock {
     }
 
     static String escapeParam(Struct _arg, ContextEl _ctx, RendStackCall _stackCall) {
-        String str_ = BeanCustLgNames.processStr(_arg, _ctx, _stackCall);
-        if (_ctx.callsOrException(_stackCall.getStackCall())) {
-            return str_;
+        String str_ = BeanCustLgNames.processString(_arg, _ctx, _stackCall);
+        if (str_ == null) {
+            return null;
         }
         StringMap<String> rep_ = new StringMap<String>();
         String quote_ = Character.toString(QUOTE);

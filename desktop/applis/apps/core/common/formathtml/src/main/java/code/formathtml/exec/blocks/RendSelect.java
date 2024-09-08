@@ -49,14 +49,14 @@ public final class RendSelect extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Struct value_ = RenderExpUtil.getFinalArg(opers.getOpsValue(), _ctx, _rendStack);
         if (value_ == null) {
-            return;
+            return null;
         }
         Struct map_ = RenderExpUtil.getFinalArg(opers.getOpsMap(), _ctx, _rendStack);
         if (map_ == null) {
-            return;
+            return null;
         }
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
@@ -79,8 +79,8 @@ public final class RendSelect extends RendElement {
                     getRead().getAttribute(_cont.getRendKeyWords().getAttrValidator()));
         }
         DefFetchedObjs def_ = processIndexes(_cont, getRead(), docElementSelect_, _ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return;
+        if (def_.getArg() == null) {
+            return null;
         }
         docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrDefault());
         docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrVarValue());
@@ -91,6 +91,7 @@ public final class RendSelect extends RendElement {
         docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrConvertValue());
         docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrValidator());
         prStack(_cont,docElementSelect_,defFieldUpdates,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        return NullStruct.NULL_VALUE;
     }
 
     private void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
@@ -105,7 +106,7 @@ public final class RendSelect extends RendElement {
     private void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
                                            Element _docElementSelect, Struct _returnedVarValue, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         CustList<Struct> obj_ = values(_returnedVarValue, _advStandards, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        if (obj_ == null) {
             return;
         }
         Struct arg_ = iteratorMultTable(_extractedMap, _advStandards, _ctx, _rendStackCall);
@@ -136,7 +137,7 @@ public final class RendSelect extends RendElement {
             }
             Element option_ = doc_.createElement(_conf.getRendKeyWords().getKeyWordOption());
             String value_ = processOptionValue(first_, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            if (value_ == null) {
                 return;
             }
             setOption(_conf, _obj, first_, option_, value_);
@@ -147,11 +148,11 @@ public final class RendSelect extends RendElement {
         }
     }
     private boolean exitAppendOption(Element _docElementSelect, ContextEl _ctx, RendStackCall _rendStackCall,Struct _second,Element _option) {
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        if (_second == null) {
             return true;
         }
         String txt_ = processOptionText(_second, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        if (txt_ == null) {
             return true;
         }
         RendReadWrite rw_ = _rendStackCall.getLastPage().getRendReadWrite();
@@ -173,29 +174,29 @@ public final class RendSelect extends RendElement {
 
     private String processOptionValue(Struct _arg, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (opers.getOpsConverterField().isEmpty()) {
-            return getStringKey(_arg, _ctx, _rendStackCall);
+            return BeanCustLgNames.processString(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
         _rendStackCall.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
         Struct arg_ = RenderExpUtil.getFinalArg(opers.getOpsConverterField(), _ctx, _rendStackCall);
         _rendStackCall.getLastPage().removeRefVar("0");
         if (arg_ == null) {
-            return EMPTY_STRING;
+            return null;
         }
-        return BeanCustLgNames.processStr(arg_, _ctx, _rendStackCall);
+        return BeanCustLgNames.processString(arg_, _ctx, _rendStackCall);
     }
     private String processOptionText(Struct _arg, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (opers.getOpsConverterFieldValue().isEmpty()) {
-            return BeanCustLgNames.processStr(_arg, _ctx, _rendStackCall);
+            return BeanCustLgNames.processString(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
         _rendStackCall.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
         Struct arg_ = RenderExpUtil.getFinalArg(opers.getOpsConverterFieldValue(), _ctx, _rendStackCall);
         _rendStackCall.getLastPage().removeRefVar("0");
         if (arg_ == null) {
-            return EMPTY_STRING;
+            return null;
         }
-        return BeanCustLgNames.processStr(arg_, _ctx, _rendStackCall);
+        return BeanCustLgNames.processString(arg_, _ctx, _rendStackCall);
     }
 
     private CustList<Struct> values(Struct _returnedVarValue, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -203,19 +204,19 @@ public final class RendSelect extends RendElement {
         if (multiple) {
             Struct arg_ = iterator(_returnedVarValue, _stds, _ctx, _rendStackCall);
             if (arg_ == null) {
-                return obj_;
+                return null;
             }
             while (true) {
                 Struct hasNext_ = hasNext(arg_, _stds, _ctx, _rendStackCall);
                 if (hasNext_ == null) {
-                    return obj_;
+                    return null;
                 }
                 if (BooleanStruct.isFalse(hasNext_)) {
                     break;
                 }
                 Struct next_ = next(arg_, _stds, _ctx, _rendStackCall);
                 if (next_ == null) {
-                    return obj_;
+                    return null;
                 }
                 obj_.add(next_);
             }
@@ -227,7 +228,7 @@ public final class RendSelect extends RendElement {
     private DefFetchedObjs processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
         DefFetchedObjs def_ = fetchName(_cont, _read, _ctx, _rendStackCall, "", defFieldUpdates.getOpsRead());
         look(_cont,_write,def_,_rendStackCall);
-        fetchValue(_cont,_read,_write, opers.getOpsValue(), opers.getOpsConverterField(), _ctx, _rendStackCall);
-        return def_;
+//        fetchValue(_cont,_read,_write, opers, _ctx, _rendStackCall, def_);
+        return fetchValue(_cont,_read,_write, opers, _ctx, _rendStackCall, def_);
     }
 }

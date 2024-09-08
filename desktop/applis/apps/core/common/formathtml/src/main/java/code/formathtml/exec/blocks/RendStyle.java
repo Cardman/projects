@@ -1,6 +1,8 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -21,7 +23,7 @@ public final class RendStyle extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
         ElementList links_ = ownerDocument_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordLink());
@@ -46,5 +48,6 @@ public final class RendStyle extends RendElement {
         DefRendReadWrite rw_ = ip_.getRendReadWrite();
         NavigationCore.simpleAppendChild(ownerDocument_, rw_, _nextWrite);
         NavigationCore.appendText(StringUtil.join(filesContents_, RETURN_LINE),ownerDocument_,curWr_);
+        return NullStruct.NULL_VALUE;
     }
 }
