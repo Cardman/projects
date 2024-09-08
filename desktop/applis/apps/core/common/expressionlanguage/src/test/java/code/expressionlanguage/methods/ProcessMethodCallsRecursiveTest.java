@@ -25,13 +25,9 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("factrec", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-        Argument v_ = new Argument();
-        v_.setStruct(new IntStruct(5));
-        args_.add(v_);
         Argument ret_;
-        ret_ = calculateNormalParam("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormalParam("pkg.Ex", id_, new IntStruct(5), cont_);
         assertEq(120, getNumber(ret_));
     }
 

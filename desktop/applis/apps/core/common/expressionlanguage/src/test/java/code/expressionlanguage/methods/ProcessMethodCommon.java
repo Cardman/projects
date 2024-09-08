@@ -96,12 +96,12 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return arg_;
     }
 
-    protected static Argument calculateNormalParam(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+    protected static Argument calculateNormalParam(String _class, MethodId _method, Struct _args, ContextEl _cont) {
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        LocalVariable lv_ = LocalVariable.newLocalVariable(_args.first().getStruct(), _cont);
+        LocalVariable lv_ = LocalVariable.newLocalVariable(_args, _cont);
         p_.getRefParameters().addEntry(method_.getParametersName(0), new VariableWrapper(lv_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
         Argument arg_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue();
@@ -152,12 +152,12 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
-    protected static Argument instanceNormalCtorParam(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+    protected static Argument instanceNormalCtorParam(String _class, Argument _global, ConstructorId _id, Struct _args, ContextEl _cont) {
         assertEq(1, _id.getParametersTypesLength());
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock ctor_ = (ExecNamedFunctionBlock) type_.getAllFct().first();
         Parameters p_ = new Parameters();
-        LocalVariable lv_ = LocalVariable.newLocalVariable(_args.first().getStruct(), _cont);
+        LocalVariable lv_ = LocalVariable.newLocalVariable(_args, _cont);
         p_.getRefParameters().addEntry(ctor_.getParametersName(0), new VariableWrapper(lv_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
         Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), "",-1, _global, p_), _cont, stackCall_).getValue();

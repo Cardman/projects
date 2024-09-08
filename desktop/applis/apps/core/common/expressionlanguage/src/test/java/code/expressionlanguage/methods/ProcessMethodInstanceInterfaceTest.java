@@ -584,15 +584,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -637,15 +632,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -693,15 +683,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -748,15 +733,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -803,15 +783,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -858,15 +833,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -914,15 +884,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -974,15 +939,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1033,15 +993,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.ExThree", null, id_, new IntStruct(8), cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;

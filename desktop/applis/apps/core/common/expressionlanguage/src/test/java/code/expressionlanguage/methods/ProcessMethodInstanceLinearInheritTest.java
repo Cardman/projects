@@ -1140,15 +1140,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1187,15 +1182,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1234,15 +1224,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1276,15 +1261,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1315,15 +1295,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1362,15 +1337,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        Argument arg_;
-        arg_ = new Argument();
-        arg_.setStruct(new IntStruct(8));
-        args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
