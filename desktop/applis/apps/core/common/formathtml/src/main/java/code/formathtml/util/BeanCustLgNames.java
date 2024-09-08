@@ -1230,8 +1230,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             }
             Struct procObj_ = e.getValue().getAllObject().first();
             setGlobalArgumentStruct(procObj_,_ctx,_rendStackCall);
-            RendRequestUtil.setRendObject(e.getValue(), res_, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            if (RendRequestUtil.setRendObject(e.getValue(), res_, _ctx, _rendStackCall) == null) {
                 return false;
             }
         }

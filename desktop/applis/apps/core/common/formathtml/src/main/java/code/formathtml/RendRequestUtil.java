@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -13,9 +14,9 @@ public final class RendRequestUtil {
     }
 
 
-    public static void setRendObject(DefNodeContainer _nodeContainer,
+    public static ArgumentWrapper setRendObject(DefNodeContainer _nodeContainer,
                                      Struct _attribute, ContextEl _context, RendStackCall _rendStackCall) {
         _nodeContainer.getInput().setValue(_rendStackCall.getStackCall(),_context,new Argument(_attribute));
-        RendDynOperationNode.processCall(new Argument(_attribute),_context,_rendStackCall);
+        return RendDynOperationNode.tryGetValue(_context, _rendStackCall, new ArgumentWrapper(_attribute));
     }
 }

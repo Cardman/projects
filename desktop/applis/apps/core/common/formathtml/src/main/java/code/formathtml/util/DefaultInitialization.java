@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AbstractSymbolFactory;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
@@ -25,6 +26,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.formathtml.DualNavigationContext;
 import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -96,11 +98,11 @@ public final class DefaultInitialization {
                 ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
                 ArgumentListCall argList_ = ArgumentListCall.wrapCall(args_);
                 ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(classBody_, classDbName),pair_), arg_, ctx_, rendStackCall_.getStackCall(), argList_);
-                Argument out_ = ProcessMethod.calculate(rendStackCall_.getStackCall().getCallingState(), ctx_, rendStackCall_.getStackCall()).getValue();
-                if (ctx_.callsOrException(rendStackCall_.getStackCall())) {
+                ArgumentWrapper aw_ = RendDynOperationNode.tryGetValue(ctx_, rendStackCall_, null);
+                if (aw_ == null) {
                     return afterActionWithoutRemove(ctx_, rendStackCall_);
                 }
-                _nav.setDataBaseStruct(out_.getStruct());
+                _nav.setDataBaseStruct(ArgumentListCall.toStr(aw_.getValue()));
             }
         }
         stds.initializeRendSessionDoc(ctx_, _nav, rendStackCall_);

@@ -29,17 +29,6 @@ import code.util.IdMap;
 
 public abstract class RendDynOperationNode {
 
-    protected static final String MULT = "*";
-
-    protected static final String DIV = "/";
-
-    protected static final String PLUS = "+";
-
-    protected static final String DIFF = "!=";
-
-    protected static final String EMPTY_STRING = "";
-    protected static final String RETURN_LINE = "\n";
-
     private RendMethodOperation parent;
 
     private final ExecOperationContent content;
@@ -221,10 +210,11 @@ public abstract class RendDynOperationNode {
             out_ = res_;
         }
         if (content.getResultClass().isConvertToString()){
-            out_ = ArgumentListCall.toStr(processString(ArgumentListCall.toStr(_argument), _context, _rendStack));
-            if (_context.callsOrException(_rendStack.getStackCall())) {
+            Struct res_ = processString(ArgumentListCall.toStr(_argument), _context, _rendStack);
+            if (res_ == null) {
                 return;
             }
+            out_ = ArgumentListCall.toStr(res_);
         }
         calcArg(_nodes, out_);
     }
@@ -249,11 +239,11 @@ public abstract class RendDynOperationNode {
             return null;
         }
         ExecTemplates.wrapAndCall(new ExecOverrideInfo(format_,c_), Argument.createVoid(),_context,_rend.getStackCall(),ArgumentListCall.wrapCall(args_));
-        Argument out_ = ProcessMethod.calculate(_rend.getStackCall().getCallingState(), _context, _rend.getStackCall()).getValue();
-        if (_context.callsOrException(_rend.getStackCall())) {
+        ArgumentWrapper res_ = tryGetValue(_context, _rend, null);
+        if (res_ == null) {
             return null;
         }
-        return out_;
+        return res_.getValue();
     }
 
     public static Struct processString(Struct _argument, ContextEl _context, RendStackCall _stackCall) {
@@ -272,23 +262,33 @@ public abstract class RendDynOperationNode {
 
     private static Struct result(NativeFct _nat,RendStackCall _st, ContextEl _context, Argument _out) {
         boolean convert_ = _st.getStackCall().getCallingState() instanceof CustomFoundMethod;
-        Argument out_ = calculateArgument(_st,_out,_context);
-        boolean calls_ = _context.callsOrException(_st.getStackCall());
-        if (!calls_ && convert_) {
-            out_ = new Argument(_nat.compute(out_, _context));
+        ArgumentWrapper aw_ = tryGetValue(_context, _st, new ArgumentWrapper(ArgumentListCall.toStr(_out)));
+        Argument out_ = null;
+        if (aw_ != null) {
+            if (convert_) {
+                out_ = new Argument(_nat.compute(aw_.getValue(), _context));
+            } else {
+                out_ = aw_.getValue();
+            }
         }
-        if (calls_) {
+        if (aw_ == null) {
             return null;
         }
         return ArgumentListCall.toStr(Argument.getNullableValue(out_));
     }
-    public static Argument calculateArgument(RendStackCall _stackCall,Argument _def, ContextEl _ct) {
-        CallingState state_ = _stackCall.getStackCall().getCallingState();
-        if (state_ instanceof CustomFoundMethod) {
-            CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            return ProcessMethod.calculate(method_, _ct, _stackCall.getStackCall()).getValue();
+    public static ArgumentWrapper tryGetValue(ContextEl _context, RendStackCall _stackCall, ArgumentWrapper _def) {
+        StackCall stackCall_ = _stackCall.getStackCall();
+        CallingState callingState_ = stackCall_.getCallingState();
+        ArgumentWrapper res_;
+        if (callingState_ != null) {
+            res_ = ProcessMethod.calculate(callingState_, _context, stackCall_);
+        } else {
+            return _def;
         }
-        return _def;
+        if (_context.callsOrException(stackCall_)) {
+            return null;
+        }
+        return res_;
     }
     public static RendMethodOperation getParentOrNull(RendDynOperationNode _node) {
         if (_node == null) {

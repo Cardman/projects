@@ -3,6 +3,8 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -30,14 +32,14 @@ public abstract class RendSettableFieldOperation extends
     }
 
     protected void postCalulate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _result) {
-        Argument arg_ = RendDynOperationNode.processCall(_result, _context, _rendStack).getValue();
-        if (_context.callsOrException(_rendStack.getStackCall())) {
+        ArgumentWrapper arg_ = RendDynOperationNode.tryGetValue(_context, _rendStack,new ArgumentWrapper(ArgumentListCall.toStr(_result)));
+        if (arg_ == null) {
             return;
         }
         if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _rendStack);
+            setQuickNoConvertSimpleArgument(arg_.getValue(), _nodes, _context, _rendStack);
         } else {
-            setSimpleArgument(arg_, _nodes, _context, _rendStack);
+            setSimpleArgument(arg_.getValue(), _nodes, _context, _rendStack);
         }
     }
 

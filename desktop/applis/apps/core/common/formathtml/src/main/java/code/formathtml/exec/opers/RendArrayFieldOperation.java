@@ -31,9 +31,9 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         } else {
             String npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
             _rendStack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _rendStack.getStackCall())));
-            arg_ = new Argument();
+            arg_ = null;
         }
-        if (_context.callsOrException(_rendStack.getStackCall())) {
+        if (arg_ == null) {
             return;
         }
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
