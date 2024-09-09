@@ -1,7 +1,6 @@
 package code.formathtml.exec.opers;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -13,6 +12,8 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecExplicitContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -34,10 +35,10 @@ public final class RendExplicitOperation extends RendMethodOperation implements 
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 
-    public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock,
-                                   ExecFormattedRootBlock _classNameOwner, ContextEl _conf, RendStackCall _stackCall, ArgumentListCall _list) {
+    public static Struct prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock,
+                                 ExecFormattedRootBlock _classNameOwner, ContextEl _conf, RendStackCall _stackCall, ArgumentListCall _list) {
         ParamCheckerUtil.checkCustomOper(_exit, _rootBlock, StackCall.formatVarType(_stackCall,_classNameOwner), _conf,null, _stackCall.getStackCall(), _list);
-        return Argument.createVoid();
+        return NullStruct.NULL_VALUE;
     }
 
 }

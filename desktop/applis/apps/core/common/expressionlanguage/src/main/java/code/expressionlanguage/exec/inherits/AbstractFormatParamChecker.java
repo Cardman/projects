@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -26,12 +25,10 @@ public abstract class AbstractFormatParamChecker extends AbstractParamChecker {
         this.kind = _kind;
     }
 
-    protected static void redir(ContextEl _conf, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat, ExecNamedFunctionBlock _method, ArgumentListCall _args, ExecTypeFunction _pair) {
-        Struct prev_ = _previous.getStruct();
-        LambdaStruct lda_ = matchAbstract(prev_, _method);
+    protected static void redir(ContextEl _conf, Struct _previous, StackCall _stackCall, FormattedParameters _classFormat, ExecNamedFunctionBlock _method, ArgumentListCall _args, ExecTypeFunction _pair) {
+        LambdaStruct lda_ = matchAbstract(_previous, _method);
         if (lda_ != null) {
-            Argument fctInst_ = new Argument(lda_);
-            AbstractParamChecker.prepareCallDyn(fctInst_, _args,0, _conf, _stackCall);
+            AbstractParamChecker.prepareCallDyn(lda_, _args,0, _conf, _stackCall);
             return;
         }
         _stackCall.setCallingState(new CustomFoundMethod(_previous, _classFormat.getFormattedClass(), _pair, _classFormat.getParameters()));
@@ -51,11 +48,11 @@ public abstract class AbstractFormatParamChecker extends AbstractParamChecker {
         return null;
     }
 
-    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
+    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Struct _previous, ContextEl _conf, StackCall _stackCall) {
         if (kind != MethodAccessKind.INSTANCE) {
             return _classNameFound;
         }
-        String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
+        String className_ = ArgumentListCall.getNull(_previous).getClassName(_conf);
         String sup_ = ExecInherits.getQuickFullTypeByBases(className_, _classNameFound.getFormatted(), _conf);
         if (sup_.isEmpty()) {
             LgNames stds_ = _conf.getStandards();

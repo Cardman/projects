@@ -1,7 +1,6 @@
 package code.formathtml.util.stds;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -21,7 +20,7 @@ public final class FctDocumentReinitValue implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringMap<Struct> renders_ = executingBlocks.getBuiltReinit();
-        StringStruct str_= (StringStruct) _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
-        return new ArgumentWrapper(Argument.getNull(renders_.getVal(str_.getInstance())));
+        StringStruct str_= (StringStruct) _firstArgs.getArgumentWrappers().get(0).getValue();
+        return new ArgumentWrapper(ArgumentListCall.getNull(renders_.getVal(str_.getInstance())));
     }
 }

@@ -21,7 +21,7 @@ public final class FctSliderSetMax implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         SliderStruct inst_ = (SliderStruct) _instance;
-        inst_.setMax(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall, intro);
+        inst_.setMax(_firstArgs.getArgumentWrappers().get(0).getValue(),_stackCall, intro);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

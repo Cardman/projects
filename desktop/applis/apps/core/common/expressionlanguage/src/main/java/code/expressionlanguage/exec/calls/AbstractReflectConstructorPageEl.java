@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.MetaInfoUtil;
@@ -12,6 +11,7 @@ import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPageEl {
     private boolean initClass;
@@ -24,7 +24,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
     }
 
     @Override
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+    public void receive(AbstractWrapper _wrap, Struct _argument, ContextEl _context, StackCall _stack) {
         setWrapper(_wrap);
         setReturnedArgument(_argument);
     }
@@ -65,7 +65,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         return false;
     }
 
-    protected boolean end(ContextEl _context, StackCall _stack, ConstructorMetaInfo _meta, Argument _arg) {
+    protected boolean end(ContextEl _context, StackCall _stack, ConstructorMetaInfo _meta, Struct _arg) {
         if (_context.callsOrException(_stack)) {
             setWrapException(_stack.calls());
             return false;

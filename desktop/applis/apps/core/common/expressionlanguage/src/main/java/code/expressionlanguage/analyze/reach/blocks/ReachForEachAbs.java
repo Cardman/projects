@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
@@ -8,6 +7,8 @@ import code.expressionlanguage.analyze.blocks.ForEachLoopAbs;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class ReachForEachAbs extends ReachBracedBlock implements ReachBreakableBlock,ReachBuildableElMethod,ReachAbruptGroup {
     private final ForEachLoopAbs meta;
@@ -28,8 +29,8 @@ public abstract class ReachForEachAbs extends ReachBracedBlock implements ReachB
         _page.setSumOffset(meta.getExpressionOffset());
         _page.zeroOffset();
         OperationNode root_ = meta.getRoot();
-        Argument argument_ =  ReachOperationUtil.tryCalculate(root_, _page);
-        if (Argument.isNullValue(argument_)) {
+        Struct argument_ =  ReachOperationUtil.tryCalculate(root_, _page);
+        if (argument_ == NullStruct.NULL_VALUE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(_page);

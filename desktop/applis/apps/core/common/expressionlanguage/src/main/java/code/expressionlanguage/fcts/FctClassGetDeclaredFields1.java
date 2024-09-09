@@ -13,7 +13,7 @@ public final class FctClassGetDeclaredFields1 extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct name_ = argumentWrappers_.get(0).getValue().getStruct();
+        Struct name_ = argumentWrappers_.get(0).getValue();
         CustList<FieldMetaInfo> fields_ = ((ClassMetaInfo)_instance).getFieldsInfos();
         if (!(name_ instanceof StringStruct)) {
             ArrayStruct str_ = buildArrFields(_cont,fields_);

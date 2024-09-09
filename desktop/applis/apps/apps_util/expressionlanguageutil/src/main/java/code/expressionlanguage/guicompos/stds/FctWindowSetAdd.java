@@ -21,7 +21,7 @@ public final class FctWindowSetAdd implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         WindowSetStruct ins_ = (WindowSetStruct)_instance;
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         ins_.add(arg_,true);
         if (!(arg_ instanceof WindowStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));

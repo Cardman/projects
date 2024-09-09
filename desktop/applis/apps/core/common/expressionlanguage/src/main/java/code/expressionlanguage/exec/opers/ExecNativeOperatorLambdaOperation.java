@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.exec.StackCall;
@@ -26,13 +25,13 @@ public final class ExecNativeOperatorLambdaOperation extends ExecAbstractLambdaO
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         String clArg_ = formatVarTypeRes(_stack);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_, operSymbol));
+        Struct res_ = newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_, operSymbol);
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous,
+    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Struct _previous,
                                    String _clArg, CommonOperSymbol _c) {
         return new LambdaMethodStruct(NullStruct.NULL_VALUE,_previous,_common,_meth,_clArg, _c);
     }

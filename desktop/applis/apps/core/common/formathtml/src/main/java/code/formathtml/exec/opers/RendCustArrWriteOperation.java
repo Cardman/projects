@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -26,9 +25,8 @@ public final class RendCustArrWriteOperation extends RendInvokingOperation imple
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        Struct array_ = getPreviousArgument(_nodes,this).getStruct();
-        Argument a_ = new Argument(array_);
-        setQuickNoConvertSimpleArgument(a_, _nodes, _context, _rendStack);
+        Struct array_ = getPreviousArgument(_nodes,this);
+        setQuickNoConvertSimpleArgument(array_, _nodes, _context, _rendStack);
     }
 
     @Override
@@ -37,13 +35,13 @@ public final class RendCustArrWriteOperation extends RendInvokingOperation imple
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
+    public Struct calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Struct _right, ContextEl _context, RendStackCall _rendStack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        Struct parent_ = ExecFieldTemplates.getParent(instWrite.getInst().getAnc(), previous_.getStruct(), _context,  _rendStack.getStackCall());
+        Struct previous_ = getPreviousArg(this, _nodes, _rendStack);
+        Struct parent_ = ExecFieldTemplates.getParent(instWrite.getInst().getAnc(), previous_, _context,  _rendStack.getStackCall());
         ArgumentListCall argumentListCall_ = ExecInvokingOperation.fetchFormattedArgs(_context, _rendStack.getStackCall(), parent_, instWrite, infos_);
         getArgumentPair(_nodes,this).setArgumentList(argumentListCall_.getArgumentWrappers());
-        getArgumentPair(_nodes,this).setArgumentParent(new Argument(parent_));
+        getArgumentPair(_nodes,this).setArgumentParent(parent_);
         return RendCustArrOperation.processCalling(this,_nodes, _right, _context, _rendStack, instWrite);
     }
 

@@ -19,10 +19,10 @@ public final class FctClassGetDeclaredStaticMethods1 extends FctClassGetDeclared
         CustList<MethodMetaInfo> methods_ = instanceClass_.getMethodsInfos();
         CustList<MethodMetaInfo> stMethods_ = stMethods(methods_);
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct name_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct stat_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct vararg_ = argumentWrappers_.get(2).getValue().getStruct();
-        Struct params_ = argumentWrappers_.get(3).getValue().getStruct();
+        Struct name_ = argumentWrappers_.get(0).getValue();
+        Struct stat_ = argumentWrappers_.get(1).getValue();
+        Struct vararg_ = argumentWrappers_.get(2).getValue();
+        Struct params_ = argumentWrappers_.get(3).getValue();
         AbstractMethodCriteria abs_ = _cont.getStaticCriteria();
         CustList<MethodMetaInfo> candidates_ = filterMethods(stMethods_, name_, stat_, vararg_, params_, abs_);
         ArrayStruct str_ = getMethodsMeta(_cont, candidates_);

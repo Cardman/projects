@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -25,13 +24,13 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         String clArg_ = formatVarTypeRes(_stack);
-        Argument res_ = new Argument(newLambda(format(lambdaMethodContent,_stack),getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_));
+        Struct res_ = newLambda(format(lambdaMethodContent,_stack),getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_);
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(CallersInfo _infos, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous,
+    public static Struct newLambda(CallersInfo _infos, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Struct _previous,
                                    String _clArg) {
         MethodMetaInfo metaInfo_ = new MethodMetaInfo(_infos,null,_common, _meth);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg);

@@ -20,9 +20,9 @@ public final class FctStringBuilderReplace implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringBuilderStruct inst_ = (StringBuilderStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct start_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct end_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct str_ = argumentWrappers_.get(2).getValue().getStruct();
+        Struct start_ = argumentWrappers_.get(0).getValue();
+        Struct end_ = argumentWrappers_.get(1).getValue();
+        Struct str_ = argumentWrappers_.get(2).getValue();
         replace(inst_, NumParsers.convertToNumber(start_),NumParsers.convertToNumber(end_),str_,_cont,_stackCall);
         return new ArgumentWrapper(inst_);
     }

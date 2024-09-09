@@ -1,8 +1,10 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.ExecHelper;
+import code.expressionlanguage.exec.ReflectingType;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -18,8 +20,8 @@ import code.util.core.StringUtil;
 public abstract class AbstractParamChecker {
     protected static final String RETURN_LINE = "\n";
 
-    public static void prepareCallDyn(Argument _previous, ArgumentListCall _values, int _ref, ContextEl _conf, StackCall _stackCall) {
-        Struct ls_ = Argument.getNullableValue(_previous).getStruct();
+    public static void prepareCallDyn(Struct _previous, ArgumentListCall _values, int _ref, ContextEl _conf, StackCall _stackCall) {
+        Struct ls_ = ArgumentListCall.getNull(_previous);
         LgNames lgNames_ = _conf.getStandards();
         if (ls_ instanceof LambdaRecordConstructorStruct) {
             LambdaRecordConstructorStruct l_ = (LambdaRecordConstructorStruct) ls_;
@@ -28,16 +30,16 @@ public abstract class AbstractParamChecker {
                 return;
             }
             ExecFormattedRootBlock clName_ = l_.getFormClassName();
-            CustList<Argument> values_ = _values.getArguments();
+            CustList<Struct> values_ = _values.getArguments();
             if (!l_.isShiftInstance()) {
                 ExecRootBlock type_ = l_.getRoot();
                 if (withInstance(type_)) {
-                    Argument instance_ = ExecHelper.getFirstArgument(values_);
+                    Struct instance_ = ExecHelper.getFirstArgument(values_);
                     _stackCall.setCallingState(new CustomReflectRecordConstructor(instance_,l_.getRoot(), l_.getNamedFields(), clName_,values_.mid(1), l_.getInts(),_ref));
                     return;
                 }
             }
-            Argument instance_ = l_.getInstanceCall();
+            Struct instance_ = l_.getInstanceCall();
             _stackCall.setCallingState(new CustomReflectRecordConstructor(instance_,l_.getRoot(), l_.getNamedFields(), clName_,values_, l_.getInts(),_ref));
             return;
         }
@@ -110,15 +112,15 @@ public abstract class AbstractParamChecker {
         if (!_ls.isShiftInstance()) {
             ExecRootBlock type_ = meta_.getPairType();
             if (withInstance(type_)) {
-                Argument instance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
+                Struct instance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
                 call_.getArgumentWrappers().addAllElts(argumentWrappers_.mid(1));
-                _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, _ref));
+                _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_,call_, _ref));
                 return;
             }
         }
-        Argument instance_ = _ls.getInstanceCall();
+        Struct instance_ = _ls.getInstanceCall();
         call_.getArgumentWrappers().addAllElts(argumentWrappers_);
-        _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, _ref));
+        _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_,call_, _ref));
     }
 
     public static boolean withInstance(ExecRootBlock _type) {
@@ -128,11 +130,11 @@ public abstract class AbstractParamChecker {
     private static void virtualField(ArgumentListCall _values, StackCall _stackCall, LambdaFieldStruct _l) {
         Struct realInstance_ = FieldLambdaParentRetriever.retrInstance(_values, _l);
         if (_l.isToStrField()) {
-            _stackCall.setCallingState(new CustomReflectLambdaToStr(new Argument(realInstance_)));
+            _stackCall.setCallingState(new CustomReflectLambdaToStr(realInstance_));
             return;
         }
         if (_l.isRdCodField()) {
-            _stackCall.setCallingState(new CustomReflectLambdaRdCod(new Argument(realInstance_)));
+            _stackCall.setCallingState(new CustomReflectLambdaRdCod(realInstance_));
             return;
         }
         _stackCall.setCallingState(new CustomReflectLambdaFieldWithoutInfo(_l,_values));
@@ -189,7 +191,7 @@ public abstract class AbstractParamChecker {
         _stackCall.setCallingState(new CustomReflectLambdaMethod(_l,ReflectingType.CLONE_FCT, method_, _call, _ref));
     }
 
-    public void checkParams(ExecFormattedRootBlock _classNameFound, Argument _previous, Cache _cache, ContextEl _conf, StackCall _stackCall) {
+    public void checkParams(ExecFormattedRootBlock _classNameFound, Struct _previous, Cache _cache, ContextEl _conf, StackCall _stackCall) {
         if (_conf.callsOrException(_stackCall)) {
             return;
         }
@@ -222,8 +224,8 @@ public abstract class AbstractParamChecker {
         redirect(_conf,_classNameFound,_previous,_stackCall,f_);
     }
 
-    public abstract ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall);
-    public abstract void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat);
+    public abstract ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Struct _previous, ContextEl _conf, StackCall _stackCall);
+    public abstract void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Struct _previous, StackCall _stackCall, FormattedParameters _classFormat);
 
     public abstract Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall);
 }

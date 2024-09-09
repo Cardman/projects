@@ -38,7 +38,7 @@ public final class ExecRefTernaryOperation extends ExecSettableCallFctOperation 
     private ArgumentsPair getChosenArgumentsPair(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         ArgumentsPair arg_;
         CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
-        if (BooleanStruct.isTrue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,0)).getArgument().getStruct())) {
+        if (BooleanStruct.isTrue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,0)).getArgument())) {
             arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,1));
         } else {
             arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,2));

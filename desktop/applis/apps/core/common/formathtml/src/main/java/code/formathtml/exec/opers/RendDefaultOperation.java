@@ -1,11 +1,11 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
@@ -24,9 +24,9 @@ public final class RendDefaultOperation extends RendMethodOperation implements R
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
+        CustList<Struct> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(offset, _rendStack);
-        Argument argres_ = new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _context, names, _rendStack.getLastPage()));
+        Struct argres_ = ExecClassArgumentMatching.convertFormattedWide(ExecHelper.getFirstArgument(arguments_), _context, names, _rendStack.getLastPage());
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -9,6 +8,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.structs.Struct;
 
 public final class WrapParamChecker extends AbstractParamChecker {
     private final ExecTypeFunction pair;
@@ -20,12 +20,12 @@ public final class WrapParamChecker extends AbstractParamChecker {
         this.args = _args;
     }
     @Override
-    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
+    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Struct _previous, ContextEl _conf, StackCall _stackCall) {
         return _classNameFound;
     }
 
     @Override
-    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Struct _previous, StackCall _stackCall, FormattedParameters _classFormat) {
         _stackCall.setCallingState(new CustomFoundMethod(_previous,_classNameFound, pair, _classFormat.getParameters()));
     }
 

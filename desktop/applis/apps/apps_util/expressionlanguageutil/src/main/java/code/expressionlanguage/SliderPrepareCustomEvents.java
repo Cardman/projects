@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.util.CustList;
@@ -12,8 +13,8 @@ public final class SliderPrepareCustomEvents extends AbsPrepareCustomEvents {
     }
 
     @Override
-    protected CustList<Argument> args() {
-        return new CustList<Argument>();
+    protected CustList<ArgumentWrapper> args() {
+        return new CustList<ArgumentWrapper>();
     }
 
     @Override

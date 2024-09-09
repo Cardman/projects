@@ -13,6 +13,6 @@ public final class FctPopupMenuGetComp implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         PopupStruct inst_ = (PopupStruct) _instance;
-        return new ArgumentWrapper(inst_.getCompo(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(inst_.getCompo(_firstArgs.getArgumentWrappers().get(0).getValue()));
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.linkage;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
@@ -25,11 +24,14 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.coverage.SwitchCoverageResult;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
@@ -2477,7 +2479,7 @@ public final class LinkageUtil {
             return covCst(_in, _cov, _full, _fullInit, _none, par_);
         }
         if (before_.getIndexChild() > 0) {
-            Argument firstArg_ = parentBefore_.getFirstChild().getArgument();
+            Struct firstArg_ = parentBefore_.getFirstChild().getArgument();
             if (firstArg_ == null) {
                 return covCst(_in, _cov, _full, _fullInit, _none, before_);
             }
@@ -2488,21 +2490,21 @@ public final class LinkageUtil {
         return covCst(_in, _cov, _full, _fullInit, _none, par_);
     }
 
-    private static boolean notCovered(OperationNode _before,MethodOperation _parentBefore, Argument _firstArg) {
-        if (_parentBefore instanceof OrOperation && BooleanStruct.isTrue(Argument.getNullableValue(_firstArg).getStruct())) {
+    private static boolean notCovered(OperationNode _before,MethodOperation _parentBefore, Struct _firstArg) {
+        if (_parentBefore instanceof OrOperation && BooleanStruct.isTrue(ArgumentListCall.getNull(_firstArg))) {
             return true;
         }
-        if (_parentBefore instanceof AndOperation && BooleanStruct.isFalse(Argument.getNullableValue(_firstArg).getStruct())) {
+        if (_parentBefore instanceof AndOperation && BooleanStruct.isFalse(ArgumentListCall.getNull(_firstArg))) {
             return true;
         }
-        if (_parentBefore instanceof NullSafeOperation && !Argument.getNullableValue(_firstArg).isNull()) {
+        if (_parentBefore instanceof NullSafeOperation && ArgumentListCall.getNull(_firstArg) != NullStruct.NULL_VALUE) {
             return true;
         }
         if (_parentBefore instanceof AbstractTernaryOperation) {
-            if (BooleanStruct.isTrue(Argument.getNullableValue(_firstArg).getStruct()) && _before.getIndexChild() == 2) {
+            if (BooleanStruct.isTrue(ArgumentListCall.getNull(_firstArg)) && _before.getIndexChild() == 2) {
                 return true;
             }
-            return BooleanStruct.isFalse(Argument.getNullableValue(_firstArg).getStruct()) && _before.getIndexChild() == 1;
+            return BooleanStruct.isFalse(ArgumentListCall.getNull(_firstArg)) && _before.getIndexChild() == 1;
         }
         return false;
     }

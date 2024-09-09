@@ -17,7 +17,7 @@ public final class FctStringBuilderAppend1 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringBuilderStruct inst_ = (StringBuilderStruct) _instance;
-        Struct arr_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arr_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         appendChars(inst_,arr_,_cont,_stackCall);
         return new ArgumentWrapper(inst_);
     }

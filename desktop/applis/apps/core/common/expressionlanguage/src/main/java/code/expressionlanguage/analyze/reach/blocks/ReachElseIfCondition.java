@@ -1,7 +1,9 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.blocks.AnalyzingEl;
+import code.expressionlanguage.analyze.blocks.ElseIfCondition;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReachElseIfCondition extends ReachCondition implements ReachBreakableBlock {
@@ -25,8 +27,8 @@ public final class ReachElseIfCondition extends ReachCondition implements ReachB
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        Argument arg_ = getArgument();
-        boolean abr_ = Argument.isTrueValue(arg_);
+        Struct arg_ = getArgument();
+        boolean abr_ = ArgumentListCall.isTrueValue(arg_);
         if (!abr_) {
             return;
         }
@@ -47,13 +49,13 @@ public final class ReachElseIfCondition extends ReachCondition implements ReachB
 
     @Override
     public boolean accessibleCondition() {
-        Argument arg_ = getArgument();
-        return Argument.isNotFalseValue(arg_);
+        Struct arg_ = getArgument();
+        return ArgumentListCall.isNotFalseValue(arg_);
     }
     @Override
     public boolean accessibleForNext() {
-        Argument arg_ = getArgument();
-        return !Argument.isTrueValue(arg_);
+        Struct arg_ = getArgument();
+        return !ArgumentListCall.isTrueValue(arg_);
     }
 
     @Override

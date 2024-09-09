@@ -81,7 +81,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall());
         Struct ev_ = ctx_.getStandards().newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
@@ -96,7 +96,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall());
         Struct ev_ = ctx_.getStandards().newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
@@ -114,7 +114,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall());
         LgNamesGui.newGuiFunctionnal(ctx_, new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_, ((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod());
 //        EventStruct.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
         assertFalse(st_.isFailInit());
@@ -169,7 +169,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = EventStruct.invoke(NullStruct.NULL_VALUE, ctx_, et_, st_, new ArgumentListCall());
         assertEq("pkg.Sample..Inner",lda_.getClassName(ctx_));
         assertFalse(st_.isFailInit());
         LgNamesUtilsContent execCont_ = ((LgNamesGui) ctx_.getStandards()).getExecContent();
@@ -300,7 +300,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall());
         Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
         assertTrue(ev_.sameReference(ev_));
@@ -318,7 +318,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
-        Struct lda_ = str(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct lda_ = EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall());
         Struct ev_ = ctx_.getStandards().newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,((LgNamesGui)ctx_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
@@ -480,7 +480,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
         ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, "run", new StringList());
-        return ArgumentListCall.toStr(EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), resSt_, new ArgumentListCall()));
+        return EventStruct.invoke(NullStruct.NULL_VALUE, (RunnableContextEl) ctx_, new ExecTypeFunction(form_, ExecClassesUtil.getMethodBodiesById(ex_, id_).first()), resSt_, new ArgumentListCall());
     }
     private ContextEl ctx(MockProgramInfos _p) {
         return ctx(_p,new StringMap<String>());

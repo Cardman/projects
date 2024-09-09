@@ -21,10 +21,10 @@ public final class FctClassGetDeclaredMethods1 extends FctReflection {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         ClassMetaInfo instanceClass_ = (ClassMetaInfo) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct name_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct stat_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct vararg_ = argumentWrappers_.get(2).getValue().getStruct();
-        Struct params_ = argumentWrappers_.get(3).getValue().getStruct();
+        Struct name_ = argumentWrappers_.get(0).getValue();
+        Struct stat_ = argumentWrappers_.get(1).getValue();
+        Struct vararg_ = argumentWrappers_.get(2).getValue();
+        Struct params_ = argumentWrappers_.get(3).getValue();
         CustList<MethodMetaInfo> methods_ = instanceClass_.getMethodsInfos();
         if (instanceClass_.isTypeArray()) {
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _cont.getStandards().getContent().getCoreNames().getAliasClone(), new StringList());

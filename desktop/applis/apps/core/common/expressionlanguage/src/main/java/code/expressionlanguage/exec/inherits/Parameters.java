@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.Struct;
@@ -10,7 +9,7 @@ public final class Parameters {
     private Struct error;
     private final StringMap<AbstractWrapper> refParameters = new StringMap<AbstractWrapper>();
     private Cache cache;
-    private Argument right;
+    private Struct right;
 
     public Struct getError() {
         return error;
@@ -32,11 +31,11 @@ public final class Parameters {
         this.cache = _cache;
     }
 
-    public Argument getRight() {
+    public Struct getRight() {
         return right;
     }
 
-    public void setRight(Argument _right) {
+    public void setRight(Struct _right) {
         this.right = _right;
     }
 }

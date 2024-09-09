@@ -21,7 +21,7 @@ public final class FctWindowRemoveList implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         WindowStruct inst_ = (WindowStruct) _instance;
-        guiEx.removeWindowListener(inst_,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        guiEx.removeWindowListener(inst_,_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

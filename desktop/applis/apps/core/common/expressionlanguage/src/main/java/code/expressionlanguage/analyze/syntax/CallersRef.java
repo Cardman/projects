@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.syntax;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
@@ -25,6 +24,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -764,11 +764,11 @@ public final class CallersRef {
     }
 
     private static void tissuVocal(AbsFctOperation _o, CustList<MemberAnnotFilterCall> _types) {
-        Argument ar_ = _o.getFirstChild().getArgument();
+        Struct ar_ = _o.getFirstChild().getArgument();
         MemberAnnotFilterCall m_ = new MemberAnnotFilterCall();
         m_.setMember(_o.getPreviousResultClass().getSingleNameOrEmpty());
-        if (ar_ != null && ar_.getStruct() instanceof ClassMetaInfo) {
-            m_.setAnnotation(((ClassMetaInfo)ar_.getStruct()).getFormatted().getFormatted());
+        if (ar_ instanceof ClassMetaInfo) {
+            m_.setAnnotation(((ClassMetaInfo)ar_).getFormatted().getFormatted());
         }
         _types.add(m_);
     }

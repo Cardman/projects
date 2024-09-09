@@ -20,7 +20,7 @@ public final class FctActionWrap implements StdCaller {
     }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct str_ = ArgumentListCall.toStr(_firstArgs.getArgumentWrappers().get(0).getValue());
+        Struct str_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (str_ instanceof AbsAdvActionListener) {
             return new ArgumentWrapper(new EnabledActionStruct(className,str_,compoFactory.wrap((AbsAdvActionListener)str_)));
         }

@@ -14,6 +14,6 @@ public final class FctTreeNodeEq implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(TreeNodeStruct.eq(argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct()));
+        return new ArgumentWrapper(TreeNodeStruct.eq(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue()));
     }
 }

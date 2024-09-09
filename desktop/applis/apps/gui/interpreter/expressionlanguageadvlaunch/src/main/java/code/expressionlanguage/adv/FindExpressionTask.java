@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -34,7 +33,7 @@ public final class FindExpressionTask implements Runnable {
         ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));
         StackCall first_ = StackCall.newInstance(InitPhase.NOTHING, rCont_);
         ArrayRefState a_ = ArrayRefState.tryWrap(empty_,0);
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),a_),rCont_, first_).getValue());
+        Struct infoStruct_ = ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),a_),rCont_, first_).getValue();
         if (rCont_.callsOrException(first_)) {
             return;
         }
@@ -46,8 +45,8 @@ public final class FindExpressionTask implements Runnable {
             ls_.add(new ArgumentWrapper(new StringStruct(text_)));
             ls_.add(new ArgumentWrapper(new IntStruct(currentIndex_)));
             StackCall stCall_ = StackCall.newInstance(InitPhase.NOTHING, rCont_);
-            ExecTemplates.wrapAndCall(new ExecOverrideInfo(targetMethod_.getClassName(),targetMethod_.getPair()), new Argument(infoStruct_), rCont_, stCall_, new ArgumentListCall(ls_));
-            Struct re_ = ArgumentListCall.toStr(ProcessMethod.calculate(stCall_.getCallingState(),rCont_,stCall_).getValue());
+            ExecTemplates.wrapAndCall(new ExecOverrideInfo(targetMethod_.getClassName(),targetMethod_.getPair()), infoStruct_, rCont_, stCall_, new ArgumentListCall(ls_));
+            Struct re_ = ProcessMethod.calculate(stCall_.getCallingState(),rCont_,stCall_).getValue();
             if (rCont_.callsOrException(stCall_)) {
                 return;
             }

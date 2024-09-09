@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
@@ -10,6 +9,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.EntryCust;
@@ -158,7 +158,7 @@ public final class ExecArrayTemplates {
     }
 
     private static Struct procNoArr(Struct _struct, ContextEl _conf, StackCall _stackCall) {
-        return nullArg(Argument.getNull(_struct), _conf, _stackCall);
+        return nullArg(ArgumentListCall.getNull(_struct), _conf, _stackCall);
     }
 
     private static WithoutParentIdStruct getRange(ContextEl _conf, StackCall _stackCall, RangeStruct _ind, ArrayStruct _arr) {
@@ -213,7 +213,7 @@ public final class ExecArrayTemplates {
     private static WithoutParentIdStruct setRange(ContextEl _conf, StackCall _stackCall, RangeStruct _ind, ArrayStruct _arr, ArrayStruct _value) {
         LgNames stds_ = _conf.getStandards();
         for (Struct s: _value.list()) {
-            Struct value_ = Argument.getNull(s);
+            Struct value_ = ArgumentListCall.getNull(s);
             ErrorType errorType_ = safeObjectArr(value_.getClassName(_conf), _conf, _arr);
             if (errorType_ == ErrorType.NPE) {
                 String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -344,7 +344,7 @@ public final class ExecArrayTemplates {
         }
         if (!(_struct instanceof ArrayStruct)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = Argument.getNull(_struct).getClassName(_conf);
+            String type_ = ArgumentListCall.getNull(_struct).getClassName(_conf);
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
             return;
         }
@@ -367,7 +367,7 @@ public final class ExecArrayTemplates {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
             return;
         }
-        Struct value_ = Argument.getNull(_value);
+        Struct value_ = ArgumentListCall.getNull(_value);
         ErrorType errorType_ = safeObjectArr(value_.getClassName(_conf), _conf, arr_);
         if (errorType_ != ErrorType.NOTHING) {
             errContent(arr_, _value, errorType_, _conf, _stackCall);
@@ -429,7 +429,7 @@ public final class ExecArrayTemplates {
     public static void checkedElements(ArrayStruct _arr, ContextEl _context, StackCall _stackCall) {
         int len_ = _arr.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            Struct value_ = Argument.getNull(_arr.get(i));
+            Struct value_ = ArgumentListCall.getNull(_arr.get(i));
             checkElt(_arr, _context, _stackCall, value_);
             if (_context.callsOrException(_stackCall)) {
                 return;

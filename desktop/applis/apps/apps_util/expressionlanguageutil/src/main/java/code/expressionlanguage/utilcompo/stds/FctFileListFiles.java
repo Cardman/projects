@@ -22,7 +22,7 @@ public final class FctFileListFiles extends FctFileAbs {
 
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        String file_ = ((StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).getInstance();
+        String file_ = ((StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).getInstance();
         StringList files_ = _infos.getFileSystem().getFiles(file_, ((RunnableContextEl) _cont).getCurrentDir());
         if (files_ == null) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

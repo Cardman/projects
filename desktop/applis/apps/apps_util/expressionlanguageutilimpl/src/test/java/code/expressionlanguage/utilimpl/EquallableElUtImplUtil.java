@@ -26,7 +26,8 @@ import code.stream.core.ContentTime;
 import code.stream.core.OutputType;
 import code.stream.core.StreamZipFile;
 import code.util.CustList;
-import code.util.*;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import org.junit.Assert;
@@ -223,7 +224,7 @@ public abstract class EquallableElUtImplUtil {
     }
 
     public static Struct value(ArgumentWrapper _a) {
-        return _a.getValue().getStruct();
+        return _a.getValue();
     }
     public static FileInfos newFileInfos(AbstractLightProgramInfos _light) {
         return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)), _light.getZipFact(), _light.getThreadFactory());

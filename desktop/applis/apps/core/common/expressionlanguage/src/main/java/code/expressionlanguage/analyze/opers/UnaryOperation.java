@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.SymbolFactoryUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -70,14 +69,13 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         AnaClassArgumentMatching clMatch_ = child_.getResultClass();
         AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, _page);
         if (child_ instanceof ConstantOperation) {
-            Argument arg_ = child_.getArgument();
-            Struct instance_ = arg_.getStruct();
-            if (instance_ instanceof ByteStruct) {
+            Struct arg_ = child_.getArgument();
+            if (arg_ instanceof ByteStruct) {
                 clMatch_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
                 setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
                 return true;
             }
-            if (instance_ instanceof ShortStruct) {
+            if (arg_ instanceof ShortStruct) {
                 clMatch_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
                 setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
                 return true;

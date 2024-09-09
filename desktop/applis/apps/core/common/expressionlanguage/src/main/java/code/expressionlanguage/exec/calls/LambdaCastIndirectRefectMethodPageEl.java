@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.CastParamChecker;
@@ -8,6 +7,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class LambdaCastIndirectRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
@@ -16,9 +16,9 @@ public final class LambdaCastIndirectRefectMethodPageEl extends AbstractRefectLa
     }
 
     @Override
-    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        new CastParamChecker(getPair(), _list).checkParams(getClassName(), Argument.createVoid(), null, _context, _stack);
-        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
+    Struct prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        new CastParamChecker(getPair(), _list).checkParams(getClassName(), NullStruct.NULL_VALUE, null, _context, _stack);
+        return NullStruct.NULL_VALUE;
     }
 
 

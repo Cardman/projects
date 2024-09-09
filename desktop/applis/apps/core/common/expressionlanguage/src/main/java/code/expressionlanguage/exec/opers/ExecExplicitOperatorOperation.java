@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
@@ -13,6 +12,7 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOperation implements CallExecSimpleOperation,CompoundedOperator{
@@ -36,7 +36,7 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
         ExecOperationNode first_ = getFirstChild();
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, first_);
         if (argumentPair_.isArgumentTest()){
-            Argument f_ = getArgument(_nodes,first_);
+            Struct f_ = getArgument(_nodes,first_);
             setQuickConvertSimpleArgument(f_, _conf, _nodes, _stack);
             return;
         }
@@ -50,7 +50,7 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
     }
 
     @Override
-    public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
+    public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _right, StackCall _stack) {
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecQuickOperation.end(this,_conf,_nodes,_right,_stack,converter);

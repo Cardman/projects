@@ -1,13 +1,13 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -20,6 +20,7 @@ import code.expressionlanguage.gui.unit.ProgressingTestsImpl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
@@ -145,7 +146,7 @@ public final class GuiProcess implements GuiRunnable {
                 return;
             }
             ExecNamedFunctionBlock fct_ = methods_.first();
-            Argument i_ = EventStruct.invoke(NullStruct.NULL_VALUE, context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
+            Struct i_ = EventStruct.invoke(NullStruct.NULL_VALUE, context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
             if (i_ == null) {
                 context.interrupt();
             }

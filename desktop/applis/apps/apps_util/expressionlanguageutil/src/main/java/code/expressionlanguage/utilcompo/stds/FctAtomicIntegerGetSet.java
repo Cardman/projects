@@ -15,6 +15,6 @@ public final class FctAtomicIntegerGetSet extends FctAtomicAbs {
     @Override
     protected ArgumentWrapper atomic(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-        return new ArgumentWrapper(new IntStruct(re_.getAndSet(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct())));
+        return new ArgumentWrapper(new IntStruct(re_.getAndSet(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).intStruct())));
     }
 }

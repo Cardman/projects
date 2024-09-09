@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecFilterContent {
@@ -11,7 +11,7 @@ public final class ExecFilterContent {
     private final String variableName;
     private final ExecSwitchValuesList list;
 
-    public ExecFilterContent(int _o,String _c, String _v, CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
+    public ExecFilterContent(int _o, String _c, String _v, CustList<Struct> _stdValues, CustList<ClassField> _enumValues) {
         offset = _o;
         this.importedClassName = _c;
         this.variableName = _v;

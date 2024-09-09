@@ -19,7 +19,7 @@ public final class FctString5 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct argArrByte_ = argumentWrappers_.get(2).getValue().getStruct();
+        Struct argArrByte_ = argumentWrappers_.get(2).getValue();
         if (!(argArrByte_ instanceof ArrayStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
@@ -30,8 +30,8 @@ public final class FctString5 implements StdCaller {
         for (int i = 0; i < len_; i++) {
             arr_[i] = NumParsers.convertToNumber(byteArr_.get(i)).byteStruct();
         }
-        Struct offset_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct to_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct offset_ = argumentWrappers_.get(0).getValue();
+        Struct to_ = argumentWrappers_.get(1).getValue();
         int one_ = NumParsers.convertToNumber(offset_).intStruct();
         int two_ = NumParsers.convertToNumber(to_).intStruct();
         if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {

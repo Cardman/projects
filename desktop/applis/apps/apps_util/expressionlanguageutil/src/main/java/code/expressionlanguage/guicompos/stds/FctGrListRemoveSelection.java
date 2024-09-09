@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctGrListRemoveSelection implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        GraphicListStruct.removeListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(), ((GraphicListStruct) _instance).getGrList());
+        GraphicListStruct.removeListener(_firstArgs.getArgumentWrappers().get(0).getValue(), ((GraphicListStruct) _instance).getGrList());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

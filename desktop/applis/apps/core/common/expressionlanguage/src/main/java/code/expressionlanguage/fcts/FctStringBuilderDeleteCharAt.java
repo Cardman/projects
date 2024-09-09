@@ -16,7 +16,7 @@ public final class FctStringBuilderDeleteCharAt implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringBuilderStruct inst_ = (StringBuilderStruct) _instance;
-        Struct index_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct index_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         deleteCharAt(inst_, NumParsers.convertToNumber(index_),_cont,_stackCall);
         return new ArgumentWrapper(inst_);
     }

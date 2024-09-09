@@ -20,7 +20,7 @@ public final class FctNbDoubleSgn implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(str(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(str(_firstArgs.getArgumentWrappers().get(0).getValue()));
     }
 
     private static Struct str(Struct _arg) {

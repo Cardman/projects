@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
@@ -42,12 +41,12 @@ public final class ReachOperationUtil {
         while (ind_ < len_) {
             ReachOperationNode curr_ = sub_.get(ind_);
             curr_.setRelativeOffsetPossibleAnalyzable(_page);
-            Argument a_ = curr_.getArgument();
+            Struct a_ = curr_.getArgument();
             ReachOperationNode n_ = curr_.getNextSibling();
             processDot(n_,curr_,curr_.getParent());
             if (a_ != null) {
                 ReachOperationNode.setNextArgument(curr_,a_);
-                ind_ = getNextIndex(curr_, a_.getStruct());
+                ind_ = getNextIndex(curr_, a_);
                 continue;
             }
             tryCalculateNode(_page, curr_);
@@ -55,11 +54,11 @@ public final class ReachOperationUtil {
             if (a_ == null) {
                 return;
             }
-            ind_ = getNextIndex(curr_, a_.getStruct());
+            ind_ = getNextIndex(curr_, a_);
         }
     }
 
-    public static Argument tryCalculate(OperationNode _list, AnalyzedPageEl _page) {
+    public static Struct tryCalculate(OperationNode _list, AnalyzedPageEl _page) {
         CustList<ReachMethodOperation> list_ = getExecutableNodes(_list);
         tryCalculate(_page, list_);
         return _list.getArgument();
@@ -73,10 +72,10 @@ public final class ReachOperationUtil {
             curr_.setRelativeOffsetPossibleAnalyzable(_page);
             ReachOperationNode n_ = curr_.getNextSibling();
             processDot(n_,curr_,curr_.getParent());
-            Argument a_ = curr_.getArgument();
+            Struct a_ = curr_.getArgument();
             if (a_ != null) {
                 ReachOperationNode.setNextArgument(curr_,a_);
-                ind_ = getNextIndex(curr_, a_.getStruct());
+                ind_ = getNextIndex(curr_, a_);
                 continue;
             }
             tryCalculateNode(_page, curr_);
@@ -84,7 +83,7 @@ public final class ReachOperationUtil {
             if (a_ == null) {
                 ind_++;
             } else {
-                ind_ = getNextIndex(curr_, a_.getStruct());
+                ind_ = getNextIndex(curr_, a_);
             }
         }
     }

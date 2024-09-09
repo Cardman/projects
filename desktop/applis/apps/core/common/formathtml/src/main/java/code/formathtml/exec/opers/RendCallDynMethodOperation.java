@@ -1,16 +1,16 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.StandardNamedFunction;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
@@ -25,19 +25,19 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
+        Struct previous_ = getPreviousArg(this,_nodes, _rendStack);
         if (stdMethod == _context.getStandards().getContent().getReflect().getFctTypeMeta()) {
-            Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, _context, _rendStack.getStackCall());
+            Struct res_ = ExecInvokingOperation.getMetaInfo(previous_, _context, _rendStack.getStackCall());
             setSimpleArgument(res_, _nodes, _context, _rendStack);
             return;
         }
         if (stdMethod == _context.getStandards().getContent().getReflect().getFctTypeInstance()) {
-            Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, _context, _rendStack.getStackCall());
+            Struct res_ = ExecInvokingOperation.getInstanceCall(previous_, _context, _rendStack.getStackCall());
             setSimpleArgument(res_, _nodes, _context, _rendStack);
             return;
         }
         ExecInvokingOperation.prepareCallDynNormal(previous_, fectchPosArgs(_nodes), _context, _rendStack.getStackCall());
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _context, _rendStack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(NullStruct.NULL_VALUE, _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

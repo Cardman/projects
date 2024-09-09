@@ -1,23 +1,34 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.util.*;
-import code.expressionlanguage.exec.inherits.*;
-import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.options.*;
-import code.expressionlanguage.structs.*;
-import code.gui.*;
-import code.maths.*;
-import code.maths.montecarlo.*;
-import code.mock.*;
-import code.util.*;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
+import code.gui.EquallableElUtUtil;
+import code.maths.Rate;
+import code.maths.montecarlo.CustomSeedGene;
+import code.mock.MockFileSet;
+import code.mock.MockProgramInfos;
+import code.util.CustList;
+import code.util.StringMap;
 import org.junit.Test;
 
 public final class RateStructTest extends EquallableElUtUtil {
@@ -2392,11 +2403,11 @@ public final class RateStructTest extends EquallableElUtUtil {
     }
     private Struct instance(ContextEl _rCtor, ExecRootBlock _ex, ContextEl _ctx) {
         StackCall resStCtor_ = StackCall.newInstance(InitPhase.NOTHING, _rCtor);
-        return ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(_ctx,new ExecFormattedRootBlock(_ex),ArgumentListCall.toStr(NullStruct.NULL_VALUE)), _ctx,resStCtor_).getValue());
+        return ProcessMethod.calculate(new CustomFoundConstructor(_ctx,new ExecFormattedRootBlock(_ex),NullStruct.NULL_VALUE), _ctx,resStCtor_).getValue();
     }
 
     public static void invoke(Struct _global, ExecFormattedRootBlock _class, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
-        ExecTemplates.wrapAndCall(new ExecOverrideInfo(_class,_pair), ArgumentListCall.toStr(_global), _cont, _stackCall, _argList);
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(_class,_pair), _global, _cont, _stackCall, _argList);
         ProcessMethod.calculate(_stackCall.getCallingState(), _cont, _stackCall);
     }
 
@@ -2416,7 +2427,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         ExecRootBlock cl_ = _ctx.getExecutionInfos().getClasses().getClassBody("pkg.Runnable");
         ExecOverridableBlock a_ = ExecClassesUtil.getMethodBodiesById(cl_, new MethodId(MethodAccessKind.INSTANCE, "run", new CustList<String>())).first();
         ExecOverrideInfo mId_ = _ctx.getClasses().getRedirection(cl_.getNumberType(), a_.getMem(),base_);
-        ExecTemplates.wrapAndCall(mId_, ArgumentListCall.toStr(_inst), _ctx, _stack, new ArgumentListCall());
+        ExecTemplates.wrapAndCall(mId_, _inst, _ctx, _stack, new ArgumentListCall());
         ProcessMethod.calculate(_stack.getCallingState(), _ctx, _stack);
     }
 

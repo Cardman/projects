@@ -17,7 +17,7 @@ public final class FctReplacement implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Replacement rep_ = NumParsers.getReplacement(argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct());
+        Replacement rep_ = NumParsers.getReplacement(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue());
         return new ArgumentWrapper(new ReplacementStruct(rep_));
     }
 

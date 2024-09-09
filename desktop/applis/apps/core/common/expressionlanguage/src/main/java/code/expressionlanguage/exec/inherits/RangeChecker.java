@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -18,7 +17,7 @@ public final class RangeChecker {
     private RangeChecker() {
     }
 
-    public static Argument range(ContextEl _conf, StackCall _stack, Struct... _args) {
+    public static Struct range(ContextEl _conf, StackCall _stack, Struct... _args) {
         if (_args.length == 3) {
             return rangeBoundsStep(_conf, _stack, _args[0], _args[1], _args[2]).getValue();
         }
@@ -28,18 +27,18 @@ public final class RangeChecker {
         return rangeUnlimit(_conf,_stack,_args[0]).getValue();
     }
 
-    public static Argument rangeUnlimitStep(ContextEl _conf, StackCall _stack, Struct... _args) {
+    public static Struct rangeUnlimitStep(ContextEl _conf, StackCall _stack, Struct... _args) {
         int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
         if (lower_ < 0) {
             _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         int step_ = NumParsers.convertToNumber(_args[1]).intStruct();
         if (step_ == 0) {
             _stack.setCallingState(new CustomFoundExc(getDivideZero(_conf, _stack)));
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
-        return new Argument(new RangeStruct(lower_, -1,step_));
+        return new RangeStruct(lower_, -1,step_);
     }
 
     public static ArgumentWrapper rangeUnlimit(ContextEl _cont, StackCall _stackCall, Struct _min) {

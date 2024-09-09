@@ -21,8 +21,8 @@ public final class FctFileWrite extends FctFileAbs {
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        String file_ = ((StringStruct)argumentWrappers_.get(0).getValue().getStruct()).getInstance();
-        String txt_ = CustAliases.getStandarString(_cont,argumentWrappers_.get(1).getValue().getStruct());
+        String file_ = ((StringStruct)argumentWrappers_.get(0).getValue()).getInstance();
+        String txt_ = CustAliases.getStandarString(_cont,argumentWrappers_.get(1).getValue());
         return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().saveTextFile(file_, txt_, ((RunnableContextEl) _cont).getCurrentDir())));
     }
 }

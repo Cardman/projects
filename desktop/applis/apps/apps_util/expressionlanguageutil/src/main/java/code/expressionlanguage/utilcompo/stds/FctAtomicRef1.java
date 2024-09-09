@@ -18,7 +18,7 @@ public final class FctAtomicRef1 implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AtomicRefStruct std_ = new AtomicRefStruct(_cont.getCaller().newAtObj(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()), aliasAtomicRef);
+        AtomicRefStruct std_ = new AtomicRefStruct(_cont.getCaller().newAtObj(_firstArgs.getArgumentWrappers().get(0).getValue()), aliasAtomicRef);
         return new ArgumentWrapper(std_);
     }
 }

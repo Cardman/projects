@@ -1,17 +1,16 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.BoolVal;
@@ -88,10 +87,10 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         return retRef;
     }
 
-    public ExecBlock processCase(Argument _arg, StackCall _stack) {
+    public ExecBlock processCase(Struct _arg, StackCall _stack) {
         boolean atMost_ = this instanceof ExecSwitchInstanceMethod;
         SwitchBlockStack sw_ = new SwitchBlockStack(this, atMost_);
-        sw_.setValue(ArgumentListCall.toStr(_arg));
+        sw_.setValue(_arg);
         sw_.setInstanceTest(getImportedParamType());
         sw_.setLabel("");
         return cover(sw_, _stack);

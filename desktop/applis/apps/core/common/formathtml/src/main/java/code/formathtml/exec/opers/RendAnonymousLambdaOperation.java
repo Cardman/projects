@@ -1,12 +1,12 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -19,10 +19,10 @@ public final class RendAnonymousLambdaOperation extends RendAbstractLambdaOperat
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
+        Struct previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = formatVarTypeRes(_rendStack);
-        Argument res_ = new Argument(ExecAnonymousLambdaOperation.newAnonymousLambda(format(lambdaAnoContent,_rendStack),getLambdaCommonContent(),lambdaAnoContent,previous_,
-                _rendStack.getLastPage().getContent(), clArg_));
+        Struct res_ = ExecAnonymousLambdaOperation.newAnonymousLambda(format(lambdaAnoContent,_rendStack),getLambdaCommonContent(),lambdaAnoContent,previous_,
+                _rendStack.getLastPage().getContent(), clArg_);
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 }

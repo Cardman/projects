@@ -14,7 +14,7 @@ public final class FctPopupMenuRemoveComp implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         PopupStruct inst_ = (PopupStruct) _instance;
-        inst_.remove(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.remove(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

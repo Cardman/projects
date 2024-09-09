@@ -1,17 +1,17 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.IntStruct;
@@ -1904,7 +1904,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         LocalVariable lv_ = LocalVariable.newLocalVariable(new IntStruct(5),cont_);
         p_.getRefParameters().addEntry(method_.getParametersName(0),new VariableWrapper(lv_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
-        Struct struct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, "pkg.ExClass"), new ExecTypeFunction(classBody_, method_), p_), cont_, stackCall_).getValue());
+        Struct struct_ = ProcessMethod.calculate(new CustomFoundMethod(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_, "pkg.ExClass"), new ExecTypeFunction(classBody_, method_), p_), cont_, stackCall_).getValue();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }

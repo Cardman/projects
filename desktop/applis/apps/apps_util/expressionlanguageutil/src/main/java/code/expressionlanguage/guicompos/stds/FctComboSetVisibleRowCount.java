@@ -14,7 +14,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctComboSetVisibleRowCount implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        ((GraphicComboStruct) _instance).getGraphicCombo().getList().setVisibleRowCount(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct());
+        ((GraphicComboStruct) _instance).getGraphicCombo().getList().setVisibleRowCount(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).intStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

@@ -12,6 +12,6 @@ import code.expressionlanguage.structs.Struct;
 public final class FctTreeNodeIsDescendant implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(((TreeNodeStruct)_instance).isDescendantMethod(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(((TreeNodeStruct)_instance).isDescendantMethod(_firstArgs.getArgumentWrappers().get(0).getValue()));
     }
 }

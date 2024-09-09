@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.structs.AnnotatedStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class CustomReflectAnnotations extends AbstractReflectElement {
@@ -11,9 +11,9 @@ public final class CustomReflectAnnotations extends AbstractReflectElement {
 
     private final AnnotatedStruct gl;
 
-    private final CustList<Argument> arguments;
+    private final CustList<Struct> arguments;
     public CustomReflectAnnotations(ReflectingType _reflect, AnnotatedStruct _gl,
-                                    CustList<Argument> _arguments) {
+                                    CustList<Struct> _arguments) {
         super(false);
         reflect = _reflect;
         gl = _gl;
@@ -28,7 +28,7 @@ public final class CustomReflectAnnotations extends AbstractReflectElement {
         return gl;
     }
 
-    public CustList<Argument> getArguments() {
+    public CustList<Struct> getArguments() {
         return arguments;
     }
 }

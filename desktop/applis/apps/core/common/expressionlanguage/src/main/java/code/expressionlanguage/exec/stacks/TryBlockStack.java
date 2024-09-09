@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.stacks;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.Struct;
 
 public final class TryBlockStack extends AbstractStask implements EnteredStack {
@@ -76,7 +76,7 @@ public final class TryBlockStack extends AbstractStask implements EnteredStack {
     }
     public static Struct choice(Struct _f,Struct _s) {
         if (_f == null) {
-            return Argument.getNull(_s);
+            return ArgumentListCall.getNull(_s);
         }
         return _f;
     }

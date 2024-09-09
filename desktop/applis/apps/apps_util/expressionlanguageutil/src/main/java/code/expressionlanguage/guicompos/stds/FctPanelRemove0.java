@@ -15,6 +15,6 @@ public final class FctPanelRemove0 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         PanelStruct strPan_ = (PanelStruct) _instance;
-        return new ArgumentWrapper(strPan_.remove(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct()));
+        return new ArgumentWrapper(strPan_.remove(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).intStruct()));
     }
 }

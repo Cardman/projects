@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -18,16 +17,15 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
     public void tryCalculateNode(AnalyzedPageEl _page) {
         CustList<ReachOperationNode> chidren_ = getChildrenNodes();
         checkDeadCode(chidren_.first(),getInfo(), _page);
-        Argument argBool_ = chidren_.first().getArgument();
+        Struct argBool_ = chidren_.first().getArgument();
         if (argBool_ == null) {
             return;
         }
-        Struct str_ = argBool_.getStruct();
-        if (!(str_ instanceof BooleanStruct)) {
+        if (!(argBool_ instanceof BooleanStruct)) {
             return;
         }
-        Argument arg_;
-        if (BooleanStruct.isTrue(str_)) {
+        Struct arg_;
+        if (BooleanStruct.isTrue(argBool_)) {
             arg_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument();
         } else {
             arg_ = chidren_.last().getArgument();

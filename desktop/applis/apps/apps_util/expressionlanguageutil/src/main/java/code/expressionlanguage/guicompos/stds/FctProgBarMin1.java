@@ -14,7 +14,7 @@ public final class FctProgBarMin1 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         ProgressBarStruct inst_ = (ProgressBarStruct) _instance;
-        inst_.setMinimum(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.setMinimum(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

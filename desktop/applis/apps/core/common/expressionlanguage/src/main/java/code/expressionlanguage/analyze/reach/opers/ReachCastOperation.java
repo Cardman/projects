@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -25,46 +24,46 @@ public final class ReachCastOperation extends ReachMethodOperation implements Re
         if (className.contains("#")) {
             return;
         }
-        Argument arg_ = getFirstChild().getArgument();
+        Struct arg_ = getFirstChild().getArgument();
         if (AnaTypeUtil.isPrimitive(className, _page)) {
             checkNull(arg_, _page);
         }
         AnaClassArgumentMatching cl_ = new AnaClassArgumentMatching(className, _page.getPrimitiveTypes());
-        Argument after_ = new Argument(NumParsers.convertObject(cl_.getUnwrapObjectNb(), arg_.getStruct()));
+        Struct after_ = NumParsers.convertObject(cl_.getUnwrapObjectNb(), arg_);
         Mapping m_= new Mapping();
         m_.setParam(className);
         m_.setArg("");
-        if (after_.getStruct() instanceof StringStruct) {
+        if (after_ instanceof StringStruct) {
             m_.setArg(_page.getAliasString());
         }
-        if (after_.getStruct() instanceof DoubleStruct) {
+        if (after_ instanceof DoubleStruct) {
             m_.setArg(_page.getAliasDouble());
         }
-        if (after_.getStruct() instanceof FloatStruct) {
+        if (after_ instanceof FloatStruct) {
             m_.setArg(_page.getAliasFloat());
         }
-        if (after_.getStruct() instanceof LongStruct) {
+        if (after_ instanceof LongStruct) {
             m_.setArg(_page.getAliasLong());
         }
-        if (after_.getStruct() instanceof IntStruct) {
+        if (after_ instanceof IntStruct) {
             m_.setArg(_page.getAliasInteger());
         }
-        if (after_.getStruct() instanceof ShortStruct) {
+        if (after_ instanceof ShortStruct) {
             m_.setArg(_page.getAliasShort());
         }
-        if (after_.getStruct() instanceof CharStruct) {
+        if (after_ instanceof CharStruct) {
             m_.setArg(_page.getAliasCharacter());
         }
-        if (after_.getStruct() instanceof ByteStruct) {
+        if (after_ instanceof ByteStruct) {
             m_.setArg(_page.getAliasByte());
         }
-        if (after_.getStruct() instanceof BooleanStruct) {
+        if (after_ instanceof BooleanStruct) {
             m_.setArg(_page.getAliasBoolean());
         }
-        if (after_.getStruct() instanceof ReplacementStruct) {
+        if (after_ instanceof ReplacementStruct) {
             m_.setArg(_page.getAliasReplacement());
         }
-        if (after_.getStruct() instanceof ClassMetaInfo) {
+        if (after_ instanceof ClassMetaInfo) {
             m_.setArg(_page.getAliasClassType());
         }
         if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {

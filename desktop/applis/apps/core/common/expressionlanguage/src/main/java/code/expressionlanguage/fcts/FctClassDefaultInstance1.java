@@ -30,7 +30,7 @@ public final class FctClassDefaultInstance1 extends FctClassDefaultInstanceAbs {
         ExecRootBlock root_ = (ExecRootBlock) type_;
         ExecFormattedRootBlock formType_ = new ExecFormattedRootBlock(root_, className_);
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct par_ = argumentWrappers_.get(0).getValue().getStruct();
+        Struct par_ = argumentWrappers_.get(0).getValue();
         if (root_.withoutInstance()) {
             par_ = NullStruct.NULL_VALUE;
         } else {

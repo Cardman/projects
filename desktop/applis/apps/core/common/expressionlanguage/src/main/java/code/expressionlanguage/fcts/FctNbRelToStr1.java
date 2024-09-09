@@ -22,7 +22,7 @@ public final class FctNbRelToStr1 implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(str(argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct()));
+        return new ArgumentWrapper(str(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue()));
     }
 
     private static Struct str(Struct _arg, Struct _radix) {

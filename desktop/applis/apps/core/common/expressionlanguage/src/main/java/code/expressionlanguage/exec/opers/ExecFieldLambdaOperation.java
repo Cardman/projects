@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
@@ -28,14 +27,14 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         ExecFormattedRootBlock ownerType_ = formatVarType(_stack);
         String clArg_ = formatVarTypeRes(_stack);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaFieldContent,previous_, ownerType_, clArg_));
+        Struct res_ = newLambda(getLambdaCommonContent(),lambdaFieldContent,previous_, ownerType_, clArg_);
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field, Argument _previous, ExecFormattedRootBlock _ownerType,
+    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field, Struct _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg) {
         String formCl_ = _ownerType.getFormatted();
         ClassField classField_ = _field.getClassField();

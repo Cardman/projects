@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -19,12 +18,12 @@ public final class FctFieldSetField extends FctReflection {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         FieldMetaInfo field_ = (FieldMetaInfo) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct inst_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct val_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct inst_ = argumentWrappers_.get(0).getValue();
+        Struct val_ = argumentWrappers_.get(1).getValue();
         if (!field_.isInvokable()) {
             _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,field_, _stackCall)));
         } else {
-            _stackCall.setCallingState(new CustomReflectSetField(new DirectParentRetriever(inst_), field_, new Argument(val_), false, 0));
+            _stackCall.setCallingState(new CustomReflectSetField(new DirectParentRetriever(inst_), field_, val_, false, 0));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

@@ -1,13 +1,12 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
+import code.expressionlanguage.utilcompo.MemInputFiles;
 import code.gui.*;
-
-
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.stream.BytesInfo;
@@ -250,7 +249,7 @@ public final class SimpleFilesFrame extends GroupFrame implements TestableFrame,
         commonExecution.finish(_infos, _evolved);
     }
 
-    public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
+    public void setResults(ContextEl _ctx, Struct _res, LgNamesWithNewAliases _evolved) {
         commonExecution.setResults(_ctx, _res, _evolved);
     }
 

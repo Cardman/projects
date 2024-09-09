@@ -15,7 +15,7 @@ public final class FctCheckBoxRemoveAction implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CheckBoxStruct pl_ = (CheckBoxStruct) _instance;
-        pl_.removeActionListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
+        pl_.removeActionListener(_firstArgs.getArgumentWrappers().get(0).getValue(),_stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

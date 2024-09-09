@@ -1,9 +1,12 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.stream.BytesInfo;
 
 public final class MemoryProgressingTests extends ProgressingTestsAbs {
@@ -18,7 +21,7 @@ public final class MemoryProgressingTests extends ProgressingTestsAbs {
     }
 
     @Override
-    public void setResults(ContextEl _ctx, ExecutingOptions _ex, Argument _res, LgNamesWithNewAliases _evolved) {
+    public void setResults(ContextEl _ctx, ExecutingOptions _ex, Struct _res, LgNamesWithNewAliases _evolved) {
         exportedReport = exportedResults(_ctx,_ex, _res, _evolved);
     }
 

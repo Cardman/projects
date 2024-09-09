@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
+import code.expressionlanguage.structs.Struct;
 
 public final class DefaultExiting implements AbstractExiting {
     private final ContextEl context;
@@ -19,7 +20,7 @@ public final class DefaultExiting implements AbstractExiting {
     }
 
     @Override
-    public boolean hasToExit(StackCall _stack, GeneType _className, Argument _arg) {
+    public boolean hasToExit(StackCall _stack, GeneType _className, Struct _arg) {
         CallingState state_ = state(_stack, _className, _arg);
         if (state_ instanceof NotInitializedClass) {
             context.getLocks().initClass(((NotInitializedClass)state_).getRootBlock());
@@ -32,7 +33,7 @@ public final class DefaultExiting implements AbstractExiting {
     }
 
     @Override
-    public CallingState state(StackCall _stack, GeneType _className, Argument _arg) {
+    public CallingState state(StackCall _stack, GeneType _className, Struct _arg) {
         return MetaInfoUtil.state(context,_className,_arg,_stack);
     }
 }

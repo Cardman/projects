@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.ExecHelper;
@@ -8,6 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -16,6 +16,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -43,40 +44,38 @@ public final class ExecAbstractInvokingConstructor extends ExecSettableCallFctOp
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecOperationNode main_ = ExecHelper.getMainNode(this);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, main_);
-        Argument mainArgument_ = Argument.getNullableValue(pair_.getArgument());
+        Struct mainArgument_ = ArgumentListCall.getNull(pair_.getArgument());
         if (getIndexChild() == 1) {
             //init and test
-            Struct lda_ = ExecInheritsAdv.checkObject(_conf.getStandards().getContent().getReflect().getAliasFct(), mainArgument_.getStruct(), _conf, _stack);
+            Struct lda_ = ExecInheritsAdv.checkObject(_conf.getStandards().getContent().getReflect().getAliasFct(), mainArgument_, _conf, _stack);
             if (_conf.callsOrException(_stack)) {
-                setResult(Argument.createVoid(), _conf, _nodes, _stack);
+                setResult(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
                 return;
             }
             String form_ = _stack.formatVarType(className);
             Struct struct_ = ExecCastOperation.wrapFct(form_, true, _conf, lda_);
-            Argument ref_ = new Argument(ExecInheritsAdv.checkObject(form_, struct_, _conf, _stack));
+            Struct ref_ = ExecInheritsAdv.checkObject(form_, struct_, _conf, _stack);
             if (_conf.callsOrException(_stack)) {
-                setResult(Argument.createVoid(), _conf, _nodes, _stack);
+                setResult(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
                 return;
             }
             pair_.setArgument(ref_);
             ExecFormattedRootBlock superClass_ = StackCall.formatVarType(_stack,getFormattedType());
             prep(_conf, _stack, ref_, superClass_, buildInfos(_nodes), getInvokingConstructorContent(), getPair());
-            Argument res_ = Argument.createVoid();
-            setResult(res_, _conf, _nodes, _stack);
+            setResult(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
             return;
         }
-        Argument arg_;
+        Struct arg_;
         if (getParent() == null) {
-            arg_ = _stack.getLastPage().getGlobalArgument();
+            arg_ = _stack.getLastPage().getGlobalStruct();
         } else {
             arg_ = mainArgument_;
         }
         ExecFormattedRootBlock superClass_ = StackCall.formatVarType(_stack,getFormattedType());
         prep(_conf, _stack, arg_, superClass_, buildInfos(_nodes), getInvokingConstructorContent(), getPair());
-        Argument res_ = Argument.createVoid();
-        setResult(res_, _conf, _nodes, _stack);
+        setResult(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
     }
-    public static void prep(ContextEl _conf, StackCall _stack, Argument _arg, ExecFormattedRootBlock _superClass, CustList<ExecOperationInfo> _infos, ExecInvokingConstructorContent _invokingConstructorContent, ExecTypeFunction _pair) {
+    public static void prep(ContextEl _conf, StackCall _stack, Struct _arg, ExecFormattedRootBlock _superClass, CustList<ExecOperationInfo> _infos, ExecInvokingConstructorContent _invokingConstructorContent, ExecTypeFunction _pair) {
         String lastType_ = ExecInherits.quickFormat(_superClass, _invokingConstructorContent.getLastType());
         new DefaultParamChecker(_pair, fectchArgs(lastType_, _invokingConstructorContent.getNaturalVararg(), _conf, _stack, _infos), MethodAccessKind.INSTANCE, CallPrepareState.CTOR).checkParams(_superClass, _arg, null, _conf, _stack);
     }

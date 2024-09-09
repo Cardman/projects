@@ -18,7 +18,7 @@ public final class FctWindowSetRemove implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         WindowSetStruct ins_ = (WindowSetStruct)_instance;
-        ins_.remove(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),true);
+        ins_.remove(_firstArgs.getArgumentWrappers().get(0).getValue(),true);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

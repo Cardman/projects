@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecHelper;
@@ -32,13 +31,13 @@ public final class ExecCastOperation extends ExecMethodOperation implements Atom
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
+        CustList<Struct> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _stack);
-        Struct str_ = ExecHelper.getFirstArgument(arguments_).getStruct();
+        Struct str_ = ExecHelper.getFirstArgument(arguments_);
         String paramName_ = _stack.formatVarType(typeCheckContent.getClassName());
         Struct objArg_ = wrapFct(paramName_,false, _conf, str_);
         Struct conv_ = ExecInheritsAdv.checkObject(paramName_, objArg_, _conf, _stack);
-        setSimpleArgument(new Argument(conv_), _conf, _nodes, _stack);
+        setSimpleArgument(conv_, _conf, _nodes, _stack);
     }
 
     public static Struct wrapFct(String _className, boolean _full, ContextEl _conf, Struct _objArg) {

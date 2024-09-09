@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -21,6 +20,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendNativeFct;
 import code.formathtml.exec.RendStackCall;
@@ -45,7 +45,7 @@ public abstract class RendDynOperationNode {
         parent = _parent;
     }
 
-    public static ArgumentWrapper processCall(Argument _res, ContextEl _context, RendStackCall _stackCall) {
+    public static ArgumentWrapper processCall(Struct _res, ContextEl _context, RendStackCall _stackCall) {
         StackCall stackCall_ = _stackCall.getStackCall();
         CallingState callingState_ = stackCall_.getCallingState();
         ArgumentWrapper res_;
@@ -78,9 +78,9 @@ public abstract class RendDynOperationNode {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        Argument last_ = Argument.getNullableValue(pair_.getArgument());
+        Struct last_ = ArgumentListCall.getNull(pair_.getArgument());
         byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
-        if ((content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) && last_.isNull()) {
+        if ((content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) && last_ == NullStruct.NULL_VALUE) {
             LgNames stds_ = _context.getStandards();
             String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
             setRelativeOffsetPossibleLastPage(_rendStackCall);
@@ -88,33 +88,32 @@ public abstract class RendDynOperationNode {
             return;
         }
         if (unwrapObjectNb_ > -1) {
-            Argument arg_ = new Argument(NumParsers.unwrapObject(unwrapObjectNb_, last_.getStruct()));
-            pair_.setArgument(arg_);
+            pair_.setArgument(NumParsers.unwrapObject(unwrapObjectNb_, last_));
         }
     }
 
-    public Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendStackCall _rendStackCall) {
-        Argument previous_;
+    public Struct getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendStackCall _rendStackCall) {
+        Struct previous_;
         if (_possible.isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument(_nodes, this);
         } else {
-            previous_ = _rendStackCall.getLastPage().getGlobalArgument();
+            previous_ = _rendStackCall.getLastPage().getGlobalStruct();
         }
         return previous_;
     }
-    public static CustList<Argument> getArguments(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendMethodOperation _method) {
-        CustList<Argument> a_ = new CustList<Argument>();
+    public static CustList<Struct> getArguments(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendMethodOperation _method) {
+        CustList<Struct> a_ = new CustList<Struct>();
         for (RendDynOperationNode o: _method.getChildrenNodes()) {
             a_.add(getArgument(_nodes, o));
         }
         return a_;
     }
-    protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
-        return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgument());
+    protected static Struct getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
+        return ArgumentListCall.getNull(getArgumentPair(_nodes,_node).getArgument());
     }
 
-    protected static Argument getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
-        return Argument.getNullableValue(_nodes.getValue(_node.getOrder()).getPreviousArgument());
+    protected static Struct getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
+        return ArgumentListCall.getNull(_nodes.getValue(_node.getOrder()).getPreviousArgument());
     }
 
     public final RendMethodOperation getParent() {
@@ -133,7 +132,7 @@ public abstract class RendDynOperationNode {
         return content.getIndexChild();
     }
 
-    public final Argument getArgument() {
+    public final Struct getArgument() {
         return content.getArgument();
     }
 
@@ -152,36 +151,32 @@ public abstract class RendDynOperationNode {
     }
 
     public final void setSimpleArgument(Struct _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
-        setSimpleArgument(ArgumentListCall.toStr(_argument),_nodes,_context,_rendStackCall);
-    }
-
-    public final void setSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
         setQuickConvertSimpleArgument(_argument, _nodes, _context, _rendStackCall);
         setNextSiblingsArg(_nodes, _context, _rendStackCall);
     }
 
-    protected final void setQuickNoConvertSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+    protected final void setQuickNoConvertSimpleArgument(Struct _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setQuickSimpleArgument(_argument, _nodes, _context, _rendStack);
     }
-    protected final void setQuickConvertSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+    protected final void setQuickConvertSimpleArgument(Struct _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setQuickSimpleArgument(_argument, _nodes, _context, _rendStack);
     }
-    private void setQuickSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+    private void setQuickSimpleArgument(Struct _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         if (_context.callsOrException(_rendStack.getStackCall())) {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         pair_.argumentImpl(_argument);
         if (!implicitsTest.isEmpty()) {
-            Argument res_ = tryConvert(implicitsTest, _argument, _context, _rendStack);
+            Struct res_ = tryConvert(implicitsTest, _argument, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
-            Struct nRes_ = Argument.getNull(res_.getStruct());
+            Struct nRes_ = ArgumentListCall.getNull(res_);
             pair_.argumentTest(BooleanStruct.isTrue(nRes_));
             RendMethodOperation parent_ = getParent();
             if (isTestContext(parent_)) {
-                calcArg(_nodes,new Argument(nRes_));
+                calcArg(_nodes,nRes_);
                 return;
             }
         } else {
@@ -200,21 +195,21 @@ public abstract class RendDynOperationNode {
         defCalcArg(_argument, _nodes, _context, _rendStack, _argument);
     }
 
-    private void defCalcArg(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _out) {
-        Argument out_ = _out;
+    private void defCalcArg(Struct _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Struct _out) {
+        Struct out_ = _out;
         if (!implicits.isEmpty()) {
-            Argument res_ = tryConvert(implicits, out_, _context, _rendStack);
+            Struct res_ = tryConvert(implicits, out_, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
             out_ = res_;
         }
         if (content.getResultClass().isConvertToString()){
-            Struct res_ = processString(ArgumentListCall.toStr(_argument), _context, _rendStack);
+            Struct res_ = processString(_argument, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
-            out_ = ArgumentListCall.toStr(res_);
+            out_ = res_;
         }
         calcArg(_nodes, out_);
     }
@@ -223,7 +218,7 @@ public abstract class RendDynOperationNode {
         return _parent == null || _parent instanceof RendRefTernaryOperation;
     }
 
-    protected void calcArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _out) {
+    protected void calcArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Struct _out) {
         RendPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             _nodes.getValue(n_.getOrder()).setPreviousArgument(_out);
@@ -231,14 +226,13 @@ public abstract class RendDynOperationNode {
         _nodes.getValue(getOrder()).setArgument(_out);
     }
 
-    static Argument tryConvert(ImplicitMethods _i, Argument _argument, ContextEl _context, RendStackCall _rend) {
+    static Struct tryConvert(ImplicitMethods _i, Struct _argument, ContextEl _context, RendStackCall _rend) {
         ExecTypeFunction c_ = _i.get(0);
         ExecFormattedRootBlock format_ = StackCall.formatVarType(_rend, _i.getOwnerClass());
-        CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
-        ExecTemplates.wrapAndCall(new ExecOverrideInfo(format_,c_), Argument.createVoid(),_context,_rend.getStackCall(),ArgumentListCall.wrapCall(args_));
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(format_,c_), NullStruct.NULL_VALUE,_context,_rend.getStackCall(),new ArgumentListCall(ArgumentListCall.getNull(_argument)));
         ArgumentWrapper res_ = tryGetValue(_context, _rend, null);
         if (res_ == null) {
             return null;
@@ -248,25 +242,25 @@ public abstract class RendDynOperationNode {
 
     public static Struct processString(Struct _argument, ContextEl _context, RendStackCall _stackCall) {
         RendNativeFct nat_ = new RendNativeFct();
-        Argument out_ = new Argument(_argument);
+        Struct out_ = _argument;
         out_ = IndirectCalledFctUtil.processString(out_, _context, _stackCall.getStackCall());
         return result(nat_,_stackCall, _context, out_);
     }
 
-    public static Struct processRandCode(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
+    public static Struct processRandCode(Struct _argument, ContextEl _context, RendStackCall _stackCall) {
         RendNativeFct nat_ = new RendNativeFct();
-        Argument out_ = new Argument(_argument.getStruct());
+        Struct out_ = _argument;
         out_ = IndirectCalledFctUtil.processRandCode(out_, _context, _stackCall.getStackCall());
         return result(nat_,_stackCall,_context, out_);
     }
 
-    private static Struct result(NativeFct _nat,RendStackCall _st, ContextEl _context, Argument _out) {
+    private static Struct result(NativeFct _nat,RendStackCall _st, ContextEl _context, Struct _out) {
         boolean convert_ = _st.getStackCall().getCallingState() instanceof CustomFoundMethod;
-        ArgumentWrapper aw_ = tryGetValue(_context, _st, new ArgumentWrapper(ArgumentListCall.toStr(_out)));
-        Argument out_ = null;
+        ArgumentWrapper aw_ = tryGetValue(_context, _st, new ArgumentWrapper(_out));
+        Struct out_ = null;
         if (aw_ != null) {
             if (convert_) {
-                out_ = new Argument(_nat.compute(aw_.getValue(), _context));
+                out_ = _nat.compute(aw_.getValue(), _context);
             } else {
                 out_ = aw_.getValue();
             }
@@ -274,7 +268,7 @@ public abstract class RendDynOperationNode {
         if (aw_ == null) {
             return null;
         }
-        return ArgumentListCall.toStr(Argument.getNullableValue(out_));
+        return ArgumentListCall.getNull(out_);
     }
     public static ArgumentWrapper tryGetValue(ContextEl _context, RendStackCall _stackCall, ArgumentWrapper _def) {
         StackCall stackCall_ = _stackCall.getStackCall();
@@ -327,7 +321,7 @@ public abstract class RendDynOperationNode {
     public static ArgumentsPair getArgumentPair(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, int _order) {
         if (!_nodes.isValidIndex(_order)) {
             ArgumentsPair pair_ = new ArgumentsPair();
-            pair_.setArgument(Argument.createVoid());
+            pair_.setArgument(NullStruct.NULL_VALUE);
             return pair_;
         }
         return _nodes.getValue(_order);

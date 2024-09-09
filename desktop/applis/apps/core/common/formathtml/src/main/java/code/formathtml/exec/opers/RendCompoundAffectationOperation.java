@@ -1,13 +1,14 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 import code.util.StringList;
@@ -24,25 +25,25 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
         staticPostEltContent = _staticPostEltContent;
     }
 
-    static void process(RendCompoundAffectationOperation _curr, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _res) {
-        Argument res_ = _res;
+    static void process(RendCompoundAffectationOperation _curr, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Struct _res) {
+        Struct res_ = _res;
         ImplicitMethods converter_ = _curr.getConverter();
         if (!converter_.isEmpty()) {
-            Argument conv_ = tryConvert(converter_, res_, _context, _rendStack);
+            Struct conv_ = tryConvert(converter_, res_, _context, _rendStack);
             if (conv_ == null) {
                 return;
             }
             res_ = conv_;
         }
-        Argument leftArg_ = firstArg(_curr, _nodes);
+        Struct leftArg_ = firstArg(_curr, _nodes);
         _curr.calculateChSetting(_nodes, res_, _context, _rendStack);
-        Argument arg_ = getPrePost(_curr.isStaticPostEltContent(),leftArg_, res_);
+        Struct arg_ = getPrePost(_curr.isStaticPostEltContent(),leftArg_, res_);
 //        Argument arg_ = endCalculate(_nodes,leftArg_, res_, _advStandards, _context, _rendStack,isStaticPostEltContent());
         _curr.setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 
-    static Argument getPrePost(boolean _post, Argument _stored, Argument _right) {
-        Argument a_ = _right;
+    static Struct getPrePost(boolean _post, Struct _stored, Struct _right) {
+        Struct a_ = _right;
         if (_post) {
             a_ = _stored;
         }
@@ -52,13 +53,13 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
     @Override
     protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, getSettableAnc());
-        Argument leftArg_ = Argument.getNullableValue(argumentPair_.getArgument());
+        Struct leftArg_ = ArgumentListCall.getNull(argumentPair_.getArgument());
         if (argumentPair_.isArgumentTest()){
             if (ExecCompoundAffectationOperation.sh(operatorContent)) {
                 setSimpleArgument(leftArg_, _nodes, _context, _rendStack);
                 return;
             }
-            Argument arg_ = calculateChSetting(_nodes, leftArg_, _context, _rendStack);
+            Struct arg_ = calculateChSetting(_nodes, leftArg_, _context, _rendStack);
             setSimpleArgument(arg_, _nodes, _context, _rendStack);
             return;
         }

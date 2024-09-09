@@ -14,7 +14,7 @@ public final class FctAtomicRefLazy extends FctAtomicAbs {
     @Override
     protected ArgumentWrapper atomic(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractAtomicRef<Struct> re_ = ((AtomicRefStruct) _instance).getInstance();
-        re_.lazySet(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        re_.lazySet(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

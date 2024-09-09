@@ -16,7 +16,7 @@ public final class FctGrListAdd2 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        _stackCall.setCallingState(new AddRowGraphicListState((GraphicListStruct)_instance, ((GraphicListStruct)_instance).getGrList().size(),argumentWrappers_.get(0).getValue().getStruct()));
+        _stackCall.setCallingState(new AddRowGraphicListState((GraphicListStruct)_instance, ((GraphicListStruct)_instance).getGrList().size(),argumentWrappers_.get(0).getValue()));
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -17,8 +16,8 @@ public final class FctStringBuilderAppend0 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringBuilderStruct inst_ = (StringBuilderStruct) _instance;
-        Struct arr_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
-        append(inst_,ExecCatOperation.getDisplayable(new Argument(arr_),_cont),_stackCall);
+        Struct arr_ = _firstArgs.getArgumentWrappers().get(0).getValue();
+        append(inst_,ExecCatOperation.getDisplayable(arr_,_cont),_stackCall);
         return new ArgumentWrapper(inst_);
     }
 

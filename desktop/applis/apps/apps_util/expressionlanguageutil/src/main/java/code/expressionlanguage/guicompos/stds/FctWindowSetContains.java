@@ -17,6 +17,6 @@ public final class FctWindowSetContains implements StdCaller {
 //            return new ArgumentWrapper(NullStruct.NULL_VALUE);
 //        }
         WindowSetStruct ins_ = (WindowSetStruct)_instance;
-        return new ArgumentWrapper(ins_.contains(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(ins_.contains(_firstArgs.getArgumentWrappers().get(0).getValue()));
     }
 }

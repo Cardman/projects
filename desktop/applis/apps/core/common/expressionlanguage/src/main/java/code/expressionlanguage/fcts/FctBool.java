@@ -21,7 +21,7 @@ public final class FctBool implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(common(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont.getStandards().getDisplayedStrings()));
+        return new ArgumentWrapper(common(_firstArgs.getArgumentWrappers().get(0).getValue(),_cont.getStandards().getDisplayedStrings()));
     }
 
     public static Struct common(Struct _arg, DisplayedStrings _dis) {

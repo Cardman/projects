@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ErrorType;
@@ -29,7 +28,7 @@ public abstract class FctMath implements StdCaller {
 
     protected static boolean matchNotNull(ContextEl _cont, Struct _seed, String _type) {
         return _seed != NullStruct.NULL_VALUE
-                && ExecInherits.safeObject(_type, Argument.getNull(_seed).getClassName(_cont), _cont) == ErrorType.NOTHING;
+                && ExecInherits.safeObject(_type, ArgumentListCall.getNull(_seed).getClassName(_cont), _cont) == ErrorType.NOTHING;
     }
     protected abstract ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall);
 }

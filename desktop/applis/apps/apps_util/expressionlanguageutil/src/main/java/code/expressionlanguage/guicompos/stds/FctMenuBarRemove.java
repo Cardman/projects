@@ -14,7 +14,7 @@ public final class FctMenuBarRemove implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         MenuBarStruct inst_ = (MenuBarStruct)_instance;
-        inst_.remove(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.remove(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

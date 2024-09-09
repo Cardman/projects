@@ -1,6 +1,5 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -13,9 +12,7 @@ public final class SimplePageEl {
     public Struct getGlobalStruct() {
         return content.getGlobalStruct();
     }
-    public Argument getGlobalArgument() {
-        return content.getGlobalArgument();
-    }
+
     public void setGlobalArgumentStruct(Struct _obj) {
         content.setGlobalArgumentStruct(_obj);
     }

@@ -1,6 +1,5 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -52,7 +51,7 @@ public abstract class RendInput extends RendElement {
         return finalArg_;
     }
 
-    public void prStack(Configuration _cont, Element _write, DefFetchedObjs _fetch, Argument _globalArgument, RendStackCall _rend) {
+    public void prStack(Configuration _cont, Element _write, DefFetchedObjs _fetch, Struct _globalArgument, RendStackCall _rend) {
         prStack(_cont, _write, fieldUpdates, _fetch, _globalArgument, _rend);
     }
     static String idRad(CustList<RendDynOperationNode> _args, ContextEl _ctx, RendStackCall _rendStackCall) {

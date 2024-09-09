@@ -1,9 +1,9 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -20,7 +20,7 @@ public final class RenderExpUtil {
         if (all_.isEmpty()) {
             return null;
         }
-        return Argument.getNull(all_.lastValue().getArgument().getStruct());
+        return ArgumentListCall.getNull(all_.lastValue().getArgument());
     }
     public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, ContextEl _ctx, RendStackCall _rendStackCall) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
@@ -40,7 +40,7 @@ public final class RenderExpUtil {
             o.setRelativeOffsetPossibleLastPage(_rendStackCall);
             ArgumentsPair pair_ = arguments_.getValue(fr_);
             if (!(o instanceof RendCalculableOperation)) {
-                Argument a_ = Argument.getNullableValue(o.getArgument());
+                Struct a_ = ArgumentListCall.getNull(o.getArgument());
                 o.setSimpleArgument(a_, arguments_, _ctx, _rendStackCall);
                 fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
             } else if (pair_.getArgument() != null) {
@@ -62,13 +62,12 @@ public final class RenderExpUtil {
         if (_context.callsOrException(_stackCall.getStackCall())) {
             return _max;
         }
-        Argument res_ = Argument.getNullableValue(_pair.getArgument());
-        Struct st_ = res_.getStruct();
+        Struct res_ = ArgumentListCall.getNull(_pair.getArgument());
         if (isAncSettable(_o) &&_pair.isArgumentTest()){
             RendMethodOperation par_ = _o.getParent();
             return par_.getOrder();
         }
-        return getNextIndex(_o, st_);
+        return getNextIndex(_o, res_);
     }
     private static boolean isAncSettable(RendDynOperationNode _oper) {
         RendMethodOperation par_ = _oper.getParent();

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -30,7 +29,7 @@ public final class ExecDirectStandardInstancingOperation extends
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        Argument res_ = ParamCheckerUtil.instancePrepareStd(_conf, instancingCommonContent.getConstructor(), instancingCommonContent.getConstId(), fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), _conf,_stack, buildInfos(_nodes)), _stack).getValue();
+        Struct res_ = ParamCheckerUtil.instancePrepareStd(_conf, instancingCommonContent.getConstructor(), instancingCommonContent.getConstId(), fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), _conf,_stack, buildInfos(_nodes)), _stack).getValue();
         setCheckedResult(res_, _conf, _nodes, _stack);
     }
     @Override

@@ -1,8 +1,9 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ConditionBlock;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
 import code.util.IdMap;
 
@@ -19,8 +20,8 @@ public final class ReachDoWhileCondition extends ReachCondition {
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
-        Argument arg_ = getArgument();
-        boolean proc_ = Argument.isTrueValue(arg_);
+        Struct arg_ = getArgument();
+        boolean proc_ = ArgumentListCall.isTrueValue(arg_);
         if (!proc_ && _anEl.canCompleteNormallyGroup(last_)) {
             abr_ = false;
         }

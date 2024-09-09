@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -14,6 +13,7 @@ import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.structs.NullStruct;
 
 public final class StaticCallAccessOperation extends LeafOperation {
     private ResolvedInstance partOffsets;
@@ -73,8 +73,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             partOffsets = new ResolvedInstance();
         }
         checkClassAccess(glClass_, classStr_, _page);
-        Argument a_ = new Argument();
-        setSimpleArgument(a_);
+        setSimpleArgument(NullStruct.NULL_VALUE);
         setResultClass(new AnaClassArgumentMatching(classStr_));
     }
 

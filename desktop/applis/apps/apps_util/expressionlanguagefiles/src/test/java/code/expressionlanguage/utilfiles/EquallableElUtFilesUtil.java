@@ -3,13 +3,18 @@ package code.expressionlanguage.utilfiles;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.MessagesCdmBase;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.GuiProcess;
 import code.expressionlanguage.stds.DfInstancer;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.MemInputFiles;
+import code.expressionlanguage.utilcompo.MessagesExecutingOptions;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.Rate;
@@ -211,7 +216,7 @@ public abstract class EquallableElUtFilesUtil {
     }
 
     public static Struct value(ArgumentWrapper _a) {
-        return _a.getValue().getStruct();
+        return _a.getValue();
     }
     public static FileInfos newFileInfos(AbstractLightProgramInfos _light) {
         return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)), _light.getZipFact(), _light.getThreadFactory());

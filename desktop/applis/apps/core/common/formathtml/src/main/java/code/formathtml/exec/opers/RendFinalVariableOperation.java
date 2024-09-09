@@ -1,11 +1,11 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -21,7 +21,7 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _rendStack);
-        Argument arg_ = ExecVariableTemplates.getIndexLoop(_context, variableContent, _rendStack.getPageEl().getCache(), _rendStack.getPageEl().getVars(), _rendStack.getStackCall());
+        Struct arg_ = ExecVariableTemplates.getIndexLoop(_context, variableContent, _rendStack.getPageEl().getCache(), _rendStack.getPageEl().getVars(), _rendStack.getStackCall());
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

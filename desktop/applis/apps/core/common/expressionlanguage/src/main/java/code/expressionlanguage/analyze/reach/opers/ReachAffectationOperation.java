@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.DeclaredFieldOperation;
@@ -26,10 +25,9 @@ public final class ReachAffectationOperation extends ReachMethodOperation implem
         }
         DeclaredFieldOperation fieldRef_ = (DeclaredFieldOperation) settable;
         ReachOperationNode lastChild_ = getChildrenNodes().last();
-        Argument value_ = lastChild_.getArgument();
+        Struct value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldIdReadOnly();
-        Struct str_ = value_.getStruct();
-        NumParsers.getStaticFieldMap(id_.getClassName(), _page.getStaticFields()).set(id_.getFieldName(), str_);
+        NumParsers.getStaticFieldMap(id_.getClassName(), _page.getStaticFields()).set(id_.getFieldName(), value_);
         setSimpleArgument(value_);
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
@@ -36,7 +35,7 @@ public final class CommonExecution {
         progTestBar.setDoneTestsCount(((AtomicIntegerStruct)done_).getInstance().get()+"/"+((NumberStruct)count_).longStruct());
         progTestBar.setCurrent(((AtomicIntegerStruct)done_).getInstance().get());
         progTestBar.setCalls(((NumberStruct)calls_).longStruct());
-        progTestBar.setCurrentMethod(ExecCatOperation.getString(new Argument(method_),_ctx));
+        progTestBar.setCurrentMethod(ExecCatOperation.getString(method_,_ctx));
     }
     public void finish(Struct _infos, LgNamesWithNewAliases _evolved) {
         String infoTest_ = _evolved.getExecContent().getCustAliases().getAliasInfoTest();
@@ -46,12 +45,11 @@ public final class CommonExecution {
         progTestBar.achieve();
     }
 
-    public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
-        if (!_res.isNull()) {
-            Struct results_ = _res.getStruct();
+    public void setResults(ContextEl _ctx, Struct _res, LgNamesWithNewAliases _evolved) {
+        if (_res != NullStruct.NULL_VALUE) {
             String tableCl_ = _evolved.getExecContent().getCustAliases().getAliasTable();
             String listTable_ = _evolved.getExecContent().getCustAliases().getAliasListTa();
-            Struct list_ = ((FieldableStruct)results_).getEntryStruct(new ClassField(tableCl_,listTable_)).getStruct();
+            Struct list_ = ((FieldableStruct) _res).getEntryStruct(new ClassField(tableCl_,listTable_)).getStruct();
             String listCl_ = _evolved.getExecContent().getCustAliases().getAliasList();
             String arrList_ = _evolved.getExecContent().getCustAliases().getAliasArrayLi();
             Struct array_ = ((FieldableStruct)list_).getEntryStruct(new ClassField(listCl_,arrList_)).getStruct();
@@ -70,7 +68,7 @@ public final class CommonExecution {
                 Struct method_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairFirst_)).getStruct();
                 Struct result_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairSecond_)).getStruct();
                 resultRow_.setNumber(i);
-                resultRow_.setMethod(ExecCatOperation.getString(new Argument(method_),_ctx));
+                resultRow_.setMethod(ExecCatOperation.getString(method_,_ctx));
                 Struct params_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasParams_)).getStruct();
                 resultRow_.setMethodParams(((StringStruct)params_).getInstance());
                 Struct success_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasSuccess_)).getStruct();

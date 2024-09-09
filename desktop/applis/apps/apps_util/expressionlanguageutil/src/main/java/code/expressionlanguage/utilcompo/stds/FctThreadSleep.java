@@ -28,7 +28,7 @@ public final class FctThreadSleep implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(arg_ instanceof NumberStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

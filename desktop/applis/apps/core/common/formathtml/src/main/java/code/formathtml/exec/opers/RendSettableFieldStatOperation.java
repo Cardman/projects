@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -9,6 +8,8 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -25,9 +26,9 @@ public final class RendSettableFieldStatOperation extends
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         offset(_rendStack);
-        Argument result_;
+        Struct result_;
         if (resultCanBeSet()) {
-            result_ = Argument.createVoid();
+            result_ = NullStruct.NULL_VALUE;
         } else {
             String fieldType_ = getRealType();
             ClassField fieldId_ = getClassField();
@@ -37,7 +38,7 @@ public final class RendSettableFieldStatOperation extends
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
+    public Struct calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Struct _right, ContextEl _context, RendStackCall _rendStack) {
         if (_context.callsOrException(_rendStack.getStackCall())) {
             return _right;
         }
@@ -45,7 +46,7 @@ public final class RendSettableFieldStatOperation extends
         //Come from code directly so constant static fields can be initialized here
         String fieldType_ = getRealType();
         ClassField fieldId_ = getClassField();
-        Argument arg_ = ExecFieldTemplates.setStaticField(fieldType_, _right, _context, _rendStack.getStackCall(), fieldId_);
+        Struct arg_ = ExecFieldTemplates.setStaticField(fieldType_, _right, _context, _rendStack.getStackCall(), fieldId_);
         return RendDynOperationNode.processCall(arg_, _context, _rendStack).getValue();
     }
 

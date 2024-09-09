@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.BreakPointOutputInfo;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.util.StringMap;
@@ -86,6 +85,6 @@ public final class ProcessDbgWatchesTest extends ProcessDbgCommon {
         BreakPointOutputInfo logs_ = conditionalStdViewLogsWacthes("", "{static class Sec{public int v=2;}return new Sec();}", "src/file.txt", 50, "pkg.Ex", "me", files_, false, 0, false, true);
         assertNull(logs_.getWatchResults().getWatchedTrace());
         assertEq("pkg.Ex..Sec+1",logs_.getWatchResults().getWatchedObject().getClassName(logs_.getWatchResults().getSubContext()));
-        assertEq(2, getNumber(ArgumentListCall.toStr(ExecFieldTemplates.getInstanceField(ArgumentListCall.toStr(logs_.getWatchResults().getWatchedObject()),logs_.getWatchResults().getSubContext(), StackCall.newInstance(InitPhase.NOTHING,logs_.getWatchResults().getSubContext()),new ClassField("pkg.Ex..Sec+1","v")))));
+        assertEq(2, getNumber(ExecFieldTemplates.getInstanceField(logs_.getWatchResults().getWatchedObject(),logs_.getWatchResults().getSubContext(), StackCall.newInstance(InitPhase.NOTHING,logs_.getWatchResults().getSubContext()),new ClassField("pkg.Ex..Sec+1","v"))));
     }
 }

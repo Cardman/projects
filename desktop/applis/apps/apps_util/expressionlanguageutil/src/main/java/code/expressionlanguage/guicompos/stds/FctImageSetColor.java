@@ -18,7 +18,7 @@ public final class FctImageSetColor implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ImageStruct image_ = (ImageStruct) _instance;
-        image_.setColor(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        image_.setColor(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

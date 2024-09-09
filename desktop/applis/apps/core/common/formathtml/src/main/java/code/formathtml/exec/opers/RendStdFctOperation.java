@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
@@ -8,6 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStdFctContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -23,7 +23,7 @@ public final class RendStdFctOperation extends RendSettableCallFctOperation impl
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
+        Struct previous_ = getPreviousArg(this, _nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(ParamCheckerUtil.prep(_context,_rendStack.getStackCall(),previous_,buildInfos(_nodes), getStdFctContent()), _context, _rendStack);

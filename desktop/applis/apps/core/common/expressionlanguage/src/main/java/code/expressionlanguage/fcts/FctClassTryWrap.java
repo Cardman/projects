@@ -12,7 +12,7 @@ public final class FctClassTryWrap extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         ClassMetaInfo instanceClass_ = (ClassMetaInfo) _instance;
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         return new ArgumentWrapper(instanceClass_.tryWrap(_cont,arg_));
     }
 }

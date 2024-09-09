@@ -1,7 +1,6 @@
 package code.expressionlanguage.guicompos.stds;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -26,10 +25,10 @@ public final class FctCompoRepaint implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Argument arg_ = new Argument(_instance);
-        CustList<Argument> args_ = new CustList<Argument>(arg_);
-        ArgumentListCall argList_ = ArgumentListCall.wrapCall(args_);
-        ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(guiEx.getPairPaintMethod().getType(),aliasPaint),guiEx.getPairPaintMethod()), Argument.createVoid(), _cont, _stackCall, argList_);
+        ArgumentWrapper arg_ = new ArgumentWrapper(_instance);
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(arg_);
+        ArgumentListCall argList_ = new ArgumentListCall(args_);
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(guiEx.getPairPaintMethod().getType(),aliasPaint),guiEx.getPairPaintMethod()), NullStruct.NULL_VALUE, _cont, _stackCall, argList_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

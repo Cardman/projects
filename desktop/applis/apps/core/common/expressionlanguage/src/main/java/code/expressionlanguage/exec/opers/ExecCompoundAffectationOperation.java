@@ -1,15 +1,16 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.symbol.SymbolConstants;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -30,13 +31,13 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         if (argumentPair_.isArgumentTest()){
             pair_.setIndexImplicitConv(-1);
-            Argument tow_ = Argument.getNullableValue(argumentPair_.getArgument());
+            Struct tow_ = ArgumentListCall.getNull(argumentPair_.getArgument());
             if (sh(getOperatorContent())) {
                 pair_.setEndCalculate(true);
                 setSimpleArgument(tow_, _conf, _nodes, _stack);
                 return;
             }
-            Argument arg_ = calculateChSetting(_nodes, _conf, tow_, _stack);
+            Struct arg_ = calculateChSetting(_nodes, _conf, tow_, _stack);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
@@ -51,14 +52,14 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
                                           ContextEl _conf, StackCall _stack);
 
     @Override
-    public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
+    public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _right, StackCall _stack) {
         end(this,_conf,_nodes,_right,_stack,converter,staticPostEltContent);
     }
 
-    protected static void end(ExecAbstractAffectOperation _current, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack, ImplicitMethods _impl, boolean _post) {
+    protected static void end(ExecAbstractAffectOperation _current, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _right, StackCall _stack, ImplicitMethods _impl, boolean _post) {
         _current.setRelOffsetPossibleLastPage(_current.getOperatorContent().getOpOffset(), _stack);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,_current);
-        Argument stored_ = firstArg(_current,_nodes);
+        Struct stored_ = firstArg(_current,_nodes);
         int indexImplicit_ = pair_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(_impl,indexImplicit_)) {
             pair_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,_right, _impl,indexImplicit_, _stack));
@@ -66,21 +67,21 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
         }
         if (!pair_.isEndCalculate()) {
             _current.calculateChSetting(_nodes, _conf,_right, _stack);
-            Argument arg_ = getPrePost(_post, stored_, _right);
+            Struct arg_ = getPrePost(_post, stored_, _right);
 //            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, _current.getSettable(), _post, _stack);
             _current.setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
         if (pair_.isIndexer()) {
-            Argument out_ = callIndexer(_right, pair_, stored_, _post);
+            Struct out_ = callIndexer(_right, pair_, stored_, _post);
             _current.setSimpleArgument(out_, _conf, _nodes, _stack);
             return;
         }
         _current.setSimpleArgument(_right, _conf, _nodes, _stack);
     }
 
-    static Argument callIndexer(Argument _right, ArgumentsPair _pair, Argument _stored, boolean _post) {
-        Argument out_;
+    static Struct callIndexer(Struct _right, ArgumentsPair _pair, Struct _stored, boolean _post) {
+        Struct out_;
         if (!_pair.isCalledIndexer()) {
             _pair.setCalledIndexer(true);
             out_ = getPrePost(_post, _stored, _right);
@@ -90,7 +91,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
         return out_;
     }
 
-    static Argument getPrePost(boolean _post, Argument _stored, Argument _right) {
+    static Struct getPrePost(boolean _post, Struct _stored, Struct _right) {
         if (_post) {
             return _stored;
         }

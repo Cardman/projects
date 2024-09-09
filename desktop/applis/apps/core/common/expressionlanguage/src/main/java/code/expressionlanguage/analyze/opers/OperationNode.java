@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
@@ -30,6 +29,7 @@ import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.structs.Struct;
 import code.util.*;
 import code.util.core.*;
 
@@ -3381,11 +3381,11 @@ public abstract class OperationNode {
         return content.getIndexChild();
     }
 
-    public final Argument getArgument() {
+    public final Struct getArgument() {
         return content.getArgument();
     }
 
-    public final void setSimpleArgument(Argument _argument) {
+    public final void setSimpleArgument(Struct _argument) {
         content.setArgument(_argument);
     }
 

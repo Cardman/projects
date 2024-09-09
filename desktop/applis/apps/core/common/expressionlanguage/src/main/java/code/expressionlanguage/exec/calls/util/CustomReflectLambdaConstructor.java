@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.Struct;
@@ -9,14 +8,14 @@ public final class CustomReflectLambdaConstructor extends AbstractReflectElement
 
     private final ConstructorMetaInfo gl;
 
-    private final Argument argument;
+    private final Struct argument;
     private final ArgumentListCall array;
     private final int ref;
     public CustomReflectLambdaConstructor(ConstructorMetaInfo _gl,
                                           Struct _struct, ArgumentListCall _array, int _r) {
         super(true);
         gl = _gl;
-        argument = new Argument(_struct);
+        argument = _struct;
         array = _array;
         ref = _r;
     }
@@ -29,7 +28,7 @@ public final class CustomReflectLambdaConstructor extends AbstractReflectElement
         return ref;
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
 

@@ -22,7 +22,7 @@ public final class FctTableSetRowCount implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TableStruct inst_ = (TableStruct) _instance;
-        Struct r_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct r_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         int[] arr_ = inst_.setRowCount(r_, _stackCall);
         notif(_stackCall,inst_,arr_, id + ":" + ((NumberStruct)r_).intStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);

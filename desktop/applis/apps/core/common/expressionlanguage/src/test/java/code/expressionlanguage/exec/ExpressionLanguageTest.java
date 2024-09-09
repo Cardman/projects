@@ -7,15 +7,14 @@ import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.CommonMethodPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -6249,7 +6248,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static Struct tryToCalculate(ContextEl _conf, ExecFieldBlock _f, StackCall _stackCall) {
-        return ArgumentListCall.toStr(ExecHelperBlocks.tryToCalculate(_conf, 0,_stackCall,_f.getElementContent().getOpValue(), 0, _f,-1));
+        return ExecHelperBlocks.tryToCalculate(_conf, 0,_stackCall,_f.getElementContent().getOpValue(), 0, _f,-1);
     }
 
     private static ExecFieldBlock fetchInstanceField(ExecRootBlock _cl) {

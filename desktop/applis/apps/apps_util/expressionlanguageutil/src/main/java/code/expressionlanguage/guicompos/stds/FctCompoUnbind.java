@@ -14,8 +14,8 @@ public final class FctCompoUnbind implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustComponentStruct inst_ = (CustComponentStruct)_instance;
-        Struct a_ = ArgumentListCall.toStr(_firstArgs.getArgumentWrappers().get(0).getValue());
-        Struct b_ = ArgumentListCall.toStr(_firstArgs.getArgumentWrappers().get(1).getValue());
+        Struct a_ = _firstArgs.getArgumentWrappers().get(0).getValue();
+        Struct b_ = _firstArgs.getArgumentWrappers().get(1).getValue();
         inst_.unregisterKeyboardAction(a_,b_,_stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

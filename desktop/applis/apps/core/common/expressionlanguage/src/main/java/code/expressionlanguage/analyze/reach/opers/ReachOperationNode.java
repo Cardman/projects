@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.*;
@@ -9,6 +8,8 @@ import code.expressionlanguage.analyze.symbols.AnaOperCat;
 import code.expressionlanguage.analyze.symbols.AnaOperDir;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class ReachOperationNode {
 
@@ -196,30 +197,31 @@ public abstract class ReachOperationNode {
         this.nextSibling = _nextSibling;
     }
 
-    public final Argument getArgument() {
+    public final Struct getArgument() {
         return getInfo().getArgument();
     }
 
-    public final void setSimpleArgument(Argument _argument) {
+    public final void setSimpleArgument(Struct _argument) {
         getInfo().setSimpleArgument(_argument);
     }
 
-    public final void setSimpleArgumentAna(Argument _argument) {
+    public final void setSimpleArgumentAna(Struct _argument) {
         setArgAna(this, _argument);
     }
-    private static void setArgAna(ReachOperationNode _op, Argument _argument) {
+    private static void setArgAna(ReachOperationNode _op, Struct _argument) {
         setNextArgument(_op, _argument);
         byte unwrapObjectNb_ = _op.info.getResultClass().getUnwrapObjectNb();
         if (unwrapObjectNb_ > -1) {
-            if (_argument.isNull()) {
+            if (_argument == NullStruct.NULL_VALUE) {
                 return;
             }
-            _argument.setStruct(NumParsers.unwrapObject(unwrapObjectNb_, _argument.getStruct()));
+            _op.setSimpleArgument(NumParsers.unwrapObject(unwrapObjectNb_, _argument));
+            return;
         }
         _op.setSimpleArgument(_argument);
     }
 
-    static void setNextArgument(ReachOperationNode _op, Argument _argument) {
+    static void setNextArgument(ReachOperationNode _op, Struct _argument) {
         ReachPossibleIntermediateDotted n_ = _op.getSiblingSet();
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
@@ -230,8 +232,8 @@ public abstract class ReachOperationNode {
         return siblingSet;
     }
 
-    void checkNull(Argument _arg, AnalyzedPageEl _page) {
-        if (Argument.isNullValue(_arg)) {
+    void checkNull(Struct _arg, AnalyzedPageEl _page) {
+        if (_arg == NullStruct.NULL_VALUE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(_page);

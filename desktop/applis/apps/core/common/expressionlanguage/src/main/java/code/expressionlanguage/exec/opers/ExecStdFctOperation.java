@@ -1,12 +1,10 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ArgumentList;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -27,10 +25,10 @@ public final class ExecStdFctOperation extends ExecSettableCallFctOperation impl
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         int off_ = StringUtil.getFirstPrintableCharIndex(stdFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        Argument res_ = ParamCheckerUtil.prep(_conf, _stack, previous_, buildInfos(_nodes), stdFctContent);
+        Struct res_ = ParamCheckerUtil.prep(_conf, _stack, previous_, buildInfos(_nodes), stdFctContent);
         setCheckedResult(res_, _conf, _nodes, _stack);
     }
     @Override
@@ -45,7 +43,7 @@ public final class ExecStdFctOperation extends ExecSettableCallFctOperation impl
 
     @Override
     public Struct instance(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _stack) {
-        return ArgumentListCall.toStr(getPreviousArg(this, _nodes, _stack));
+        return getPreviousArg(this, _nodes, _stack);
     }
 
     public String cl() {

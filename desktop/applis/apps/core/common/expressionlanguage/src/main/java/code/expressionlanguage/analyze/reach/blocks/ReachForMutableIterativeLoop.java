@@ -1,11 +1,12 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReachForMutableIterativeLoop extends ReachForLabelled implements ReachBreakableBlock,ReachBuildableElMethod,ReachAbruptGroup {
 
@@ -44,15 +45,15 @@ public final class ReachForMutableIterativeLoop extends ReachForLabelled impleme
         if (mut.isAlwaysTrue()) {
             return true;
         }
-        Argument arg_ = mut.getArgument();
-        return Argument.isNotFalseValue(arg_);
+        Struct arg_ = mut.getArgument();
+        return ArgumentListCall.isNotFalseValue(arg_);
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
         boolean proc_ = true;
         if (!mut.isAlwaysTrue()) {
-            Argument arg_ = mut.getArgument();
-            proc_ = Argument.isTrueValue(arg_);
+            Struct arg_ = mut.getArgument();
+            proc_ = ArgumentListCall.isTrueValue(arg_);
         }
 
         ReachWhileCondition.abrWhileMutable(_anEl,proc_,this);

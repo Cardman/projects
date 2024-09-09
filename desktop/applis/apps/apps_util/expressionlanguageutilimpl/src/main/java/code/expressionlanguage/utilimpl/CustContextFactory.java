@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.guicompos.GuiAliases;
@@ -103,7 +102,7 @@ public final class CustContextFactory {
                 infos_.getReporter().coverFile(_exec, f.getKey(), f.getValue());
             }
         }
-        _progressingTests.setResults(rCont_,_exec,ArgumentListCall.toStr(arg_), _definedLgNames);
+        _progressingTests.setResults(rCont_,_exec,arg_, _definedLgNames);
     }
     public static void reportErrors(Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
         if (_options.isGettingErrors()) {

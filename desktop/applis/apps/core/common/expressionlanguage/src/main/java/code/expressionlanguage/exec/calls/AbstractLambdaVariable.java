@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl {
 
@@ -41,7 +41,7 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         checkField = false;
         if (!calledAfter) {
             setWrapException(false);
-            Argument arg_ = calculate(_context, _stack);
+            Struct arg_ = calculate(_context, _stack);
             calledAfter = true;
             if (_context.callsOrException(_stack)) {
                 possibleWrap(_stack);
@@ -84,6 +84,6 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         return checkingParent;
     }
 
-    abstract Argument calculate(ContextEl _context, StackCall _stack);
+    abstract Struct calculate(ContextEl _context, StackCall _stack);
 
 }

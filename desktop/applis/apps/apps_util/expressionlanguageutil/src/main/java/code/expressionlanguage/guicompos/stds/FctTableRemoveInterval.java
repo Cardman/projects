@@ -22,8 +22,8 @@ public final class FctTableRemoveInterval implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TableStruct inst_ = (TableStruct) _instance;
         CustList<ArgumentWrapper> rw_ = _firstArgs.getArgumentWrappers();
-        Struct a_ = rw_.get(0).getValue().getStruct();
-        Struct l_ = rw_.get(1).getValue().getStruct();
+        Struct a_ = rw_.get(0).getValue();
+        Struct l_ = rw_.get(1).getValue();
         if (NumberUtil.signum(((NumberStruct)a_).intStruct())+NumberUtil.signum(((NumberStruct)l_).intStruct()) < 2) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

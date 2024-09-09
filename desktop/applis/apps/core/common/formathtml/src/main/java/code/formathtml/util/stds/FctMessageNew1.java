@@ -20,7 +20,7 @@ public final class FctMessageNew1 implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        String value_ = NumParsers.getString(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).getInstance();
+        String value_ = NumParsers.getString(_firstArgs.getArgumentWrappers().get(0).getValue()).getInstance();
         return new ArgumentWrapper(MessageStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
     }
 }

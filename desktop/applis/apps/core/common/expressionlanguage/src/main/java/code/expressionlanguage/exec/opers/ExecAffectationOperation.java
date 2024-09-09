@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
@@ -9,6 +8,8 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -26,11 +27,11 @@ public final class ExecAffectationOperation extends ExecAbstractAffectOperation 
             ArgumentsPair pairRight_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1));
             AbstractPageEl ip_ = _stack.getLastPage();
             ip_.getRefParams().put(((ExecStdRefVariableOperation) getSettable()).getVariableName(), ExecTemplates.getWrap(pairRight_.getWrapper()));
-            setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
+            setQuickNoConvertSimpleArgument(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
             return;
         }
-        Argument rightArg_ = getLastArgument(_nodes, this);
-        Argument arg_ = calculateChSetting(_nodes, _conf, rightArg_, _stack);
+        Struct rightArg_ = getLastArgument(_nodes, this);
+        Struct arg_ = calculateChSetting(_nodes, _conf, rightArg_, _stack);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

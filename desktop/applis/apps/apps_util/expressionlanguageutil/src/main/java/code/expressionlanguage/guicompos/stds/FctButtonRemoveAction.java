@@ -15,7 +15,7 @@ public final class FctButtonRemoveAction implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbsButtonStruct pl_ = (AbsButtonStruct) _instance;
-        pl_.removeActionListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
+        pl_.removeActionListener(_firstArgs.getArgumentWrappers().get(0).getValue(),_stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

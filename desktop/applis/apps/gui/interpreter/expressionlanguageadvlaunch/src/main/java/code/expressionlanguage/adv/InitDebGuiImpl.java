@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
@@ -16,6 +15,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.utilcompo.AbsResultContextNext;
 import code.gui.*;
@@ -89,7 +89,6 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
             setStackCall(null);
             _res.getContext().getInterrupt().set(false);
             getStoppedClick().set(false);
-            Argument argGlLoc_ = new Argument();
             Parameters p_ = new Parameters();
             String name_ = res_.first().getParametersName(0);
             String argType_ = StringExpUtil.getPrettyArrayType(_res.getPageEl().getAliasString());
@@ -101,7 +100,7 @@ public final class InitDebGuiImpl extends AbsDebuggerGui {
                 arr_.set(i, new StringStruct(e_.getValue()));
             }
             p_.getRefParameters().addEntry(name_,new VariableWrapper(LocalVariable.newLocalVariable(arr_, argType_)));
-            return new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(type_, idCl_), new ExecTypeFunction(type_, res_.first()), p_);
+            return new CustomFoundMethod(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(type_, idCl_), new ExecTypeFunction(type_, res_.first()), p_);
         }
         return null;
     }

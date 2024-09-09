@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -21,13 +21,12 @@ public final class ReachInstancingOperation extends ReachInvokingOperation {
         if (!allAreDefined(this)) {
             return;
         }
-        CustList<Argument> firstArgs_ = getArguments();
-        Struct out_ = AnaApplyCoreMethodUtil.newAnalyzisInstanceStd(constructor, _page, Argument.toArgArray(firstArgs_));
+        CustList<Struct> firstArgs_ = getArguments();
+        Struct out_ = AnaApplyCoreMethodUtil.newAnalyzisInstanceStd(constructor, _page, ArgumentListCall.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
         }
-        Argument arg_ = new Argument(out_);
-        setSimpleArgumentAna(arg_);
+        setSimpleArgumentAna(out_);
     }
 
 

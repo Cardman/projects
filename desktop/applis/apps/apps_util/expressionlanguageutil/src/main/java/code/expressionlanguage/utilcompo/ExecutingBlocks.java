@@ -1,6 +1,5 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.*;
@@ -103,26 +102,26 @@ public final class ExecutingBlocks {
         LgNamesGui stds_ = (LgNamesGui) _ctx.getStandards();
         String infoTest_ = stds_.getExecContent().getCustAliases().getAliasInfoTest();
         ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, _ctx.getClasses());
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(_ctx,className_, new Argument()),_ctx,StackCall.newInstance(InitPhase.NOTHING,_ctx)).getValue());
+        Struct infoStruct_ = ProcessMethod.calculate(new CustomFoundConstructor(_ctx,className_, NullStruct.NULL_VALUE),_ctx,StackCall.newInstance(InitPhase.NOTHING,_ctx)).getValue();
         ((FieldableStruct)infoStruct_).getEntryStruct(new ClassField(infoTest_,stds_.getExecContent().getCustAliases().getAliasInfoTestNbThreads())).setStruct(new IntStruct(_count));
         return infoStruct_;
     }
     public Struct groupClass(Struct _infoStruct,ContextEl _ctx) {
         ContextEl cpGr_ = _ctx.copy(_ctx.getInterrupt(), NullStruct.NULL_VALUE);
         ExecTypeFunction pairGrCl_ = getGroupClassPair();
-        return ArgumentListCall.toStr(Argument.getNullableValue(EventStruct.invoke(NullStruct.NULL_VALUE,
-                cpGr_, pairGrCl_, StackCall.newInstance(InitPhase.NOTHING,cpGr_), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(_infoStruct))))));
+        return ArgumentListCall.getNull(EventStruct.invoke(NullStruct.NULL_VALUE,
+                cpGr_, pairGrCl_, StackCall.newInstance(InitPhase.NOTHING,cpGr_), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(_infoStruct)))));
     }
     public Struct groupClassMethod(Struct _infoStruct, Struct _gr,ContextEl _ctx) {
         ContextEl cpNext_ = _ctx.copy(_ctx.getInterrupt(),NullStruct.NULL_VALUE);
         ExecTypeFunction pairGrClTes_ = getGroupClassMethodPair();
-        return ArgumentListCall.toStr(Argument.getNullableValue(EventStruct.invoke(NullStruct.NULL_VALUE,
-                cpNext_, pairGrClTes_, StackCall.newInstance(InitPhase.NOTHING,cpNext_), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(_infoStruct),new ArgumentWrapper(_gr))))));
+        return ArgumentListCall.getNull(EventStruct.invoke(NullStruct.NULL_VALUE,
+                cpNext_, pairGrClTes_, StackCall.newInstance(InitPhase.NOTHING,cpNext_), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(_infoStruct),new ArgumentWrapper(_gr)))));
     }
     public Struct executeTests(Struct _infoStruct, Struct _gr,ContextEl _ctx) {
         ExecTypeFunction pair_ = getExecuteMethodPair();
-        return ArgumentListCall.toStr(Argument.getNullableValue(EventStruct.invoke(NullStruct.NULL_VALUE,
-                _ctx, pair_, StackCall.newInstance(InitPhase.NOTHING,_ctx), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(_infoStruct),new ArgumentWrapper(_gr))))));
+        return ArgumentListCall.getNull(EventStruct.invoke(NullStruct.NULL_VALUE,
+                _ctx, pair_, StackCall.newInstance(InitPhase.NOTHING,_ctx), new ArgumentListCall(new CustList<ArgumentWrapper>(new ArgumentWrapper(_infoStruct),new ArgumentWrapper(_gr)))));
     }
     public ExecRootBlock getRunnableType() {
         return runnableType;

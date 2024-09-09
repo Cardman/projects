@@ -10,7 +10,6 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.sml.RendReadWrite;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
@@ -18,6 +17,7 @@ import code.formathtml.util.RendSelectOperators;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
+import code.sml.RendReadWrite;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringMap;
@@ -90,7 +90,7 @@ public final class RendSelect extends RendElement {
         docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrConvertFieldValue());
         docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrConvertValue());
         docElementSelect_.removeAttribute(_cont.getRendKeyWords().getAttrValidator());
-        prStack(_cont,docElementSelect_,defFieldUpdates,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        prStack(_cont,docElementSelect_,defFieldUpdates,def_,_rendStack.getLastPage().getGlobalStruct(),_rendStack);
         return NullStruct.NULL_VALUE;
     }
 

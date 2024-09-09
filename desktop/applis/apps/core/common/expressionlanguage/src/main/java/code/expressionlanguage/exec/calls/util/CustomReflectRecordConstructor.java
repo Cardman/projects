@@ -1,23 +1,23 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class CustomReflectRecordConstructor extends AbstractReflectElement {
 
-    private final Argument instance;
+    private final Struct instance;
     private final ExecRootBlock root;
     private final CustList<ExecNamedFieldContent> namedFields;
     private final ExecFormattedRootBlock className;
-    private final CustList<Argument> arguments;
+    private final CustList<Struct> arguments;
     private final CustList<ExecFormattedRootBlock> ints;
     private final int ref;
 
-    public CustomReflectRecordConstructor(Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className,
-                                          CustList<Argument> _arguments, CustList<ExecFormattedRootBlock> _supInts, int _r) {
+    public CustomReflectRecordConstructor(Struct _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className,
+                                          CustList<Struct> _arguments, CustList<ExecFormattedRootBlock> _supInts, int _r) {
         super(true);
         instance = _instance;
         root = _root;
@@ -28,7 +28,7 @@ public final class CustomReflectRecordConstructor extends AbstractReflectElement
         ref = _r;
     }
 
-    public Argument getInstance() {
+    public Struct getInstance() {
         return instance;
     }
 
@@ -44,7 +44,7 @@ public final class CustomReflectRecordConstructor extends AbstractReflectElement
         return className;
     }
 
-    public CustList<Argument> getArguments() {
+    public CustList<Struct> getArguments() {
         return arguments;
     }
 

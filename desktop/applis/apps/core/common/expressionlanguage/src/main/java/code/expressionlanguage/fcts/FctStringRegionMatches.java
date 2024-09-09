@@ -25,11 +25,11 @@ public final class FctStringRegionMatches implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct three_ = argumentWrappers_.get(2).getValue().getStruct();
-        Struct four_ = argumentWrappers_.get(3).getValue().getStruct();
-        Struct five_ = argumentWrappers_.get(4).getValue().getStruct();
+        Struct one_ = argumentWrappers_.get(0).getValue();
+        Struct two_ = argumentWrappers_.get(1).getValue();
+        Struct three_ = argumentWrappers_.get(2).getValue();
+        Struct four_ = argumentWrappers_.get(3).getValue();
+        Struct five_ = argumentWrappers_.get(4).getValue();
         if (!(three_ instanceof StringStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

@@ -19,7 +19,7 @@ public final class FctNbBoolToStr1 implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(str(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont));
+        return new ArgumentWrapper(str(_firstArgs.getArgumentWrappers().get(0).getValue(),_cont));
     }
 
     public static Struct str(Struct _arg,AnalyzedPageEl _page) {

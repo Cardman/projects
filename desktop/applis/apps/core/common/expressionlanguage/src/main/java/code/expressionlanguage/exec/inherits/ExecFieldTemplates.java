@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -10,6 +9,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.core.StringUtil;
@@ -41,7 +41,7 @@ public final class ExecFieldTemplates {
             _stackCall.getInitializingTypeInfos().addSensibleField(enc_, par_);
             arg_=par_;
         }
-        return Argument.getNull(arg_);
+        return ArgumentListCall.getNull(arg_);
     }
 
     public static Struct getParent(int _nbAncestors, Struct _current) {
@@ -49,14 +49,14 @@ public final class ExecFieldTemplates {
         for (int i = 0; i < _nbAncestors; i++) {
             arg_= arg_.getParent();
         }
-        return Argument.getNull(arg_);
+        return ArgumentListCall.getNull(arg_);
     }
 
     static String getBadCastMessage(String _classNameFound, String _className) {
         return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);
     }
 
-    public static Argument getField(FieldMetaInfo _meta, Argument _previous, ContextEl _conf, StackCall _stackCall) {
+    public static Struct getField(FieldMetaInfo _meta, Struct _previous, ContextEl _conf, StackCall _stackCall) {
         String baseClass_ = _meta.getFormatted().getFormatted();
         baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
         String fieldName_ = _meta.getName();
@@ -70,56 +70,55 @@ public final class ExecFieldTemplates {
         return getInstanceField(_previous, _conf, _stackCall, fieldId_);
     }
 
-    public static Argument getSafeInstanceField(ContextEl _conf, StackCall _stackCall, ClassField _fieldId, Argument _parent) {
+    public static Struct getSafeInstanceField(ContextEl _conf, StackCall _stackCall, ClassField _fieldId, Struct _parent) {
         if (_conf.callsOrException(_stackCall)) {
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         return getInstanceField(_parent, _conf, _stackCall, _fieldId);
     }
 
-    public static Argument getInstanceField(Argument _previous, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+    public static Struct getInstanceField(Struct _previous, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String className_ = _fieldId.getClassName();
-        Struct previous_ = _previous.getStruct();
-        String argClassName_ = previous_.getClassName(_conf);
-        if (!(previous_ instanceof FieldableStruct)) {
-            if (previous_ == NullStruct.NULL_VALUE) {
+        String argClassName_ = _previous.getClassName(_conf);
+        if (!(_previous instanceof FieldableStruct)) {
+            if (_previous == NullStruct.NULL_VALUE) {
                 String npe_;
                 npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-                return Argument.createVoid();
+                return NullStruct.NULL_VALUE;
             }
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(className_, argClassName_), cast_, _stackCall)));
             return _previous;
         }
-        ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(_fieldId);
+        ClassFieldStruct entry_ = ((FieldableStruct) _previous).getEntryStruct(_fieldId);
         if (entry_ == null) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(className_, argClassName_), cast_, _stackCall)));
             return _previous;
         }
         Struct struct_ = entry_.getStruct();
-        _stackCall.getInitializingTypeInfos().addSensibleField(previous_, struct_);
-        return new Argument(struct_);
+        _stackCall.getInitializingTypeInfos().addSensibleField(_previous, struct_);
+        return struct_;
     }
 
-    public static Argument getStaticField(String _ret, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+    public static Struct getStaticField(String _ret, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
         Classes classes_ = _conf.getClasses();
         Struct struct_ = classes_.getStaticField(_fieldId,_ret, _conf);
         String className_ = _fieldId.getClassName();
         _stackCall.getInitializingTypeInfos().addSensibleField(className_, struct_, _stackCall);
-        return new Argument(struct_);
+        return struct_;
     }
 
-    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall) {
+    public static Struct setField(FieldMetaInfo _meta, Struct _previous, Struct _right, ContextEl _conf, StackCall _stackCall) {
         ExecRootBlock declaring_ = _meta.getDeclaring();
         if (declaring_ == null) {
             LgNames stds_ = _conf.getStandards();
             String npe_;
             npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         String baseClass_ = _meta.getFormatted().getFormatted();
         baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
@@ -134,63 +133,62 @@ public final class ExecFieldTemplates {
                 String npe_;
                 npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-                return Argument.createVoid();
+                return NullStruct.NULL_VALUE;
             }
             return setStaticField(type_, _right, _conf, _stackCall, fieldId_);
         }
         return setInstanceField(_previous, _right, _conf, _stackCall, fieldId_, new ExecTypeReturn(declaring_, type_));
     }
 
-    public static Argument setSafeInstanceField(Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex, Argument _parent) {
+    public static Struct setSafeInstanceField(Struct _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex, Struct _parent) {
         if (_conf.callsOrException(_stackCall)) {
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         return setInstanceField(_parent, _right, _conf, _stackCall, _fieldId, _ex);
     }
 
-    public static Argument setInstanceField(Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex) {
+    public static Struct setInstanceField(Struct _previous, Struct _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex) {
         String className_ = _fieldId.getClassName();
         LgNames stds_ = _conf.getStandards();
-        Struct previous_ = _previous.getStruct();
-        String argClassName_ = previous_.getClassName(_conf);
+        String argClassName_ = _previous.getClassName(_conf);
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-        if (!(previous_ instanceof FieldableStruct)) {
-            if (previous_ == NullStruct.NULL_VALUE) {
+        if (!(_previous instanceof FieldableStruct)) {
+            if (_previous == NullStruct.NULL_VALUE) {
                 String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-                return Argument.createVoid();
+                return NullStruct.NULL_VALUE;
             }
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(className_, argClassName_), cast_, _stackCall)));
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
-        ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(_fieldId);
+        ClassFieldStruct entry_ = ((FieldableStruct) _previous).getEntryStruct(_fieldId);
         if (entry_ == null) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(className_, argClassName_), cast_, _stackCall)));
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         String fieldType_ = formatType(_conf, _ex.getRootBlock(), _ex.getReturnType(),argClassName_);
-        if (!ExecInheritsAdv.checkQuick(fieldType_, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
-            return Argument.createVoid();
+        if (!ExecInheritsAdv.checkQuick(fieldType_, _right.getClassName(_conf), _conf, _stackCall)) {
+            return NullStruct.NULL_VALUE;
         }
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(previous_)) {
+        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_previous)) {
             _stackCall.failInitEnums();
             return _right;
         }
-        entry_.setStruct(_right.getStruct());
+        entry_.setStruct(_right);
         return _right;
     }
 
-    public static Argument setStaticField(String _returnType, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+    public static Struct setStaticField(String _returnType, Struct _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
         Classes classes_ = _conf.getClasses();
-        if (!ExecInheritsAdv.checkQuick(_returnType, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
-            return Argument.createVoid();
+        if (!ExecInheritsAdv.checkQuick(_returnType, _right.getClassName(_conf), _conf, _stackCall)) {
+            return NullStruct.NULL_VALUE;
         }
         String className_ = _fieldId.getClassName();
         if (_stackCall.getInitializingTypeInfos().isSensibleField(className_, _stackCall)) {
             _stackCall.failInitEnums();
             return _right;
         }
-        NumParsers.getStaticFieldMap(className_, classes_.getStaticFields()).set(_fieldId.getFieldName(), _right.getStruct());
+        NumParsers.getStaticFieldMap(className_, classes_.getStaticFields()).set(_fieldId.getFieldName(), _right);
         return _right;
     }
 

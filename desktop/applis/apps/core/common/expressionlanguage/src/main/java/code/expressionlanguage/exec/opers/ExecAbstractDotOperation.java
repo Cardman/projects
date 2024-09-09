@@ -1,12 +1,13 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public abstract class ExecAbstractDotOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
@@ -29,7 +30,7 @@ public abstract class ExecAbstractDotOperation extends ExecMethodOperation imple
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, lastNode_);
         ExecHelper.fwdWrapper(pair_,pairCh_);
-        Argument a_ = Argument.getNullableValue(pairCh_.getArgument());
+        Struct a_ = ArgumentListCall.getNull(pairCh_.getArgument());
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stackCall);
         } else {

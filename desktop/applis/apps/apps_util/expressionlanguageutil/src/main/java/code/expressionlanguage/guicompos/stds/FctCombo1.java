@@ -20,6 +20,6 @@ public final class FctCombo1 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, _cont,DfCombo.gene((LgNamesGui) _cont.getStandards(),newList(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()), 0)));
+        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, _cont,DfCombo.gene((LgNamesGui) _cont.getStandards(),newList(_firstArgs.getArgumentWrappers().get(0).getValue()), 0)));
     }
 }

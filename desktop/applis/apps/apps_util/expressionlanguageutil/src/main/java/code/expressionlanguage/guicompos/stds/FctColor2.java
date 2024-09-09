@@ -15,9 +15,9 @@ public class FctColor2 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        int r_ = ((NumberStruct) argumentWrappers_.get(0).getValue().getStruct()).intStruct();
-        int g_ = ((NumberStruct) argumentWrappers_.get(1).getValue().getStruct()).intStruct();
-        int b_ = ((NumberStruct) argumentWrappers_.get(2).getValue().getStruct()).intStruct();
+        int r_ = ((NumberStruct) argumentWrappers_.get(0).getValue()).intStruct();
+        int g_ = ((NumberStruct) argumentWrappers_.get(1).getValue()).intStruct();
+        int b_ = ((NumberStruct) argumentWrappers_.get(2).getValue()).intStruct();
         return new ArgumentWrapper(new ColorStruct(r_,g_,b_));
     }
 }

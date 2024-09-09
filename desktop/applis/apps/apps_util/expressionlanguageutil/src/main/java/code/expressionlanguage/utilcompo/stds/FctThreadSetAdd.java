@@ -20,7 +20,7 @@ public final class FctThreadSetAdd implements StdCaller {
             _stackCall.failInitEnums();
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
         ins_.add(arg_);
         if (!(arg_ instanceof AbsThreadStruct)) {

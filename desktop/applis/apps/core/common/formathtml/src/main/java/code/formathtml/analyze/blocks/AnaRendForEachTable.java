@@ -1,6 +1,5 @@
 package code.formathtml.analyze.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
@@ -22,6 +21,8 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.sml.NavigationCore;
@@ -64,8 +65,8 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         buildEl(_anaDoc, _page);
-        Argument arg_ = root.getArgument();
-        if (Argument.isNullValue(arg_)) {
+        Struct arg_ = root.getArgument();
+        if (arg_ == NullStruct.NULL_VALUE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(tableLoopExpressionContent.getExpressionOffset());

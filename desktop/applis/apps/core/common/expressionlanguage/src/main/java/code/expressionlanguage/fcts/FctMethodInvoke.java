@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ReflectingType;
@@ -32,8 +31,8 @@ public final class FctMethodInvoke extends FctReflection {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         MethodMetaInfo meth_ = (MethodMetaInfo) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct inst_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct args_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct inst_ = argumentWrappers_.get(0).getValue();
+        Struct args_ = argumentWrappers_.get(1).getValue();
         ArrayRefState a_ = ArrayRefState.tryWrap(args_,ref);
         invokeReflect(_cont,_stackCall,meth_,inst_, a_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
@@ -45,7 +44,7 @@ public final class FctMethodInvoke extends FctReflection {
             return;
         }
         if (_method.getStdCallee() != null) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _method, new Argument(_instance), _a));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _method, _instance, _a));
             return;
         }
         if (_method.getPairFct() instanceof ExecAnonymousFunctionBlock || _method.getCallee() instanceof ExecAbstractSwitchMethod) {
@@ -54,7 +53,7 @@ public final class FctMethodInvoke extends FctReflection {
         }
         ExecRootBlock e_ = _method.getPairType();
         if (e_ instanceof ExecAnnotationBlock) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _method, new Argument(_instance), _a));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _method, _instance, _a));
             return;
         }
         afterCheckInvoke(_stackCall, _method, _instance, _a);
@@ -62,10 +61,10 @@ public final class FctMethodInvoke extends FctReflection {
 
     private static void invokeAnon(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, ArrayRefState _a) {
         if (_method.isStaticCall()) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, new Argument(_instance), _a));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, _instance, _a));
             return;
         }
-        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _method, new Argument(_instance), _a));
+        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _method, _instance, _a));
     }
 
     private void afterCheckInvoke(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, ArrayRefState _a) {
@@ -85,27 +84,27 @@ public final class FctMethodInvoke extends FctReflection {
 
     private static void invokeSpec(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, ReflectingType _cast, ReflectingType _meth, ArrayRefState _a) {
         if (_method.isExpCast()) {
-            _stackCall.setCallingState(new CustomReflectMethod(_cast, _method, new Argument(_instance), _a));
+            _stackCall.setCallingState(new CustomReflectMethod(_cast, _method, _instance, _a));
             return;
         }
         if (_method.isStaticCall()) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, new Argument(_instance), _a));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, _instance, _a));
             return;
         }
-        _stackCall.setCallingState(new CustomReflectMethod(_meth, _method, new Argument(_instance), _a));
+        _stackCall.setCallingState(new CustomReflectMethod(_meth, _method, _instance, _a));
     }
 
     private static void defInvoke(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, ArrayRefState _a) {
         ExecRootBlock e_ = _method.getPairType();
         if (e_ != null) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ENUM_METHODS, _method, new Argument(_instance), _a));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ENUM_METHODS, _method, _instance, _a));
             return;
         }
         if (_method.isDirectCast()) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _method, new Argument(_instance), _a));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _method, _instance, _a));
             return;
         }
-        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _method, new Argument(_instance), _a));
+        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _method, _instance, _a));
     }
 
 }

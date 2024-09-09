@@ -6,13 +6,13 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.util.RendSelectOperators;
-import code.sml.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
+import code.formathtml.util.RendSelectOperators;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
+import code.sml.RendReadWrite;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -59,7 +59,7 @@ public final class RendTextArea extends RendElement {
         }
         docElementArea_.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         docElementArea_.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
-        prStack(_cont,docElementArea_,defFieldUpdates,defArea_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        prStack(_cont,docElementArea_,defFieldUpdates,defArea_,_rendStack.getLastPage().getGlobalStruct(),_rendStack);
         return NullStruct.NULL_VALUE;
     }
 }

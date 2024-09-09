@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
@@ -20,6 +19,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.expressionlanguage.structs.Struct;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -49,7 +49,7 @@ public final class FilterContent {
     private final int conditionOffset;
     private EnumBlock enumBlock;
     private final StrTypes offsetsEnum = new StrTypes();
-    private final CustList<Argument> stdValues = new CustList<Argument>();
+    private final CustList<Struct> stdValues = new CustList<Struct>();
     private final CustList<ClassField> enumValues = new CustList<ClassField>();
 
     private final String declaringType;
@@ -252,7 +252,7 @@ public final class FilterContent {
         return offsetsEnum;
     }
 
-    public CustList<Argument> getStdValues() {
+    public CustList<Struct> getStdValues() {
         return stdValues;
     }
 

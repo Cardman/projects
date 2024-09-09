@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
@@ -13,6 +12,7 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -34,19 +34,18 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(staticFctContent.getElts(), _stack);
-        Argument res_ = ParamCheckerUtil.tryInit(_conf,_stack, classNameFound_.getRootBlock());
+        Struct res_ = ParamCheckerUtil.tryInit(_conf,_stack, classNameFound_.getRootBlock());
         if (res_ == null) {
             String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_,staticFctContent);
             prep(_conf, _stack, classNameFound_, staticFctContent, pair, fectchArgs(lastType_, staticFctContent.getNaturalVararg(), _conf, _stack, buildInfos(_nodes)));
-            setResult(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _conf, _nodes, _stack);
+            setResult(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
         } else {
             setResult(res_, _conf, _nodes, _stack);
         }
     }
 
     public static void prep(ContextEl _conf, StackCall _stack, ExecFormattedRootBlock _classNameFound, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, ArgumentListCall _args) {
-        Argument prev_ = new Argument();
-        new MethodParamChecker(_pair, _args, _staticFctContent.getKind()).checkParams(_classNameFound, prev_, null, _conf, _stack);
+        new MethodParamChecker(_pair, _args, _staticFctContent.getKind()).checkParams(_classNameFound, NullStruct.NULL_VALUE, null, _conf, _stack);
     }
 
 

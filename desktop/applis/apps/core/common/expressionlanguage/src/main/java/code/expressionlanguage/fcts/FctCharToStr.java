@@ -19,7 +19,7 @@ public final class FctCharToStr implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(toStr(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(toStr(_firstArgs.getArgumentWrappers().get(0).getValue()));
     }
 
     private Struct toStr(Struct _arg) {

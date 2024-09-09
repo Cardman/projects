@@ -19,6 +19,6 @@ public final class FctResourcesRead implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(ResourcesStruct.getResource(_cont,NumParsers.getString(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct())));
+        return new ArgumentWrapper(ResourcesStruct.getResource(_cont,NumParsers.getString(_firstArgs.getArgumentWrappers().get(0).getValue())));
     }
 }

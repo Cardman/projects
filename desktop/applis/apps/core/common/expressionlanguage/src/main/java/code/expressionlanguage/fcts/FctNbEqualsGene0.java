@@ -19,7 +19,7 @@ public final class FctNbEqualsGene0 implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(sameVal(_instance, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(sameVal(_instance, _firstArgs.getArgumentWrappers().get(0).getValue()));
     }
     public static Struct sameVal(Struct _instance, Struct _other) {
         return BooleanStruct.of(NumParsers.sameValue(_instance, _other));

@@ -20,7 +20,7 @@ public final class FctFileMkdirs extends FctFileAbs {
 
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        String file_ = ((StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).getInstance();
+        String file_ = ((StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).getInstance();
         return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().mkdirs(file_, ((RunnableContextEl) _cont).getCurrentDir())));
     }
 }

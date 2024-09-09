@@ -1,9 +1,9 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.Struct;
 
 public final class CustomFoundExc implements CallingState {
@@ -19,7 +19,7 @@ public final class CustomFoundExc implements CallingState {
     }
 
     public CustomFoundExc(Struct _struct, boolean _fail) {
-        struct = Argument.getNull(_struct);
+        struct = ArgumentListCall.getNull(_struct);
         failInit = _fail;
     }
 

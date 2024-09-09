@@ -27,7 +27,7 @@ public final class FctExecutorService1 implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         AbsLogDbg log_ = _stackCall.getStopper().getLogger();
         if (log_ != null) {
             log_.log(id +":"+NumParsers.convertToNumber(s_).intStruct());

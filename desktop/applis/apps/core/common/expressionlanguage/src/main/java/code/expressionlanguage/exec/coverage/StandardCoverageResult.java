@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.coverage;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.linkage.VariablesOffsets;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
 public final class StandardCoverageResult extends AbstractCoverageResult {
@@ -26,7 +26,7 @@ public final class StandardCoverageResult extends AbstractCoverageResult {
     }
 
     @Override
-    public void cover(Argument _arg) {
+    public void cover(Struct _arg) {
         covered = true;
     }
 

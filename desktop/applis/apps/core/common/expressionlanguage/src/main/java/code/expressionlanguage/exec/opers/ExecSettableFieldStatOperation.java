@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
@@ -10,6 +9,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecSettableFieldStatOperation extends
@@ -30,15 +30,15 @@ public final class ExecSettableFieldStatOperation extends
             offset(_stack);
             ClassField fieldId_ = getSettableFieldContent().getClassField();
             String fieldType_ = getSettableFieldContent().getRealType();
-            Argument arg_ = ExecFieldTemplates.getStaticField(fieldType_, _conf, _stack, fieldId_);
+            Struct arg_ = ExecFieldTemplates.getStaticField(fieldType_, _conf, _stack, fieldId_);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
         }
     }
 
     @Override
-    public Argument calculateSetting(
+    public Struct calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, StackCall _stack) {
+            Struct _right, StackCall _stack) {
         if (_conf.callsOrException(_stack)) {
             return _right;
         }

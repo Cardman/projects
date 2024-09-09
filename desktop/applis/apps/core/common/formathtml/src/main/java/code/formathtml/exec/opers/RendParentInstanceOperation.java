@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -24,9 +23,8 @@ public final class RendParentInstanceOperation extends RendLeafOperation impleme
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(parentInstanceContent.getOff(), _rendStack);
-        Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        Struct struct_ = previous_.getStruct();
-        Argument arg_ = new Argument(ExecClassArgumentMatching.convertFormatted(struct_.getParent(), _context, names,_rendStack.getLastPage()));
+        Struct struct_ = getPreviousArg(this, _nodes, _rendStack);
+        Struct arg_ = ExecClassArgumentMatching.convertFormatted(struct_.getParent(), _context, names,_rendStack.getLastPage());
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

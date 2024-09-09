@@ -23,8 +23,8 @@ public final class FctThreadSetPrio implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        preCall(_stackCall, id+":"+((NumberStruct) _firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct());
-        if (!((AbsThreadStruct) _instance).setPriority(((NumberStruct) _firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct())) {
+        preCall(_stackCall, id+":"+((NumberStruct) _firstArgs.getArgumentWrappers().get(0).getValue()).intStruct());
+        if (!((AbsThreadStruct) _instance).setPriority(((NumberStruct) _firstArgs.getArgumentWrappers().get(0).getValue()).intStruct())) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);

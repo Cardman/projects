@@ -1,11 +1,12 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 import code.util.StringList;
@@ -24,8 +25,8 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        if (getSettableParent() instanceof RendSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
-            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _context, names,_rendStack.getLastPage())), _nodes, _context, _rendStack);
+        if (getSettableParent() instanceof RendSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()) == NullStruct.NULL_VALUE) {
+            setQuickConvertSimpleArgument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _context, names,_rendStack.getLastPage()), _nodes, _context, _rendStack);
             return;
         }
         calculateAffect(_nodes, _context, _rendStack);
@@ -33,12 +34,12 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
 
     protected abstract void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack);
 
-    Argument calculateChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStackCall) {
+    Struct calculateChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Struct _right, ContextEl _context, RendStackCall _rendStackCall) {
         return calculateChSetting(getSettable(),_nodes,_right, _context,_rendStackCall);
     }
-    static Argument calculateChSetting(RendDynOperationNode _set,
-                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStackCall){
-        Argument arg_ = null;
+    static Struct calculateChSetting(RendDynOperationNode _set,
+                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Struct _right, ContextEl _context, RendStackCall _rendStackCall){
+        Struct arg_ = null;
         if (_set instanceof RendStdRefVariableOperation) {
             arg_ = ((RendStdRefVariableOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }
@@ -57,7 +58,7 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         if (_set instanceof RendSettableCallFctOperation) {
             arg_ = ((RendSettableCallFctOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }
-        return Argument.getNullableValue(arg_);
+        return ArgumentListCall.getNull(arg_);
     }
 
     public void setup() {
@@ -135,9 +136,9 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         return elt_;
     }
 
-    protected static Argument firstArg(RendAbstractAffectOperation _current, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+    protected static Struct firstArg(RendAbstractAffectOperation _current, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
         ArgumentsPair pairSet_ = getArgumentPair(_nodes, _current.getSettable());
-        return Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
+        return ArgumentListCall.getNull(pairSet_.getArgumentBeforeImpl());
     }
 
     public RendDynOperationNode getSettableAnc() {

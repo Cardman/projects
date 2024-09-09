@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -29,5 +30,5 @@ public abstract class AbsPrepareCustomEvents {
 
     protected abstract ExecTypeFunction pair(ContextEl _ctx);
 
-    protected abstract CustList<Argument> args();
+    protected abstract CustList<ArgumentWrapper> args();
 }

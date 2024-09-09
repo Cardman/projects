@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
@@ -9,6 +8,7 @@ import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LambdaConstructorStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.Ints;
@@ -31,7 +31,7 @@ public final class LambdaConstructorWithoutInfo extends AbstractBasicReflectPage
             return false;
         }
         checkElement = false;
-        Argument arg_ = initArray(_context,_stack,arguments.getArguments(),lambdaConstructorStruct);
+        Struct arg_ = initArray(_context,_stack,arguments.getArguments(),lambdaConstructorStruct);
         if (_context.callsOrException(_stack)) {
             return false;
         }
@@ -51,19 +51,19 @@ public final class LambdaConstructorWithoutInfo extends AbstractBasicReflectPage
         return checkElement;
     }
 
-    private static Argument initArray(ContextEl _conf, StackCall _stackCall, CustList<Argument> _values, LambdaConstructorStruct _l) {
+    private static Struct initArray(ContextEl _conf, StackCall _stackCall, CustList<Struct> _values, LambdaConstructorStruct _l) {
         Ints dims_ = new Ints();
-        for (Argument a: _values) {
-            int dim_ = NumParsers.convertToNumber(a.getStruct()).intStruct();
+        for (Struct a: _values) {
+            int dim_ = NumParsers.convertToNumber(a).intStruct();
             dims_.add(dim_);
         }
         String c_ = StringUtil.nullToEmpty(_l.getFormClassName());
         Struct res_ = ExecArrayTemplates.newCustomArrayOrExc(c_, dims_, _conf, _stackCall);
         if (res_ instanceof ErrorStruct) {
             _stackCall.setCallingState(new CustomFoundExc(res_));
-            return new Argument();
+            return NullStruct.NULL_VALUE;
         }
-        return new Argument(res_);
+        return res_;
     }
 
 }

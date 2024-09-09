@@ -1,21 +1,21 @@
 package code.expressionlanguage.exec.calls.util;
 
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.structs.Struct;
 
 public final class NotInitializedClass implements CallingState,GlobalClassCallingState {
 
     private final ExecFormattedRootBlock className;
     private final ExecRootBlock rootBlock;
-    private final Argument argument;
+    private final Struct argument;
 
-    public NotInitializedClass(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, Argument _argument) {
+    public NotInitializedClass(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, Struct _argument) {
         className = _className;
         rootBlock = _rootBlock;
         argument = _argument;
@@ -32,7 +32,7 @@ public final class NotInitializedClass implements CallingState,GlobalClassCallin
         return rootBlock;
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
 }

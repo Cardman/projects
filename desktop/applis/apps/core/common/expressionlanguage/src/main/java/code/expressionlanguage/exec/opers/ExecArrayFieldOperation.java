@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
@@ -8,10 +7,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.IdMap;
 
 public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
@@ -22,17 +18,16 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
-        Struct inst_ = previous_.getStruct();
-        int len_ = getLength(inst_, _conf);
-        Argument arg_;
-        if (inst_ instanceof ArrayStruct) {
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        int len_ = getLength(previous_, _conf);
+        Struct arg_;
+        if (previous_ instanceof ArrayStruct) {
             setRelOffsetPossibleLastPage(getOff(), _stack);
-            arg_ = new Argument(new IntStruct(len_));
+            arg_ = new IntStruct(len_);
         } else {
             String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
             _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stack)));
-            arg_ = new Argument();
+            arg_ = NullStruct.NULL_VALUE;
         }
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }

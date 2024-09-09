@@ -16,7 +16,7 @@ public final class FctComboSelectItem implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         GraphicComboStruct inst_ = (GraphicComboStruct) _instance;
-        inst_.selectItem((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.selectItem((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue());
         _stackCall.setCallingState(new AddRowComboState(inst_,"",true));
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

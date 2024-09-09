@@ -21,7 +21,7 @@ public final class DfObj implements DfInstancer {
         Struct previous_ = NullStruct.NULL_VALUE;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         if (!argumentWrappers_.isEmpty()) {
-            previous_ = argumentWrappers_.get(0).getValue().getStruct();
+            previous_ = argumentWrappers_.get(0).getValue();
         }
         return previous_;
     }

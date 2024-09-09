@@ -23,7 +23,7 @@ public final class FctAtomicLong1 implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractAtomicLong at_ = infos.newAtomicLong(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).longStruct());
+        AbstractAtomicLong at_ = infos.newAtomicLong(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).longStruct());
         AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
         return new ArgumentWrapper(std_);
     }

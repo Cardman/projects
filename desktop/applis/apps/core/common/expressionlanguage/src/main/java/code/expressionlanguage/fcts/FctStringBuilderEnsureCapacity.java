@@ -16,7 +16,7 @@ public final class FctStringBuilderEnsureCapacity implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringBuilderStruct inst_ = (StringBuilderStruct) _instance;
-        Struct index_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct index_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         ensureCapacity(inst_, NumParsers.convertToNumber(index_),_stackCall);
         return new ArgumentWrapper(inst_);
     }

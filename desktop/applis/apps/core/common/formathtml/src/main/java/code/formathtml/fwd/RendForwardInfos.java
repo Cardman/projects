@@ -1,6 +1,5 @@
 package code.formathtml.fwd;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
@@ -26,6 +25,7 @@ import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.InternGlobalOperation;
@@ -239,7 +239,7 @@ public final class RendForwardInfos {
     private static RendAbstractCatchEval buildCatchEval(AnaRendCatchEval _f, Forwards _forwards) {
         OperationNode r_ = _f.getFilterContent().getResCondition().getRoot();
         if (!_f.getFilterContent().getImportedClassName().isEmpty()) {
-            return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(), new ExecFilterContent(_f.getOffset(), _f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(),new CustList<Argument>(),new CustList<ClassField>()), _f.isThrowIfGuardError(), _f.isCatchAll());
+            return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(), new ExecFilterContent(_f.getOffset(), _f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(),new CustList<Struct>(),new CustList<ClassField>()), _f.isThrowIfGuardError(), _f.isCatchAll());
         }
         return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(),new ExecFilterContent(_f.getOffset(),"","",_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues()), _f.isThrowIfGuardError(), _f.isCatchAll());
     }
@@ -435,7 +435,7 @@ public final class RendForwardInfos {
         OperationNode r_ = _current.getFilterContent().getResCondition().getRoot();
         RendBlock exec_;
         if (!_current.getFilterContent().getImportedClassName().isEmpty()) {
-            exec_ = new RendAbstractCaseCondition(_current.getOffset(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(), _current.getFilterContent().getImportedClassName(), _current.getVariableName(),new CustList<Argument>(),new CustList<ClassField>());
+            exec_ = new RendAbstractCaseCondition(_current.getOffset(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(), _current.getFilterContent().getImportedClassName(), _current.getVariableName(),new CustList<Struct>(),new CustList<ClassField>());
         } else {
             exec_ = new RendAbstractCaseCondition(_current.getOffset(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(),"","",_current.getFilterContent().getStdValues(), _current.getFilterContent().getEnumValues());
         }

@@ -1,13 +1,11 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.ArgumentList;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -29,25 +27,25 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_= getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct previous_= getPreviousArg(this, _nodes, _stack.getLastPage());
         if (stdMethod == _conf.getStandards().getContent().getReflect().getFctTypeMeta()) {
-            Argument res_ = getMetaInfo(previous_, _conf, _stack);
+            Struct res_ = getMetaInfo(previous_, _conf, _stack);
             setCheckedResult(res_, _conf, _nodes, _stack);
             return;
         }
         if (stdMethod == _conf.getStandards().getContent().getReflect().getFctTypeInstance()) {
-            Argument res_ = getInstanceCall(previous_, _conf, _stack);
+            Struct res_ = getInstanceCall(previous_, _conf, _stack);
             setCheckedResult(res_, _conf, _nodes, _stack);
             return;
         }
         ArgumentList argumentList_ = list(_nodes);
         prepareCallDynNormal(previous_, argumentList_.getArguments(), _conf, _stack);
-        setCheckedResult(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _conf, _nodes, _stack);
+        setCheckedResult(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
     }
 
     @Override
     public Struct instance(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _stack) {
-        return ArgumentListCall.toStr(getPreviousArg(this, _nodes, _stack));
+        return getPreviousArg(this, _nodes, _stack);
     }
     @Override
     public StandardNamedFunction fct() {
@@ -63,7 +61,7 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
         int len_ = ls_.getArguments().getArgumentWrappers().size();
         ArrayStruct arr_ = new ArrayStruct(len_, StringExpUtil.getPrettyArrayType(_alias));
         for (int i = 0; i < len_; i++) {
-            arr_.set(i, ArgumentListCall.toStr(ls_.getArguments().getArgumentWrappers().get(i).getValue()));
+            arr_.set(i, ls_.getArguments().getArgumentWrappers().get(i).getValue());
         }
         ArgumentList merge_ = new ArgumentList();
         merge_.getArguments().getArgumentWrappers().add(new ArgumentWrapper(arr_));

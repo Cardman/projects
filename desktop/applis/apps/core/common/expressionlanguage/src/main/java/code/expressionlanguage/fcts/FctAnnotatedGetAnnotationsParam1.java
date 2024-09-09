@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -18,7 +17,7 @@ public final class FctAnnotatedGetAnnotationsParam1 extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AnnotatedStruct annotated_ = NumParsers.getAnnotated(_instance);
-        _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION_PARAM, annotated_, new CustList<Argument>(_firstArgs.getArgumentWrappers().get(0).getValue())));
+        _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION_PARAM, annotated_, new CustList<Struct>(_firstArgs.getArgumentWrappers().get(0).getValue())));
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

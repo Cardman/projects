@@ -1,12 +1,12 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecCallFctAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -20,10 +20,10 @@ public final class ExecAnnotationMethodOperation extends ExecSettableCallFctOper
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         int off_ = StringUtil.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        Argument res_ = getAnnotation(previous_, callFctAnnotContent.getClassMethodId(), _conf, _stack);
+        Struct res_ = getAnnotation(previous_, callFctAnnotContent.getClassMethodId(), _conf, _stack);
         setResult(res_, _conf, _nodes, _stack);
     }
 

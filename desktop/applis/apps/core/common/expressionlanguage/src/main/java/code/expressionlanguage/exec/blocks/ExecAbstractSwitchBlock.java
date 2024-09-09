@@ -1,11 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
-import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements WithEl {
     private final String label;
@@ -24,10 +23,10 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         ExecHelperBlocks.processSwitch(_cont, _stack, label, value, this);
     }
 
-    protected void processCase(String _label, Argument _arg, StackCall _stack) {
+    protected void processCase(String _label, Struct _arg, StackCall _stack) {
         boolean atMost_ = this instanceof ExecInstanceSwitchBlock;
         SwitchBlockStack sw_ = new SwitchBlockStack(this, atMost_);
-        sw_.setValue(ArgumentListCall.toStr(_arg));
+        sw_.setValue(_arg);
         sw_.setInstanceTest(getInstanceTest());
         sw_.setLabel(_label);
         addStack(sw_, _stack);

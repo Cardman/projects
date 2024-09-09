@@ -23,7 +23,7 @@ public final class FctAtomicInteger1 implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractAtomicInteger at_ = infos.newAtomicInteger(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct());
+        AbstractAtomicInteger at_ = infos.newAtomicInteger(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).intStruct());
         AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
         return new ArgumentWrapper(std_);
     }

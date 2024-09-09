@@ -19,8 +19,8 @@ public final class FctFileWriteBin extends FctFileAbs {
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct name_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct parts_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct name_ = argumentWrappers_.get(0).getValue();
+        Struct parts_ = argumentWrappers_.get(1).getValue();
         String file_ = ((StringStruct)name_).getInstance();
         if (!(parts_ instanceof ArrayStruct)) {
             return new ArgumentWrapper(BooleanStruct.of(false));

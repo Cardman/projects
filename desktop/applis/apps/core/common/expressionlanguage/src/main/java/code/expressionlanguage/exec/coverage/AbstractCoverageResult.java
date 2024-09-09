@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.coverage;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.linkage.VariablesOffsets;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
 public abstract class AbstractCoverageResult {
@@ -31,6 +31,6 @@ public abstract class AbstractCoverageResult {
     }
     public abstract int getCovered();
     public abstract int getFull();
-    public abstract void cover(Argument _arg);
+    public abstract void cover(Struct _arg);
     public abstract void fullCover();
 }

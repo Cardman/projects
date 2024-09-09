@@ -29,7 +29,7 @@ public final class FctCharSeqContains implements AnaStdCaller {
     }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return contains((CharSequenceStruct)_instance,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont,_stackCall);
+        return contains((CharSequenceStruct)_instance,_firstArgs.getArgumentWrappers().get(0).getValue(),_cont,_stackCall);
     }
 
     private static ArgumentWrapper contains(CharSequenceStruct _charSequence, Struct _str, ContextEl _context, StackCall _stackCall) {

@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.TextBlockInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class ConstantStrOperation extends ConstantOperation {
 
@@ -23,7 +23,7 @@ public final class ConstantStrOperation extends ConstantOperation {
         String originalStr_ = getValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String stringType_ = _page.getAliasString();
-        Argument a_ = new Argument(new StringStruct(originalStr_));
+        Struct a_ = new StringStruct(originalStr_);
         setSimpleArgument(a_);
         setResultClass(new AnaClassArgumentMatching(stringType_));
         if (strInfo.isKo()) {

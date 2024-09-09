@@ -1,12 +1,12 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
@@ -18,46 +18,44 @@ public final class ExecVariableTemplates {
     private ExecVariableTemplates() {
     }
 
-    public static Argument getArgValue(AbstractWrapper _w, ContextEl _context, StackCall _stackCall) {
-        return new Argument(getValue(_w, _context, _stackCall));
+    public static Struct getArgValue(AbstractWrapper _w, ContextEl _context, StackCall _stackCall) {
+        return getValue(_w, _context, _stackCall);
     }
 
     public static Struct getValue(AbstractWrapper _w, ContextEl _context, StackCall _stackCall) {
         if (_w == null) {
             return NullStruct.NULL_VALUE;
         }
-        return Argument.getNull(_w.getValue(_stackCall, _context));
+        return ArgumentListCall.getNull(_w.getValue(_stackCall, _context));
     }
 
-    public static Argument getIndexLoop(ContextEl _context, ExecVariableContent _varCont, StackCall _stackCall) {
+    public static Struct getIndexLoop(ContextEl _context, ExecVariableContent _varCont, StackCall _stackCall) {
         return getIndexLoop(_context, _varCont, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
     }
 
-    public static Argument getIndexLoop(ContextEl _context, ExecVariableContent _varCont, Cache _cache, StringMap<LoopVariable> _vars, StackCall _stackCall) {
+    public static Struct getIndexLoop(ContextEl _context, ExecVariableContent _varCont, Cache _cache, StringMap<LoopVariable> _vars, StackCall _stackCall) {
         return getIndexLoop(_context, _varCont.getVariableName(), _varCont.getDeep(), _cache, _vars, _stackCall);
     }
 
-    public static Argument getIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars, StackCall _stackCall) {
+    public static Struct getIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
         if (_cache != null) {
             LoopVariable loopVar_ = _cache.getLoopVar(_val,_deep);
             if (loopVar_ != null) {
                 byte cast_ = ClassArgumentMatching.getPrimitiveCast(loopVar_.getIndexClassName(), _context.getStandards().getPrimTypes());
                 LongStruct str_ = new LongStruct(loopVar_.getIndex());
-                Struct value_ = NumParsers.convertToInt(cast_, str_);
-                return new Argument(value_);
+                return NumParsers.convertToInt(cast_, str_);
             }
         }
         LoopVariable locVar_ = _vars.getVal(_val);
         if (locVar_ == null) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
-            return new Argument(new IntStruct(0));
+            return new IntStruct(0);
         }
         byte cast_ = ClassArgumentMatching.getPrimitiveCast(locVar_.getIndexClassName(), _context.getStandards().getPrimTypes());
         LongStruct str_ = new LongStruct(locVar_.getIndex());
-        Struct value_ = NumParsers.convertToInt(cast_, str_);
-        return new Argument(value_);
+        return NumParsers.convertToInt(cast_, str_);
     }
 
     public static void incrIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars, StackCall _stackCall) {
@@ -81,9 +79,9 @@ public final class ExecVariableTemplates {
         locVar_.setIndex(locVar_.getIndex() + 1);
     }
 
-    public static Argument getWrapValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams, StackCall _stackCall) {
+    public static Struct getWrapValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams, StackCall _stackCall) {
         AbstractWrapper wrapper_ = getWrapper(_val, _deep, _cache, _refParams);
-        return new Argument(getValue(wrapper_, _context, _stackCall));
+        return getValue(wrapper_, _context, _stackCall);
     }
 
     public static AbstractWrapper getWrapper(boolean _set,ExecVariableContent _varCont, StackCall _stack) {
@@ -111,37 +109,37 @@ public final class ExecVariableTemplates {
         return _refParams.getVal(_val);
     }
 
-    public static Argument getValueVar(String _val, StringMap<LocalVariable> _valueVars, ContextEl _context, StackCall _stackCall) {
+    public static Struct getValueVar(String _val, StringMap<LocalVariable> _valueVars, ContextEl _context, StackCall _stackCall) {
         LocalVariable locVar_ = _valueVars.getVal(_val);
         if (locVar_ == null) {
             LgNames stds_ = _context.getStandards();
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
-            return new Argument();
+            return NullStruct.NULL_VALUE;
         }
-        return new Argument(locVar_.getStruct());
+        return locVar_.getStruct();
     }
 
-    public static Argument setWrapValue(ContextEl _context, String _val, Argument _value, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams, StackCall _stackCall) {
+    public static Struct setWrapValue(ContextEl _context, String _val, Struct _value, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams, StackCall _stackCall) {
         AbstractWrapper wr_ = getWrapper(_val,_deep,_cache,_refParams);
         return trySetArgument(_context,_value,wr_, _stackCall);
     }
 
-    public static boolean checkSet(ContextEl _conf, LocalVariable _loc, Argument _right, StackCall _stackCall) {
+    public static boolean checkSet(ContextEl _conf, LocalVariable _loc, Struct _right, StackCall _stackCall) {
         String formattedClassVar_ = _loc.getClassName();
-        if (!ExecInheritsAdv.checkQuick(formattedClassVar_, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
+        if (!ExecInheritsAdv.checkQuick(formattedClassVar_, _right.getClassName(_conf), _conf, _stackCall)) {
             return false;
         }
-        _loc.setStruct(_right.getStruct());
+        _loc.setStruct(_right);
         return true;
     }
 
-    public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair, StackCall _stackCall) {
+    public static Struct trySetArgument(ContextEl _conf, Struct _res, ArgumentsPair _pair, StackCall _stackCall) {
         AbstractWrapper wrapper_ = _pair.getWrapper();
         return trySetArgument(_conf, _res, wrapper_, _stackCall);
     }
 
-    private static Argument trySetArgument(ContextEl _conf, Argument _res, AbstractWrapper _wrapper, StackCall _stackCall) {
+    private static Struct trySetArgument(ContextEl _conf, Struct _res, AbstractWrapper _wrapper, StackCall _stackCall) {
         if (_wrapper == null || _conf.callsOrException(_stackCall)) {
             return _res;
         }

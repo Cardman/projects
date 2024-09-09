@@ -21,7 +21,7 @@ public final class FctImageFillRect implements StdCaller {
         }
         ImageStruct image_ = (ImageStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        image_.fillRect(((NumberStruct)argumentWrappers_.get(0).getValue().getStruct()).intStruct(),((NumberStruct)argumentWrappers_.get(1).getValue().getStruct()).intStruct(),((NumberStruct)argumentWrappers_.get(2).getValue().getStruct()).intStruct(),((NumberStruct)argumentWrappers_.get(3).getValue().getStruct()).intStruct());
+        image_.fillRect(((NumberStruct)argumentWrappers_.get(0).getValue()).intStruct(),((NumberStruct)argumentWrappers_.get(1).getValue()).intStruct(),((NumberStruct)argumentWrappers_.get(2).getValue()).intStruct(),((NumberStruct)argumentWrappers_.get(3).getValue()).intStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

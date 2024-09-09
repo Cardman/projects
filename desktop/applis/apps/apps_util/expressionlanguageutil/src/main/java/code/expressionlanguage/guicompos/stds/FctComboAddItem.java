@@ -16,7 +16,7 @@ public final class FctComboAddItem implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         GraphicComboStruct inst_ = (GraphicComboStruct) _instance;
-        Struct str_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct str_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(str_ instanceof StringStruct)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

@@ -1,15 +1,15 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.*;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.Identifiable;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -39,7 +39,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
             _page.getLocalizer().addError(varg_);
             partOffsetsErr = new InfoErrorDto(varg_,_page,_page.getKeyWords().getKeyWordVararg().length());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            setSimpleArgument(new Argument());
+            setSimpleArgument(NullStruct.NULL_VALUE);
             return;
         }
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
@@ -58,7 +58,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
             RetrieveConstructor f_ = (RetrieveConstructor) m_;
             ctors(f_);
         }
-        setSimpleArgument(new Argument());
+        setSimpleArgument(NullStruct.NULL_VALUE);
     }
 
     private void ctors(RetrieveConstructor _f) {

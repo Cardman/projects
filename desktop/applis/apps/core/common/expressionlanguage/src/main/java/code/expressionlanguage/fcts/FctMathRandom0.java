@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.Classes;
@@ -9,8 +8,10 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.*;
-import code.maths.montecarlo.*;
+import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
 
 public final class FctMathRandom0 extends FctMath {
@@ -30,14 +31,14 @@ public final class FctMathRandom0 extends FctMath {
         Struct seedSpec_ = _stackCall.getSeedSpecDoubleGenerator();
         Classes classes_ = _cont.getClasses();
         if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
-            ExecTemplates.prepare(_cont,_stackCall,seedSpec_,classes_.getSeedDoubleGeneratorPair(),new CustList<Argument>());
+            ExecTemplates.prepare(_cont,_stackCall,seedSpec_,classes_.getSeedDoubleGeneratorPair(),new CustList<ArgumentWrapper>());
         }
         if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         Struct seed_ = _stackCall.getSeed();
         if (matchNotNull(_cont, seed_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
-            ExecTemplates.prepare(_cont,_stackCall,seed_,classes_.getSeedDoubleGeneratorPair(),new CustList<Argument>());
+            ExecTemplates.prepare(_cont,_stackCall,seed_,classes_.getSeedDoubleGeneratorPair(),new CustList<ArgumentWrapper>());
         }
         if (_cont.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

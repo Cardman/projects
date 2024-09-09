@@ -24,7 +24,7 @@ public final class FctTreeGetSelected1 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TreeStruct inst_ = (TreeStruct) _instance;
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         inst_.select(arg_);
         AbsLogDbg logger_ = _stackCall.getStopper().getLogger();
         if (logger_ != null) {

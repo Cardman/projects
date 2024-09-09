@@ -1,11 +1,11 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.DefaultValueOperation;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.ClassArgumentMatching;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReachDefaultValueOperation extends ReachMethodOperation implements ReachCalculable {
 
@@ -22,7 +22,7 @@ public final class ReachDefaultValueOperation extends ReachMethodOperation imple
             return;
         }
         byte cast_ = ClassArgumentMatching.getPrimitiveCast(className, _page.getPrimTypes());
-        Argument a_ = new Argument(NumParsers.convert(cast_));
+        Struct a_ = NumParsers.convert(cast_);
         setSimpleArgumentAna(a_);
     }
 }

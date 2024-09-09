@@ -79,7 +79,7 @@ public final class CallCheckedExecOperationNodeInfos extends CoreCheckedExecOper
     }
 
     public CallCheckedExecOperationNodeInfos(ContextEl _context, AbstractRefectMethodPageEl _s) {
-        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()), _s.getCache());
+        super(ExecFormattedRootBlock.defValue(), _s.getInstance(), _s.getCache());
         this.exit = _s.getCheckedParams() == 2;
         this.args = ArgumentListCall.wrapCall(_s.getArrRef().getArray().listArgs());
         this.poly = new ExecOverrideInfo(_s.getClassName(),_s.getPair());

@@ -18,7 +18,7 @@ public final class FctNbRateSafeAbs extends FctNbRateComAbs {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct parse_ = parseAsInfo(argumentWrappers_.get(0).getValue().getStruct());
+        Struct parse_ = parseAsInfo(argumentWrappers_.get(0).getValue());
         return new ArgumentWrapper(parse_);
     }
 }

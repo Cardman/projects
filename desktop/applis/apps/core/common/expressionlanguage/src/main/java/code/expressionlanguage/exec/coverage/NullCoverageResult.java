@@ -1,7 +1,8 @@
 package code.expressionlanguage.exec.coverage;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.linkage.VariablesOffsets;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
 public final class NullCoverageResult extends AbstractCoverageResult {
@@ -41,8 +42,8 @@ public final class NullCoverageResult extends AbstractCoverageResult {
     }
 
     @Override
-    public void cover(Argument _nc) {
-        if (_nc.isNull()) {
+    public void cover(Struct _nc) {
+        if (_nc == NullStruct.NULL_VALUE) {
             coverNcNull = true;
         } else {
             coverNcNotNull = true;

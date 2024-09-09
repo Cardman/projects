@@ -20,7 +20,7 @@ public final class FctImageDrawPolygon implements StdCaller {
         }
         ImageStruct image_ = (ImageStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        image_.drawPolygon(argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct());
+        image_.drawPolygon(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

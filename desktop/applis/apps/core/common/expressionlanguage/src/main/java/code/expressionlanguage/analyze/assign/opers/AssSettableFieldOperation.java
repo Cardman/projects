@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.assign.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.*;
@@ -10,6 +9,7 @@ import code.expressionlanguage.analyze.opers.DeclaredFieldOperation;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -27,7 +27,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
 
     @Override
     public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
-        Argument arg_ = getArgument();
+        Struct arg_ = getArgument();
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         StringMap<AssignmentBefore> assB_ = vars_.getVariablesBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);

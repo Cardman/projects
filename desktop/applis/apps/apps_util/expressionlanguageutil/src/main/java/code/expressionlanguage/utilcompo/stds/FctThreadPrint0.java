@@ -17,7 +17,7 @@ public final class FctThreadPrint0 extends FctThreadPrintAbs {
 
     @Override
     protected ArgumentWrapper pr(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        String stringAppFile_ = CustAliases.getStandarString(_cont, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        String stringAppFile_ = CustAliases.getStandarString(_cont, _firstArgs.getArgumentWrappers().get(0).getValue());
         stringAppFile_ = StringUtil.concat(CustAliases.getDateTimeText(((RunnableContextEl)_cont).getCurrentThreadFactory()),":",stringAppFile_);
         log(_infos,stringAppFile_,(RunnableContextEl)_cont);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);

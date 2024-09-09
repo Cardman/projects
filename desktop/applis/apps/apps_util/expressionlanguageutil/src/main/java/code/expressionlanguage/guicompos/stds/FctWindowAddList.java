@@ -21,7 +21,7 @@ public final class FctWindowAddList implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         WindowStruct inst_ = (WindowStruct) _instance;
-        guiEx.addWindowListener(inst_,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        guiEx.addWindowListener(inst_,_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

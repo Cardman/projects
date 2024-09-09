@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -29,24 +28,23 @@ public final class ExecCustArrWriteOperation extends ExecInvokingOperation imple
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Struct array_ = getPreviousArgument(_nodes,this).getStruct();
-        Argument a_ = new Argument(array_);
-        setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stack);
+        Struct array_ = getPreviousArgument(_nodes,this);
+        setQuickNoConvertSimpleArgument(array_, _conf, _nodes, _stack);
     }
     @Override
-    public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
+    public Struct calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _right, StackCall _stack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
-        Struct parent_ = ExecFieldTemplates.getParent(instWrite.getInst().getAnc(), previous_.getStruct(), _conf, _stack);
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct parent_ = ExecFieldTemplates.getParent(instWrite.getInst().getAnc(), previous_, _conf, _stack);
         ArgumentListCall argumentListCall_ = fetchFormattedArgs(_conf, _stack, parent_,instWrite, infos_);
         ExecCustArrOperation.getArgument(this,_conf, _stack,instWrite, ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),_right), parent_);
-        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
+        return NullStruct.NULL_VALUE;
     }
     public Struct instanceWrite(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
         return ExecOperationNode.instance(this,instWrite.getInst().getAnc(), _nodes, _last);
     }
     public ArgumentListCall argsWrite(ContextEl _cont, Struct _pr, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _right) {
-        return ArgumentListCall.wrapCall(args(_cont,instWrite.getPair().getType(),instWrite.getInst().getLastType(),instWrite.getInst().getNaturalVararg(),_pr,_nodes).getArguments().getArgumentWrappers(),ArgumentListCall.toStr(_right));
+        return ArgumentListCall.wrapCall(args(_cont,instWrite.getPair().getType(),instWrite.getInst().getLastType(),instWrite.getInst().getNaturalVararg(),_pr,_nodes).getArguments().getArgumentWrappers(),_right);
     }
     public ExecOverrideInfo polyWrite(ContextEl _cont, Struct _pr) {
         return ExecCustArrOperation.poly(instWrite, _cont, _pr);

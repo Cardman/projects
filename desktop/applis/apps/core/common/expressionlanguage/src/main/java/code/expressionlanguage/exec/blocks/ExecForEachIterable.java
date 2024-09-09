@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
@@ -32,7 +31,7 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
     }
 
     @Override
-    protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
+    protected Struct retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
         return ExecHelperBlocks.retrieveValueIt(_conf, _l, _stack, this);
     }
 

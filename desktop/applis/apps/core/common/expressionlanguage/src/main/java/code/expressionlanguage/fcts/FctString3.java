@@ -17,7 +17,7 @@ import code.util.core.StringUtil;
 public final class FctString3 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct argArr_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct argArr_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(argArr_ instanceof ArrayStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

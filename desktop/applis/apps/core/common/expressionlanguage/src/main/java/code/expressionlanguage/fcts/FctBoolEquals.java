@@ -20,7 +20,7 @@ public final class FctBoolEquals implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
+        Struct one_ = argumentWrappers_.get(0).getValue();
         return new ArgumentWrapper(eq(_instance,one_));
     }
     private static BooleanStruct eq(Struct _one, Struct _two) {

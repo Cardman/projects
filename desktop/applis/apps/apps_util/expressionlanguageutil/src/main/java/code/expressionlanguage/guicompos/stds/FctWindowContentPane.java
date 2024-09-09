@@ -15,7 +15,7 @@ public final class FctWindowContentPane implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         WindowStruct inst_ = (WindowStruct) _instance;
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (arg_ instanceof PanelStruct) {
             inst_.setContentPane(((PanelStruct)arg_));
         }

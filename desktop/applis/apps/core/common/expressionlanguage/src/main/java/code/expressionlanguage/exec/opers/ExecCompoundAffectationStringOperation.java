@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.AbstractStackCall;
@@ -10,7 +9,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.IntAbstractPageEl;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.symbols.ExecOperSymbol;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -34,7 +32,7 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = getConverter();
         int indexImplicit_ = pairBefore_.getIndexImplicitConv();
-        Argument res_ = new Argument(calculated(_nodes, _conf, _stack));
+        Struct res_ = calculated(_nodes, _conf, _stack);
         if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
             if (_conf.callsOrException(_stack)) {
                 return;
@@ -42,9 +40,9 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
             pairBefore_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }
-        Argument before_ = firstArg(this,_nodes);
-        Argument set_ = calculateChSetting(_nodes,_conf,res_,_stack);
-        Argument arg_ = getPrePost(isStaticPostEltContent(), before_, set_);
+        Struct before_ = firstArg(this,_nodes);
+        Struct set_ = calculateChSetting(_nodes,_conf,res_,_stack);
+        Struct arg_ = getPrePost(isStaticPostEltContent(), before_, set_);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
@@ -52,15 +50,15 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
         return _symbol.afterCalculateExc(_symbol.calculateOperator(_left, _right, _conf, _last), _conf,_stackCall);
     }
     public Struct calculated(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        return calculatedValue(symbol,ArgumentListCall.toStr(getFirstArgument(_nodes,this)), ArgumentListCall.toStr(getLastArgument(_nodes,this)), _conf,_stack, _stack.getLastPage());
+        return calculatedValue(symbol,getFirstArgument(_nodes,this), getLastArgument(_nodes,this), _conf,_stack, _stack.getLastPage());
     }
 
     public Struct calculated(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, AbstractPageEl _page) {
-        return symbol.calculateOperator(ArgumentListCall.toStr(getFirstArgument(_nodes,this)), ArgumentListCall.toStr(getLastArgument(_nodes,this)), _conf, _page);
+        return symbol.calculateOperator(getFirstArgument(_nodes,this), getLastArgument(_nodes,this), _conf, _page);
     }
 
     public Struct leftArg(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
-        return NumParsers.unwrapObject(getResultClass().getUnwrapObjectNb(),ArgumentListCall.toStr(getFirstArgument(_nodes,this)));
+        return NumParsers.unwrapObject(getResultClass().getUnwrapObjectNb(),getFirstArgument(_nodes,this));
     }
 
     public ExecOperSymbol getSymbol() {

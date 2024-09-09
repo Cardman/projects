@@ -1,12 +1,12 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecInstancingDirContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -23,7 +23,7 @@ public final class RendDirectStandardInstancingOperation extends RendInvokingOpe
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
-        Argument argres_ = ParamCheckerUtil.instancePrepareStd(_context, instancingCommonContent.getConstructor(), instancingCommonContent.getConstId(), ExecInvokingOperation.fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall()).getValue();
+        Struct argres_ = ParamCheckerUtil.instancePrepareStd(_context, instancingCommonContent.getConstructor(), instancingCommonContent.getConstId(), ExecInvokingOperation.fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall()).getValue();
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 }

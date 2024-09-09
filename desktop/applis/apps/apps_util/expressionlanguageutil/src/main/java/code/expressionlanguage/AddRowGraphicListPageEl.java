@@ -2,7 +2,6 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractBasicReflectPageEl;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.FontStruct;
 import code.expressionlanguage.guicompos.GraphicListStruct;
 import code.expressionlanguage.guicompos.PreparedLabelStruct;
@@ -37,7 +36,7 @@ public final class AddRowGraphicListPageEl extends AbstractBasicReflectPageEl {
             return false;
         }
         AbsPreparedLabel lab_ = instance.getGrList().preparedLabel();
-        Struct res_ = ArgumentListCall.toStr(getReturnedArgument());
+        Struct res_ = getReturnedArgument();
         lab_.setIcon(instance.getGrList().getImageFactory(), PreparedLabelStruct.builImage(instance.getGrList().getImageFactory(), res_));
         instance.addRow(index,lab_,info);
         return true;

@@ -1,14 +1,14 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
 import code.util.core.StringUtil;
 
 public final class LambdaFieldStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private final Argument instanceCall;
+    private final Struct instanceCall;
 
     private final String className;
     private final String ownerType;
@@ -24,9 +24,9 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     private final boolean instanceField;
     private final Struct metaInfo;
 
-    public LambdaFieldStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, ExecLambdaFieldContent _field, String _className, String _ownerType) {
+    public LambdaFieldStruct(Struct _metaInfo,Struct _previous, ExecLambdaCommonContent _common, ExecLambdaFieldContent _field, String _className, String _ownerType) {
         metaInfo = _metaInfo;
-        instanceCall =  Argument.getNullableValue(_previous);
+        instanceCall =  ArgumentListCall.getNull(_previous);
         className = StringUtil.nullToEmpty(_className);
         ownerType = StringUtil.nullToEmpty(_ownerType);
         shiftInstance = _common.isShiftArgument();
@@ -39,7 +39,7 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
         safeInstance = _common.isSafeInstance();
     }
 
-    public Argument getInstanceCall() {
+    public Struct getInstanceCall() {
         return instanceCall;
     }
 
@@ -48,7 +48,7 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     }
 
     public boolean isSafeInstance() {
-        return safeInstance && instanceCall.isNull();
+        return safeInstance && instanceCall == NullStruct.NULL_VALUE;
     }
 
     public Struct getMetaInfo() {

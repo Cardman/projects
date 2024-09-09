@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -21,8 +20,7 @@ public final class FctClassForName extends FctReflection {
     }
     public static ArgumentWrapper forName(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall){
         LgNames lgNames_ = _cont.getStandards();
-        Argument clArg_ = new Argument(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
-        Struct struct_ = clArg_.getStruct();
+        Struct struct_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(struct_ instanceof StringStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
@@ -36,7 +34,7 @@ public final class FctClassForName extends FctReflection {
             _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, clDyn_, lgNames_.getContent().getReflect().getAliasClassNotFoundError(), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        if (BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().last().getValue().getStruct()) && _exit.hasToExit(_stackCall, _cont.getClassBody(StringExpUtil.getIdFromAllTypes(res_)))) {
+        if (BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().last().getValue()) && _exit.hasToExit(_stackCall, _cont.getClassBody(StringExpUtil.getIdFromAllTypes(res_)))) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return new ArgumentWrapper(ClassMetaInfo.getClassMetaInfo(_cont,res_));

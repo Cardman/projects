@@ -1,8 +1,8 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
@@ -11,7 +11,7 @@ import code.util.core.StringUtil;
 
 public final class LambdaMethodStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private final Argument instanceCall;
+    private final Struct instanceCall;
 
     private final String className;
 
@@ -27,19 +27,19 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     private final Struct metaInfo;
     private final CommonOperSymbol operSymbol;
 
-    public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, String _className) {
+    public LambdaMethodStruct(Struct _metaInfo, Struct _previous, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, String _className) {
         this(_metaInfo,_previous,_common,_meth,_className,null);
     }
-    public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, String _className, CommonOperSymbol _com) {
+    public LambdaMethodStruct(Struct _metaInfo, Struct _previous, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, String _className, CommonOperSymbol _com) {
         this(_metaInfo, _previous, _common, _meth.getMethod(), _className, _meth.isPolymorph(), _com);
     }
 
-    public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, boolean _polymorph) {
+    public LambdaMethodStruct(Struct _metaInfo, Struct _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, boolean _polymorph) {
         this(_metaInfo,_previous,_common,_meth,_className,_polymorph,null);
     }
-    public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, boolean _polymorph, CommonOperSymbol _com) {
+    public LambdaMethodStruct(Struct _metaInfo, Struct _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, boolean _polymorph, CommonOperSymbol _com) {
         metaInfo = _metaInfo;
-        instanceCall = Argument.getNullableValue(_previous);
+        instanceCall = ArgumentListCall.getNull(_previous);
         className = StringUtil.nullToEmpty(_className);
         polymorph = _polymorph;
         shiftInstance = _common.isShiftArgument();
@@ -49,7 +49,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         kind = _meth.getKind();
         operSymbol = _com;
     }
-    public Argument getInstanceCall() {
+    public Struct getInstanceCall() {
         return instanceCall;
     }
 
@@ -78,7 +78,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     }
 
     public boolean isSafeInstance() {
-        return safeInstance && instanceCall.isNull();
+        return safeInstance && instanceCall == NullStruct.NULL_VALUE;
     }
 
     public int getAncestor() {

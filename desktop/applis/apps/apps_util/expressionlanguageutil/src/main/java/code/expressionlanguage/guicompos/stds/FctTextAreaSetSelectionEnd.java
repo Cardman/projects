@@ -14,7 +14,7 @@ public final class FctTextAreaSetSelectionEnd implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TextAreaStruct inst_ = (TextAreaStruct) _instance;
-        inst_.setSelectionEnd(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.setSelectionEnd(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

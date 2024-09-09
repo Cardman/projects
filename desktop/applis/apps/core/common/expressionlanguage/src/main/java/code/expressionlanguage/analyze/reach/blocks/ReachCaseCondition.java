@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
@@ -14,8 +13,9 @@ import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.linkage.ExportCst;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -85,8 +85,8 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         for (IndexStrPart v: values_) {
             boolean added_ = false;
             if (StringUtil.quickEq(v.getPart(), _page.getKeyWords().getKeyWordNull())) {
-                checkDuplicateListedValue(_page,Argument.createVoid(),_bl,_current);
-                filter_.getStdValues().add(Argument.createVoid());
+                checkDuplicateListedValue(_page,NullStruct.NULL_VALUE,_bl,_current);
+                filter_.getStdValues().add(NullStruct.NULL_VALUE);
                 added_ = true;
             } else {
                 for (InnerTypeOrElement f: _e.getEnumBlocks()) {
@@ -135,10 +135,10 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             checkInh(_instance, _resSwitch, rCase_, _page, StringUtil.concat(classField_.getClassName(), ".", classField_.getFieldName()), _current.getFilterContent(), _bl);
             _current.getFilterContent().getEnumValues().add(classField_);
         } else {
-            Argument argument_ = _ch.getArgument();
+            Struct argument_ = _ch.getArgument();
             if (argument_ != null) {
                 checkDuplicateListedValue(_page,argument_,_bl,_current);
-                checkInh(_instance, _resSwitch, rCase_, _page, AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(argument_), _page), _current.getFilterContent(), _bl);
+                checkInh(_instance, _resSwitch, rCase_, _page, AnaApplyCoreMethodUtil.getString(argument_, _page), _current.getFilterContent(), _bl);
                 _current.getFilterContent().getStdValues().add(argument_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -202,28 +202,28 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         return _f.getEnumValues();
     }
 
-    private static CustList<Argument> listStd(FilterContent _f) {
+    private static CustList<Struct> listStd(FilterContent _f) {
         if (_f.getResCondition().getRoot() != null) {
-            return new CustList<Argument>();
+            return new CustList<Struct>();
         }
         return _f.getStdValues();
     }
 
-    static void checkDuplicateListedValue(AnalyzedPageEl _page, Argument _value, ReachBlock _bl, ReachFilterContent _current) {
+    static void checkDuplicateListedValue(AnalyzedPageEl _page, Struct _value, ReachBlock _bl, ReachFilterContent _current) {
         ReachBracedBlock par_ = _bl.getParent();
         ReachBlock first_ = par_.getFirstChild();
         while (first_ != _bl) {
             if (first_ instanceof ReachFilterContent) {
                 ReachFilterContent c_ = (ReachFilterContent) first_;
-                for (Argument p: listStd(c_.getFilterContent())) {
-                    if (_value.getStruct().sameReference(p.getStruct())) {
+                for (Struct p: listStd(c_.getFilterContent())) {
+                    if (_value.sameReference(p)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFile(_bl.getFile());
                         un_.setIndexFile(_current.getFilterContent().getValueOffset()+ _bl.getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                                 _current.getFilterContent().getKeyWord(),
-                                AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
+                                AnaApplyCoreMethodUtil.getString(_value, _page),
                                 _current.getFilterContent().getKeyWordContainer());
                         _page.addLocError(un_);
                         _bl.addErrorBlock(un_.getBuiltError());
@@ -233,15 +233,15 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             }
             first_ = first_.getNextSibling();
         }
-        for (Argument p: _current.getFilterContent().getStdValues()) {
-            if (_value.getStruct().sameReference(p.getStruct())) {
+        for (Struct p: _current.getFilterContent().getStdValues()) {
+            if (_value.sameReference(p)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_bl.getFile());
                 un_.setIndexFile(_current.getFilterContent().getValueOffset()+ _bl.getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                         _current.getFilterContent().getKeyWord(),
-                        AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
+                        AnaApplyCoreMethodUtil.getString(_value, _page),
                         _current.getFilterContent().getKeyWordContainer());
                 _page.addLocError(un_);
                 _bl.addErrorBlock(un_.getBuiltError());

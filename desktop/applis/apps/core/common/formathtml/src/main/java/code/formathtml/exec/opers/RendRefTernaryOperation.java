@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -8,6 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
@@ -29,7 +29,7 @@ public final class RendRefTernaryOperation extends RendSettableCallFctOperation 
         if (res_ != null) {
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             ExecHelper.fwdWrapper(pair_,ch_);
-            Argument arg_ = ch_.getArgument();
+            Struct arg_ = ch_.getArgument();
             if (resultCanBeSet()) {
                 setQuickNoConvertSimpleArgument(arg_, _nodes,_context, _rendStack);
                 return;
@@ -44,7 +44,7 @@ public final class RendRefTernaryOperation extends RendSettableCallFctOperation 
     private ArgumentsPair getChosenArgumentsPair(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
         ArgumentsPair arg_;
         CustList<RendDynOperationNode> childrenNodes_ = getChildrenNodes();
-        if (BooleanStruct.isTrue(getArgumentPair(_nodes,getNode(childrenNodes_,0)).getArgument().getStruct())) {
+        if (BooleanStruct.isTrue(getArgumentPair(_nodes,getNode(childrenNodes_,0)).getArgument())) {
             arg_ = getArgumentPair(_nodes, getNode(childrenNodes_,1));
         } else {
             arg_ = getArgumentPair(_nodes,getNode(childrenNodes_,2));

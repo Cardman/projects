@@ -1,12 +1,12 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.Struct;
 
 public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
@@ -21,7 +21,7 @@ public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLamb
         return checkParamsAnnot(_stack);
     }
     @Override
-    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return ExecInvokingOperation.getAnnotation(ArgumentListCall.toStr(getParent()),name,_context, _stack);
+    Struct prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        return ExecInvokingOperation.getAnnotation(getParent(),name,_context, _stack);
     }
 }

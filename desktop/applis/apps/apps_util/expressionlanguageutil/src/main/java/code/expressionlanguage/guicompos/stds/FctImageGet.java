@@ -16,6 +16,6 @@ public final class FctImageGet implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         ImageStruct image_ = (ImageStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(image_.getPixel(((NumberStruct)argumentWrappers_.get(0).getValue().getStruct()).intStruct(),((NumberStruct)argumentWrappers_.get(1).getValue().getStruct()).intStruct()));
+        return new ArgumentWrapper(image_.getPixel(((NumberStruct)argumentWrappers_.get(0).getValue()).intStruct(),((NumberStruct)argumentWrappers_.get(1).getValue()).intStruct()));
     }
 }

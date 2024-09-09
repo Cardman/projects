@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.Struct;
 public class FctColor0 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        int rgba_ = ((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct();
+        int rgba_ = ((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).intStruct();
         return new ArgumentWrapper(new ColorStruct(rgba_));
     }
 }

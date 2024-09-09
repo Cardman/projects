@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.guicompos.FontStruct;
 import code.expressionlanguage.guicompos.GraphicListStruct;
@@ -45,27 +46,27 @@ public abstract class CommonCellPrepareCustomEvents extends AbsPrepareCustomEven
     }
 
     @Override
-    protected CustList<Argument> args() {
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(new IntStruct(index)));
-        args_.add(new Argument(info));
+    protected CustList<ArgumentWrapper> args() {
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
+        args_.add(new ArgumentWrapper(new IntStruct(index)));
+        args_.add(new ArgumentWrapper(info));
         if (row != null) {
-            args_.add(new Argument(BooleanStruct.of(row.isSelected())));
+            args_.add(new ArgumentWrapper(BooleanStruct.of(row.isSelected())));
         } else {
-            args_.add(new Argument(BooleanStruct.of(false)));
+            args_.add(new ArgumentWrapper(BooleanStruct.of(false)));
         }
         if (row != null) {
-            args_.add(new Argument(BooleanStruct.of(row.isFocused())));
+            args_.add(new ArgumentWrapper(BooleanStruct.of(row.isFocused())));
         } else {
-            args_.add(new Argument(BooleanStruct.of(false)));
+            args_.add(new ArgumentWrapper(BooleanStruct.of(false)));
         }
         if (row != null) {
-            args_.add(new Argument(BooleanStruct.of(row.isAnchored())));
+            args_.add(new ArgumentWrapper(BooleanStruct.of(row.isAnchored())));
         } else {
-            args_.add(new Argument(BooleanStruct.of(false)));
+            args_.add(new ArgumentWrapper(BooleanStruct.of(false)));
         }
-        args_.add(new Argument(font));
-        args_.add(new Argument(instance));
+        args_.add(new ArgumentWrapper(font));
+        args_.add(new ArgumentWrapper(instance));
         return args_;
     }
 }

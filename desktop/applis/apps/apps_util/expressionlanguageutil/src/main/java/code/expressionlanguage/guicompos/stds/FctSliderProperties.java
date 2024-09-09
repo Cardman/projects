@@ -21,7 +21,7 @@ public final class FctSliderProperties implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         SliderStruct inst_ = (SliderStruct) _instance;
-        inst_.properties(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_firstArgs.getArgumentWrappers().get(1).getValue().getStruct(),_firstArgs.getArgumentWrappers().get(2).getValue().getStruct(),_stackCall, intro);
+        inst_.properties(_firstArgs.getArgumentWrappers().get(0).getValue(),_firstArgs.getArgumentWrappers().get(1).getValue(),_firstArgs.getArgumentWrappers().get(2).getValue(),_stackCall, intro);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

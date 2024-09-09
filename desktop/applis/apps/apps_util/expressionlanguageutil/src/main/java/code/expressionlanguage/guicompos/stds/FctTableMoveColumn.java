@@ -16,7 +16,7 @@ public final class FctTableMoveColumn implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TableStruct inst_ = (TableStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        inst_.moveColumn(argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct());
+        inst_.moveColumn(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

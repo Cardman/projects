@@ -17,8 +17,8 @@ public final class FctImageEq implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct imgOne_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct imgTwo_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct imgOne_ = argumentWrappers_.get(0).getValue();
+        Struct imgTwo_ = argumentWrappers_.get(1).getValue();
         if (!(imgOne_ instanceof ImageStruct)) {
             return new ArgumentWrapper(BooleanStruct.of(imgTwo_ == NullStruct.NULL_VALUE));
         }

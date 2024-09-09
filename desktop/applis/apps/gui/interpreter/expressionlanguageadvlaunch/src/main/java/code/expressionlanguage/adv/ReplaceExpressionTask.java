@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -55,8 +54,8 @@ public final class ReplaceExpressionTask implements Runnable {
                 ls_.add(new ArgumentWrapper(new IntStruct(seg_.getBegin())));
                 ls_.add(new ArgumentWrapper(new IntStruct(seg_.getEnd())));
                 StackCall stCall_ = StackCall.newInstance(InitPhase.NOTHING, act_);
-                ExecTemplates.wrapAndCall(new ExecOverrideInfo(targetMethod_.getClassName(),targetMethod_.getPair()), new Argument(instance_), act_, stCall_, new ArgumentListCall(ls_));
-                Struct re_ = ArgumentListCall.toStr(ProcessMethod.calculate(stCall_.getCallingState(),act_,stCall_).getValue());
+                ExecTemplates.wrapAndCall(new ExecOverrideInfo(targetMethod_.getClassName(),targetMethod_.getPair()), instance_, act_, stCall_, new ArgumentListCall(ls_));
+                Struct re_ = ProcessMethod.calculate(stCall_.getCallingState(),act_,stCall_).getValue();
                 if (act_.callsOrException(stCall_)) {
                     return;
                 }

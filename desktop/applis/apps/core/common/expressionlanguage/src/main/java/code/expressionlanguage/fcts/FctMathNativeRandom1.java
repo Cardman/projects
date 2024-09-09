@@ -22,7 +22,7 @@ public final class FctMathNativeRandom1 extends FctMath {
     @Override
     public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractGenerator generator_ = _cont.getStandards().getGenerator();
-        long b_ = NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).longStruct();
+        long b_ = NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue()).longStruct();
         CustList<String> rds_ = new CustList<String>();
         LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust(),rds_));
         FctMathEval.log(_stackCall, rds_, id +":"+ b_);

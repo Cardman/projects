@@ -1,14 +1,14 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
+import code.expressionlanguage.structs.Struct;
 
 public final class ExecOperationContent {
     private final int indexInEl;
     private final int indexChild;
     private final ExecClassArgumentMatching resultClass;
-    private final Argument argument;
+    private final Struct argument;
     private int order;
     public ExecOperationContent(AnaOperationContent _cont) {
         indexInEl = _cont.getIndexInEl();
@@ -37,7 +37,7 @@ public final class ExecOperationContent {
         return resultClass;
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
 

@@ -32,7 +32,7 @@ public abstract class FctNbLongSafeAbs implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct parse_ = parse(argumentWrappers_.get(0).getValue().getStruct(), argumentWrappers_.last().getValue().getStruct());
+        Struct parse_ = parse(argumentWrappers_.get(0).getValue(), argumentWrappers_.last().getValue());
         return new ArgumentWrapper(parse_);
     }
     private Struct parse(Struct _arg, Struct _radix) {

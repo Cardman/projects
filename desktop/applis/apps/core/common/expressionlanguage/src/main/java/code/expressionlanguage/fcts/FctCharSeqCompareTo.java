@@ -30,7 +30,7 @@ public final class FctCharSeqCompareTo implements AnaStdCaller {
     }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return compareTo((CharSequenceStruct) _instance, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct(), _cont, _stackCall);
+        return compareTo((CharSequenceStruct) _instance, _firstArgs.getArgumentWrappers().get(0).getValue(), _cont, _stackCall);
     }
 
     private static ArgumentWrapper compareTo(CharSequenceStruct _charSequence, Struct _anotherString, ContextEl _context, StackCall _stackCall) {

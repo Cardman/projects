@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -13,18 +13,18 @@ public final class ExecCatOperation {
 
     private ExecCatOperation(){}
 
-    public static Argument localSumDiff(Argument _a, Argument _b,
+    public static Struct localSumDiff(Struct _a, Struct _b,
                                         ContextEl _cont) {
         StringBuilder str_ = new StringBuilder();
         str_.append(getString(_a,_cont));
         str_.append(getString(_b,_cont));
-        return new Argument(new StringStruct(str_.toString()));
+        return new StringStruct(str_.toString());
     }
-    public static String getString(Argument _value,ContextEl _cont) {
+    public static String getString(Struct _value,ContextEl _cont) {
         return getDisplayable(_value,_cont).getInstance();
     }
-    public static StringStruct getDisplayable(Argument _value,ContextEl _cont) {
-        Struct a_ = Argument.getNullableValue(_value).getStruct();
+    public static StringStruct getDisplayable(Struct _value,ContextEl _cont) {
+        Struct a_ = ArgumentListCall.getNull(_value);
         if (a_ instanceof DisplayableStruct) {
             return ((DisplayableStruct)a_).getDisplayedString(_cont);
         }
@@ -39,7 +39,7 @@ public final class ExecCatOperation {
             str_ = "";
         }
         if (str_.isEmpty()) {
-            return new StringStruct(Argument.getNull(_arg).getClassName(_cont));
+            return new StringStruct(ArgumentListCall.getNull(_arg).getClassName(_cont));
         }
         return new StringStruct(str_);
     }

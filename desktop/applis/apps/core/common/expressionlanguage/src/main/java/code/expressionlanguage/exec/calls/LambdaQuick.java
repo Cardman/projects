@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
@@ -17,7 +16,7 @@ public final class LambdaQuick extends AbstractBasicReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         String last_ = StringExpUtil.getAllTypes(lambda.getClassName(_context)).last();
-        setReturnedArgument(new Argument(ExecClassArgumentMatching.defaultValue(last_, _context)));
+        setReturnedArgument(ExecClassArgumentMatching.defaultValue(last_, _context));
         return true;
     }
 

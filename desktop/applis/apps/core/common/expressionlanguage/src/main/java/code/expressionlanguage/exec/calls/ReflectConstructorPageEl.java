@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.StackCall;
@@ -15,9 +14,7 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
 public final class ReflectConstructorPageEl extends AbstractReflectConstructorPageEl {
@@ -57,15 +54,15 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
                 _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stack)));
                 return false;
             }
-            CustList<Argument> args_ = struct_.listArgs();
-            Argument previous_;
+            CustList<Struct> args_ = struct_.listArgs();
+            Struct previous_;
             if (static_) {
                 if (args_.size() != mid_.getParametersTypesLength()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
                     _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), mid_.getParametersTypesLength()).toString(), null_, _stack)));
                     return false;
                 }
-                previous_ = Argument.createVoid();
+                previous_ = NullStruct.NULL_VALUE;
                 return callPhase(_context, _stack, struct_, previous_,0);
             }
             if (args_.size() != 1 + mid_.getParametersTypesLength()) {
@@ -79,10 +76,10 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         return postArg(metaInfo,_stack);
     }
 
-    private boolean callPhase(ContextEl _context, StackCall _stack, ArrayStruct _args, Argument _previous, int _delta) {
+    private boolean callPhase(ContextEl _context, StackCall _stack, ArrayStruct _args, Struct _previous, int _delta) {
         ExecFormattedRootBlock res_ = metaInfo.getFormatted();
         ConstructorId mid_ = metaInfo.getRealId();
-        Argument arg_ = Argument.createVoid();
+        Struct arg_ = NullStruct.NULL_VALUE;
         ExecTypeFunction pair_ = metaInfo.getPair();
         ExecRootBlock execSuperClass_ = pair_.getType();
         if (execSuperClass_ != null) {

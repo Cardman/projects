@@ -21,8 +21,8 @@ public final class FctCharSeqSubstring1 implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct one_ = argumentWrappers_.get(0).getValue();
+        Struct two_ = argumentWrappers_.get(1).getValue();
         return FctCharSeqSubstring0.substring((CharSequenceStruct) _instance, NumParsers.convertToNumber(one_), NumParsers.convertToNumber(two_), _cont, _stackCall);
     }
 }

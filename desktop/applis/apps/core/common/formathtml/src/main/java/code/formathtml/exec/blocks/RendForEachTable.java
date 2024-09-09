@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -164,7 +163,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         String clFirst_ = _rendStackCall.formatVarType(importedClassNameFirst);
         _varsInfos.set(variableNameFirst, new VariableWrapper(LocalVariable.newLocalVariable(arg_,clFirst_)));
         AbstractWrapper lInfo_ = _varsInfos.getVal(variableNameFirst);
-        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,ArgumentListCall.toStr(arg_));
+        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         arg_ = second(nextPair_, _advStandards, _ctx, _rendStackCall);
         if (arg_ == null) {
@@ -177,7 +176,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         String clSecond_ = _rendStackCall.formatVarType(importedClassNameSecond);
         _varsInfos.set(variableNameSecond, new VariableWrapper(LocalVariable.newLocalVariable(arg_,clSecond_)));
         lInfo_ = _varsInfos.getVal(variableNameSecond);
-        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx, ArgumentListCall.toStr(arg_));
+        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx, arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }

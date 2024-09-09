@@ -14,9 +14,9 @@ public final class FctClassArraySetRange extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct arg_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct index_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct val_ = argumentWrappers_.get(2).getValue().getStruct();
+        Struct arg_ = argumentWrappers_.get(0).getValue();
+        Struct index_ = argumentWrappers_.get(1).getValue();
+        Struct val_ = argumentWrappers_.get(2).getValue();
         ExecArrayTemplates.setRange(arg_, index_, val_, _cont, _stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

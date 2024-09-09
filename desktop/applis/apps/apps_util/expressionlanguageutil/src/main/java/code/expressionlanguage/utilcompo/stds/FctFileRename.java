@@ -20,8 +20,8 @@ public final class FctFileRename extends FctFileAbs {
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct oldName_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct newName_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct oldName_ = argumentWrappers_.get(0).getValue();
+        Struct newName_ = argumentWrappers_.get(1).getValue();
         if (!(newName_ instanceof StringStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

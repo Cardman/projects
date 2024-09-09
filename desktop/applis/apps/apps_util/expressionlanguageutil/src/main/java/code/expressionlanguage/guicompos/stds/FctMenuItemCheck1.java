@@ -19,7 +19,7 @@ public final class FctMenuItemCheck1 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        String str_ = AbsButtonStruct.getValue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        String str_ = AbsButtonStruct.getValue(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(new MenuStruct(((LgNamesGui) _cont.getStandards()).getGuiAliases().getAliasMenuItemCheck(),_guiEx.getCompoFactory().newCheckBoxMenuItem(str_)));
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -9,10 +8,10 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class ExecSwitchValuesList {
-    private final CustList<Argument> stdValues;
+    private final CustList<Struct> stdValues;
     private final CustList<ClassField> enumValues;
 
-    public ExecSwitchValuesList(CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
+    public ExecSwitchValuesList(CustList<Struct> _stdValues, CustList<ClassField> _enumValues) {
         this.stdValues = _stdValues;
         this.enumValues = _enumValues;
     }
@@ -21,8 +20,8 @@ public final class ExecSwitchValuesList {
         String name_ = NumParsers.getNameOfEnum(_arg);
         String className_ = _arg.getClassName(_cont);
         int i_ = 0;
-        for (Argument a: stdValues) {
-            if (_arg.sameReference(a.getStruct())) {
+        for (Struct a: stdValues) {
+            if (_arg.sameReference(a)) {
                 return i_;
             }
             i_++;

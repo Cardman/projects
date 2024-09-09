@@ -1,13 +1,13 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.util.core.StringUtil;
 
 public final class LambdaConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private final Argument instanceCall;
+    private final Struct instanceCall;
 
     private final String className;
     private final String formClassName;
@@ -16,19 +16,19 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
     private final boolean safeInstance;
     private final Struct metaInfo;
 
-    public LambdaConstructorStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, String _className) {
+    public LambdaConstructorStruct(Struct _metaInfo, Struct _previous, ExecLambdaCommonContent _common, String _className) {
         metaInfo = _metaInfo;
         formClassName = "";
-        instanceCall = Argument.getNullableValue(_previous);
+        instanceCall = ArgumentListCall.getNull(_previous);
         className = StringUtil.nullToEmpty(_className);
         shiftInstance = _common.isShiftArgument();
         safeInstance = _common.isSafeInstance();
     }
 
-    public LambdaConstructorStruct(String _formClassName,Argument _previous, ExecLambdaCommonContent _common, String _className) {
+    public LambdaConstructorStruct(String _formClassName,Struct _previous, ExecLambdaCommonContent _common, String _className) {
         metaInfo = NullStruct.NULL_VALUE;
         formClassName = StringUtil.nullToEmpty(_formClassName);
-        instanceCall = Argument.getNullableValue(_previous);
+        instanceCall = ArgumentListCall.getNull(_previous);
         className = StringUtil.nullToEmpty(_className);
         shiftInstance = _common.isShiftArgument();
         safeInstance = _common.isSafeInstance();
@@ -37,7 +37,7 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
     public String getFormClassName() {
         return formClassName;
     }
-    public Argument getInstanceCall() {
+    public Struct getInstanceCall() {
         return instanceCall;
     }
 
@@ -50,7 +50,7 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
     }
 
     public boolean isSafeInstance() {
-        return safeInstance && instanceCall.isNull();
+        return safeInstance && instanceCall == NullStruct.NULL_VALUE;
     }
 
     @Override

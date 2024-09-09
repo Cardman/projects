@@ -18,6 +18,6 @@ public final class FctFontStringWidth1 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         FontStruct f_ = (FontStruct) _instance;
-        return new ArgumentWrapper(guiEx.stringWidth(f_, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(guiEx.stringWidth(f_, _firstArgs.getArgumentWrappers().get(0).getValue()));
     }
 }

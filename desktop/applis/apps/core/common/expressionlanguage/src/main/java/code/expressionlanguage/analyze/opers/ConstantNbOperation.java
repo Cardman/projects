@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -36,8 +35,7 @@ public final class ConstantNbOperation extends ConstantOperation {
             addErr(badFormat_.getBuiltError());
             argClassName_ = _page.getAliasPrimDouble();
         }
-        Argument arg_ = new Argument(parsed_.getStruct());
-        setSimpleArgument(arg_);
+        setSimpleArgument(parsed_.getStruct());
         setResultClass(new AnaClassArgumentMatching(argClassName_));
     }
 

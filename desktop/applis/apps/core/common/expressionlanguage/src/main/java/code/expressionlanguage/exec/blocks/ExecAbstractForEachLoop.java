@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
@@ -49,7 +48,7 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
 
     protected abstract LoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its, StackCall _stack);
 
-    protected abstract Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack);
+    protected abstract Struct retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack);
 
     protected abstract ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stack);
 

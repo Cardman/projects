@@ -26,8 +26,8 @@ public final class FctSplitPane extends FctCompoCtor {
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct left_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct right_ = argumentWrappers_.get(2).getValue().getStruct();
+        Struct left_ = argumentWrappers_.get(1).getValue();
+        Struct right_ = argumentWrappers_.get(2).getValue();
         if (!(left_ instanceof CustComponentStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
@@ -46,6 +46,6 @@ public final class FctSplitPane extends FctCompoCtor {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        return new ArgumentWrapper(new SplitPaneStruct(aliasSplitPane,argumentWrappers_.get(0).getValue().getStruct(),left_,right_,_guiEx.getCompoFactory()));
+        return new ArgumentWrapper(new SplitPaneStruct(aliasSplitPane,argumentWrappers_.get(0).getValue(),left_,right_,_guiEx.getCompoFactory()));
     }
 }

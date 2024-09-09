@@ -1,10 +1,11 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -25,7 +26,7 @@ public abstract class RendAbstractDotOperation extends RendMethodOperation imple
         ArgumentsPair pairCh_ = getArgumentPair(_nodes, last_);
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         ExecHelper.fwdWrapper(pair_,pairCh_);
-        Argument a_ = Argument.getNullableValue(pairCh_.getArgument());
+        Struct a_ = ArgumentListCall.getNull(pairCh_.getArgument());
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _nodes, _context, _rendStackCall);
         } else {

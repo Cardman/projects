@@ -17,8 +17,8 @@ public final class FctEntryBinary implements StdCaller {
         String cont_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimByte();
         cont_ = StringExpUtil.getPrettyArrayType(cont_);
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct one_ = argumentWrappers_.get(0).getValue();
+        Struct two_ = argumentWrappers_.get(1).getValue();
         EntryBinaryStruct std_ = new EntryBinaryStruct(one_,two_,cont_);
         return new ArgumentWrapper(std_);
     }

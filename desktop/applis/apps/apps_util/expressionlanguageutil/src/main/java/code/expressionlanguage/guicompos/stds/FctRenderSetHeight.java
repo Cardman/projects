@@ -14,7 +14,7 @@ public final class FctRenderSetHeight implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         RenderStruct image_ = (RenderStruct) _instance;
-        image_.setHeight(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        image_.setHeight(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

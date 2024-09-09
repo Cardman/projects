@@ -15,6 +15,6 @@ public final class FctTastrPut implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringMapStruct inst_ = (StringMapStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(inst_.put(_cont,_stackCall, argumentWrappers_.get(0).getValue().getStruct(), argumentWrappers_.get(1).getValue().getStruct()));
+        return new ArgumentWrapper(inst_.put(_cont,_stackCall, argumentWrappers_.get(0).getValue(), argumentWrappers_.get(1).getValue()));
     }
 }

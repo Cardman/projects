@@ -26,7 +26,7 @@ public final class FctStringEqualsIgnoreCase implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct two_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct two_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(two_ instanceof StringStruct)) {
             return new ArgumentWrapper(BooleanStruct.of(false));
         }

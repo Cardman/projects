@@ -1,17 +1,17 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.BoolVal;
 
 public final class StaticInitPageEl extends AbstractInitPageEl {
     private boolean checkBegin;
-    private Argument fwd;
+    private Struct fwd;
     private final IdMap<ExecInitBlock, BoolVal> processedBlocks = new IdMap<ExecInitBlock, BoolVal>();
 
     public StaticInitPageEl(CustList<ExecBlock> _visited, ExecFormattedRootBlock _global) {
@@ -57,11 +57,11 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
         _context.getLocks().successClass(curClass_);
     }
 
-    public Argument getFwd() {
+    public Struct getFwd() {
         return fwd;
     }
 
-    public void setFwd(Argument _fwd) {
+    public void setFwd(Struct _fwd) {
         this.fwd = _fwd;
     }
 }

@@ -1,14 +1,15 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
-import code.expressionlanguage.analyze.reach.opers.util.*;
+import code.expressionlanguage.analyze.reach.opers.util.AnaArgumentList;
+import code.expressionlanguage.analyze.reach.opers.util.ReachOperationIndexer;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -32,16 +33,15 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
     }
 
     void resultMethod(AnalyzedPageEl _page, Struct _instance) {
-        CustList<Argument> firstArgs_ = getArguments();
-        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(standardMethod, _instance, _page, Argument.toArgArray(firstArgs_));
+        CustList<Struct> firstArgs_ = getArguments();
+        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(standardMethod, _instance, _page, ArgumentListCall.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
         }
-        Argument arg_ = new Argument(out_);
-        setSimpleArgumentAna(arg_);
+        setSimpleArgumentAna(out_);
     }
 
-    CustList<Argument> getArguments() {
+    CustList<Struct> getArguments() {
         CustList<ReachOperationNode> chidren_ = getChildrenNodes();
         AnaArgumentList list_ = listNamedArguments(chidren_);
         return quickListArguments(naturalVararg, lastType, list_.getArguments());
@@ -49,7 +49,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
 
     private static AnaArgumentList listNamedArguments(CustList<ReachOperationNode> _children) {
         AnaArgumentList out_ = new AnaArgumentList();
-        CustList<Argument> args_ = out_.getArguments();
+        CustList<Struct> args_ = out_.getArguments();
         CustList<ReachNamedArgumentOperation> named_ = new CustList<ReachNamedArgumentOperation>();
         for (ReachOperationNode c: _children) {
             if (c instanceof ReachNoopOperation) {
@@ -69,25 +69,24 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
         }
         return out_;
     }
-    private static CustList<Argument> quickListArguments(int _natVararg, String _lastType, CustList<Argument> _nodes) {
+    private static CustList<Struct> quickListArguments(int _natVararg, String _lastType, CustList<Struct> _nodes) {
         if (_natVararg <= -1) {
             return _nodes;
         }
-        CustList<Argument> firstArgs_ = new CustList<Argument>();
+        CustList<Struct> firstArgs_ = new CustList<Struct>();
         CustList<Struct> optArgs_ = new CustList<Struct>();
         int lenCh_ = _nodes.size();
         for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-            Argument a_ = _nodes.get(i);
+            Struct a_ = _nodes.get(i);
             if (i >= _natVararg) {
-                optArgs_.add(a_.getStruct());
+                optArgs_.add(a_);
             } else {
                 firstArgs_.add(a_);
             }
         }
         String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
         ArrayStruct str_ = NumParsers.setElements(optArgs_,clArr_);
-        Argument argRem_ = new Argument(str_);
-        firstArgs_.add(argRem_);
+        firstArgs_.add(str_);
         return firstArgs_;
     }
 

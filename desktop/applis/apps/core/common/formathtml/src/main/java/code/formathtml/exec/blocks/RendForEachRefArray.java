@@ -1,9 +1,9 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArrayWrapper;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
@@ -28,14 +28,14 @@ public final class RendForEachRefArray extends RendAbstractForEachLoop {
     @Override
     protected void putVar(ContextEl _ctx, RendStackCall _rendStack, RendLoopBlockStack _l) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        ip_.getRefParams().put(getVariableName(), new ArrayWrapper(Argument.getNull(ExecArrayTemplates.elt(_l.getContent().getArray(),new LongStruct(0))),_l.getContent().getContainer(),new LongStruct(0)));
+        ip_.getRefParams().put(getVariableName(), new ArrayWrapper(ArgumentListCall.getNull(ExecArrayTemplates.elt(_l.getContent().getArray(),new LongStruct(0))),_l.getContent().getContainer(),new LongStruct(0)));
     }
     @Override
     protected Struct retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         Struct container_ = _l.getContent().getContainer();
         LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
-        ip_.getRefParams().set(getVariableName(),new ArrayWrapper(Argument.getNull(ExecArrayTemplates.elt(_l.getContent().getArray(),lg_)),container_,lg_));
+        ip_.getRefParams().set(getVariableName(),new ArrayWrapper(ArgumentListCall.getNull(ExecArrayTemplates.elt(_l.getContent().getArray(),lg_)),container_,lg_));
         return ExecArrayTemplates.getElement(container_, lg_, _ctx, _rendStack.getStackCall());
     }
 

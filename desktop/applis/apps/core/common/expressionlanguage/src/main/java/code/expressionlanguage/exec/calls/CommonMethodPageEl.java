@@ -1,10 +1,10 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.structs.Struct;
 
 public final class CommonMethodPageEl extends AbstractCommonMethodPageEl {
 
@@ -12,7 +12,7 @@ public final class CommonMethodPageEl extends AbstractCommonMethodPageEl {
         super(_glClass);
     }
 
-    public void initReturnType(Argument _right) {
+    public void initReturnType(Struct _right) {
         if (_right != null) {
             setReturnedArgument(_right);
         }

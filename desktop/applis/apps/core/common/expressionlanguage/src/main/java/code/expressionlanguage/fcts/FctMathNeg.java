@@ -20,7 +20,7 @@ public final class FctMathNeg implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct one_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct one_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         return new ArgumentWrapper(neg(one_));
     }
 

@@ -17,7 +17,7 @@ public final class FctObjGetParent implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         Struct par_ = arg_.getParent();
         _stackCall.getInitializingTypeInfos().addSensibleField(arg_, par_);
         return new ArgumentWrapper(par_);

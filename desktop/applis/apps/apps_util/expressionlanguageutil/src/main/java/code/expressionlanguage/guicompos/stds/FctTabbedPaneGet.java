@@ -13,6 +13,6 @@ public final class FctTabbedPaneGet implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TabbedPaneStruct strPan_ = (TabbedPaneStruct) _instance;
-        return new ArgumentWrapper(strPan_.getComponent(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(strPan_.getComponent(_firstArgs.getArgumentWrappers().get(0).getValue()));
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
@@ -8,7 +7,10 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
-import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOperationInfo;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -33,20 +35,20 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
-        Struct parent_ = ExecFieldTemplates.getParent(readWrite.getInstRead().getInst().getAnc(), previous_.getStruct(), _conf, _stack);
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct parent_ = ExecFieldTemplates.getParent(readWrite.getInstRead().getInst().getAnc(), previous_, _conf, _stack);
         ArgumentListCall argumentListCall_ = fetchFormattedArgs(_conf, _stack, parent_, readWrite.getInstRead(), infos_);
         ExecHelper.getArgumentPair(_nodes,this).setArgumentList(argumentListCall_.getArgumentWrappers());
-        ExecHelper.getArgumentPair(_nodes,this).setArgumentParent(new Argument(parent_));
+        ExecHelper.getArgumentPair(_nodes,this).setArgumentParent(parent_);
         getArgument(this,_conf, _stack,readWrite.getInstRead(), ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),null), parent_);
-        setCheckedResult(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _conf, _nodes, _stack,false);
+        setCheckedResult(NullStruct.NULL_VALUE, _conf, _nodes, _stack,false);
     }
     @Override
-    public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
+    public Struct calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _right, StackCall _stack) {
         CustList<ArgumentWrapper> argumentList_ = ExecHelper.getArgumentPair(_nodes, this).getArgumentList();
-        Argument par_ = Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, this).getArgumentParent());
-        getArgument(this,_conf, _stack, readWrite.getInstWrite(), ArgumentListCall.wrapCall(argumentList_,_right), par_.getStruct());
-        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
+        Struct par_ = ArgumentListCall.getNull(ExecHelper.getArgumentPair(_nodes, this).getArgumentParent());
+        getArgument(this,_conf, _stack, readWrite.getInstWrite(), ArgumentListCall.wrapCall(argumentList_,_right), par_);
+        return NullStruct.NULL_VALUE;
     }
 
     @Override
@@ -57,14 +59,14 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         return ExecOperationNode.instance(this,readWrite.getInstRead().getInst().getAnc(), _nodes, _last);
     }
     public Struct instanceWrite(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
-        return ArgumentListCall.toStr(ExecHelper.getArgumentPair(_nodes, this).getArgumentParent());
+        return ExecHelper.getArgumentPair(_nodes, this).getArgumentParent();
     }
     public ArgumentListCall args(ContextEl _cont, Struct _pr, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         return args(_cont,readWrite.getInstRead().getPair().getType(),readWrite.getInstRead().getInst().getLastType(),readWrite.getInstRead().getInst().getNaturalVararg(),_pr,_nodes).getArguments();
     }
     public ArgumentListCall argsWrite(Struct _right, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         CustList<ArgumentWrapper> argumentList_ = ExecHelper.getArgumentPair(_nodes, this).getArgumentList();
-        return ArgumentListCall.wrapCall(argumentList_,ArgumentListCall.toStr(_right));
+        return ArgumentListCall.wrapCall(argumentList_,_right);
     }
     public ExecOverrideInfo poly(ContextEl _cont, Struct _pr) {
         return poly(readWrite.getInstRead(), _cont, _pr);
@@ -87,12 +89,10 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     public static void redirect(ContextEl _conf, StackCall _stackCall, ExecTypeFunctionInst _ins, Struct _parent, ArgumentListCall _call) {
         ExecTypeFunction fct_ = _ins.getPair();
-        Argument prev_ = new Argument(_parent);
-        Struct pr_ = prev_.getStruct();
-        ExecOverrideInfo polymorph_ = polymorphOrSuper(_ins.getInst().isStaticChoiceMethod(), _conf,pr_, _ins.getInst().getFormattedType(),fct_);
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(_ins.getInst().isStaticChoiceMethod(), _conf, _parent, _ins.getInst().getFormattedType(),fct_);
         fct_ = polymorph_.getPair();
         ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
-        new MethodParamChecker(fct_, _call, MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stackCall);
+        new MethodParamChecker(fct_, _call, MethodAccessKind.INSTANCE).checkParams(classNameFound_, _parent, null, _conf, _stackCall);
     }
 
     public ExecTypeFunctionPair getReadWrite() {

@@ -1,8 +1,9 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.WhileCondition;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
 import code.util.IdMap;
 
@@ -21,13 +22,13 @@ public final class ReachWhileCondition extends ReachCondition implements ReachBr
 
     @Override
     public boolean accessibleCondition() {
-        Argument arg_ = getArgument();
-        return Argument.isNotFalseValue(arg_);
+        Struct arg_ = getArgument();
+        return ArgumentListCall.isNotFalseValue(arg_);
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
-        Argument arg_ = getArgument();
-        boolean proc_ = Argument.isTrueValue(arg_);
+        Struct arg_ = getArgument();
+        boolean proc_ = ArgumentListCall.isTrueValue(arg_);
         abrWhileMutable(_anEl, proc_, this);
     }
 

@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.structs.Struct;
@@ -18,8 +19,8 @@ public final class EvtTreePrepareCustomEvents extends AbsPrepareCustomEvents {
     }
 
     @Override
-    protected CustList<Argument> args() {
-        return new CustList<Argument>(new Argument(node));
+    protected CustList<ArgumentWrapper> args() {
+        return new CustList<ArgumentWrapper>(new ArgumentWrapper(node));
     }
 
     @Override

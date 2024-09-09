@@ -1,16 +1,21 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.ExpressionLanguageBp;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.*;
+import code.expressionlanguage.exec.stacks.AbstractStask;
+import code.expressionlanguage.exec.stacks.ConditionBlockStack;
+import code.expressionlanguage.exec.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -39,7 +44,7 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
     private ExecFileBlock file;
 
     private AbstractWrapper wrapper;
-    private Argument returnedArgument = Argument.createVoid();
+    private Struct returnedArgument = NullStruct.NULL_VALUE;
     private CustomFoundExc thrown;
     private int bkup;
     private int bkupOff;
@@ -52,14 +57,12 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
     public Struct getGlobalStruct() {
         return contentEx.getGlobalStruct();
     }
-    public Argument getGlobalArgument() {
-        return contentEx.getGlobalArgument();
-    }
+
     public final void setGlobalArgumentStruct(Struct _obj) {
         contentEx.setGlobalArgumentStruct(_obj);
     }
 
-    public void setGlobalArgument(Argument _globalArgument) {
+    public void setGlobalArgument(Struct _globalArgument) {
         contentEx.setGlobalArgument(_globalArgument);
     }
 
@@ -115,7 +118,7 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
         }
     }
 
-    public abstract void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack);
+    public abstract void receive(AbstractWrapper _wrap, Struct _argument, ContextEl _context, StackCall _stack);
     public final String formatVarType(String _varType) {
 //        if (getGlobalArgument().isNull()) {
 //            return _varType;
@@ -123,7 +126,7 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
         return ExecInherits.quickFormat(globalClass, _varType);
     }
 
-    protected void basicReceive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stackCall) {
+    protected void basicReceive(AbstractWrapper _wrap, Struct _argument, ContextEl _context, StackCall _stackCall) {
         if (isEmptyEl()) {
             return;
         }
@@ -216,11 +219,11 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
         blockStacks.removeQuicklyLast();
     }
 
-    protected void commonTageBase(ContextEl _context, StackCall _stack, Argument _arg) {
+    protected void commonTageBase(ContextEl _context, StackCall _stack, Struct _arg) {
         //method walk through
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecAbstractSwitchMethod) {
-            setBlock(((ExecAbstractSwitchMethod)en_).processCase(Argument.getNullableValue(_arg),_stack));
+            setBlock(((ExecAbstractSwitchMethod)en_).processCase(ArgumentListCall.getNull(_arg),_stack));
             return;
         }
         if (en_ instanceof ExecAbstractExpressionReturnMethod) {
@@ -250,9 +253,9 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
         return currentEls.size();
     }
 
-    public Argument getValue(int _index){
+    public Struct getValue(int _index){
         if (_index >= currentEls.size()) {
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         return currentEls.get(_index).getArgument();
     }
@@ -302,12 +305,12 @@ public abstract class AbstractPageEl implements IntAbstractPageEl{
         file = _execFile;
     }
 
-    public Argument getReturnedArgument() {
+    public Struct getReturnedArgument() {
         return returnedArgument;
     }
 
-    public void setReturnedArgument(Argument _returnedArgument) {
-        returnedArgument = Argument.getNullableValue(_returnedArgument);
+    public void setReturnedArgument(Struct _returnedArgument) {
+        returnedArgument = ArgumentListCall.getNull(_returnedArgument);
     }
 
     public AbstractWrapper getWrapper() {

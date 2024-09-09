@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.exec.opers.ExecNativeOperatorLambdaOperation;
@@ -8,6 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -23,9 +23,9 @@ public final class RendNativeOperatorLambdaOperation extends RendAbstractLambdaO
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
+        Struct previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = formatVarTypeRes(_rendStack);
-        Argument res_ = new Argument(ExecNativeOperatorLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_, operSymbol));
+        Struct res_ = ExecNativeOperatorLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_, operSymbol);
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 }

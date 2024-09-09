@@ -1,32 +1,31 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
 public final class PageElContent {
 
-    private Argument globalArgument = Argument.createVoid();
+    private Struct globalStruct = NullStruct.NULL_VALUE;
 
     private final StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
     private final StringMap<AbstractWrapper> refParams = new StringMap<AbstractWrapper>();
     private Cache cache;
 
     public Struct getGlobalStruct() {
-        return getGlobalArgument().getStruct();
-    }
-    public Argument getGlobalArgument() {
-        return globalArgument;
-    }
-    public void setGlobalArgumentStruct(Struct _obj) {
-        globalArgument = new Argument(_obj);
+        return globalStruct;
     }
 
-    public void setGlobalArgument(Argument _globalArgument) {
-        globalArgument = Argument.getNullableValue(_globalArgument);
+    public void setGlobalArgumentStruct(Struct _obj) {
+        globalStruct = ArgumentListCall.getNull(_obj);
+    }
+
+    public void setGlobalArgument(Struct _globalArgument) {
+        globalStruct = ArgumentListCall.getNull(_globalArgument);
     }
 
     public StringMap<AbstractWrapper> getRefParams() {

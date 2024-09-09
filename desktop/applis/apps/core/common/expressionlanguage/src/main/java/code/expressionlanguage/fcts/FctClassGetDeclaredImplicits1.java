@@ -12,7 +12,7 @@ public final class FctClassGetDeclaredImplicits1 extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct params_ = argumentWrappers_.get(0).getValue().getStruct();
+        Struct params_ = argumentWrappers_.get(0).getValue();
         CustList<MethodMetaInfo> methods_ = ((ClassMetaInfo)_instance).getImplicitsInfos();
         CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, params_);
         ArrayStruct str_ = getMethodsMeta(_cont, candidates_);

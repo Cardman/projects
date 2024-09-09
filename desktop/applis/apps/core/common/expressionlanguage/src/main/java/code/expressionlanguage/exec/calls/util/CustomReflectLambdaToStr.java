@@ -1,17 +1,17 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.structs.Struct;
 
 public final class CustomReflectLambdaToStr extends AbstractReflectElement {
 
-    private final Argument argument;
+    private final Struct argument;
 
-    public CustomReflectLambdaToStr(Argument _argument) {
+    public CustomReflectLambdaToStr(Struct _argument) {
         super(false);
         argument = _argument;
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
 

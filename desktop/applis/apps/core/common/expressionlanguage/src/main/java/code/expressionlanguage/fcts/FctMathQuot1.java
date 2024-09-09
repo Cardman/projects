@@ -24,8 +24,8 @@ public final class FctMathQuot1 implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct one_ = argumentWrappers_.get(0).getValue();
+        Struct two_ = argumentWrappers_.get(1).getValue();
         Struct res_ = quotLong(one_,two_);
         if (res_ == null) {
             _stackCall.setCallingState(new CustomFoundExc(FctMath.getDivideZero(_cont, _stackCall)));

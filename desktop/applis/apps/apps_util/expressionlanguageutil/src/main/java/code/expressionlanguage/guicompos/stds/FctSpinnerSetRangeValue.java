@@ -16,7 +16,7 @@ public final class FctSpinnerSetRangeValue implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         SpinnerStruct inst_ = (SpinnerStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        inst_.setRangeValue(argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct(),argumentWrappers_.get(2).getValue().getStruct());
+        inst_.setRangeValue(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue(),argumentWrappers_.get(2).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

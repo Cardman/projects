@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
@@ -21,7 +20,7 @@ public final class FctNbToStr1 implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(ExecCatOperation.getDisplayable(new Argument(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()),_cont));
+        return new ArgumentWrapper(ExecCatOperation.getDisplayable(_firstArgs.getArgumentWrappers().get(0).getValue(),_cont));
     }
 
 }

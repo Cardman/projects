@@ -92,7 +92,7 @@ public  final class InterruptibleContextElTest extends EquallableElIntUtil {
     }
 
     public static Struct value(ArgumentWrapper _a) {
-        return _a.getValue().getStruct();
+        return _a.getValue();
     }
     public static StackCall stack(ContextEl _phase) {
         return StackCall.newInstance(new DefStackStopper(),InitPhase.NOTHING,_phase,new CustomSeedGene());

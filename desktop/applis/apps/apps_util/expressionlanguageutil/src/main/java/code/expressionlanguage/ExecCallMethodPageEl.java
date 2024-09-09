@@ -24,7 +24,7 @@ public final class ExecCallMethodPageEl extends AbstractBasicReflectPageEl {
         if (callEvts.call(_context, _stack, instance, 0)) {
             return false;
         }
-        future.setFound(getReturnedArgument().getStruct());
+        future.setFound(getReturnedArgument());
         return true;
     }
 

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -18,6 +17,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
 public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPageEl {
@@ -25,7 +25,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     private boolean initClass;
     private ExecOverrideInfo overrideInfo;
 
-    private final Argument instance;
+    private final Struct instance;
 
     private MethodAccessKind accessKind;
     private final MethodMetaInfo metaInfo;
@@ -35,11 +35,11 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     private int checkedParams;
     private final AbstractParamReflectCheckerStepping paramCheck;
 
-    protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda) {
+    protected AbstractRefectCommonMethodPageEl(Struct _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda) {
         this(_instance,_metaInfo,_preparer,_lda,new AllParamReflectCheckerStepping());
     }
 
-    protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda, AbstractParamReflectCheckerStepping _abParam) {
+    protected AbstractRefectCommonMethodPageEl(Struct _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda, AbstractParamReflectCheckerStepping _abParam) {
         super(_lda);
         instance = _instance;
         setGlobalArgumentStruct(_metaInfo);
@@ -48,12 +48,12 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         paramCheck = _abParam;
     }
     @Override
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+    public void receive(AbstractWrapper _wrap, Struct _argument, ContextEl _context, StackCall _stack) {
         setWrapper(_wrap);
         setReturnedArgument(_argument);
     }
 
-    boolean keep(ContextEl _context, StackCall _stackCall, Argument _instance) {
+    boolean keep(ContextEl _context, StackCall _stackCall, Struct _instance) {
         LgNames stds_ = _context.getStandards();
         if (!initClass) {
             initClass = true;
@@ -64,7 +64,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         }
         setWrapException(false);
         if (overrideInfo == null) {
-            if (metaInfo.isInstanceMethod() && _instance.isNull()) {
+            if (metaInfo.isInstanceMethod() && _instance == NullStruct.NULL_VALUE) {
                 String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stackCall)));
                 return false;
@@ -76,8 +76,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             }
             ExecFormattedRootBlock className_ = metaInfo.getFormatted();
             if (preparer.isPolymorph(_context, _stackCall)) {
-                Struct instance_ = _instance.getStruct();
-                overrideInfo = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getPair());
+                overrideInfo = ExecInvokingOperation.polymorph(_context, _instance, metaInfo.getPair());
             } else {
                 overrideInfo = new ExecOverrideInfo(className_, metaInfo.getPair());
             }
@@ -110,11 +109,11 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return overrideInfo;
     }
 
-    public Argument getInstance() {
+    public Struct getInstance() {
         return instance;
     }
 
-    Argument direct(ContextEl _context, StackCall _stack, ArgumentListCall _l) {
+    Struct direct(ContextEl _context, StackCall _stack, ArgumentListCall _l) {
         MethodMetaInfo method_ = getMetaInfo();
         String className_ = method_.getFormatted().getFormatted();
         String res_ = ExecInheritsAdv.correctClassPartsDynamicNotWildCard(className_, _context);
@@ -122,7 +121,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             String null_;
             null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
             _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         return ExecImplicitOperation.getArgument(getClassName().getFormatted(), _context, _stack, _l);
     }
@@ -135,7 +134,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
                 return false;
             }
             checkingEntryExit = false;
-            Argument arg_ = prepareCall(_context, _stack);
+            Struct arg_ = prepareCall(_context, _stack);
             if (_stack.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
                 return false;
@@ -169,7 +168,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         checkingEntryExit = false;
         return true;
     }
-    abstract Argument prepareCall(ContextEl _context, StackCall _stack);
+    abstract Struct prepareCall(ContextEl _context, StackCall _stack);
     public abstract int getRef();
 
     public boolean isCheckingEntryExit() {

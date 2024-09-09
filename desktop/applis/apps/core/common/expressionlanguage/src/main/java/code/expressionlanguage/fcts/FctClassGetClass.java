@@ -11,7 +11,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctClassGetClass extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         return new ArgumentWrapper(ClassMetaInfo.getClassMetaInfo(_cont, arg_));
     }
 }

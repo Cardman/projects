@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -15,6 +14,7 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -24,7 +24,7 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
     private String importedClassName = EMPTY_STRING;
 
     private boolean alwaysTrue;
-    private Argument argument;
+    private Struct argument;
 
     private final ManyLoopExpressionsContent manyLoopExpressionsContent;
     private final AnaTypeFctPair functions = new AnaTypeFctPair();
@@ -213,7 +213,7 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
         }
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
 
@@ -257,7 +257,7 @@ public final class ForMutableIterativeLoop extends AbstractForLoop implements
         return functions;
     }
 
-    public void setArgument(Argument _arg) {
+    public void setArgument(Struct _arg) {
         this.argument = _arg;
     }
 

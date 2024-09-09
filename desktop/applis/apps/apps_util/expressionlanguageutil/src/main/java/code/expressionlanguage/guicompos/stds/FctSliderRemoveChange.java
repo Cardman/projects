@@ -14,7 +14,7 @@ public final class FctSliderRemoveChange implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         SliderStruct inst_ = (SliderStruct) _instance;
-        inst_.removeChangeListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_stackCall);
+        inst_.removeChangeListener(_firstArgs.getArgumentWrappers().get(0).getValue(),_stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

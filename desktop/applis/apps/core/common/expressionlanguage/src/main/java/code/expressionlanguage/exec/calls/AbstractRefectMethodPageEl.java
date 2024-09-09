@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
@@ -12,6 +11,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.core.StringUtil;
 
 public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMethodPageEl {
@@ -19,17 +19,17 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     private boolean calledMethod;
 
 
-    private Argument rightArg;
+    private Struct rightArg;
     private final ExecMemberCallingsBlock callee;
     private final ArrayRefState arrRef;
 
-    protected AbstractRefectMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, ArrayRefState _a) {
+    protected AbstractRefectMethodPageEl(Struct _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, ArrayRefState _a) {
         super(_instance, _metaInfo, _preparer,false);
         callee = _metaInfo.getCallee();
         arrRef = _a;
     }
 
-    protected AbstractRefectMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, ArrayRefState _a, AbstractParamReflectCheckerStepping _abParam) {
+    protected AbstractRefectMethodPageEl(Struct _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, ArrayRefState _a, AbstractParamReflectCheckerStepping _abParam) {
         super(_instance, _metaInfo, _preparer,false,_abParam);
         callee = _metaInfo.getCallee();
         arrRef = _a;
@@ -80,7 +80,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
                 _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(arr_.getLength(), mid_.getParametersTypesLength() + 1).toString(), null_, _stack)));
                 return false;
             }
-            rightArg = new Argument(arr_.get(arr_.getLength()-1));
+            rightArg = arr_.get(arr_.getLength()-1);
         }
         return true;
     }
@@ -95,10 +95,10 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         return true;
     }
 
-    Argument prepareCall(ContextEl _context, StackCall _stack) {
+    Struct prepareCall(ContextEl _context, StackCall _stack) {
         return prepare(_context, arrRef, rightArg, _stack);
     }
-    abstract Argument prepare(ContextEl _context, ArrayRefState _args, Argument _right, StackCall _stack);
+    abstract Struct prepare(ContextEl _context, ArrayRefState _args, Struct _right, StackCall _stack);
 
     @Override
     public int getRef() {

@@ -1,6 +1,5 @@
 package code.expressionlanguage.options;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
@@ -32,7 +31,6 @@ import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.ExecAbstractLambdaOperation;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ViewPage;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -45,6 +43,7 @@ import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.comparators.NaturalComparator;
@@ -232,7 +231,7 @@ public final class ResultContextLambda {
         if (stateOld_ != null) {
             return traceView(st_, context);
         }
-        Argument arg_ = IndirectCalledFctUtil.processString(st_.aw().getValue(), context, st_);
+        Struct arg_ = IndirectCalledFctUtil.processString(st_.aw().getValue(), context, st_);
         AbstractPageEl page_ = ExecutingUtil.processAfterOperation(context,st_);
         if (page_ == null) {
             CustList<String> e_ = new CustList<String>();
@@ -312,13 +311,13 @@ public final class ResultContextLambda {
     public StackCallReturnValue evalStack(AbsStackStopper _lg, CheckedMethodInfos _addon, AbstractPageEl _page, ContextEl _ctx) {
         StackCall stackCall_ = newInstance(_lg, _ctx, InitPhase.NOTHING);
         if (_addon != null) {
-            AbstractPageEl page_ = new CustomFoundMethod(new Argument(_addon.getInstance()),_addon.getDeclaring(),lambda, _addon.getParameters()).processAfterOperation(_ctx,stackCall_);
+            AbstractPageEl page_ = new CustomFoundMethod(_addon.getInstance(),_addon.getDeclaring(),lambda, _addon.getParameters()).processAfterOperation(_ctx,stackCall_);
             return loop(stackCall_, page_, _ctx);
         }
         Parameters p_ = new Parameters();
         p_.getRefParameters().addAllEntries(_page.getRefParams());
         p_.setCache(_page.getCache());
-        AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalArgument(),_page.getGlobalClass(),lambda, p_).processAfterOperation(_ctx,stackCall_);
+        AbstractPageEl page_ = new CustomFoundMethod(_page.getGlobalStruct(),_page.getGlobalClass(),lambda, p_).processAfterOperation(_ctx,stackCall_);
         page_.getVars().addAllEntries(_page.getVars());
         return loop(stackCall_, page_, _ctx);
     }
@@ -334,7 +333,7 @@ public final class ResultContextLambda {
         AbstractInterceptorStdCaller c_ = _ctx.getCaller();
         while (true) {
             if (c_.stopNormal(i_, _ctx, _stack)) {
-                _stack.setReturnedArgument(ArgumentListCall.toStr(_page.getReturnedArgument()));
+                _stack.setReturnedArgument(_page.getReturnedArgument());
                 _stack.setWrapper(null);
                 return new StackCallReturnValue(_stack, new CustList<ViewPage>());
             }

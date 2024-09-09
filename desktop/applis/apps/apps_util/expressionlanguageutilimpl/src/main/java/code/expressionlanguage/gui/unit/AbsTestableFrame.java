@@ -1,12 +1,11 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.CdmFactory;
-import code.gui.initialize.*;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.threads.AbstractThreadFactory;
 
 public abstract class AbsTestableFrame implements TestableFrame {
@@ -33,7 +32,7 @@ public abstract class AbsTestableFrame implements TestableFrame {
     }
 
     @Override
-    public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
+    public void setResults(ContextEl _ctx, Struct _res, LgNamesWithNewAliases _evolved) {
         commonExecution.setResults(_ctx, _res, _evolved);
     }
     @Override

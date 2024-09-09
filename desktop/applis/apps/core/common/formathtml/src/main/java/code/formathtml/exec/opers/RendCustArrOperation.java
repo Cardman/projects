@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
@@ -31,11 +30,11 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        Struct parent_ = ExecFieldTemplates.getParent(readWrite.getInstRead().getInst().getAnc(), previous_.getStruct(), _context,  _rendStack.getStackCall());
+        Struct previous_ = getPreviousArg(this, _nodes, _rendStack);
+        Struct parent_ = ExecFieldTemplates.getParent(readWrite.getInstRead().getInst().getAnc(), previous_, _context,  _rendStack.getStackCall());
         ArgumentListCall argumentListCall_ = ExecInvokingOperation.fetchFormattedArgs(_context, _rendStack.getStackCall(), parent_,readWrite.getInstRead(), infos_);
         getArgumentPair(_nodes,this).setArgumentList(argumentListCall_.getArgumentWrappers());
-        getArgumentPair(_nodes,this).setArgumentParent(new Argument(parent_));
+        getArgumentPair(_nodes,this).setArgumentParent(parent_);
         processCalling(this,_nodes,null, _context, _rendStack, readWrite.getInstRead());
     }
 
@@ -45,18 +44,18 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
+    public Struct calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Struct _right, ContextEl _context, RendStackCall _rendStack) {
         return processCalling(this,_nodes,_right, _context, _rendStack, readWrite.getInstWrite());
     }
 
-    static Argument processCalling(RendMethodOperation _ren, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStackCall, ExecTypeFunctionInst _in) {
+    static Struct processCalling(RendMethodOperation _ren, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Struct _right, ContextEl _context, RendStackCall _rendStackCall, ExecTypeFunctionInst _in) {
         if (_context.callsOrException(_rendStackCall.getStackCall())) {
             return _right;
         }
         CustList<ArgumentWrapper> argumentList_ = getArgumentPair(_nodes, _ren).getArgumentList();
-        Argument argumentParent_ = Argument.getNullableValue(getArgumentPair(_nodes, _ren).getArgumentParent());
-        ExecCustArrOperation.redirect(_context, _rendStackCall.getStackCall(), _in, argumentParent_.getStruct(), ArgumentListCall.wrapCall(argumentList_,_right));
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _context, _rendStackCall);
+        Struct argumentParent_ = ArgumentListCall.getNull(getArgumentPair(_nodes, _ren).getArgumentParent());
+        ExecCustArrOperation.redirect(_context, _rendStackCall.getStackCall(), _in, argumentParent_, ArgumentListCall.wrapCall(argumentList_,_right));
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(NullStruct.NULL_VALUE, _context, _rendStackCall);
         _ren.setSimpleArgument(argres_, _nodes, _context, _rendStackCall);
         return argres_.getValue();
     }

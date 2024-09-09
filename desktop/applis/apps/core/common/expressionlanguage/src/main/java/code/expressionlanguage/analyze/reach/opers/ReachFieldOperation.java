@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.WithFilterContent;
@@ -16,7 +15,7 @@ import code.util.StringMap;
 public final class ReachFieldOperation extends ReachMethodOperation implements ReachCalculable,ReachPossibleIntermediateDotted {
     private final AnaSettableOperationContent fieldMetaInfo;
     private final boolean declare;
-    private Argument previous;
+    private Struct previous;
 
     ReachFieldOperation(SettableAbstractFieldOperation _info) {
         super(_info);
@@ -45,24 +44,22 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
         StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
         Struct str_ = NullStruct.def(NumParsers.getStaticField(fieldId_, staticFields_));
         if (map_.isEmpty()) {
-            Argument arg_ = new Argument(_page.getCalculator().getInnerSimpleResult(fieldId_));
+            Struct arg_ = _page.getCalculator().getInnerSimpleResult(fieldId_);
             setSimpleArgumentAna(arg_);
             trySetDotParent(this, arg_, _page);
             return;
         }
         if (declare) {
-            Argument arg_ = new Argument(NumParsers.convert(getInfo().getResultClass().getUnwrapObjectNb()));
-            setSimpleArgument(arg_);
+            setSimpleArgument(NumParsers.convert(getInfo().getResultClass().getUnwrapObjectNb()));
             return;
         }
         if (str_ != NullStruct.DEF_VALUE) {
-            Argument arg_ = new Argument(str_);
-            setSimpleArgumentAna(arg_);
-            trySetDotParent(this, arg_, _page);
+            setSimpleArgumentAna(str_);
+            trySetDotParent(this, str_, _page);
         }
     }
 
-    private static void trySetDotParent(ReachOperationNode _oper, Argument _arg, AnalyzedPageEl _page) {
+    private static void trySetDotParent(ReachOperationNode _oper, Struct _arg, AnalyzedPageEl _page) {
         if (!_page.isEvaluatingCaseCondition()) {
             return;
         }
@@ -73,7 +70,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
     }
 
     @Override
-    public void setPreviousArgument(Argument _argument) {
+    public void setPreviousArgument(Struct _argument) {
         previous = _argument;
     }
 }

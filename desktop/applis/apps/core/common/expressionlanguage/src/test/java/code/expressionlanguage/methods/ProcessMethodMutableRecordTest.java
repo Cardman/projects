@@ -724,8 +724,8 @@ public final class ProcessMethodMutableRecordTest extends ProcessMethodCommon {
         CustList<ExecNamedFieldContent> named_ = new CustList<ExecNamedFieldContent>();
         named_.add(new ExecNamedFieldContent(new AnaNamedFieldContent("field","$int","pkg.Rec",null),classBody_));
         ArgumentListCall alc_ = new ArgumentListCall(args_);
-        ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(new CustomFoundRecordConstructor(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, "pkg.Rec"), new ExecTypeFunction(classBody_, null), named_, alc_.getArguments(), new CustList<ExecFormattedRootBlock>()), cont_, stackCall_);
-        Struct out_ = ArgumentListCall.toStr(argumentWrapper_.getValue());
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(new CustomFoundRecordConstructor(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_, "pkg.Rec"), new ExecTypeFunction(classBody_, null), named_, alc_.getArguments(), new CustList<ExecFormattedRootBlock>()), cont_, stackCall_);
+        Struct out_ = argumentWrapper_.getValue();
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());
         assertEq("pkg.Rec", out_.getClassName(cont_));

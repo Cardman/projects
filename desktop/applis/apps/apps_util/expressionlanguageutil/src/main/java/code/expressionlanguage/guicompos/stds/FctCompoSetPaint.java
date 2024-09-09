@@ -14,7 +14,7 @@ public final class FctCompoSetPaint implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustComponentStruct inst_ = (CustComponentStruct)_instance;
-        inst_.setPaintEvent(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.setPaintEvent(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

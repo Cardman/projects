@@ -19,7 +19,7 @@ public final class FctNbCompareToSpecRelCheck implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(cmp(_instance, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont,_stackCall));
+        return new ArgumentWrapper(cmp(_instance, _firstArgs.getArgumentWrappers().get(0).getValue(),_cont,_stackCall));
     }
 
     public static Struct cmp(Struct _instance, Struct _other, ContextEl _cont, StackCall _stackCall) {

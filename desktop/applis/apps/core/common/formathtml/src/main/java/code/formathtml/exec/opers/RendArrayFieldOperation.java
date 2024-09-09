@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -21,13 +20,12 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        Struct inst_ = previous_.getStruct();
-        Argument arg_;
-        if (inst_ instanceof ArrayStruct) {
+        Struct previous_ = getPreviousArg(this,_nodes, _rendStack);
+        Struct arg_;
+        if (previous_ instanceof ArrayStruct) {
             setRelOffsetPossibleLastPage(getOff(), _rendStack);
-            ArrayStruct arr_ = (ArrayStruct) inst_;
-            arg_ = new Argument(new IntStruct(arr_.getLength()));
+            ArrayStruct arr_ = (ArrayStruct) previous_;
+            arg_ = new IntStruct(arr_.getLength());
         } else {
             String npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
             _rendStack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _rendStack.getStackCall())));

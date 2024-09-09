@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -145,7 +144,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
             _varsInfos.set(variableName, new VariableWrapper(LocalVariable.newLocalVariable(arg_, clFirst_)));
         }
         AbstractWrapper lInfo_ = _varsInfos.getVal(variableName);
-        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx, ArgumentListCall.toStr(arg_));
+        lInfo_.setValue(_rendStackCall.getStackCall(), _ctx, arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         abs_.getRendReadWrite().setRead(getFirstChild());
     }

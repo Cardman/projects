@@ -45,7 +45,7 @@ public final class StdMethodCheckedExecOperationNodeInfos extends CoreCheckedExe
     }
 
     public StdMethodCheckedExecOperationNodeInfos(DirectStdRefectMethodPageEl _s) {
-        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()));
+        super(ExecFormattedRootBlock.defValue(), _s.getInstance());
         this.own = _s.getClassName().getFormatted();
         this.exiting = _s.getCheckedParams() == 2;
         this.fct = _s.getStdCallee();
@@ -53,7 +53,7 @@ public final class StdMethodCheckedExecOperationNodeInfos extends CoreCheckedExe
     }
 
     public StdMethodCheckedExecOperationNodeInfos(LambdaDirectStdRefectMethodPageEl _s) {
-        super(ExecFormattedRootBlock.defValue(), ArgumentListCall.toStr(_s.getInstance()));
+        super(ExecFormattedRootBlock.defValue(), _s.getInstance());
         this.own = _s.getClassName().getFormatted();
         this.exiting = _s.getCheckedParams() == 2;
         this.fct = _s.getStdCallee();

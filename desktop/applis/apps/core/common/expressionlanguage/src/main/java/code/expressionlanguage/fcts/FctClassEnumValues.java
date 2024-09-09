@@ -17,6 +17,6 @@ public final class FctClassEnumValues extends FctReflection {
         ClassMetaInfo instanceClass_ = (ClassMetaInfo) _instance;
         ExecRootBlock r_ = instanceClass_.getFormatted().getRootBlock();
         ClassCategory category_ = instanceClass_.getCategory();
-        return new ArgumentWrapper(IndirectCalledFctUtil.tryGetEnumValues(_exit, _cont, r_, category_, _stackCall).getStruct());
+        return new ArgumentWrapper(IndirectCalledFctUtil.tryGetEnumValues(_exit, _cont, r_, category_, _stackCall));
     }
 }

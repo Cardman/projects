@@ -1,8 +1,9 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
 import code.expressionlanguage.analyze.blocks.ConditionBlock;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReachIfCondition extends ReachCondition implements ReachBreakableBlock {
     private final String label;
@@ -21,8 +22,8 @@ public final class ReachIfCondition extends ReachCondition implements ReachBreak
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        Argument arg_ = getArgument();
-        boolean abr_ = Argument.isTrueValue(arg_);
+        Struct arg_ = getArgument();
+        boolean abr_ = ArgumentListCall.isTrueValue(arg_);
         if (!abr_) {
             return;
         }
@@ -32,13 +33,13 @@ public final class ReachIfCondition extends ReachCondition implements ReachBreak
     }
     @Override
     public boolean accessibleCondition() {
-        Argument arg_ = getArgument();
-        return Argument.isNotFalseValue(arg_);
+        Struct arg_ = getArgument();
+        return ArgumentListCall.isNotFalseValue(arg_);
     }
     @Override
     public boolean accessibleForNext() {
-        Argument arg_ = getArgument();
-        return !Argument.isTrueValue(arg_);
+        Struct arg_ = getArgument();
+        return !ArgumentListCall.isTrueValue(arg_);
     }
     private boolean canBeIncrementedCurGroup() {
         ReachBlock next_ = getNextSibling();

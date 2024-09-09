@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze.reach.opers.util;
 
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class AnaArgumentList {
-    private final CustList<Argument> arguments = new CustList<Argument>();
+    private final CustList<Struct> arguments = new CustList<Struct>();
 
-    public CustList<Argument> getArguments() {
+    public CustList<Struct> getArguments() {
         return arguments;
     }
 

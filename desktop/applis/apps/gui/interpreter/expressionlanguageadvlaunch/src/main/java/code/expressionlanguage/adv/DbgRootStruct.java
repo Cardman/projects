@@ -26,7 +26,7 @@ public final class DbgRootStruct extends DbgAbsNodeStruct {
         if (_val.getWrapper() != null) {
             result_ = new DbgRetVarStruct(this, _val.getWrapper());
         } else {
-            result_ = new DbgParentStruct(this,_val.getValue().getStruct());
+            result_ = new DbgParentStruct(this,_val.getValue());
         }
         getChildren().add(result_);
         getNode().add(result_.getNode());

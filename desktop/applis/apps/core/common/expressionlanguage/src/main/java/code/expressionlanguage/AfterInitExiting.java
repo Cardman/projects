@@ -4,6 +4,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.structs.Struct;
 
 public final class AfterInitExiting implements AbstractExiting{
     private final ContextEl context;
@@ -17,7 +18,7 @@ public final class AfterInitExiting implements AbstractExiting{
     }
 
     @Override
-    public boolean hasToExit(StackCall _stack, GeneType _className, Argument _arg) {
+    public boolean hasToExit(StackCall _stack, GeneType _className, Struct _arg) {
         CallingState state_ = state(_stack, _className, _arg);
         if (state_ != null) {
             _stack.setCallingState(state_);
@@ -27,7 +28,7 @@ public final class AfterInitExiting implements AbstractExiting{
     }
 
     @Override
-    public CallingState state(StackCall _stack, GeneType _className, Argument _arg) {
+    public CallingState state(StackCall _stack, GeneType _className, Struct _arg) {
         return MetaInfoUtil.stateAfterInit(context,_className,_stack);
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
@@ -39,13 +38,13 @@ public final class FieldLambdaParentRetriever extends AbsLambdaParentRetriever {
     }
 
     public static Struct retrInstance(ArgumentListCall _values, LambdaFieldStruct _ldaField) {
-        Argument instance_ = _ldaField.getInstanceCall();
+        Struct instance_ = _ldaField.getInstanceCall();
         Struct realInstance_;
         if (!_ldaField.isShiftInstance()) {
-            realInstance_ = instance_.getStruct();
+            realInstance_ = instance_;
         } else {
             CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
-            realInstance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_)).getStruct();
+            realInstance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
         }
         return realInstance_;
     }

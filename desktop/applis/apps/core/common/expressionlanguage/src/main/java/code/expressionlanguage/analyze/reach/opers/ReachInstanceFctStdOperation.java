@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -9,7 +8,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class ReachInstanceFctStdOperation extends ReachInvokingOperation implements ReachPossibleIntermediateDotted {
-    private Argument previous;
+    private Struct previous;
     ReachInstanceFctStdOperation(StandardMethod _standardMethod, AbstractCallFctOperation _meta, OperationNode _info) {
         super(_standardMethod, _meta,_info);
     }
@@ -23,7 +22,7 @@ public final class ReachInstanceFctStdOperation extends ReachInvokingOperation i
         if (previous == null) {
             return;
         }
-        Struct res_ = previous.getStruct();
+        Struct res_ = previous;
         if (res_ == NullStruct.NULL_VALUE) {
             return;
         }
@@ -31,7 +30,7 @@ public final class ReachInstanceFctStdOperation extends ReachInvokingOperation i
     }
 
     @Override
-    public void setPreviousArgument(Argument _argument) {
+    public void setPreviousArgument(Struct _argument) {
         previous = _argument;
     }
 }

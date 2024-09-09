@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
@@ -39,7 +38,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
-    protected void setCheckedResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack, boolean _set) {
+    protected void setCheckedResult(Struct _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack, boolean _set) {
         if (_stack.getStopper().hasValueStd(_stack)) {
             _stack.getBreakPointInfo().getStackState().resetVisitAndCheckBp();
             _stack.getBreakPointInfo().getBreakPointMiddleInfo().setCalculated(new ArgumentWrapper(_res,null));
@@ -47,7 +46,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         setResult(_res, _conf, _nodes, _stack, _set);
     }
-    public void setResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack, boolean _set) {
+    public void setResult(Struct _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack, boolean _set) {
         if (_set) {
             setQuickNoConvertSimpleArgument(_res, _conf, _nodes, _stack);
             return;
@@ -70,7 +69,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (argumentList_.getNaturalVararg() <= -1) {
             return argumentList_.getArguments();
         }
-        ExecArrayTemplates.checkedElements(ExecArrayFieldOperation.getArray(ArgumentListCall.toStr(argumentList_.getArguments().getArgumentWrappers().last().getValue()),_conf),_conf,_stack);
+        ExecArrayTemplates.checkedElements(ExecArrayFieldOperation.getArray(argumentList_.getArguments().getArgumentWrappers().last().getValue(),_conf),_conf,_stack);
         return argumentList_.getArguments();
     }
 
@@ -90,7 +89,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_natVararg <= -1) {
             return;
         }
-        CustList<Argument> optArgs_ = new CustList<Argument>();
+        CustList<Struct> optArgs_ = new CustList<Struct>();
         CustList<ArgumentWrapper> reord_ = new CustList<ArgumentWrapper>();
         int lenCh_ = _nodes.size();
         for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
@@ -99,7 +98,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 reord_.add(aw_);
                 continue;
             }
-            Argument a_ = aw_.getValue();
+            Struct a_ = aw_.getValue();
             if (i >= _natVararg) {
                 optArgs_.add(a_);
             } else {
@@ -108,46 +107,44 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
         ArrayStruct str_ = ArrayStruct.instance(clArr_, optArgs_);
-        reord_.add(new ArgumentWrapper(new Argument(str_),null));
+        reord_.add(new ArgumentWrapper(str_,null));
         _nodes.clear();
         _nodes.addAllElts(reord_);
     }
 
-    public static Argument getAnnotation(Argument _previous, String _name, ContextEl _conf, StackCall _stackCall) {
-        Struct argPrev_ = _previous.getStruct();
+    public static Struct getAnnotation(Struct _previous, String _name, ContextEl _conf, StackCall _stackCall) {
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
-        if (!(argPrev_ instanceof AnnotationStruct)) {
+        if (!(_previous instanceof AnnotationStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return new Argument();
+            return NullStruct.NULL_VALUE;
         }
-        String clName_ = argPrev_.getClassName(_conf);
-        Struct ret_ = ExecFieldTemplates.getInstanceField(_previous,_conf, _stackCall, new ClassField(clName_, _name)).getStruct();
+        String clName_ = _previous.getClassName(_conf);
+        Struct ret_ = ExecFieldTemplates.getInstanceField(_previous,_conf, _stackCall, new ClassField(clName_, _name));
         return swallowCopy(ret_);
     }
 
-    public static Argument swallowCopy(Struct _ret) {
-        Argument a_;
+    public static Struct swallowCopy(Struct _ret) {
+        Struct a_;
         if (_ret instanceof ArrayStruct) {
             ArrayStruct orig_ = (ArrayStruct) _ret;
-            a_ = new Argument(orig_.swallowCopy());
+            a_ = orig_.swallowCopy();
         } else {
-            a_ = new Argument(_ret);
+            a_ = _ret;
         }
         return a_;
     }
 
-    public static Argument cloneArray(Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        Struct argPrev_ = _previous.getStruct();
+    public static Struct cloneArray(Struct _previous, ContextEl _conf, StackCall _stackCall) {
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
-        if (!(argPrev_ instanceof ArrayStruct)) {
+        if (!(_previous instanceof ArrayStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return new Argument();
+            return NullStruct.NULL_VALUE;
         }
         //clone object
-        ArrayStruct arr_ = (ArrayStruct) argPrev_;
+        ArrayStruct arr_ = (ArrayStruct) _previous;
         ArrayStruct copy_ = arr_.swallowCopy();
         _stackCall.getInitializingTypeInfos().addSensibleElementsFromClonedArray(arr_, copy_);
-        return new Argument(copy_);
+        return copy_;
     }
 
     @Override
@@ -162,7 +159,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return polymorph(_conf, _previous, _named);
     }
     public static ExecOverrideInfo polymorph(ContextEl _conf, Struct _previous, ExecTypeFunction _named) {
-        String argClassName_ = Argument.getNull(_previous).getClassName(_conf);
+        String argClassName_ = ArgumentListCall.getNull(_previous).getClassName(_conf);
         String base_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         ExecOverrideInfo res_ = _conf.getClasses().getRedirection(_named,base_);
         if (res_ != null) {
@@ -173,30 +170,28 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
 
-    public static Argument getInstanceCall(Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        Struct ls_ = _previous.getStruct();
-        if (ls_ instanceof LambdaStruct) {
-            return ((LambdaStruct) ls_).getInstanceCall();
+    public static Struct getInstanceCall(Struct _previous, ContextEl _conf, StackCall _stackCall) {
+        if (_previous instanceof LambdaStruct) {
+            return ((LambdaStruct) _previous).getInstanceCall();
         }
         LgNames lgNames_ = _conf.getStandards();
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
         _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
-        return Argument.createVoid();
+        return NullStruct.NULL_VALUE;
     }
-    public static Argument getMetaInfo(Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        Struct ls_ = _previous.getStruct();
-        if (ls_ instanceof LambdaStruct) {
-            return new Argument(((LambdaStruct) ls_).getMetaInfo());
+    public static Struct getMetaInfo(Struct _previous, ContextEl _conf, StackCall _stackCall) {
+        if (_previous instanceof LambdaStruct) {
+            return ((LambdaStruct) _previous).getMetaInfo();
         }
         LgNames lgNames_ = _conf.getStandards();
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
         _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
-        return Argument.createVoid();
+        return NullStruct.NULL_VALUE;
     }
 
-    public static void prepareCallDynReflect(Argument _previous, ArrayStruct _values, int _ref, ContextEl _conf, StackCall _stackCall) {
+    public static void prepareCallDynReflect(Struct _previous, ArrayStruct _values, int _ref, ContextEl _conf, StackCall _stackCall) {
         CustList<String> paramsFct_ = paramsFct(_previous, _conf);
         CustomFoundExc c_ = foundExc(_values, _conf, _stackCall, paramsFct_);
         if (c_ != null) {
@@ -237,8 +232,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return null;
     }
 
-    public static CustList<String> paramsFct(Argument _previous, ContextEl _conf) {
-        StringList parts_ = StringExpUtil.getAllTypes(Argument.getNullableValue(_previous).getStruct().getClassName(_conf));
+    public static CustList<String> paramsFct(Struct _previous, ContextEl _conf) {
+        StringList parts_ = StringExpUtil.getAllTypes(ArgumentListCall.getNull(_previous).getClassName(_conf));
         return parts_.leftMinusOne(parts_.size() - 2);
     }
 
@@ -253,7 +248,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         } else {
             v_ = new ReflectVariableWrapper(local_, _values,index(r_, _i));
         }
-        return new ArgumentWrapper(new Argument(_values.get(_i)), v_);
+        return new ArgumentWrapper(_values.get(_i), v_);
     }
 
     public static int index(boolean _r, int _i) {
@@ -263,8 +258,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return -1;
     }
 
-    public static void prepareCallDynNormal(Argument _previous, ArgumentListCall _values, ContextEl _conf, StackCall _stackCall) {
-        Struct ls_ = Argument.getNullableValue(_previous).getStruct();
+    public static void prepareCallDynNormal(Struct _previous, ArgumentListCall _values, ContextEl _conf, StackCall _stackCall) {
+        Struct ls_ = ArgumentListCall.getNull(_previous);
         ArgumentListCall call_ = new ArgumentListCall();
         if (!(ls_ instanceof LambdaStruct)) {
             AbstractParamChecker.prepareCallDyn(_previous,call_,0,_conf, _stackCall);
@@ -273,7 +268,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         prepareCallDynNormalDefault(_previous, _values.getArgumentWrappers(), _conf, _stackCall);
     }
 
-    private static void prepareCallDynNormalDefault(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
+    private static void prepareCallDynNormalDefault(Struct _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
         CustomFoundExc ex_ = foundExc(_previous, _values, _conf, _stackCall);
         if (ex_ != null) {
             _stackCall.setCallingState(ex_);
@@ -284,8 +279,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         AbstractParamChecker.prepareCallDyn(_previous, call_,0, _conf, _stackCall);
     }
 
-    public static CustomFoundExc foundExc(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
-        Struct ls_ = Argument.getNullableValue(_previous).getStruct();
+    public static CustomFoundExc foundExc(Struct _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
+        Struct ls_ = ArgumentListCall.getNull(_previous);
         String typeFct_ = ls_.getClassName(_conf);
         StringList parts_ = StringExpUtil.getAllTypes(typeFct_);
         CustList<String> paramsFct_ = parts_.leftMinusOne(parts_.size() - 2);
@@ -321,7 +316,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 if (a.getWrapper() == null) {
                     LgNames stds_ = _conf.getStandards();
                     String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-                    return new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, a.getValue().getStruct().getClassName(_conf)),cast_, _stackCall));
+                    return new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, a.getValue().getClassName(_conf)),cast_, _stackCall));
                 }
             } else {
                 if (a.getWrapper() != null) {
@@ -351,7 +346,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         AbstractWrapper wr_ = _a.getWrapper();
         String arg_;
         if (wr_ == null) {
-            arg_ = _a.getValue().getStruct().getClassName(_conf);
+            arg_ = _a.getValue().getClassName(_conf);
         } else {
             arg_ = wr_.getClassName(_conf);
         }

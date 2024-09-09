@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.stds.AnaStdCaller;
@@ -26,6 +25,6 @@ public final class FctReplOld implements AnaStdCaller {
     private static Struct replOld(Struct _instance) {
         ReplacementStruct rp_ = NumParsers.getReplacement(_instance);
         String new_ = rp_.getInstance().getOldString();
-        return Argument.wrapStr(new_);
+        return ArgumentListCall.wrapStr(new_);
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -14,6 +13,7 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class MetaInfoUtil {
     private MetaInfoUtil() {
@@ -71,7 +71,7 @@ public final class MetaInfoUtil {
         return new StackTraceElementStruct(fileName_,rci_,currentClassName_,signature_);
     }
 
-    public static CallingState state(ContextEl _cont, GeneType _className, Argument _arg, StackCall _stackCall) {
+    public static CallingState state(ContextEl _cont, GeneType _className, Struct _arg, StackCall _stackCall) {
         if (_stackCall.getLastPage().getBlockRootType() == _className) {
             return null;
         }

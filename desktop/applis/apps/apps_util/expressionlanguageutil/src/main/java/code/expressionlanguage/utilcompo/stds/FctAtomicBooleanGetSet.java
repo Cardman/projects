@@ -14,6 +14,6 @@ public final class FctAtomicBooleanGetSet extends FctAtomicAbs {
     @Override
     protected ArgumentWrapper atomic(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractAtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
-        return new ArgumentWrapper(BooleanStruct.of(re_.getAndSet(BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()))));
+        return new ArgumentWrapper(BooleanStruct.of(re_.getAndSet(BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue()))));
     }
 }

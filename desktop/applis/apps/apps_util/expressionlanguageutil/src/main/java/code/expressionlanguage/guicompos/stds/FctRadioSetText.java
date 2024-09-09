@@ -14,7 +14,7 @@ public final class FctRadioSetText implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         RadioButtonStruct inst_ = (RadioButtonStruct) _instance;
-        inst_.setText(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.setText(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

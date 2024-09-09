@@ -19,8 +19,8 @@ public final class FctStringBuilderDelete implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringBuilderStruct inst_ = (StringBuilderStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct index_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct arr_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct index_ = argumentWrappers_.get(0).getValue();
+        Struct arr_ = argumentWrappers_.get(1).getValue();
         delete(inst_, NumParsers.convertToNumber(index_),NumParsers.convertToNumber(arr_),_cont,_stackCall);
         return new ArgumentWrapper(inst_);
     }

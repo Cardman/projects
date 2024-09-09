@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.structs.NullStruct;
 
 public final class StaticAccessOperation extends LeafOperation {
     private AnaResultPartTypeDtoInt partOffsets;
@@ -24,8 +24,7 @@ public final class StaticAccessOperation extends LeafOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         if (!extractType.isEmpty()) {
-            Argument a_ = new Argument();
-            setSimpleArgument(a_);
+            setSimpleArgument(NullStruct.NULL_VALUE);
             setResultClass(new AnaClassArgumentMatching(extractType));
             return;
         }
@@ -48,8 +47,7 @@ public final class StaticAccessOperation extends LeafOperation {
         }
         classStr_ = emptyToObject(classStr_, _page);
         checkClassAccess(glClass_, classStr_, _page);
-        Argument a_ = new Argument();
-        setSimpleArgument(a_);
+        setSimpleArgument(NullStruct.NULL_VALUE);
         setResultClass(new AnaClassArgumentMatching(classStr_));
     }
 

@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ConditionBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class ReachCondition extends ReachBracedBlock implements ReachBuildableElMethod,ReachAbruptGroup {
 
@@ -33,7 +33,7 @@ public abstract class ReachCondition extends ReachBracedBlock implements ReachBu
 //        _page.getCoverage().putBlockOperations(exec_,getInfo());
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return meta.getArgument();
     }
 }

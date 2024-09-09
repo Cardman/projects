@@ -59,7 +59,7 @@ public final class RendRadio extends RendInput {
             }
             NavigationCore.procDefValue(elt_, NumParsers.getString(strObj_).getInstance(), _cont.getRendKeyWords().group());
         }
-        prStack(_cont,elt_,arg_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        prStack(_cont,elt_,arg_,_rendStack.getLastPage().getGlobalStruct(),_rendStack);
         return NullStruct.NULL_VALUE;
     }
 

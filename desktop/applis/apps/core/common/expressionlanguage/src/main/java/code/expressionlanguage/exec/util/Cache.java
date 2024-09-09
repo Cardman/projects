@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -92,7 +91,7 @@ public abstract class Cache {
     public void putLocalWrapperValue(String _key, Struct _var, ContextEl _context, StackCall _stackCall) {
         for (NamedWrapper n: localWrappers) {
             if (StringUtil.quickEq(n.getName(),_key)) {
-                n.getWrapper().setValue(_stackCall, _context,new Argument(_var));
+                n.getWrapper().setValue(_stackCall, _context,_var);
                 break;
             }
         }
@@ -103,7 +102,7 @@ public abstract class Cache {
         for (NamedWrapper n: localWrappers) {
             if (StringUtil.quickEq(n.getName(),_key)) {
                 if (index_ == _index) {
-                    n.getWrapper().setValue(_stackCall, _context,new Argument(_var));
+                    n.getWrapper().setValue(_stackCall, _context,_var);
                     break;
                 }
                 index_++;

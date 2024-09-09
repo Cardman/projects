@@ -34,7 +34,7 @@ public abstract class FctFileAbs implements StdCaller {
     }
     public abstract ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall);
     public boolean guard(ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall){
-        if (_firstArgs.getArgumentWrappers().get(0).getValue().getStruct() instanceof StringStruct) {
+        if (_firstArgs.getArgumentWrappers().get(0).getValue() instanceof StringStruct) {
             return true;
         }
         _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));

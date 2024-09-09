@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -31,11 +30,11 @@ public final class ExecCustArrReadOperation extends ExecSettableCallFctOperation
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
-        Struct parent_ = ExecFieldTemplates.getParent(instRead.getInst().getAnc(), previous_.getStruct(), _conf, _stack);
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct parent_ = ExecFieldTemplates.getParent(instRead.getInst().getAnc(), previous_, _conf, _stack);
         ArgumentListCall argumentListCall_ = fetchFormattedArgs(_conf, _stack, parent_, instRead, infos_);
         ExecCustArrOperation.getArgument(this,_conf, _stack,instRead, ArgumentListCall.wrapCall(argumentListCall_.getArgumentWrappers(),null), parent_);
-        setCheckedResult(ArgumentListCall.toStr(NullStruct.NULL_VALUE), _conf, _nodes, _stack);
+        setCheckedResult(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
     }
     public Struct instance(IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
         return ExecOperationNode.instance(this,instRead.getInst().getAnc(), _nodes, _last);

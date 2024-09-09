@@ -1,10 +1,10 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -36,13 +36,13 @@ public final class ResourcesStruct {
 		String name_ = _in.getInstance();
 		StringMap<String> res_ = _contextEl.getResources();
 		String content_ = res_.getVal(name_);
-		return Argument.wrapStr(content_);
+		return ArgumentListCall.wrapStr(content_);
 	}
 	public static Struct getResource(ContextEl _contextEl,StringStruct _in) {
 		String name_ = _in.getInstance();
 		StringMap<String> res_ = _contextEl.getClasses().getResources();
 		String content_ = res_.getVal(name_);
-		return Argument.wrapStr(content_);
+		return ArgumentListCall.wrapStr(content_);
 	}
 	public static Struct getResourceIndex(AnalyzedPageEl _contextEl,Struct _in) {
 		StringMap<String> res_ = _contextEl.getResources();
@@ -57,7 +57,7 @@ public final class ResourcesStruct {
 		int name_ = NumParsers.convertToNumber(_in).intStruct();
 		CustList<String> values_ = _res.getKeys();
 		if (values_.isValidIndex(name_)) {
-			return  Argument.wrapStr(values_.get(name_));
+			return  ArgumentListCall.wrapStr(values_.get(name_));
 		}
 		return NullStruct.NULL_VALUE;
 	}

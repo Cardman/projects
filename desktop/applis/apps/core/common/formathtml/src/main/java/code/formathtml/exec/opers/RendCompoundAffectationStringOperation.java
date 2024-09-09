@@ -1,12 +1,12 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationStringOperation;
 import code.expressionlanguage.exec.symbols.ExecOperSymbol;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 import code.util.StringList;
@@ -25,9 +25,9 @@ public final class RendCompoundAffectationStringOperation extends RendCompoundAf
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode left_ = getFirstNode(this);
         RendDynOperationNode right_ = getLastNode(this);
-        Argument leftArg_ = getArgument(_nodes,left_);
-        Argument rightArg_ = getArgument(_nodes,right_);
-        Argument res_ = new Argument(ExecCompoundAffectationStringOperation.calculatedValue(symbol, leftArg_.getStruct(), rightArg_.getStruct(), _context, _rendStack, _rendStack.getLastPage()));
+        Struct leftArg_ = getArgument(_nodes,left_);
+        Struct rightArg_ = getArgument(_nodes,right_);
+        Struct res_ = ExecCompoundAffectationStringOperation.calculatedValue(symbol, leftArg_, rightArg_, _context, _rendStack, _rendStack.getLastPage());
         process(this,_nodes, _context, _rendStack,res_);
     }
 

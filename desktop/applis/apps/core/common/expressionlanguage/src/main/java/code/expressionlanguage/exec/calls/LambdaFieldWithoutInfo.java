@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.StackCall;
@@ -39,10 +38,10 @@ public final class LambdaFieldWithoutInfo extends AbstractBasicReflectPageEl {
         if (lambdaFieldStruct.isInstanceField()) {
             String ownerType_ = StringUtil.nullToEmpty(lambdaFieldStruct.getOwnerType());
             boolean res_ = ExecInherits.safeObject(ownerType_, instance.getClassName(_context), _context) == ErrorType.NOTHING;
-            setReturnedArgument(new Argument(BooleanStruct.of(res_)));
+            setReturnedArgument(BooleanStruct.of(res_));
             return true;
         }
-        setReturnedArgument(new Argument(instance.getParent()));
+        setReturnedArgument(instance.getParent());
         return true;
     }
 

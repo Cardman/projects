@@ -14,7 +14,7 @@ public final class FctSpinnerAddChange implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         SpinnerStruct inst_ = (SpinnerStruct) _instance;
-        inst_.addChangeListener(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.addChangeListener(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

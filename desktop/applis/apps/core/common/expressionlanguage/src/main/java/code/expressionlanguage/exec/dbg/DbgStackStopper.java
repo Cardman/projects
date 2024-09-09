@@ -11,14 +11,23 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.*;
-import code.expressionlanguage.exec.opers.*;
-import code.expressionlanguage.exec.stacks.*;
-import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.stacks.AbstractStask;
+import code.expressionlanguage.exec.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.stacks.TryBlockStack;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.stds.StandardNamedFunction;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
@@ -200,7 +209,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
                 if (st_.getStack().trueException() != null) {
                     out_.getWatchResults().setWatchedTrace(st_.getStack().getStackView());
                 } else {
-                    out_.getWatchResults().setWatchedObject(ArgumentListCall.toStr(st_.getStack().aw().getValue()));
+                    out_.getWatchResults().setWatchedObject(st_.getStack().aw().getValue());
                 }
             }
             out_.setBpc(bp_);
@@ -465,16 +474,16 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
 
     private static Struct instance(CallingState _c) {
         if (_c instanceof CustomFoundBlock) {
-            return ArgumentListCall.toStr(((CustomFoundBlock)_c).getCurrentObject());
+            return ((CustomFoundBlock)_c).getCurrentObject();
         }
         if (_c instanceof CustomFoundConstructor) {
-            return ArgumentListCall.toStr(((CustomFoundConstructor)_c).getCurrentObject());
+            return ((CustomFoundConstructor)_c).getCurrentObject();
         }
         if (_c instanceof CustomFoundMethod) {
-            return ArgumentListCall.toStr(((CustomFoundMethod)_c).getGl());
+            return ((CustomFoundMethod)_c).getGl();
         }
         if (_c instanceof CustomFoundSwitch) {
-            return ArgumentListCall.toStr(((CustomFoundSwitch)_c).getGl());
+            return ((CustomFoundSwitch)_c).getGl();
         }
         return NullStruct.NULL_VALUE;
     }
@@ -505,7 +514,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
         CustList<String> ls_ = _id.getSm().names();
         StringMap<AbstractWrapper> pars_ = new StringMap<AbstractWrapper>();
         for (ArgumentWrapper a: _params.getArgumentWrappers()) {
-            pars_.addEntry("",new VariableWrapper(LocalVariable.newLocalVariable(ArgumentListCall.toStr(a.getValue()),_conf)));
+            pars_.addEntry("",new VariableWrapper(LocalVariable.newLocalVariable(a.getValue(),_conf)));
         }
         return build(pars_, null, ls_);
     }
@@ -830,7 +839,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
             _stackCall.getBreakPointInfo().getBreakPointOutputInfo().setCallingStateSub(result_.getStack().getCallingState());
             return true;
         }
-        return BooleanStruct.isTrue(ArgumentListCall.toStr(result_.getStack().aw().getValue()));
+        return BooleanStruct.isTrue(result_.getStack().aw().getValue());
     }
 
     private static BreakPointCondition stopCurrentBpCondition(BreakPoint _bp) {
@@ -905,7 +914,7 @@ public final class DbgStackStopper extends AbsStackStopperImpl {
     }
 
     private static boolean okMethod(ContextEl _context, StackCall _stackCall, StdMethodCheckedExecOperationNodeInfos _check) {
-        return ExecTemplates.checkParams(_context, _check.getOwn(),_check.getFct().id(), ArgumentListCall.toStr(_check.getInstance()), _check.getArgs().getArguments(), _stackCall) == null;
+        return ExecTemplates.checkParams(_context, _check.getOwn(),_check.getFct().id(), _check.getInstance(), _check.getArgs().getArguments(), _stackCall) == null;
     }
     private static boolean okField(ContextEl _context, StackCall _stackCall, FieldCheckedExecOperationNodeInfos _check) {
         if (_check.getDeclaring() == null) {

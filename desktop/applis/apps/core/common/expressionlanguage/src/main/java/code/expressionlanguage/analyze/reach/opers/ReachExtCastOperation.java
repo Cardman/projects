@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.analyze.opers.ImplicitOperation;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReachExtCastOperation extends ReachMethodOperation implements ReachCalculable {
     private String className;
@@ -22,7 +22,7 @@ public final class ReachExtCastOperation extends ReachMethodOperation implements
         if (!allAreDefined(this)) {
             return;
         }
-        Argument arg_ = getFirstChild().getArgument();
+        Struct arg_ = getFirstChild().getArgument();
         if (AnaTypeUtil.isPrimitive(className, _page)) {
             checkNull(arg_, _page);
         }

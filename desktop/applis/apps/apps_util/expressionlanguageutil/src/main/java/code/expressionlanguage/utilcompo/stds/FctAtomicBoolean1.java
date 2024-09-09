@@ -23,7 +23,7 @@ public final class FctAtomicBoolean1 implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractAtomicBoolean at_ = infos.newAtomicBoolean(BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        AbstractAtomicBoolean at_ = infos.newAtomicBoolean(BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue()));
         AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
         return new ArgumentWrapper(std_);
     }

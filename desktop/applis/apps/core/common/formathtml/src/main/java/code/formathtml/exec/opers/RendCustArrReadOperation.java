@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -27,11 +26,11 @@ public final class RendCustArrReadOperation extends RendInvokingOperation implem
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        Struct parent_ = ExecFieldTemplates.getParent(instRead.getInst().getAnc(), previous_.getStruct(), _context,  _rendStack.getStackCall());
+        Struct previous_ = getPreviousArg(this, _nodes, _rendStack);
+        Struct parent_ = ExecFieldTemplates.getParent(instRead.getInst().getAnc(), previous_, _context,  _rendStack.getStackCall());
         ArgumentListCall argumentListCall_ = ExecInvokingOperation.fetchFormattedArgs(_context, _rendStack.getStackCall(), parent_, instRead, infos_);
         getArgumentPair(_nodes,this).setArgumentList(argumentListCall_.getArgumentWrappers());
-        getArgumentPair(_nodes,this).setArgumentParent(new Argument(parent_));
+        getArgumentPair(_nodes,this).setArgumentParent(parent_);
         RendCustArrOperation.processCalling(this,_nodes,null, _context, _rendStack, instRead);
     }
 

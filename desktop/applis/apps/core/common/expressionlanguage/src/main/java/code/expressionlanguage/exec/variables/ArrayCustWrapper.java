@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.variables;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -28,8 +27,8 @@ public final class ArrayCustWrapper extends ValueWrapper {
         previousClass = _previousClass;
         readWrite = _readWrite;
     }
-    public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        setValue(ArgumentListCall.toStr(_right));
+    public void setValue(StackCall _stack, ContextEl _conf, Struct _right) {
+        setValue(_right);
         ExecCustArrOperation.redirect(_conf, _stack, readWrite.getInstWrite(), parent,ArgumentListCall.wrapCall(ls,_right));
     }
 
@@ -54,7 +53,7 @@ public final class ArrayCustWrapper extends ValueWrapper {
         return ArgumentListCall.wrapCall(ls,null);
     }
     public ArgumentListCall argsWrite(Struct _right) {
-        return ArgumentListCall.wrapCall(ls,ArgumentListCall.toStr(_right));
+        return ArgumentListCall.wrapCall(ls,_right);
     }
     public ExecOverrideInfo poly(ContextEl _cont, Struct _pr) {
         return ExecCustArrOperation.poly(readWrite.getInstRead(), _cont, _pr);

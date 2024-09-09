@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.variables;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.core.StringUtil;
@@ -12,7 +12,7 @@ public final class LocalVariable {
     private String className;
 
     public static LocalVariable newLocalVariable(Struct _struct, ContextEl _cont) {
-        Struct struct_ = Argument.getNull(_struct);
+        Struct struct_ = ArgumentListCall.getNull(_struct);
         return newLocalVariable(struct_, struct_.getClassName(_cont));
     }
 
@@ -27,7 +27,7 @@ public final class LocalVariable {
     }
 
     public void setStruct(Struct _element) {
-        element = Argument.getNull(_element);
+        element = ArgumentListCall.getNull(_element);
     }
 
     public String getClassName() {

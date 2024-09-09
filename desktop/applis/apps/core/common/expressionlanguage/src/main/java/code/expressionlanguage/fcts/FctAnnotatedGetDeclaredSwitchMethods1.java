@@ -17,10 +17,10 @@ public final class FctAnnotatedGetDeclaredSwitchMethods1 extends FctReflection {
         AnnotatedStruct annotated_ = NumParsers.getAnnotated(_instance);
         CustList<MethodMetaInfo> methods_ = listSwitchMethod(_cont, annotated_);
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct name_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct stat_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct vararg_ = argumentWrappers_.get(2).getValue().getStruct();
-        Struct params_ = argumentWrappers_.get(3).getValue().getStruct();
+        Struct name_ = argumentWrappers_.get(0).getValue();
+        Struct stat_ = argumentWrappers_.get(1).getValue();
+        Struct vararg_ = argumentWrappers_.get(2).getValue();
+        Struct params_ = argumentWrappers_.get(3).getValue();
         CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, name_, stat_, vararg_, params_);
         return new ArgumentWrapper(getMethodsMeta(_cont, candidates_));
     }

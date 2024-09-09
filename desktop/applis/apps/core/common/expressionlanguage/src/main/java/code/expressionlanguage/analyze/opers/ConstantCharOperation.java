@@ -1,12 +1,13 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.TextBlockInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.structs.CharStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class ConstantCharOperation extends ConstantOperation {
 
@@ -23,9 +24,9 @@ public final class ConstantCharOperation extends ConstantOperation {
         String originalStr_ = getValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String argClName_ = _page.getAliasPrimChar();
-        Argument a_;
+        Struct a_;
         if (strInfo.isKo() || originalStr_.isEmpty()) {
-            a_ = new Argument();
+            a_ = NullStruct.NULL_VALUE;
             FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
             badFormat_.setFile(_page.getCurrentFile());
             badFormat_.setIndexFile(_page);
@@ -34,7 +35,7 @@ public final class ConstantCharOperation extends ConstantOperation {
             _page.getLocalizer().addError(badFormat_);
             addErr(badFormat_.getBuiltError());
         } else {
-            a_ = new Argument(new CharStruct(originalStr_.charAt(0)));
+            a_ = new CharStruct(originalStr_.charAt(0));
         }
         setSimpleArgument(a_);
         setResultClass(new AnaClassArgumentMatching(argClName_));

@@ -21,7 +21,7 @@ public final class FctFontStringHeight0 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct first_ = argumentWrappers_.get(0).getValue().getStruct();
+        Struct first_ = argumentWrappers_.get(0).getValue();
         if (!(first_ instanceof ImageStruct)) {
             return new ArgumentWrapper(new IntStruct(-1));
         }

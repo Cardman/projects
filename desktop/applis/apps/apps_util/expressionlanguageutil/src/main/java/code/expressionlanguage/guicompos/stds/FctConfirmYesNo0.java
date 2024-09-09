@@ -28,6 +28,6 @@ public final class FctConfirmYesNo0 implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(guiEx.getAnswerYesNo(argumentWrappers_.get(0).getValue().getStruct(), argumentWrappers_.get(1).getValue().getStruct(), argumentWrappers_.get(2).getValue().getStruct(), argumentWrappers_.get(3).getValue().getStruct(), argumentWrappers_.get(4).getValue().getStruct()));
+        return new ArgumentWrapper(guiEx.getAnswerYesNo(argumentWrappers_.get(0).getValue(), argumentWrappers_.get(1).getValue(), argumentWrappers_.get(2).getValue(), argumentWrappers_.get(3).getValue(), argumentWrappers_.get(4).getValue()));
     }
 }

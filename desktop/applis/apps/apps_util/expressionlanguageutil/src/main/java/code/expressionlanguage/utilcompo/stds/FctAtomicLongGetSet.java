@@ -15,6 +15,6 @@ public final class FctAtomicLongGetSet extends FctAtomicAbs {
     @Override
     protected ArgumentWrapper atomic(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-        return new ArgumentWrapper(new LongStruct(re_.getAndSet(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).longStruct())));
+        return new ArgumentWrapper(new LongStruct(re_.getAndSet(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).longStruct())));
     }
 }

@@ -1,6 +1,5 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -16,9 +15,11 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.sml.FormParts;
 import code.formathtml.exec.*;
 import code.formathtml.exec.opers.*;
 import code.formathtml.exec.stacks.*;
@@ -305,7 +306,7 @@ public abstract class RendBlock {
         }
         CustList<Struct> allObj_ = new CustList<Struct>();
         RendDynOperationNode settable_ = RendAbstractAffectOperation.castDottedTo(res_);
-        Struct arg_ = ArgumentListCall.toStr(Argument.getNullableValue(args_.getValue(settable_.getOrder()).getArgument()));
+        Struct arg_ = ArgumentListCall.getNull(args_.getValue(settable_.getOrder()).getArgument());
         AbstractWrapper wr_;
         if (settable_ instanceof RendSettableFieldStatOperation) {
             ExecSettableOperationContent settableFieldContent_ = ((RendSettableFieldStatOperation) settable_).getSettableFieldContent();
@@ -316,7 +317,7 @@ public abstract class RendBlock {
         } else if (settable_ instanceof RendSettableFieldInstOperation) {
             ExecSettableOperationContent settableFieldContent_ = ((RendSettableFieldInstOperation) settable_).getSettableFieldContent();
             ArgumentsPair pairCh_ = RendDynOperationNode.getArgumentPair(args_, settable_);
-            Struct parent_ = pairCh_.getArgumentParent().getStruct();
+            Struct parent_ = pairCh_.getArgumentParent();
             ExecTypeReturn pair_ = ((RendSettableFieldInstOperation) settable_).getPair();
             allObj_.add(parent_);
             wr_ = new InstanceFieldWrapper(arg_,parent_, parent_.getClassName(_ctx),settableFieldContent_.getRealType(),
@@ -324,21 +325,21 @@ public abstract class RendBlock {
         } else if (settable_ instanceof RendCustArrOperation) {
             RendCustArrOperation ch_ = (RendCustArrOperation)settable_;
             ArgumentsPair pairCh_ = RendDynOperationNode.getArgumentPair(args_, ch_);
-            Struct parent_ = pairCh_.getArgumentParent().getStruct();
+            Struct parent_ = pairCh_.getArgumentParent();
             CustList<ArgumentWrapper> argumentList_ = pairCh_.getArgumentList();
             wr_ = new ArrayCustWrapper(arg_,argumentList_,parent_, parent_.getClassName(_ctx), ch_.getReadWrite());
             allObj_.add(parent_);
             feed(argumentList_, allObj_);
         } else if (settable_ instanceof RendArrOperation){
             RendArrOperation ch_ = (RendArrOperation)settable_;
-            Argument previousArgument_ = Argument.getNullableValue(RendDynOperationNode.getArgumentPair(args_, ch_).getArgumentParent());
+            Struct previousArgument_ = ArgumentListCall.getNull(RendDynOperationNode.getArgumentPair(args_, ch_).getArgumentParent());
             ArgumentsPair pairIndex_ = RendDynOperationNode.getArgumentPair(args_, ch_.getFirstChild());
-            wr_ = ExecWrappOperation.buildArrWrapp(previousArgument_,pairIndex_.getArgument().getStruct(),arg_);
-            allObj_.add(previousArgument_.getStruct());
-            allObj_.add(pairIndex_.getArgument().getStruct());
+            wr_ = ExecWrappOperation.buildArrWrapp(previousArgument_,pairIndex_.getArgument(),arg_);
+            allObj_.add(previousArgument_);
+            allObj_.add(pairIndex_.getArgument());
         } else {
             ArgumentsPair pairCh_ = RendDynOperationNode.getArgumentPair(args_, settable_);
-            Struct parent_ = Argument.getNullableValue(pairCh_.getArgumentParent()).getStruct();
+            Struct parent_ = ArgumentListCall.getNull(pairCh_.getArgumentParent());
             CustList<ArgumentWrapper> argumentList_ = pairCh_.getArgumentList();
             wr_ = ExecTemplates.getWrap(pairCh_.getWrapper());
             allObj_.add(parent_);
@@ -350,11 +351,11 @@ public abstract class RendBlock {
 
     private static void feed(CustList<ArgumentWrapper> _argumentList, CustList<Struct> _allObj) {
         for (ArgumentWrapper a: _argumentList) {
-            _allObj.add(a.getValue().getStruct());
+            _allObj.add(a.getValue());
         }
     }
 
-    public static void prStack(Configuration _cont, Element _write, DefFieldUpdates _f, DefFetchedObjs _fetch, Argument _globalArgument, RendStackCall _rend) {
+    public static void prStack(Configuration _cont, Element _write, DefFieldUpdates _f, DefFetchedObjs _fetch, Struct _globalArgument, RendStackCall _rend) {
         if (koInput(_fetch)) {
             return;
         }
@@ -373,7 +374,7 @@ public abstract class RendBlock {
             nodeCont_.setOpsConvert(_f.getOpsConverter());
             nodeCont_.setInput(_fetch.getInput());
             nodeCont_.setArrayConverter(_f.isArrayConverter());
-            nodeCont_.setBean(_globalArgument.getStruct());
+            nodeCont_.setBean(_globalArgument);
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             String id_ = NavigationCore.getId(_cont.getRend(), _write, _cont.getRendKeyWords().group());
             String class_ = NavigationCore.getInputClass(_cont.getRend(), _write, _f, _cont.getRendKeyWords().group());
@@ -621,7 +622,7 @@ public abstract class RendBlock {
                 if (callingFinally_ != null) {
                     callingFinally_.removeBlockFinally(_conf, _advStandards, _ctx, _rendStackCall);
                 } else {
-                    _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(Argument.getNull(_lastStack.getException())));
+                    _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(ArgumentListCall.getNull(_lastStack.getException())));
                     processGeneException(_ctx, _rendStackCall);
                 }
             }

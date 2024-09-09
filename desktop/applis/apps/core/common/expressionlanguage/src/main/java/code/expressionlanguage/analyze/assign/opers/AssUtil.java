@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.assign.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.blocks.AssForIterativeLoop;
@@ -9,7 +8,9 @@ import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -305,14 +306,14 @@ public final class AssUtil {
         return false;
     }
     public static void setAssignments(AssOperationNode _current, AssBlock _ass, AssignedVariablesBlock _a) {
-        Argument arg_ = _current.getArgument();
+        Struct arg_ = _current.getArgument();
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
         StringMap<AssignmentBefore> assB_ = vars_.getVariablesBefore().getVal(_current);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(_current);
         StringMap<Assignment> ass_ = new StringMap<Assignment>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
-        Argument value_ = Argument.getNullableValue(arg_);
-        if (value_.getStruct() instanceof BooleanStruct) {
+        Struct value_ = ArgumentListCall.getNull(arg_);
+        if (value_ instanceof BooleanStruct) {
             //boolean constant assignment
             for (EntryCust<String, AssignmentBefore> e: assB_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
@@ -333,9 +334,9 @@ public final class AssUtil {
         vars_.getFields().put(_current, assA_);
     }
 
-    private static BooleanAssignment boolAssignment(Argument _value, AssignmentBefore _bf) {
+    private static BooleanAssignment boolAssignment(Struct _value, AssignmentBefore _bf) {
         BooleanAssignment b_ = new BooleanAssignment();
-        if (BooleanStruct.isTrue(_value.getStruct())) {
+        if (BooleanStruct.isTrue(_value)) {
             b_.setAssignedAfterWhenFalse(true);
             b_.setUnassignedAfterWhenFalse(true);
             b_.setAssignedAfterWhenTrue(_bf.isAssignedBefore());

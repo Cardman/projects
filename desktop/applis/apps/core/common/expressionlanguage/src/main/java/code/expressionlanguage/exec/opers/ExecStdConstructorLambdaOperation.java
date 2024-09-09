@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -31,14 +30,14 @@ public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaO
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
         ExecFormattedRootBlock ownerType_ = formatVarType(_stack);
         String clArg_ = formatVarTypeRes(_stack);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, ownerType_, realId, clArg_, standardType,standardConstructor));
+        Struct res_ = newLambda(getLambdaCommonContent(),previous_, ownerType_, realId, clArg_, standardType,standardConstructor);
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ExecFormattedRootBlock _ownerType, ConstructorId _realId,
+    public static Struct newLambda(ExecLambdaCommonContent _common, Struct _previous, ExecFormattedRootBlock _ownerType, ConstructorId _realId,
                                    String _clArg, StandardType _standardType, StandardConstructor _standardConstructor) {
         ConstructorMetaInfo met_ = new ConstructorMetaInfo(_standardType, _standardConstructor, _common,_ownerType, _realId);
         return new LambdaConstructorStruct(met_,_previous,_common,_clArg);

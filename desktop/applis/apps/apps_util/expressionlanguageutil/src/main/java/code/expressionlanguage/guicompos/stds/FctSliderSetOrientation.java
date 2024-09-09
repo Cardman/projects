@@ -14,7 +14,7 @@ public final class FctSliderSetOrientation implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         SliderStruct inst_ = (SliderStruct) _instance;
-        inst_.setOrientation(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.setOrientation(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

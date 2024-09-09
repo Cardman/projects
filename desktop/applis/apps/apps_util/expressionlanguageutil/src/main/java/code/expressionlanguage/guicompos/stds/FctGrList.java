@@ -26,7 +26,7 @@ public final class FctGrList extends FctCompoCtor {
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         EventStruct rend_ = new EventStruct(_cont, _guiEx.getDefCellRender().getGenericString(), "", -1, new CustList<ClassFieldStruct>(), NullStruct.NULL_VALUE, "");
-        if (BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct())) {
+        if (BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue())) {
             return new ArgumentWrapper(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,true, rend_));
         }
         return new ArgumentWrapper(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,false, rend_));

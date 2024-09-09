@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.symbol.CommonOperNullSafe;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -16,16 +16,15 @@ public final class ReachNullSafeOperation extends ReachMethodOperation implement
     @Override
     public void tryCalculateNode(AnalyzedPageEl _page) {
         CustList<ReachOperationNode> children_ = getChildrenNodes();
-        Argument f_ = children_.first().getArgument();
-        Argument s_ = children_.last().getArgument();
+        Struct f_ = children_.first().getArgument();
+        Struct s_ = children_.last().getArgument();
         if (f_ == null) {
             return;
         }
-        Struct value_ = Argument.getNull(Argument.getNullable(s_));
-        Struct v_ = f_.getStruct();
-        Struct res_ = new CommonOperNullSafe().calculateOperator(v_, value_);
+        Struct value_ = ArgumentListCall.getNull(s_);
+        Struct res_ = new CommonOperNullSafe().calculateOperator(f_, value_);
         if (res_ != NullStruct.NULL_VALUE) {
-            setSimpleArgumentAna(new Argument(res_));
+            setSimpleArgumentAna(res_);
         }
     }
 }

@@ -14,7 +14,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctGrListSetRender implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        ((GraphicListStruct)_instance).setRender((GuiContextEl) _cont, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        ((GraphicListStruct)_instance).setRender((GuiContextEl) _cont, _firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

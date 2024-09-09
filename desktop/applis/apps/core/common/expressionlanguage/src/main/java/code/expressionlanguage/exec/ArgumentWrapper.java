@@ -1,30 +1,31 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class ArgumentWrapper {
-    private final Argument value;
+    private final Struct value;
     private final AbstractWrapper wrapper;
 
     public ArgumentWrapper(Struct _value) {
-        this(new Argument(_value),null);
+        this(_value,null);
     }
 
-    public ArgumentWrapper(Argument _value, AbstractWrapper _wrapper) {
-        this.value = Argument.getNullableValue(_value);
+    public ArgumentWrapper(Struct _value, AbstractWrapper _wrapper) {
+        this.value = ArgumentListCall.getNull(_value);
         this.wrapper = _wrapper;
     }
 
-    public static Argument helpArg(ArgumentWrapper _wrap) {
+    public static Struct helpArg(ArgumentWrapper _wrap) {
         if (_wrap == null){
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         return _wrap.value;
     }
 
-    public Argument getValue() {
+    public Struct getValue() {
         return value;
     }
 

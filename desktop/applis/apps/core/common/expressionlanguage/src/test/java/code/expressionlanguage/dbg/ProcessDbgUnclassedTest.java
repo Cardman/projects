@@ -55,7 +55,7 @@ public final class ProcessDbgUnclassedTest extends ProcessDbgCommon {
         StackCall stack_ = dbgNormal("pkg.Ex", id_, cont_);
         StackCallReturnValue r_ = dbgContinueNormalValue(stack_, cont_.getContext());
         assertEq(0, r_.getStack().nbPages());
-        assertEq(3, toInt(r_.getStack().aw().getValue().getStruct()));
+        assertEq(3, toInt(r_.getStack().aw().getValue()));
     }
 
     @Test

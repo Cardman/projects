@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
@@ -12,6 +11,7 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.structs.Struct;
 
 public final class DefaultParamChecker extends AbstractFormatParamChecker {
     private final ExecTypeFunction pair;
@@ -30,7 +30,7 @@ public final class DefaultParamChecker extends AbstractFormatParamChecker {
     }
 
     @Override
-    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Struct _previous, StackCall _stackCall, FormattedParameters _classFormat) {
         Parameters parameters_ = _classFormat.getParameters();
         if (state == CallPrepareState.CTOR) {
             _stackCall.setCallingState(new CustomFoundConstructor(_classNameFound, pair, _previous, parameters_));

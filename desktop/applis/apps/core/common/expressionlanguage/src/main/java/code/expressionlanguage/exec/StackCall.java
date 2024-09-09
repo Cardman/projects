@@ -7,11 +7,12 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 
@@ -143,7 +144,7 @@ public final class StackCall implements AbstractStackCall {
     }
 
     public ArgumentWrapper aw() {
-        return new ArgumentWrapper(ArgumentListCall.toStr(getReturnedArgument()),getWrapper());
+        return new ArgumentWrapper(getReturnedArgument(),getWrapper());
     }
     public ReadWrite getReadWrite() {
         return readWrite;

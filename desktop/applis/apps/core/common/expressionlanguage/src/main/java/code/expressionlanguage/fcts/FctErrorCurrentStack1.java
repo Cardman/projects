@@ -11,7 +11,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctErrorCurrentStack1 extends FctError {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        ErroneousStruct err_ = getError(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(), _cont, _stackCall);
+        ErroneousStruct err_ = getError(_firstArgs.getArgumentWrappers().get(0).getValue(), _cont, _stackCall);
         return new ArgumentWrapper(err_.getFullStack());
     }
 }

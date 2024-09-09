@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
@@ -69,8 +68,8 @@ public abstract class ExecMethodOperation extends ExecOperationNode {
         return ExecInvokingOperation.fectchArgs(_lastType, _varArg, buildInfos(_nodes));
     }
 
-    public CustList<Argument> getArguments(IdMap<ExecOperationNode,ArgumentsPair> _nodes) {
-        CustList<Argument> a_ = new CustList<Argument>();
+    public CustList<Struct> getArguments(IdMap<ExecOperationNode,ArgumentsPair> _nodes) {
+        CustList<Struct> a_ = new CustList<Struct>();
         for (ExecOperationNode o: getChildrenNodes()) {
             a_.add(getArgument(_nodes, o));
         }

@@ -27,7 +27,7 @@ public final class FctCharSeqCharAt implements AnaStdCaller {
     }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return charAt((CharSequenceStruct) _instance,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont,_stackCall);
+        return charAt((CharSequenceStruct) _instance,_firstArgs.getArgumentWrappers().get(0).getValue(),_cont,_stackCall);
     }
 
     private static ArgumentWrapper charAt(CharSequenceStruct _charSequence, Struct _index, ContextEl _context, StackCall _stackCall) {

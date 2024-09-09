@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.StaticInfoOperation;
@@ -24,13 +23,11 @@ public final class ReachStaticInfoOperation extends ReachMethodOperation impleme
         CustList<ClassMetaInfo> classMetaInfos_ = _page.getClassMetaInfos();
         for (ClassMetaInfo c: classMetaInfos_) {
             if (c.sameReference(candidate_)) {
-                Argument a_ = new Argument(c);
-                setSimpleArgumentAna(a_);
+                setSimpleArgumentAna(c);
                 return;
             }
         }
         classMetaInfos_.add(candidate_);
-        Argument a_ = new Argument(candidate_);
-        setSimpleArgumentAna(a_);
+        setSimpleArgumentAna(candidate_);
     }
 }

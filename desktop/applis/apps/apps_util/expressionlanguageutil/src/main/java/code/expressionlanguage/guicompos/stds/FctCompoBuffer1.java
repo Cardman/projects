@@ -30,7 +30,7 @@ public final class FctCompoBuffer1 implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(BooleanStruct.of(false));
         }
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(arg_ instanceof StringStruct)) {
             return new ArgumentWrapper(BooleanStruct.of(false));
         }

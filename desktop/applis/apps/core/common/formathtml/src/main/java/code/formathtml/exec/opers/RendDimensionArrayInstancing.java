@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
@@ -11,6 +10,7 @@ import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
@@ -31,8 +31,7 @@ public final class RendDimensionArrayInstancing extends
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        CustList<Argument> arguments_ = getArguments(_nodes,this);
-        Argument res_;
+        CustList<Struct> arguments_ = getArguments(_nodes,this);
         CustList<RendDynOperationNode> filter_ = getChildrenNodes();
         int off_ = getMethodName();
         setRelOffsetPossibleLastPage(off_, _rendStack);
@@ -44,7 +43,7 @@ public final class RendDimensionArrayInstancing extends
         int i_ = IndexConstants.FIRST_INDEX;
         Ints offs_ = new Ints();
         for (RendDynOperationNode o: filter_) {
-            NumberStruct n_ = NumParsers.convertToNumber(arguments_.get(i_).getStruct());
+            NumberStruct n_ = NumParsers.convertToNumber(arguments_.get(i_));
             int offset_ = o.getIndexInEl() + off_;
             offs_.add(offset_);
             int dim_ = n_.intStruct();
@@ -57,11 +56,12 @@ public final class RendDimensionArrayInstancing extends
             dims_.add(d);
         }
         Struct newArr_ = newCustomArrayOrExc(offs_,className_, dims_, _context, _rendStack);
+        Struct res_;
         if (newArr_ instanceof ErrorStruct) {
             _rendStack.getStackCall().setCallingState(new CustomFoundExc(newArr_));
-            res_ = new Argument();
+            res_ = NullStruct.NULL_VALUE;
         } else {
-            res_ = new Argument(newArr_);
+            res_ = newArr_;
         }
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }

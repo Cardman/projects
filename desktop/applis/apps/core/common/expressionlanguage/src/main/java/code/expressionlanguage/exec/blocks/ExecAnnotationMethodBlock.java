@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
@@ -32,11 +31,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
         if (opValue.isEmpty()) {
             return null;
         }
-        Argument arg_ = opValue.last().getArgument();
-        if (arg_ == null) {
-            return null;
-        }
-        return arg_.getStruct();
+        return opValue.last().getArgument();
     }
 
     public MethodId getId() {
@@ -49,7 +44,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
 
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
         _last.globalOffset(defaultValueOffset);
-        Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0,_stack,getOpValue(),0, this, -1);
+        Struct arg_ = ExecHelperBlocks.tryToCalculate(_cont,0,_stack,getOpValue(),0, this, -1);
         if (_stack.stopAt(_cont)) {
             return;
         }
@@ -61,16 +56,16 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
         ExecHelperBlocks.processMemberBlock(_stack,_last);
     }
 
-    private void setValue(ContextEl _cont, Argument _arg, ExecRootBlock _type, StackCall _stackCall) {
+    private void setValue(ContextEl _cont, Struct _arg, ExecRootBlock _type, StackCall _stackCall) {
         String name_ = getName();
         String idCl_ = _type.getFullName();
         String ret_ = getImportedReturnType();
         setValue(_type,idCl_,name_,ret_,_cont,_arg, _stackCall);
     }
-    public static void setValue(ExecRootBlock _rootBlock, String _cl, String _name, String _returnType, ContextEl _cont, Argument _arg, StackCall _stackCall) {
+    public static void setValue(ExecRootBlock _rootBlock, String _cl, String _name, String _returnType, ContextEl _cont, Struct _arg, StackCall _stackCall) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
-        Argument gl_ = ip_.getGlobalArgument();
-        Argument arg_ = ExecInvokingOperation.swallowCopy(_arg.getStruct());
+        Struct gl_ = ip_.getGlobalStruct();
+        Struct arg_ = ExecInvokingOperation.swallowCopy(_arg);
         ExecFieldTemplates.setInstanceField(gl_, arg_, _cont, _stackCall, new ClassField(_cl, _name), new ExecTypeReturn(_rootBlock, _returnType));
     }
 

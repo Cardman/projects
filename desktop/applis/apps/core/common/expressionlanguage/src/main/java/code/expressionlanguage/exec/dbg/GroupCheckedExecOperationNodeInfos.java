@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.dbg;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.NumParsers;
@@ -118,11 +117,11 @@ public final class GroupCheckedExecOperationNodeInfos {
             return arr(_el,(ExecArrOperation) _o,_context, _last);
         }
         if (_o instanceof ExecAbstractArrayInstancingOperation && ((ExecAbstractArrayInstancingOperation)_o).getCountArrayDims() >= 0) {
-            CustList<Argument> args_ = ((ExecAbstractArrayInstancingOperation)_o).getArguments(_el.getArguments());
+            CustList<Struct> args_ = ((ExecAbstractArrayInstancingOperation)_o).getArguments(_el.getArguments());
             int indexes_ = args_.size();
             ArrayStruct arr_ = new ArrayStruct(indexes_, StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
             for (int i = 0; i <indexes_; i++) {
-                arr_.set(i, ArgumentListCall.toStr(args_.get(i)));
+                arr_.set(i, args_.get(i));
             }
             String c_ = StringExpUtil.getPrettyArrayType(_last.formatVarType(((ExecAbstractArrayInstancingOperation)_o).getClassName()), indexes_ + ((ExecAbstractArrayInstancingOperation)_o).getCountArrayDims());
             return new ArrCheckedExecOperationNodeInfos(_context, c_, arr_);
@@ -132,7 +131,7 @@ public final class GroupCheckedExecOperationNodeInfos {
             String ip_ = ((ExecAnnotationMethodBlock) curr_).getImportedReturnType();
             if (_el.getIndex() >= _el.getArguments().size()) {
                 Struct instance_ = _last.getGlobalStruct();
-                return new FieldCheckedExecOperationNodeInfos(n_,_context,WatchPoint.BPC_WRITE,formatted(_context, _last.getBlockRootType(),instance_),instance_,ArgumentListCall.toStr(_el.getArgument()),ip_);
+                return new FieldCheckedExecOperationNodeInfos(n_,_context,WatchPoint.BPC_WRITE,formatted(_context, _last.getBlockRootType(),instance_),instance_,_el.getArgument(),ip_);
             }
         }
         return null;
@@ -148,7 +147,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         }
         if (_o instanceof ExecQuickOperation) {
             _last.setOffset(_o.getIndexInEl()+ ((ExecQuickOperation) _o).getOperatorContent().getOpOffset());
-            Argument arg_ = ExecHelper.getArgumentPair(_el.getArguments(), _o).getArgument();
+            Struct arg_ = ExecHelper.getArgumentPair(_el.getArguments(), _o).getArgument();
             if (arg_ != null) {
                 return null;
             }
@@ -180,10 +179,10 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
 
     private static OperNatCheckedExecOperationNodeInfos operNat(ExpressionLanguage _el, ContextEl _context, CustList<ExecOperationNode> _ls, ExecOperSymbol _symbol, int _mode) {
-        Struct left_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, 0)).getArgument()));
+        Struct left_ = ArgumentListCall.getNull(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, 0)).getArgument());
         Struct right_;
         if (_ls.size() > 1) {
-            right_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, _ls.size() - 1)).getArgument()));
+            right_ = ArgumentListCall.getNull(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(_ls, _ls.size() - 1)).getArgument());
         } else {
             right_ = null;
         }
@@ -256,7 +255,7 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
     private static CoreCheckedExecOperationNodeInfos affectationOrCompound(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _context, AbstractPageEl _last) {
         _last.setOffset(_o.getIndexInEl()+ _o.getOperatorContent().getOpOffset());
-        if (_o.getSettableParent() instanceof ExecSafeDotOperation && Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()).isNull()) {
+        if (_o.getSettableParent() instanceof ExecSafeDotOperation && ArgumentListCall.getNull(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()) == NullStruct.NULL_VALUE) {
             return null;
         }
         if (_o instanceof ExecCompoundAffectationOperation) {
@@ -266,12 +265,12 @@ public final class GroupCheckedExecOperationNodeInfos {
             return null;
         }
         CustList<ExecOperationNode> childrenNodes_ = _o.getChildrenNodes();
-        Struct right_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1)).getArgument());
+        Struct right_ = ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1)).getArgument();
         return settable(_el, _o, _context, WatchPoint.BPC_WRITE, new Struct[]{right_, NullStruct.NULL_VALUE}, _last);
     }
     private static OperNatCheckedExecOperationNodeInfos affectationOrCompoundNat(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _context, AbstractPageEl _last) {
         _last.setOffset(_o.getIndexInEl()+ _o.getOperatorContent().getOpOffset());
-        if (_o.getSettableParent() instanceof ExecSafeDotOperation && Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()).isNull()) {
+        if (_o.getSettableParent() instanceof ExecSafeDotOperation && ArgumentListCall.getNull(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()) == NullStruct.NULL_VALUE) {
             return null;
         }
         if (_o instanceof ExecCompoundAffectationStringOperation) {
@@ -290,7 +289,7 @@ public final class GroupCheckedExecOperationNodeInfos {
     }
     private static CallCheckedExecOperationNodeInfos affectationOrCompoundCall(ExpressionLanguage _el, ExecAbstractAffectOperation _o, ContextEl _context, AbstractPageEl _last) {
         _last.setOffset(_o.getIndexInEl()+ _o.getOperatorContent().getOpOffset());
-        if (_o.getSettableParent() instanceof ExecSafeDotOperation && Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()).isNull()) {
+        if (_o.getSettableParent() instanceof ExecSafeDotOperation && ArgumentListCall.getNull(ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableParent().getFirstChild()).getArgument()) == NullStruct.NULL_VALUE) {
             return null;
         }
         if (_o instanceof ExecCompoundAffectationOperation) {
@@ -300,7 +299,7 @@ public final class GroupCheckedExecOperationNodeInfos {
             return null;
         }
         CustList<ExecOperationNode> childrenNodes_ = _o.getChildrenNodes();
-        Struct right_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1)).getArgument());
+        Struct right_ = ExecHelper.getArgumentPair(_el.getArguments(), ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1)).getArgument();
         return settableCall(_el, _o, _context, false, new Struct[]{right_, NullStruct.NULL_VALUE}, _last);
     }
     private static CoreCheckedExecOperationNodeInfos field(ExpressionLanguage _el, ExecSettableFieldOperation _o, ContextEl _context, AbstractPageEl _last) {
@@ -318,7 +317,7 @@ public final class GroupCheckedExecOperationNodeInfos {
     private static CoreCheckedExecOperationNodeInfos arr(ExpressionLanguage _el, ExecArrOperation _o, ContextEl _context, AbstractPageEl _last) {
         if (!_o.resultCanBeSet()) {
             Struct instance_ = instance(0,_el, _o, _last);
-            Struct index_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), _o.getFirstChild()).getArgument());
+            Struct index_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getFirstChild()).getArgument();
             if (sub(_o)) {
                 if (index_ instanceof NumberStruct) {
                     ArrayStruct arr_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
@@ -374,7 +373,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableAnc());
         if (argumentPair_.isArgumentTest()) {
             if (!ExecCompoundAffectationOperation.sh(_o.getOperatorContent())) {
-                return settable(_el, _o, _context, WatchPoint.BPC_COMPOUND_WRITE,new Struct[]{ArgumentListCall.toStr(argumentPair_.getArgument()),NullStruct.NULL_VALUE}, _last);
+                return settable(_el, _o, _context, WatchPoint.BPC_COMPOUND_WRITE,new Struct[]{argumentPair_.getArgument(),NullStruct.NULL_VALUE}, _last);
             }
             return null;
         }
@@ -394,7 +393,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_el.getArguments(), _o.getSettableAnc());
         if (argumentPair_.isArgumentTest()) {
             if (!ExecCompoundAffectationOperation.sh(_o.getOperatorContent())) {
-                return settableCall(_el, _o, _context, false, new Struct[]{ArgumentListCall.toStr(argumentPair_.getArgument()),NullStruct.NULL_VALUE}, _last);
+                return settableCall(_el, _o, _context, false, new Struct[]{argumentPair_.getArgument(),NullStruct.NULL_VALUE}, _last);
             }
             return null;
         }
@@ -423,7 +422,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         }
         if (set_ instanceof ExecArrOperation) {
             Struct instance_ = instance(0,_el, set_, _last);
-            Struct index_ = ArgumentListCall.toStr(ExecHelper.getArgumentPair(_el.getArguments(), set_.getFirstChild()).getArgument());
+            Struct index_ = ExecHelper.getArgumentPair(_el.getArguments(), set_.getFirstChild()).getArgument();
             if (index_ instanceof NumberStruct) {
                 ArrayStruct arr_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(_ctx.getStandards().getPrimTypes().getAliasPrimInteger()));
                 arr_.set(0, index_);
@@ -495,7 +494,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         if (_writeOnly) {
             return instance(_anc,_el,_o, _last);
         }
-        return ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_el.getArguments(), _o).getArgumentParent()));
+        return ArgumentListCall.getNull(ExecHelper.getArgumentPair(_el.getArguments(), _o).getArgumentParent());
     }
     private static boolean sub(ExecOperationNode _o) {
         ExecOperationNode curr_ = _o;
@@ -576,16 +575,16 @@ public final class GroupCheckedExecOperationNodeInfos {
                 return null;
             }
             String name_ = names_.getKey(iSuppl_);
-            Argument value_ = ((NewAnnotationPageEl) _p).getArgs().get(iSuppl_);
+            Struct value_ = ((NewAnnotationPageEl) _p).getArgs().get(iSuppl_);
             AnnotationTypeInfo i_ = names_.getValue(iSuppl_);
             String t_ = i_.getType();
             Struct instance_ = _p.getGlobalStruct();
             ExecRootBlock blockRootType_ = _p.getBlockRootType();
             if (i_.isWrap()) {
-                ArrayStruct arr_ = ArrayStruct.instance(t_, new CustList<Argument>(value_));
+                ArrayStruct arr_ = ArrayStruct.instance(t_, new CustList<Struct>(value_));
                 return new FieldCheckedExecOperationNodeInfos(name_,_ctx,WatchPoint.BPC_WRITE,formatted(_ctx,blockRootType_,instance_),instance_,arr_,t_);
             }
-            return new FieldCheckedExecOperationNodeInfos(name_,_ctx,WatchPoint.BPC_WRITE,formatted(_ctx,blockRootType_,instance_),instance_,ArgumentListCall.toStr(value_),t_);
+            return new FieldCheckedExecOperationNodeInfos(name_,_ctx,WatchPoint.BPC_WRITE,formatted(_ctx,blockRootType_,instance_),instance_,value_,t_);
         }
         if (_p instanceof NewRecordPageEl) {
             int iSuppl_ = ((NewRecordPageEl) _p).getIndexSupplied();
@@ -595,8 +594,8 @@ public final class GroupCheckedExecOperationNodeInfos {
             }
             Struct instance_ = _p.getGlobalStruct();
             ExecNamedFieldContent info_ = ((NewRecordPageEl) _p).getNamed().get(iSuppl_);
-            Argument value_ = ((NewRecordPageEl) _p).getArgs().get(iSuppl_);
-            return new FieldCheckedExecOperationNodeInfos(_ctx,WatchPoint.BPC_WRITE,formatted(_ctx,info_.getDeclaring(),instance_),instance_,ArgumentListCall.toStr(value_),info_);
+            Struct value_ = ((NewRecordPageEl) _p).getArgs().get(iSuppl_);
+            return new FieldCheckedExecOperationNodeInfos(_ctx,WatchPoint.BPC_WRITE,formatted(_ctx,info_.getDeclaring(),instance_),instance_,value_,info_);
         }
         return null;
     }
@@ -736,13 +735,13 @@ public final class GroupCheckedExecOperationNodeInfos {
     private static CoreCheckedExecOperationNodeInfos refMethod(ContextEl _context, DirectCallRefectMethodPageEl _p) {
         if (_p.getQuickCall() instanceof CloneQuickCall) {
             if (_p.isCheckingEntryExit()) {
-                Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
+                Struct instance_ = _p.getInstance();
                 return new ArrCheckedExecOperationNodeInfos(_context,instance_, ArrPoint.BPC_CLONE);
             }
             return null;
         }
         if (_p.isCheckingEntryExit()) {
-            Struct instance_ = ArgumentListCall.toStr(_p.getInstance());
+            Struct instance_ = _p.getInstance();
             return new FieldCheckedExecOperationNodeInfos(_p.getMetaInfo().getRealId().getName(), _context,WatchPoint.BPC_READ, formatted(_context, instance_), instance_, null);
         }
         return null;
@@ -794,7 +793,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
         AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
         if (!_p.isExiting()) {
-            Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
+            Struct right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));
             return wrapperElt(_context,w_,WatchPoint.BPC_WRITE,right_);
         }
         return null;
@@ -837,7 +836,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
         AbstractWrapper w_ = firstArgumentWrapper_.getWrapper();
         if (w_ instanceof ArrayCustWrapper) {
-            Struct right_ = ArgumentListCall.toStr(ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)));
+            Struct right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));
             return checkLda(new CallCheckedExecOperationNodeInfos(_context,_p.isExiting(),(ArrayCustWrapper) w_, right_));
         }
         return null;
@@ -850,7 +849,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         if (_p.isExiting()) {
             return null;
         }
-        Struct instance_ = ArgumentListCall.toStr(_p.getArgument());
+        Struct instance_ = _p.getArgument();
         return new FieldCheckedExecOperationNodeInfos(_context, _p.getContent().getMetaInfo(), WatchPoint.BPC_READ, formatted(_context, _p.getContent().getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, null);
     }
 
@@ -861,8 +860,8 @@ public final class GroupCheckedExecOperationNodeInfos {
         if (_p.isExiting()) {
             return null;
         }
-        Struct instance_ = ArgumentListCall.toStr(_p.getFirst());
-        Struct right_ = ArgumentListCall.toStr(_p.getLast());
+        Struct instance_ = _p.getFirst();
+        Struct right_ = _p.getLast();
         return new FieldCheckedExecOperationNodeInfos(_context, _p.getContent().getMetaInfo(), WatchPoint.BPC_WRITE, formatted(_context, _p.getContent().getMetaInfo().getFormatted().getRootBlock(), instance_), instance_, right_);
     }
 
@@ -896,9 +895,9 @@ public final class GroupCheckedExecOperationNodeInfos {
         CommonOperSymbol c_ = _p.current();
         if (c_ != null) {
             if (_p.getArguments().getArgumentWrappers().size() < 2) {
-                return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct(),null);
+                return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())),null);
             }
-            return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct(),ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(_p.getArguments().getArgumentWrappers())).getStruct());
+            return new OperNatCheckedExecOperationNodeInfos(_context,c_.getSgn(),OperNatPoint.BPC_SIMPLE,ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_p.getArguments().getArgumentWrappers())),ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(_p.getArguments().getArgumentWrappers())));
         }
         return null;
     }
@@ -963,7 +962,7 @@ public final class GroupCheckedExecOperationNodeInfos {
             ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(),ex_);
             int indexImplicit_ = pairBefore_.getIndexImplicitConv();
             if (!ImplicitMethods.isValidIndex(implicits_,indexImplicit_)&&!pairBefore_.isEndCalculate()) {
-                return settable(_el,(ExecCompoundAffectationOperation) ex_,_context, WatchPoint.BPC_COMPOUND_WRITE,new Struct[]{ArgumentListCall.toStr(_last.getReturnedArgument()),NullStruct.NULL_VALUE}, _last);
+                return settable(_el,(ExecCompoundAffectationOperation) ex_,_context, WatchPoint.BPC_COMPOUND_WRITE,new Struct[]{_last.getReturnedArgument(),NullStruct.NULL_VALUE}, _last);
             }
         }
         return wrapp(_context, _last, ex_);
@@ -983,7 +982,7 @@ public final class GroupCheckedExecOperationNodeInfos {
             ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_el.getArguments(),ex_);
             int indexImplicit_ = pairBefore_.getIndexImplicitConv();
             if (!ImplicitMethods.isValidIndex(implicits_,indexImplicit_)&&!pairBefore_.isEndCalculate()) {
-                return settableCall(_el,(ExecCompoundAffectationOperation) ex_,_context, true, new Struct[]{ArgumentListCall.toStr(_last.getReturnedArgument()),NullStruct.NULL_VALUE}, _last);
+                return settableCall(_el,(ExecCompoundAffectationOperation) ex_,_context, true, new Struct[]{_last.getReturnedArgument(),NullStruct.NULL_VALUE}, _last);
             }
         }
         return core(_context, _el, _last, true, ex_);
@@ -1043,7 +1042,7 @@ public final class GroupCheckedExecOperationNodeInfos {
         int indexes_ = args_.size();
         ArrayStruct arr_ = new ArrayStruct(indexes_,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
         for (int i = 0; i <indexes_; i++) {
-            arr_.set(i,ArgumentListCall.toStr(args_.get(i).getValue()));
+            arr_.set(i,args_.get(i).getValue());
         }
         String c_ = StringExpUtil.getPrettyArrayType(_lam.getFormClassName(), indexes_);
         return new ArrCheckedExecOperationNodeInfos(_context, c_, arr_);
@@ -1059,36 +1058,36 @@ public final class GroupCheckedExecOperationNodeInfos {
         }
         if (StringUtil.quickEq(_name,"[:]=")) {
             Struct r_ = rangeInts(_context, _ls.getArguments(), _instance);
-            return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_SET,r_,ArgumentListCall.toStr(_ls.getRight()));
+            return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_SET,r_,_ls.getRight());
         }
-        Struct last_ = ArgumentListCall.toStr(args_.last().getValue());
+        Struct last_ = args_.last().getValue();
         if (last_ instanceof RangeStruct) {
-            Argument right_ = _ls.getRight();
+            Struct right_ = _ls.getRight();
             if (right_ != null) {
-                return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_SET,last_,ArgumentListCall.toStr(_ls.getRight()));
+                return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_SET,last_,_ls.getRight());
             }
             return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_RANGE_GET,last_,null);
         }
         int indexes_ = args_.size();
         ArrayStruct arr_ = new ArrayStruct(indexes_,StringExpUtil.getPrettyArrayType(_context.getStandards().getPrimTypes().getAliasPrimInteger()));
         for (int i = 0; i <indexes_; i++) {
-            arr_.set(i,ArgumentListCall.toStr(args_.get(i).getValue()));
+            arr_.set(i,args_.get(i).getValue());
         }
         if (StringUtil.quickEq(_name,"[]=")) {
-            return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_INT_GET_SET,arr_,ArgumentListCall.toStr(_ls.getRight()));
+            return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_INT_GET_SET,arr_,_ls.getRight());
         }
         return new ArrCheckedExecOperationNodeInfos(_context,_instance,ArrPoint.BPC_INT_GET,arr_,null);
     }
 
-    private static Struct rangeInts(ContextEl _conf, CustList<Argument> _arguments, Struct _arr) {
+    private static Struct rangeInts(ContextEl _conf, CustList<Struct> _arguments, Struct _arr) {
         if (_arguments.size() == 2) {
-            Struct lower_ = _arguments.get(0).getStruct();
-            Struct step_ = _arguments.get(1).getStruct();
-            return Argument.getNull(FctRangeUnlimitedStep.rangeUnlimitStep(lower_, step_));
+            Struct lower_ = _arguments.get(0);
+            Struct step_ = _arguments.get(1);
+            return ArgumentListCall.getNull(FctRangeUnlimitedStep.rangeUnlimitStep(lower_, step_));
         }
-        Struct lower_ = _arguments.last().getStruct();
+        Struct lower_ = _arguments.last();
         Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
-        return Argument.getNull(FctRangeUnlimitedStep.range(lower_, upper_));
+        return ArgumentListCall.getNull(FctRangeUnlimitedStep.range(lower_, upper_));
     }
 
     private static CallCheckedExecOperationNodeInfos checkRefl(ContextEl _context, StdMethodCheckedExecOperationNodeInfos _infos) {
@@ -1158,7 +1157,7 @@ public final class GroupCheckedExecOperationNodeInfos {
     private static Struct str(ArgumentListCall _a, int _i) {
         CustList<ArgumentWrapper> ls_ = _a.getArgumentWrappers();
         if (ls_.isValidIndex(_i)) {
-            return ls_.get(_i).getValue().getStruct();
+            return ls_.get(_i).getValue();
         }
         return new IntStruct(0);
     }

@@ -18,6 +18,6 @@ public final class FctCharSeqIndexOf0 implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(FctCharSeqIndexOf2.comFirst((CharSequenceStruct) _instance, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(FctCharSeqIndexOf2.comFirst((CharSequenceStruct) _instance, _firstArgs.getArgumentWrappers().get(0).getValue()));
     }
 }

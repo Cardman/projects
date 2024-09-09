@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -25,9 +24,8 @@ public final class ExecParentInstanceOperation extends ExecLeafOperation impleme
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(parentInstanceContent.getOff(), _stack);
-        Argument previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
-        Struct struct_ = previous_.getStruct();
-        Argument arg_ = new Argument(ExecClassArgumentMatching.convertFormatted(struct_.getParent(), _conf, names, _stack.getLastPage()));
+        Struct previous_ = getPreviousArg(this, _nodes, _stack.getLastPage());
+        Struct arg_ = ExecClassArgumentMatching.convertFormatted(previous_.getParent(), _conf, names, _stack.getLastPage());
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

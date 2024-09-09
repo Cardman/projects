@@ -34,10 +34,10 @@ public final class FctCharSeqRegionMatches implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct three_ = argumentWrappers_.get(2).getValue().getStruct();
-        Struct four_ = argumentWrappers_.get(3).getValue().getStruct();
+        Struct one_ = argumentWrappers_.get(0).getValue();
+        Struct two_ = argumentWrappers_.get(1).getValue();
+        Struct three_ = argumentWrappers_.get(2).getValue();
+        Struct four_ = argumentWrappers_.get(3).getValue();
         return regionMatches((CharSequenceStruct)_instance, NumParsers.convertToNumber(one_), two_, NumParsers.convertToNumber(three_), NumParsers.convertToNumber(four_), _cont, _stackCall);
     }
 

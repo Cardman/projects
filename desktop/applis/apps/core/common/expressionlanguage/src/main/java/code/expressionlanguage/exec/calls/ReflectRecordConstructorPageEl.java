@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -8,20 +7,21 @@ import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReflectRecordConstructorPageEl extends AbstractReflectConstructorPageEl {
 
     private final CustList<ExecFormattedRootBlock> listSup;
     private final ExecRootBlock root;
-    private final Argument instance;
+    private final Struct instance;
     private final CustList<ExecNamedFieldContent> namedFields;
     private final ExecFormattedRootBlock className;
 
-    private final CustList<Argument> arguments;
+    private final CustList<Struct> arguments;
     private final int ref;
 
-    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className, CustList<ExecFormattedRootBlock> _list, int _r) {
+    public ReflectRecordConstructorPageEl(CustList<Struct> _arguments, Struct _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className, CustList<ExecFormattedRootBlock> _list, int _r) {
         super(true);
         arguments = _arguments;
         root = _root;

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -11,6 +10,7 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class CastParamChecker extends AbstractParamChecker {
     private final ExecTypeFunction pair;
@@ -23,7 +23,7 @@ public final class CastParamChecker extends AbstractParamChecker {
     }
 
     @Override
-    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
+    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Struct _previous, ContextEl _conf, StackCall _stackCall) {
         String res_ = ExecInheritsAdv.correctClassPartsDynamicNotWildCard(_classNameFound.getFormatted(), _conf);
         if (res_.isEmpty()) {
             String null_;
@@ -34,7 +34,7 @@ public final class CastParamChecker extends AbstractParamChecker {
     }
 
     @Override
-    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Struct _previous, StackCall _stackCall, FormattedParameters _classFormat) {
         _stackCall.setCallingState(new CustomFoundMethod(_classNameFound, pair, _classFormat.getParameters()));
     }
 

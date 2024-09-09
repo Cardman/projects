@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -18,6 +17,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.BoolVal;
@@ -123,7 +123,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         method = new ClassMethodIdAncestor(accType_,new ClassMethodId(cl_, argsRes_),anc_);
         filterMethod();
         filterCtor();
-        setSimpleArgument(new Argument());
+        setSimpleArgument(NullStruct.NULL_VALUE);
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
@@ -196,7 +196,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         if (i_ + typesAna_.size() + 1 >= args_.size()) {
             filterMethod();
             filterCtor();
-            setSimpleArgument(new Argument());
+            setSimpleArgument(NullStruct.NULL_VALUE);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -247,7 +247,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
             filterMethod();
             filterCtor();
         }
-        setSimpleArgument(new Argument());
+        setSimpleArgument(NullStruct.NULL_VALUE);
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 

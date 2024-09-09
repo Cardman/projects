@@ -28,7 +28,7 @@ public final class RendStdInput extends RendInput {
         if (def_.getArg() == null) {
             return null;
         }
-        prStack(_cont,(Element) _nextWrite,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        prStack(_cont,(Element) _nextWrite,def_,_rendStack.getLastPage().getGlobalStruct(),_rendStack);
         return NullStruct.NULL_VALUE;
     }
 }

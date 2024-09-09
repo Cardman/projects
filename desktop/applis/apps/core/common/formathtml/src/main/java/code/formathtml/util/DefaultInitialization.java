@@ -1,6 +1,5 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AbstractSymbolFactory;
@@ -22,6 +21,7 @@ import code.expressionlanguage.fwd.AbsContextGenerator;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.formathtml.DualNavigationContext;
 import code.formathtml.Navigation;
@@ -88,25 +88,24 @@ public final class DefaultInitialization {
                 if (ctx_.callsOrException(rendStackCall_.getStackCall())) {
                     return afterActionWithoutRemove(ctx_, rendStackCall_);
                 }
-                Argument arg_ = new Argument();
-                CustList<Argument> args_ = args(arrStr_);
+                CustList<ArgumentWrapper> args_ = args(arrStr_);
                 ExecNamedFunctionBlock method_ = methods_.first();
                 ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
-                ArgumentListCall argList_ = ArgumentListCall.wrapCall(args_);
-                ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(classBody_, confCont_.getInitNameClass()),pair_), arg_, ctx_, rendStackCall_.getStackCall(), argList_);
+                ArgumentListCall argList_ = new ArgumentListCall(args_);
+                ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(classBody_, confCont_.getInitNameClass()),pair_), NullStruct.NULL_VALUE, ctx_, rendStackCall_.getStackCall(), argList_);
                 ArgumentWrapper aw_ = RendDynOperationNode.tryGetValue(ctx_, rendStackCall_, null);
                 if (aw_ == null) {
                     return afterActionWithoutRemove(ctx_, rendStackCall_);
                 }
-                _nav.setDataBaseStruct(ArgumentListCall.toStr(aw_.getValue()));
+                _nav.setDataBaseStruct(aw_.getValue());
             }
         }
         stds.initializeRendSessionDoc(ctx_, _nav, rendStackCall_);
         return afterActionWithoutRemove(ctx_, rendStackCall_);
     }
 
-    private CustList<Argument> args(String _arrString) {
-        CustList<Argument> args_ = new CustList<Argument>();
+    private CustList<ArgumentWrapper> args(String _arrString) {
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
         int len_ = fileNames.size();
         ArrayStruct arrNames_ = new ArrayStruct(len_, _arrString);
         for (int i = 0; i < len_; i++) {
@@ -116,8 +115,8 @@ public final class DefaultInitialization {
         for (int i = 0; i < len_; i++) {
             arrContents_.set(i, new StringStruct(fileNames.getValue(i)));
         }
-        args_.add(new Argument(arrNames_));
-        args_.add(new Argument(arrContents_));
+        args_.add(new ArgumentWrapper(arrNames_));
+        args_.add(new ArgumentWrapper(arrContents_));
         return args_;
     }
 

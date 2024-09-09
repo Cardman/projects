@@ -16,7 +16,7 @@ import code.util.core.StringUtil;
 public final class FctCharSeqSplitChars implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct one_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct one_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         return splitChars((CharSequenceStruct) _instance, one_, _cont, _stackCall);
     }
 

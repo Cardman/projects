@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
@@ -13,6 +12,8 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -35,12 +36,12 @@ public abstract class AbstractInstanceParamChecker extends AbstractParamChecker 
         blockIndex = _blockIndex;
     }
     @Override
-    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
+    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Struct _previous, ContextEl _conf, StackCall _stackCall) {
         checkNeeded(_conf,_classNameFound,_previous,type,_stackCall);
         return _classNameFound;
     }
 
-    private static void checkNeeded(ContextEl _conf, ExecFormattedRootBlock _className, Argument _previous, ExecRootBlock _g, StackCall _stackCall) {
+    private static void checkNeeded(ContextEl _conf, ExecFormattedRootBlock _className, Struct _previous, ExecRootBlock _g, StackCall _stackCall) {
         if (_g.withoutInstance()) {
             return;
         }
@@ -48,13 +49,13 @@ public abstract class AbstractInstanceParamChecker extends AbstractParamChecker 
         LgNames stds_ = _conf.getStandards();
         StringList parts_ = StringExpUtil.getAllPartInnerTypes(_className.getFormatted());
         String param_ = StringUtil.join(parts_.left(parts_.size()-2), "");
-        if (_previous.isNull()) {
+        if (_previous == NullStruct.NULL_VALUE) {
             String npe_;
             npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
             return;
         }
-        String arg_ = _previous.getStruct().getClassName(_conf);
+        String arg_ = _previous.getClassName(_conf);
         if (!ExecInherits.isCorrectExecute(arg_, param_, _conf)) {
             String cast_;
             cast_ = stds_.getContent().getCoreNames().getAliasCastType();
@@ -63,12 +64,12 @@ public abstract class AbstractInstanceParamChecker extends AbstractParamChecker 
     }
 
     @Override
-    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
-        Argument needed_;
+    public void redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Struct _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+        Struct needed_;
         if (type.withoutInstance()) {
-            needed_ = new Argument();
+            needed_ = NullStruct.NULL_VALUE;
         } else {
-            needed_ = new Argument(Argument.getNullableValue(_previous).getStruct());
+            needed_ = ArgumentListCall.getNull(_previous);
         }
         _stackCall.setCallingState(new CustomFoundConstructor(_conf,_classNameFound, pair, fieldName, blockIndex, needed_, _classFormat.getParameters()));
     }

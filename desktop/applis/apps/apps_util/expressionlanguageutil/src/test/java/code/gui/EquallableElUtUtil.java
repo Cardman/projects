@@ -2,7 +2,6 @@ package code.gui;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.AdvContextGenerator;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -300,7 +299,7 @@ public abstract class EquallableElUtUtil {
     }
 
     public static Struct value(ArgumentWrapper _a) {
-        return _a.getValue().getStruct();
+        return _a.getValue();
     }
     public static AbstractThreadFactory newFileInfos(AbstractLightProgramInfos _light) {
         return _light.getThreadFactory();
@@ -359,9 +358,7 @@ public abstract class EquallableElUtUtil {
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
     }
-    public static Struct str(Argument _arg) {
-        return _arg.getStruct();
-    }
+
     public static void memoryFileSystem(LgNamesGui _stds,AbstractProgramInfos _pr, MockNameFile... _files) {
         AbstractFileSystem m_ = _stds.getExecContent().getCustAliases().getInfos().getFileSystem();
         m_.build(_stds.getExecContent().getExecutingOptions(), StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));

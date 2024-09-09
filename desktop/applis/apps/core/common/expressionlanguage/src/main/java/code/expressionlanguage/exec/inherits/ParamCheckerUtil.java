@@ -1,6 +1,8 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.AbstractExiting;
+import code.expressionlanguage.AfterInitExiting;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.ClassCategory;
@@ -34,7 +36,7 @@ public final class ParamCheckerUtil {
 
     public static ArgumentWrapper instancePrepareStd(ContextEl _conf, StandardConstructor _ctor, ConstructorId _constId,
                                                      ArgumentListCall _arguments, StackCall _stackCall) {
-        CustList<Argument> args_ = _arguments.getArguments();
+        CustList<Struct> args_ = _arguments.getArguments();
         CustomFoundExc ex_ = ExecTemplates.checkParams(_conf, "", _constId, null, args_, _stackCall);
         if (ex_ != null) {
             _stackCall.setCallingState(ex_);
@@ -45,123 +47,122 @@ public final class ParamCheckerUtil {
         return _conf.getCaller().invoke(caller_, exit_,_conf,NullStruct.NULL_VALUE,_arguments,_stackCall);
     }
 
-    public static Argument callStd(AbstractExiting _exit, ContextEl _cont, ClassMethodId _classNameFound, Argument _previous, ArgumentListCall _firstArgs, StackCall _stackCall, StandardMethod _stdMeth) {
-        CustList<Argument> args_ = _firstArgs.getArguments();
+    public static Struct callStd(AbstractExiting _exit, ContextEl _cont, ClassMethodId _classNameFound, Struct _previous, ArgumentListCall _firstArgs, StackCall _stackCall, StandardMethod _stdMeth) {
+        CustList<Struct> args_ = _firstArgs.getArguments();
         CustomFoundExc ex_ = ExecTemplates.checkParams(_cont, _classNameFound.getClassName(), _classNameFound.getConstraints(), _previous, args_, _stackCall);
         if (ex_ != null) {
             _stackCall.setCallingState(ex_);
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         StdCaller caller_ = _stdMeth.getCaller();
-        return _cont.getCaller().invoke(caller_,_exit,_cont,_previous.getStruct(),_firstArgs,_stackCall).getValue();
+        return _cont.getCaller().invoke(caller_,_exit,_cont,_previous,_firstArgs,_stackCall).getValue();
     }
 
-    public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, ExecFormattedRootBlock _className, CustList<ExecOperationInfo> _infos, ExecInstancingCustContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
+    public static Struct prep(ContextEl _conf, StackCall _stack, Struct _previous, ExecFormattedRootBlock _className, CustList<ExecOperationInfo> _infos, ExecInstancingCustContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         if (_instancingCommonContent.getPair().getType() instanceof ExecRecordBlock) {
-            CustList<Argument> arguments_ = getArguments(_infos);
-            Argument prev_ = instance(_instancingCommonContent.getPair().getType(),_previous);
+            CustList<Struct> arguments_ = getArguments(_infos);
+            Struct prev_ = instance(_instancingCommonContent.getPair().getType(),_previous);
             _stack.setCallingState(new CustomFoundRecordConstructor(prev_,_className, _instancingCommonContent.getPair(),_instancingStdContent, arguments_));
         } else {
             new InstanceParamChecker(_instancingCommonContent.getPair(), ExecInvokingOperation.fectchInstFormattedArgs(_className, _instancingCommonContent, _conf, _stack, _infos), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex()).checkParams(_className, _previous, null, _conf, _stack);
         }
-        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
+        return NullStruct.NULL_VALUE;
     }
 
-    private static CustList<Argument> getArguments(CustList<ExecOperationInfo> _nodes) {
-        CustList<Argument> a_ = new CustList<Argument>();
+    private static CustList<Struct> getArguments(CustList<ExecOperationInfo> _nodes) {
+        CustList<Struct> a_ = new CustList<Struct>();
         for (ExecOperationInfo o: _nodes) {
             a_.add(o.getPair().getArgument());
         }
         return a_;
     }
 
-    public static Argument instance(ExecRootBlock _type, Argument _previous) {
+    public static Struct instance(ExecRootBlock _type, Struct _previous) {
         if (!AbstractParamChecker.withInstance(_type)) {
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         return _previous;
     }
 
-    public static boolean checkCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, ExecFormattedRootBlock _paramNameOwner, ContextEl _conf, Argument _fwd, StackCall _stackCall, ArgumentListCall _list) {
+    public static boolean checkCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, ExecFormattedRootBlock _paramNameOwner, ContextEl _conf, Struct _fwd, StackCall _stackCall, ArgumentListCall _list) {
         if (_exit.hasToExit(_stackCall, _paramNameOwner.getRootBlock(),_fwd)) {
             return true;
         }
-        new StaticCallParamChecker(_rootBlock,_list).checkParams(_paramNameOwner,Argument.createVoid(),null,_conf,_stackCall);
+        new StaticCallParamChecker(_rootBlock,_list).checkParams(_paramNameOwner,NullStruct.NULL_VALUE,null,_conf,_stackCall);
         return false;
     }
 
-    public static void redirectAnnotation(ContextEl _conf, StackCall _stack, CustList<Argument> _arguments, ExecInstancingAnnotContent _instancingAnnotContent) {
+    public static void redirectAnnotation(ContextEl _conf, StackCall _stack, CustList<Struct> _arguments, ExecInstancingAnnotContent _instancingAnnotContent) {
         ExecFormattedRootBlock formattedType_ = _instancingAnnotContent.getFormattedType();
         if (!_conf.getExiting().hasToExit(_stack, formattedType_.getRootBlock())) {
             _stack.setCallingState(new CustomFoundAnnotation(formattedType_, formattedType_.getRootBlock(), _instancingAnnotContent.getFieldNames(), _arguments));
         }
     }
 
-    public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, ExecFormattedRootBlock _className, CustList<ExecOperationInfo> _infos, ExecInstancingCustContent _instancingCommonContent) {
+    public static Struct prep(ContextEl _conf, StackCall _stack, Struct _previous, ExecFormattedRootBlock _className, CustList<ExecOperationInfo> _infos, ExecInstancingCustContent _instancingCommonContent) {
         if (!_conf.getExiting().hasToExit(_stack, _className.getRootBlock())) {
             new InstanceParamChecker(_instancingCommonContent.getPair(), ExecInvokingOperation.fectchInstFormattedArgs(_className, _instancingCommonContent,_conf,_stack, _infos), "", -1).checkParams(_className, _previous, null, _conf, _stack);
         }
-        return ArgumentListCall.toStr(NullStruct.NULL_VALUE);
+        return NullStruct.NULL_VALUE;
     }
 
     public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named, ArgumentListCall _firstArgs, ExecFormattedRootBlock _classNameFound, MethodAccessKind _kind, StackCall _stackCall) {
         if (_exit.hasToExit(_stackCall, _classNameFound.getRootBlock())) {
             return;
         }
-        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
+        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR).checkParams(_classNameFound, NullStruct.NULL_VALUE, null, _conf, _stackCall);
     }
 
-    public static Argument processEnums(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall, ExecRootBlock _type) {
+    public static Struct processEnums(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall, ExecRootBlock _type) {
         //static enum methods
         LgNames stds_ = _cont.getStandards();
-        CustList<Argument> args_ = _firstArgs.getArguments();
+        CustList<Struct> args_ = _firstArgs.getArguments();
         if (args_.size() != 1) {
             return IndirectCalledFctUtil.tryGetEnumValues(_exit, _cont, _type,  ClassCategory.ENUM, _stackCall);
         }
-        Argument arg_ = args_.first();
-        Struct ex_ = ExecInheritsAdv.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), Argument.getNullableValue(arg_).getStruct().getClassName(_cont), _cont, _stackCall);
+        Struct arg_ = args_.first();
+        Struct ex_ = ExecInheritsAdv.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), ArgumentListCall.getNull(arg_).getClassName(_cont), _cont, _stackCall);
         if (ex_ != null) {
             _stackCall.setCallingState(new CustomFoundExc(ex_));
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         return IndirectCalledFctUtil.tryGetEnumValue(_exit, _cont, _type, ClassCategory.ENUM, arg_, _stackCall);
     }
 
-    public static Argument tryInit(ContextEl _conf, StackCall _stack, ExecRootBlock _root){
+    public static Struct tryInit(ContextEl _conf, StackCall _stack, ExecRootBlock _root){
         if (_conf.getExiting().hasToExit(_stack, _root)) {
-            return Argument.createVoid();
+            return NullStruct.NULL_VALUE;
         }
         return null;
     }
 
-    public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock,
+    public static Struct prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock,
                                    ExecFormattedRootBlock _classNameOwner, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
         checkCustomOper(_exit, _rootBlock, StackCall.formatVarType(_stackCall,_classNameOwner), _conf, null, _stackCall, _list);
-        return Argument.createVoid();
+        return NullStruct.NULL_VALUE;
     }
 
-    public static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit, StackCall _stackCall) {
+    public static int processConverter(ContextEl _conf, Struct _right, ImplicitMethods _implicits, int _indexImplicit, StackCall _stackCall) {
         ExecFormattedRootBlock formatted_ = StackCall.formatVarType(_stackCall, _implicits.getOwnerClass());
         ExecTypeFunction c = _implicits.get(_indexImplicit);
         AbstractExiting ex_ = _conf.getExiting();
-        ArgumentListCall l_ = new ArgumentListCall(Argument.getNullableValue(_right));
+        ArgumentListCall l_ = new ArgumentListCall(ArgumentListCall.getNull(_right));
         if (checkCustomOper(ex_, c, formatted_, _conf, _right, _stackCall, l_)) {
             return _indexImplicit;
         }
         return _indexImplicit +1;
     }
 
-    public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, CustList<ExecOperationInfo> _infos, ExecStdFctContent _stdFctContent) {
-        Argument prev_;
-        Argument res_ = null;
+    public static Struct prep(ContextEl _conf, StackCall _stack, Struct _previous, CustList<ExecOperationInfo> _infos, ExecStdFctContent _stdFctContent) {
+        Struct prev_;
+        Struct res_ = null;
         if (!_stdFctContent.isStaticMethod()) {
-            Struct argPrev_ = _previous.getStruct();
-            prev_ = new Argument(ExecFieldTemplates.getParent(0, argPrev_, _conf, _stack));
+            prev_ = ExecFieldTemplates.getParent(0, _previous, _conf, _stack);
             if (_conf.callsOrException(_stack)) {
-                res_ = new Argument();
+                res_ = NullStruct.NULL_VALUE;
             }
         } else {
-            prev_ = new Argument();
+            prev_ = NullStruct.NULL_VALUE;
         }
         if (res_ == null) {
             res_ = callStd(_conf.getExiting(), _conf, _stdFctContent.getClassMethodId(), prev_, ExecInvokingOperation.fectchArgs(_stdFctContent.getLastType(), _stdFctContent.getNaturalVararg(), _conf, _stack, _infos), _stack, _stdFctContent.getStandardMethod());

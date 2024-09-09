@@ -1,5 +1,5 @@
 package code.expressionlanguage.exec.stacks;
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -114,7 +114,7 @@ public final class LoopBlockStackContent {
     }
 
     public void setContainer(Struct _container) {
-        this.container = Argument.getNull(_container);
+        this.container = ArgumentListCall.getNull(_container);
         if (_container instanceof ArrayStruct) {
             array = (ArrayStruct) _container;
         }

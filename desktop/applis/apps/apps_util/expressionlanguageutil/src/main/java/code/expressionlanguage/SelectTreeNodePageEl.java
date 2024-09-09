@@ -4,6 +4,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractBasicReflectPageEl;
 import code.expressionlanguage.guicompos.TreeStruct;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.core.NumberUtil;
 
@@ -32,7 +33,7 @@ public final class SelectTreeNodePageEl extends AbstractBasicReflectPageEl {
                 return false;
             }
         }
-        setReturnedArgument(Argument.createVoid());
+        setReturnedArgument(NullStruct.NULL_VALUE);
         return true;
     }
 }

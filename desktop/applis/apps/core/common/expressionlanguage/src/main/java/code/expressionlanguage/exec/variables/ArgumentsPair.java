@@ -1,37 +1,38 @@
 package code.expressionlanguage.exec.variables;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ArgumentsPair {
 
-    private Argument argument;
-    private Argument argumentParent;
+    private Struct argument;
+    private Struct argumentParent;
     private CustList<ArgumentWrapper> argumentList = new CustList<ArgumentWrapper>();
     private AbstractWrapper wrapper;
-    private Argument argumentBeforeTest;
-    private Argument argumentBeforeImpl;
+    private Struct argumentBeforeTest;
+    private Struct argumentBeforeImpl;
     private boolean argumentTest;
     private boolean calcArgumentTest;
-    private Argument previousArgument;
+    private Struct previousArgument;
     private int indexImplicit;
     private int indexImplicitTest;
     private int indexImplicitConv;
     private boolean endCalculate;
     private boolean calledIndexer;
     private boolean indexer;
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
-    public void setArgument(Argument _argument) {
+    public void setArgument(Struct _argument) {
         argument = _argument;
     }
 
-    public Argument getArgumentParent() {
+    public Struct getArgumentParent() {
         return argumentParent;
     }
 
-    public void setArgumentParent(Argument _arg) {
+    public void setArgumentParent(Struct _arg) {
         this.argumentParent = _arg;
     }
 
@@ -51,14 +52,14 @@ public final class ArgumentsPair {
         this.wrapper = _wrapper;
     }
 
-    public Argument argument(Argument _arg) {
+    public Struct argument(Struct _arg) {
         if (calcArgumentTest) {
-            return Argument.getNullableValue(_arg);
+            return ArgumentListCall.getNull(_arg);
         }
-        return Argument.getNullableValue(argumentBeforeTest);
+        return ArgumentListCall.getNull(argumentBeforeTest);
     }
 
-    public void setArgumentBeforeTest(Argument _argumentBeforeTest) {
+    public void setArgumentBeforeTest(Struct _argumentBeforeTest) {
         argumentBeforeTest = _argumentBeforeTest;
     }
 
@@ -74,20 +75,20 @@ public final class ArgumentsPair {
         calcArgumentTest = true;
     }
 
-    public Argument getArgumentBeforeImpl() {
+    public Struct getArgumentBeforeImpl() {
         return argumentBeforeImpl;
     }
 
-    public void argumentImpl(Argument _arg) {
+    public void argumentImpl(Struct _arg) {
         if (argumentBeforeImpl != null) {
             return;
         }
         argumentBeforeImpl = _arg;
     }
-    public Argument getPreviousArgument() {
+    public Struct getPreviousArgument() {
         return previousArgument;
     }
-    public void setPreviousArgument(Argument _previousArgument) {
+    public void setPreviousArgument(Struct _previousArgument) {
         previousArgument = _previousArgument;
     }
 

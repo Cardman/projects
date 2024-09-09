@@ -18,12 +18,12 @@ public final class FctPanelAddCompo1 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct compo_ = argumentWrappers_.get(0).getValue().getStruct();
+        Struct compo_ = argumentWrappers_.get(0).getValue();
         if (!(compo_ instanceof CustComponentStruct)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         PanelStruct strPan_ = (PanelStruct) _instance;
-        strPan_.add((CustComponentStruct) compo_,((NumberStruct)argumentWrappers_.get(1).getValue().getStruct()).intStruct());
+        strPan_.add((CustComponentStruct) compo_,((NumberStruct)argumentWrappers_.get(1).getValue()).intStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

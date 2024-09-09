@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -19,14 +18,13 @@ public final class FctLambdaCall extends FctReflection {
     }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Argument instance_ = new Argument(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
-        Struct inst_ = instance_.getStruct();
-        if (!(inst_ instanceof ArrayStruct)) {
+        Struct instance_ = _firstArgs.getArgumentWrappers().get(0).getValue();
+        if (!(instance_ instanceof ArrayStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        ArrayStruct arr_ = (ArrayStruct) inst_;
-        ExecInvokingOperation.prepareCallDynReflect(new Argument(_instance), arr_,ref, _cont, _stackCall);
+        ArrayStruct arr_ = (ArrayStruct) instance_;
+        ExecInvokingOperation.prepareCallDynReflect(_instance, arr_,ref, _cont, _stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

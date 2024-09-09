@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
@@ -33,23 +32,22 @@ public final class ExecQuickOperation extends ExecMethodOperation implements Ato
         ExecOperationNode first_ = getFirstChild();
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, first_);
         if (argumentPair_.isArgumentTest()){
-            Argument f_ = getArgument(_nodes,first_);
+            Struct f_ = getArgument(_nodes,first_);
             setQuickConvertSimpleArgument(f_, _conf, _nodes, _stack);
             return;
         }
-        Argument f_ = getArgument(_nodes,first_);
-        Struct abs_ = f_.getStruct();
-        Argument a_ = getLastArgument(_nodes,this);
-        setSimpleArgument(new Argument(ExecCompoundAffectationStringOperation.calculatedValue(operSymbol,abs_,a_.getStruct(), _conf, _stack,_stack.getLastPage())), _conf, _nodes, _stack);
+        Struct f_ = getArgument(_nodes,first_);
+        Struct a_ = getLastArgument(_nodes,this);
+        setSimpleArgument(ExecCompoundAffectationStringOperation.calculatedValue(operSymbol, f_,a_, _conf, _stack,_stack.getLastPage()), _conf, _nodes, _stack);
     }
 
     @Override
-    public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
+    public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _right, StackCall _stack) {
         setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
         end(this,_conf, _nodes, _right, _stack, converter);
     }
 
-    static void end(ExecMethodOperation _cur,ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack, ImplicitMethods _converter) {
+    static void end(ExecMethodOperation _cur,ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _right, StackCall _stack, ImplicitMethods _converter) {
         ExecOperationNode first_ = _cur.getFirstChild();
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, first_);
         if (argumentPair_.isArgumentTest()){

@@ -10,7 +10,9 @@ import code.expressionlanguage.guicompos.EventStruct;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.utilcompo.ExecutorDbgServiceStruct;
+import code.expressionlanguage.utilcompo.ExecutorServiceStruct;
+import code.expressionlanguage.utilcompo.FutureParamDbgStruct;
 
 public final class FctExecutorServiceSubmit1 implements StdCaller {
     private final String id;
@@ -21,7 +23,7 @@ public final class FctExecutorServiceSubmit1 implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (_instance instanceof ExecutorDbgServiceStruct) {
             if (!(s_ instanceof EventStruct)) {
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);

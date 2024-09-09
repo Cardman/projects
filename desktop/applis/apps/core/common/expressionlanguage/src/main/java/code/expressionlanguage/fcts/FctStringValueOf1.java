@@ -34,14 +34,14 @@ public final class FctStringValueOf1 implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct arr_ = argumentWrappers_.get(2).getValue().getStruct();
+        Struct arr_ = argumentWrappers_.get(2).getValue();
         if (!(arr_ instanceof ArrayStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         char[] chars_ = toCharArr((ArrayStruct) arr_);
-        int one_ = NumParsers.convertToNumber(argumentWrappers_.get(0).getValue().getStruct()).intStruct();
-        int two_ = NumParsers.convertToNumber(argumentWrappers_.get(1).getValue().getStruct()).intStruct();
+        int one_ = NumParsers.convertToNumber(argumentWrappers_.get(0).getValue()).intStruct();
+        int two_ = NumParsers.convertToNumber(argumentWrappers_.get(1).getValue()).intStruct();
         if (NumParsers.koArray(chars_, one_, two_)) {
             if (one_ < 0) {
                 _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_cont, FctUtil.getBeginMessage(one_), _stackCall)));

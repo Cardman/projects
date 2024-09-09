@@ -15,7 +15,7 @@ public final class FctTextLabel implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TextLabelStruct txt_ = (TextLabelStruct) _instance;
-        txt_.setText(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        txt_.setText(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -22,7 +21,7 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode chFirst_ = getFirstChild();
-        Struct current_ = ArgumentListCall.toStr(Argument.getNullableValue(getArgumentPair(_nodes, chFirst_).getArgument()));
+        Struct current_ = ArgumentListCall.getNull(getArgumentPair(_nodes, chFirst_).getArgument());
         if (chFirst_ instanceof RendDotOperation) {
             chFirst_ = getLastNode((RendMethodOperation) chFirst_);
         }
@@ -33,7 +32,7 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
             if (ch_ instanceof RendSettableFieldInstOperation) {
                 ExecTypeReturn pair_ = ((RendSettableFieldInstOperation) ch_).getPair();
                 ArgumentsPair pairCh_ = getArgumentPair(_nodes, ch_);
-                Struct parent_ = pairCh_.getArgumentParent().getStruct();
+                Struct parent_ = pairCh_.getArgumentParent();
                 f_ = new InstanceFieldWrapper(current_,parent_, parent_.getClassName(_context),settableFieldContent_.getRealType(),
                         settableFieldContent_.getClassField(), pair_);
             } else {
@@ -48,10 +47,10 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
         }
         if (chFirst_ instanceof RendArrOperation) {
             RendArrOperation ch_ = (RendArrOperation)chFirst_;
-            Argument previousArgument_ = getArgumentPair(_nodes,ch_).getArgumentParent();
+            Struct previousArgument_ = getArgumentPair(_nodes,ch_).getArgumentParent();
             ArgumentsPair pairIndex_ = getArgumentPair(_nodes, ch_.getFirstChild());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-            AbstractWrapper a_ = ExecWrappOperation.buildArrWrapp(previousArgument_,pairIndex_.getArgument().getStruct(),current_);
+            AbstractWrapper a_ = ExecWrappOperation.buildArrWrapp(previousArgument_,pairIndex_.getArgument(),current_);
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _rendStack);
             return;
@@ -60,7 +59,7 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
             RendCustArrOperation ch_ = (RendCustArrOperation)chFirst_;
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             ArgumentsPair pairCh_ = getArgumentPair(_nodes, ch_);
-            Struct parent_ = pairCh_.getArgumentParent().getStruct();
+            Struct parent_ = pairCh_.getArgumentParent();
             ArrayCustWrapper a_ = new ArrayCustWrapper(current_,pairCh_.getArgumentList(),parent_, parent_.getClassName(_context), ch_.getReadWrite());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _rendStack);

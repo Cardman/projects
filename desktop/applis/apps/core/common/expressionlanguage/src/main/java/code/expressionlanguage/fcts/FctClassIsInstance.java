@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AbstractReplacingType;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -21,10 +20,10 @@ public final class FctClassIsInstance extends FctReflection {
         if (param_.contains(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
             return new ArgumentWrapper(BooleanStruct.of(false));
         }
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (arg_ == NullStruct.NULL_VALUE) {
             return new ArgumentWrapper(BooleanStruct.of(false));
         }
-        return new ArgumentWrapper(BooleanStruct.of(ExecInherits.safeObject(param_, Argument.getNull(arg_).getClassName(_cont), _cont) == ErrorType.NOTHING));
+        return new ArgumentWrapper(BooleanStruct.of(ExecInherits.safeObject(param_, ArgumentListCall.getNull(arg_).getClassName(_cont), _cont) == ErrorType.NOTHING));
     }
 }

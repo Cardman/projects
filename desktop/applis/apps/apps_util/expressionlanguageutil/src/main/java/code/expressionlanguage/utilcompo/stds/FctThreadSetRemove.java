@@ -18,7 +18,7 @@ public final class FctThreadSetRemove implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         ins_.remove(arg_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

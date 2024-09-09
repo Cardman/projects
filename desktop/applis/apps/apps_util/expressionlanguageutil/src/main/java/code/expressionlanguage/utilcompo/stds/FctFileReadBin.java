@@ -19,7 +19,7 @@ public final class FctFileReadBin extends FctFileAbs {
 
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        StringStruct str_ = (StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        StringStruct str_ = (StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue();
         BytesInfo read_ = _infos.getFileSystem().loadFile(str_.getInstance(), ((RunnableContextEl) _cont).getCurrentDir());
         if (read_.isNul()) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

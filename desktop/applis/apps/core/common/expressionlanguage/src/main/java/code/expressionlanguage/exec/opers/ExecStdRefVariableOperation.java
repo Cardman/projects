@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
@@ -9,6 +8,7 @@ import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecStdRefVariableOperation extends ExecLeafOperation implements
@@ -32,7 +32,7 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
         AbstractWrapper val_ = ExecVariableTemplates.getWrapper(resultCanBeSet(),variableContent, _stack);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
-        Argument arg_ = ExecVariableTemplates.getArgValue(val_, _conf, _stack);
+        Struct arg_ = ExecVariableTemplates.getArgValue(val_, _conf, _stack);
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
         } else {
@@ -50,7 +50,7 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
     }
 
     @Override
-    public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
+    public Struct calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _right, StackCall _stack) {
         return trySetArgument(_nodes,_conf, _right, _stack);
     }
 
@@ -59,7 +59,7 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
         return variableContent.isVariable();
     }
 
-    private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, StackCall _stackCall) {
+    private Struct trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _res, StackCall _stackCall) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         return ExecVariableTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
     }

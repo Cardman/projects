@@ -1,8 +1,8 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
@@ -11,7 +11,7 @@ import code.util.core.StringUtil;
 
 public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private final Argument instanceCall;
+    private final Struct instanceCall;
 
     private final ExecRootBlock root;
     private final String className;
@@ -21,9 +21,9 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
     private final boolean shiftInstance;
     private final CustList<ExecFormattedRootBlock> ints;
 
-    public LambdaRecordConstructorStruct(ExecLambdaCommonContent _cont, Argument _previous, ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, CustList<ExecNamedFieldContent> _namedFields, CustList<ExecFormattedRootBlock> _supInts) {
+    public LambdaRecordConstructorStruct(ExecLambdaCommonContent _cont, Struct _previous, ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, CustList<ExecNamedFieldContent> _namedFields, CustList<ExecFormattedRootBlock> _supInts) {
         root = _root;
-        instanceCall = Argument.getNullableValue(_previous);
+        instanceCall = ArgumentListCall.getNull(_previous);
         className = StringUtil.nullToEmpty(_className);
         formClassName = _formClassName;
         namedFields = _namedFields;
@@ -37,7 +37,7 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
         return shiftInstance;
     }
     public boolean isSafeInstance() {
-        return safeInstance && instanceCall.isNull();
+        return safeInstance && instanceCall == NullStruct.NULL_VALUE;
     }
 
     public ExecRootBlock getRoot() {
@@ -51,7 +51,7 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
     public ExecFormattedRootBlock getFormClassName() {
         return formClassName;
     }
-    public Argument getInstanceCall() {
+    public Struct getInstanceCall() {
         return instanceCall;
     }
 

@@ -14,7 +14,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctEnumsName implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct str_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct str_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(str_ instanceof EnumerableStruct)) {
             _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(null);

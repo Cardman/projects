@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fcts.FctMathMod0;
 import code.expressionlanguage.functionid.MethodId;
@@ -7092,12 +7091,12 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StandardMethod stdMeth_ = new StandardMethod("mod",new StringList("$int","$int"),"$int",false, MethodModifier.STATIC,new FctMathMod0());
         MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_, new ExecFormattedRootBlock((ExecRootBlock)null, "java.lang.$math"));
         ArrayStruct s_ = args();
-        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_, ArgumentListCall.toStr(NullStruct.NULL_VALUE), ArrayRefState.tryWrap(s_,0));
+        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_, NullStruct.NULL_VALUE, ArrayRefState.tryWrap(s_,0));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());
-        assertEq(1, getNumber(ArgumentListCall.toStr(argumentWrapper_.getValue())));
+        assertEq(1, getNumber(argumentWrapper_.getValue()));
     }
     @Test
     public void reflect2Test() {
@@ -7107,12 +7106,12 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
 //        StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
         MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_, new ExecFormattedRootBlock((ExecRootBlock)null, "java.lang.$math"));
         ArrayStruct s_ = args();
-        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,ArgumentListCall.toStr(NullStruct.NULL_VALUE), ArrayRefState.tryWrap(s_,0));
+        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,NullStruct.NULL_VALUE, ArrayRefState.tryWrap(s_,0));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());
-        assertEq(1, getNumber(ArgumentListCall.toStr(argumentWrapper_.getValue())));
+        assertEq(1, getNumber(argumentWrapper_.getValue()));
     }
     @Test
     public void exc() {
@@ -7120,7 +7119,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustomFoundExc ref_ = new CustomFoundExc(NullStruct.NULL_VALUE);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
-        assertSame(NullStruct.NULL_VALUE, argumentWrapper_.getValue().getStruct());
+        assertSame(NullStruct.NULL_VALUE, argumentWrapper_.getValue());
     }
 
 //    private static StandardMethod std(StandardType _type, MethodId _id) {

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.exec.StackCall;
@@ -16,9 +15,9 @@ import code.util.core.NumberUtil;
 public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
 
     private final StringMap<AnnotationTypeInfo> names;
-    private final CustList<Argument> args;
+    private final CustList<Struct> args;
     private int indexSupplied = -1;
-    public NewAnnotationPageEl(StringMap<AnnotationTypeInfo> _names, CustList<Argument> _args, ExecFormattedRootBlock _global) {
+    public NewAnnotationPageEl(StringMap<AnnotationTypeInfo> _names, CustList<Struct> _args, ExecFormattedRootBlock _global) {
         super(_global);
         names = _names;
         args = _args;
@@ -41,13 +40,13 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
                 return;
             }
             String name_ = names.getKey(i);
-            Argument value_ = args.get(i);
+            Struct value_ = args.get(i);
             AnnotationTypeInfo i_ = names.getValue(i);
             String t_ = i_.getType();
             if (i_.isWrap()) {
-                ArrayStruct arr_ = ArrayStruct.instance(t_, new CustList<Argument>(value_));
+                ArrayStruct arr_ = ArrayStruct.instance(t_, new CustList<Struct>(value_));
                 ExecArrayTemplates.checkedElements(arr_, _context, _stack);
-                ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,new Argument(arr_), _stack);
+                ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,arr_, _stack);
                 if (_context.callsOrException(_stack)) {
                     return;
                 }
@@ -66,7 +65,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
         return names;
     }
 
-    public CustList<Argument> getArgs() {
+    public CustList<Struct> getArgs() {
         return args;
     }
 

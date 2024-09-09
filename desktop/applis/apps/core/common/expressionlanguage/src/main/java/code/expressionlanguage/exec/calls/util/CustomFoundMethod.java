@@ -1,5 +1,4 @@
 package code.expressionlanguage.exec.calls.util;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
@@ -7,10 +6,12 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class CustomFoundMethod implements CallingState,GlobalClassCallingState {
 
-    private final Argument gl;
+    private final Struct gl;
 
     private final ExecFormattedRootBlock className;
 
@@ -19,10 +20,10 @@ public final class CustomFoundMethod implements CallingState,GlobalClassCallingS
     private final Parameters arguments;
 
     public CustomFoundMethod(ExecFormattedRootBlock _className, ExecTypeFunction _pair, Parameters _arguments) {
-        this(Argument.createVoid(),_className,_pair,_arguments);
+        this(NullStruct.NULL_VALUE,_className,_pair,_arguments);
     }
 
-    public CustomFoundMethod(Argument _gl, ExecFormattedRootBlock _className, ExecTypeFunction _pair, Parameters _arguments) {
+    public CustomFoundMethod(Struct _gl, ExecFormattedRootBlock _className, ExecTypeFunction _pair, Parameters _arguments) {
         gl = _gl;
         className = _className;
         pair = _pair;
@@ -33,7 +34,7 @@ public final class CustomFoundMethod implements CallingState,GlobalClassCallingS
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
         return ExecutingUtil.createCallingMethod(_context,this);
     }
-    public Argument getGl() {
+    public Struct getGl() {
         return gl;
     }
 

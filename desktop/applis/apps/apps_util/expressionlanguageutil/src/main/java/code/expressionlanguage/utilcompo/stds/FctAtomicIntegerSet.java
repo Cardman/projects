@@ -15,7 +15,7 @@ public final class FctAtomicIntegerSet extends FctAtomicAbs {
     @Override
     protected ArgumentWrapper atomic(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-        re_.set(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct());
+        re_.set(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).intStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.fwd.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
@@ -33,6 +32,7 @@ import code.expressionlanguage.fwd.*;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -1154,7 +1154,7 @@ public final class ForwardInfos {
 //        } else
         OperationNode root_ = _en.getFilterContent().getResCondition().getRoot();
         if (!_en.getFilterContent().getImportedType().isEmpty()) {
-            exec_ = new ExecAbstractCaseCondition(_en.getOffset(),new ExecOperationNodeListOff(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getResCondition().end()),_en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Argument>(),new CustList<ClassField>());
+            exec_ = new ExecAbstractCaseCondition(_en.getOffset(),new ExecOperationNodeListOff(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getResCondition().end()),_en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Struct>(),new CustList<ClassField>());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
 //        } else if (((CaseCondition) _en).getQualif() != null) {
@@ -1180,7 +1180,7 @@ public final class ForwardInfos {
 //        } else
         OperationNode root_ = _en.getFilterContent().getResCondition().getRoot();
         if (!_en.getFilterContent().getImportedType().isEmpty()) {
-            exec_ = new ExecAbstractCatchEval(new ExecOperationNodeListOff(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getResCondition().end()),new ExecFilterContent(_en.getOffset(), _en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Argument>(),new CustList<ClassField>()), _en.isThrowIfGuardError(), _en.isCatchAll());
+            exec_ = new ExecAbstractCatchEval(new ExecOperationNodeListOff(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getResCondition().end()),new ExecFilterContent(_en.getOffset(), _en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Struct>(),new CustList<ClassField>()), _en.isThrowIfGuardError(), _en.isCatchAll());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
 //        } else if (((CaseCondition) _en).getQualif() != null) {

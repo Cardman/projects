@@ -23,11 +23,11 @@ public final class FctKeyEvent extends FctCompoCtor {
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         KeyEventStruct res_ = new KeyEventStruct(aliasKeyEvent);
-        res_.setAlt(argumentWrappers_.get(0).getValue().getStruct());
-        res_.setCtrl(argumentWrappers_.get(1).getValue().getStruct());
-        res_.setShift(argumentWrappers_.get(2).getValue().getStruct());
-        res_.setKeyChar(argumentWrappers_.get(3).getValue().getStruct());
-        res_.setKeyCode(argumentWrappers_.get(4).getValue().getStruct());
+        res_.setAlt(argumentWrappers_.get(0).getValue());
+        res_.setCtrl(argumentWrappers_.get(1).getValue());
+        res_.setShift(argumentWrappers_.get(2).getValue());
+        res_.setKeyChar(argumentWrappers_.get(3).getValue());
+        res_.setKeyCode(argumentWrappers_.get(4).getValue());
         return new ArgumentWrapper(res_);
     }
 }

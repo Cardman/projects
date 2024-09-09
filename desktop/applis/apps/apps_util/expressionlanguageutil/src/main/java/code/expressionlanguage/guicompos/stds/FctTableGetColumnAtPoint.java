@@ -15,6 +15,6 @@ public final class FctTableGetColumnAtPoint implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         TableStruct inst_ = (TableStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(inst_.columnAtPoint(argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct()));
+        return new ArgumentWrapper(inst_.columnAtPoint(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue()));
     }
 }

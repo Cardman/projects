@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
@@ -32,14 +31,14 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
     }
 
     @Override
-    protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
+    protected Struct retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
         if (ExecHelperBlocks.checkBp(_stack,_stack.getLastPage(),this)) {
             return null;
         }
         incr(_l);
         Struct container_ = _l.getContent().getContainer();
         LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
-        return new Argument(ExecArrayTemplates.getElement(container_, lg_, _conf, _stack));
+        return ExecArrayTemplates.getElement(container_, lg_, _conf, _stack);
     }
 
     private void incr(LoopBlockStack _l) {

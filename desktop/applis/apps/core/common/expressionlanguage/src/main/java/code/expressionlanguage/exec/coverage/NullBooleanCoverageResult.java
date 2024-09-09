@@ -1,8 +1,9 @@
 package code.expressionlanguage.exec.coverage;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.linkage.VariablesOffsets;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
 public final class NullBooleanCoverageResult extends AbstractCoverageResult {
@@ -49,14 +50,14 @@ public final class NullBooleanCoverageResult extends AbstractCoverageResult {
     }
 
     @Override
-    public void cover(Argument _nbc) {
-        if (_nbc.isNull()) {
+    public void cover(Struct _nbc) {
+        if (_nbc == NullStruct.NULL_VALUE) {
             coverNbcNull = true;
         }
-        if (BooleanStruct.isTrue(_nbc.getStruct())) {
+        if (BooleanStruct.isTrue(_nbc)) {
             coverNbcTrue = true;
         }
-        if (BooleanStruct.isFalse(_nbc.getStruct())) {
+        if (BooleanStruct.isFalse(_nbc)) {
             coverNbcFalse = true;
         }
 

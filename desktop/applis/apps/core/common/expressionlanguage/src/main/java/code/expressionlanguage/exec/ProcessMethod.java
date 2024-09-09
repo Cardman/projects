@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -41,14 +40,14 @@ public final class ProcessMethod {
     }
 
     public static String convertStr(Struct _str, ContextEl _r, StackCall _stackCall) {
-        Argument out_ = new Argument(_str);
+        Struct out_ = _str;
         out_ = IndirectCalledFctUtil.processString(out_, _r, _stackCall);
         out_ = tryCalculate(_r, _stackCall, out_);
         return ExecCatOperation.getDisplayable(out_, _r).getInstance();
     }
 
-    public static Argument tryCalculate(ContextEl _r, StackCall _stackCall, Argument _out) {
-        Argument out_;
+    public static Struct tryCalculate(ContextEl _r, StackCall _stackCall, Struct _out) {
+        Struct out_;
         CallingState state_ = _stackCall.getCallingState();
         if (state_ != null) {
             out_ = calculate(state_, _r, _stackCall).getValue();
@@ -66,7 +65,7 @@ public final class ProcessMethod {
                 return ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
             }
             _stackCall.setNullCallingState();
-            Argument out_ = new Argument(exception_);
+            Struct out_ = exception_;
             out_ = IndirectCalledFctUtil.processString(out_, _cont, _stackCall);
             CallingState state_ = _stackCall.getCallingState();
             boolean convert_ = false;
@@ -77,9 +76,9 @@ public final class ProcessMethod {
             }
             if (!_cont.callsOrException(_stackCall)) {
                 if (convert_) {
-                    out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont));
+                    out_ = ExecCatOperation.getDisplayable(out_,_cont);
                 }
-                return NumParsers.getString(out_.getStruct()).getInstance();
+                return NumParsers.getString(out_).getInstance();
             }
             return _cont.getStandards().getDisplayedStrings().getNullString();
         }

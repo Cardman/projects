@@ -1,6 +1,5 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageElContent;
@@ -69,8 +68,8 @@ public final class ImportingPage extends AbsImportingPage {
         opOffset = _opOffset;
     }
 
-    public Argument getGlobalArgument() {
-        return pageEl.getGlobalArgument();
+    public Struct getGlobalStruct() {
+        return pageEl.getGlobalStruct();
     }
 
     public void setGlobalArgumentStruct(Struct _obj, ContextEl _ctx) {

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -8,6 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
 
 public abstract class ExecSettableFieldOperation extends
@@ -29,8 +29,7 @@ public abstract class ExecSettableFieldOperation extends
     }
 
     protected void setter(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument arg_ = Argument.createVoid();
-        setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
+        setQuickNoConvertSimpleArgument(NullStruct.NULL_VALUE, _conf, _nodes, _stack);
     }
 
     public boolean isDeclare() {

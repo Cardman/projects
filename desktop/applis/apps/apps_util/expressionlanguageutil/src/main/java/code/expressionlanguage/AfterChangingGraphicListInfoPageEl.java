@@ -2,7 +2,6 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractBasicReflectPageEl;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.GraphicListStruct;
 import code.expressionlanguage.guicompos.PreparedLabelStruct;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -52,10 +51,10 @@ public final class AfterChangingGraphicListInfoPageEl extends AbstractBasicRefle
                 return false;
             }
             if (current_.isDirty()) {
-                applyImage(current_, ArgumentListCall.toStr(getReturnedArgument()), instance);
+                applyImage(current_, getReturnedArgument(), instance);
             }
         }
-        setReturnedArgument(Argument.createVoid());
+        setReturnedArgument(NullStruct.NULL_VALUE);
         return true;
     }
 

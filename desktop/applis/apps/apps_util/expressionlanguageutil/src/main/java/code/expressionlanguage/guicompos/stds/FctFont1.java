@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctFont1 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        int size_ = ((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).intStruct();
+        int size_ = ((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).intStruct();
         return new ArgumentWrapper(new FontStruct(size_));
     }
 }

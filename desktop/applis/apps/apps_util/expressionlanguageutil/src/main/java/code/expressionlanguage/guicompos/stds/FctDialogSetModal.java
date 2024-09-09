@@ -16,7 +16,7 @@ public final class FctDialogSetModal implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbsOtherDialog inst_ = ((DialogStruct)_instance).getDialog();
-        inst_.setModal(BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        inst_.setModal(BooleanStruct.isTrue(_firstArgs.getArgumentWrappers().get(0).getValue()));
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

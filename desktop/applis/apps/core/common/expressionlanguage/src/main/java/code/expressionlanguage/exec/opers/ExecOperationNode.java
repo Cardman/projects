@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.symbol.SymbolConstants;
@@ -12,7 +11,8 @@ import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
@@ -73,7 +73,7 @@ public abstract class ExecOperationNode {
     }
 
     public static Struct instance(ExecOperationNode _n, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _last) {
-        Struct prev_ = ArgumentListCall.toStr(Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, _n).getPreviousArgument()));
+        Struct prev_ = ArgumentListCall.getNull(ExecHelper.getArgumentPair(_nodes, _n).getPreviousArgument());
         Struct instance_;
         if (prev_ == NullStruct.NULL_VALUE) {
             instance_ = _last.getGlobalStruct();
@@ -83,34 +83,34 @@ public abstract class ExecOperationNode {
         return instance_;
     }
 
-    protected Argument getPreviousArg(ExecPossibleIntermediateDotted _possible, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _lastPage) {
-        Argument previous_;
+    protected Struct getPreviousArg(ExecPossibleIntermediateDotted _possible, IdMap<ExecOperationNode, ArgumentsPair> _nodes, AbstractPageEl _lastPage) {
+        Struct previous_;
         if (_possible.isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument(_nodes, this);
         } else {
-            previous_ = _lastPage.getGlobalArgument();
+            previous_ = _lastPage.getGlobalStruct();
         }
         return previous_;
     }
-    protected static CustList<Argument> getArguments(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _method) {
-        CustList<Argument> a_ = new CustList<Argument>();
+    protected static CustList<Struct> getArguments(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _method) {
+        CustList<Struct> a_ = new CustList<Struct>();
         for (ExecOperationNode o: _method.getChildrenNodes()) {
             a_.add(getArgument(_nodes, o));
         }
         return a_;
     }
-    protected static Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes,_node).getArgument());
+    protected static Struct getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
+        return ArgumentListCall.getNull(ExecHelper.getArgumentPair(_nodes,_node).getArgument());
     }
-    protected static Argument getFirstArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _node) {
-        return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getFirstNode(_node)).getArgument());
+    protected static Struct getFirstArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _node) {
+        return ArgumentListCall.getNull(ExecHelper.getArgumentPair(_nodes, ExecHelper.getFirstNode(_node)).getArgument());
     }
-    protected static Argument getLastArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _node) {
+    protected static Struct getLastArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _node) {
         CustList<ExecOperationNode> childrenNodes_ = _node.getChildrenNodes();
-        return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,childrenNodes_.size()-1)).getArgument());
+        return ArgumentListCall.getNull(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,childrenNodes_.size()-1)).getArgument());
     }
-    protected static Argument getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes,_node).getPreviousArgument());
+    protected static Struct getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
+        return ArgumentListCall.getNull(ExecHelper.getArgumentPair(_nodes,_node).getPreviousArgument());
     }
 
     private void setNextSiblingsArg(ContextEl _cont, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
@@ -119,8 +119,8 @@ public abstract class ExecOperationNode {
         }
         byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        Argument last_ = Argument.getNullableValue(pair_.getArgument());
-        if ((content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) && last_.isNull()) {
+        Struct last_ = ArgumentListCall.getNull(pair_.getArgument());
+        if ((content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) && last_ == NullStruct.NULL_VALUE) {
             LgNames stds_ = _cont.getStandards();
             String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
             setRelativeOffsetPossibleLastPage(_stackCall);
@@ -128,8 +128,7 @@ public abstract class ExecOperationNode {
             return;
         }
         if (unwrapObjectNb_ > -1) {
-            Argument arg_ = new Argument(NumParsers.unwrapObject(unwrapObjectNb_, last_.getStruct()));
-            pair_.setArgument(arg_);
+            pair_.setArgument(NumParsers.unwrapObject(unwrapObjectNb_, last_));
         }
     }
 
@@ -170,14 +169,14 @@ public abstract class ExecOperationNode {
         return content.getIndexChild();
     }
 
-    public final Argument getArgument() {
+    public final Struct getArgument() {
         return content.getArgument();
     }
 
 //    public final void setSimpleArgument(Argument _argument, ContextEl _conf, ExpressionLanguage _nodes, StackCall _stackCall) {
 //        setSimpleArgument(_argument, _conf, _nodes.getArguments(), _stackCall);
 //    }
-    public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
+    public final void setSimpleArgument(Struct _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
         setQuickConvertSimpleArgument(_argument, _conf, _nodes, _stackCall);
         setNextSiblingsArg(_conf, _nodes, _stackCall);
     }
@@ -185,25 +184,25 @@ public abstract class ExecOperationNode {
 //    public final void setConstantSimpleArgument(Argument _argument, ContextEl _conf, ExpressionLanguage _nodes, StackCall _stackCall) {
 //        setConstantSimpleArgument(_argument, _conf, _nodes.getArguments(), _stackCall);
 //    }
-    public final void setConstantSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
+    public final void setConstantSimpleArgument(Struct _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
         setQuickSimpleArgument(false,_argument, _conf, _nodes, _stackCall);
         setNextSiblingsArg(_conf, _nodes, _stackCall);
     }
 
-    protected final void setQuickNoConvertSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
+    protected final void setQuickNoConvertSimpleArgument(Struct _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
         setQuickSimpleArgument(false,_argument, _conf, _nodes, _stackCall);
     }
-    protected final void setQuickConvertSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
+    protected final void setQuickConvertSimpleArgument(Struct _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
         setQuickSimpleArgument(true,_argument, _conf, _nodes, _stackCall);
     }
-    protected final void setQuickSimpleArgument(boolean _possiblePartial, Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
+    protected final void setQuickSimpleArgument(boolean _possiblePartial, Struct _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
         if (_conf.callsOrException(_stackCall)) {
             return;
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         pair_.argumentImpl(_argument);
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
-        Argument before_;
+        Struct before_;
         if (!implicitsTest.isEmpty()) {
             if (implicitsTest.isValidIndex(indexImplicitTest_)) {
                 pair_.setArgumentBeforeTest(_argument);
@@ -211,7 +210,7 @@ public abstract class ExecOperationNode {
                 return;
             }
             before_ = pair_.argument(_argument);
-            pair_.argumentTest(BooleanStruct.isTrue(_argument.getStruct()));
+            pair_.argumentTest(BooleanStruct.isTrue(_argument));
             ExecMethodOperation parent_ = getParent();
             if (isTestContext(parent_)) {
                 calcArg(_possiblePartial, _conf, _nodes, _argument, _stackCall);
@@ -236,13 +235,13 @@ public abstract class ExecOperationNode {
         defCalcArg(_possiblePartial, _conf, _nodes, _stackCall, pair_, before_);
     }
 
-    private void defCalcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall, ArgumentsPair _pair, Argument _before) {
+    private void defCalcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall, ArgumentsPair _pair, Struct _before) {
         int indexImplicit_ = _pair.getIndexImplicit();
         if (implicits.isValidIndex(indexImplicit_)) {
             _pair.setIndexImplicit(ParamCheckerUtil.processConverter(_conf, _before,implicits,indexImplicit_, _stackCall));
             return;
         }
-        Argument arg_ = _before;
+        Struct arg_ = _before;
         if (content.getResultClass().isConvertToString()){
             arg_ = IndirectCalledFctUtil.processString(_before, _conf, _stackCall);
             if (_stackCall.getCallingState() != null) {
@@ -256,19 +255,19 @@ public abstract class ExecOperationNode {
         return _parent == null || _parent instanceof ExecRefTernaryOperation;
     }
 
-    public static void testpair(Argument _argument, ArgumentsPair _pair, CompoundedOperator _par) {
+    public static void testpair(Struct _argument, ArgumentsPair _pair, CompoundedOperator _par) {
         if (andEq(_par)) {
-            _pair.argumentTest(BooleanStruct.isFalse(_argument.getStruct()));
+            _pair.argumentTest(BooleanStruct.isFalse(_argument));
         }
         if (orEq(_par)) {
-            _pair.argumentTest(BooleanStruct.isTrue(_argument.getStruct()));
+            _pair.argumentTest(BooleanStruct.isTrue(_argument));
         }
         if (nullEq(_par)) {
-            _pair.argumentTest(!_argument.isNull());
+            _pair.argumentTest(_argument != NullStruct.NULL_VALUE);
         }
     }
 
-    private void calcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _arg, StackCall _stackCall) {
+    private void calcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Struct _arg, StackCall _stackCall) {
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ instanceof ExecOperationNode) {
             ExecHelper.getArgumentPair(_nodes,(ExecOperationNode)n_).setPreviousArgument(_arg);

@@ -19,7 +19,7 @@ public final class FctMenu1 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        String txt_ = AbsButtonStruct.getValue(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        String txt_ = AbsButtonStruct.getValue(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(new MenuStruct(((LgNamesGui) _cont.getStandards()).getGuiAliases().getAliasMenu(),_guiEx.getCompoFactory().newMenu(txt_)));
     }
 }

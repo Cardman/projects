@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReachIntermStdOperation extends ReachMethodOperation implements ReachCalculable, ReachPossibleIntermediateDotted {
-    private boolean inter;
-    private Argument previous;
+    private final boolean inter;
+    private Struct previous;
     ReachIntermStdOperation(OperationNode _info, boolean _inter) {
         super(_info);
         inter = _inter;
@@ -20,7 +20,7 @@ public final class ReachIntermStdOperation extends ReachMethodOperation implemen
     }
 
     @Override
-    public void setPreviousArgument(Argument _argument) {
+    public void setPreviousArgument(Struct _argument) {
         previous = _argument;
     }
 }

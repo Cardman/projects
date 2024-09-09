@@ -1,11 +1,11 @@
 package code.expressionlanguage.analyze.reach.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReachArrayFieldOperation extends ReachMethodOperation implements ReachCalculable,ReachPossibleIntermediateDotted {
-    private Argument previous;
+    private Struct previous;
     ReachArrayFieldOperation(OperationNode _info) {
         super(_info);
     }
@@ -16,7 +16,7 @@ public final class ReachArrayFieldOperation extends ReachMethodOperation impleme
     }
 
     @Override
-    public void setPreviousArgument(Argument _argument) {
+    public void setPreviousArgument(Struct _argument) {
         previous = _argument;
     }
 }

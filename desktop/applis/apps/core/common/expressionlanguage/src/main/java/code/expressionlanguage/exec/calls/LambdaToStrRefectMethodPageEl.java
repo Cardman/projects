@@ -1,16 +1,16 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
+import code.expressionlanguage.structs.Struct;
 
 public final class LambdaToStrRefectMethodPageEl extends AbstractBasicReflectPageEl {
 
-    private final Argument argument;
+    private final Struct argument;
     private boolean called;
 
-    public LambdaToStrRefectMethodPageEl(Argument _argument) {
+    public LambdaToStrRefectMethodPageEl(Struct _argument) {
         super(false);
         argument = _argument;
     }
@@ -21,7 +21,7 @@ public final class LambdaToStrRefectMethodPageEl extends AbstractBasicReflectPag
             return true;
         }
         called = true;
-        Argument arg_ = IndirectCalledFctUtil.processString(argument, _context, _stack);
+        Struct arg_ = IndirectCalledFctUtil.processString(argument, _context, _stack);
         if (_context.callsOrException(_stack)) {
             return false;
         }

@@ -1,10 +1,10 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
@@ -19,9 +19,9 @@ public final class RendFirstOptOperation extends RendMethodOperation implements 
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        CustList<Argument> arguments_ = getArguments(_nodes,this);
+        CustList<Struct> arguments_ = getArguments(_nodes,this);
         setRelOffsetPossibleLastPage(offset, _rendStack);
-        Argument argres_ = ExecHelper.getFirstArgument(arguments_);
+        Struct argres_ = ExecHelper.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

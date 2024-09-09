@@ -13,6 +13,6 @@ import code.expressionlanguage.structs.Struct;
 public final class FctCharSeqSplit0 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return FctCharSeqSplit2.splitSingleChar((CharSequenceStruct) _instance, (CharStruct) _firstArgs.getArgumentWrappers().get(0).getValue().getStruct(), _cont.getStandards());
+        return FctCharSeqSplit2.splitSingleChar((CharSequenceStruct) _instance, (CharStruct) _firstArgs.getArgumentWrappers().get(0).getValue(), _cont.getStandards());
     }
 }

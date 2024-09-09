@@ -16,7 +16,7 @@ public final class FctFieldGetField extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         FieldMetaInfo field_ = (FieldMetaInfo) _instance;
-        Struct inst_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct inst_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!field_.isInvokable()) {
             _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,field_, _stackCall)));
         } else {

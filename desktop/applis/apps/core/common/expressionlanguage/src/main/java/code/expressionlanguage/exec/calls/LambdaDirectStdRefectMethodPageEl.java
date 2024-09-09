@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
@@ -9,6 +8,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.Struct;
 
 public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
@@ -19,7 +19,7 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
     }
 
     @Override
-    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return ParamCheckerUtil.callStd(_context.getExiting(), _context, new ClassMethodId(getClassName().getFormatted(),methodId), ArgumentListCall.toStr(getParent()), _list, _stack, getStdCallee());
+    Struct prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        return ParamCheckerUtil.callStd(_context.getExiting(), _context, new ClassMethodId(getClassName().getFormatted(),methodId), getParent(), _list, _stack, getStdCallee());
     }
 }

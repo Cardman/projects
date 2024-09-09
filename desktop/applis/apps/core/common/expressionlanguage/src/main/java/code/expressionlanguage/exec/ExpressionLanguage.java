@@ -1,5 +1,5 @@
 package code.expressionlanguage.exec;
-import code.expressionlanguage.Argument;
+
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecForMutableIterativeLoop;
@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.*;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -29,7 +30,7 @@ public final class ExpressionLanguage {
         arguments = buildArguments(_operations);
         if (_operations.isEmpty() && _coveredBlock instanceof ExecForMutableIterativeLoop) {
             argument = new ArgumentsPair();
-            argument.setArgument(new Argument(BooleanStruct.of(true)));
+            argument.setArgument(BooleanStruct.of(true));
         }
     }
 
@@ -64,7 +65,7 @@ public final class ExpressionLanguage {
             }
             ArgumentsPair pair_ = arguments.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
-                Argument a_ = Argument.getNullableValue(o.getArgument());
+                Struct a_ = ArgumentListCall.getNull(o.getArgument());
                 o.setConstantSimpleArgument(a_,_context,arguments, _stackCall);
                 fr_ = getNextIndex(len_, o, fr_ + 1,_context,_stackCall);
             } else if (pair_.getArgument() != null) {
@@ -117,18 +118,18 @@ public final class ExpressionLanguage {
         return coveredBlock;
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return getNullable(argument);
     }
 
-    public static Argument getNullable(ArgumentsPair _argumentsPair) {
+    public static Struct getNullable(ArgumentsPair _argumentsPair) {
         if (_argumentsPair != null) {
-            return Argument.getNullableValue(_argumentsPair.getArgument());
+            return ArgumentListCall.getNull(_argumentsPair.getArgument());
         }
-        return Argument.createVoid();
+        return NullStruct.NULL_VALUE;
     }
 
-    public void setArgument(AbstractWrapper _wrapp, Argument _arg, ContextEl _cont, StackCall _stackCall) {
+    public void setArgument(AbstractWrapper _wrapp, Struct _arg, ContextEl _cont, StackCall _stackCall) {
         ExecOperationNode currentOper_ = currentOper;
         int least_ = index + 1;
         if (currentOper_ == null) {
@@ -160,13 +161,12 @@ public final class ExpressionLanguage {
     }
     private static int getNextIndex(IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least) {
         ArgumentsPair value_ = ExecHelper.getArgumentPair(_args,_oper);
-        Argument res_ = Argument.getNullableValue(value_.getArgument());
-        Struct v_ = res_.getStruct();
+        Struct res_ = ArgumentListCall.getNull(value_.getArgument());
         ExecMethodOperation par_ = _oper.getParent();
         if (isAncSettable(_oper) &&value_.isArgumentTest()){
             return NumberUtil.max(_least,par_.getOrder());
         }
-        return NumberUtil.max(_least, getNextIndex(_oper, v_));
+        return NumberUtil.max(_least, getNextIndex(_oper, res_));
     }
 
     public static boolean isAncSettable(ExecOperationNode _oper) {

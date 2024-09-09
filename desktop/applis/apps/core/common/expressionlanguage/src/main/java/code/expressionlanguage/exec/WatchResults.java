@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.dbg.BreakPoint;
 import code.expressionlanguage.exec.dbg.BreakPointBlockPair;
 import code.expressionlanguage.exec.dbg.BreakPointCondition;
 import code.expressionlanguage.exec.dbg.TypePointBlockPair;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.AbsLightContextGenerator;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
@@ -86,7 +85,7 @@ public final class WatchResults {
         if (st_.getStack().trueException() != null) {
             wr_.setWatchedTrace(st_.getStack().getStackView());
         } else {
-            wr_.setWatchedObject(ArgumentListCall.toStr(st_.getStack().aw().getValue()));
+            wr_.setWatchedObject(st_.getStack().aw().getValue());
         }
         return wr_;
     }

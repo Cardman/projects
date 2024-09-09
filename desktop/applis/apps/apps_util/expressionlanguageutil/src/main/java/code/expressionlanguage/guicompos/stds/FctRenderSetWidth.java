@@ -14,7 +14,7 @@ public final class FctRenderSetWidth implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         RenderStruct image_ = (RenderStruct) _instance;
-        image_.setWidth(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        image_.setWidth(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

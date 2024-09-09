@@ -19,7 +19,7 @@ public final class FctFileDir1 extends FctFileAbs {
 
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        ((RunnableContextEl) _cont).setCurrentDir(_infos.getFileSystem().changeDir(((StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).getInstance(), ((RunnableContextEl) _cont).getCurrentDir()));
+        ((RunnableContextEl) _cont).setCurrentDir(_infos.getFileSystem().changeDir(((StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).getInstance(), ((RunnableContextEl) _cont).getCurrentDir()));
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

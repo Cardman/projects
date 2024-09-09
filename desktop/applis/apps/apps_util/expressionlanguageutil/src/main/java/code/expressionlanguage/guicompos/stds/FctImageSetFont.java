@@ -18,7 +18,7 @@ public final class FctImageSetFont implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ImageStruct image_ = (ImageStruct) _instance;
-        image_.setFont(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        image_.setFont(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

@@ -1,17 +1,18 @@
 package code.expressionlanguage.analyze.blocks;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFctPair;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFctPair;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.expressionlanguage.structs.Struct;
 import code.util.core.StringUtil;
 
 public abstract class ConditionBlock extends BracedBlock implements BuildableElMethod,WithConditionPart {
@@ -20,7 +21,7 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
 
     private final int conditionOffset;
 
-    private Argument argument;
+    private Struct argument;
 
     private final ResultExpression res = new ResultExpression();
 
@@ -88,11 +89,11 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
         return res;
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
 
-    public void setArgument(Argument _arg) {
+    public void setArgument(Struct _arg) {
         this.argument = _arg;
     }
 

@@ -16,10 +16,10 @@ public final class FctFont2 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct name_ = argumentWrappers_.get(0).getValue().getStruct();
-        boolean bold_ = BooleanStruct.isTrue(argumentWrappers_.get(1).getValue().getStruct());
-        boolean italic_ = BooleanStruct.isTrue(argumentWrappers_.get(2).getValue().getStruct());
-        int size_ = ((NumberStruct) argumentWrappers_.get(3).getValue().getStruct()).intStruct();
+        Struct name_ = argumentWrappers_.get(0).getValue();
+        boolean bold_ = BooleanStruct.isTrue(argumentWrappers_.get(1).getValue());
+        boolean italic_ = BooleanStruct.isTrue(argumentWrappers_.get(2).getValue());
+        int size_ = ((NumberStruct) argumentWrappers_.get(3).getValue()).intStruct();
         return new ArgumentWrapper(new FontStruct(name_,bold_,italic_,size_));
     }
 }

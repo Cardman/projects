@@ -14,8 +14,8 @@ public final class FctClassGetDeclaredConstructors1 extends FctReflection {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ConstructorMetaInfo> ctors_ = ((ClassMetaInfo)_instance).getConstructorsInfos();
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct vararg_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct params_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct vararg_ = argumentWrappers_.get(0).getValue();
+        Struct params_ = argumentWrappers_.get(1).getValue();
         CustList<ConstructorMetaInfo> candidates_ = new CustList<ConstructorMetaInfo>();
         for (ConstructorMetaInfo e: ctors_) {
             ConstructorId id_ = e.getFid();

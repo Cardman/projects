@@ -14,7 +14,7 @@ public final class FctTastrPutAll implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringMapStruct inst_ = (StringMapStruct) _instance;
-        inst_.putAll(_cont,_stackCall,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.putAll(_cont,_stackCall,_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

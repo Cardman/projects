@@ -18,7 +18,7 @@ public final class FctRange0 implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return RangeChecker.rangeUnlimit(_cont, _stackCall, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        return RangeChecker.rangeUnlimit(_cont, _stackCall, _firstArgs.getArgumentWrappers().get(0).getValue());
     }
 
 }

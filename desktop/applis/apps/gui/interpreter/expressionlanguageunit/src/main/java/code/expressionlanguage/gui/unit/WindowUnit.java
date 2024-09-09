@@ -1,27 +1,21 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.options.DefBuildLightResultContextNext;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
-import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
 import code.expressionlanguage.utilimpl.DefFileBuilderListGene;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.*;
-
-
-import code.gui.EnabledMenu;
-
-
-import code.gui.events.*;
+import code.gui.events.QuittingEvent;
 import code.gui.files.DefButtonsOpenPanelAct;
 import code.gui.files.FileOpenFrame;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
@@ -299,7 +293,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
         commonExecution.finish(_infos, _evolved);
     }
 
-    public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
+    public void setResults(ContextEl _ctx, Struct _res, LgNamesWithNewAliases _evolved) {
         commonExecution.setResults(_ctx, _res, _evolved);
     }
 

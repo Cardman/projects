@@ -16,7 +16,7 @@ import code.util.StringList;
 public final class FctArgsSet implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        ArrayStruct arr_ = (ArrayStruct) _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        ArrayStruct arr_ = (ArrayStruct) _firstArgs.getArgumentWrappers().get(0).getValue();
         int size_ = arr_.getLength();
         StringList args_ = new StringList(new CollCapacity(size_));
         for (int i = 0; i < size_; i++) {

@@ -25,10 +25,10 @@ public final class FctActionEvent extends FctCompoCtor {
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        boolean alt_ = BooleanStruct.isTrue(argumentWrappers_.get(0).getValue().getStruct());
-        boolean ctrl_ = BooleanStruct.isTrue(argumentWrappers_.get(1).getValue().getStruct());
-        boolean shift_ = BooleanStruct.isTrue(argumentWrappers_.get(2).getValue().getStruct());
-        Struct struct_ = argumentWrappers_.get(3).getValue().getStruct();
+        boolean alt_ = BooleanStruct.isTrue(argumentWrappers_.get(0).getValue());
+        boolean ctrl_ = BooleanStruct.isTrue(argumentWrappers_.get(1).getValue());
+        boolean shift_ = BooleanStruct.isTrue(argumentWrappers_.get(2).getValue());
+        Struct struct_ = argumentWrappers_.get(3).getValue();
         String command_ = NumParsers.getStringValue(struct_);
         return new ArgumentWrapper(new ActionEventStruct(aliasActionEvent, new KeyActionEvent(ctrl_,alt_,shift_),command_));
     }

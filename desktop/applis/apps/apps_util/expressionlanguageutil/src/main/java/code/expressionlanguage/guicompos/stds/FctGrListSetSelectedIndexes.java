@@ -19,7 +19,7 @@ public final class FctGrListSetSelectedIndexes implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Ints selectedIndexes_ = new Ints();
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(arg_ instanceof ArrayStruct)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

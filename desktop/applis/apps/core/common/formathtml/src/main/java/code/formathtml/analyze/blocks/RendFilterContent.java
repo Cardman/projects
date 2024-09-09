@@ -1,6 +1,5 @@
 package code.formathtml.analyze.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
@@ -23,8 +22,9 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.maths.litteralcom.IndexStrPart;
@@ -47,7 +47,7 @@ public final class RendFilterContent {
     private final int valueOffset;
     private final int conditionOffset;
     private final StrTypes offsetsEnum = new StrTypes();
-    private final CustList<Argument> stdValues = new CustList<Argument>();
+    private final CustList<Struct> stdValues = new CustList<Struct>();
     private final CustList<ClassField> enumValues = new CustList<ClassField>();
     private String keyWord = "";
     private String keyWordContainer = "";
@@ -154,8 +154,8 @@ public final class RendFilterContent {
         for (IndexStrPart v: offsetsEnum.getValues()) {
             boolean added_ = false;
             if (StringUtil.quickEq(v.getPart(), _page.getKeyWords().getKeyWordNull())) {
-                checkDuplicateListedValue(_bl,_page,Argument.createVoid());
-                stdValues.add(Argument.createVoid());
+                checkDuplicateListedValue(_bl,_page,NullStruct.NULL_VALUE);
+                stdValues.add(NullStruct.NULL_VALUE);
                 added_ = true;
             } else {
                 for (InnerTypeOrElement f: _e.getEnumBlocks()) {
@@ -212,10 +212,10 @@ public final class RendFilterContent {
             checkInh(_page, _resSwitch, _instance, _resCase, StringUtil.concat(classField_.getClassName(), ".", classField_.getFieldName()));
             enumValues.add(classField_);
         } else {
-            Argument argument_ = _ch.getArgument();
+            Struct argument_ = _ch.getArgument();
             if (argument_ != null) {
                 checkDuplicateListedValue(_bl,_page,argument_);
-                checkInh(_page, _resSwitch, _instance, _resCase, AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(argument_), _page));
+                checkInh(_page, _resSwitch, _instance, _resCase, AnaApplyCoreMethodUtil.getString(argument_, _page));
                 stdValues.add(argument_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -268,21 +268,21 @@ public final class RendFilterContent {
             }
         }
     }
-    private void checkDuplicateListedValue(AnaRendBlock _bl, AnalyzedPageEl _page, Argument _value) {
+    private void checkDuplicateListedValue(AnaRendBlock _bl, AnalyzedPageEl _page, Struct _value) {
         AnaRendParentBlock par_ = _bl.getParent();
         AnaRendBlock first_ = par_.getFirstChild();
         while (first_ != _bl) {
             if (first_ instanceof WithRendFilterContent) {
                 WithRendFilterContent c_ = (WithRendFilterContent) first_;
-                for (Argument p: listStd(c_.getFilterContent())) {
-                    if (_value.getStruct().sameReference(p.getStruct())) {
+                for (Struct p: listStd(c_.getFilterContent())) {
+                    if (_value.sameReference(p)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFile(_page.getCurrentFile());
                         un_.setIndexFile(getValueOffset()+ _bl.getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                                 getKeyWord(),
-                                AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
+                                AnaApplyCoreMethodUtil.getString(_value, _page),
                                 getKeyWordContainer());
                         AnalyzingDoc.addError(un_, _page);
                         return;
@@ -291,15 +291,15 @@ public final class RendFilterContent {
             }
             first_ = first_.getNextSibling();
         }
-        for (Argument p: stdValues) {
-            if (_value.getStruct().sameReference(p.getStruct())) {
+        for (Struct p: stdValues) {
+            if (_value.sameReference(p)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(getValueOffset()+ _bl.getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                         getKeyWord(),
-                        AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
+                        AnaApplyCoreMethodUtil.getString(_value, _page),
                         getKeyWordContainer());
                 AnalyzingDoc.addError(un_, _page);
                 return;
@@ -343,7 +343,7 @@ public final class RendFilterContent {
         this.variableName = _variableName;
     }
 
-    public CustList<Argument> getStdValues() {
+    public CustList<Struct> getStdValues() {
         return stdValues;
     }
 
@@ -374,9 +374,9 @@ public final class RendFilterContent {
         return _f.getEnumValues();
     }
 
-    private static CustList<Argument> listStd(RendFilterContent _f) {
+    private static CustList<Struct> listStd(RendFilterContent _f) {
         if (_f.getResCondition().getRoot() != null) {
-            return new CustList<Argument>();
+            return new CustList<Struct>();
         }
         return _f.getStdValues();
     }

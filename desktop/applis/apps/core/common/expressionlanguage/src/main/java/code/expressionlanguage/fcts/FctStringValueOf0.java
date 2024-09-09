@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
@@ -26,9 +25,9 @@ public final class FctStringValueOf0 implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct arr_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arr_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(arr_ instanceof ArrayStruct)) {
-            return new ArgumentWrapper(ExecCatOperation.getDisplayable(new Argument(arr_),_cont));
+            return new ArgumentWrapper(ExecCatOperation.getDisplayable(arr_,_cont));
         }
         return new ArgumentWrapper(new StringStruct(String.valueOf(FctStringValueOf1.toCharArr((ArrayStruct) arr_))));
     }

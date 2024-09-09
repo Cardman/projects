@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.assign.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class AssOperationNode {
 
@@ -11,7 +11,7 @@ public abstract class AssOperationNode {
 
     private AssOperationNode nextSibling;
 
-    private final Argument argument;
+    private final Struct argument;
 
     private final int indexInEl;
 
@@ -178,7 +178,7 @@ public abstract class AssOperationNode {
         return parent;
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
 

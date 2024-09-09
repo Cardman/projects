@@ -33,7 +33,7 @@ public final class FctCompoInvokeLater implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         AbsLogDbg log_ = _stackCall.getStopper().getLogger();
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (log_ != null) {
             procRunnable(_cont, _stackCall, log_, arg_, id);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

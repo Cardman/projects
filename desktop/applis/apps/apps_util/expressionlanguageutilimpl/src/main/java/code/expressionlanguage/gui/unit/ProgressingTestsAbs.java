@@ -1,6 +1,5 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.options.Options;
@@ -46,7 +45,7 @@ public abstract class ProgressingTestsAbs implements ProgressingTests {
         MemoryReporter.buildWarning(_reportedMessages,_exec,_infos,time_);
     }
 
-    protected BytesInfo exportedResults(ContextEl _ctx, ExecutingOptions _ex,Argument _res, LgNamesWithNewAliases _evolved) {
+    protected BytesInfo exportedResults(ContextEl _ctx, ExecutingOptions _ex,Struct _res, LgNamesWithNewAliases _evolved) {
         mainWindow.setResults(_ctx,_res, _evolved);
         AbstractLogger logger_ = _evolved.getExecContent().getInfos().getLogger();
         AbstractFileSystem fileSystem_ = _evolved.getExecContent().getInfos().getFileSystem();

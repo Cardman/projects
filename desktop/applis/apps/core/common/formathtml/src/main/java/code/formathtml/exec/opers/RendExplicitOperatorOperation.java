@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
@@ -14,6 +13,8 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -37,7 +38,7 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
         RendDynOperationNode first_ = getFirstNode(this);
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, first_);
         if (argumentPair_.isArgumentTest()){
-            Argument f_ = getArgument(_nodes, first_);
+            Struct f_ = getArgument(_nodes, first_);
             setQuickConvertSimpleArgument(f_, _nodes, _context, _rendStack);
             return;
         }
@@ -50,7 +51,7 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
         ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(_elt.getElts(), _rendStack);
         String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_,_elt);
         ParamCheckerUtil.checkParametersOperatorsFormatted(_context.getExiting(), _context, _pair, ExecInvokingOperation.fectchArgs(lastType_, _elt.getNaturalVararg(), _context, _rendStack.getStackCall(), _curr.buildInfos(_nodes)), classNameFound_, _elt.getKind(), _rendStack.getStackCall());
-        return RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
+        return RendDynOperationNode.processCall(NullStruct.NULL_VALUE, _context, _rendStack);
     }
 
     public ImplicitMethods getConverter() {

@@ -1,10 +1,8 @@
 package code.expressionlanguage.exec.variables;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.Struct;
 
 public final class VariableWrapper extends AbstractVariableWrapper {
@@ -14,8 +12,8 @@ public final class VariableWrapper extends AbstractVariableWrapper {
     }
 
     @Override
-    public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        setValue(ArgumentListCall.toStr(_right));
+    public void setValue(StackCall _stack, ContextEl _conf, Struct _right) {
+        setValue(_right);
         ExecVariableTemplates.checkSet(_conf, getLocal(),_right, _stack);
     }
 

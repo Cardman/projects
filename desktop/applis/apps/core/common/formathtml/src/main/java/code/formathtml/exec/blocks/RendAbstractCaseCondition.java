@@ -1,9 +1,9 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecFilterContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -17,7 +17,7 @@ public final class RendAbstractCaseCondition extends RendParentBlock implements 
     private final RendOperationNodeListOff exp;
     private final ExecFilterContent content;
 
-    public RendAbstractCaseCondition(int _b,CustList<RendDynOperationNode> _list, int _offset, String _c, String _v, CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
+    public RendAbstractCaseCondition(int _b, CustList<RendDynOperationNode> _list, int _offset, String _c, String _v, CustList<Struct> _stdValues, CustList<ClassField> _enumValues) {
         exp = new RendOperationNodeListOff(_list, _offset);
         content = new ExecFilterContent(_b,_c, _v, _stdValues, _enumValues);
     }

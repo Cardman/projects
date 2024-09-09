@@ -23,7 +23,7 @@ public final class FctExecutorServiceSubmit0 implements StdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(s_ instanceof Runnable)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

@@ -44,10 +44,10 @@ public final class AdvancedFullStack implements AbstractFullStack {
         if (file_ != null) {
             RowColumnIndex rci_ = RowColumnIndex.calculate(file_, _page.getTrace(), _context.getTabWidth());
             String fileName_ = file_.getFileName();
-            String currentClassName_ = _page.getGlobalArgument().getStruct().getClassName(_context);
+            String currentClassName_ = _page.getGlobalStruct().getClassName(_context);
             return new StackTraceElementStruct(fileName_,rci_,currentClassName_,"");
         }
-        String currentClassName_ = _page.getGlobalArgument().getStruct().getClassName(_context);
+        String currentClassName_ = _page.getGlobalStruct().getClassName(_context);
         return new StackTraceElementStruct("",RowColumnIndex.def(),currentClassName_,"");
     }
 

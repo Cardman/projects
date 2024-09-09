@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
@@ -14,11 +13,13 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.AnnotationStruct;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.InnerCustStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
@@ -90,7 +91,7 @@ public class DefaultInitializer implements Initializer {
 
     private void endLoop(StackCall _stackCall, AbstractPageEl _first) {
         notVisit(_stackCall);
-        _stackCall.setReturnedArgument(ArgumentListCall.toStr(_first.getReturnedArgument()));
+        _stackCall.setReturnedArgument(_first.getReturnedArgument());
         _stackCall.setWrapper(_first.getWrapper());
     }
 
@@ -243,7 +244,7 @@ public class DefaultInitializer implements Initializer {
             _p.forwardTo(_b, _owner, _stackCall);
         } else if (_p instanceof StaticInitPageEl) {
             StaticInitPageEl s_ = (StaticInitPageEl) _p;
-            Argument fwd_ = s_.getFwd();
+            Struct fwd_ = s_.getFwd();
             if (fwd_ != null) {
                 _b.receive(null, fwd_, _owner, _stackCall);
             }

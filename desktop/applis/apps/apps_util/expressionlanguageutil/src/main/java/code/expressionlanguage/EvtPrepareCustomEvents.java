@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -20,8 +21,8 @@ public final class EvtPrepareCustomEvents extends AbsPrepareCustomEvents {
     }
 
     @Override
-    protected CustList<Argument> args() {
-        return new CustList<Argument>(new Argument(new IntStruct(selectionInfo.getFirstIndex())),new Argument(new IntStruct(selectionInfo.getLastIndex())),new Argument(BooleanStruct.of(selectionInfo.isMethodAction())));
+    protected CustList<ArgumentWrapper> args() {
+        return new CustList<ArgumentWrapper>(new ArgumentWrapper(new IntStruct(selectionInfo.getFirstIndex())),new ArgumentWrapper(new IntStruct(selectionInfo.getLastIndex())),new ArgumentWrapper(BooleanStruct.of(selectionInfo.isMethodAction())));
     }
 
     @Override

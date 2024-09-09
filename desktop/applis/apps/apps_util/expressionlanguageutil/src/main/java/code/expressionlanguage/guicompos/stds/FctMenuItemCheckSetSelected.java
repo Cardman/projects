@@ -14,7 +14,7 @@ public final class FctMenuItemCheckSetSelected implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         MenuStruct inst_ = (MenuStruct) _instance;
-        inst_.setSelected(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        inst_.setSelected(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

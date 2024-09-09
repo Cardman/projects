@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
@@ -8,6 +7,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -18,7 +18,7 @@ public final class ExecHelper {
 
     public static void fwdWrapper(ArgumentsPair _to,ArgumentsPair _from) {
         _to.setWrapper(_from.getWrapper());
-        setValue(_to.getWrapper(), ArgumentListCall.toStr(_from.getArgument()));
+        setValue(_to.getWrapper(), _from.getArgument());
     }
 
     public static void setValue(AbstractWrapper _aw, Struct _v) {
@@ -27,11 +27,11 @@ public final class ExecHelper {
         }
     }
 
-    public static Argument getFirstArgument(CustList<Argument> _list) {
+    public static Struct getFirstArgument(CustList<Struct> _list) {
         return getArgument(_list,0);
     }
 
-    public static Argument getLastArgument(CustList<Argument> _list) {
+    public static Struct getLastArgument(CustList<Struct> _list) {
         return getArgument(_list,_list.size()-1);
     }
 
@@ -43,18 +43,18 @@ public final class ExecHelper {
         return getArgumentWrapper(_list,_list.size()-1);
     }
 
-    public static Argument getArgument(CustList<Argument> _list, int _index) {
+    public static Struct getArgument(CustList<Struct> _list, int _index) {
         if (_list.isValidIndex(_index)) {
-            return Argument.getNullableValue(_list.get(_index));
+            return ArgumentListCall.getNull(_list.get(_index));
         }
-        return Argument.createVoid();
+        return NullStruct.NULL_VALUE;
     }
 
     public static ArgumentWrapper getArgumentWrapper(CustList<ArgumentWrapper> _list, int _index) {
         if (_list.isValidIndex(_index)) {
             return _list.get(_index);
         }
-        return new ArgumentWrapper(Argument.createVoid(),null);
+        return new ArgumentWrapper(NullStruct.NULL_VALUE,null);
     }
 
     public static ExecMethodOperation getParentOrNull(ExecOperationNode _node) {
@@ -97,7 +97,7 @@ public final class ExecHelper {
     public static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode, ArgumentsPair> _nodes, int _order) {
         if (!_nodes.isValidIndex(_order)) {
             ArgumentsPair pair_ = new ArgumentsPair();
-            pair_.setArgument(Argument.createVoid());
+            pair_.setArgument(NullStruct.NULL_VALUE);
             return pair_;
         }
         return _nodes.getValue(_order);

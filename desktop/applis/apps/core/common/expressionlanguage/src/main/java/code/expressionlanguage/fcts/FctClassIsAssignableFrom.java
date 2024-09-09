@@ -16,7 +16,7 @@ public final class FctClassIsAssignableFrom extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         String param_ = ((ClassMetaInfo)_instance).getFormatted().getFormatted();
-        Struct subType_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct subType_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(subType_ instanceof ClassMetaInfo)) {
             return new ArgumentWrapper(BooleanStruct.of(!ExecClassArgumentMatching.isPrimitive(param_,_cont)));
         }

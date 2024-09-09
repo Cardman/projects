@@ -17,7 +17,7 @@ public final class FctClassArrayNewInstance extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         ClassMetaInfo instanceClass_ = (ClassMetaInfo) _instance;
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         String clDyn_ = instanceClass_.getFormatted().getFormatted();
         if (instanceClass_.isTypeWildCard() || instanceClass_.isRefType()) {
             _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, clDyn_, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));

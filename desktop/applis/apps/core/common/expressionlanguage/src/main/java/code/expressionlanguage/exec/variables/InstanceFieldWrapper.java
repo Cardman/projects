@@ -1,13 +1,11 @@
 package code.expressionlanguage.exec.variables;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.Struct;
 
 public final class InstanceFieldWrapper extends FieldWrapper {
@@ -21,13 +19,13 @@ public final class InstanceFieldWrapper extends FieldWrapper {
         className = _className;
         pair = _pair;
     }
-    public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        setValue(ArgumentListCall.toStr(_right));
-        ExecFieldTemplates.setSafeInstanceField(_right, _conf, _stack, getId(), pair, new Argument(parent));
+    public void setValue(StackCall _stack, ContextEl _conf, Struct _right) {
+        setValue(_right);
+        ExecFieldTemplates.setSafeInstanceField(_right, _conf, _stack, getId(), pair, parent);
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
-        return ExecFieldTemplates.getSafeInstanceField(_conf, _stack, getId(), new Argument(parent)).getStruct();
+        return ExecFieldTemplates.getSafeInstanceField(_conf, _stack, getId(), parent);
     }
 
     @Override

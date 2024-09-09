@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.exec.blocks.*;
@@ -48,11 +47,11 @@ public final class ExecutingUtil {
     public static AbstractPageEl createInstancingClass(NotInitializedClass _e) {
         return createInstancingClass(_e.getRootBlock(),_e.getClassName(),_e.getArgument());
     }
-    public static AbstractPageEl createInstancingClass(ExecRootBlock _rootBlock, ExecFormattedRootBlock _class, Argument _fwd) {
+    public static AbstractPageEl createInstancingClass(ExecRootBlock _rootBlock, ExecFormattedRootBlock _class, Struct _fwd) {
 //        ExecBlock firstChild_ = _rootBlock.getFirstChild();
         CustList<ExecBlock> visit_ = _rootBlock.getAllStaticMembers();
         StaticInitPageEl page_ = new StaticInitPageEl(visit_,_class);
-        Argument argGl_ = new Argument();
+        Struct argGl_ = NullStruct.NULL_VALUE;
         page_.setFwd(_fwd);
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
@@ -77,23 +76,23 @@ public final class ExecutingUtil {
     public static AbstractPageEl createCallingMethod(ContextEl _context, CustomFoundMethod _e) {
         ExecFormattedRootBlock cl_ = _e.getClassName();
         Parameters args_ = _e.getArguments();
-        Argument gl_ = _e.getGl();
+        Struct gl_ = _e.getGl();
         return createCallingMethod(_context,gl_, cl_,_e.getPair(), args_);
     }
 
     public static AbstractPageEl createCallingSwitch(ContextEl _context, CustomFoundSwitch _e) {
         ExecFormattedRootBlock cl_ = _e.getClassName();
-        Argument gl_ = _e.getGl();
+        Struct gl_ = _e.getGl();
         CommonSwitchMethodPageEl pageLoc_ = new CommonSwitchMethodPageEl(cl_, _e.getValue());
         if (_e.getSwitchMethod().getKind() == MethodAccessKind.STATIC_CALL) {
-            pageLoc_.setGlobalArgument(Argument.createVoid());
+            pageLoc_.setGlobalArgument(NullStruct.NULL_VALUE);
         } else {
             pageLoc_.setGlobalArgument(gl_);
         }
         setSwitchInfos(_context, pageLoc_, _e.getSwitchMethod(),_e.getCache());
         return pageLoc_;
     }
-    public static AbstractPageEl createCallingMethod(ContextEl _context, Argument _gl, ExecFormattedRootBlock _class, ExecTypeFunction _method, Parameters _args) {
+    public static AbstractPageEl createCallingMethod(ContextEl _context, Struct _gl, ExecFormattedRootBlock _class, ExecTypeFunction _method, Parameters _args) {
         CommonMethodPageEl pageLoc_ = new CommonMethodPageEl(_class);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.initReturnType(_args.getRight());
@@ -119,12 +118,12 @@ public final class ExecutingUtil {
     }
     public static AbstractPageEl createRecordInstancing(ContextEl _context, CustomFoundRecordConstructor _e) {
         ExecFormattedRootBlock cl_ = _e.getClassName();
-        CustList<Argument> args_ = _e.getArguments();
+        CustList<Struct> args_ = _e.getArguments();
         NewRecordPageEl page_ = new NewRecordPageEl(_e.getNamedFields(),args_,cl_, _e.getList());
-        Struct str_ = _e.getArgument().getStruct();
+        Struct str_ = _e.getArgument();
         String fieldName_ = _e.getFieldName();
         int ordinal_ = _e.getChildIndex();
-        Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_, fieldName_, ordinal_));
+        Struct argGl_ = _context.getInit().processInit(_context, str_, cl_, fieldName_, ordinal_);
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
         page_.blockRootTypes(_e.getPair());
@@ -133,7 +132,7 @@ public final class ExecutingUtil {
     public static AbstractPageEl createInstancing(ContextEl _context, CustomFoundConstructor _e) {
         AbstractCallingInstancingPageEl page_ = buildCtor(_e);
         Parameters args_ = _e.getArguments();
-        Argument global_ = _e.getCurrentObject();
+        Struct global_ = _e.getCurrentObject();
         page_.setGlobalArgument(global_);
         page_.setReturnedArgument(global_);
         setInstanciationInfos(_context,page_, args_, _e.getPair());
@@ -159,10 +158,10 @@ public final class ExecutingUtil {
 
     public static NewAnnotationPageEl createAnnotation(ContextEl _context, ExecFormattedRootBlock _class, ExecRootBlock _type,
                                                        StringMap<AnnotationTypeInfo> _id,
-                                                       CustList<Argument> _args) {
+                                                       CustList<Struct> _args) {
         NewAnnotationPageEl page_;
         page_ = new NewAnnotationPageEl(_id,_args,_class);
-        Argument argGl_ = new Argument(_context.getInit().processInitAnnot(_context, _class,_type));
+        Struct argGl_ = _context.getInit().processInitAnnot(_context, _class,_type);
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
         page_.fileTypeOffset(_type);
@@ -179,7 +178,7 @@ public final class ExecutingUtil {
             _page.setBlock(firstChild_);
         }
     }
-    public static FieldInitPageEl createInitFields(ExecRootBlock _type, ExecFormattedRootBlock _class, Argument _current) {
+    public static FieldInitPageEl createInitFields(ExecRootBlock _type, ExecFormattedRootBlock _class, Struct _current) {
         CustList<ExecBlock> visit_ = _type.getAllInstanceMembers();
         FieldInitPageEl page_ = new FieldInitPageEl(visit_,_class);
         page_.setGlobalArgument(_current);
@@ -202,7 +201,7 @@ public final class ExecutingUtil {
         page_.setFile(_type.getFile());
         return page_;
     }
-    public static BlockPageEl createBlockPageEl(ContextEl _context, ExecFormattedRootBlock _class, Argument _current, ExecInitBlock _block) {
+    public static BlockPageEl createBlockPageEl(ContextEl _context, ExecFormattedRootBlock _class, Struct _current, ExecInitBlock _block) {
         ExecFileBlock file_ = _block.getFile();
         BlockPageEl page_ = new BlockPageEl(_class);
         page_.setGlobalArgument(_current);
@@ -219,7 +218,7 @@ public final class ExecutingUtil {
         AbstractPageEl pageLoc_;
         if (_ref instanceof CustomReflectLambdaConstructor) {
             CustomReflectLambdaConstructor c_ = (CustomReflectLambdaConstructor) _ref;
-            Argument args_ = c_.getArgument();
+            Struct args_ = c_.getArgument();
             ArgumentListCall array_ = c_.getArray();
             ConstructorMetaInfo metaInfo_ = c_.getGl();
             pageLoc_ = new ReflectLambdaConstructorPageEl(args_,array_, metaInfo_, c_.getRef());
@@ -231,7 +230,7 @@ public final class ExecutingUtil {
             pageLoc_ = new ReflectConstructorPageEl(metaInfo_, c_.getArrRef());
         } else if (_ref instanceof CustomReflectRecordConstructor) {
             CustomReflectRecordConstructor c_ = (CustomReflectRecordConstructor) _ref;
-            CustList<Argument> args_ = c_.getArguments();
+            CustList<Struct> args_ = c_.getArguments();
             pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getInstance(), c_.getRoot(), c_.getNamedFields(),c_.getClassName(), c_.getInts(), c_.getRef());
         } else if (_ref instanceof CustomReflectGetField) {
             CustomReflectGetField c_ = (CustomReflectGetField) _ref;
@@ -240,7 +239,7 @@ public final class ExecutingUtil {
         } else if (_ref instanceof CustomReflectSetField) {
             CustomReflectSetField c_ = (CustomReflectSetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();
-            Argument last_ = c_.getLast();
+            Struct last_ = c_.getLast();
             pageLoc_ = new ReflectSetFieldPageEl(((CustomReflectSetField) _ref).getIntParentRetriever(),((CustomReflectSetField) _ref).getParent(), last_, metaInfo_, _ref.isLambda());
         } else if (_ref instanceof CustomReflectLambdaToStr) {
             CustomReflectLambdaToStr c_ = (CustomReflectLambdaToStr) _ref;
@@ -261,7 +260,7 @@ public final class ExecutingUtil {
         } else {
             CustomReflectAnnotations c_ = (CustomReflectAnnotations) _ref;
             ReflectingType reflect_ = c_.getReflect();
-            CustList<Argument> args_ = c_.getArguments();
+            CustList<Struct> args_ = c_.getArguments();
             pageLoc_ = new ReflectAnnotationPageEl(args_, c_.getGl());
             setFile(pageLoc_, c_.getGl());
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_);
@@ -294,7 +293,7 @@ public final class ExecutingUtil {
         AbstractPageEl pageLoc_;
         MethodMetaInfo metaInfo_ = _ref.getGl();
         AbstractPageEl refMet_;
-        Argument instance_ = _ref.getInstance();
+        Struct instance_ = _ref.getInstance();
         ArrayRefState a_ = _ref.getArrRef();
         if (reflect_ == ReflectingType.METHOD) {
             refMet_ = new PolymorphRefectMethodPageEl(instance_, metaInfo_, a_);
@@ -371,7 +370,7 @@ public final class ExecutingUtil {
         return new LambdaQuick(_ref.getLambda());
     }
 
-    private static AbstractRefectMethodPageEl reflectCast(ReflectingType _reflect, MethodMetaInfo _metaInfo, Argument _instance, ArrayRefState _a) {
+    private static AbstractRefectMethodPageEl reflectCast(ReflectingType _reflect, MethodMetaInfo _metaInfo, Struct _instance, ArrayRefState _a) {
         AbstractRefectMethodPageEl refMet_;
         String className_ = _metaInfo.getFormatted().getFormatted();
         if (direct(_reflect == ReflectingType.CAST_DIRECT, _metaInfo.getPair(), className_)) {

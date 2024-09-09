@@ -1,17 +1,24 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.LaunchableStruct;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LambdaStruct;
+import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.*;
 import code.gui.events.*;
 import code.threads.IntCallable;
-import code.util.*;
+import code.util.CustList;
 
 public final class EventStruct extends LaunchableStruct implements
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
@@ -30,12 +37,12 @@ public final class EventStruct extends LaunchableStruct implements
 
     public static Struct invoke(Struct _instance, ContextEl _r, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, ArgumentListCall _argList) {
         StackCall st_ = StackCall.newInstance(InitPhase.NOTHING, _r);
-        return ArgumentListCall.toStr(Argument.getNullableValue(invoke(_instance, _r, new ExecTypeFunction(_rootBlock,_method), st_, _argList)));
+        return ArgumentListCall.getNull(invoke(_instance, _r, new ExecTypeFunction(_rootBlock,_method), st_, _argList));
     }
 
-    public static Argument invoke(Struct _global, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
-        ExecTemplates.prepare(_cont,_stackCall,_global, _pair, _argList.getArguments());
-        Argument arg_ = ProcessMethod.tryCalculate(_cont,_stackCall,null);
+    public static Struct invoke(Struct _global, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
+        ExecTemplates.prepare(_cont,_stackCall,_global, _pair, _argList.getArgumentWrappers());
+        Struct arg_ = ProcessMethod.tryCalculate(_cont,_stackCall,null);
 //        CallingState cs_ = _stackCall.getCallingState();
 //        if (cs_ != null) {
 //            arg_ = ProcessMethod.calculate(cs_, _cont, _stackCall).getValue();
@@ -65,21 +72,21 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasActionEvent();
         ActionEventStruct a_ = new ActionEventStruct(actEv_,_state,_command);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getActionListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getActionPerformed(),args_);
     }
 
     @Override
     public void run() {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>();
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
         invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),args_);
     }
 
     @Override
     public Struct call() {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>();
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
         return invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getCallableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getCallMethod(),args_);
     }
 
@@ -88,7 +95,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseClicked(),args_);
     }
 
@@ -97,7 +104,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseEntered(),args_);
     }
 
@@ -106,7 +113,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseExited(),args_);
     }
 
@@ -115,7 +122,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMousePressed(),args_);
     }
 
@@ -124,7 +131,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseReleased(),args_);
     }
 
@@ -133,7 +140,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseDragged(),args_);
     }
 
@@ -142,7 +149,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getMouseMoved(),args_);
     }
 
@@ -151,7 +158,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasWheelEvent();
         MouseWheelEventStruct a_ = new MouseWheelEventStruct(actEv_, _location, _keyState, _buttons, _wheel);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWheelListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWheelMove(),args_);
     }
 
@@ -160,7 +167,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowOpened(),args_);
     }
 
@@ -169,7 +176,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowClosing(),args_);
     }
 
@@ -178,7 +185,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowClosed(),args_);
     }
 
@@ -187,7 +194,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowIconified(),args_);
     }
 
@@ -196,7 +203,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowDeiconified(),args_);
     }
 
@@ -205,7 +212,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowActivated(),args_);
     }
 
@@ -214,14 +221,14 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindowDeactivated(),args_);
     }
 
     @Override
     public void valueChanged(SelectionInfo _e) {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())),new Argument(BooleanStruct.of(_e.isMethodAction())));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(new IntStruct(_e.getFirstIndex())),new ArgumentWrapper(new IntStruct(_e.getLastIndex())),new ArgumentWrapper(BooleanStruct.of(_e.isMethodAction())));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getListSelection(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getValueChanged(),args_);
     }
 
@@ -230,7 +237,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(_keyState,actEv_,_keyChar,_keyCode);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyPressed(),args_);
     }
 
@@ -239,7 +246,7 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(_keyState,actEv_,_keyChar);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyTyped(),args_);
     }
 
@@ -248,63 +255,63 @@ public final class EventStruct extends LaunchableStruct implements
         String actEv_ = ((LgNamesGui) getExecutionInfos().getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(_keyState,actEv_,_keyChar,_keyCode);
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyReleased(),args_);
     }
 
     @Override
     public void focusGained() {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>();
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getFocusListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getFocusGained(),args_);
     }
 
     @Override
     public void focusLost() {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>();
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getFocusListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getFocusLost(),args_);
     }
 
     @Override
     public void stateChanged() {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>();
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getChangeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getStateChanged(),args_);
     }
 
     @Override
     public void valueChanged(AbstractMutableTreeNodeCore<String> _e) {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>();
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
         Struct arg_ = TreeNodeStruct.nodeOrNull(_e);
-        args_.add(new Argument(arg_));
+        args_.add(new ArgumentWrapper(arg_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListenerValueChanged(),args_);
     }
 
     @Override
     public void valueChanged(int _first, int _last) {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_first)),new Argument(new IntStruct(_last)));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>(new ArgumentWrapper(new IntStruct(_first)),new ArgumentWrapper(new IntStruct(_last)));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTableListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTableValueTableChanged(),args_);
     }
 
     @Override
     public Struct generateImg(Struct _index, Struct _info, Struct _isSelected, Struct _cellHasFocus, Struct _cellIsAnchored, Struct _lab, Struct _compo) {
         ContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(_index));
-        args_.add(new Argument(_info));
-        args_.add(new Argument(_isSelected));
-        args_.add(new Argument(_cellHasFocus));
-        args_.add(new Argument(_cellIsAnchored));
-        args_.add(new Argument(_lab));
-        args_.add(new Argument(_compo));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
+        args_.add(new ArgumentWrapper(_index));
+        args_.add(new ArgumentWrapper(_info));
+        args_.add(new ArgumentWrapper(_isSelected));
+        args_.add(new ArgumentWrapper(_cellHasFocus));
+        args_.add(new ArgumentWrapper(_cellIsAnchored));
+        args_.add(new ArgumentWrapper(_lab));
+        args_.add(new ArgumentWrapper(_compo));
         return invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getCellRender(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getCellRenderGenerate(),args_);
     }
 
-    private Struct invoke(ContextEl _r, ExecRootBlock _typeName, ExecNamedFunctionBlock _methName, CustList<Argument> _args) {
-        ArgumentListCall argList_ = ArgumentListCall.wrapCall(_args);
+    private Struct invoke(ContextEl _r, ExecRootBlock _typeName, ExecNamedFunctionBlock _methName, CustList<ArgumentWrapper> _args) {
+        ArgumentListCall argList_ = new ArgumentListCall(_args);
         return invoke(this,_r,_typeName,_methName, argList_);
     }
     private ContextEl newCtx() {

@@ -24,7 +24,7 @@ public final class FctMessageSetArgs implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         MessageStruct instance_ = DefaultBeanAliases.getMessageStruct(_instance, aliasMessage);
-        ArrayStruct array_ = ExecArrayFieldOperation.getArray(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(), _cont);
+        ArrayStruct array_ = ExecArrayFieldOperation.getArray(_firstArgs.getArgumentWrappers().get(0).getValue(), _cont);
         int len_ = array_.getLength();
         String[] resArgs_ = new String[len_];
         for (int i = 0; i < len_; i++){

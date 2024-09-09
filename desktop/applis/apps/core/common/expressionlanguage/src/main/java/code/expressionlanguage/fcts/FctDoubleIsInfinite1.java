@@ -15,7 +15,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctDoubleIsInfinite1 implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        NumberStruct instance_ = NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        NumberStruct instance_ = NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue());
         return new ArgumentWrapper(BooleanStruct.of(Double.isInfinite(instance_.doubleStruct())));
     }
 

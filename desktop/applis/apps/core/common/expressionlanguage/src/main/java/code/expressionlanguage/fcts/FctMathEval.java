@@ -29,8 +29,8 @@ public final class FctMathEval extends FctMath {
     @Override
     public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct st_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct seps_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct st_ = argumentWrappers_.get(0).getValue();
+        Struct seps_ = argumentWrappers_.get(1).getValue();
         return eval(st_, seps_, _cont, _stackCall, id);
     }
 

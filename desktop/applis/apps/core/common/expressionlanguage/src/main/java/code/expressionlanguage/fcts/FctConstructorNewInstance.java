@@ -22,7 +22,7 @@ public final class FctConstructorNewInstance extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         ConstructorMetaInfo ctor_ = (ConstructorMetaInfo) _instance;
-        Struct inst_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct inst_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!ctor_.isInvokable()) {
             _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,ctor_, _stackCall)));
         } else {

@@ -1,6 +1,5 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbsAliasFileBuilder;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
@@ -593,16 +592,16 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
                 index_++;
                 continue;
             }
-            Argument mapArg_ = new Argument(RenderExpUtil.getFinalArg(opsMap, _ctx, _rendStack));
+            Struct mapArg_ = RenderExpUtil.getFinalArg(opsMap, _ctx, _rendStack);
             ExecRootBlock rootBlock_ = _ctx.getClasses().getClassBody(beanAliases.getAliasBean());
             ExecFieldTemplates.setInstanceField(
-                    new Argument(arg_),mapArg_, _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasForms()), new ExecTypeReturn(rootBlock_, beanAliases.getAliasStringMapObject()));
+                    arg_,mapArg_, _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasForms()), new ExecTypeReturn(rootBlock_, beanAliases.getAliasStringMapObject()));
             ExecFieldTemplates.setInstanceField(
-                    new Argument(arg_),new Argument(_db), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField()), new ExecTypeReturn(rootBlock_, getAliasObject()));
+                    arg_,_db, _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField()), new ExecTypeReturn(rootBlock_, getAliasObject()));
             ExecFieldTemplates.setInstanceField(
-                    new Argument(arg_),new Argument(new StringStruct(_language)), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasLanguage()), new ExecTypeReturn(rootBlock_, getAliasString()));
+                    arg_,new StringStruct(_language), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasLanguage()), new ExecTypeReturn(rootBlock_, getAliasString()));
             ExecFieldTemplates.setInstanceField(
-                    new Argument(arg_),new Argument(new StringStruct(info_.getScope())), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()), new ExecTypeReturn(rootBlock_, getAliasString()));
+                    arg_,new StringStruct(info_.getScope()), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()), new ExecTypeReturn(rootBlock_, getAliasString()));
             _rendStack.removeLastPage();
             getBuiltBeans().setValue(index_, arg_);
             index_++;
@@ -1254,10 +1253,10 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         for (int i = 0; i< s_; i++) {
             ip_.putValueVar(Long.toString(i), args_.get(i));
         }
-        Argument globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
+        Struct globalArgument_ = _rendStackCall.getLastPage().getGlobalStruct();
         setGlobalArgumentStruct(_bean, _context, _rendStackCall);
         Struct argument_ = RenderExpUtil.getFinalArg(_exps.getExps(), _context, _rendStackCall);
-        setGlobalArgumentStruct(globalArgument_.getStruct(), _context, _rendStackCall);
+        setGlobalArgumentStruct(globalArgument_, _context, _rendStackCall);
         for (int i = 0; i< s_; i++) {
             ip_.removeRefVar(Long.toString(i));
         }

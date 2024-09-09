@@ -1,8 +1,10 @@
 package code.expressionlanguage.exec.coverage;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
+import code.expressionlanguage.analyze.opers.NullSafeOperation;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.SafeDotOperation;
 import code.expressionlanguage.common.OptionsReport;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.ReflectingType;
@@ -14,6 +16,7 @@ import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -410,7 +413,7 @@ public final class Coverage {
         randCodeOwners.add(_owner);
     }
 
-    public void passLoop(ExecBlock _loop, Argument _value, StackCall _stackCall) {
+    public void passLoop(ExecBlock _loop, Struct _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
@@ -419,7 +422,7 @@ public final class Coverage {
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
-    public void passConditions(ExecBlock _condition, Argument _value, ExecOperationNode _exec, StackCall _stackCall) {
+    public void passConditions(ExecBlock _condition, Struct _value, ExecOperationNode _exec, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
@@ -428,7 +431,7 @@ public final class Coverage {
         covCond(_value, _exec, _stackCall, covTwo_);
     }
 
-    private static void covCond(Argument _value, ExecOperationNode _exec, StackCall _stackCall, AbstractCoverageResult _result) {
+    private static void covCond(Struct _value, ExecOperationNode _exec, StackCall _stackCall, AbstractCoverageResult _result) {
         _result.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
             _result.fullCover();
@@ -437,7 +440,7 @@ public final class Coverage {
         }
     }
 
-    public void passSwitch(ExecBlock _parent, ExecResultCase _child, Argument _value, StackCall _stackCall) {
+    public void passSwitch(ExecBlock _parent, ExecResultCase _child, Struct _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
@@ -446,7 +449,7 @@ public final class Coverage {
         procCase(_child, _value, _stackCall, sw_);
     }
 
-    public void passSwitchMethod(ExecResultCase _child, Argument _value, StackCall _stackCall) {
+    public void passSwitchMethod(ExecResultCase _child, Struct _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
@@ -455,7 +458,7 @@ public final class Coverage {
         procCase(_child,_value,_stackCall,sw_);
     }
 
-    private static void procCase(ExecResultCase _child, Argument _value, StackCall _stackCall, SwitchCoverageResult _sw) {
+    private static void procCase(ExecResultCase _child, Struct _value, StackCall _stackCall, SwitchCoverageResult _sw) {
         AbstractCoverageResult covTwo_ = result(_child, _sw);
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
@@ -475,7 +478,7 @@ public final class Coverage {
         FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         AbstractCoverageResult cov_ = fctRes_.getCatches().getVal(_child.getBlock()).get(_child.getIndex());
         cov_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
-        cov_.cover(new Argument(_ex));
+        cov_.cover(_ex);
     }
 
     public void passBlockOperation(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall) {
@@ -520,9 +523,9 @@ public final class Coverage {
         } else {
             Struct valueStruct_ = getValueStruct(_exec,ana_, _pair);
             if (result_ instanceof BooleanCoverageResult && !(valueStruct_ instanceof BooleanStruct)) {
-                result_.cover(Argument.getNullableValue(_pair.getArgumentBeforeImpl()));
+                result_.cover(ArgumentListCall.getNull(_pair.getArgumentBeforeImpl()));
             } else {
-                result_.cover(new Argument(valueStruct_));
+                result_.cover(valueStruct_);
             }
         }
     }
@@ -579,7 +582,7 @@ public final class Coverage {
         return fctRes_.getMappingBlocks().getVal(en_);
     }
     private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
-        Struct o_ = Argument.getNullableValue(_v.getArgument()).getStruct();
+        Struct o_ = ArgumentListCall.getNull(_v.getArgument());
         ExecMethodOperation par_ = _oper.getParent();
         if (par_ instanceof CompoundedOperator){
             CompoundedOperator p_ = (CompoundedOperator) par_;

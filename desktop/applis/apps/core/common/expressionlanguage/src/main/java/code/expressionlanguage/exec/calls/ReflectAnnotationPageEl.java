@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
@@ -33,9 +32,9 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private final CustList<Ints> annotationsParamsIndexes = new CustList<Ints>();
     private final AnnotatedStruct annotated;
 
-    private final CustList<Argument> arguments;
+    private final CustList<Struct> arguments;
 
-    public ReflectAnnotationPageEl(CustList<Argument> _arguments, AnnotatedStruct _annotated) {
+    public ReflectAnnotationPageEl(CustList<Struct> _arguments, AnnotatedStruct _annotated) {
         super(false);
         arguments = _arguments;
         annotated = _annotated;
@@ -52,35 +51,33 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     ExecAnnotContent ops_ = annotationsParams.get(i).get(j);
                     globalOffset(ops_.getOffset());
-                    Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0,null,-1);
+                    Struct ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0,null,-1);
                     if (_stack.stopAt(_context)) {
                         return false;
                     }
                     clearCurrentEls();
-                    ExecArrayFieldOperation.getArray(loc_,_context).set(j, ret_.getStruct());
+                    ExecArrayFieldOperation.getArray(loc_,_context).set(j, ret_);
                     indexAnnotation++;
                 }
                 indexAnnotationParam++;
                 indexAnnotation = 0;
             }
-            Argument out_ = new Argument(array);
-            setReturnedArgument(out_);
+            setReturnedArgument(array);
             return true;
         }
         int len_ = annotations.size();
         for (int i = indexAnnotation; i < len_; i++) {
             ExecAnnotContent ops_ = annotations.get(i);
             globalOffset(ops_.getOffset());
-            Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0, null,-1);
+            Struct ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0, null,-1);
             if (_stack.stopAt(_context)) {
                 return false;
             }
             clearCurrentEls();
-            array.set(i, ret_.getStruct());
+            array.set(i, ret_);
             indexAnnotation++;
         }
-        Argument out_ = new Argument(array);
-        setReturnedArgument(out_);
+        setReturnedArgument(array);
         return true;
     }
 
@@ -179,7 +176,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private String filterType() {
         String cl_ = "";
         if (!arguments.isEmpty()) {
-            Struct arg_ = arguments.first().getStruct();
+            Struct arg_ = arguments.first();
             if (arg_ instanceof ClassMetaInfo) {
                 cl_ = NumParsers.getClass(arg_).getFormatted().getFormatted();
             }
@@ -205,7 +202,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+    public void receive(AbstractWrapper _wrap, Struct _argument, ContextEl _context, StackCall _stack) {
         basicReceive(_wrap, _argument,_context, _stack);
     }
 

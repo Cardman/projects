@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -22,9 +21,9 @@ public final class FctStringBuilderInsert0 implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringBuilderStruct inst_ = (StringBuilderStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct index_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct arr_ = argumentWrappers_.get(1).getValue().getStruct();
-        insert(inst_, NumParsers.convertToNumber(index_),ExecCatOperation.getDisplayable(new Argument(arr_),_cont),_cont,_stackCall);
+        Struct index_ = argumentWrappers_.get(0).getValue();
+        Struct arr_ = argumentWrappers_.get(1).getValue();
+        insert(inst_, NumParsers.convertToNumber(index_),ExecCatOperation.getDisplayable(arr_,_cont),_cont,_stackCall);
         return new ArgumentWrapper(inst_);
     }
 

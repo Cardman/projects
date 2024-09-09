@@ -20,7 +20,7 @@ public final class FctNbFloatToStr implements AnaStdCaller {
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(str(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont.getStandards().getDisplayedStrings()));
+        return new ArgumentWrapper(str(_firstArgs.getArgumentWrappers().get(0).getValue(),_cont.getStandards().getDisplayedStrings()));
     }
 
     private static Struct str(Struct _arg, DisplayedStrings _dis) {

@@ -15,7 +15,7 @@ public final class FctAtomicLongLazy extends FctAtomicAbs {
     @Override
     protected ArgumentWrapper atomic(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-        re_.lazySet(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).longStruct());
+        re_.lazySet(((NumberStruct)_firstArgs.getArgumentWrappers().get(0).getValue()).longStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

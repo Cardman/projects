@@ -1,14 +1,13 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -31,8 +30,8 @@ public abstract class RendSettableFieldOperation extends
         offsetLoc(_rendStack);
     }
 
-    protected void postCalulate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _result) {
-        ArgumentWrapper arg_ = RendDynOperationNode.tryGetValue(_context, _rendStack,new ArgumentWrapper(ArgumentListCall.toStr(_result)));
+    protected void postCalulate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Struct _result) {
+        ArgumentWrapper arg_ = RendDynOperationNode.tryGetValue(_context, _rendStack,new ArgumentWrapper(_result));
         if (arg_ == null) {
             return;
         }

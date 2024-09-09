@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -11,16 +10,18 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstructorPageEl {
 
     private final ConstructorMetaInfo metaInfo;
 
-    private final Argument argument;
+    private final Struct argument;
     private final ArgumentListCall array;
     private final int ref;
 
-    public ReflectLambdaConstructorPageEl(Argument _argument, ArgumentListCall _array, ConstructorMetaInfo _metaInfo, int _r) {
+    public ReflectLambdaConstructorPageEl(Struct _argument, ArgumentListCall _array, ConstructorMetaInfo _metaInfo, int _r) {
         super(true);
         argument = _argument;
         array = _array;
@@ -45,7 +46,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         }
         setCalledMethod(true);
         ConstructorId mid_ = metaInfo.getRealId();
-        Argument argCtor_ = Argument.createVoid();
+        Struct argCtor_ = NullStruct.NULL_VALUE;
         ExecTypeFunction pair_ = metaInfo.getPair();
         ExecRootBlock execSuperClass_ = pair_.getType();
         if (execSuperClass_ != null) {

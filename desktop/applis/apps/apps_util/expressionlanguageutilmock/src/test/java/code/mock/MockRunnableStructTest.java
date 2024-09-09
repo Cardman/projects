@@ -40,7 +40,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         AbstractInterceptorStdCaller int_ = new MockInterceptor().newInterceptorStdCaller("");
         assertTrue(int_.stop(new MockInitializer(),null,null));
         assertTrue(int_.stopNormal(new MockInitializer(),null,null));
-        assertTrue(int_.invoke(new MockStdCaller(),null,null,null,null,null).getValue().getStruct().sameReference(NullStruct.NULL_VALUE));
+        assertTrue(int_.invoke(new MockStdCaller(),null,null,null,null,null).getValue().sameReference(NullStruct.NULL_VALUE));
         assertTrue(new MockInitializer().exitAfterCallInt(null,null));
     }
     @Test
@@ -133,7 +133,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         user_.setContext(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), user_.getContext(), StackCall.newInstance(InitPhase.NOTHING, ctx_));
-        assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
+        assertEq(1,((NumberStruct) a_.getValue()).intStruct());
     }
     @Test
     public void buildAna() {
@@ -153,7 +153,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         user_.setContext(ctx_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), user_.getContext(), StackCall.newInstance(InitPhase.NOTHING, ctx_));
-        assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
+        assertEq(1,((NumberStruct) a_.getValue()).intStruct());
     }
     @Test
     public void buildImpl() {
@@ -167,7 +167,7 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         ContextEl ctx_ = user_.getContext();
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), ctx_, StackCall.newInstance(InitPhase.NOTHING, ctx_));
-        assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
+        assertEq(1,((NumberStruct) a_.getValue()).intStruct());
     }
     @Test
     public void buildLight() {
@@ -192,6 +192,6 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         assertTrue(ctx_.getCaller().newAtObj(NullStruct.NULL_VALUE).get().getClassName(ctx_).isEmpty());
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ArgumentWrapper a_ = ProcessMethod.calculate(new CustomFoundMethod(new ExecFormattedRootBlock(ex_), new ExecTypeFunction(ex_, ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "exmeth", new CustList<String>())).first()), new Parameters()), ctx_, StackCall.newInstance(InitPhase.NOTHING, ctx_));
-        assertEq(1,((NumberStruct) ArgumentListCall.toStr(a_.getValue())).intStruct());
+        assertEq(1,((NumberStruct) a_.getValue()).intStruct());
     }
 }

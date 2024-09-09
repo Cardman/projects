@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
@@ -22,11 +21,11 @@ public final class FctStringBuilderInsert2 implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringBuilderStruct inst_ = (StringBuilderStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct index_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct arr_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct start_ = argumentWrappers_.get(2).getValue().getStruct();
-        Struct end_ = argumentWrappers_.get(3).getValue().getStruct();
-        insert(inst_, NumParsers.convertToNumber(index_),ExecCatOperation.getDisplayable(new Argument(arr_),_cont),NumParsers.convertToNumber(start_),NumParsers.convertToNumber(end_),_cont,_stackCall);
+        Struct index_ = argumentWrappers_.get(0).getValue();
+        Struct arr_ = argumentWrappers_.get(1).getValue();
+        Struct start_ = argumentWrappers_.get(2).getValue();
+        Struct end_ = argumentWrappers_.get(3).getValue();
+        insert(inst_, NumParsers.convertToNumber(index_),ExecCatOperation.getDisplayable(arr_,_cont),NumParsers.convertToNumber(start_),NumParsers.convertToNumber(end_),_cont,_stackCall);
         return new ArgumentWrapper(inst_);
     }
 

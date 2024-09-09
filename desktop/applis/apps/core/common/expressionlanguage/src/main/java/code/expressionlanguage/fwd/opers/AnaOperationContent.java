@@ -1,7 +1,7 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.structs.Struct;
 import code.util.core.IndexConstants;
 
 public final class AnaOperationContent {
@@ -10,7 +10,7 @@ public final class AnaOperationContent {
     private final int indexInEl;
     private final int indexChild;
     private AnaClassArgumentMatching resultClass;
-    private Argument argument;
+    private Struct argument;
     private int order = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     public AnaOperationContent(int _indexInEl, int _indexChild) {
@@ -35,11 +35,11 @@ public final class AnaOperationContent {
         this.resultClass = _resultClass;
     }
 
-    public Argument getArgument() {
+    public Struct getArgument() {
         return argument;
     }
 
-    public void setArgument(Argument _argument) {
+    public void setArgument(Struct _argument) {
         this.argument = _argument;
     }
 

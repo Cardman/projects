@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctDimension0 implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         if (!(arg_ instanceof DimensionStruct)) {
             return new ArgumentWrapper(new DimensionStruct(0,0));
         }

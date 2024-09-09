@@ -23,9 +23,9 @@ public final class FctImage implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct w_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct h_ = argumentWrappers_.get(1).getValue().getStruct();
-        Struct a_ = argumentWrappers_.get(2).getValue().getStruct();
+        Struct w_ = argumentWrappers_.get(0).getValue();
+        Struct h_ = argumentWrappers_.get(1).getValue();
+        Struct a_ = argumentWrappers_.get(2).getValue();
         return new ArgumentWrapper(new ImageStruct(guiEx.getImageFactory(),((NumberStruct)w_).intStruct(),((NumberStruct)h_).intStruct(), BooleanStruct.isTrue(a_)));
     }
 }

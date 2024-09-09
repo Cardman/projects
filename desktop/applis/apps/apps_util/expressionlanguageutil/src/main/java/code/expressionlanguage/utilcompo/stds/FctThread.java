@@ -31,7 +31,7 @@ public final class FctThread implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        Struct runnable_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        Struct runnable_ = _firstArgs.getArgumentWrappers().get(0).getValue();
         AbstractThread thread_;
         if (runnable_ instanceof Runnable) {
             thread_ = custAliases.getInfos().getThreadFactory().newThread((Runnable) runnable_);

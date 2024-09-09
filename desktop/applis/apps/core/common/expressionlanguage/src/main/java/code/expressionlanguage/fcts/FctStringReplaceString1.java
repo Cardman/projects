@@ -22,8 +22,8 @@ public final class FctStringReplaceString1 implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct old_ = argumentWrappers_.get(0).getValue().getStruct();
-        Struct new_ = argumentWrappers_.get(1).getValue().getStruct();
+        Struct old_ = argumentWrappers_.get(0).getValue();
+        Struct new_ = argumentWrappers_.get(1).getValue();
         return replaceString(_instance,old_,new_);
     }
 

@@ -24,9 +24,9 @@ public final class FctScheduledExecutorNanos0 implements StdCaller {
         if (FctScheduledExecutorMillis0.nothing(_cont, _instance, _firstArgs, _stackCall, id)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
-        Struct d_ = _firstArgs.getArgumentWrappers().get(1).getValue().getStruct();
-        Struct p_ = _firstArgs.getArgumentWrappers().get(2).getValue().getStruct();
+        Struct s_ = _firstArgs.getArgumentWrappers().get(0).getValue();
+        Struct d_ = _firstArgs.getArgumentWrappers().get(1).getValue();
+        Struct p_ = _firstArgs.getArgumentWrappers().get(2).getValue();
         return new ArgumentWrapper(((ScheduledExecutorServiceStruct)_instance).scheduleAtFixedRateNanos((Runnable) s_, NumParsers.convertToNumber(d_).longStruct(),  NumParsers.convertToNumber(p_).longStruct()));
     }
 }

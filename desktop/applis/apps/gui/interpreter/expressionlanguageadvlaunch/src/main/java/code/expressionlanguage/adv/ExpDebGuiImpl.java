@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -11,7 +10,6 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomReflectConstructor;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
@@ -106,7 +104,7 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
             Parameters p_ = new Parameters();
             p_.getRefParameters().addEntry(nameOne_,new VariableWrapper(LocalVariable.newLocalVariable(new StringStruct(typed), _res.getContext())));
             p_.getRefParameters().addEntry(nameTwo_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(currentIndex), _res.getContext())));
-            return new CustomFoundMethod(new Argument(instance),targetMethod_.getClassName(), targetMethod_.getPair(), p_);
+            return new CustomFoundMethod(instance,targetMethod_.getClassName(), targetMethod_.getPair(), p_);
         }
         if (fromIndex == -1) {
             int v_ = minValue.getValue();
@@ -152,19 +150,19 @@ public final class ExpDebGuiImpl extends AbsDebuggerGui {
         p_.getRefParameters().addEntry(nameTwo_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(occ), _res.getContext())));
         p_.getRefParameters().addEntry(nameThree_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(seg_.getBegin()), _res.getContext())));
         p_.getRefParameters().addEntry(nameFour_,new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(seg_.getEnd()), _res.getContext())));
-        return new CustomFoundMethod(new Argument(instance),targetMethod_.getClassName(), targetMethod_.getPair(), p_);
+        return new CustomFoundMethod(instance,targetMethod_.getClassName(), targetMethod_.getPair(), p_);
     }
 
     @Override
     protected void endCall() {
         if (instance == NullStruct.NULL_VALUE) {
-            instance = ArgumentListCall.toStr(getStackCallView().getStack().aw().getValue());
+            instance = getStackCallView().getStack().aw().getValue();
             currentIndex = 0;
             super.endCall();
             getStopStack().setEnabled(true);
             return;
         }
-        Struct re_= ArgumentListCall.toStr(getStackCallView().getStack().aw().getValue());
+        Struct re_= getStackCallView().getStack().aw().getValue();
         if (toIndex == -1) {
             finding(re_);
         }

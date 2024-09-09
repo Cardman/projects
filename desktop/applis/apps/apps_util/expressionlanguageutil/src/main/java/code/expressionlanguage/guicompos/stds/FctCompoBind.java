@@ -14,9 +14,9 @@ public final class FctCompoBind implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustComponentStruct inst_ = (CustComponentStruct)_instance;
-        Struct action_ = ArgumentListCall.toStr(_firstArgs.getArgumentWrappers().get(0).getValue());
-        Struct a_ = ArgumentListCall.toStr(_firstArgs.getArgumentWrappers().get(1).getValue());
-        Struct b_ = ArgumentListCall.toStr(_firstArgs.getArgumentWrappers().get(2).getValue());
+        Struct action_ = _firstArgs.getArgumentWrappers().get(0).getValue();
+        Struct a_ = _firstArgs.getArgumentWrappers().get(1).getValue();
+        Struct b_ = _firstArgs.getArgumentWrappers().get(2).getValue();
         inst_.registerKeyboardAction(action_,a_,b_,_stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

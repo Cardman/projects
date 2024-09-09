@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilcompo.stds;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -29,11 +28,11 @@ public final class FctThreadPrint1 extends FctThreadPrintAbs {
 
     @Override
     protected ArgumentWrapper pr(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        Argument arg_ = new Argument(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
-        CustList<Argument> arguments_ = new CustList<Argument>(arg_);
-        ArgumentListCall argList_ = ArgumentListCall.wrapCall(arguments_);
+        ArgumentWrapper arg_ = new ArgumentWrapper(_firstArgs.getArgumentWrappers().get(0).getValue());
+        CustList<ArgumentWrapper> arguments_ = new CustList<ArgumentWrapper>(arg_);
+        ArgumentListCall argList_ = new ArgumentListCall(arguments_);
         ExecTypeFunction formatObjectPair_ = execBlocks.getFormatObjectPair();
-        ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(formatObjectPair_.getType(), aliasFormatType),formatObjectPair_), Argument.createVoid(), _cont, _stackCall, argList_);
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(formatObjectPair_.getType(), aliasFormatType),formatObjectPair_), NullStruct.NULL_VALUE, _cont, _stackCall, argList_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.fcts;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.NumParsers;
@@ -11,6 +10,7 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
@@ -247,7 +247,7 @@ public abstract class FctReflection implements StdCaller {
         int size_ = _localVars.size();
         ArrayStruct array_ = new ArrayStruct(size_, arrStr_);
         for (int i = 0; i < size_; i++) {
-            array_.set(i, Argument.wrapStr(_localVars.get(i)));
+            array_.set(i, ArgumentListCall.wrapStr(_localVars.get(i)));
         }
         return new ArgumentWrapper(array_);
     }
