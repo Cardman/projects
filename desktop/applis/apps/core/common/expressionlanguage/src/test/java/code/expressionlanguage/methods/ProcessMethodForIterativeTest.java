@@ -25,10 +25,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -47,10 +46,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -69,10 +67,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -91,10 +88,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -113,10 +109,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -135,10 +130,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -157,10 +151,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -179,10 +172,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -201,10 +193,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
 
@@ -224,10 +215,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
 
@@ -247,10 +237,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
 
@@ -270,10 +259,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -293,10 +281,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
 
@@ -316,10 +303,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -339,10 +325,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
 
@@ -362,10 +347,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
 
@@ -383,10 +367,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
 
@@ -408,10 +391,9 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(23, getNumber(ret_));
     }
 }

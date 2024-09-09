@@ -22,10 +22,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -39,10 +38,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
     }
     @Test
@@ -56,10 +54,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
     }
     @Test
@@ -78,10 +75,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -100,10 +96,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
     }
 
@@ -118,10 +113,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq('1', getChar(ret_));
     }
 
@@ -136,10 +130,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertSame(BooleanStruct.of(true), ret_.getStruct());
     }
 
@@ -154,10 +147,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
     }
 
@@ -172,10 +164,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
     }
 
@@ -195,10 +186,9 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 }

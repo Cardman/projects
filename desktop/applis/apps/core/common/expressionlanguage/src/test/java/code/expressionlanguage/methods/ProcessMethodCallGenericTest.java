@@ -30,7 +30,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
@@ -52,7 +51,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -90,7 +88,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -135,7 +132,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -173,7 +169,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -211,7 +206,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -250,7 +244,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -289,7 +282,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -327,7 +319,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -366,7 +357,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -401,7 +391,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -439,7 +428,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -484,7 +472,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -529,7 +516,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -577,7 +563,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -624,7 +609,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -671,7 +655,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -702,7 +685,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -744,7 +726,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/CustNb", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -792,7 +773,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/CustInt", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -844,7 +824,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/CustInt", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -897,7 +876,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/CustInt", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -942,7 +920,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -985,7 +962,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1030,7 +1006,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1069,7 +1044,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1107,7 +1081,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1145,7 +1118,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1183,7 +1155,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1221,7 +1192,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1259,7 +1229,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1304,7 +1273,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1352,7 +1320,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1399,7 +1366,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1447,7 +1413,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1506,7 +1471,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1565,7 +1529,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1611,7 +1574,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1649,7 +1611,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1680,7 +1641,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1718,7 +1678,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1750,7 +1709,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
@@ -1775,7 +1733,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
@@ -1798,7 +1755,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
@@ -1836,7 +1792,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
@@ -1864,7 +1819,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
@@ -1894,7 +1848,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
@@ -1931,7 +1884,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1969,7 +1921,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2007,7 +1958,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2045,7 +1995,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2083,7 +2032,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2115,7 +2063,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2153,7 +2100,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2185,7 +2131,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2220,7 +2165,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2269,7 +2213,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2313,7 +2256,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2354,7 +2296,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2387,7 +2328,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2423,7 +2363,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2459,7 +2398,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2495,7 +2433,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2531,7 +2468,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2588,7 +2524,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2629,7 +2564,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;

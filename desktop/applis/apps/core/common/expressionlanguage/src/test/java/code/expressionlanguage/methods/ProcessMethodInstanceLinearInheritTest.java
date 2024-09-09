@@ -43,7 +43,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -97,7 +96,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -146,7 +144,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -198,7 +195,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -253,7 +249,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -308,7 +303,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -365,7 +359,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -422,7 +415,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -482,7 +474,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -543,7 +534,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -610,7 +600,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -673,7 +662,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -729,7 +717,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -789,7 +776,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -856,7 +842,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -915,7 +900,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -971,10 +955,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExTwo", null, 1, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExTwo", null, 1, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
@@ -1001,7 +984,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
         Argument ret_;
@@ -1035,7 +1017,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExOne", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExOne");
 
         Argument ret_;
@@ -1064,7 +1045,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExEnum", xml_.toString());
         
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1096,7 +1076,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExEnum", xml_.toString());
         
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1378,7 +1357,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1417,7 +1395,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -1456,7 +1433,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -1498,7 +1474,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1531,7 +1506,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1563,7 +1537,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1597,7 +1570,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1631,7 +1603,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1674,7 +1645,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1717,7 +1687,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1764,7 +1733,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1808,7 +1776,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1866,7 +1833,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1924,7 +1890,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -1962,7 +1927,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -2017,7 +1981,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2091,7 +2054,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2165,7 +2127,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2239,7 +2200,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -2306,7 +2266,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2354,7 +2313,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2402,7 +2360,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2461,7 +2418,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2520,7 +2476,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2584,7 +2539,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2645,7 +2599,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2710,7 +2663,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2834,7 +2786,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2904,7 +2855,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2972,7 +2922,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -3070,7 +3019,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -3158,7 +3106,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3208,7 +3155,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3259,7 +3205,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3319,7 +3264,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3377,7 +3321,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3417,7 +3360,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3458,7 +3400,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3501,7 +3442,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -3548,7 +3488,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3588,7 +3527,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3638,7 +3576,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3688,7 +3625,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3738,7 +3674,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3788,7 +3723,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3838,7 +3772,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -3891,9 +3824,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
@@ -3918,9 +3850,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
@@ -3945,9 +3876,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
@@ -3969,9 +3899,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
@@ -3993,9 +3922,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
     }
@@ -4049,10 +3977,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
         Argument ret_;
-        ret_ = calculateNormal("pkg.ExThree", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(6, getNumber(ret_));
     }

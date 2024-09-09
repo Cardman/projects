@@ -24,10 +24,9 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -45,10 +44,9 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(17, getNumber(ret_));
     }
     @Test
@@ -66,10 +64,9 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(18, getNumber(ret_));
     }
     @Test
@@ -87,10 +84,9 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("first second", getString(ret_));
     }
     @Test
@@ -122,10 +118,9 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
 
@@ -143,10 +138,9 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
 }

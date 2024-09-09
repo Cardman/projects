@@ -31,10 +31,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -60,10 +59,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -86,10 +84,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -115,10 +112,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -138,10 +134,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasDivisionZero(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -164,10 +159,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasDivisionZero(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -193,10 +187,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -219,10 +212,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasDivisionZero(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -245,10 +237,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -271,10 +262,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -294,10 +284,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -323,10 +312,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -349,10 +337,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -375,10 +362,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -401,10 +387,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasDivisionZero(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -430,10 +415,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -453,10 +437,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -476,10 +459,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -505,10 +487,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -527,10 +508,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -550,10 +530,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -574,10 +553,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -597,10 +575,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -621,10 +598,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -644,10 +620,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -668,10 +643,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -691,10 +665,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -715,10 +688,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -738,10 +710,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -762,10 +733,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -787,10 +757,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -814,10 +783,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -845,10 +813,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -880,9 +847,8 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -912,10 +878,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -941,10 +906,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -970,10 +934,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1003,10 +966,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1035,10 +997,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1110,10 +1071,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1183,10 +1143,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1215,9 +1174,8 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
         assertSame(NullStruct.NULL_VALUE,arg_.getStruct());
     }
     @Test
@@ -1246,10 +1204,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1275,10 +1232,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -1310,10 +1266,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1346,10 +1301,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -1373,10 +1327,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1400,10 +1353,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1427,10 +1379,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1453,10 +1404,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1487,10 +1437,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1517,10 +1466,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -1547,10 +1495,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -1576,10 +1523,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -1603,10 +1549,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -1628,10 +1573,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -1655,10 +1599,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -1681,10 +1624,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -1702,9 +1644,8 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
@@ -1734,10 +1675,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1756,10 +1696,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("pkg/Ex:4,23:90\npkg.Ex.$static catching();1", getString(ret_));
     }
     @Test
@@ -1778,10 +1717,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("pkg/Ex:4,23:90\npkg.Ex.$static catching();1", getString(ret_));
     }
     @Test
@@ -1800,10 +1738,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("1;", getString(ret_));
     }
     @Test
@@ -1832,10 +1769,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("pkg/Ex:2,31:54\n" +
                 "pkg.Ex.;pkg/Ex:8,12:165\n" +
                 "pkg.Ex.$static res();3", getString(ret_));
@@ -1866,10 +1802,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("pkg/Ex:2,31:54\n" +
                 "pkg.Ex.;pkg/Ex:8,27:180\n" +
                 "pkg.Ex.$static res();3", getString(ret_));
@@ -1901,10 +1836,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("pkg/Ex:2,31:54\n" +
                 "pkg.Ex.;pkg/Ex:9,22:284\n" +
                 "pkg.Ex.$static res();3", getString(ret_));
@@ -1938,10 +1872,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("pkg/Ex:8,15:176\npkg.Ex.$static catching();pkg/Ex:18,19:448\n.$static /(pkg.MyValue,pkg.MyValue);2", getString(ret_));
     }
     @Test
@@ -1971,10 +1904,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("", getString(ret_));
     }
     @Test
@@ -2004,10 +1936,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("java.lang.$invokeTaget\n" +
                 "\n" +
                 "pkg/Ex:2,31:54\n" +
@@ -2043,10 +1974,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("code.util.exceptions.NullObjectException\n" +
                 "\n" +
                 "pkg/Ex:2,31:54\n" +
@@ -2080,10 +2010,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("java.lang.$defErrorClass\n" +
                 "\n" +
                 "pkg/Ex:2,31:54\n" +
@@ -2119,10 +2048,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("java.lang.$defErrorClass\n" +
                 "\n" +
                 "pkg/Ex:2,31:54\n" +
@@ -2158,10 +2086,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("java.lang.$defErrorClass\n" +
                 "\n" +
                 "pkg/Ex:2,31:54\n" +
@@ -2190,10 +2117,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("code.util.exceptions.NullObjectException\n\npkg/Ex:4,27:94\npkg.Ex.$static catching()", getString(ret_));
     }
     @Test
@@ -2215,10 +2141,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("code.util.exceptions.NullObjectException\n\npkg/Ex:4,27:94\npkg.Ex.$static catching()", getString(ret_));
     }
     @Test
@@ -2247,10 +2172,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq("", getString(ret_));
     }
     @Test
@@ -2279,10 +2203,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isTrue());
     }
     @Test
@@ -2316,10 +2239,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isFalse());
     }
     @Test
@@ -2345,10 +2267,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isTrue());
     }
     @Test
@@ -2379,10 +2300,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isFalse());
     }
     @Test
@@ -2412,10 +2332,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isTrue());
     }
     @Test
@@ -2451,10 +2370,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isFalse());
     }
     @Test
@@ -2483,10 +2401,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isNull());
     }
     @Test
@@ -2512,10 +2429,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isNull());
     }
     @Test
@@ -2545,10 +2461,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isNull());
     }
     @Test
@@ -2577,10 +2492,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isTrue());
     }
     @Test
@@ -2609,10 +2523,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isTrue());
     }
     @Test
@@ -2641,10 +2554,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isFalse());
     }
     @Test
@@ -2675,10 +2587,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isFalse());
     }
     @Test
@@ -2707,10 +2618,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isFalse());
     }
     @Test
@@ -2740,10 +2650,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isNull());
     }
     @Test
@@ -2773,10 +2682,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isNull());
     }
 
@@ -2799,10 +2707,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -2826,10 +2733,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -2860,10 +2766,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -2893,10 +2798,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -2924,10 +2828,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -2955,10 +2858,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -2986,10 +2888,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -3017,10 +2918,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -3046,10 +2946,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -3076,10 +2975,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -3104,10 +3002,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -3132,10 +3029,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
 
@@ -3155,10 +3051,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -3178,10 +3073,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -3207,10 +3101,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3233,10 +3126,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3259,10 +3151,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -3282,10 +3173,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertSame(getStaticField(cont_,new ClassField("pkg.Ex","TWO")),ret_.getStruct());
     }
 
@@ -3311,10 +3201,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3340,10 +3229,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3366,10 +3254,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3395,10 +3282,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3424,10 +3310,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3456,10 +3341,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3485,10 +3369,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3517,10 +3400,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3549,10 +3431,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3578,10 +3459,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3610,10 +3490,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3640,10 +3519,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3667,10 +3545,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3697,10 +3574,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3727,10 +3603,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3757,10 +3632,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3784,10 +3658,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3814,10 +3687,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
     }
 
@@ -3843,10 +3715,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3872,10 +3743,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3901,10 +3771,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isTrue());
     }
 
@@ -3930,10 +3799,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isFalse());
     }
 
@@ -3956,10 +3824,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -3982,10 +3849,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -4011,10 +3877,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isTrue());
     }
 
@@ -4040,10 +3905,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isTrue());
     }
 
@@ -4069,10 +3933,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isFalse());
     }
 
@@ -4098,10 +3961,9 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertTrue(ret_.isNull());
     }
     @Test

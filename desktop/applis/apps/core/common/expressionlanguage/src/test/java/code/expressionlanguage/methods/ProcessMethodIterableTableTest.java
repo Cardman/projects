@@ -40,7 +40,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -76,7 +75,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -112,7 +110,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -145,7 +142,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -185,7 +181,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -219,7 +214,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
@@ -246,7 +240,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
@@ -272,7 +265,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
@@ -304,7 +296,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -343,7 +334,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -382,7 +372,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -421,7 +410,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -459,7 +447,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -495,7 +482,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -531,7 +517,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -567,7 +552,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -603,7 +587,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -642,7 +625,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -681,7 +663,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -722,11 +703,10 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("apply");
 
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(25, getNumber(ret_));
     }
     @Test
@@ -771,7 +751,6 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;

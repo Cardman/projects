@@ -60,10 +60,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -108,10 +107,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -159,10 +157,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -213,10 +210,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -265,10 +261,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -319,10 +314,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -374,10 +368,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -430,10 +423,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -488,10 +480,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -549,10 +540,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -601,10 +591,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -654,10 +643,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -702,10 +690,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -758,10 +745,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -816,10 +802,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -873,10 +858,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -930,10 +914,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -982,10 +965,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1044,10 +1026,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1102,10 +1083,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1161,10 +1141,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1195,10 +1174,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1246,10 +1224,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1297,10 +1274,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1348,10 +1324,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1399,10 +1374,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1450,10 +1424,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1501,10 +1474,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1552,10 +1524,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1603,10 +1574,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1659,10 +1629,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1715,10 +1684,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1773,10 +1741,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1831,10 +1798,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1892,10 +1858,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -1950,10 +1915,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2008,10 +1972,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2062,10 +2025,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2122,10 +2084,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2164,10 +2125,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkgtwo.OuterThree..InnerFive", getString(ret_));
     }
     @Test
@@ -2208,10 +2168,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkgtwo.OuterFour..InnerFive", getString(ret_));
     }
     @Test
@@ -2250,10 +2209,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkgtwo.OuterThree..InnerFive", getString(ret_));
     }
     @Test
@@ -2296,10 +2254,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkgtwo.OuterFour..InnerFive", getString(ret_));
     }
     @Test
@@ -2342,10 +2299,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkgtwo.OuterFour..InnerFive..InnerSix", getString(ret_));
     }
     @Test
@@ -2396,10 +2352,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2450,10 +2405,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2504,10 +2458,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2530,10 +2483,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Outer..Inner", str_.getClassName(cont_));
         Struct field_;
@@ -2599,10 +2551,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
 
@@ -2648,10 +2599,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2692,10 +2642,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkgtwo.OuterFour..InnerFive", getString(ret_));
     }
     @Test
@@ -2738,10 +2687,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkgtwo.OuterFour..InnerFive..InnerSix", getString(ret_));
     }
     @Test
@@ -2789,10 +2737,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
 
@@ -2838,10 +2785,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2898,10 +2844,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2957,10 +2902,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3012,10 +2956,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
 
@@ -3048,10 +2991,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3078,10 +3020,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3103,10 +3044,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
 
@@ -3160,10 +3100,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3214,10 +3153,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3268,10 +3206,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3325,10 +3262,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3382,10 +3318,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3439,10 +3374,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3496,10 +3430,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3553,10 +3486,9 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -3600,9 +3532,8 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
@@ -3763,9 +3694,8 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
@@ -3821,9 +3751,8 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
@@ -3956,9 +3885,8 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test
@@ -4006,9 +3934,8 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test
@@ -4051,9 +3978,8 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
     }
     @Test

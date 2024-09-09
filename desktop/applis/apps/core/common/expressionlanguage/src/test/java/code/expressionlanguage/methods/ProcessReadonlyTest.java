@@ -34,10 +34,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -59,10 +58,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -84,10 +82,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -108,10 +105,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(50, getNumber(ret_));
     }
     @Test
@@ -145,7 +141,6 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -188,7 +183,6 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -231,7 +225,6 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -274,7 +267,6 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -317,7 +309,6 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -361,7 +352,6 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -390,10 +380,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -412,10 +401,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -444,10 +432,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(25, getNumber(ret_));
     }
     @Test
@@ -484,7 +471,6 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -511,10 +497,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -540,10 +525,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -572,10 +556,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test

@@ -31,10 +31,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -66,10 +65,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -94,10 +92,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -126,10 +123,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -157,10 +153,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -188,10 +183,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -219,10 +213,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -250,10 +243,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -281,10 +273,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -312,10 +303,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -344,10 +334,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -376,10 +365,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -412,10 +400,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -451,10 +438,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -479,10 +465,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -507,10 +492,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -539,10 +523,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -571,10 +554,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -605,10 +587,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -639,10 +620,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -673,10 +653,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -710,10 +689,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -755,10 +733,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq("one\"escape1endone,two\"escape2;3endtwo,", getString(ret_));
     }
 
@@ -801,10 +778,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq("1,2,", getString(ret_));
     }
 
@@ -866,10 +842,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq("1,3;2,4;", getString(ret_));
     }
     @Test
@@ -887,10 +862,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq("pkg.Ext..Anon*1", getString(ret_));
     }
 
@@ -917,10 +891,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -945,10 +918,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -976,10 +948,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1007,10 +978,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq("pkg.Ext..$id*1", getString(ret_));
     }
     @Test
@@ -1038,10 +1008,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq("pkg.Ext..$id*1", getString(ret_));
     }
     @Test
@@ -1069,10 +1038,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq("pkg.Ext..$id*1", getString(ret_));
     }
 
@@ -1108,10 +1076,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1147,10 +1114,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1187,10 +1153,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1227,10 +1192,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1262,10 +1226,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -1293,10 +1256,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1328,10 +1290,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -1359,10 +1320,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -1394,10 +1354,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -1438,10 +1397,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1482,10 +1440,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1535,10 +1492,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1588,10 +1544,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1651,10 +1606,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1714,10 +1668,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1787,10 +1740,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1860,10 +1812,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1899,10 +1850,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -1929,10 +1879,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
 
@@ -1959,10 +1908,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -1992,10 +1940,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -2025,10 +1972,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -2058,10 +2004,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -2091,10 +2036,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
 
@@ -2130,10 +2074,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -2172,10 +2115,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
 
@@ -2215,10 +2157,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(0, getNumber(ret_));
     }
     @Test
@@ -2249,10 +2190,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -2283,10 +2223,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test
@@ -2326,10 +2265,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
 
@@ -2358,10 +2296,9 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ext", id_, cont_);
         assertEq(1, getNumber(ret_));
     }
     @Test

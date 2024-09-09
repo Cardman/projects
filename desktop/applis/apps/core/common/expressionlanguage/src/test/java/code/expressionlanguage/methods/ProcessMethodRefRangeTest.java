@@ -24,9 +24,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -43,9 +42,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -62,9 +60,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -81,9 +78,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -100,9 +96,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -119,9 +114,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -138,9 +132,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -157,9 +150,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -176,9 +168,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -195,9 +186,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -214,9 +204,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -233,9 +222,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -252,9 +240,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -271,9 +258,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -290,9 +276,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -309,9 +294,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
 
@@ -329,9 +313,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -348,9 +331,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -367,9 +349,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -386,9 +367,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -405,9 +385,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -424,9 +403,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -443,9 +421,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -462,9 +439,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -488,9 +464,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(9, getNumber(ret_));
     }
     @Test
@@ -514,9 +489,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(13, getNumber(ret_));
     }
     @Test
@@ -540,9 +514,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -566,9 +539,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -591,9 +563,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -616,9 +587,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -641,9 +611,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -666,9 +635,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -691,9 +659,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -716,9 +683,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -741,9 +707,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -766,9 +731,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
 
@@ -793,9 +757,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(9, getNumber(ret_));
     }
     @Test
@@ -819,9 +782,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(13, getNumber(ret_));
     }
     @Test
@@ -845,9 +807,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -870,9 +831,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(4, getNumber(ret_));
     }
     @Test
@@ -895,9 +855,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
     @Test
@@ -920,9 +879,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -945,9 +903,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -970,9 +927,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -995,9 +951,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1017,9 +972,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -1039,9 +993,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -1061,9 +1014,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1083,9 +1035,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -1112,9 +1063,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(9, getNumber(ret_));
     }
     @Test
@@ -1141,9 +1091,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(13, getNumber(ret_));
     }
     @Test
@@ -1170,9 +1119,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1199,9 +1147,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -1227,9 +1174,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -1255,9 +1201,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -1283,9 +1228,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1311,9 +1255,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -1339,9 +1282,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -1367,9 +1309,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(7, getNumber(ret_));
     }
     @Test
@@ -1395,9 +1336,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -1423,9 +1363,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8, getNumber(ret_));
     }
     @Test
@@ -1446,9 +1385,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_,"pkg.Ex");
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
 
@@ -1466,9 +1404,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(),err_.getClassName());
         assertEq("3!=2",((StringStruct)err_.getMessage()).getInstance());
@@ -1487,9 +1424,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(),err_.getClassName());
         assertEq("3!=2",((StringStruct)err_.getMessage()).getInstance());
@@ -1508,9 +1444,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(),err_.getClassName());
         assertEq("5>=4",((StringStruct)err_.getMessage()).getInstance());
@@ -1529,9 +1464,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(),err_.getClassName());
         assertEq("5>=4",((StringStruct)err_.getMessage()).getInstance());
@@ -1550,9 +1484,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasStore(),err_.getClassName());
         assertEq("$core.String!=int",((StringStruct)err_.getMessage()).getInstance());
@@ -1571,9 +1504,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),err_.getClassName());
     }
@@ -1590,9 +1522,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),err_.getClassName());
     }
@@ -1609,9 +1540,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),err_.getClassName());
     }
@@ -1628,9 +1558,8 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateError("pkg.Ex", id_, cont_);
         ErrorStruct err_ = (ErrorStruct) ret_.getStruct();
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),err_.getClassName());
     }
@@ -1648,10 +1577,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1668,10 +1596,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -1688,10 +1615,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), ret_.getStruct().getClassName(cont_));
     }
     @Test
@@ -1708,10 +1634,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), ret_.getStruct().getClassName(cont_));
     }
     @Test
@@ -1728,10 +1653,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), ret_.getStruct().getClassName(cont_));
     }
     @Test
@@ -1748,10 +1672,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), ret_.getStruct().getClassName(cont_));
     }
     @Test
@@ -1768,10 +1691,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), ret_.getStruct().getClassName(cont_));
     }
     @Test
@@ -1788,10 +1710,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -1808,10 +1729,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -1828,10 +1748,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), ret_.getStruct().getClassName(cont_));
     }
     @Test
@@ -1848,10 +1767,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -1868,10 +1786,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, getNumber(ret_));
     }
     @Test
@@ -1887,10 +1804,9 @@ public final class ProcessMethodRefRangeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), ret_.getStruct().getClassName(cont_));
     }
 

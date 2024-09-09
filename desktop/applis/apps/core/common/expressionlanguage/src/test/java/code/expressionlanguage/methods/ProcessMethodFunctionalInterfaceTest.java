@@ -25,10 +25,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertTrue(ret_.getStruct() instanceof AbstractFunctionalInstance);
     }
 
@@ -48,10 +47,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertTrue(ret_.getStruct() instanceof AbstractFunctionalInstance);
     }
     @Test
@@ -68,10 +66,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
 
     }
@@ -91,10 +88,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertTrue(ret_.isFalse());
 
     }
@@ -114,10 +110,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertTrue(ret_.isTrue());
 
     }
@@ -140,10 +135,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(15, getNumber(ret_));
     }
     @Test
@@ -161,10 +155,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
 
@@ -186,10 +179,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("simple", getString(ret_));
     }
     @Test
@@ -207,10 +199,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -230,10 +221,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -253,10 +243,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -280,10 +269,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -310,10 +298,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(6, getNumber(ret_));
     }
     @Test
@@ -343,10 +330,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -379,10 +365,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -415,10 +400,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
     @Test
@@ -451,10 +435,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
 
@@ -488,10 +471,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(10, getNumber(ret_));
     }
 
@@ -510,10 +492,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq(3, getNumber(ret_));
     }
     @Test
@@ -534,10 +515,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("simple call here", getString(ret_));
     }
     @Test
@@ -558,10 +538,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("simple 0", getString(ret_));
     }
     @Test
@@ -585,10 +564,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ =getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("simple call here", getString(ret_));
     }
     @Test
@@ -612,10 +590,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ =getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("simple 0", getString(ret_));
     }
 
@@ -634,10 +611,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("java.lang.$Fct<$int,$int,$int>",getString(ret_));
     }
 
@@ -652,10 +628,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
     }
 
@@ -674,10 +649,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.Interface",getString(ret_));
     }
 
@@ -695,10 +669,9 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.Apply",getString(ret_));
     }
     @Test
@@ -719,9 +692,8 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
 
@@ -744,9 +716,8 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
 
@@ -769,9 +740,8 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
 
@@ -790,9 +760,8 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
 
@@ -817,9 +786,8 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
 
@@ -841,9 +809,8 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
 
@@ -863,9 +830,8 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
         assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), arg_.getStruct().getClassName(cont_));
     }
     @Test

@@ -32,9 +32,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
@@ -75,9 +74,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static int <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"28\">extField</a></span>;\n" +
@@ -120,9 +118,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
@@ -165,9 +162,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a> </span>=<span class=\"f\"> 15</span></span>;\n" +
@@ -210,9 +206,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a> </span>=<span class=\"f\"> 15</span></span>;\n" +
@@ -258,9 +253,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a> </span>=<span class=\"f\"> 15</span></span>;\n" +
@@ -313,9 +307,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Init</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"22\">field</a> </span>=<span class=\"f\"> 2</span></span>;\n" +
@@ -385,9 +378,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Init</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"22\">field</a> </span>=<span class=\"f\"> 2</span></span>;\n" +
@@ -457,9 +449,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Init</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"22\">field</a> </span>=<span class=\"f\"> 2</span></span>;\n" +
@@ -521,9 +512,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
@@ -582,9 +572,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
@@ -635,9 +624,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " static int <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"32\">stfield</a></span>;\n" +
@@ -684,9 +672,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " static int <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"32\">stfield</a></span>;\n" +
@@ -730,9 +717,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a></span>=<span class=\"f\">1</span></span>;\n" +
@@ -773,9 +759,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a></span>=<span class=\"f\">1</span></span>;\n" +
@@ -816,9 +801,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +
@@ -860,9 +844,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a></span>=<span class=\"f\">1</span></span>;\n" +
@@ -904,9 +887,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a></span>=<span class=\"f\">1</span></span>;\n" +
@@ -965,9 +947,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"n\"><span class=\"n\"><a name=\""+ExportCst.PREF_REF+"21\">field</a></span>=<span class=\"n\">1</span></span>;\n" +
@@ -1062,9 +1043,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"n\"><span class=\"n\"><a name=\""+ExportCst.PREF_REF+"21\">field</a></span>=<span class=\"n\">1</span></span>;\n" +
@@ -1157,9 +1137,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " String <a name=\""+ExportCst.PREF_REF+"28\">field</a>();\n" +
@@ -1214,9 +1193,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">CST</a> </span>=<span class=\"g\"> 1</span></span>;\n" +
@@ -1251,9 +1229,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">CST</a> </span>=<span class=\"g\"> 1</span></span>;\n" +
@@ -1292,9 +1269,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
@@ -1327,9 +1303,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1354,9 +1329,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1389,9 +1363,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
@@ -1431,9 +1404,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1468,9 +1440,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1497,9 +1468,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1526,9 +1496,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1555,9 +1524,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1589,9 +1557,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"31\">m</a>(){\n" +
@@ -1624,9 +1591,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1653,9 +1619,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1682,9 +1647,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1711,9 +1675,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1740,9 +1703,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1769,9 +1731,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -1804,9 +1765,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -1844,9 +1804,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -1884,9 +1843,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -1924,9 +1882,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -1964,9 +1921,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2004,9 +1960,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2045,9 +2000,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2087,9 +2041,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2129,9 +2082,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2170,9 +2122,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2210,9 +2161,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2250,9 +2200,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2290,9 +2239,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2330,9 +2278,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2370,9 +2317,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2410,9 +2356,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2450,9 +2395,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2492,9 +2436,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2534,9 +2477,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2573,9 +2515,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2611,9 +2552,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2649,9 +2589,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
@@ -2685,9 +2624,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -2722,9 +2660,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -2760,9 +2697,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -2802,9 +2738,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -2844,9 +2779,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -2886,9 +2820,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -2924,9 +2857,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -2953,9 +2885,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -2986,9 +2917,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -3024,9 +2954,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " int <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a></span>;\n" +
@@ -3057,9 +2986,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static long <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
@@ -3089,9 +3017,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " int[] <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"23\">field</a></span>=<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span></span>;\n" +
@@ -3129,9 +3056,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " int[] <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"23\">field</a></span>=<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span></span>;\n" +
@@ -3170,9 +3096,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " int[] <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"23\">field</a></span>=<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span></span>;\n" +
@@ -3211,9 +3136,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " int[] <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"23\">field</a></span>=<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span></span>;\n" +
@@ -3252,9 +3176,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " int[] <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"23\">field</a></span>=<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span></span>;\n" +
@@ -3293,9 +3216,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " int[] <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"23\">field</a></span>=<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span></span>;\n" +
@@ -3330,9 +3252,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -3370,9 +3291,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
@@ -3420,9 +3340,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnot</a> {\n" +
                 " <span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#"+ExportCst.PREF_REF+"20\">MyAnnot</a></span>\n" +
@@ -3470,9 +3389,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\""+ExportCst.PREF_REF+"40\">field</a>()<span class=\"f2\">1</span>;\n" +
@@ -3544,9 +3462,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -3633,9 +3550,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -3713,9 +3629,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -3793,9 +3708,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -3873,9 +3787,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -3946,9 +3859,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -4012,9 +3924,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -4078,9 +3989,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -4144,9 +4054,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -4209,9 +4118,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -4273,9 +4181,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnotOne</a> {\n" +
                 "}\n" +
@@ -4330,9 +4237,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -4380,9 +4286,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -4416,9 +4321,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static StringBuilder <a name=\""+ExportCst.PREF_REF+"55\">exmeth</a>(){\n" +
@@ -4441,9 +4345,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>(){\n" +
@@ -4469,9 +4372,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>(){\n" +
@@ -4497,9 +4399,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>(){\n" +
@@ -4525,9 +4426,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">exmeth</a>(){\n" +
@@ -4553,9 +4453,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">exmeth</a>(){\n" +
@@ -4581,9 +4480,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">exmeth</a>(){\n" +
@@ -4609,9 +4507,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">exmeth</a>(){\n" +
@@ -4662,9 +4559,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -4741,9 +4637,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -4820,9 +4715,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -4899,9 +4793,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -4983,9 +4876,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -5070,9 +4962,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -5125,9 +5016,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5149,9 +5039,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5173,9 +5062,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5197,9 +5085,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5222,9 +5109,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5248,9 +5134,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5274,9 +5159,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5300,9 +5184,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5326,9 +5209,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5352,9 +5234,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5378,9 +5259,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5404,9 +5284,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5430,9 +5309,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5459,9 +5337,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth1</a>(){\n" +
@@ -5487,9 +5364,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5511,9 +5387,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5536,9 +5411,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5560,9 +5434,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\""+ExportCst.PREF_REF+"45\">exmeth</a>(){\n" +
@@ -5589,9 +5462,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -5623,9 +5495,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -5662,9 +5533,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -5703,9 +5573,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -5736,9 +5605,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -5775,9 +5643,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -5815,9 +5682,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -5846,9 +5712,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -5878,9 +5743,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -5909,9 +5773,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -5939,9 +5802,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -5970,9 +5832,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6003,9 +5864,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6036,9 +5896,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6069,9 +5928,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6102,9 +5960,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6137,9 +5994,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -6175,9 +6031,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -6210,9 +6065,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -6245,9 +6099,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -6283,9 +6136,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " static <a title=\"pkg.Ex..Inner\" href=\"#"+ExportCst.PREF_REF+"177\">Inner</a> <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"36\">v</a> </span>=<span class=\"g\"> <a title=\"pkg.Ex..Inner.pkg.Ex..Inner(int)\" href=\"#"+ExportCst.PREF_REF+"195\">new</a> <a title=\"pkg.Ex..Inner\" href=\"#"+ExportCst.PREF_REF+"177\">Inner</a>(<span class=\"g\">7</span>)</span></span>;\n" +
@@ -6321,9 +6173,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " static <a title=\"pkg.Ex..Inner\" href=\"#"+ExportCst.PREF_REF+"153\">Inner</a> <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"36\">v</a> </span>=<span class=\"g\"> <a title=\"pkg.Ex..Inner.pkg.Ex..Inner(int)\" href=\"#"+ExportCst.PREF_REF+"171\">new</a> <a title=\"pkg.Ex..Inner\" href=\"#"+ExportCst.PREF_REF+"153\">Inner</a>(<span class=\"g\">7</span>)</span></span>;\n" +
@@ -6355,9 +6206,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6386,9 +6236,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6418,9 +6267,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6449,9 +6297,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6479,9 +6326,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6510,9 +6356,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6543,9 +6388,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6576,9 +6420,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6609,9 +6452,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6642,9 +6484,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -6673,9 +6514,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -6701,9 +6541,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\""+ExportCst.PREF_REF+"46\">catching</a>(){\n" +
@@ -6739,9 +6578,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -6789,9 +6627,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -6840,9 +6677,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -6890,9 +6726,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -6943,9 +6778,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -7000,9 +6834,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -7057,9 +6890,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -7110,9 +6942,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -7161,9 +6992,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -7218,9 +7048,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -7275,9 +7104,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -7332,9 +7160,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"161\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"48\">method</a>(){\n" +
@@ -7376,9 +7203,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -7413,9 +7239,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"127\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"48\">method</a>(){\n" +
@@ -7461,9 +7286,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"127\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"48\">method</a>(){\n" +
@@ -7505,9 +7329,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -7552,9 +7375,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"150\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"48\">method</a>(){\n" +
@@ -7598,9 +7420,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static boolean <a name=\""+ExportCst.PREF_REF+"48\">method</a>(){\n" +
@@ -7644,9 +7465,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"151\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"48\">method</a>(){\n" +
@@ -7689,9 +7509,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -7725,9 +7544,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
@@ -7761,9 +7579,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static boolean <a name=\""+ExportCst.PREF_REF+"48\">method</a>(){\n" +
@@ -7817,9 +7634,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -7887,9 +7703,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static boolean <a name=\""+ExportCst.PREF_REF+"48\">method</a>(){\n" +
@@ -7946,9 +7761,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8012,9 +7826,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8071,9 +7884,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8110,9 +7922,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8152,9 +7963,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8202,9 +8012,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8247,9 +8056,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8287,9 +8095,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8327,9 +8134,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"45\">method</a>(){\n" +
@@ -8369,9 +8175,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -8419,9 +8224,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -8475,9 +8279,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"47\">method</a>(){\n" +
@@ -8514,9 +8317,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertTrue(!filesExp_.isEmpty());
     }
@@ -8543,9 +8345,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Int</a> {\n" +
                 " int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"21\">field</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
@@ -8583,9 +8384,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -8617,9 +8417,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -8665,9 +8464,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -8720,9 +8518,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -8765,9 +8562,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -8803,9 +8599,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -8836,9 +8631,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -8878,9 +8672,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -8929,9 +8722,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -8980,9 +8772,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -9031,9 +8822,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -9073,9 +8863,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -9106,9 +8895,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -9148,9 +8936,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -9199,9 +8986,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -9250,9 +9036,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -9301,9 +9086,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"41\">p1</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
@@ -9344,9 +9128,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">m</a>(){\n" +
@@ -9379,9 +9162,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">m</a>(){\n" +
@@ -9408,9 +9190,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">m</a>(){\n" +
@@ -9458,9 +9239,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\""+ExportCst.PREF_REF+"8\">+</a> <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"239\">pkg.Int</a>(<a title=\"pkg.Comp\" href=\"#"+ExportCst.PREF_REF+"278\">pkg.Comp</a> <a name=\""+ExportCst.PREF_REF+"27\">a</a>, <a title=\"pkg.Comp\" href=\"#"+ExportCst.PREF_REF+"278\">pkg.Comp</a> <a name=\""+ExportCst.PREF_REF+"39\">b</a>) {\n" +
                 " return <span class=\"f\"><a title=\"$core.Int*1.$core.Int*1(int)\" href=\"#"+ExportCst.PREF_REF+"97\">new</a> <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"239\">pkg.Int</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#"+ExportCst.PREF_REF+"27\">a</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#"+ExportCst.PREF_REF+"301\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#"+ExportCst.PREF_REF+"39\">b</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#"+ExportCst.PREF_REF+"301\">field</a></span></span></span>)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"80\">{</a>\n" +
@@ -9522,9 +9302,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\""+ExportCst.PREF_REF+"8\">+</a> <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"250\">pkg.Int</a>(<a title=\"pkg.Comp\" href=\"#"+ExportCst.PREF_REF+"294\">pkg.Comp</a> <a name=\""+ExportCst.PREF_REF+"27\">a</a>, <a title=\"pkg.Comp\" href=\"#"+ExportCst.PREF_REF+"294\">pkg.Comp</a> <a name=\""+ExportCst.PREF_REF+"39\">b</a>) {\n" +
                 " return <span class=\"f\"><a title=\"$core.Int*1.$core.Int*1(int)\" href=\"#"+ExportCst.PREF_REF+"97\">new</a> <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"250\">pkg.Int</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#"+ExportCst.PREF_REF+"27\">a</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#"+ExportCst.PREF_REF+"317\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#"+ExportCst.PREF_REF+"39\">b</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#"+ExportCst.PREF_REF+"317\">field</a></span></span></span>)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"80\">{</a>\n" +
@@ -9580,9 +9359,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -9636,9 +9414,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -9692,9 +9469,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -9754,9 +9530,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -9813,9 +9588,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -9863,9 +9637,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -9917,9 +9690,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -9967,9 +9739,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -10025,9 +9796,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\""+ExportCst.PREF_REF+"18\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"37\">info</a>();\n" +
@@ -10097,9 +9867,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.AnnotOne</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"31\">info1</a>();\n" +
@@ -10174,9 +9943,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.AnnotOne</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"31\">info1</a>();\n" +
@@ -10239,9 +10007,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\""+ExportCst.PREF_REF+"11\">pkg.Annot</a> {\n" +
                 " int[] <a name=\""+ExportCst.PREF_REF+"30\">info</a>();\n" +
@@ -10283,9 +10050,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -10320,9 +10086,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -10359,9 +10124,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -10400,9 +10164,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -10446,9 +10209,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static <a title=\"pkg.Ext..Compo\" href=\"#"+ExportCst.PREF_REF+"206\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#"+ExportCst.PREF_REF+"232\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#"+ExportCst.PREF_REF+"206\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
@@ -10497,9 +10259,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static <a title=\"pkg.Ext..Compo\" href=\"#"+ExportCst.PREF_REF+"208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#"+ExportCst.PREF_REF+"234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#"+ExportCst.PREF_REF+"208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
@@ -10548,9 +10309,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static <a title=\"pkg.Ext..Compo\" href=\"#"+ExportCst.PREF_REF+"208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#"+ExportCst.PREF_REF+"234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#"+ExportCst.PREF_REF+"208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
@@ -10599,9 +10359,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static <a title=\"pkg.Ext..Compo\" href=\"#"+ExportCst.PREF_REF+"208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#"+ExportCst.PREF_REF+"234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#"+ExportCst.PREF_REF+"208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
@@ -10648,9 +10407,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\""+ExportCst.PREF_REF+"18\">pkg.Annot</a> {\n" +
                 "}\n" +
@@ -10700,9 +10458,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\""+ExportCst.PREF_REF+"18\">pkg.Annot</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"35\">info1</a>();\n" +
@@ -10749,9 +10506,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -10790,9 +10546,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"42\">m</a>(){\n" +
@@ -10831,9 +10586,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class [<span class=\"i\">staticCall pkg.ExParam.inst</span>;] <a name=\""+ExportCst.PREF_REF+"44\">pkg.Ext</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"73\">m</a>(){\n" +
@@ -10874,9 +10628,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"21\">T</a>&gt; {\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"21\">T</a> <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"36\">f</a></span>;\n" +
@@ -10924,9 +10677,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a>&lt;<a name=\""+ExportCst.PREF_REF+"18\">T</a>&gt; {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"18\">T</a> <a name=\""+ExportCst.PREF_REF+"26\">field</a>();\n" +
@@ -10977,9 +10729,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\""+ExportCst.PREF_REF+"20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\""+ExportCst.PREF_REF+"40\">field</a>()<span class=\"f2\">1</span>;\n" +
@@ -11030,9 +10781,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\""+ExportCst.PREF_REF+"8\">+</a> <a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"278\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"278\">pkg.Ex</a> <a name=\""+ExportCst.PREF_REF+"24\">a</a>, <a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"278\">pkg.Ex</a> <a name=\""+ExportCst.PREF_REF+"34\">b</a>) {\n" +
                 " return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#"+ExportCst.PREF_REF+"303\">new</a> <a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"278\">pkg.Ex</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#"+ExportCst.PREF_REF+"24\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#"+ExportCst.PREF_REF+"299\">f</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#"+ExportCst.PREF_REF+"34\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#"+ExportCst.PREF_REF+"299\">f</a></span></span></span>+<span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span>[int](<span class=\"f\">0</span>)<span class=\"t\">{\n" +
@@ -11095,9 +10845,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkgtwo.OuterTwo</span>;\n" +
                 "public class <a name=\""+ExportCst.PREF_REF+"30\">pkg.Outer</a>&lt;<a name=\""+ExportCst.PREF_REF+"40\">C</a>&gt;: <a title=\"pkgtwo.OuterTwo\" href=\"#"+ExportCst.PREF_REF+"152\">OuterTwo</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"40\">C</a>&gt; {\n" +
@@ -11149,9 +10898,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#"+ExportCst.PREF_REF+"55\">ONE</a> (<span class=\"g\">5</span>)</span>;\n" +
@@ -11185,9 +10933,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">T</a>&gt; {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"29\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#"+ExportCst.PREF_REF+"65\">ONE</a> &lt; <a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"117\">Ex</a> &gt; (<span class=\"g\">5</span>)</span>;\n" +
@@ -11214,9 +10961,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int[] <a name=\""+ExportCst.PREF_REF+"43\">exmeth</a>(){\n" +
@@ -11236,9 +10982,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int[] <a name=\""+ExportCst.PREF_REF+"43\">exmeth</a>(){\n" +
@@ -11267,9 +11012,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int[] <a name=\""+ExportCst.PREF_REF+"43\">exmeth</a>(){\n" +
@@ -11301,9 +11045,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static long <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a>(){\n" +
@@ -11326,9 +11069,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static long <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a>(){\n" +
@@ -11352,9 +11094,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -11387,9 +11128,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\" title=\"pkg.ExEnum.pkg.ExEnum(int,int)\" href=\"#"+ExportCst.PREF_REF+"78\">ONE</a> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span> )</span>;\n" +
@@ -11431,9 +11171,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int,int)\" href=\"#"+ExportCst.PREF_REF+"43\">ONE</a> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span> )</span>{\n" +
@@ -11475,9 +11214,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\" title=\"pkg.ExEnum.pkg.ExEnum(int,int)\" href=\"#"+ExportCst.PREF_REF+"78\">ONE</a> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span>) </span>;\n" +
@@ -11519,9 +11257,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int,int)\" href=\"#"+ExportCst.PREF_REF+"43\">ONE</a> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span>) </span>{\n" +
@@ -11565,9 +11302,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">T</a>&gt; {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"29\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int)\" href=\"#"+ExportCst.PREF_REF+"47\">ONE</a> &lt; <a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"160\">Ex</a> &gt; (<span class=\"g\">5</span>)</span>{\n" +
@@ -11607,9 +11343,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"30\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">THREE</a></span>;\n" +
@@ -11647,9 +11382,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"30\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">THREE</a></span>;\n" +
@@ -11690,9 +11424,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"30\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">THREE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"40\">FOUR</a></span>;\n" +
@@ -11733,9 +11466,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.ExEnum</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"30\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">THREE</a></span>;\n" +
@@ -11768,9 +11500,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -11798,9 +11529,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -11831,9 +11561,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -11864,9 +11593,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -11895,9 +11623,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -11929,9 +11656,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -11962,9 +11688,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -11992,9 +11717,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -12037,9 +11761,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"22\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"30\">THREE</a></span>;\n" +
@@ -12097,9 +11820,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"22\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"30\">THREE</a></span>;\n" +
@@ -12160,9 +11882,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"22\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"30\">THREE</a></span>;\n" +
@@ -12226,9 +11947,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">S</a>&gt; {\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"23\">S</a> <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"38\">a</a></span>;\n" +
@@ -12292,9 +12012,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">S</a>&gt; {\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"23\">S</a> <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"38\">a</a></span>;\n" +
@@ -12358,9 +12077,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">S</a>&gt; {\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"23\">S</a> <span class=\"n\"><a name=\""+ExportCst.PREF_REF+"38\">a</a></span>;\n" +
@@ -12426,9 +12144,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"34\">f</a></span>;\n" +
@@ -12479,9 +12196,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12515,9 +12231,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12554,9 +12269,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12602,9 +12316,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12647,9 +12360,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12683,9 +12395,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12719,9 +12430,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12758,9 +12468,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12797,9 +12506,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12833,9 +12541,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -12863,9 +12570,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"53\">FIELD</a> </span>=<span class=\"g\"> 2</span></span>;\n" +
@@ -12887,9 +12593,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"53\">FIELD</a> </span>=<span class=\"g\"> 2</span></span>;\n" +
@@ -12911,9 +12616,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = cov(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\""+ExportCst.PREF_REF+"53\">FIELD</a> </span>=<span class=\"g\"> 2</span></span>;\n" +
@@ -12955,9 +12659,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("getter");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a>&lt;<a name=\""+ExportCst.PREF_REF+"20\">S</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#"+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"20\">S</a>&gt;{\n" +
                 " $intern{ getter (<a href=\"#"+ExportCst.PREF_REF+"20\">S</a>): <a title=\"pkg.Ex.getter(#S)\" href=\"#"+ExportCst.PREF_REF+"284\">getter</a> (<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"13\">Ex</a>,<a href=\"#"+ExportCst.PREF_REF+"20\">S</a>)| <a title=\"pkg.ExTwo.getter(#T)\" href=\"ExTwo.html#"+ExportCst.PREF_REF+"81\">getter</a> (<a title=\"pkg.ExTwo\" href=\"ExTwo.html#"+ExportCst.PREF_REF+"13\">ExTwo</a>,<a href=\"ExTwo.html#"+ExportCst.PREF_REF+"23\">T</a>)};\n" +
@@ -13015,9 +12718,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("getter");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a>&lt;<a name=\""+ExportCst.PREF_REF+"20\">V</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#"+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"20\">V</a>,<a href=\"#"+ExportCst.PREF_REF+"20\">V</a>&gt;{\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"20\">V</a> <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"50\">inst</a></span>=<span class=\"f\">(<a href=\"#"+ExportCst.PREF_REF+"20\">V</a>)<span class=\"f\">2i</span></span></span>;\n" +
@@ -13086,9 +12788,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("getter");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#"+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>{\n" +
                 " public int <span class=\"f\"><span class=\"f\"><a name=\""+ExportCst.PREF_REF+"44\">inst</a></span>=<span class=\"f\">2i</span></span>;\n" +
@@ -13135,9 +12836,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13174,9 +12874,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13213,9 +12912,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13252,9 +12950,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13291,9 +12988,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13330,9 +13026,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13372,9 +13067,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13414,9 +13108,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13456,9 +13149,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a> (){\n" +
@@ -13503,9 +13195,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
                 "public annotation <a name=\""+ExportCst.PREF_REF+"38\">pkg.MyAnnot</a> {\n" +
@@ -13555,9 +13246,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
                 "public annotation <a name=\""+ExportCst.PREF_REF+"38\">pkg.MyAnnot</a> {\n" +
@@ -13607,9 +13297,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">test</a>(){\n" +
@@ -13659,9 +13348,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">test</a>(){\n" +
@@ -13710,9 +13398,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">test</a>(){\n" +
@@ -13760,9 +13447,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">test</a>(){\n" +
@@ -13810,9 +13496,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">test</a>(){\n" +
@@ -13860,9 +13545,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">test</a>(){\n" +
@@ -13911,9 +13595,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateNormal("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">test</a>(){\n" +
@@ -13967,9 +13650,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
@@ -14016,9 +13698,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " enum <a name=\""+ExportCst.PREF_REF+"28\">MyEnum</a>{<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"35\" title=\"pkg.Ex..MyEnum.pkg.Ex..MyEnum(pkg.Ex)\" href=\"#"+ExportCst.PREF_REF+"132\">ONE</a>(\n" +
@@ -14056,9 +13737,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " enum <a name=\""+ExportCst.PREF_REF+"28\">MyEnum</a>{<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"35\" title=\"pkg.Ex..MyEnum.pkg.Ex..MyEnum(pkg.Ex)\" href=\"#"+ExportCst.PREF_REF+"146\">ONE</a>(\n" +
@@ -14093,9 +13773,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " enum <a name=\""+ExportCst.PREF_REF+"28\">MyEnum</a>{<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"35\" title=\"pkg.Ex..MyEnum.pkg.Ex..MyEnum(pkg.Ex)\" href=\"#"+ExportCst.PREF_REF+"63\">ONE</a>(\n" +
@@ -14125,9 +13804,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " enum <a name=\""+ExportCst.PREF_REF+"28\">MyEnum</a>{<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"35\" title=\"pkg.Ex..MyEnum.pkg.Ex..MyEnum(pkg.Ex)\" href=\"#"+ExportCst.PREF_REF+"63\">ONE</a>(\n" +
@@ -14174,9 +13852,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnly(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">S</a>&gt; {\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"23\">S</a> <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"38\">a</a></span>;\n" +
@@ -14240,9 +13917,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">S</a>&gt; {\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"23\">S</a> <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"38\">a</a></span>;\n" +
@@ -14306,9 +13982,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">S</a>&gt; {\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"23\">S</a> <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"38\">a</a></span>;\n" +
@@ -14362,9 +14037,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14407,9 +14081,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14449,9 +14122,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14492,9 +14164,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14534,9 +14205,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14574,9 +14244,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14610,9 +14279,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14643,9 +14311,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14676,9 +14343,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14709,9 +14375,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14743,9 +14408,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">catching</a>(){\n" +
@@ -14778,9 +14442,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">catching</a>(){\n" +
@@ -14813,9 +14476,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">catching</a>(){\n" +
@@ -14851,9 +14513,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">catching</a>(){\n" +
@@ -14891,9 +14552,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -14934,9 +14594,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"20\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"24\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"28\">THREE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FOUR</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"39\">FIVE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"44\">SIX</a></span>;\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"68\">catching</a>(){\n" +
@@ -14980,9 +14639,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"20\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"24\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"28\">THREE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"34\">FOUR</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"39\">FIVE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"44\">SIX</a></span>;\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"68\">catching</a>(){\n" +
@@ -15032,9 +14690,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEn(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"22\">ONE</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"26\">TWO</a></span>,<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"30\">THREE</a></span>;\n" +
@@ -15082,9 +14739,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -15120,9 +14776,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15159,9 +14814,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"20\">ONE</a></span>;\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"12\">Ex</a> <a name=\""+ExportCst.PREF_REF+"43\">exmeth</a>(){\n" +
@@ -15198,9 +14852,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15237,9 +14890,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15277,9 +14929,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -15316,9 +14967,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {<span class=\"g\"><a name=\""+ExportCst.PREF_REF+"20\">ONE</a></span>;\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">catching</a>(){\n" +
@@ -15355,9 +15005,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">catching</a>(){\n" +
@@ -15394,9 +15043,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">catching</a>(){\n" +
@@ -15433,9 +15081,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">catching</a>(){\n" +
@@ -15470,9 +15117,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">catching</a>(){\n" +
@@ -15508,9 +15154,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15547,9 +15192,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15578,9 +15222,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\""+ExportCst.PREF_REF+"12\">pkg.Ex</a> {\n" +
                 " <span class=\"g\"><a name=\""+ExportCst.PREF_REF+"22\">ONE</a></span>;\n" +
@@ -15608,9 +15251,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_, true);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"41\">exmeth</a>(){\n" +
@@ -15638,9 +15280,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_, true);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15662,9 +15303,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_, true);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15691,9 +15331,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_, true);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15723,9 +15362,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_, true);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\""+ExportCst.PREF_REF+"44\">exmeth</a>(){\n" +
@@ -15787,9 +15425,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnReadOnlyImpl(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.ExTwo</a>&lt;<a name=\""+ExportCst.PREF_REF+"23\">S</a>&gt; {\n" +
                 " public <a href=\"#"+ExportCst.PREF_REF+"23\">S</a> <span class=\"f\"><a name=\""+ExportCst.PREF_REF+"38\">a</a></span>;\n" +
@@ -15860,9 +15497,8 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = covEnCom(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        calculateNormal("pkg.Ext", id_, args_, cont_);
+        calculateNormal("pkg.Ext", id_, cont_);
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\""+ExportCst.PREF_REF+"10\">pkg.Int</a> {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"25\">field</a>();\n" +

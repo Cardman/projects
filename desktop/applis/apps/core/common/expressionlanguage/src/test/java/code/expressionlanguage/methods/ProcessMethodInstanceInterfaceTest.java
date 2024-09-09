@@ -64,7 +64,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -152,7 +151,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -243,7 +241,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -333,7 +330,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -426,7 +422,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -516,7 +511,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -1044,7 +1038,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1082,7 +1075,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
         Argument ret_;
@@ -1133,7 +1125,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1185,7 +1176,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1234,7 +1224,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1309,7 +1298,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -1406,12 +1394,11 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1478,11 +1465,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1542,11 +1528,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1604,11 +1589,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1682,7 +1666,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -1774,7 +1757,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -1865,7 +1847,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -1922,7 +1903,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -1959,7 +1939,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -1996,7 +1975,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2033,7 +2011,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2072,7 +2049,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2109,7 +2085,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2146,7 +2121,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2183,7 +2157,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2220,7 +2193,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2251,7 +2223,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -2326,7 +2297,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -2390,7 +2360,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2433,7 +2402,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2476,7 +2444,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2520,7 +2487,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2564,7 +2530,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2609,7 +2574,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2655,7 +2619,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2702,7 +2665,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2749,7 +2711,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -2802,11 +2763,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -2873,11 +2833,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -2964,7 +2923,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -3060,7 +3018,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -3156,7 +3113,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -3255,7 +3211,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -3366,7 +3321,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int4", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -3430,7 +3384,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3467,7 +3420,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3561,7 +3513,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int4", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
@@ -3620,10 +3571,9 @@ public final class ProcessMethodInstanceInterfaceTest extends
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(11, getNumber(ret_));
     }
     @Test
@@ -3644,10 +3594,9 @@ public final class ProcessMethodInstanceInterfaceTest extends
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(11, getNumber(ret_));
     }
     @Test
@@ -3689,7 +3638,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -3739,7 +3687,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3776,7 +3723,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3813,7 +3759,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3838,7 +3783,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3863,7 +3807,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3890,7 +3833,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3917,7 +3859,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3942,7 +3883,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3968,7 +3908,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -3995,7 +3934,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -4021,7 +3959,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -4046,7 +3983,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -4072,7 +4008,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -4098,7 +4033,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -4135,7 +4069,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -4172,7 +4105,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument arg_ = instanceError("pkg.ExCont", null, id_, cont_);
@@ -4203,7 +4135,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument arg_ = instanceError("pkg.ExCont", null, id_, cont_);
@@ -4234,7 +4165,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument out_ = instanceNormal("pkg.ExCont", null, id_, cont_);
@@ -4269,7 +4199,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument out_ = instanceNormal("pkg.ExCont", null, id_, cont_);
@@ -4330,7 +4259,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $static $int res = 0; $static {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -4417,7 +4345,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $static $final $int res = -1;}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -4497,11 +4424,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -4589,7 +4515,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -4693,7 +4618,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -5102,7 +5026,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -5195,7 +5118,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -5288,7 +5210,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -5381,7 +5302,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -5453,11 +5373,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;

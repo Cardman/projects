@@ -20,9 +20,8 @@ public final class ProcessMethodErrorLogTest extends ProcessMethodCommon{
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        String arg_ = calculateErrorMess("pkg.Apply", id_, args_, cont_);
+        String arg_ = calculateErrorMess("pkg.Apply", id_, cont_);
         assertEq("code.expressionlanguage.exceptions.BadIndexException\n" +
                 "-1<0\n" +
                 "pkg/Ex:3,18:76\n" +
@@ -39,9 +38,8 @@ public final class ProcessMethodErrorLogTest extends ProcessMethodCommon{
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        String arg_ = calculateErrorMess("pkg.Apply", id_, args_, cont_);
+        String arg_ = calculateErrorMess("pkg.Apply", id_, cont_);
         assertEq("pkg.Apply",arg_);
     }
     @Test
@@ -59,9 +57,8 @@ public final class ProcessMethodErrorLogTest extends ProcessMethodCommon{
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        String arg_ = calculateErrorMess("pkg.Apply", id_, args_, cont_);
+        String arg_ = calculateErrorMess("pkg.Apply", id_, cont_);
         assertEq("sample",arg_);
     }
     @Test
@@ -79,9 +76,8 @@ public final class ProcessMethodErrorLogTest extends ProcessMethodCommon{
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        String arg_ = calculateErrorMess("pkg.Apply", id_, args_, cont_);
+        String arg_ = calculateErrorMess("pkg.Apply", id_, cont_);
         assertEq("",arg_);
     }
     @Test
@@ -102,9 +98,8 @@ public final class ProcessMethodErrorLogTest extends ProcessMethodCommon{
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        String arg_ = calculateErrorMess("pkg.Apply", id_, args_, cont_);
+        String arg_ = calculateErrorMess("pkg.Apply", id_, cont_);
         assertEq("code.expressionlanguage.exceptions.BadIndexException\n" +
                 "-1<0\n"+
                 "pkg/Ex:3,18:76\n" +
@@ -123,9 +118,8 @@ public final class ProcessMethodErrorLogTest extends ProcessMethodCommon{
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        String arg_ = calculateErrorMess("pkg.Apply", id_, args_, cont_);
+        String arg_ = calculateErrorMess("pkg.Apply", id_, cont_);
         assertNull(arg_);
     }
 }

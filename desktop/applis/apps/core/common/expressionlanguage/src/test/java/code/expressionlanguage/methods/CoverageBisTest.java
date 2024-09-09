@@ -2,11 +2,9 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -26,9 +24,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(5, sizeCovers(cont_));
         assertEq(0, sizeCovers(cont_,0));
         assertEq(0, sizeCovers(cont_,1));
@@ -62,9 +59,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getSecCovers(cont_));
     }
     @Test
@@ -90,9 +86,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(10, getSecCovers(cont_));
     }
     @Test
@@ -109,9 +104,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, fieldCovers(cont_).size());
         assertEq(3, fieldCovers(cont_).first().getCovers().size());
         assertTrue(fieldCovers(cont_).first().getCovers().first().isFullCovered());
@@ -135,9 +129,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(9, sizeCovers(cont_));
         assertEq(3, sizeCovers(cont_,4));
         AbstractCoverageResult value_ = covers(cont_,4,0);
@@ -165,9 +158,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(9, sizeCovers(cont_));
         assertEq(3, sizeCovers(cont_,4));
         AbstractCoverageResult value_ = covers(cont_,4,0);
@@ -190,9 +182,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, sizeCovers(cont_));
         assertEq(1, sizeCovers(cont_,1));
         assertTrue(covers(cont_,1,0).isFullCovered());
@@ -211,9 +202,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(2, sizeFunction(cont_));
         assertSame(BoolVal.TRUE, callFunction(cont_,0));
         assertSame(BoolVal.FALSE, callFunction(cont_, 1));
@@ -247,9 +237,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(3, getNumber(out_));
         assertEq(2, sizeFunction(cont_));
         assertSame(BoolVal.TRUE, callFunction(cont_,0));
@@ -276,9 +265,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getCatches(cont_).size());
         assertTrue(getCatches(cont_).get(0).isFullCovered());
     }
@@ -303,9 +291,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateNormal("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, cont_);
         assertEq(1, getCatches(cont_).size());
         assertFalse(getCatches(cont_).get(0).isFullCovered());
     }

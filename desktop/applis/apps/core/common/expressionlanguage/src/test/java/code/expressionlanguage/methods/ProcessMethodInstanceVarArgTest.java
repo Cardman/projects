@@ -35,7 +35,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -71,7 +70,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -114,7 +112,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -158,7 +155,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -203,7 +199,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -247,7 +242,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -298,7 +292,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -342,7 +335,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = contextElEnum(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -386,7 +378,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = contextElEnum(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -436,7 +427,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -486,7 +476,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -536,7 +525,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -573,7 +561,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -609,7 +596,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -645,7 +631,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -681,7 +666,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -716,7 +700,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -767,7 +750,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
@@ -809,7 +791,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -851,7 +832,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
@@ -877,7 +857,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
         Argument ret_;
@@ -903,7 +882,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
         Argument ret_;
@@ -940,7 +918,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -978,7 +955,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -1017,7 +993,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
         Argument ret_;
         ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
@@ -1054,7 +1029,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
         Argument ret_;
         ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
@@ -1103,7 +1077,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
         Argument ret_;
         ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
@@ -1152,7 +1125,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
         Argument ret_;
         ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
@@ -1246,7 +1218,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -1284,7 +1255,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -1322,7 +1292,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
@@ -1350,10 +1319,9 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, cont_);
         assertEq(8,getNumber(ret_));
     }
 }

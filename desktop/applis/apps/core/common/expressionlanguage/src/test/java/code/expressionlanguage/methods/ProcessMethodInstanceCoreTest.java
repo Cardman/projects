@@ -21,7 +21,6 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -41,7 +40,6 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -64,11 +62,10 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -142,10 +139,9 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, 1, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, 1, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -175,10 +171,9 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, 2, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, 2, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -213,10 +208,9 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
 
         Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, 2, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, 2, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -253,9 +247,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Apply");
-        CustList<Argument> args_ = new CustList<Argument>();
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", getMethodId("exec"),args_,cont_);
+        ret_ = calculateNormal("pkg.Apply", getMethodId("exec"), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -286,7 +279,6 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -323,9 +315,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Apply");
-        CustList<Argument> args_ = new CustList<Argument>();
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", getMethodId("exec"),args_,cont_);
+        ret_ = calculateNormal("pkg.Apply", getMethodId("exec"), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -355,7 +346,6 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         instanceNormal("pkg.Ex", null, id_, cont_);

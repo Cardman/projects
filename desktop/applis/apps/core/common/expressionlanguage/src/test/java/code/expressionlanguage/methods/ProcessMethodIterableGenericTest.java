@@ -33,7 +33,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -69,7 +68,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -108,7 +106,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -138,7 +135,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -173,7 +169,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxReadOnlyOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -204,7 +199,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -235,7 +229,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -267,7 +260,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -302,7 +294,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -346,7 +337,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -376,7 +366,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
@@ -399,7 +388,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomSecondList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -428,7 +416,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomSecondList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -457,7 +444,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomSecondList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -492,7 +478,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -518,7 +503,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -543,7 +527,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
@@ -568,7 +551,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
@@ -594,7 +576,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
@@ -620,7 +601,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
@@ -652,7 +632,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -686,7 +665,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -726,10 +704,9 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("call");
         Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex<java.lang.Number>", str_.getClassName(cont_));
         Struct field_;
@@ -765,7 +742,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -831,7 +807,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
@@ -878,7 +853,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
         assertEq("code.util.exceptions.NullObjectException",arg_.getStruct().getClassName(cont_));
@@ -900,7 +874,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
         assertEq("code.util.exceptions.NullObjectException",arg_.getStruct().getClassName(cont_));
@@ -922,7 +895,6 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
         ContextEl cont_ = ctxOk(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
         assertEq("code.util.exceptions.NullObjectException",arg_.getStruct().getClassName(cont_));
